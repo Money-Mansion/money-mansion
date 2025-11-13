@@ -1,0 +1,28 @@
+name: money_mansion_skeleton
+description: A starter Flutter project structure for Money Mansion.
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  
+  # Vlastné ikony a obrázky
+  assets:
+    - assets/icons/
+    - assets/images/
+  
+  # Custom icon font
+  fonts:
+    - family: MyFlutterApp
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf
