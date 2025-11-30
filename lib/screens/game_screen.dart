@@ -7,7 +7,7 @@ import '../widgets/bottom_navigation.dart';
 import 'shop_screen.dart';
 import 'tasks_screen.dart';
 import 'inventory_screen.dart';
-import 'stats_screen.dart';
+import 'financial_management_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -18,7 +18,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
-  int selectedNavIndex = 0;
+  int selectedNavIndex = 2;
 
   @override
   void initState() {
@@ -65,6 +65,10 @@ class _GameScreenState extends State<GameScreen> {
   Widget _getCurrentScreen() {
     switch (selectedNavIndex) {
       case 0:
+        return ShopScreen(gameState: gameState);
+      case 1:
+        return FinancialManagementScreen(gameState: gameState);
+      case 2:
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: RoomViewer(
@@ -73,14 +77,10 @@ class _GameScreenState extends State<GameScreen> {
                 : null,
           ),
         );
-      case 1:
-        return TasksScreen(gameState: gameState);
-      case 2:
-        return ShopScreen(gameState: gameState); // Stredné tlačidlo (košík) = Shop
       case 3:
-        return StatsScreen(gameState: gameState);
+        return TasksScreen(gameState: gameState);
       case 4:
-        return InventoryScreen(gameState: gameState); // Profil = Inventár
+        return InventoryScreen(gameState: gameState);
       default:
         return Padding(
           padding: const EdgeInsets.all(16.0),
