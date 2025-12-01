@@ -83,7 +83,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Total Coins:',
+                          'Total Coins (in-game):',
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
@@ -101,11 +101,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Total Emeralds:',
+                          'Total Money (tracked):',
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          '${widget.gameState.emeralds}',
+                          '${widget.gameState.money}',
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,

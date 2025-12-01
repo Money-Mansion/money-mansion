@@ -26,11 +26,10 @@ class _GameScreenState extends State<GameScreen> {
     // Inicializácia herného stavu
     gameState = GameState(
       coins: 111,
-      emeralds: 780,
+      money: 0,
       date: 7.7,
       rooms: [
         Room(
-          id: 'room1',
           type: RoomType.living,
           walls: [
             Wall(style: WallStyle.basic, direction: Direction.north),
@@ -41,14 +40,14 @@ class _GameScreenState extends State<GameScreen> {
           floor: Floor(type: FloorType.tile),
           furniture: [
             Furniture(
-              id: 'door1',
               type: FurnitureType.door,
               position: Position(x: 0, y: 2),
+              cost: 0,
             ),
             Furniture(
-              id: 'window1',
               type: FurnitureType.window,
               position: Position(x: 3, y: 2),
+              cost: 0,
             ),
           ],
         ),
@@ -100,7 +99,7 @@ class _GameScreenState extends State<GameScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Horná lišta s coinmi, emeraldmi a dátumom
+            // Horná lišta s coinmi, peniazmi a dátumom
             TopBar(gameState: gameState),
             
             // Hlavný herný priestor

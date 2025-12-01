@@ -56,11 +56,11 @@ class TopBar extends StatelessWidget {
             value: gameState.coins.toString(),
           ),
           
-          // Emeralds
+          // Money (real-world financial tracking)
           _ResourceDisplay(
             icon: MyFlutterApp.money,
             color: Colors.green,
-            value: gameState.emeralds.toString(),
+            value: gameState.money.toString(),
           ),
           
           // Date - Calendar icon

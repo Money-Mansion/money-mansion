@@ -1,12 +1,10 @@
 class Room {
-  final String id;
   final RoomType type;
   final List<Furniture> furniture;
   final List<Wall> walls;
   final Floor floor;
   
   Room({
-    required this.id,
     required this.type,
     this.furniture = const [],
     required this.walls,
@@ -23,14 +21,14 @@ enum RoomType {
 }
 
 class Furniture {
-  final String id;
   final FurnitureType type;
   final Position position;
+  final int cost; // Cost to buy this furniture
   
   Furniture({
-    required this.id,
     required this.type,
     required this.position,
+    this.cost = 0,
   });
 }
 
