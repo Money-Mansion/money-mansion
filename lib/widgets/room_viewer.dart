@@ -203,8 +203,8 @@ class RoomPainter extends CustomPainter {
     final backWallHeight = 180.0;
     
     // === DVERE (ľavá strana zadnej steny) ===
-    final doorX = centerX - backWallWidth / 2 + 40;
-    final doorY = centerY - backWallHeight / 2 + 35;
+    final doorX = centerX - backWallWidth/2 + 50;
+    final doorY = centerY + 2;
     final doorWidth = 48.0;
     final doorHeight = 85.0;
     
