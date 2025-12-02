@@ -2,13 +2,13 @@ import 'room.dart';
 
 class GameState {
   int coins;
-  int emeralds;
+  int money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
   
   GameState({
     this.coins = 111,
-    this.emeralds = 780,
+    this.money = 0,
     this.date = 7.7,
     List<Room>? rooms,
   }) : rooms = rooms ?? [];
@@ -17,8 +17,8 @@ class GameState {
     coins += amount;
   }
 
-  void addEmeralds(int amount) {
-    emeralds += amount;
+  void addMoney(int amount) {
+    money += amount;
   }
 
   void spendCoins(int amount) {
@@ -27,9 +27,9 @@ class GameState {
     }
   }
 
-  void spendEmeralds(int amount) {
-    if (emeralds >= amount) {
-      emeralds -= amount;
+  void spendMoney(int amount) {
+    if (money >= amount) {
+      money -= amount;
     }
   }
 }
