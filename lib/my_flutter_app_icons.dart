@@ -46,4 +46,18 @@ class MyFlutterApp {
   static const IconData money = IconData(0xf0d6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData coins = IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData robot = IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const Widget cat = CatImage();
+}
+
+class CatImage extends StatelessWidget {
+  const CatImage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      "assets/images/cat.png", 
+      width: 50,                
+      height: 50,              
+    );
+  }
 }

@@ -64,11 +64,7 @@ class RoomViewer extends StatelessWidget {
   }
 
   Widget _buildPixelCharacter() {
-    return Icon(
-      MyFlutterApp.robot,
-      size: 50,
-      color: Colors.green[700],
-    );
+    return MyFlutterApp.cat;
   }
 }
 
