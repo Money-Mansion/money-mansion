@@ -95,7 +95,7 @@ class RoomPainter extends CustomPainter {
     final sideDepth = 90.0;
     
     // === ĽAVÁ STENA (tmavšia šedá) ===
-    paint.color = const Color(0xFFB0B0B0);
+    paint.color = const Color(0xFFe5d4ef);
     final leftWall = Path()
       ..moveTo(centerX - backWallWidth / 2, centerY - backWallHeight / 2) // Top zadnej
       ..lineTo(centerX - backWallWidth / 2 - sideDepth, centerY - backWallHeight / 2 + 45) // Top ľavej
@@ -105,7 +105,10 @@ class RoomPainter extends CustomPainter {
     canvas.drawPath(leftWall, paint);
     
     // === ZADNÁ STENA (svetlo šedá) ===
-    paint.color = const Color(0xFFD8D8D8);
+    paint.color = const Color(0xFFe5d4ef);
+
+
+
     final backWall = Rect.fromLTWH(
       centerX - backWallWidth / 2,
       centerY - backWallHeight / 2,
@@ -115,7 +118,7 @@ class RoomPainter extends CustomPainter {
     canvas.drawRect(backWall, paint);
     
     // === ČIERNE ORÁMOVANIE ===
-    paint.color = Colors.black;
+    paint.color = const Color.fromARGB(255, 207, 170, 237);
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 3;
     
@@ -169,14 +172,14 @@ class RoomPainter extends CustomPainter {
         
         // Striedavé odtiene modrej
         if ((row + col) % 2 == 0) {
-          paint.color = const Color(0xFF5BB5E8);
+          paint.color = const Color.fromARGB(255, 255, 198, 114);
         } else {
-          paint.color = const Color(0xFF4AA5D8);
+          paint.color = const Color.fromARGB(255, 255, 198, 114);
         }
         canvas.drawPath(tilePath, paint);
         
         // Outline dlaždice
-        paint.color = const Color(0xFF2A6B8F);
+        paint.color = const Color.fromARGB(255, 244, 175, 71);
         paint.style = PaintingStyle.stroke;
         paint.strokeWidth = 2;
         canvas.drawPath(tilePath, paint);
@@ -205,19 +208,19 @@ class RoomPainter extends CustomPainter {
     final doorHeight = 85.0;
     
     // Hnedé dvere
-    paint.color = const Color(0xFF8B6239);
+    paint.color = const Color(0xFFECAFA3);
     final doorRect = Rect.fromLTWH(doorX, doorY, doorWidth, doorHeight);
     canvas.drawRect(doorRect, paint);
     
     // Tmavší rám dverí
-    paint.color = const Color(0xFF5D3F1F);
+    paint.color = const Color(0xFFDDA490);
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 4;
+    paint.strokeWidth = 6;
     canvas.drawRect(doorRect, paint);
     paint.style = PaintingStyle.fill;
     
     // Kľučka
-    paint.color = const Color(0xFF404040);
+    paint.color = const Color(0xFFDDA490);
     canvas.drawCircle(
       Offset(doorX + 10, doorY + doorHeight / 2),
       3.5,
@@ -230,7 +233,7 @@ class RoomPainter extends CustomPainter {
     final windowSize = 68.0;
     
     // Hnedý rám okna (vonkajší)
-    paint.color = const Color(0xFF9B6B3C);
+    paint.color = const Color(0xFFECAFA3);
     final outerFrame = Rect.fromLTWH(windowX - 5, windowY - 5, windowSize + 10, windowSize + 10);
     canvas.drawRect(outerFrame, paint);
     
@@ -240,14 +243,14 @@ class RoomPainter extends CustomPainter {
     canvas.drawRect(windowGlass, paint);
     
     // Tmavý vonkajší rám
-    paint.color = const Color(0xFF5D3F1F);
+    paint.color = const Color(0xFFDDA490);
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 4;
     canvas.drawRect(outerFrame, paint);
     
     // Krížový rám (4 okienka)
     paint.strokeWidth = 3.5;
-    paint.color = const Color(0xFF7A5230);
+    paint.color = const Color(0xFFECAFA3);
     // Vertikálna čiara
     canvas.drawLine(
       Offset(windowX + windowSize / 2, windowY),

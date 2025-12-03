@@ -27,14 +27,14 @@ class BottomNavigation extends StatelessWidget {
           _NavButton(
             key: const Key('nav_button_0'),
             icon: MyFlutterApp.basket,
-            color: Colors.green[600]!,
+            color: const Color(0xFFab5852)!,
             isSelected: selectedIndex == 0,
             onTap: () => onItemTapped(0),
           ),
           _NavButton(
             key: const Key('nav_button_1'),
             icon: MyFlutterApp.money,
-            color: Colors.purple[400]!,
+            color: const Color.fromARGB(255, 128, 179, 60)!,
             isSelected: selectedIndex == 1,
             onTap: () => onItemTapped(1),
           ),
@@ -103,3 +103,4 @@ class _NavButton extends StatelessWidget {
     );
   }
 }
+

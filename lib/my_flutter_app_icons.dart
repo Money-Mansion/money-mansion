@@ -47,6 +47,7 @@ class MyFlutterApp {
   static const IconData coins = IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData robot = IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const Widget cat = CatImage();
+  static const Widget house = HouseImage();
 }
 
 class CatImage extends StatelessWidget {
@@ -55,9 +56,22 @@ class CatImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      "assets/images/cat.png", 
-      width: 50,                
-      height: 50,              
+      "assets/images/alien.png", 
+      width: 100,                
+      height: 100,              
+    );
+  }
+}
+
+class HouseImage extends StatelessWidget {
+  const HouseImage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      "assets/images/house.png", 
+      width: 100,                
+      height: 100,              
     );
   }
 }
