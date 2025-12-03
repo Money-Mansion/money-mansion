@@ -42,11 +42,22 @@ class TopBar extends StatelessWidget {
                 ),
               );
             },
-            child: Icon(
-              MyFlutterApp.settings,
-              size: 32,
-              color: Colors.grey[700],
-            ),
+        child: Container(
+                  child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              Colors.grey[700] ?? Colors.grey, // Color and opacity
+                              BlendMode.srcATop, // Blend mode
+                            ),
+                            child: MyFlutterApp.settings, // Replace with your image asset
+                          ),            
+                          width: 32,
+                          height: 32,
+                ),
+            // Icon(
+            //   MyFlutterApp.settings,
+            //   size: 32,
+            //   color: Colors.grey[700],
+            //),
           ),
           
           // Coins
@@ -72,7 +83,7 @@ class TopBar extends StatelessWidget {
 }
 
 class _ResourceDisplay extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final Color color;
   final String value;
 
@@ -93,7 +104,17 @@ class _ResourceDisplay extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, color: color, size: 24),
+
+        Container(
+                  child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              color, // Color and opacity
+                              BlendMode.srcATop, // Blend mode
+                            ),
+                            child: icon, // Replace with your image asset
+                          ),            
+                ),
+          // icon,//Icon(icon, color: color, size: 24),
           const SizedBox(width: 8),
           Text(
             value,

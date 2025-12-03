@@ -34,14 +34,14 @@ class BottomNavigation extends StatelessWidget {
           _NavButton(
             key: const Key('nav_button_1'),
             icon: MyFlutterApp.money,
-            color: const Color.fromARGB(255, 128, 179, 60)!,
+            color: const Color.fromARGB(255, 128, 179, 60),
             isSelected: selectedIndex == 1,
             onTap: () => onItemTapped(1),
           ),
           _NavButton(
             key: const Key('nav_button_2'),
-            icon: MyFlutterApp.home,
-            color: Colors.brown[400]!,
+            icon: MyFlutterApp.house,
+            color: const Color.fromARGB(0, 141, 110, 99),
             isSelected: selectedIndex == 2,
             onTap: () => onItemTapped(2),
           ),
@@ -66,7 +66,7 @@ class BottomNavigation extends StatelessWidget {
 }
 
 class _NavButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final Color color;
   final bool isSelected;
   final VoidCallback onTap;
@@ -94,11 +94,17 @@ class _NavButton extends StatelessWidget {
             width: isSelected ? 3 : 1,
           ),
         ),
-        child: Icon(
-          icon,
-          color: color,
-          size: 32,
-        ),
+        child: Container(
+                  child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              color, // Color and opacity
+                              BlendMode.srcATop, // Blend mode
+                            ),
+                            child: icon, // Replace with your image asset
+                          ),            
+                          width: 32,
+                          height: 32,
+                ),
       ),
     );
   }
