@@ -71,8 +71,8 @@ class _GameScreenState extends State<GameScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: RoomViewer(
-            room: gameState.rooms.isNotEmpty 
-                ? gameState.rooms[0] 
+            room: gameState.rooms.isNotEmpty
+                ? gameState.rooms[0]
                 : null,
           ),
         );
@@ -84,8 +84,8 @@ class _GameScreenState extends State<GameScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: RoomViewer(
-            room: gameState.rooms.isNotEmpty 
-                ? gameState.rooms[0] 
+            room: gameState.rooms.isNotEmpty
+                ? gameState.rooms[0]
                 : null,
           ),
         );
@@ -101,12 +101,12 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             // Horná lišta s coinmi, peniazmi a dátumom
             TopBar(gameState: gameState),
-            
+
             // Hlavný herný priestor
             Expanded(
               child: _getCurrentScreen(),
             ),
-            
+
             // Spodná navigácia
             BottomNavigation(
               selectedIndex: selectedNavIndex,
