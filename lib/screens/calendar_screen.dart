@@ -11,7 +11,7 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       appBar: AppBar(
         title: const Text('Calendar'),
         backgroundColor: Colors.grey[400],

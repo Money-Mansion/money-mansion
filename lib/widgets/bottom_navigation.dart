@@ -26,36 +26,36 @@ class BottomNavigation extends StatelessWidget {
         children: [
           _NavButton(
             key: const Key('nav_button_0'),
-            icon: MyFlutterApp.basket,
-            color: Colors.green[600]!,
+            icon: MyFlutterApp.shop,
+            color: const Color.fromARGB(0, 127, 179, 60),
             isSelected: selectedIndex == 0,
             onTap: () => onItemTapped(0),
           ),
           _NavButton(
             key: const Key('nav_button_1'),
-            icon: MyFlutterApp.money,
-            color: Colors.purple[400]!,
+            icon: MyFlutterApp.stats,
+            color: const Color.fromARGB(0, 219, 161, 161),
             isSelected: selectedIndex == 1,
             onTap: () => onItemTapped(1),
           ),
           _NavButton(
             key: const Key('nav_button_2'),
-            icon: MyFlutterApp.home,
-            color: Colors.brown[400]!,
+            icon: MyFlutterApp.house,
+            color: const Color.fromARGB(0, 219, 161, 161),
             isSelected: selectedIndex == 2,
             onTap: () => onItemTapped(2),
           ),
           _NavButton(
             key: const Key('nav_button_3'),
-            icon: MyFlutterApp.target,
-            color: Colors.red[400]!,
+            icon: MyFlutterApp.task,
+            color: const Color.fromARGB(0, 105, 154, 226),
             isSelected: selectedIndex == 3,
             onTap: () => onItemTapped(3),
           ),
           _NavButton(
             key: const Key('nav_button_4'),
-            icon: MyFlutterApp.user,
-            color: Colors.blue[400]!,
+            icon: MyFlutterApp.man,
+            color: const Color.fromARGB(0, 105, 154, 226),
             isSelected: selectedIndex == 4,
             onTap: () => onItemTapped(4),
           ),
@@ -66,7 +66,7 @@ class BottomNavigation extends StatelessWidget {
 }
 
 class _NavButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final Color color;
   final bool isSelected;
   final VoidCallback onTap;
@@ -94,11 +94,17 @@ class _NavButton extends StatelessWidget {
             width: isSelected ? 3 : 1,
           ),
         ),
-        child: Icon(
-          icon,
-          color: color,
-          size: 32,
-        ),
+        child: Container(
+                  child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              color, // Color and opacity
+                              BlendMode.srcATop, // Blend mode
+                            ),
+                            child: icon, // Replace with your image asset
+                          ),            
+                          width: 32,
+                          height: 32,
+                ),
       ),
     );
   }

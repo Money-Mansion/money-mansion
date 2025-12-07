@@ -29,7 +29,8 @@
 ///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
-import 'package:flutter/widgets.dart';
+
+import 'package:flutter/widgets.dart'; 
 
 class MyFlutterApp {
   MyFlutterApp._();
@@ -37,13 +38,46 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData home = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData target = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData basket = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData chart_bar = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData user = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData settings = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData money = IconData(0xf0d6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData coins = IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData robot = IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const Widget home = ImageWidget(iconData: IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget target = ImageWidget(iconData: IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget basket = ImageWidget(iconData: IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget chart_bar = ImageWidget(iconData: IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget user = ImageWidget(iconData: IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget settings = ImageWidget(iconData: IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget money = ImageWidget(iconData: IconData(0xf0d6, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget coins = ImageWidget(iconData: IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget robot = ImageWidget(iconData: IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg));
+  static const Widget cat = ImageWidget(assetImage: "assets/images/alien150.png");
+  static const Widget house = ImageWidget(assetImage: "assets/images/house32.png");
+  static const Widget man = ImageWidget(assetImage: "assets/images/man32.png");
+  static const Widget task = ImageWidget(assetImage: "assets/images/task32.png");
+  static const Widget stats = ImageWidget(assetImage: "assets/images/stats32.png");
+  static const Widget shop = ImageWidget(assetImage: "assets/images/shop32.png");
 }
+
+class ImageWidget extends StatelessWidget {
+  const ImageWidget({Key? key, this.assetImage = null, this.iconData = null, this.width=150, this.height=150}) : super(key: key);
+  final String? assetImage;
+  final IconData? iconData;
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    if (this.assetImage != null) {
+      return Image.asset(
+        this.assetImage!, 
+        width: this.width,                
+        height: this.height,              
+      );
+    }
+    else if(this.iconData != null) {
+      return Icon(this.iconData);
+    }
+    else {
+      return Icon(IconData(0xf0555, fontFamily: 'MaterialIcons'));
+    }
+
+  }
+}
+
