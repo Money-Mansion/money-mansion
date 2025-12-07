@@ -48,7 +48,8 @@ class MyFlutterApp {
   static const Widget coins = ImageWidget(iconData: IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg));
   static const Widget robot = ImageWidget(iconData: IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg));
   static const Widget cat = ImageWidget(assetImage: "assets/images/lol.png");
-  static const Widget house = ImageWidget(assetImage: "assets/images/house.png", width: 24, height: 24);
+  static const Widget house = ImageWidget(assetImage: "assets/images/house32.png");
+  static const Widget man = ImageWidget(assetImage: "assets/images/man32.png");
 }
 
 class ImageWidget extends StatelessWidget {
