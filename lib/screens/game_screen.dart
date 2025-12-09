@@ -71,7 +71,10 @@ class _GameScreenState extends State<GameScreen> {
           onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
         );
       case 1:
-        return FinancialManagementScreen(gameState: gameState);
+        return FinancialManagementScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       case 2:
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -82,9 +85,15 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
       case 3:
-        return TasksScreen(gameState: gameState);
+        return TasksScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       case 4:
-        return InventoryScreen(gameState: gameState);
+        return InventoryScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       default:
         return Padding(
           padding: const EdgeInsets.all(16.0),

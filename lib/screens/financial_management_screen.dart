@@ -3,10 +3,12 @@ import '../models/game_state.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
+  final VoidCallback onBack;
 
   const FinancialManagementScreen({
     super.key,
     required this.gameState,
+    required this.onBack,
   });
 
   @override
@@ -138,37 +140,34 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          children: [
-            TabBar(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Financial Management'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: widget.onBack,
+        ),
+      ),
+      body: Column(
+        children: [
+          TabBar(
+            controller: _tabController,
+            tabs: const [
+              Tab(text: 'Financial Management'),
+              Tab(text: 'Statistics'),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
               controller: _tabController,
-              tabs: const [
-                Tab(text: 'Financial Management'),
-                Tab(text: 'Statistics'),
+              children: [
+                _buildFinancialTab(),
+                _buildStatisticsTab(),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildFinancialTab(),
-                  _buildStatisticsTab(),
-                ],
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-          bottom: 20,
-          right: 20,
-          child: FloatingActionButton(
-            onPressed: _addTransaction,
-            child: const Icon(Icons.add),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
