@@ -26,24 +26,17 @@ class BottomNavigation extends StatelessWidget {
         children: [
           _NavButton(
             key: const Key('nav_button_0'),
-            icon: MyFlutterApp.shop,
-            color: const Color.fromARGB(0, 127, 179, 60),
+            icon: MyFlutterApp.house,
+            color: const Color.fromARGB(0, 219, 161, 161),
             isSelected: selectedIndex == 0,
             onTap: () => onItemTapped(0),
           ),
           _NavButton(
             key: const Key('nav_button_1'),
-            icon: MyFlutterApp.stats,
-            color: const Color.fromARGB(0, 219, 161, 161),
+            icon: MyFlutterApp.shop,
+            color: const Color.fromARGB(0, 127, 179, 60),
             isSelected: selectedIndex == 1,
             onTap: () => onItemTapped(1),
-          ),
-          _NavButton(
-            key: const Key('nav_button_2'),
-            icon: MyFlutterApp.house,
-            color: const Color.fromARGB(0, 219, 161, 161),
-            isSelected: selectedIndex == 2,
-            onTap: () => onItemTapped(2),
           ),
           _NavButton(
             key: const Key('nav_button_3'),

@@ -6,10 +6,12 @@ import 'package:uuid/uuid.dart';
 
 class TasksScreen extends StatefulWidget {
   final GameState gameState;
+  final VoidCallback onBack;
 
   const TasksScreen({
     super.key,
     required this.gameState,
+    required this.onBack,
   });
 
   @override

@@ -23,12 +23,12 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    // Inicializácia herného stavu
     gameState = GameState(
       coins: 111,
       money: 0,
       date: 7.7,
       rooms: [
+        // Room setup
         Room(
           type: RoomType.living,
           walls: [
@@ -56,6 +56,8 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onNavItemTapped(int index) {
+    // This is where you update the selected index, 
+    // ensuring that no new screen is pushed.
     setState(() {
       selectedNavIndex = index;
     });
@@ -64,9 +66,15 @@ class _GameScreenState extends State<GameScreen> {
   Widget _getCurrentScreen() {
     switch (selectedNavIndex) {
       case 0:
-        return ShopScreen(gameState: gameState);
+        return ShopScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       case 1:
-        return FinancialManagementScreen(gameState: gameState);
+        return FinancialManagementScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       case 2:
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -77,9 +85,15 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
       case 3:
-        return TasksScreen(gameState: gameState);
+        return TasksScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       case 4:
-        return InventoryScreen(gameState: gameState);
+        return InventoryScreen(
+          gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+        );
       default:
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -99,15 +113,15 @@ class _GameScreenState extends State<GameScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Horná lišta s coinmi, peniazmi a dátumom
+            // Top bar with coins, money, and date
             TopBar(gameState: gameState),
-
-            // Hlavný herný priestor
+            
+            // Main game area
             Expanded(
               child: _getCurrentScreen(),
             ),
-
-            // Spodná navigácia
+            
+            // Bottom navigation
             BottomNavigation(
               selectedIndex: selectedNavIndex,
               onItemTapped: _onNavItemTapped,
