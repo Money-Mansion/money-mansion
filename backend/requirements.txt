@@ -4,10 +4,11 @@
 # SQLite3 is included with Python
 # No external dependencies required for basic functionality
 
-# Optional: For future REST API implementation
-# flask==2.3.0
-# flask-cors==4.0.0
-# python-dotenv==1.0.0
+# REST API
+flask==2.3.0
+flask-cors==4.0.0
+python-dotenv==1.0.0
+requests==2.31.0
 
 # Optional: For data validation
 # marshmallow==3.19.0
