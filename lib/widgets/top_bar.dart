@@ -17,9 +17,11 @@ class TopBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.grey[400],
-        border: Border(
-          bottom: BorderSide(color: Colors.grey[600]!, width: 2),
+        color: const Color(0xFFE8D4F0), // Soft lavender/purple background
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
+        border: Border.all(
+          color: const Color(0xFFB8A8D8), // Soft purple border
+          width: 3,
         ),
       ),
       child: Row(
@@ -42,22 +44,17 @@ class TopBar extends StatelessWidget {
                 ),
               );
             },
-        child: Container(
-                  child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              Colors.grey[700] ?? Colors.grey, // Color and opacity
-                              BlendMode.srcATop, // Blend mode
-                            ),
-                            child: MyFlutterApp.settings, // Replace with your image asset
-                          ),            
-                          width: 32,
-                          height: 32,
+            child: Container(
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.grey[700] ?? Colors.grey,
+                  BlendMode.srcATop,
                 ),
-            // Icon(
-            //   MyFlutterApp.settings,
-            //   size: 32,
-            //   color: Colors.grey[700],
-            //),
+                child: MyFlutterApp.settings,
+              ),
+              width: 32,
+              height: 32,
+            ),
           ),
           
           // Coins
@@ -98,29 +95,31 @@ class _ResourceDisplay extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black, width: 2),
+        color: const Color(0xFFFFFBF5), // Soft cream background
+        border: Border.all(
+          color: const Color(0xFFB8A8D8), // Soft purple border
+          width: 2.5,
+        ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
-
-        Container(
-                  child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              color, // Color and opacity
-                              BlendMode.srcATop, // Blend mode
-                            ),
-                            child: icon, // Replace with your image asset
-                          ),            
-                ),
-          // icon,//Icon(icon, color: color, size: 24),
+          Container(
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                color,
+                BlendMode.srcATop,
+              ),
+              child: icon,
+            ),
+          ),
           const SizedBox(width: 8),
           Text(
             value,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
+              color: Color(0xFF6B5B8C), // Purple text
             ),
           ),
         ],
@@ -160,7 +159,7 @@ class _CalendarWidget extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 4),
               decoration: const BoxDecoration(
-                color: Color(0xFFE74C3C), // Červená ako v kalendároch
+                color: Color(0xFFE74C3C),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(4),
                   topRight: Radius.circular(4),
