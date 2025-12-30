@@ -142,9 +142,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Financial Management'),
+        title: const Text('Financial Management'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: widget.onBack,
         ),
       ),
@@ -167,6 +167,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addTransaction,
+        child: const Icon(Icons.add),
       ),
     );
   }

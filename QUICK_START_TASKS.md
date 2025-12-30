@@ -1,33 +1,32 @@
-# 🚀 Quick Start - Task Persistence
+# 🚀 Quick Start - Task Persistence (UPDATED)
 
-## 📋 V Jednej Minúte
+## ⚡ Completely Offline Now!
 
-### Krok 1: Backend (Terminal 1)
+**The app now uses local SQLite database - no backend server needed!**
+
+For complete migration details, see: [OFFLINE_MIGRATION_SUMMARY.md](OFFLINE_MIGRATION_SUMMARY.md)
+
+### One-Minute Setup
+
+#### Step 1: Install Dependencies (Terminal)
 ```bash
-cd backend
-pip install -r requirements.txt
-python database/db_init.py
-python app.py
-```
-
-Expected output:
-```
-==================================================
-Starting Money Mansion Backend Server
-==================================================
-Server running on: http://127.0.0.1:5000
-```
-
-### Krok 2: Flutter App (Terminal 2)
-```bash
+cd C:\Users\simon\Desktop\money-mansion
 flutter pub get
+```
+
+#### Step 2: Run Flutter App
+```bash
 flutter run
 ```
 
-### Krok 3: Testovanie v Aplikácii
-1. Otvoriť **Tasks** sekciu
-2. Kliknúť `+` tlačidlo
-3. Vyplniť formulár
+**That's it!** No backend server startup needed.
+
+### Testing in App
+1. Open **Tasks** section
+2. Click `+` button
+3. Fill in the form
+4. Task is **instantly saved** to device's SQLite database
+5. Refresh and data persists!
 4. Kliknúť "Create Task"
 5. Task sa uloží do databázy! ✅
 6. Zavri aplikáciu a spusti ju znova

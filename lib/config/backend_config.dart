@@ -1,9 +1,10 @@
-/// Backend Configuration
-/// Change this based on your setup
+/// Backend Configuration (DEPRECATED - App now uses local SQLite database)
+/// This file is kept for reference only and is no longer used.
 
 class BackendConfig {
   // ==============================================
-  // CONFIGURE YOUR BACKEND URL HERE
+  // NOTE: Backend URLs below are no longer used
+  // The app now uses local SQLite database
   // ==============================================
   
   // Option 1: Android Emulator (most common)
@@ -19,10 +20,7 @@ class BackendConfig {
   // Option 4: Windows Desktop
   static const String backendUrl = 'http://localhost:5000';
   
-  // Currently using - CHANGE THIS TO YOUR SETUP
-  // static const String backendUrl = 'http://10.0.2.2:5000';
-  
-  // API endpoint
+  // API endpoint (DEPRECATED)
   static const String apiTasksEndpoint = '$backendUrl/api/tasks';
   static const String apiGameStateEndpoint = '$backendUrl/api/game/state';
 }

@@ -1,12 +1,20 @@
-# Money Mansion - Backend & Flutter Integration Setup
+# Money Mansion - Task Persistence (DEPRECATED)
 
-## ✅ Co je nainštalované
+**Status: OUTDATED - This documentation refers to the old backend architecture.**
 
-### Backend (Python + Flask)
-- ✅ Flask 2.3.0 - REST API framework
-- ✅ Flask-CORS 4.0.0 - Cross-Origin Resource Sharing
-- ✅ SQLite3 - Database (included with Python)
-- ✅ TaskDAO & TaskService - Task management
+The app now uses **local SQLite database** instead of a Flask backend server.
+
+For current information, see: [OFFLINE_MIGRATION_SUMMARY.md](OFFLINE_MIGRATION_SUMMARY.md)
+
+---
+
+## What Changed:
+- ❌ Old: Flask server on PC + HTTP requests (deprecated)
+- ✅ New: Local SQLite database on device + instant access
+
+## Old Architecture (No Longer Used)
+
+The following setup is **no longer applicable**:
 
 ### Frontend (Flutter)
 - ✅ uuid package - Unique ID generation

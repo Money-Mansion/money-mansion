@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../models/task.dart';
-import '../services/task_api_service.dart';
+import '../services/task_database_service.dart';
 import 'package:uuid/uuid.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -43,15 +43,17 @@ class _TasksScreenState extends State<TasksScreen> {
     super.dispose();
   }
 
-  /// Load tasks from the backend
+  /// Load tasks from local database
   Future<void> _loadTasksFromBackend() async {
     try {
+      if (!mounted) return;
       setState(() {
         _isLoading = true;
       });
       
-      final tasks = await TaskApiService.getAllTasks();
+      final tasks = await TaskDatabaseService.getAllTasks();
       
+      if (!mounted) return;
       setState(() {
         widget.gameState.tasks.clear();
         widget.gameState.tasks.addAll(tasks);
@@ -59,6 +61,7 @@ class _TasksScreenState extends State<TasksScreen> {
       });
     } catch (e) {
       print('Error loading tasks: $e');
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });
@@ -66,7 +69,7 @@ class _TasksScreenState extends State<TasksScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to load tasks. Check if backend is running.'),
+            content: Text('Failed to load tasks.'),
             duration: Duration(seconds: 3),
           ),
         );
@@ -163,12 +166,12 @@ class _TasksScreenState extends State<TasksScreen> {
                 dueDate: _selectedDate,
               );
 
-              // Create task on backend
+              // Create task in local database
               setState(() {
                 _isSyncing = true;
               });
 
-              final success = await TaskApiService.createTask(newTask);
+              final success = await TaskDatabaseService.createTask(newTask);
 
               setState(() {
                 _isSyncing = false;
@@ -220,6 +223,10 @@ class _TasksScreenState extends State<TasksScreen> {
         title: const Text('Tasks'),
         backgroundColor: Colors.deepPurple[300],
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: widget.onBack,
+        ),
         actions: [
           if (_isSyncing)
             Padding(
@@ -374,7 +381,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   Checkbox(
                     value: false,
                     onChanged: (value) async {
-                      final success = await TaskApiService.completeTask(task.id);
+                      final success = await TaskDatabaseService.completeTask(task.id);
                       
                       if (success) {
                         widget.gameState.completeTask(task.id);
@@ -451,7 +458,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final success = await TaskApiService.deleteTask(task.id);
+                    final success = await TaskDatabaseService.deleteTask(task.id);
                     
                     if (success) {
                       widget.gameState.removeTask(task.id);
