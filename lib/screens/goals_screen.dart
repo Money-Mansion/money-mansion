@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import '../models/game_state.dart';
-import '../models/task.dart';
-import '../services/task_database_service.dart';
+import '../models/goal.dart';
+import '../services/goal_database_service.dart';
 import 'package:uuid/uuid.dart';
 
-class TasksScreen extends StatefulWidget {
+class GoalsScreen extends StatefulWidget {
   final GameState gameState;
   final VoidCallback onBack;
 
-  const TasksScreen({
+  const GoalsScreen({
     super.key,
     required this.gameState,
     required this.onBack,
   });
 
   @override
-  State<TasksScreen> createState() => _TasksScreenState();
+  State<GoalsScreen> createState() => _GoalsScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _GoalsScreenState extends State<GoalsScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _coinsController;
@@ -32,7 +32,7 @@ class _TasksScreenState extends State<TasksScreen> {
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
     _coinsController = TextEditingController(text: '10');
-    _loadTasksFromBackend();
+    _loadGoalsFromDatabase();
   }
 
   @override
@@ -43,24 +43,24 @@ class _TasksScreenState extends State<TasksScreen> {
     super.dispose();
   }
 
-  /// Load tasks from local database
-  Future<void> _loadTasksFromBackend() async {
+  /// Load goals from local database
+  Future<void> _loadGoalsFromDatabase() async {
     try {
       if (!mounted) return;
       setState(() {
         _isLoading = true;
       });
       
-      final tasks = await TaskDatabaseService.getAllTasks();
+      final goals = await GoalDatabaseService.getAllGoals();
       
       if (!mounted) return;
       setState(() {
-        widget.gameState.tasks.clear();
-        widget.gameState.tasks.addAll(tasks);
+        widget.gameState.goals.clear();
+        widget.gameState.goals.addAll(goals);
         _isLoading = false;
       });
     } catch (e) {
-      print('Error loading tasks: $e');
+      print('Error loading goals: $e');
       if (!mounted) return;
       setState(() {
         _isLoading = false;
@@ -69,7 +69,7 @@ class _TasksScreenState extends State<TasksScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to load tasks.'),
+            content: Text('Failed to load goals.'),
             duration: Duration(seconds: 3),
           ),
         );
@@ -77,11 +77,11 @@ class _TasksScreenState extends State<TasksScreen> {
     }
   }
 
-  void _showCreateTaskDialog() {
+  void _showCreateGoalDialog() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Create New Task'),
+        title: const Text('Create New Goal'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -89,8 +89,8 @@ class _TasksScreenState extends State<TasksScreen> {
               TextField(
                 controller: _titleController,
                 decoration: const InputDecoration(
-                  labelText: 'Task Title',
-                  hintText: 'Enter task title',
+                  labelText: 'Goal Title',
+                  hintText: 'Enter goal title',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -99,7 +99,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                   labelText: 'Description',
-                  hintText: 'Enter task description',
+                  hintText: 'Enter goal description',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
@@ -153,12 +153,12 @@ class _TasksScreenState extends State<TasksScreen> {
             onPressed: () async {
               if (_titleController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please enter a task title')),
+                  const SnackBar(content: Text('Please enter a goal title')),
                 );
                 return;
               }
 
-              final newTask = Task(
+              final newGoal = Goal(
                 id: const Uuid().v4(),
                 title: _titleController.text,
                 description: _descriptionController.text,
@@ -166,19 +166,19 @@ class _TasksScreenState extends State<TasksScreen> {
                 dueDate: _selectedDate,
               );
 
-              // Create task in local database
+              // Create goal in local database
               setState(() {
                 _isSyncing = true;
               });
 
-              final success = await TaskDatabaseService.createTask(newTask);
+              final success = await GoalDatabaseService.createGoal(newGoal);
 
               setState(() {
                 _isSyncing = false;
               });
 
               if (success) {
-                widget.gameState.addTask(newTask);
+                widget.gameState.addGoal(newGoal);
                 _titleController.clear();
                 _descriptionController.clear();
                 _coinsController.text = '10';
@@ -189,7 +189,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   setState(() {});
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Task created successfully'),
+                      content: Text('Goal created successfully'),
                       duration: Duration(seconds: 2),
                     ),
                   );
@@ -198,14 +198,14 @@ class _TasksScreenState extends State<TasksScreen> {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Failed to create task'),
+                      content: Text('Failed to create goal'),
                       duration: Duration(seconds: 2),
                     ),
                   );
                 }
               }
             },
-            child: const Text('Create Task'),
+            child: const Text('Create Goal'),
           ),
         ],
       ),
@@ -214,13 +214,13 @@ class _TasksScreenState extends State<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = widget.gameState.tasks;
-    final activeTasks = tasks.where((t) => !t.isCompleted).toList();
-    final completedTasks = tasks.where((t) => t.isCompleted).toList();
+    final goals = widget.gameState.goals;
+    final activeGoals = goals.where((g) => !g.isCompleted).toList();
+    final completedGoals = goals.where((g) => g.isCompleted).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tasks'),
+        title: const Text('Goals'),
         backgroundColor: Colors.deepPurple[300],
         centerTitle: true,
         leading: IconButton(
@@ -242,9 +242,9 @@ class _TasksScreenState extends State<TasksScreen> {
             )
           else
             IconButton(
-              onPressed: _loadTasksFromBackend,
+              onPressed: _loadGoalsFromDatabase,
               icon: const Icon(Icons.refresh),
-              tooltip: 'Refresh tasks',
+              tooltip: 'Refresh goals',
             ),
         ],
       ),
@@ -260,13 +260,13 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Loading tasks...',
+                    'Loading goals...',
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
             )
-          : tasks.isEmpty
+          : goals.isEmpty
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -278,7 +278,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No tasks yet',
+                        'No goals yet',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -287,7 +287,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Create your first task to get started',
+                        'Create your first goal to get started',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -298,11 +298,11 @@ class _TasksScreenState extends State<TasksScreen> {
                 )
               : ListView(
                   children: [
-                    if (activeTasks.isNotEmpty) ...[
+                    if (activeGoals.isNotEmpty) ...[
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Active Tasks (${activeTasks.length})',
+                          'Active Goals (${activeGoals.length})',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -310,13 +310,13 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                         ),
                       ),
-                      ...activeTasks.map((task) => _buildTaskCard(task)),
+                      ...activeGoals.map((goal) => _buildGoalCard(goal)),
                     ],
-                    if (completedTasks.isNotEmpty) ...[
+                    if (completedGoals.isNotEmpty) ...[
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
                         child: Text(
-                          'Completed Tasks (${completedTasks.length})',
+                          'Completed Goals (${completedGoals.length})',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -324,19 +324,19 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                         ),
                       ),
-                      ...completedTasks.map((task) => _buildTaskCard(task)),
+                      ...completedGoals.map((goal) => _buildGoalCard(goal)),
                     ],
                   ],
                 ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _isSyncing ? null : _showCreateTaskDialog,
+        onPressed: _isSyncing ? null : _showCreateGoalDialog,
         backgroundColor: Colors.deepPurple[300],
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _buildTaskCard(Task task) {
+  Widget _buildGoalCard(Goal goal) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -352,21 +352,21 @@ class _TasksScreenState extends State<TasksScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        task.title,
+                        goal.title,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          decoration: task.isCompleted
+                          decoration: goal.isCompleted
                               ? TextDecoration.lineThrough
                               : null,
-                          color: task.isCompleted
+                          color: goal.isCompleted
                               ? Colors.grey[400]
                               : Colors.black,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        task.description,
+                        goal.description,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -377,21 +377,21 @@ class _TasksScreenState extends State<TasksScreen> {
                     ],
                   ),
                 ),
-                if (!task.isCompleted)
+                if (!goal.isCompleted)
                   Checkbox(
                     value: false,
                     onChanged: (value) async {
-                      final success = await TaskDatabaseService.completeTask(task.id);
+                      final success = await GoalDatabaseService.completeGoal(goal.id);
                       
                       if (success) {
-                        widget.gameState.completeTask(task.id);
+                        widget.gameState.completeGoal(goal.id);
                         setState(() {});
                         
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Task completed! +${task.rewardCoins} coins',
+                                'Goal completed! +${goal.rewardCoins} coins',
                               ),
                               duration: const Duration(seconds: 2),
                             ),
@@ -401,7 +401,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Failed to complete task'),
+                              content: Text('Failed to complete goal'),
                               duration: Duration(seconds: 2),
                             ),
                           );
@@ -430,7 +430,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '${task.dueDate.day}.${task.dueDate.month}.${task.dueDate.year}',
+                      '${goal.dueDate.day}.${goal.dueDate.month}.${goal.dueDate.year}',
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey[600],
@@ -447,7 +447,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '+${task.rewardCoins}',
+                      '+${goal.rewardCoins}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -458,16 +458,16 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final success = await TaskDatabaseService.deleteTask(task.id);
+                    final success = await GoalDatabaseService.deleteGoal(goal.id);
                     
                     if (success) {
-                      widget.gameState.removeTask(task.id);
+                      widget.gameState.removeGoal(goal.id);
                       setState(() {});
                       
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Task deleted'),
+                            content: Text('Goal deleted'),
                             duration: Duration(seconds: 2),
                           ),
                         );
@@ -476,7 +476,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Failed to delete task'),
+                            content: Text('Failed to delete goal'),
                             duration: Duration(seconds: 2),
                           ),
                         );

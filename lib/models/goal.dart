@@ -1,4 +1,4 @@
-class Task {
+class Goal {
   final String id;
   final String title;
   final String description;
@@ -6,7 +6,7 @@ class Task {
   final DateTime dueDate;
   bool isCompleted;
   
-  Task({
+  Goal({
     required this.id,
     required this.title,
     required this.description,
@@ -15,7 +15,7 @@ class Task {
     this.isCompleted = false,
   });
 
-  Task copyWith({
+  Goal copyWith({
     String? id,
     String? title,
     String? description,
@@ -23,7 +23,7 @@ class Task {
     DateTime? dueDate,
     bool? isCompleted,
   }) {
-    return Task(
+    return Goal(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,

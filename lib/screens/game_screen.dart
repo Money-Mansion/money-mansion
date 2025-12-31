@@ -5,7 +5,7 @@ import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
 import 'shop_screen.dart';
-import 'tasks_screen.dart';
+import 'goals_screen.dart';
 import 'inventory_screen.dart';
 import 'financial_management_screen.dart';
 
@@ -85,7 +85,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
       case 3:
-        return TasksScreen(
+        return GoalsScreen(
           gameState: gameState,
           onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
         );
