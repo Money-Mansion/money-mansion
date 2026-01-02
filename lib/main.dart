@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'screens/game_screen.dart';
-import 'services/goal_database_service.dart';
+import 'services/task_database_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize database on app startup
-  await GoalDatabaseService.initializeDatabase();
+  await TaskDatabaseService.initializeDatabase();
   runApp(const MoneyMansionApp());
 }
 

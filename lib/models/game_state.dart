@@ -1,21 +1,21 @@
 import 'room.dart';
-import 'goal.dart';
+import 'task.dart';
 
 class GameState {
   int coins;
   int money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
-  List<Goal> goals;
+  List<Task> tasks;
   
   GameState({
     this.coins = 111,
     this.money = 0,
     this.date = 7.7,
     List<Room>? rooms,
-    List<Goal>? goals,
+    List<Task>? tasks,
   }) : rooms = rooms ?? [],
-       goals = goals ?? [];
+       tasks = tasks ?? [];
 
   void addCoins(int amount) {
     coins += amount;
@@ -37,19 +37,19 @@ class GameState {
     }
   }
 
-  void addGoal(Goal goal) {
-    goals.add(goal);
+  void addTask(Task task) {
+    tasks.add(task);
   }
 
-  void completeGoal(String goalId) {
-    final goalIndex = goals.indexWhere((g) => g.id == goalId);
-    if (goalIndex != -1 && !goals[goalIndex].isCompleted) {
-      goals[goalIndex] = goals[goalIndex].copyWith(isCompleted: true);
-      coins += goals[goalIndex].rewardCoins;
+  void completeTask(String taskId) {
+    final taskIndex = tasks.indexWhere((t) => t.id == taskId);
+    if (taskIndex != -1 && !tasks[taskIndex].isCompleted) {
+      tasks[taskIndex] = tasks[taskIndex].copyWith(isCompleted: true);
+      coins += tasks[taskIndex].rewardCoins;
     }
   }
 
-  void removeGoal(String goalId) {
-    goals.removeWhere((g) => g.id == goalId);
+  void removeTask(String taskId) {
+    tasks.removeWhere((t) => t.id == taskId);
   }
 }
