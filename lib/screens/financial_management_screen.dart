@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
+import '../models/transaction.dart';
+import '../services/financial_database_service.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -19,12 +22,18 @@ class FinancialManagementScreen extends StatefulWidget {
 class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final List<Map<String, dynamic>> _transactions = [];
+  final List<TransactionModel> _transactions = [];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _loadTransactions();
+  }
+
+  Future<void> _loadTransactions() async {
+    final data = await FinancialDatabaseService.getAll();
+    setState(() => _transactions.addAll(data));
   }
 
   @override
@@ -32,18 +41,38 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     _tabController.dispose();
     super.dispose();
   }
+
   String _formatDate(DateTime date) {
     return "${date.day}/${date.month}/${date.year} "
         "${date.hour.toString().padLeft(2, '0')}:"
         "${date.minute.toString().padLeft(2, '0')}";
   }
+
   String _formatAmount(double amount) {
-    if (amount % 1 == 0) {
-      return "${amount.toInt()} €";
-    }
-    return "${amount.toString()} €";
+    return amount % 1 == 0
+        ? "${amount.toInt()} €"
+        : "${amount.toString()} €";
   }
-  void _removeTransaction(Map<String, dynamic> t) {
+
+  // ===== COIN LOGIC =====
+
+  void _applyTransaction(TransactionModel t) {
+    final int amount = t.amount.toInt();
+    t.type == '+'
+        ? widget.gameState.addCoins(amount)
+        : widget.gameState.spendCoins(amount);
+  }
+
+  void _revertTransaction(TransactionModel t) {
+    final int amount = t.amount.toInt();
+    t.type == '+'
+        ? widget.gameState.spendCoins(amount)
+        : widget.gameState.addCoins(amount);
+  }
+
+  Future<void> _removeTransaction(TransactionModel t) async {
+    _revertTransaction(t);
+    await FinancialDatabaseService.delete(t.id);
     setState(() => _transactions.remove(t));
   }
 
@@ -51,18 +80,16 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     _showTransactionDialog();
   }
 
-  void _editTransaction(Map<String, dynamic> t) {
+  void _editTransaction(TransactionModel t) {
     _showTransactionDialog(transaction: t);
   }
 
-  void _showTransactionDialog({Map<String, dynamic>? transaction}) {
-    String type = transaction?['type'] ?? '+';
-    final amountController = TextEditingController(
-      text: transaction?['amount']?.toString() ?? '',
-    );
-    final noteController = TextEditingController(
-      text: transaction?['note'] ?? '',
-    );
+  void _showTransactionDialog({TransactionModel? transaction}) {
+    String type = transaction?.type ?? '+';
+    final amountController =
+    TextEditingController(text: transaction?.amount.toString() ?? '');
+    final noteController =
+    TextEditingController(text: transaction?.note ?? '');
 
     showDialog(
       context: context,
@@ -70,9 +97,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             return AlertDialog(
-              title: Text(transaction == null
-                  ? 'Add Gain/Purchase'
-                  : 'Edit Transaction'),
+              title: Text(
+                transaction == null
+                    ? 'Add Gain / Purchase'
+                    : 'Edit Transaction',
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -80,23 +109,27 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     value: type,
                     items: const [
                       DropdownMenuItem(
-                          value: '+', child: Text('Gain (+)')),
+                        value: '+',
+                        child: Text('Gain (+)'),
+                      ),
                       DropdownMenuItem(
-                          value: '-', child: Text('Purchase (-)')),
+                        value: '-',
+                        child: Text('Purchase (-)'),
+                      ),
                     ],
-                    onChanged: (value) {
-                      dialogSetState(() => type = value!);
-                    },
+                    onChanged: (value) =>
+                        dialogSetState(() => type = value!),
                   ),
                   TextField(
                     controller: amountController,
+                    keyboardType: TextInputType.number,
                     decoration:
                     const InputDecoration(labelText: 'Amount'),
-                    keyboardType: TextInputType.number,
                   ),
                   TextField(
                     controller: noteController,
-                    decoration: const InputDecoration(labelText: 'Note'),
+                    decoration:
+                    const InputDecoration(labelText: 'Note'),
                   ),
                 ],
               ),
@@ -106,25 +139,41 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   child: const Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    final amount =
+                  onPressed: () async {
+                    final double amount =
                         double.tryParse(amountController.text) ?? 0;
+                    if (amount <= 0) return;
 
-                    setState(() {
-                      if (transaction == null) {
-                        _transactions.insert(0, {
-                          'type': type,
-                          'amount': amount,
-                          'note': noteController.text,
-                          'date': DateTime.now(),
-                        });
-                      } else {
-                        transaction['type'] = type;
-                        transaction['amount'] = amount;
-                        transaction['note'] = noteController.text;
-                        transaction['date'] = DateTime.now();
-                      }
-                    });
+                    // 🔥 revert old transaction if editing
+                    if (transaction != null) {
+                      _revertTransaction(transaction);
+                    }
+
+                    final newTransaction = TransactionModel(
+                      id: transaction?.id ?? const Uuid().v4(),
+                      type: type,
+                      amount: amount,
+                      note: noteController.text,
+                      date: DateTime.now(),
+                    );
+
+                    // 🔥 apply new transaction
+                    _applyTransaction(newTransaction);
+
+                    if (transaction == null) {
+                      await FinancialDatabaseService.insert(
+                          newTransaction);
+                      setState(() =>
+                          _transactions.insert(0, newTransaction));
+                    } else {
+                      await FinancialDatabaseService.update(
+                          newTransaction);
+                      setState(() {
+                        final index =
+                        _transactions.indexOf(transaction);
+                        _transactions[index] = newTransaction;
+                      });
+                    }
 
                     Navigator.pop(context);
                   },
@@ -177,67 +226,41 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   Widget _buildFinancialTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
-          const Text(
-            'Financial Management',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-
           ..._transactions.map((t) {
             return Card(
-              elevation: 3,
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
                 onLongPress: () => _editTransaction(t),
+                leading: Icon(
+                  t.type == '+' ? Icons.add : Icons.remove,
+                  color:
+                  t.type == '+' ? Colors.green : Colors.red,
+                ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
+                  icon:
+                  const Icon(Icons.delete, color: Colors.red),
                   onPressed: () => _removeTransaction(t),
                 ),
-                leading: Icon(
-                  t['type'] == '+' ? Icons.add : Icons.remove,
-                  color: t['type'] == '+' ? Colors.green : Colors.red,
+                title: Text(
+                  "${_formatAmount(t.amount)}   ${t.note}",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${_formatAmount(t['amount'])}     ${t['note']}",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      _formatDate(t['date']),
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
+                subtitle: Text(_formatDate(t.date)),
               ),
             );
           }),
-
           if (_transactions.isEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 80.0),
-              child: Center(
-                child: Text(
-                  'No transactions yet. Tap + to add one!',
-                  style:
-                  TextStyle(color: Colors.grey[600], fontSize: 16),
-                ),
+              padding: const EdgeInsets.only(top: 80),
+              child: Text(
+                'No transactions yet. Tap + to add one!',
+                style: TextStyle(color: Colors.grey[600]),
               ),
             ),
         ],
@@ -246,34 +269,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   Widget _buildStatisticsTab() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.bar_chart,
-            size: 64,
-            color: Colors.grey[600],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Statistics',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Your progress and achievements',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
-          ),
-        ],
-      ),
+    return const Center(
+      child: Icon(Icons.bar_chart, size: 64, color: Colors.grey),
     );
   }
 }

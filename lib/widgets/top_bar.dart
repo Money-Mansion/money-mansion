@@ -14,67 +14,73 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE8D4F0), // Soft lavender/purple background
-        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
-        border: Border.all(
-          color: const Color(0xFFB8A8D8), // Soft purple border
-          width: 3,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Settings icon
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    backgroundColor: Colors.grey[300],
-                    appBar: AppBar(
-                      title: const Text('Settings'),
-                      backgroundColor: Colors.grey[400],
-                    ),
-                    body: SettingsScreen(gameState: gameState),
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  Colors.grey[700] ?? Colors.grey,
-                  BlendMode.srcATop,
-                ),
-                child: MyFlutterApp.settings,
-              ),
-              width: 32,
-              height: 32,
+    return AnimatedBuilder(
+      animation: gameState, // listens to coins/money changes
+      builder: (context, _) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFFE8D4F0),
+            borderRadius:
+            const BorderRadius.vertical(bottom: Radius.circular(30)),
+            border: Border.all(
+              color: const Color(0xFFB8A8D8),
+              width: 3,
             ),
           ),
-          
-          // Coins
-          _ResourceDisplay(
-            icon: MyFlutterApp.coins,
-            color: Colors.orange,
-            value: gameState.coins.toString(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Settings icon
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        backgroundColor: Colors.grey[300],
+                        appBar: AppBar(
+                          title: const Text('Settings'),
+                          backgroundColor: Colors.grey[400],
+                        ),
+                        body: SettingsScreen(gameState: gameState),
+                      ),
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      Colors.grey[700] ?? Colors.grey,
+                      BlendMode.srcATop,
+                    ),
+                    child: MyFlutterApp.settings,
+                  ),
+                ),
+              ),
+
+              // Coins
+              _ResourceDisplay(
+                icon: MyFlutterApp.coins,
+                color: Colors.orange,
+                value: gameState.coins.toString(),
+              ),
+
+              // Money (real-world financial tracking)
+              _ResourceDisplay(
+                icon: MyFlutterApp.money,
+                color: Colors.green,
+                value: gameState.money.toString(),
+              ),
+
+              // Date
+              _CalendarWidget(date: gameState.date),
+            ],
           ),
-          
-          // Money (real-world financial tracking)
-          _ResourceDisplay(
-            icon: MyFlutterApp.money,
-            color: Colors.green,
-            value: gameState.money.toString(),
-          ),
-          
-          // Date - Calendar icon
-          _CalendarWidget(date: gameState.date),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -95,23 +101,21 @@ class _ResourceDisplay extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFBF5), // Soft cream background
+        color: const Color(0xFFFFFBF5),
         border: Border.all(
-          color: const Color(0xFFB8A8D8), // Soft purple border
+          color: const Color(0xFFB8A8D8),
           width: 2.5,
         ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
-          Container(
-            child: ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                color,
-                BlendMode.srcATop,
-              ),
-              child: icon,
+          ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              color,
+              BlendMode.srcATop,
             ),
+            child: icon,
           ),
           const SizedBox(width: 8),
           Text(
@@ -119,7 +123,7 @@ class _ResourceDisplay extends StatelessWidget {
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF6B5B8C), // Purple text
+              color: Color(0xFF6B5B8C),
             ),
           ),
         ],
@@ -154,7 +158,7 @@ class _CalendarWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Header (month bar)
+            // Month header
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 4),
@@ -176,7 +180,8 @@ class _CalendarWidget extends StatelessWidget {
                 ),
               ),
             ),
-            // Day number
+
+            // Day
             Expanded(
               child: Center(
                 child: Text(
