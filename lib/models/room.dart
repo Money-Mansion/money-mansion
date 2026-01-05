@@ -1,23 +1,13 @@
 class Room {
-  final RoomType type;
   final List<Furniture> furniture;
   final List<Wall> walls;
   final Floor floor;
   
   Room({
-    required this.type,
     this.furniture = const [],
     required this.walls,
     required this.floor,
   });
-}
-
-enum RoomType {
-  living,
-  bedroom,
-  kitchen,
-  bathroom,
-  office,
 }
 
 class Furniture {

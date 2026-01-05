@@ -71,7 +71,7 @@ class InventoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItemCard(var item) {
+  Widget _buildItemCard(Item item) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -80,7 +80,6 @@ class InventoryScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Item texture/image
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(8.0),
@@ -91,13 +90,12 @@ class InventoryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          // Item name
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               item.name,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
@@ -106,7 +104,6 @@ class InventoryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          // Item type
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(
@@ -116,7 +113,7 @@ class InventoryScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                item.type.toString().split('.').last,
+                item.type.toDisplayString(),
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.blue[900],

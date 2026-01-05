@@ -27,18 +27,16 @@ class GameState extends ChangeNotifier {
   void addCoins(int amount) {
     if (amount <= 0) return;
     coins += amount;
-    notifyListeners(); //UI updates instantly
+    notifyListeners();
   }
 
   void spendCoins(int amount) {
     if (amount <= 0) return;
     if (coins >= amount) {
       coins -= amount;
-      notifyListeners(); //UI updates instantly
+      notifyListeners();
     }
   }
-
-  // ===== MONEY =====
 
   void addMoney(int amount) {
     if (amount <= 0) return;

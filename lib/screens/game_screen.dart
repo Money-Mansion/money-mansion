@@ -29,9 +29,8 @@ class _GameScreenState extends State<GameScreen> {
       money: 0,
       date: 7.7,
       rooms: [
-        // Room setup
+        // Single room
         Room(
-          type: RoomType.living,
           walls: [
             Wall(style: WallStyle.basic, direction: Direction.north),
             Wall(style: WallStyle.basic, direction: Direction.south),
