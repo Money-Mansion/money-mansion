@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'room.dart';
 import 'task.dart';
+import 'item.dart';
 
 class GameState extends ChangeNotifier {
   int coins;
@@ -8,6 +9,7 @@ class GameState extends ChangeNotifier {
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
   List<Task> tasks;
+  List<Item> ownedItems;
 
   GameState({
     this.coins = 111,
@@ -15,8 +17,10 @@ class GameState extends ChangeNotifier {
     this.date = 7.7,
     List<Room>? rooms,
     List<Task>? tasks,
+    List<Item>? ownedItems,
   })  : rooms = rooms ?? [],
-        tasks = tasks ?? [];
+        tasks = tasks ?? [],
+        ownedItems = ownedItems ?? [];
 
   // ===== COINS =====
 
@@ -74,6 +78,25 @@ class GameState extends ChangeNotifier {
 
   void removeTask(String taskId) {
     tasks.removeWhere((t) => t.id == taskId);
+    notifyListeners();
+  }
+
+  // ===== ITEMS =====
+
+  void loadOwnedItems(List<Item> items) {
+    ownedItems = items;
+    notifyListeners();
+  }
+
+  void addOwnedItem(Item item) {
+    if (!ownedItems.any((i) => i.id == item.id)) {
+      ownedItems.add(item.copyWith(owned: true));
+      notifyListeners();
+    }
+  }
+
+  void removeOwnedItem(String itemId) {
+    ownedItems.removeWhere((i) => i.id == itemId);
     notifyListeners();
   }
 }

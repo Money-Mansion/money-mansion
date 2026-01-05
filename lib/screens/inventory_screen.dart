@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/game_state.dart';
+import '../models/item.dart';
 
 class InventoryScreen extends StatelessWidget {
   final GameState gameState;
@@ -21,34 +22,111 @@ class InventoryScreen extends StatelessWidget {
           onPressed: onBack,
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.inventory_2,
-              size: 64,
-              color: Colors.grey[600],
+      body: gameState.ownedItems.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.inventory_2,
+                    size: 64,
+                    color: Colors.grey[600],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No Items Yet',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Your items will appear here',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.85,
+                ),
+                itemCount: gameState.ownedItems.length,
+                itemBuilder: (context, index) {
+                  final item = gameState.ownedItems[index];
+                  return _buildItemCard(item);
+                },
+              ),
             ),
-            const SizedBox(height: 16),
-            Text(
-              'Inventory',
+    );
+  }
+
+  Widget _buildItemCard(var item) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Item texture/image
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                item.texture,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          // Item name
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              item.name,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(height: 4),
+          // Item type
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.blue[100],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                item.type.toString().split('.').last,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.blue[900],
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Your items and furniture',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+        ],
       ),
     );
   }
