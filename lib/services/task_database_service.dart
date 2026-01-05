@@ -43,6 +43,7 @@ class TaskDatabaseService {
   }
 
   static Future<void> _createTable(Database db, int version) async {
+    // Create tasks table
     await db.execute('''
       CREATE TABLE IF NOT EXISTS $_tableName (
         id TEXT PRIMARY KEY,
@@ -51,6 +52,18 @@ class TaskDatabaseService {
         rewardCoins INTEGER NOT NULL,
         dueDate INTEGER NOT NULL,
         isCompleted INTEGER NOT NULL DEFAULT 0
+      )
+    ''');
+    
+    // Also create items table to ensure it exists
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS items (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        type TEXT NOT NULL,
+        texture TEXT NOT NULL,
+        cost INTEGER NOT NULL,
+        owned INTEGER NOT NULL DEFAULT 0
       )
     ''');
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../models/room.dart';
+import '../services/item_database_service.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -53,6 +54,12 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ],
     );
+    _loadOwnedItems();
+  }
+
+  Future<void> _loadOwnedItems() async {
+    final ownedItems = await ItemDatabaseService.getOwnedItems();
+    gameState.loadOwnedItems(ownedItems);
   }
 
   void _onNavItemTapped(int index) {
