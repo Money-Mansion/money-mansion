@@ -1,79 +1,27 @@
+import 'package:flutter/material.dart';
+
 class Room {
-  final List<Furniture> furniture;
-  final List<Wall> walls;
-  final Floor floor;
-  
+  // Room colors - customizable through wallpaper/flooring items
+  Color leftWallColor;
+  Color rightWallColor;
+  Color floorColor;
+
   Room({
-    this.furniture = const [],
-    required this.walls,
-    required this.floor,
+    // Default light brown colors (matching SVG)
+    this.leftWallColor = const Color(0xFFD4B5A0),
+    this.rightWallColor = const Color(0xFFC5A896),
+    this.floorColor = const Color(0xFFDCC7B0),
   });
+
+  // Change wall color (when wallpaper item is applied)
+  void setWallColor(Color left, Color right) {
+    leftWallColor = left;
+    rightWallColor = right;
+  }
+
+  // Change floor color (when flooring item is applied)
+  void setFloorColor(Color color) {
+    floorColor = color;
+  }
 }
 
-class Furniture {
-  final FurnitureType type;
-  final Position position;
-  final int cost; // Cost to buy this furniture
-  
-  Furniture({
-    required this.type,
-    required this.position,
-    this.cost = 0,
-  });
-}
-
-enum FurnitureType {
-  door,
-  window,
-  table,
-  chair,
-  bed,
-  sofa,
-}
-
-class Wall {
-  final WallStyle style;
-  final Direction direction;
-  
-  Wall({
-    required this.style,
-    required this.direction,
-  });
-}
-
-enum WallStyle {
-  basic,
-  painted,
-  wallpaper,
-}
-
-enum Direction {
-  north,
-  south,
-  east,
-  west,
-}
-
-class Floor {
-  final FloorType type;
-  final int gridSize;
-  
-  Floor({
-    required this.type,
-    this.gridSize = 16, // 4x4 grid
-  });
-}
-
-enum FloorType {
-  wood,
-  tile,
-  carpet,
-  marble,
-}
-
-class Position {
-  final double x;
-  final double y;
-  
-  Position({required this.x, required this.y});
-}

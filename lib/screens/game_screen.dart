@@ -28,30 +28,7 @@ class _GameScreenState extends State<GameScreen> {
       coins: 111,
       money: 0,
       date: 7.7,
-      rooms: [
-        // Single room
-        Room(
-          walls: [
-            Wall(style: WallStyle.basic, direction: Direction.north),
-            Wall(style: WallStyle.basic, direction: Direction.south),
-            Wall(style: WallStyle.basic, direction: Direction.east),
-            Wall(style: WallStyle.basic, direction: Direction.west),
-          ],
-          floor: Floor(type: FloorType.tile),
-          furniture: [
-            Furniture(
-              type: FurnitureType.door,
-              position: Position(x: 0, y: 2),
-              cost: 0,
-            ),
-            Furniture(
-              type: FurnitureType.window,
-              position: Position(x: 3, y: 2),
-              cost: 0,
-            ),
-          ],
-        ),
-      ],
+      rooms: [Room()], // Default brown colors
     );
     _loadOwnedItems();
   }

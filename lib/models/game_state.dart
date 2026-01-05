@@ -70,7 +70,7 @@ class GameState extends ChangeNotifier {
       // Reward coins
       coins += completedTask.rewardCoins;
 
-      notifyListeners(); //coins + UI update immediately
+      notifyListeners();
     }
   }
 
