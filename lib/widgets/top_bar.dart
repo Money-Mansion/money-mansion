@@ -139,6 +139,12 @@ class _CalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
+                        'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    final monthStr = monthNames[now.month - 1];
+    final dayStr = now.day.toString();
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -169,10 +175,10 @@ class _CalendarWidget extends StatelessWidget {
                   topRight: Radius.circular(4),
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'JUL',
-                  style: TextStyle(
+                  monthStr,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
@@ -185,7 +191,7 @@ class _CalendarWidget extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  date.toStringAsFixed(1),
+                  dayStr,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
