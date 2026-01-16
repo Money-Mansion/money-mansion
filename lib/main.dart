@@ -45,6 +45,7 @@ class MoneyMansionApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.orange,
         ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
       ),
       home: const GameScreen(),
     );

@@ -1,10 +1,11 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'dart:io' show Platform;
-import '../models/item.dart';
+import '../models/goal.dart';
 
-class ItemDatabaseService {
-  static const String _tableName = 'items';
+class GoalDatabaseService {
+  static const String _tableName = 'goals';
   static const String _dbName = 'money_mansion.db';
   static const int _dbVersion = 1;
 
@@ -14,7 +15,7 @@ class ItemDatabaseService {
   // Initialize the database factory (required for Windows/Desktop)
   static Future<void> initializeDatabase() async {
     if (_initialized) return;
-
+    
     // Initialize FFI for desktop platforms
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
@@ -49,21 +50,9 @@ class ItemDatabaseService {
   }
 
   static Future<void> _createTable(Database db, int version) async {
-    // Create items table
+    // Create goals table
     await db.execute('''
       CREATE TABLE IF NOT EXISTS $_tableName (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        type TEXT NOT NULL,
-        texture TEXT NOT NULL,
-        cost INTEGER NOT NULL,
-        owned INTEGER NOT NULL DEFAULT 0
-      )
-    ''');
-    
-    // Also create goals table to ensure it exists
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS goals (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         description TEXT,
@@ -72,108 +61,118 @@ class ItemDatabaseService {
         isCompleted INTEGER NOT NULL DEFAULT 0
       )
     ''');
+    
+    // Also create items table to ensure it exists
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS items (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        type TEXT NOT NULL,
+        texture TEXT NOT NULL,
+        cost INTEGER NOT NULL,
+        owned INTEGER NOT NULL DEFAULT 0
+      )
+    ''');
   }
 
-  // Get all items
-  static Future<List<Item>> getAllItems() async {
+  // Get all goals
+  static Future<List<Goal>> getAllGoals() async {
     try {
       final db = await database;
       final maps = await db.query(_tableName);
 
       return List.generate(maps.length, (i) {
-        return Item(
+        return Goal(
           id: maps[i]['id'] as String,
-          name: maps[i]['name'] as String,
-          type: _stringToItemType(maps[i]['type'] as String),
-          texture: maps[i]['texture'] as String,
-          cost: maps[i]['cost'] as int,
-          owned: (maps[i]['owned'] as int) == 1,
+          title: maps[i]['title'] as String,
+          description: maps[i]['description'] as String,
+          rewardCoins: maps[i]['rewardCoins'] as int,
+          dueDate: DateTime.fromMillisecondsSinceEpoch(maps[i]['dueDate'] as int),
+          isCompleted: (maps[i]['isCompleted'] as int) == 1,
         );
       });
     } catch (e) {
-      print('Error loading items: $e');
+      print('Error loading goals: $e');
       return [];
     }
   }
 
-  // Get only owned items
-  static Future<List<Item>> getOwnedItems() async {
-    try {
-      final db = await database;
-      final maps = await db.query(
-        _tableName,
-        where: 'owned = ?',
-        whereArgs: [1],
-      );
-
-      return List.generate(maps.length, (i) {
-        return Item(
-          id: maps[i]['id'] as String,
-          name: maps[i]['name'] as String,
-          type: _stringToItemType(maps[i]['type'] as String),
-          texture: maps[i]['texture'] as String,
-          cost: maps[i]['cost'] as int,
-          owned: (maps[i]['owned'] as int) == 1,
-        );
-      });
-    } catch (e) {
-      print('Error loading owned items: $e');
-      return [];
-    }
-  }
-
-  // Create or insert item
-  static Future<bool> createItem(Item item) async {
+  // Create new goal
+  static Future<bool> createGoal(Goal goal) async {
     try {
       final db = await database;
       await db.insert(
         _tableName,
         {
-          'id': item.id,
-          'name': item.name,
-          'type': _itemTypeToString(item.type),
-          'texture': item.texture,
-          'cost': item.cost,
-          'owned': item.owned ? 1 : 0,
+          'id': goal.id,
+          'title': goal.title,
+          'description': goal.description,
+          'rewardCoins': goal.rewardCoins,
+          'dueDate': goal.dueDate.millisecondsSinceEpoch,
+          'isCompleted': goal.isCompleted ? 1 : 0,
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
       return true;
     } catch (e) {
-      print('Error creating item: $e');
+      print('Error creating goal: $e');
       return false;
     }
   }
 
-  // Update item ownership
-  static Future<bool> updateItemOwnership(String itemId, bool owned) async {
+  // Update goal
+  static Future<bool> updateGoal(Goal goal) async {
     try {
       final db = await database;
       await db.update(
         _tableName,
-        {'owned': owned ? 1 : 0},
+        {
+          'id': goal.id,
+          'title': goal.title,
+          'description': goal.description,
+          'rewardCoins': goal.rewardCoins,
+          'dueDate': goal.dueDate.millisecondsSinceEpoch,
+          'isCompleted': goal.isCompleted ? 1 : 0,
+        },
         where: 'id = ?',
-        whereArgs: [itemId],
+        whereArgs: [goal.id],
       );
       return true;
     } catch (e) {
-      print('Error updating item ownership: $e');
+      print('Error updating goal: $e');
       return false;
     }
   }
 
-  // Delete item
-  static Future<bool> deleteItem(String itemId) async {
+  // Complete goal
+  static Future<bool> completeGoal(String goalId) async {
+    try {
+      final db = await database;
+      await db.update(
+        _tableName,
+        {'isCompleted': 1},
+        where: 'id = ?',
+        whereArgs: [goalId],
+      );
+      return true;
+    } catch (e) {
+      print('Error completing goal: $e');
+      return false;
+    }
+  }
+
+  // Delete goal
+  static Future<bool> deleteGoal(String goalId) async {
     try {
       final db = await database;
       await db.delete(
         _tableName,
         where: 'id = ?',
-        whereArgs: [itemId],
+        whereArgs: [goalId],
       );
       return true;
     } catch (e) {
-      print('Error deleting item: $e');
+      print('Error deleting goal: $e');
       return false;
     }
   }
@@ -182,17 +181,5 @@ class ItemDatabaseService {
   static Future<void> closeDatabase() async {
     final db = await database;
     await db.close();
-  }
-
-  // Helper methods
-  static String _itemTypeToString(ItemType type) {
-    return type.toString().split('.').last;
-  }
-
-  static ItemType _stringToItemType(String typeString) {
-    return ItemType.values.firstWhere(
-      (type) => type.toString().split('.').last == typeString,
-      orElse: () => ItemType.decoration,
-    );
   }
 }
