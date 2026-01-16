@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'room.dart';
-import 'task.dart';
+import 'goal.dart';
 import 'item.dart';
 
 class GameState extends ChangeNotifier {
@@ -8,7 +8,7 @@ class GameState extends ChangeNotifier {
   int money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
-  List<Task> tasks;
+  List<Goal> goals;
   List<Item> ownedItems;
 
   GameState({
@@ -16,10 +16,10 @@ class GameState extends ChangeNotifier {
     this.money = 0,
     this.date = 7.7,
     List<Room>? rooms,
-    List<Task>? tasks,
+    List<Goal>? goals,
     List<Item>? ownedItems,
   })  : rooms = rooms ?? [],
-        tasks = tasks ?? [],
+        goals = goals ?? [],
         ownedItems = ownedItems ?? [];
 
   // ===== COINS =====
@@ -52,30 +52,30 @@ class GameState extends ChangeNotifier {
     }
   }
 
-  // ===== TASKS =====
+  // ===== GOALS =====
 
-  void addTask(Task task) {
-    tasks.add(task);
+  void addGoal(Goal goal) {
+    goals.add(goal);
     notifyListeners();
   }
 
-  void completeTask(String taskId) {
-    final index = tasks.indexWhere((t) => t.id == taskId);
-    if (index != -1 && !tasks[index].isCompleted) {
-      final completedTask =
-      tasks[index].copyWith(isCompleted: true);
+  void completeGoal(String goalId) {
+    final index = goals.indexWhere((g) => g.id == goalId);
+    if (index != -1 && !goals[index].isCompleted) {
+      final completedGoal =
+      goals[index].copyWith(isCompleted: true);
 
-      tasks[index] = completedTask;
+      goals[index] = completedGoal;
 
       // Reward coins
-      coins += completedTask.rewardCoins;
+      coins += completedGoal.rewardCoins;
 
       notifyListeners();
     }
   }
 
-  void removeTask(String taskId) {
-    tasks.removeWhere((t) => t.id == taskId);
+  void removeGoal(String goalId) {
+    goals.removeWhere((g) => g.id == goalId);
     notifyListeners();
   }
 

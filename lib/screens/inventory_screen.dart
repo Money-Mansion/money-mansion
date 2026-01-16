@@ -83,10 +83,16 @@ class InventoryScreen extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                item.texture,
-                fit: BoxFit.contain,
-              ),
+              child: item.texture.isNotEmpty
+                  ? Image.asset(
+                      item.texture,
+                      fit: BoxFit.contain,
+                    )
+                  : Icon(
+                      Icons.image_not_supported,
+                      size: 48,
+                      color: Colors.grey[400],
+                    ),
             ),
           ),
           const SizedBox(height: 8),
