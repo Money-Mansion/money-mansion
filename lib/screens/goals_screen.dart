@@ -22,9 +22,17 @@ class _GoalsScreenState extends State<GoalsScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _coinsController;
+  late TextEditingController _targetMoneyController;
   DateTime _selectedDate = DateTime.now();
   bool _isLoading = true;
   bool _isSyncing = false;
+
+  String _formatMoney(double money) {
+    if (money % 1 == 0) {
+      return money.toStringAsFixed(0);
+    }
+    return money.toStringAsFixed(2);
+  }
 
   @override
   void initState() {
@@ -32,6 +40,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
     _coinsController = TextEditingController(text: '10');
+    _targetMoneyController = TextEditingController(text: '0');
     _loadGoalsFromBackend();
   }
 
@@ -40,6 +49,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _titleController.dispose();
     _descriptionController.dispose();
     _coinsController.dispose();
+    _targetMoneyController.dispose();
     super.dispose();
   }
 
@@ -115,6 +125,16 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
+              TextField(
+                controller: _targetMoneyController,
+                decoration: const InputDecoration(
+                  labelText: 'Goal Amount',
+                  hintText: 'Enter money target',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
@@ -163,6 +183,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 title: _titleController.text,
                 description: _descriptionController.text,
                 rewardCoins: int.tryParse(_coinsController.text) ?? 10,
+                targetMoney:
+                    double.tryParse(_targetMoneyController.text) ?? 0.0,
                 dueDate: _selectedDate,
               );
 
@@ -182,6 +204,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 _titleController.clear();
                 _descriptionController.clear();
                 _coinsController.text = '10';
+                _targetMoneyController.text = '0';
                 _selectedDate = DateTime.now();
 
                 if (mounted) {
@@ -337,6 +360,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   Widget _buildGoalCard(Goal goal) {
+    final bool hasTarget = goal.targetMoney > 0;
+    final double progress = hasTarget
+        ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1)
+        : 0;
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -418,6 +446,31 @@ class _GoalsScreenState extends State<GoalsScreen> {
               ],
             ),
             const SizedBox(height: 12),
+            if (hasTarget) ...[
+              Text(
+                'Saved ${_formatMoney(goal.allocatedMoney)} / ${_formatMoney(goal.targetMoney)}',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 6),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  minHeight: 6,
+                  backgroundColor: Colors.grey[200],
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    progress >= 1
+                        ? Colors.green[400]!
+                        : Colors.deepPurple[300]!,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

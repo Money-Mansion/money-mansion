@@ -7,7 +7,7 @@ import '../models/goal.dart';
 class GoalDatabaseService {
   static const String _tableName = 'goals';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 1;
+  static const int _dbVersion = 2;
 
   static Database? _database;
   static bool _initialized = false;
@@ -41,10 +41,12 @@ class GoalDatabaseService {
       onCreate: _createTable,
       onUpgrade: (db, oldVersion, newVersion) async {
         await _createTable(db, newVersion);
+        await _ensureGoalColumns(db);
       },
       onOpen: (db) async {
         // Ensure tables exist on every app start
         await _createTable(db, _dbVersion);
+        await _ensureGoalColumns(db);
       },
     );
   }
@@ -57,6 +59,8 @@ class GoalDatabaseService {
         title TEXT NOT NULL,
         description TEXT,
         rewardCoins INTEGER NOT NULL,
+        targetMoney REAL NOT NULL DEFAULT 0,
+        allocatedMoney REAL NOT NULL DEFAULT 0,
         dueDate INTEGER NOT NULL,
         isCompleted INTEGER NOT NULL DEFAULT 0
       )
@@ -75,6 +79,23 @@ class GoalDatabaseService {
     ''');
   }
 
+  static Future<void> _ensureGoalColumns(Database db) async {
+    final columns = await db.rawQuery('PRAGMA table_info($_tableName)');
+    final columnNames =
+        columns.map((c) => c['name'] as String).toSet();
+
+    if (!columnNames.contains('targetMoney')) {
+      await db.execute(
+        'ALTER TABLE $_tableName ADD COLUMN targetMoney REAL NOT NULL DEFAULT 0',
+      );
+    }
+    if (!columnNames.contains('allocatedMoney')) {
+      await db.execute(
+        'ALTER TABLE $_tableName ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
+      );
+    }
+  }
+
   // Get all goals
   static Future<List<Goal>> getAllGoals() async {
     try {
@@ -87,6 +108,10 @@ class GoalDatabaseService {
           title: maps[i]['title'] as String,
           description: maps[i]['description'] as String,
           rewardCoins: maps[i]['rewardCoins'] as int,
+          targetMoney:
+              (maps[i]['targetMoney'] as num?)?.toDouble() ?? 0.0,
+          allocatedMoney:
+              (maps[i]['allocatedMoney'] as num?)?.toDouble() ?? 0.0,
           dueDate: DateTime.fromMillisecondsSinceEpoch(maps[i]['dueDate'] as int),
           isCompleted: (maps[i]['isCompleted'] as int) == 1,
         );
@@ -108,6 +133,8 @@ class GoalDatabaseService {
           'title': goal.title,
           'description': goal.description,
           'rewardCoins': goal.rewardCoins,
+          'targetMoney': goal.targetMoney,
+          'allocatedMoney': goal.allocatedMoney,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
           'isCompleted': goal.isCompleted ? 1 : 0,
         },
@@ -131,6 +158,8 @@ class GoalDatabaseService {
           'title': goal.title,
           'description': goal.description,
           'rewardCoins': goal.rewardCoins,
+          'targetMoney': goal.targetMoney,
+          'allocatedMoney': goal.allocatedMoney,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
           'isCompleted': goal.isCompleted ? 1 : 0,
         },

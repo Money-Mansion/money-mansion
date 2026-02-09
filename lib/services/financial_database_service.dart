@@ -7,7 +7,7 @@ import '../models/transaction.dart';
 class FinancialDatabaseService {
   static const _dbName = 'money_mansion.db';
   static const _tableName = 'transactions';
-  static const _dbVersion = 1;
+  static const _dbVersion = 2;
 
   static Database? _database;
   static bool _initialized = false;
@@ -39,6 +39,12 @@ class FinancialDatabaseService {
       path,
       version: _dbVersion,
       onCreate: _onCreate,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        await _ensureGoalIdColumn(db);
+      },
+      onOpen: (db) async {
+        await _ensureGoalIdColumn(db);
+      },
     );
   }
 
@@ -50,7 +56,8 @@ class FinancialDatabaseService {
         type TEXT NOT NULL,
         amount REAL NOT NULL,
         note TEXT,
-        date INTEGER NOT NULL
+        date INTEGER NOT NULL,
+        goalId TEXT
       )
     ''');
   }
@@ -64,9 +71,22 @@ class FinancialDatabaseService {
         type TEXT NOT NULL,
         amount REAL NOT NULL,
         note TEXT,
-        date INTEGER NOT NULL
+        date INTEGER NOT NULL,
+        goalId TEXT
       )
     ''');
+    await _ensureGoalIdColumn(db);
+  }
+
+  static Future<void> _ensureGoalIdColumn(Database db) async {
+    final columns = await db.rawQuery('PRAGMA table_info($_tableName)');
+    final columnNames =
+        columns.map((c) => c['name'] as String).toSet();
+    if (!columnNames.contains('goalId')) {
+      await db.execute(
+        'ALTER TABLE $_tableName ADD COLUMN goalId TEXT',
+      );
+    }
   }
 
   // Get all transactions
@@ -77,9 +97,10 @@ class FinancialDatabaseService {
     return maps.map((m) => TransactionModel(
       id: m['id'] as String,
       type: m['type'] as String,
-      amount: m['amount'] as double,
+      amount: (m['amount'] as num).toDouble(),
       note: m['note'] as String? ?? '',
       date: DateTime.fromMillisecondsSinceEpoch(m['date'] as int),
+      goalId: m['goalId'] as String?,
     )).toList();
   }
 

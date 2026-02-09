@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
+import '../models/goal.dart';
 import '../models/transaction.dart';
 import '../services/financial_database_service.dart';
+import '../services/goal_database_service.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -23,17 +25,36 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<TransactionModel> _transactions = [];
+  final List<Goal> _goals = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _loadTransactions();
+    _refreshData();
   }
 
-  Future<void> _loadTransactions() async {
-    final data = await FinancialDatabaseService.getAll();
-    setState(() => _transactions.addAll(data));
+  Future<void> _refreshData() async {
+    setState(() => _isLoading = true);
+    final transactions = await FinancialDatabaseService.getAll();
+    final goals = await GoalDatabaseService.getAllGoals();
+
+    if (!mounted) return;
+    setState(() {
+      _transactions
+        ..clear()
+        ..addAll(transactions);
+      _goals
+        ..clear()
+        ..addAll(goals);
+      widget.gameState.goals
+        ..clear()
+        ..addAll(goals);
+      _isLoading = false;
+    });
+
+    await _recalculateMoneyAndAllocations();
   }
 
   @override
@@ -54,26 +75,78 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         : "${amount.toString()} €";
   }
 
-  // ===== COIN LOGIC =====
+  String? _goalTitle(String? goalId) {
+    if (goalId == null) return null;
+    final match = _goals.where((g) => g.id == goalId);
+    return match.isEmpty ? null : match.first.title;
+  }
+
+  Future<void> _recalculateMoneyAndAllocations() async {
+    double total = 0.0;
+    final Map<String, double> allocations = {};
+
+    for (final t in _transactions) {
+      final signed = t.type == '+' ? t.amount : -t.amount;
+      total += signed;
+
+      if (t.goalId != null) {
+        allocations[t.goalId!] = (allocations[t.goalId!] ?? 0) + signed;
+      }
+    }
+
+    widget.gameState.setMoney(total);
+
+    bool updated = false;
+    for (var i = 0; i < _goals.length; i++) {
+      final goal = _goals[i];
+      final allocated =
+          (allocations[goal.id] ?? 0).clamp(0, double.infinity).toDouble();
+      Goal updatedGoal = goal;
+
+      if ((goal.allocatedMoney - allocated).abs() > 0.009) {
+        updatedGoal = updatedGoal.copyWith(allocatedMoney: allocated);
+        await GoalDatabaseService.updateGoal(updatedGoal);
+        _goals[i] = updatedGoal;
+        updated = true;
+      }
+
+      if (!updatedGoal.isCompleted &&
+          updatedGoal.targetMoney > 0 &&
+          allocated >= updatedGoal.targetMoney) {
+        updatedGoal = updatedGoal.copyWith(isCompleted: true);
+        await GoalDatabaseService.updateGoal(updatedGoal);
+        _goals[i] = updatedGoal;
+        widget.gameState.completeGoal(updatedGoal.id);
+        updated = true;
+      }
+    }
+
+    if (updated && mounted) {
+      setState(() {});
+    }
+  }
+
+  // ===== MONEY LOGIC =====
 
   void _applyTransaction(TransactionModel t) {
-    final int amount = t.amount.toInt();
+    final double amount = t.amount;
     t.type == '+'
-        ? widget.gameState.addCoins(amount)
-        : widget.gameState.spendCoins(amount);
+        ? widget.gameState.addMoney(amount)
+        : widget.gameState.spendMoney(amount);
   }
 
   void _revertTransaction(TransactionModel t) {
-    final int amount = t.amount.toInt();
+    final double amount = t.amount;
     t.type == '+'
-        ? widget.gameState.spendCoins(amount)
-        : widget.gameState.addCoins(amount);
+        ? widget.gameState.spendMoney(amount)
+        : widget.gameState.addMoney(amount);
   }
 
   Future<void> _removeTransaction(TransactionModel t) async {
     _revertTransaction(t);
     await FinancialDatabaseService.delete(t.id);
     setState(() => _transactions.remove(t));
+    await _recalculateMoneyAndAllocations();
   }
 
   void _addTransaction() {
@@ -86,6 +159,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   void _showTransactionDialog({TransactionModel? transaction}) {
     String type = transaction?.type ?? '+';
+    String? goalId = transaction?.goalId;
     final amountController =
     TextEditingController(text: transaction?.amount.toString() ?? '');
     final noteController =
@@ -119,6 +193,27 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     ],
                     onChanged: (value) =>
                         dialogSetState(() => type = value!),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String?>(
+                    value: goalId,
+                    decoration: const InputDecoration(
+                      labelText: 'Allocate to Goal',
+                    ),
+                    items: [
+                      const DropdownMenuItem<String?>(
+                        value: null,
+                        child: Text('No goal allocation'),
+                      ),
+                      ..._goals.map(
+                        (goal) => DropdownMenuItem<String?>(
+                          value: goal.id,
+                          child: Text(goal.title),
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) =>
+                        dialogSetState(() => goalId = value),
                   ),
                   TextField(
                     controller: amountController,
@@ -155,6 +250,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       amount: amount,
                       note: noteController.text,
                       date: DateTime.now(),
+                      goalId: goalId,
                     );
 
                     // 🔥 apply new transaction
@@ -175,6 +271,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       });
                     }
 
+                    await _recalculateMoneyAndAllocations();
                     Navigator.pop(context);
                   },
                   child: Text(transaction == null ? 'Add' : 'Save'),
@@ -196,6 +293,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           icon: const Icon(Icons.arrow_back),
           onPressed: widget.onBack,
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Refresh',
+            onPressed: _refreshData,
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -225,11 +329,21 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   Widget _buildFinancialTab() {
+    if (_isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           ..._transactions.map((t) {
+            final goalTitle = _goalTitle(t.goalId);
+            final subtitleText = goalTitle == null
+                ? _formatDate(t.date)
+                : "${_formatDate(t.date)} - Goal: $goalTitle";
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
@@ -251,7 +365,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text(_formatDate(t.date)),
+                subtitle: Text(subtitleText),
               ),
             );
           }),
@@ -274,3 +388,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     );
   }
 }
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ import '../models/item.dart';
 class ItemDatabaseService {
   static const String _tableName = 'items';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 1;
+  static const int _dbVersion = 2;
 
   static Database? _database;
   static bool _initialized = false;
@@ -40,10 +40,12 @@ class ItemDatabaseService {
       onCreate: _createTable,
       onUpgrade: (db, oldVersion, newVersion) async {
         await _createTable(db, newVersion);
+        await _ensureGoalColumns(db);
       },
       onOpen: (db) async {
         // Ensure tables exist on every app start
         await _createTable(db, _dbVersion);
+        await _ensureGoalColumns(db);
       },
     );
   }
@@ -68,10 +70,29 @@ class ItemDatabaseService {
         title TEXT NOT NULL,
         description TEXT,
         rewardCoins INTEGER NOT NULL,
+        targetMoney REAL NOT NULL DEFAULT 0,
+        allocatedMoney REAL NOT NULL DEFAULT 0,
         dueDate INTEGER NOT NULL,
         isCompleted INTEGER NOT NULL DEFAULT 0
       )
     ''');
+  }
+
+  static Future<void> _ensureGoalColumns(Database db) async {
+    final columns = await db.rawQuery('PRAGMA table_info(goals)');
+    final columnNames =
+        columns.map((c) => c['name'] as String).toSet();
+
+    if (!columnNames.contains('targetMoney')) {
+      await db.execute(
+        'ALTER TABLE goals ADD COLUMN targetMoney REAL NOT NULL DEFAULT 0',
+      );
+    }
+    if (!columnNames.contains('allocatedMoney')) {
+      await db.execute(
+        'ALTER TABLE goals ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
+      );
+    }
   }
 
   // Get all items

@@ -5,7 +5,7 @@ import 'item.dart';
 
 class GameState extends ChangeNotifier {
   int coins;
-  int money; // Real-world financial tracking (starts at 0, user-logged)
+  double money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
   List<Goal> goals;
@@ -13,7 +13,7 @@ class GameState extends ChangeNotifier {
 
   GameState({
     this.coins = 111,
-    this.money = 0,
+    this.money = 0.0,
     this.date = 7.7,
     List<Room>? rooms,
     List<Goal>? goals,
@@ -38,18 +38,23 @@ class GameState extends ChangeNotifier {
     }
   }
 
-  void addMoney(int amount) {
+  void addMoney(double amount) {
     if (amount <= 0) return;
     money += amount;
     notifyListeners();
   }
 
-  void spendMoney(int amount) {
+  void spendMoney(double amount) {
     if (amount <= 0) return;
     if (money >= amount) {
       money -= amount;
       notifyListeners();
     }
+  }
+
+  void setMoney(double amount) {
+    money = amount;
+    notifyListeners();
   }
 
   // ===== GOALS =====
@@ -98,3 +103,4 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 }
+

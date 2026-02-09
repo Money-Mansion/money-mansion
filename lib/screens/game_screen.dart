@@ -26,7 +26,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     gameState = GameState(
       coins: 111,
-      money: 0,
+      money: 0.0,
       date: 7.7,
       rooms: [Room()], // Default brown colors
     );

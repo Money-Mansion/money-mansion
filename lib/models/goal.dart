@@ -3,6 +3,8 @@ class Goal {
   final String title;
   final String description;
   final int rewardCoins;
+  final double targetMoney;
+  final double allocatedMoney;
   final DateTime dueDate;
   bool isCompleted;
   
@@ -11,6 +13,8 @@ class Goal {
     required this.title,
     required this.description,
     required this.rewardCoins,
+    this.targetMoney = 0.0,
+    this.allocatedMoney = 0.0,
     required this.dueDate,
     this.isCompleted = false,
   });
@@ -20,6 +24,8 @@ class Goal {
     String? title,
     String? description,
     int? rewardCoins,
+    double? targetMoney,
+    double? allocatedMoney,
     DateTime? dueDate,
     bool? isCompleted,
   }) {
@@ -28,6 +34,8 @@ class Goal {
       title: title ?? this.title,
       description: description ?? this.description,
       rewardCoins: rewardCoins ?? this.rewardCoins,
+      targetMoney: targetMoney ?? this.targetMoney,
+      allocatedMoney: allocatedMoney ?? this.allocatedMoney,
       dueDate: dueDate ?? this.dueDate,
       isCompleted: isCompleted ?? this.isCompleted,
     );

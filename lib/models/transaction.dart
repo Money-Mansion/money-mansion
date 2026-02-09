@@ -4,6 +4,7 @@ class TransactionModel {
   final double amount;
   final String note;
   final DateTime date;
+  final String? goalId;
 
   TransactionModel({
     required this.id,
@@ -11,6 +12,7 @@ class TransactionModel {
     required this.amount,
     required this.note,
     required this.date,
+    this.goalId,
   });
 
   Map<String, dynamic> toMap() => {
@@ -19,5 +21,6 @@ class TransactionModel {
     'amount': amount,
     'note': note,
     'date': date.millisecondsSinceEpoch,
+    'goalId': goalId,
   };
 }

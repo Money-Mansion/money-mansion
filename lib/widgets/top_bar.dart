@@ -12,6 +12,13 @@ class TopBar extends StatelessWidget {
     required this.gameState,
   });
 
+  String _formatMoney(double money) {
+    if (money % 1 == 0) {
+      return money.toStringAsFixed(0);
+    }
+    return money.toStringAsFixed(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -72,7 +79,7 @@ class TopBar extends StatelessWidget {
               _ResourceDisplay(
                 icon: MyFlutterApp.money,
                 color: Colors.green,
-                value: gameState.money.toString(),
+                value: _formatMoney(gameState.money),
               ),
 
               // Date

@@ -43,6 +43,13 @@ class BottomNavigation extends StatelessWidget {
               onTap: () => onItemTapped(1),
             ),
             _NavButton(
+              key: const Key('nav_button_2'),
+              icon: MyFlutterApp.house,
+              color: const Color(0xFFF2C48D), // Soft peach
+              isSelected: selectedIndex == 2,
+              onTap: () => onItemTapped(2),
+            ),
+            _NavButton(
               key: const Key('nav_button_3'),
               icon: MyFlutterApp.task,
               color: const Color.fromARGB(255, 157, 204, 224), // clue
