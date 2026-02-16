@@ -21,6 +21,9 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
   int selectedNavIndex = 2;
+  
+  // DEBUG FLAG: Set to true to show debug buttons
+  static const bool _DEBUG_MODE = false;
 
   @override
   void initState() {
@@ -137,6 +140,27 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
+      // DEBUG: Temporary button to clear owned items for testing
+      floatingActionButton: _DEBUG_MODE
+          ? FloatingActionButton.small(
+              heroTag: 'debug-clear-button',
+              backgroundColor: Colors.red[300],
+              onPressed: () async {
+                await ItemDatabaseService.clearAllOwnedItems();
+                gameState.clearOwnedItems();
+                setState(() {});
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('DEBUG: Cleared all owned items'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                }
+              },
+              child: const Icon(Icons.delete, color: Colors.white),
+            )
+          : null,
     );
   }
 }

@@ -102,5 +102,11 @@ class GameState extends ChangeNotifier {
     ownedItems.removeWhere((i) => i.id == itemId);
     notifyListeners();
   }
+
+  // DEBUG: Clear all owned items
+  void clearOwnedItems() {
+    ownedItems.clear();
+    notifyListeners();
+  }
 }
 

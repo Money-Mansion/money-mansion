@@ -209,6 +209,19 @@ class ItemDatabaseService {
     }
   }
 
+  // DEBUG: Clear all owned items (for testing)
+  static Future<bool> clearAllOwnedItems() async {
+    try {
+      final db = await database;
+      await db.delete(_ownedItemsTable);
+      print('Cleared all owned items from database');
+      return true;
+    } catch (e) {
+      print('Error clearing owned items: $e');
+      return false;
+    }
+  }
+
   // Close database
   static Future<void> closeDatabase() async {
     final db = await database;
