@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
-import 'package:uuid/uuid.dart';
+import '../services/shop_service.dart';
 
 class ShopScreen extends StatefulWidget {
   final GameState gameState;
@@ -19,52 +19,42 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
   int _selectedCategory = 0; // 0 = Furniture, 1 = Real Estate
+  List<Item> _shopItems = [];
+  bool _isLoading = true;
 
-  // Test furniture items
-  final List<Item> furnitureItems = [
-    Item(
-      id: const Uuid().v4(),
-      name: 'Cat Friend',
-      type: ItemType.furniture,
-      texture: '',
-      cost: 50,
-    ),
-    Item(
-      id: const Uuid().v4(),
-      name: 'Alien Statue',
-      type: ItemType.furniture,
-      texture: '',
-      cost: 75,
-    ),
-    Item(
-      id: const Uuid().v4(),
-      name: 'House Model',
-      type: ItemType.decoration,
-      texture: '',
-      cost: 100,
-    ),
-    Item(
-      id: const Uuid().v4(),
-      name: 'Room Poster',
-      type: ItemType.decoration,
-      texture: '',
-      cost: 30,
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadShopItems();
+  }
 
-  // Real Estate items - empty for now
-  final List<Item> realEstateItems = [];
+  Future<void> _loadShopItems() async {
+    final items = await ShopService.getShopItems();
+    setState(() {
+      _shopItems = items;
+      _isLoading = false;
+    });
+  }
 
-  void _buyItem(Item item) {
+  void _buyItem(Item item) async {
     if (widget.gameState.coins >= item.cost) {
       widget.gameState.spendCoins(item.cost);
       widget.gameState.addOwnedItem(item);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${item.name} purchased for ${item.cost} coins!'),
-          duration: const Duration(seconds: 2),
-        ),
-      );
+      
+      // Add to database
+      await ShopService.buyItem(item.id);
+      
+      // Reload shop items
+      await _loadShopItems();
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${item.name} purchased for ${item.cost} coins!'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -73,6 +63,16 @@ class _ShopScreenState extends State<ShopScreen> {
           backgroundColor: Colors.red,
         ),
       );
+    }
+  }
+
+  List<Item> _getItemsByCategory(int category) {
+    if (category == 0) {
+      // Furniture category - show all items for now
+      return _shopItems;
+    } else {
+      // Real Estate - empty for now
+      return [];
     }
   }
 
@@ -157,9 +157,11 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
           // Category content
           Expanded(
-            child: _selectedCategory == 0
-                ? _buildFurnitureCategory()
-                : _buildRealEstateCategory(),
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _selectedCategory == 0
+                    ? _buildFurnitureCategory()
+                    : _buildRealEstateCategory(),
           ),
         ],
       ),
@@ -167,11 +169,44 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Widget _buildFurnitureCategory() {
+    final items = _getItemsByCategory(0);
+    
+    if (items.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shopping_bag,
+              size: 64,
+              color: Colors.grey[400],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'No items available',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'You own all available items!',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: furnitureItems.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        final item = furnitureItems[index];
+        final item = items[index];
         return Card(
           margin: const EdgeInsets.only(bottom: 12),
           child: Padding(
