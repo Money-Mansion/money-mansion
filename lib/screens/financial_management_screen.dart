@@ -322,6 +322,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         onPressed: _addTransaction,
         child: const Icon(Icons.add),
       ),

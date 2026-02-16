@@ -4,7 +4,6 @@ class Item {
   final ItemType type;
   final String texture; // Path to image in assets
   final int cost;
-  bool owned;
 
   Item({
     required this.id,
@@ -12,7 +11,6 @@ class Item {
     required this.type,
     required this.texture,
     required this.cost,
-    this.owned = false,
   });
 
   Item copyWith({
@@ -21,7 +19,6 @@ class Item {
     ItemType? type,
     String? texture,
     int? cost,
-    bool? owned,
   }) {
     return Item(
       id: id ?? this.id,
@@ -29,7 +26,6 @@ class Item {
       type: type ?? this.type,
       texture: texture ?? this.texture,
       cost: cost ?? this.cost,
-      owned: owned ?? this.owned,
     );
   }
 }

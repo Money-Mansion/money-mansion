@@ -9,6 +9,7 @@ import 'shop_screen.dart';
 import 'goals_screen.dart';
 import 'inventory_screen.dart';
 import 'financial_management_screen.dart';
+import 'room_edit_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -65,6 +66,18 @@ class _GameScreenState extends State<GameScreen> {
             room: gameState.rooms.isNotEmpty
                 ? gameState.rooms[0]
                 : null,
+            onEditPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RoomEditScreen(
+                    room: gameState.rooms.isNotEmpty
+                        ? gameState.rooms[0]
+                        : null,
+                  ),
+                ),
+              );
+            },
           ),
         );
       case 3:
@@ -84,6 +97,18 @@ class _GameScreenState extends State<GameScreen> {
             room: gameState.rooms.isNotEmpty
                 ? gameState.rooms[0]
                 : null,
+            onEditPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RoomEditScreen(
+                    room: gameState.rooms.isNotEmpty
+                        ? gameState.rooms[0]
+                        : null,
+                  ),
+                ),
+              );
+            },
           ),
         );
     }

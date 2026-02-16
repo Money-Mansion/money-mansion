@@ -3,21 +3,21 @@
 
   <!-- PODLAHA -->
   <polygon
-    points="200,200 300,150 200,100 100,150"
+    points="200,300 400,200 200,100 0,200"
     fill="#d9b382"
     stroke="#000"
   />
 
   <!-- ĽAVÁ STENA -->
   <polygon
-    points="100,150 200,100 200,30 100,80"
+    points="0,200 200,100 200,0 0,100"
     fill="#e6d8a8"
     stroke="#000"
   />
 
   <!-- ZADNÁ STENA -->
   <polygon
-    points="200,100 300,150 300,80 200,30"
+    points="200,100 400,200 400,100 200,0"
     fill="#f2e8c9"
     stroke="#000"
   />

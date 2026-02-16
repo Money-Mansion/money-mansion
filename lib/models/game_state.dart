@@ -93,7 +93,7 @@ class GameState extends ChangeNotifier {
 
   void addOwnedItem(Item item) {
     if (!ownedItems.any((i) => i.id == item.id)) {
-      ownedItems.add(item.copyWith(owned: true));
+      ownedItems.add(item);
       notifyListeners();
     }
   }
