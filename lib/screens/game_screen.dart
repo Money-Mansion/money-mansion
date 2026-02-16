@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../models/room.dart';
 import '../services/item_database_service.dart';
+import '../services/financial_database_service.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -28,18 +29,52 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
+    // Initialize with defaults first
     gameState = GameState(
-      coins: 111,
+      coins: 0,
       money: 0.0,
       date: 7.7,
-      rooms: [Room()], // Default brown colors
+      rooms: [Room()],
     );
-    _loadOwnedItems();
+    // Load from database
+    _initializeGameState();
+    // Add listener for auto-save
+    gameState.addListener(_saveGameStateChanges);
+  }
+
+  @override
+  void dispose() {
+    gameState.removeListener(_saveGameStateChanges);
+    super.dispose();
+  }
+
+  Future<void> _initializeGameState() async {
+    final coins = await FinancialDatabaseService.getCoins();
+    final money = await FinancialDatabaseService.getMoney();
+    
+    if (mounted) {
+      // Use setters to properly trigger notifyListeners
+      gameState.setCoins(coins);
+      gameState.setMoney(money);
+    }
+    
+    // Then load owned items and other data
+    await _loadOwnedItems();
+  }
+
+  void _saveGameStateChanges() {
+    // Auto-save coins and money to database when they change
+    FinancialDatabaseService.saveCoins(gameState.coins);
+    FinancialDatabaseService.saveMoney(gameState.money);
   }
 
   Future<void> _loadOwnedItems() async {
     final ownedItems = await ItemDatabaseService.getOwnedItems();
-    gameState.loadOwnedItems(ownedItems);
+    if (mounted) {
+      setState(() {
+        gameState.loadOwnedItems(ownedItems);
+      });
+    }
   }
 
   void _onNavItemTapped(int index) {

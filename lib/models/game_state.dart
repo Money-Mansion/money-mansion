@@ -57,6 +57,11 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCoins(int amount) {
+    coins = amount;
+    notifyListeners();
+  }
+
   // ===== GOALS =====
 
   void addGoal(Goal goal) {
