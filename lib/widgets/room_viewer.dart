@@ -23,6 +23,7 @@ class RoomViewer extends StatelessWidget {
     return Stack(
       children: [
         Container(
+          padding: const EdgeInsets.all(12.0), // Add space around SVG
           decoration: BoxDecoration(
             color: const Color(0xFFFFFBF5),
             border: Border.all(

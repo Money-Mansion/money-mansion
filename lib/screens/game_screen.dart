@@ -21,7 +21,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
-  int selectedNavIndex = 2;
+  int selectedNavIndex = -1; // -1 = Room viewer (home), 0-3 = nav buttons
   
   // DEBUG FLAG: Set to true to show debug buttons
   static const bool _DEBUG_MODE = false;
@@ -90,47 +90,26 @@ class _GameScreenState extends State<GameScreen> {
       case 0:
         return ShopScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       case 1:
         return FinancialManagementScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       case 2:
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: RoomViewer(
-            room: gameState.rooms.isNotEmpty
-                ? gameState.rooms[0]
-                : null,
-            onEditPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RoomEditScreen(
-                    room: gameState.rooms.isNotEmpty
-                        ? gameState.rooms[0]
-                        : null,
-                  ),
-                ),
-              );
-            },
-          ),
-        );
-      case 3:
         return GoalsScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
-      case 4:
+      case 3:
         return InventoryScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       default:
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(5.0),
           child: RoomViewer(
             room: gameState.rooms.isNotEmpty
                 ? gameState.rooms[0]
@@ -143,6 +122,7 @@ class _GameScreenState extends State<GameScreen> {
                     room: gameState.rooms.isNotEmpty
                         ? gameState.rooms[0]
                         : null,
+                    gameState: gameState,
                   ),
                 ),
               );
