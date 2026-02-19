@@ -57,6 +57,11 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCoins(int amount) {
+    coins = amount;
+    notifyListeners();
+  }
+
   // ===== GOALS =====
 
   void addGoal(Goal goal) {
@@ -93,13 +98,19 @@ class GameState extends ChangeNotifier {
 
   void addOwnedItem(Item item) {
     if (!ownedItems.any((i) => i.id == item.id)) {
-      ownedItems.add(item.copyWith(owned: true));
+      ownedItems.add(item);
       notifyListeners();
     }
   }
 
   void removeOwnedItem(String itemId) {
     ownedItems.removeWhere((i) => i.id == itemId);
+    notifyListeners();
+  }
+
+  // DEBUG: Clear all owned items
+  void clearOwnedItems() {
+    ownedItems.clear();
     notifyListeners();
   }
 }

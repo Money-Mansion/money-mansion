@@ -352,6 +352,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   ],
                 ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         onPressed: _isSyncing ? null : _showCreateGoalDialog,
         backgroundColor: Colors.deepPurple[300],
         child: const Icon(Icons.add),

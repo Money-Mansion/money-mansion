@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../models/room.dart';
 import '../services/item_database_service.dart';
+import '../services/financial_database_service.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -9,6 +10,7 @@ import 'shop_screen.dart';
 import 'goals_screen.dart';
 import 'inventory_screen.dart';
 import 'financial_management_screen.dart';
+import 'room_edit_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -19,23 +21,60 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
-  int selectedNavIndex = 2;
+  int selectedNavIndex = -1; // -1 = Room viewer (home), 0-3 = nav buttons
+  
+  // DEBUG FLAG: Set to true to show debug buttons
+  static const bool _DEBUG_MODE = false;
 
   @override
   void initState() {
     super.initState();
+    // Initialize with defaults first
     gameState = GameState(
-      coins: 111,
+      coins: 0,
       money: 0.0,
       date: 7.7,
-      rooms: [Room()], // Default brown colors
+      rooms: [Room()],
     );
-    _loadOwnedItems();
+    // Load from database
+    _initializeGameState();
+    // Add listener for auto-save
+    gameState.addListener(_saveGameStateChanges);
+  }
+
+  @override
+  void dispose() {
+    gameState.removeListener(_saveGameStateChanges);
+    super.dispose();
+  }
+
+  Future<void> _initializeGameState() async {
+    final coins = await FinancialDatabaseService.getCoins();
+    final money = await FinancialDatabaseService.getMoney();
+    
+    if (mounted) {
+      // Use setters to properly trigger notifyListeners
+      gameState.setCoins(coins);
+      gameState.setMoney(money);
+    }
+    
+    // Then load owned items and other data
+    await _loadOwnedItems();
+  }
+
+  void _saveGameStateChanges() {
+    // Auto-save coins and money to database when they change
+    FinancialDatabaseService.saveCoins(gameState.coins);
+    FinancialDatabaseService.saveMoney(gameState.money);
   }
 
   Future<void> _loadOwnedItems() async {
     final ownedItems = await ItemDatabaseService.getOwnedItems();
-    gameState.loadOwnedItems(ownedItems);
+    if (mounted) {
+      setState(() {
+        gameState.loadOwnedItems(ownedItems);
+      });
+    }
   }
 
   void _onNavItemTapped(int index) {
@@ -51,39 +90,43 @@ class _GameScreenState extends State<GameScreen> {
       case 0:
         return ShopScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       case 1:
         return FinancialManagementScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       case 2:
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: RoomViewer(
-            room: gameState.rooms.isNotEmpty
-                ? gameState.rooms[0]
-                : null,
-          ),
-        );
-      case 3:
         return GoalsScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
-      case 4:
+      case 3:
         return InventoryScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = 2), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
         );
       default:
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(5.0),
           child: RoomViewer(
             room: gameState.rooms.isNotEmpty
                 ? gameState.rooms[0]
                 : null,
+            onEditPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RoomEditScreen(
+                    room: gameState.rooms.isNotEmpty
+                        ? gameState.rooms[0]
+                        : null,
+                    gameState: gameState,
+                  ),
+                ),
+              );
+            },
           ),
         );
     }
@@ -112,6 +155,27 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
+      // DEBUG: Temporary button to clear owned items for testing
+      floatingActionButton: _DEBUG_MODE
+          ? FloatingActionButton.small(
+              heroTag: 'debug-clear-button',
+              backgroundColor: Colors.red[300],
+              onPressed: () async {
+                await ItemDatabaseService.clearAllOwnedItems();
+                gameState.clearOwnedItems();
+                setState(() {});
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('DEBUG: Cleared all owned items'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                }
+              },
+              child: const Icon(Icons.delete, color: Colors.white),
+            )
+          : null,
     );
   }
 }

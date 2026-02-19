@@ -1,7 +1,11 @@
 import '../models/item.dart';
 
-/// Centralized list of all items in the game.
-/// Add new items here. They will be automatically loaded when the app starts.
+/// Centralized list of all available items in the game.
+/// Add new items here - they will appear in the shop by default.
+/// 
+/// When a player purchases an item, it's added to the owned_items database table.
+/// The owned_items table is the source of truth for what the player owns.
+/// ShopScreen will filter these out (showing only items NOT in owned_items).
 final List<Item> GAME_ITEMS = [
   // Example item - DELETE THIS AFTER TESTING
   Item(
@@ -10,7 +14,6 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.door,
     texture: 'assets/images/basic_door.png',
     cost: 1,
-    owned: false,
   ),
 
   // ADD YOUR ITEMS BELOW THIS LINE
@@ -20,5 +23,4 @@ final List<Item> GAME_ITEMS = [
   // - type: category (door, window, furniture, flooring, wallpaper, decoration)
   // - texture: path to PNG file in assets/images/
   // - cost: coin price in shop
-  // - owned: false (items start as not owned, player buys them)
 ];
