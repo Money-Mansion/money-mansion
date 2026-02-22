@@ -3,6 +3,7 @@ import '../models/game_state.dart';
 import '../models/room.dart';
 import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
+import '../services/goal_database_service.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -155,19 +156,23 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
-      // DEBUG: Temporary button to clear owned items for testing
+      // DEBUG: Temporary button to clear all user progress for testing
       floatingActionButton: _DEBUG_MODE
           ? FloatingActionButton.small(
               heroTag: 'debug-clear-button',
               backgroundColor: Colors.red[300],
               onPressed: () async {
                 await ItemDatabaseService.clearAllOwnedItems();
+                await FinancialDatabaseService.clearAllFinancialData();
+                await GoalDatabaseService.clearAllGoals();
                 gameState.clearOwnedItems();
+                gameState.setCoins(0);
+                gameState.setMoney(0.0);
                 setState(() {});
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('DEBUG: Cleared all owned items'),
+                      content: Text('DEBUG: Cleared all user progress'),
                       duration: Duration(seconds: 1),
                     ),
                   );

@@ -13,7 +13,7 @@ final List<Item> GAME_ITEMS = [
     name: 'Basic Door',
     type: ItemType.door,
     texture: 'assets/images/basic_door.png',
-    cost: 1,
+    cost: 0,
   ),
 
   // ADD YOUR ITEMS BELOW THIS LINE

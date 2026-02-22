@@ -42,6 +42,18 @@ class RoomViewer extends StatelessWidget {
             // Items will be rendered as draggable widgets on top of the room SVG
           ),
         ),
+        // Chrumko guide (top-right corner)
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 16.0, 0.0, 0),
+            child: Image.asset(
+              'assets/images/chrumko.png',
+              width: 150,
+              height: 150,
+            ),
+          ),
+        ),
         // Edit button (bottom-right corner)
         if (onEditPressed != null)
           Align(

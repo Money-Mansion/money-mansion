@@ -243,4 +243,12 @@ class FinancialDatabaseService {
     final db = await database;
     await db.delete(_transactionsTable, where: 'id = ?', whereArgs: [id]);
   }
+
+  // DEBUG: Clear all financial data (coins, money, and transactions)
+  static Future<void> clearAllFinancialData() async {
+    final db = await database;
+    await db.delete(_transactionsTable);
+    await db.delete(_gameStateTable);
+    print('Cleared all financial data from database');
+  }
 }

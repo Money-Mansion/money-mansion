@@ -13,27 +13,40 @@ class ItemDatabaseService {
 
   // Initialize the database factory (required for Windows/Desktop)
   static Future<void> initializeDatabase() async {
-    if (_initialized) return;
+    if (_initialized) {
+      print('✓ ItemDatabaseService already initialized');
+      return;
+    }
 
     // Initialize FFI for desktop platforms
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
+      print('✓ FFI initialized for desktop');
+    } else {
+      print('ℹ Mobile platform - FFI not needed');
     }
     _initialized = true;
+    print('✓ ItemDatabaseService initialized');
   }
 
   // Initialize database
   static Future<Database> get database async {
     await initializeDatabase();
-    _database ??= await _initDatabase();
+    if (_database != null) {
+      print('ℹ Reusing existing database connection');
+      return _database!;
+    }
+    print('→ Opening database...');
+    _database = await _initDatabase();
+    print('✓ Database opened successfully');
     return _database!;
   }
 
   static Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _dbName);
-
+    print('ℹ Database path: $path');
     return openDatabase(
       path,
       version: _dbVersion,
@@ -78,58 +91,96 @@ class ItemDatabaseService {
         await _createGoalsTable(db);
       },
       onOpen: (db) async {
-        // Ensure tables exist on every app start
-        await _createTables(db);
+        print('→ Database onOpen callback triggered');
+        try {
+          // Ensure tables exist on every app start
+          await _createTables(db);
+          print('✓ onOpen: Tables verified');
+        } catch (e) {
+          print('ERROR in onOpen callback: $e');
+          rethrow;
+        }
       },
     );
   }
 
   static Future<void> _createTable(Database db, int version) async {
-    await _createTables(db);
+    print('→ Database onCreate triggered (v$version)');
+    try {
+      await _createTables(db);
+      print('✓ onCreate: Tables created successfully');
+    } catch (e) {
+      print('ERROR in onCreate: $e');
+      rethrow;
+    }
+  }
+
+  // Ensures all required tables exist - called before any operation
+  static Future<void> ensureTablesExist(Database db) async {
+    try {
+      print('→ Ensuring tables exist...');
+      await _createTables(db);
+      print('✓ Tables verified');
+    } catch (e) {
+      print('ERROR ensuring tables: $e');
+      rethrow;
+    }
   }
 
   static Future<void> _createTables(Database db) async {
-    // Create owned_items table (v3 schema - only stores owned items)
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS $_ownedItemsTable (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        type TEXT NOT NULL,
-        texture TEXT NOT NULL,
-        cost INTEGER NOT NULL
-      )
-    ''');
-    
-    await _createGoalsTable(db);
+    try {
+      // Create owned_items table (v3 schema - only stores owned items)
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS $_ownedItemsTable (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          type TEXT NOT NULL,
+          texture TEXT NOT NULL,
+          cost INTEGER NOT NULL
+        )
+      ''');
+      print('✓ Created/verified owned_items table');
+      
+      await _createGoalsTable(db);
+      print('✓ Created/verified goals table');
+    } catch (e) {
+      print('ERROR in _createTables: $e');
+      rethrow;
+    }
   }
 
   static Future<void> _createGoalsTable(Database db) async {
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS goals (
-        id TEXT PRIMARY KEY,
-        title TEXT NOT NULL,
-        description TEXT,
-        rewardCoins INTEGER NOT NULL,
-        targetMoney REAL NOT NULL DEFAULT 0,
-        allocatedMoney REAL NOT NULL DEFAULT 0,
-        dueDate INTEGER NOT NULL,
-        isCompleted INTEGER NOT NULL DEFAULT 0
-      )
-    ''');
+    try {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS goals (
+          id TEXT PRIMARY KEY,
+          title TEXT NOT NULL,
+          description TEXT,
+          rewardCoins INTEGER NOT NULL,
+          targetMoney REAL NOT NULL DEFAULT 0,
+          allocatedMoney REAL NOT NULL DEFAULT 0,
+          dueDate INTEGER NOT NULL,
+          isCompleted INTEGER NOT NULL DEFAULT 0
+        )
+      ''');
 
-    // Ensure new columns exist
-    final columns = await db.rawQuery('PRAGMA table_info(goals)');
-    final columnNames = columns.map((c) => c['name'] as String).toSet();
+      // Ensure new columns exist
+      final columns = await db.rawQuery('PRAGMA table_info(goals)');
+      final columnNames = columns.map((c) => c['name'] as String).toSet();
 
-    if (!columnNames.contains('targetMoney')) {
-      await db.execute(
-        'ALTER TABLE goals ADD COLUMN targetMoney REAL NOT NULL DEFAULT 0',
-      );
-    }
-    if (!columnNames.contains('allocatedMoney')) {
-      await db.execute(
-        'ALTER TABLE goals ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
-      );
+      if (!columnNames.contains('targetMoney')) {
+        await db.execute(
+          'ALTER TABLE goals ADD COLUMN targetMoney REAL NOT NULL DEFAULT 0',
+        );
+      }
+      if (!columnNames.contains('allocatedMoney')) {
+        await db.execute(
+          'ALTER TABLE goals ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
+        );
+      }
+    } catch (e) {
+      print('ERROR in _createGoalsTable: $e');
+      rethrow;
     }
   }
 
@@ -137,6 +188,7 @@ class ItemDatabaseService {
   static Future<List<Item>> getOwnedItems() async {
     try {
       final db = await database;
+      await ensureTablesExist(db);
       final maps = await db.query(_ownedItemsTable);
 
       return List.generate(maps.length, (i) {
@@ -158,6 +210,7 @@ class ItemDatabaseService {
   static Future<bool> isItemOwned(String itemId) async {
     try {
       final db = await database;
+      await ensureTablesExist(db);
       final result = await db.query(
         _ownedItemsTable,
         where: 'id = ?',
@@ -175,6 +228,7 @@ class ItemDatabaseService {
   static Future<bool> addOwnedItem(Item item) async {
     try {
       final db = await database;
+      await ensureTablesExist(db);
       await db.insert(
         _ownedItemsTable,
         {
@@ -197,6 +251,7 @@ class ItemDatabaseService {
   static Future<bool> removeOwnedItem(String itemId) async {
     try {
       final db = await database;
+      await ensureTablesExist(db);
       await db.delete(
         _ownedItemsTable,
         where: 'id = ?',
@@ -213,6 +268,7 @@ class ItemDatabaseService {
   static Future<bool> clearAllOwnedItems() async {
     try {
       final db = await database;
+      await ensureTablesExist(db);
       await db.delete(_ownedItemsTable);
       print('Cleared all owned items from database');
       return true;
