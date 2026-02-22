@@ -211,4 +211,11 @@ class GoalDatabaseService {
     final db = await database;
     await db.close();
   }
+
+  // DEBUG: Clear all goals
+  static Future<void> clearAllGoals() async {
+    final db = await database;
+    await db.delete(_tableName);
+    print('Cleared all goals from database');
+  }
 }
