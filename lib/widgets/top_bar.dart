@@ -82,6 +82,13 @@ class TopBar extends StatelessWidget {
                 value: _formatMoney(gameState.money),
               ),
 
+              // Chrumka
+              _ResourceDisplay(
+                icon: MyFlutterApp.chrumka,
+                color: const Color.fromARGB(0, 76, 175, 79),
+                value: gameState.coins.toString(),
+              ),
+
               // Date
               _CalendarWidget(date: gameState.date),
             ],
@@ -117,12 +124,16 @@ class _ResourceDisplay extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ColorFiltered(
-            colorFilter: ColorFilter.mode(
-              color,
-              BlendMode.srcATop,
+          SizedBox(
+            width: 28,
+            height: 28,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                color,
+                BlendMode.srcATop,
+              ),
+              child: icon,
             ),
-            child: icon,
           ),
           const SizedBox(width: 8),
           Text(
