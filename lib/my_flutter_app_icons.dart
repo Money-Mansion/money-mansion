@@ -53,6 +53,7 @@ class MyFlutterApp {
   static const Widget task = ImageWidget(assetImage: "assets/images/task32.png");
   static const Widget stats = ImageWidget(assetImage: "assets/images/stats32.png");
   static const Widget shop = ImageWidget(assetImage: "assets/images/shop32.png");
+  static const Widget chrumka = ImageWidget(assetImage: "assets/images/chrumka32.png");
 }
 
 class ImageWidget extends StatelessWidget {
