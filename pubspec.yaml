@@ -27,7 +27,9 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-  
+    - assets/images/room/
+    - assets/images/items/
+
   # Custom icon font
   fonts:
     - family: MyFlutterApp

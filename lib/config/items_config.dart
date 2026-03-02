@@ -12,7 +12,7 @@ final List<Item> GAME_ITEMS = [
     id: 'basic_door',
     name: 'Basic Door',
     type: ItemType.door,
-    texture: 'assets/images/basic_door.png',
+    texture: 'assets/images/items/basic_door.png',
     cost: 0,
   ),
 

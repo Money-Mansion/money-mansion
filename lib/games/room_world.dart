@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import '../components/room_component.dart';
 
-/// RoomWorld is a Flame game that provides a blank canvas for the room.
-/// Items and room components will be added to this world in the future.
+/// RoomWorld is a Flame game that provides a canvas for the room and items.
+/// The room and item components are added to this world.
 class RoomWorld extends FlameGame {
   RoomWorld() : super();
 
@@ -11,9 +12,10 @@ class RoomWorld extends FlameGame {
   Future<void> onLoad() async {
     super.onLoad();
     
-    // Camera is automatically centered by the FlameGame
-    // The background will be handled by this render method
-    // This keeps the Flame world focused on game objects only
+    // Create and center the room component
+    final room = RoomComponent(game: this);
+    room.position = Vector2(size.x / 2, size.y / 2);
+    add(room);
   }
 
   @override
@@ -27,9 +29,9 @@ class RoomWorld extends FlameGame {
     super.render(canvas);
   }
 
-  /// Add a Room component to the world
-  void addRoomComponent(Component roomComponent) {
-    add(roomComponent);
+  /// Add a component to the world
+  void addComponent(Component component) {
+    add(component);
   }
 
   /// Clear all game components (except camera)
