@@ -48,18 +48,6 @@ class _RoomViewerState extends State<RoomViewer> {
             game: roomWorld,
           ),
         ),
-        // Chrumko guide (top-right corner)
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 16.0, 0.0, 0),
-            child: Image.asset(
-              'assets/images/chrumko.png',
-              width: 150,
-              height: 150,
-            ),
-          ),
-        ),
         // Edit button (bottom-right corner)
         if (widget.onEditPressed != null)
           Align(

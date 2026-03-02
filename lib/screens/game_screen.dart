@@ -137,24 +137,43 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Top bar with coins, money, and date
-            TopBar(gameState: gameState),
-            
-            // Main game area
-            Expanded(
-              child: _getCurrentScreen(),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Column(
+              children: [
+                // Top bar with coins, money, and date
+                TopBar(gameState: gameState),
+                
+                // Main game area
+                Expanded(
+                  child: _getCurrentScreen(),
+                ),
+                
+                // Bottom navigation
+                BottomNavigation(
+                  selectedIndex: selectedNavIndex,
+                  onItemTapped: _onNavItemTapped,
+                ),
+              ],
             ),
-            
-            // Bottom navigation
-            BottomNavigation(
-              selectedIndex: selectedNavIndex,
-              onItemTapped: _onNavItemTapped,
+          ),
+          // Chrumko guide - floating overlay (top-right corner) - only on default game screen
+          if (selectedNavIndex == -1)
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 100.0, 0, 0),
+                  child: Image.asset(
+                    'assets/images/chrumko.png',
+                    width: 150,
+                    height: 150,
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
+        ],
       ),
       // DEBUG: Temporary button to clear all user progress for testing
       floatingActionButton: _DEBUG_MODE
