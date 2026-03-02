@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flame/game.dart';
 import '../models/room.dart';
+import '../games/room_world.dart';
 
-class RoomViewer extends StatelessWidget {
+class RoomViewer extends StatefulWidget {
   final Room? room;
   final VoidCallback? onEditPressed;
 
@@ -13,8 +14,27 @@ class RoomViewer extends StatelessWidget {
   });
 
   @override
+  State<RoomViewer> createState() => _RoomViewerState();
+}
+
+class _RoomViewerState extends State<RoomViewer> {
+  late RoomWorld roomWorld;
+
+  @override
+  void initState() {
+    super.initState();
+    roomWorld = RoomWorld();
+  }
+
+  @override
+  void dispose() {
+    roomWorld.pauseEngine();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (room == null) {
+    if (widget.room == null) {
       return const Center(
         child: Text('No room available'),
       );
@@ -22,24 +42,10 @@ class RoomViewer extends StatelessWidget {
 
     return Stack(
       children: [
-        Container(
-          padding: const EdgeInsets.all(12.0), // Add space around SVG
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFFBF5),
-            border: Border.all(
-              color: const Color(0xFFB8A8D8),
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/images/room.svg',
-              width: 400,
-              height: 400,
-            ),
-            // TODO: Item placement system will go here as Flutter widgets
-            // Items will be rendered as draggable widgets on top of the room SVG
+        // Flame canvas filling the entire space
+        SizedBox.expand(
+          child: GameWidget(
+            game: roomWorld,
           ),
         ),
         // Chrumko guide (top-right corner)
@@ -55,7 +61,7 @@ class RoomViewer extends StatelessWidget {
           ),
         ),
         // Edit button (bottom-right corner)
-        if (onEditPressed != null)
+        if (widget.onEditPressed != null)
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
@@ -64,7 +70,7 @@ class RoomViewer extends StatelessWidget {
                 mini: true,
                 heroTag: null,
                 backgroundColor: Colors.purple.shade300,
-                onPressed: onEditPressed,
+                onPressed: widget.onEditPressed,
                 child: const Icon(Icons.edit, color: Colors.white),
               ),
             ),

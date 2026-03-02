@@ -20,15 +20,10 @@ class RoomEditScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Room centered on white canvas
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: RoomViewer(
-                room: room,
-                onEditPressed: null, // Disable edit button in edit mode
-              ),
-            ),
+          // Flame canvas filling the screen
+          RoomViewer(
+            room: room,
+            onEditPressed: null, // Disable edit button in edit mode
           ),
           // Top-left buttons (Checkmark and X)
           Positioned(
