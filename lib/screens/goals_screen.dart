@@ -60,9 +60,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
       setState(() {
         _isLoading = true;
       });
-      
+
       final goals = await GoalDatabaseService.getAllGoals();
-      
+
       if (!mounted) return;
       setState(() {
         widget.gameState.goals.clear();
@@ -75,7 +75,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       setState(() {
         _isLoading = false;
       });
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -149,7 +149,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         context: context,
                         initialDate: _selectedDate,
                         firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                        lastDate:
+                            DateTime.now().add(const Duration(days: 365)),
                       );
                       if (picked != null) {
                         setState(() {
@@ -173,7 +174,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             onPressed: () async {
               if (_titleController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please enter a goal title')),
+                  const SnackBar(
+                      content: Text('Please enter a goal title')),
                 );
                 return;
               }
@@ -188,7 +190,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 dueDate: _selectedDate,
               );
 
-              // Create goal in local database
               setState(() {
                 _isSyncing = true;
               });
@@ -258,7 +259,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 2,
                 ),
               ),
@@ -278,8 +280,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 children: [
                   CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.deepPurple[300]!,
-                    ),
+                        Colors.deepPurple[300]!),
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -294,11 +295,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.task_alt,
-                        size: 64,
-                        color: Colors.grey[400],
-                      ),
+                      Icon(Icons.task_alt,
+                          size: 64, color: Colors.grey[400]),
                       const SizedBox(height: 16),
                       Text(
                         'No goals yet',
@@ -312,9 +310,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Text(
                         'Create your first goal to get started',
                         style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[500],
-                        ),
+                            fontSize: 14, color: Colors.grey[500]),
                       ),
                     ],
                   ),
@@ -337,7 +333,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     ],
                     if (completedGoals.isNotEmpty) ...[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+                        padding:
+                            const EdgeInsets.fromLTRB(16, 24, 16, 16),
                         child: Text(
                           'Completed Goals (${completedGoals.length})',
                           style: TextStyle(
@@ -347,7 +344,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           ),
                         ),
                       ),
-                      ...completedGoals.map((goal) => _buildGoalCard(goal)),
+                      ...completedGoals
+                          .map((goal) => _buildGoalCard(goal)),
                     ],
                   ],
                 ),
@@ -397,9 +395,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Text(
                         goal.description,
                         style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                        ),
+                            fontSize: 14, color: Colors.grey[600]),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -410,17 +406,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   Checkbox(
                     value: false,
                     onChanged: (value) async {
-                      final success = await GoalDatabaseService.completeGoal(goal.id);
-                      
+                      final success =
+                          await GoalDatabaseService.completeGoal(goal.id);
+
                       if (success) {
+                        // Awards coins + 1 Chrumka inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
-                        
+
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Goal completed! +${goal.rewardCoins} coins',
+                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
                               ),
                               duration: const Duration(seconds: 2),
                             ),
@@ -439,11 +437,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     },
                   )
                 else
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green[400],
-                    size: 24,
-                  ),
+                  Icon(Icons.check_circle,
+                      color: Colors.green[400], size: 24),
               ],
             ),
             const SizedBox(height: 12),
@@ -477,28 +472,20 @@ class _GoalsScreenState extends State<GoalsScreen> {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.calendar_today,
-                      size: 16,
-                      color: Colors.grey[500],
-                    ),
+                    Icon(Icons.calendar_today,
+                        size: 16, color: Colors.grey[500]),
                     const SizedBox(width: 4),
                     Text(
                       '${goal.dueDate.day}.${goal.dueDate.month}.${goal.dueDate.year}',
                       style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
+                          fontSize: 12, color: Colors.grey[600]),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(
-                      Icons.monetization_on,
-                      size: 16,
-                      color: Colors.amber[700],
-                    ),
+                    Icon(Icons.monetization_on,
+                        size: 16, color: Colors.amber[700]),
                     const SizedBox(width: 4),
                     Text(
                       '+${goal.rewardCoins}',
@@ -512,12 +499,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final success = await GoalDatabaseService.deleteGoal(goal.id);
-                    
+                    final success =
+                        await GoalDatabaseService.deleteGoal(goal.id);
+
                     if (success) {
                       widget.gameState.removeGoal(goal.id);
                       setState(() {});
-                      
+
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

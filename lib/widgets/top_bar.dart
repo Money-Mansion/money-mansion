@@ -22,14 +22,14 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: gameState, // listens to coins/money changes
+      animation: gameState,
       builder: (context, _) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: const Color(0xFFE8D4F0),
             borderRadius:
-            const BorderRadius.vertical(bottom: Radius.circular(30)),
+                const BorderRadius.vertical(bottom: Radius.circular(30)),
             border: Border.all(
               color: const Color(0xFFB8A8D8),
               width: 3,
@@ -82,11 +82,11 @@ class TopBar extends StatelessWidget {
                 value: _formatMoney(gameState.money),
               ),
 
-              // Chrumka
+              // Chrumka — now shows real earned value
               _ResourceDisplay(
                 icon: MyFlutterApp.chrumka,
-                color: const Color.fromARGB(0, 76, 175, 79),
-                value: gameState.coins.toString(),
+                color: const Color.fromARGB(0, 220, 100, 180),
+                value: gameState.chrumka.toString(),
               ),
 
               // Date
@@ -158,8 +158,10 @@ class _CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
-                        'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    final monthNames = [
+      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
     final monthStr = monthNames[now.month - 1];
     final dayStr = now.day.toString();
 
