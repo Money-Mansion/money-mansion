@@ -21,11 +21,17 @@ class GoalsScreen extends StatefulWidget {
 class _GoalsScreenState extends State<GoalsScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  late TextEditingController _coinsController;
   late TextEditingController _targetMoneyController;
   DateTime _selectedDate = DateTime.now();
+  String _selectedDifficulty = Goal.easyDifficulty;
   bool _isLoading = true;
   bool _isSyncing = false;
+
+  static const Map<String, int> _difficultyRewards = {
+    Goal.easyDifficulty: 50,
+    Goal.mediumDifficulty: 100,
+    Goal.hardDifficulty: 200,
+  };
 
   String _formatMoney(double money) {
     if (money % 1 == 0) {
@@ -39,7 +45,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-    _coinsController = TextEditingController(text: '10');
     _targetMoneyController = TextEditingController(text: '0');
     _loadGoalsFromBackend();
   }
@@ -48,7 +53,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
-    _coinsController.dispose();
     _targetMoneyController.dispose();
     super.dispose();
   }
@@ -60,9 +64,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
       setState(() {
         _isLoading = true;
       });
-      
+
       final goals = await GoalDatabaseService.getAllGoals();
-      
+
       if (!mounted) return;
       setState(() {
         widget.gameState.goals.clear();
@@ -75,7 +79,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       setState(() {
         _isLoading = false;
       });
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -115,14 +119,42 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 maxLines: 3,
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: _coinsController,
+              InputDecorator(
                 decoration: const InputDecoration(
-                  labelText: 'Reward Coins',
-                  hintText: 'Enter coin reward',
+                  labelText: 'Reward',
                   border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.number,
+                child: Text(
+                  '${_difficultyRewards[_selectedDifficulty]} coins',
+                ),
+              ),
+              const SizedBox(height: 8),
+              DropdownButtonFormField<String>(
+                value: _selectedDifficulty,
+                decoration: const InputDecoration(
+                  labelText: 'Difficulty',
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(
+                    value: Goal.easyDifficulty,
+                    child: Text('Easy'),
+                  ),
+                  DropdownMenuItem(
+                    value: Goal.mediumDifficulty,
+                    child: Text('Medium'),
+                  ),
+                  DropdownMenuItem(
+                    value: Goal.hardDifficulty,
+                    child: Text('Hard'),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    _selectedDifficulty = value;
+                  });
+                },
               ),
               const SizedBox(height: 16),
               TextField(
@@ -182,7 +214,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 id: const Uuid().v4(),
                 title: _titleController.text,
                 description: _descriptionController.text,
-                rewardCoins: int.tryParse(_coinsController.text) ?? 10,
+                difficulty: _selectedDifficulty,
+                rewardCoins: _difficultyRewards[_selectedDifficulty] ?? 50,
                 targetMoney:
                     double.tryParse(_targetMoneyController.text) ?? 0.0,
                 dueDate: _selectedDate,
@@ -203,9 +236,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 widget.gameState.addGoal(newGoal);
                 _titleController.clear();
                 _descriptionController.clear();
-                _coinsController.text = '10';
                 _targetMoneyController.text = '0';
                 _selectedDate = DateTime.now();
+                _selectedDifficulty = Goal.easyDifficulty;
 
                 if (mounted) {
                   Navigator.pop(context);
@@ -362,9 +395,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   Widget _buildGoalCard(Goal goal) {
     final bool hasTarget = goal.targetMoney > 0;
-    final double progress = hasTarget
-        ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1)
-        : 0;
+    final double progress =
+        hasTarget ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1) : 0;
+    final bool canComplete = !hasTarget || progress >= 1;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -403,6 +436,14 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${goal.difficulty} · Reward ${goal.rewardCoins}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -410,18 +451,34 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   Checkbox(
                     value: false,
                     onChanged: (value) async {
-                      final success = await GoalDatabaseService.completeGoal(goal.id);
-                      
+                      if (!canComplete) {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Goal can only be completed at 100% progress.',
+                              ),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                        return;
+                      }
+                      final success =
+                          await GoalDatabaseService.completeGoal(goal.id);
+
                       if (success) {
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
-                        
+
                         if (mounted) {
+                          final completionText = goal.difficulty ==
+                                  Goal.hardDifficulty
+                              ? 'Goal completed!'
+                              : 'Goal completed! +${goal.rewardCoins} coins';
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                'Goal completed! +${goal.rewardCoins} coins',
-                              ),
+                              content: Text(completionText),
                               duration: const Duration(seconds: 2),
                             ),
                           );
@@ -512,12 +569,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final success = await GoalDatabaseService.deleteGoal(goal.id);
-                    
+                    final success =
+                        await GoalDatabaseService.deleteGoal(goal.id);
+
                     if (success) {
                       widget.gameState.removeGoal(goal.id);
                       setState(() {});
-                      
+
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

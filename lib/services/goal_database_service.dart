@@ -1,4 +1,3 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'dart:io' show Platform;
@@ -7,7 +6,7 @@ import '../models/goal.dart';
 class GoalDatabaseService {
   static const String _tableName = 'goals';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 2;
+  static const int _dbVersion = 3;
 
   static Database? _database;
   static bool _initialized = false;
@@ -15,7 +14,7 @@ class GoalDatabaseService {
   // Initialize the database factory (required for Windows/Desktop)
   static Future<void> initializeDatabase() async {
     if (_initialized) return;
-    
+
     // Initialize FFI for desktop platforms
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
@@ -58,14 +57,16 @@ class GoalDatabaseService {
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         description TEXT,
+        difficulty TEXT NOT NULL DEFAULT 'Easy',
         rewardCoins INTEGER NOT NULL,
         targetMoney REAL NOT NULL DEFAULT 0,
         allocatedMoney REAL NOT NULL DEFAULT 0,
+        milestonesAwarded INTEGER NOT NULL DEFAULT 0,
         dueDate INTEGER NOT NULL,
         isCompleted INTEGER NOT NULL DEFAULT 0
       )
     ''');
-    
+
     // Also create items table to ensure it exists
     await db.execute('''
       CREATE TABLE IF NOT EXISTS items (
@@ -81,8 +82,7 @@ class GoalDatabaseService {
 
   static Future<void> _ensureGoalColumns(Database db) async {
     final columns = await db.rawQuery('PRAGMA table_info($_tableName)');
-    final columnNames =
-        columns.map((c) => c['name'] as String).toSet();
+    final columnNames = columns.map((c) => c['name'] as String).toSet();
 
     if (!columnNames.contains('targetMoney')) {
       await db.execute(
@@ -92,6 +92,16 @@ class GoalDatabaseService {
     if (!columnNames.contains('allocatedMoney')) {
       await db.execute(
         'ALTER TABLE $_tableName ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
+      );
+    }
+    if (!columnNames.contains('difficulty')) {
+      await db.execute(
+        "ALTER TABLE $_tableName ADD COLUMN difficulty TEXT NOT NULL DEFAULT 'Easy'",
+      );
+    }
+    if (!columnNames.contains('milestonesAwarded')) {
+      await db.execute(
+        'ALTER TABLE $_tableName ADD COLUMN milestonesAwarded INTEGER NOT NULL DEFAULT 0',
       );
     }
   }
@@ -107,12 +117,15 @@ class GoalDatabaseService {
           id: maps[i]['id'] as String,
           title: maps[i]['title'] as String,
           description: maps[i]['description'] as String,
+          difficulty: maps[i]['difficulty'] as String? ?? Goal.easyDifficulty,
           rewardCoins: maps[i]['rewardCoins'] as int,
-          targetMoney:
-              (maps[i]['targetMoney'] as num?)?.toDouble() ?? 0.0,
+          targetMoney: (maps[i]['targetMoney'] as num?)?.toDouble() ?? 0.0,
           allocatedMoney:
               (maps[i]['allocatedMoney'] as num?)?.toDouble() ?? 0.0,
-          dueDate: DateTime.fromMillisecondsSinceEpoch(maps[i]['dueDate'] as int),
+          milestonesAwarded:
+              (maps[i]['milestonesAwarded'] as num?)?.toInt() ?? 0,
+          dueDate:
+              DateTime.fromMillisecondsSinceEpoch(maps[i]['dueDate'] as int),
           isCompleted: (maps[i]['isCompleted'] as int) == 1,
         );
       });
@@ -132,9 +145,11 @@ class GoalDatabaseService {
           'id': goal.id,
           'title': goal.title,
           'description': goal.description,
+          'difficulty': goal.difficulty,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
           'allocatedMoney': goal.allocatedMoney,
+          'milestonesAwarded': goal.milestonesAwarded,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
           'isCompleted': goal.isCompleted ? 1 : 0,
         },
@@ -157,9 +172,11 @@ class GoalDatabaseService {
           'id': goal.id,
           'title': goal.title,
           'description': goal.description,
+          'difficulty': goal.difficulty,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
           'allocatedMoney': goal.allocatedMoney,
+          'milestonesAwarded': goal.milestonesAwarded,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
           'isCompleted': goal.isCompleted ? 1 : 0,
         },

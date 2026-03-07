@@ -23,6 +23,7 @@ class FinancialManagementScreen extends StatefulWidget {
 
 class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     with SingleTickerProviderStateMixin {
+  static const int _hardGoalMilestoneCount = 5;
   late TabController _tabController;
   final List<TransactionModel> _transactions = [];
   final List<Goal> _goals = [];
@@ -70,15 +71,29 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   String _formatAmount(double amount) {
-    return amount % 1 == 0
-        ? "${amount.toInt()} €"
-        : "${amount.toString()} €";
+    return amount % 1 == 0 ? "${amount.toInt()} €" : "${amount.toString()} €";
   }
 
   String? _goalTitle(String? goalId) {
     if (goalId == null) return null;
     final match = _goals.where((g) => g.id == goalId);
     return match.isEmpty ? null : match.first.title;
+  }
+
+  Goal? _findGoal(String? goalId) {
+    if (goalId == null) return null;
+    final match = _goals.where((g) => g.id == goalId);
+    return match.isEmpty ? null : match.first;
+  }
+
+  bool _isGoalCompleted(String? goalId) {
+    final goal = _findGoal(goalId);
+    return goal?.isCompleted ?? false;
+  }
+
+  int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
+    final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
+    return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
   }
 
   Future<void> _recalculateMoneyAndAllocations() async {
@@ -108,6 +123,32 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         await GoalDatabaseService.updateGoal(updatedGoal);
         _goals[i] = updatedGoal;
         updated = true;
+      }
+
+      if (updatedGoal.difficulty == Goal.hardDifficulty &&
+          updatedGoal.targetMoney > 0) {
+        final progress =
+            (allocated / updatedGoal.targetMoney).clamp(0.0, 1.0).toDouble();
+        final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
+        if (reachedMilestones > updatedGoal.milestonesAwarded) {
+          final newlyEarned = _hardGoalRewardForMilestones(
+                updatedGoal,
+                reachedMilestones,
+              ) -
+              _hardGoalRewardForMilestones(
+                updatedGoal,
+                updatedGoal.milestonesAwarded,
+              );
+          if (newlyEarned > 0) {
+            widget.gameState.addCoins(newlyEarned);
+          }
+          updatedGoal = updatedGoal.copyWith(
+            milestonesAwarded: reachedMilestones,
+          );
+          await GoalDatabaseService.updateGoal(updatedGoal);
+          _goals[i] = updatedGoal;
+          updated = true;
+        }
       }
 
       if (!updatedGoal.isCompleted &&
@@ -157,19 +198,178 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     _showTransactionDialog(transaction: t);
   }
 
+  Future<void> _showReassignFundsDialog() async {
+    String? fromGoalId;
+    String? toGoalId;
+    final amountController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, dialogSetState) {
+            final sourceGoals = _goals
+                .where((g) => !g.isCompleted && g.allocatedMoney > 0)
+                .toList();
+            final destinationGoals = _goals
+                .where((g) => !g.isCompleted && g.id != fromGoalId)
+                .toList();
+
+            return AlertDialog(
+              title: const Text('Reassign Funds'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButtonFormField<String>(
+                    value: fromGoalId,
+                    decoration: const InputDecoration(
+                      labelText: 'From goal',
+                    ),
+                    items: sourceGoals
+                        .map(
+                          (goal) => DropdownMenuItem<String>(
+                            value: goal.id,
+                            child: Text(
+                              '${goal.title} (${_formatAmount(goal.allocatedMoney)})',
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      dialogSetState(() {
+                        fromGoalId = value;
+                        if (toGoalId == fromGoalId) {
+                          toGoalId = null;
+                        }
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    value: toGoalId,
+                    decoration: const InputDecoration(
+                      labelText: 'To goal',
+                    ),
+                    items: destinationGoals
+                        .map(
+                          (goal) => DropdownMenuItem<String>(
+                            value: goal.id,
+                            child: Text(goal.title),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) =>
+                        dialogSetState(() => toGoalId = value),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: amountController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Amount'),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (fromGoalId == null || toGoalId == null) return;
+                    final amount = double.tryParse(amountController.text) ?? 0;
+                    if (amount <= 0) return;
+                    if (_isGoalCompleted(toGoalId)) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Completed goals cannot accept more progress.',
+                            ),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    final fromGoal = _findGoal(fromGoalId);
+                    if (fromGoal == null || amount > fromGoal.allocatedMoney) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Amount exceeds available goal funds.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    final debitTx = TransactionModel(
+                      id: const Uuid().v4(),
+                      type: '-',
+                      amount: amount,
+                      note: 'Reassigned to another goal',
+                      date: DateTime.now(),
+                      goalId: fromGoalId,
+                    );
+                    final creditTx = TransactionModel(
+                      id: const Uuid().v4(),
+                      type: '+',
+                      amount: amount,
+                      note: 'Reassigned from another goal',
+                      date: DateTime.now(),
+                      goalId: toGoalId,
+                    );
+
+                    await FinancialDatabaseService.insert(debitTx);
+                    await FinancialDatabaseService.insert(creditTx);
+
+                    setState(() {
+                      _transactions.insert(0, creditTx);
+                      _transactions.insert(0, debitTx);
+                    });
+
+                    await _recalculateMoneyAndAllocations();
+
+                    if (mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Funds reassigned successfully'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Move'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _showTransactionDialog({TransactionModel? transaction}) {
     String type = transaction?.type ?? '+';
     String? goalId = transaction?.goalId;
     final amountController =
-    TextEditingController(text: transaction?.amount.toString() ?? '');
-    final noteController =
-    TextEditingController(text: transaction?.note ?? '');
+        TextEditingController(text: transaction?.amount.toString() ?? '');
+    final noteController = TextEditingController(text: transaction?.note ?? '');
 
     showDialog(
       context: context,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, dialogSetState) {
+            final selectableGoals = _goals.where((goal) {
+              if (!goal.isCompleted) return true;
+              return goal.id == goalId;
+            }).toList();
             return AlertDialog(
               title: Text(
                 transaction == null
@@ -191,8 +391,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         child: Text('Purchase (-)'),
                       ),
                     ],
-                    onChanged: (value) =>
-                        dialogSetState(() => type = value!),
+                    onChanged: (value) => dialogSetState(() => type = value!),
                   ),
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String?>(
@@ -205,26 +404,23 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         value: null,
                         child: Text('No goal allocation'),
                       ),
-                      ..._goals.map(
+                      ...selectableGoals.map(
                         (goal) => DropdownMenuItem<String?>(
                           value: goal.id,
                           child: Text(goal.title),
                         ),
                       ),
                     ],
-                    onChanged: (value) =>
-                        dialogSetState(() => goalId = value),
+                    onChanged: (value) => dialogSetState(() => goalId = value),
                   ),
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
-                    decoration:
-                    const InputDecoration(labelText: 'Amount'),
+                    decoration: const InputDecoration(labelText: 'Amount'),
                   ),
                   TextField(
                     controller: noteController,
-                    decoration:
-                    const InputDecoration(labelText: 'Note'),
+                    decoration: const InputDecoration(labelText: 'Note'),
                   ),
                 ],
               ),
@@ -240,6 +436,19 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     if (amount <= 0) return;
 
                     // 🔥 revert old transaction if editing
+                    if (_isGoalCompleted(goalId)) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Completed goals cannot accept more progress.',
+                            ),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
                     if (transaction != null) {
                       _revertTransaction(transaction);
                     }
@@ -257,16 +466,12 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     _applyTransaction(newTransaction);
 
                     if (transaction == null) {
-                      await FinancialDatabaseService.insert(
-                          newTransaction);
-                      setState(() =>
-                          _transactions.insert(0, newTransaction));
+                      await FinancialDatabaseService.insert(newTransaction);
+                      setState(() => _transactions.insert(0, newTransaction));
                     } else {
-                      await FinancialDatabaseService.update(
-                          newTransaction);
+                      await FinancialDatabaseService.update(newTransaction);
                       setState(() {
-                        final index =
-                        _transactions.indexOf(transaction);
+                        final index = _transactions.indexOf(transaction);
                         _transactions[index] = newTransaction;
                       });
                     }
@@ -294,6 +499,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           onPressed: widget.onBack,
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.swap_horiz),
+            tooltip: 'Reassign funds between goals',
+            onPressed: _showReassignFundsDialog,
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Refresh',
@@ -351,12 +561,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 onLongPress: () => _editTransaction(t),
                 leading: Icon(
                   t.type == '+' ? Icons.add : Icons.remove,
-                  color:
-                  t.type == '+' ? Colors.green : Colors.red,
+                  color: t.type == '+' ? Colors.green : Colors.red,
                 ),
                 trailing: IconButton(
-                  icon:
-                  const Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () => _removeTransaction(t),
                 ),
                 title: Text(
@@ -389,10 +597,3 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     );
   }
 }
-
-
-
-
-
-
-
