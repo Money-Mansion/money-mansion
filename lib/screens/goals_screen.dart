@@ -92,178 +92,184 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   void _showCreateGoalDialog() {
+    DateTime selectedDate = _selectedDate;
+    String selectedDifficulty = _selectedDifficulty;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Create New Goal'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Goal Title',
-                  hintText: 'Enter goal title',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: 'Enter goal description',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16),
-              InputDecorator(
-                decoration: const InputDecoration(
-                  labelText: 'Reward',
-                  border: OutlineInputBorder(),
-                ),
-                child: Text(
-                  '${_difficultyRewards[_selectedDifficulty]} coins',
-                ),
-              ),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                value: _selectedDifficulty,
-                decoration: const InputDecoration(
-                  labelText: 'Difficulty',
-                  border: OutlineInputBorder(),
-                ),
-                items: const [
-                  DropdownMenuItem(
-                    value: Goal.easyDifficulty,
-                    child: Text('Easy'),
+      builder: (context) => StatefulBuilder(
+        builder: (context, dialogSetState) => AlertDialog(
+          title: const Text('Create New Goal'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(
+                    labelText: 'Goal Title',
+                    hintText: 'Enter goal title',
+                    border: OutlineInputBorder(),
                   ),
-                  DropdownMenuItem(
-                    value: Goal.mediumDifficulty,
-                    child: Text('Medium'),
-                  ),
-                  DropdownMenuItem(
-                    value: Goal.hardDifficulty,
-                    child: Text('Hard'),
-                  ),
-                ],
-                onChanged: (value) {
-                  if (value == null) return;
-                  setState(() {
-                    _selectedDifficulty = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _targetMoneyController,
-                decoration: const InputDecoration(
-                  labelText: 'Goal Amount',
-                  hintText: 'Enter money target',
-                  border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Due Date: ${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}',
-                      style: const TextStyle(fontSize: 14),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
+                    hintText: 'Enter goal description',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
+                ),
+                const SizedBox(height: 16),
+                InputDecorator(
+                  decoration: const InputDecoration(
+                    labelText: 'Reward',
+                    border: OutlineInputBorder(),
+                  ),
+                  child: Text(
+                    '${_difficultyRewards[selectedDifficulty]} coins',
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  value: selectedDifficulty,
+                  decoration: const InputDecoration(
+                    labelText: 'Difficulty',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                      value: Goal.easyDifficulty,
+                      child: Text('Easy'),
                     ),
+                    DropdownMenuItem(
+                      value: Goal.mediumDifficulty,
+                      child: Text('Medium'),
+                    ),
+                    DropdownMenuItem(
+                      value: Goal.hardDifficulty,
+                      child: Text('Hard'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value == null) return;
+                    dialogSetState(() {
+                      selectedDifficulty = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _targetMoneyController,
+                  decoration: const InputDecoration(
+                    labelText: 'Goal Amount',
+                    hintText: 'Enter money target',
+                    border: OutlineInputBorder(),
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: _selectedDate,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
-                      );
-                      if (picked != null) {
-                        setState(() {
-                          _selectedDate = picked;
-                        });
-                      }
-                    },
-                    child: const Text('Pick Date'),
-                  ),
-                ],
-              ),
-            ],
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Due Date: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now().add(
+                            const Duration(days: 365),
+                          ),
+                        );
+                        if (picked != null) {
+                          dialogSetState(() {
+                            selectedDate = picked;
+                          });
+                        }
+                      },
+                      child: const Text('Pick Date'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              if (_titleController.text.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please enter a goal title')),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (_titleController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please enter a goal title')),
+                  );
+                  return;
+                }
+
+                final newGoal = Goal(
+                  id: const Uuid().v4(),
+                  title: _titleController.text,
+                  description: _descriptionController.text,
+                  difficulty: selectedDifficulty,
+                  rewardCoins: _difficultyRewards[selectedDifficulty] ?? 50,
+                  targetMoney:
+                      double.tryParse(_targetMoneyController.text) ?? 0.0,
+                  dueDate: selectedDate,
                 );
-                return;
-              }
 
-              final newGoal = Goal(
-                id: const Uuid().v4(),
-                title: _titleController.text,
-                description: _descriptionController.text,
-                difficulty: _selectedDifficulty,
-                rewardCoins: _difficultyRewards[_selectedDifficulty] ?? 50,
-                targetMoney:
-                    double.tryParse(_targetMoneyController.text) ?? 0.0,
-                dueDate: _selectedDate,
-              );
+                setState(() {
+                  _isSyncing = true;
+                });
 
-              // Create goal in local database
-              setState(() {
-                _isSyncing = true;
-              });
+                final success = await GoalDatabaseService.createGoal(newGoal);
 
-              final success = await GoalDatabaseService.createGoal(newGoal);
+                setState(() {
+                  _isSyncing = false;
+                });
 
-              setState(() {
-                _isSyncing = false;
-              });
+                if (success) {
+                  widget.gameState.addGoal(newGoal);
+                  _titleController.clear();
+                  _descriptionController.clear();
+                  _targetMoneyController.text = '0';
+                  _selectedDate = DateTime.now();
+                  _selectedDifficulty = Goal.easyDifficulty;
 
-              if (success) {
-                widget.gameState.addGoal(newGoal);
-                _titleController.clear();
-                _descriptionController.clear();
-                _targetMoneyController.text = '0';
-                _selectedDate = DateTime.now();
-                _selectedDifficulty = Goal.easyDifficulty;
-
-                if (mounted) {
-                  Navigator.pop(context);
-                  setState(() {});
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Goal created successfully'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
+                  if (mounted) {
+                    Navigator.pop(context);
+                    setState(() {});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Goal created successfully'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                } else {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Failed to create goal'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 }
-              } else {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Failed to create goal'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
-              }
-            },
-            child: const Text('Create Goal'),
-          ),
-        ],
+              },
+              child: const Text('Create Goal'),
+            ),
+          ],
+        ),
       ),
     );
   }
