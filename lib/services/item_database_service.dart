@@ -156,9 +156,11 @@ class ItemDatabaseService {
           id TEXT PRIMARY KEY,
           title TEXT NOT NULL,
           description TEXT,
+          difficulty TEXT NOT NULL DEFAULT 'Easy',
           rewardCoins INTEGER NOT NULL,
           targetMoney REAL NOT NULL DEFAULT 0,
           allocatedMoney REAL NOT NULL DEFAULT 0,
+          milestonesAwarded INTEGER NOT NULL DEFAULT 0,
           dueDate INTEGER NOT NULL,
           isCompleted INTEGER NOT NULL DEFAULT 0
         )
@@ -176,6 +178,16 @@ class ItemDatabaseService {
       if (!columnNames.contains('allocatedMoney')) {
         await db.execute(
           'ALTER TABLE goals ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
+        );
+      }
+      if (!columnNames.contains('difficulty')) {
+        await db.execute(
+          "ALTER TABLE goals ADD COLUMN difficulty TEXT NOT NULL DEFAULT 'Easy'",
+        );
+      }
+      if (!columnNames.contains('milestonesAwarded')) {
+        await db.execute(
+          'ALTER TABLE goals ADD COLUMN milestonesAwarded INTEGER NOT NULL DEFAULT 0',
         );
       }
     } catch (e) {

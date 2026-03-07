@@ -110,6 +110,7 @@ class GoalDatabaseService {
   static Future<List<Goal>> getAllGoals() async {
     try {
       final db = await database;
+      await _ensureGoalColumns(db);
       final maps = await db.query(_tableName);
 
       return List.generate(maps.length, (i) {
@@ -139,6 +140,7 @@ class GoalDatabaseService {
   static Future<bool> createGoal(Goal goal) async {
     try {
       final db = await database;
+      await _ensureGoalColumns(db);
       await db.insert(
         _tableName,
         {
@@ -166,6 +168,7 @@ class GoalDatabaseService {
   static Future<bool> updateGoal(Goal goal) async {
     try {
       final db = await database;
+      await _ensureGoalColumns(db);
       await db.update(
         _tableName,
         {
@@ -194,6 +197,7 @@ class GoalDatabaseService {
   static Future<bool> completeGoal(String goalId) async {
     try {
       final db = await database;
+      await _ensureGoalColumns(db);
       await db.update(
         _tableName,
         {'isCompleted': 1},
@@ -211,6 +215,7 @@ class GoalDatabaseService {
   static Future<bool> deleteGoal(String goalId) async {
     try {
       final db = await database;
+      await _ensureGoalColumns(db);
       await db.delete(
         _tableName,
         where: 'id = ?',
