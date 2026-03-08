@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/game_state.dart';
-import '../models/room.dart';
 import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
+import '../services/app_localizations_provider.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -12,6 +13,7 @@ import 'goals_screen.dart';
 import 'inventory_screen.dart';
 import 'financial_management_screen.dart';
 import 'room_edit_screen.dart';
+import 'settings_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -23,6 +25,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
   int selectedNavIndex = -1; // -1 = Room viewer (home), 0-3 = nav buttons
+  bool _isInitialized = false;
   
   // DEBUG FLAG: Set to true to show debug buttons
   static const bool _DEBUG_MODE = false;
@@ -30,17 +33,12 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize with defaults first
-    gameState = GameState(
-      coins: 0,
-      money: 0.0,
-      date: 7.7,
-      rooms: [Room()],
-    );
-    // Load from database
-    _initializeGameState();
-    // Add listener for auto-save
-    gameState.addListener(_saveGameStateChanges);
+    // Get gameState from Provider after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      gameState = context.read<GameState>();
+      _initializeGameState();
+      gameState.addListener(_saveGameStateChanges);
+    });
   }
 
   @override
@@ -61,6 +59,12 @@ class _GameScreenState extends State<GameScreen> {
     
     // Then load owned items and other data
     await _loadOwnedItems();
+    
+    if (mounted) {
+      setState(() {
+        _isInitialized = true;
+      });
+    }
   }
 
   void _saveGameStateChanges() {
@@ -86,7 +90,7 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  Widget _getCurrentScreen() {
+  Widget _getCurrentScreen(AppLocalizationsProvider localizationsProvider) {
     switch (selectedNavIndex) {
       case 0:
         return ShopScreen(
@@ -107,6 +111,10 @@ class _GameScreenState extends State<GameScreen> {
         return InventoryScreen(
           gameState: gameState,
           onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
+        );
+      case 4:
+        return SettingsScreen(
+          gameState: gameState,
         );
       default:
         return Padding(
@@ -135,6 +143,16 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizationsProvider = context.watch<AppLocalizationsProvider>();
+    
+    if (!_isInitialized) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
       body: SafeArea(
@@ -145,7 +163,7 @@ class _GameScreenState extends State<GameScreen> {
             
             // Main game area
             Expanded(
-              child: _getCurrentScreen(),
+              child: _getCurrentScreen(localizationsProvider),
             ),
             
             // Bottom navigation
