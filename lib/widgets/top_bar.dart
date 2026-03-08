@@ -44,7 +44,14 @@ class TopBar extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SettingsScreen(gameState: gameState),
+                      builder: (context) => Scaffold(
+                        backgroundColor: Colors.grey[300],
+                        appBar: AppBar(
+                          title: const Text('Settings'),
+                          backgroundColor: Colors.grey[400],
+                        ),
+                        body: SettingsScreen(gameState: gameState),
+                      ),
                     ),
                   );
                 },
@@ -75,11 +82,11 @@ class TopBar extends StatelessWidget {
                 value: _formatMoney(gameState.money),
               ),
 
-              // Chrumka
+              // Chrumka — shows real earned chrumka count (not coins)
               _ResourceDisplay(
                 icon: MyFlutterApp.chrumka,
-                color: const Color.fromARGB(0, 76, 175, 79),
-                value: gameState.coins.toString(),
+                color: const Color.fromARGB(0, 220, 100, 180),
+                value: gameState.chrumka.toString(),
               ),
 
               // Date

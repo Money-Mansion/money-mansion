@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../services/goal_database_service.dart';
-import '../services/app_localizations_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class GoalsScreen extends StatefulWidget {
@@ -79,11 +77,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
       });
       
       if (mounted) {
-        final l10n = context.read<AppLocalizationsProvider>();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.translate('errorLoadingGoals')),
-            duration: const Duration(seconds: 3),
+          const SnackBar(
+            content: Text('Failed to load goals.'),
+            duration: Duration(seconds: 3),
           ),
         );
       }
@@ -93,164 +90,160 @@ class _GoalsScreenState extends State<GoalsScreen> {
   void _showCreateGoalDialog() {
     showDialog(
       context: context,
-      builder: (context) {
-        final l10n = Provider.of<AppLocalizationsProvider>(context);
-        return AlertDialog(
-          title: Text(l10n.translate('createNewGoal')),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalTitle'),
-                    hintText: l10n.translate('goalTitle'),
-                    border: const OutlineInputBorder(),
-                  ),
+      builder: (context) => AlertDialog(
+        title: const Text('Create New Goal'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Goal Title',
+                  hintText: 'Enter goal title',
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalDescription'),
-                    hintText: l10n.translate('goalDescription'),
-                    border: const OutlineInputBorder(),
-                  ),
-                  maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  hintText: 'Enter goal description',
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _coinsController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('rewardCoins'),
-                    hintText: l10n.translate('rewardCoins'),
-                    border: const OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _coinsController,
+                decoration: const InputDecoration(
+                  labelText: 'Reward Coins',
+                  hintText: 'Enter coin reward',
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _targetMoneyController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('targetMoneyAmount'),
-                    hintText: l10n.translate('targetMoneyAmount'),
-                    border: const OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _targetMoneyController,
+                decoration: const InputDecoration(
+                  labelText: 'Goal Amount',
+                  hintText: 'Enter money target',
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${l10n.translate('selectDeadline')}: ${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}',
-                        style: const TextStyle(fontSize: 14),
-                      ),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Due Date: ${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}',
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: _selectedDate,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(const Duration(days: 365)),
-                        );
-                        if (picked != null) {
-                          setState(() {
-                            _selectedDate = picked;
-                          });
-                        }
-                      },
-                      child: Text(l10n.translate('pickDate')),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDate,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          _selectedDate = picked;
+                        });
+                      }
+                    },
+                    child: const Text('Pick Date'),
+                  ),
+                ],
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(l10n.translate('cancel')),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_titleController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.translate('enterGoalTitle'))),
-                  );
-                  return;
-                }
-
-                final newGoal = Goal(
-                  id: const Uuid().v4(),
-                  title: _titleController.text,
-                  description: _descriptionController.text,
-                  rewardCoins: int.tryParse(_coinsController.text) ?? 10,
-                  targetMoney:
-                      double.tryParse(_targetMoneyController.text) ?? 0.0,
-                  dueDate: _selectedDate,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (_titleController.text.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Please enter a goal title')),
                 );
+                return;
+              }
 
-                // Create goal in local database
-                setState(() {
-                  _isSyncing = true;
-                });
+              final newGoal = Goal(
+                id: const Uuid().v4(),
+                title: _titleController.text,
+                description: _descriptionController.text,
+                rewardCoins: int.tryParse(_coinsController.text) ?? 10,
+                targetMoney:
+                    double.tryParse(_targetMoneyController.text) ?? 0.0,
+                dueDate: _selectedDate,
+              );
 
-                final success = await GoalDatabaseService.createGoal(newGoal);
+              // Create goal in local database
+              setState(() {
+                _isSyncing = true;
+              });
 
-                setState(() {
-                  _isSyncing = false;
-                });
+              final success = await GoalDatabaseService.createGoal(newGoal);
 
-                if (success) {
-                  widget.gameState.addGoal(newGoal);
-                  _titleController.clear();
-                  _descriptionController.clear();
-                  _coinsController.text = '10';
-                  _targetMoneyController.text = '0';
-                  _selectedDate = DateTime.now();
+              setState(() {
+                _isSyncing = false;
+              });
 
-                  if (mounted) {
-                    Navigator.pop(context);
-                    setState(() {});
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.translate('goalCreatedSuccessfully')),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                  }
-                } else {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.translate('failedToCreateGoal')),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                  }
+              if (success) {
+                widget.gameState.addGoal(newGoal);
+                _titleController.clear();
+                _descriptionController.clear();
+                _coinsController.text = '10';
+                _targetMoneyController.text = '0';
+                _selectedDate = DateTime.now();
+
+                if (mounted) {
+                  Navigator.pop(context);
+                  setState(() {});
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Goal created successfully'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                 }
-              },
-              child: Text(l10n.translate('createGoal')),
-            ),
-          ],
-        );
-      },
+              } else {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed to create goal'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+              }
+            },
+            child: const Text('Create Goal'),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.watch<AppLocalizationsProvider>();
     final goals = widget.gameState.goals;
     final activeGoals = goals.where((g) => !g.isCompleted).toList();
     final completedGoals = goals.where((g) => g.isCompleted).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.translate('goals')),
+        title: const Text('Goals'),
         backgroundColor: Colors.deepPurple[300],
         centerTitle: true,
         leading: IconButton(
@@ -274,7 +267,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             IconButton(
               onPressed: _loadGoalsFromBackend,
               icon: const Icon(Icons.refresh),
-              tooltip: l10n.translate('refreshGoals'),
+              tooltip: 'Refresh goals',
             ),
         ],
       ),
@@ -420,15 +413,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       final success = await GoalDatabaseService.completeGoal(goal.id);
                       
                       if (success) {
+                        // Awards coins + 1 Chrumka inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
                         
                         if (mounted) {
-                          final l10n = context.read<AppLocalizationsProvider>();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                '${l10n.translate('goalCompleted')} +${goal.rewardCoins} coins',
+                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
                               ),
                               duration: const Duration(seconds: 2),
                             ),
@@ -436,11 +429,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         }
                       } else {
                         if (mounted) {
-                          final l10n = context.read<AppLocalizationsProvider>();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(l10n.translate('failedToCompleteGoal')),
-                              duration: const Duration(seconds: 2),
+                            const SnackBar(
+                              content: Text('Failed to complete goal'),
+                              duration: Duration(seconds: 2),
                             ),
                           );
                         }
@@ -528,21 +520,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       setState(() {});
                       
                       if (mounted) {
-                        final l10n = context.read<AppLocalizationsProvider>();
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(l10n.translate('goalDeleted')),
-                            duration: const Duration(seconds: 2),
+                          const SnackBar(
+                            content: Text('Goal deleted'),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       }
                     } else {
                       if (mounted) {
-                        final l10n = context.read<AppLocalizationsProvider>();
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(l10n.translate('failedToDeleteGoal')),
-                            duration: const Duration(seconds: 2),
+                          const SnackBar(
+                            content: Text('Failed to delete goal'),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       }
