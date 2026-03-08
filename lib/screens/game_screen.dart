@@ -52,12 +52,10 @@ class _GameScreenState extends State<GameScreen> {
     final money = await FinancialDatabaseService.getMoney();
     
     if (mounted) {
-      // Use setters to properly trigger notifyListeners
       gameState.setCoins(coins);
       gameState.setMoney(money);
     }
     
-    // Then load owned items and other data
     await _loadOwnedItems();
     
     if (mounted) {
@@ -68,7 +66,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _saveGameStateChanges() {
-    // Auto-save coins and money to database when they change
     FinancialDatabaseService.saveCoins(gameState.coins);
     FinancialDatabaseService.saveMoney(gameState.money);
   }
@@ -83,8 +80,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onNavItemTapped(int index) {
-    // This is where you update the selected index, 
-    // ensuring that no new screen is pushed.
     setState(() {
       selectedNavIndex = index;
     });
@@ -95,22 +90,22 @@ class _GameScreenState extends State<GameScreen> {
       case 0:
         return ShopScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1),
         );
       case 1:
         return FinancialManagementScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1),
         );
       case 2:
         return GoalsScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1),
         );
       case 3:
         return InventoryScreen(
           gameState: gameState,
-          onBack: () => setState(() => selectedNavIndex = -1), // Go back to main view (RoomViewer)
+          onBack: () => setState(() => selectedNavIndex = -1),
         );
       case 4:
         return SettingsScreen(
@@ -123,6 +118,7 @@ class _GameScreenState extends State<GameScreen> {
             room: gameState.rooms.isNotEmpty
                 ? gameState.rooms[0]
                 : null,
+            language: localizationsProvider.currentLanguage, // ← passes 'en' or 'sk'
             onEditPressed: () {
               Navigator.push(
                 context,
@@ -158,15 +154,12 @@ class _GameScreenState extends State<GameScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Top bar with coins, money, and date
             TopBar(gameState: gameState),
             
-            // Main game area
             Expanded(
               child: _getCurrentScreen(localizationsProvider),
             ),
             
-            // Bottom navigation
             BottomNavigation(
               selectedIndex: selectedNavIndex,
               onItemTapped: _onNavItemTapped,
@@ -174,7 +167,6 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
-      // DEBUG: Temporary button to clear all user progress for testing
       floatingActionButton: _DEBUG_MODE
           ? FloatingActionButton.small(
               heroTag: 'debug-clear-button',

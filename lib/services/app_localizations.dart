@@ -157,6 +157,25 @@ class AppLocalizations {
       'statistics': 'Statistics',
       'gain': 'Gain',
       'purchase': 'Purchase',
+
+      // Chrumko tips bubble
+      'chrumkoTipLabel': "Chrumko's Tip 💡",
+      'chrumkoTipDismiss': 'Tap to dismiss',
+      'chrumkoTip0': 'I always set aside part of my money. Try it too! 💰',
+      'chrumkoTip1': 'Chrumko advises: think first, then buy. 🛍️',
+      'chrumkoTip2': 'I track my expenses. That way I know where my money goes! 📊',
+      'chrumkoTip3': 'Even small savings grow into something big over time. 📈',
+      'chrumkoTip4': 'When I plan my purchases, I save more money. 📝',
+      'chrumkoTip5': 'I always keep a reserve for unexpected things! 🎁',
+      'chrumkoTip6': 'A budget helps me stay in control of my money! 📋',
+      'chrumkoTip7': 'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
+      'chrumkoTip8': 'Every saved euro is a step towards my goals! 🎯',
+      'chrumkoTip9': 'Thoughtful decisions make money a great helper! 🤝',
+      'chrumkoTip10': 'I save up for things that are truly important to me! 🌟',
+      'chrumkoTip11': 'When I save regularly, my savings grow faster! 📈',
+      'chrumkoTip12': 'Before buying, I always ask myself: do I really need this? 🛒',
+      'chrumkoTip13': 'Financial discipline helps me fulfil my dreams! 💭',
+      'chrumkoTip14': 'Remember: money is a tool, not a goal! 🌍',
     },
     'sk': {
       // Main app
@@ -247,7 +266,9 @@ class AppLocalizations {
       // Shop
       'notEnoughCoins': 'Nedostaatok mincí!',
       'needCoinsHave': 'Potrebujete {need}, máte {have}',
-      'purchasedFor': '{item} kúpené za {cost} mincí!',      'itemPurchasedSuccessfully': 'Nákup bol úspešný!',      'furniture': 'Nábytok',
+      'purchasedFor': '{item} kúpené za {cost} mincí!',
+      'itemPurchasedSuccessfully': 'Nákup bol úspešný!',
+      'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
       
       // Calendar months
@@ -307,6 +328,25 @@ class AppLocalizations {
       'statistics': 'Štatistika',
       'gain': 'Príjem',
       'purchase': 'Nákup',
+
+      // Chrumko tips bubble
+      'chrumkoTipLabel': 'Tip od Chrumka 💡',
+      'chrumkoTipDismiss': 'Klepni pre zavretie',
+      'chrumkoTip0': 'Ja si vždy časť peňazí odložím. Skús to aj ty! 💰',
+      'chrumkoTip1': 'Chrumko radí: najprv premýšľaj, až potom nakupuj! 🛍️',
+      'chrumkoTip2': 'Ja si sledujem výdavky. Vďaka tomu viem, kam moje peniaze idú! 📊',
+      'chrumkoTip3': 'Keď plánujem nákupy, ušetrím viac peňazí. 📝',
+      'chrumkoTip4': 'Aj malé úspory sa časom zmenia na veľké! 📈',
+      'chrumkoTip5': 'Ja si vždy nechám rezervu na nečakané veci! 🎁',
+      'chrumkoTip6': 'Nemusím kúpiť všetko hneď. Niekedy sa oplatí počkať! ⏳',
+      'chrumkoTip7': 'Každé ušetrené euro je krok k mojim cieľom! 🎯',
+      'chrumkoTip8': 'Premyslené rozhodnutia robia z peňazí dobrého pomocníka! 🤝',
+      'chrumkoTip9': 'Rozpočet mi pomáha mať peniaze pod kontrolou! 🔍',
+      'chrumkoTip10': 'Ja šetrím na veci, ktoré sú pre mňa naozaj dôležité! 🌟',
+      'chrumkoTip11': 'Keď šetrím pravidelne, moje úspory rastú rýchlejšie! 📈',
+      'chrumkoTip12': 'Pred nákupom si vždy položím otázku: potrebujem to? 🛒',
+      'chrumkoTip13': 'Finančná disciplína mi pomáha plniť si sny! 💭',
+      'chrumkoTip14': 'Pamätaj: peniaze sú nástroj, nie cieľ! 🌍',
     },
   };
 
@@ -322,6 +362,14 @@ class AppLocalizations {
 
   static String translate(String key, {String language = _languageEn}) {
     return _translations[language]?[key] ?? _translations[_languageEn]![key]!;
+  }
+
+  /// Returns all 15 Chrumko tips for the given language.
+  static List<String> getChrumkoTips(String language) {
+    return List.generate(
+      15,
+      (i) => translate('chrumkoTip$i', language: language),
+    );
   }
 
   static List<String> getSupportedLanguages() {
