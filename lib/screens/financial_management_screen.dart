@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../models/transaction.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
+import '../services/app_localizations_provider.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -364,6 +366,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     showDialog(
       context: context,
       builder: (context) {
+        final l10n = Provider.of<AppLocalizationsProvider>(context);
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             final selectableGoals = _goals.where((goal) {
@@ -381,14 +384,14 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 children: [
                   DropdownButton<String>(
                     value: type,
-                    items: const [
+                    items: [
                       DropdownMenuItem(
                         value: '+',
-                        child: Text('Gain (+)'),
+                        child: Text('${l10n.translate('gain')} (+)'),
                       ),
                       DropdownMenuItem(
                         value: '-',
-                        child: Text('Purchase (-)'),
+                        child: Text('${l10n.translate('purchase')} (-)'),
                       ),
                     ],
                     onChanged: (value) => dialogSetState(() => type = value!),
@@ -400,9 +403,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       labelText: 'Allocate to Goal',
                     ),
                     items: [
-                      const DropdownMenuItem<String?>(
+                      DropdownMenuItem<String?>(
                         value: null,
-                        child: Text('No goal allocation'),
+                        child: Text(l10n.translate('noGoalAllocation')),
                       ),
                       ...selectableGoals.map(
                         (goal) => DropdownMenuItem<String?>(
@@ -427,7 +430,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
+                  child: Text(l10n.translate('cancel')),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -479,7 +482,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     await _recalculateMoneyAndAllocations();
                     Navigator.pop(context);
                   },
-                  child: Text(transaction == null ? 'Add' : 'Save'),
+                  child: Text(transaction == null ? l10n.translate('add') : l10n.translate('save')),
                 ),
               ],
             );
@@ -491,9 +494,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Financial Management'),
+        title: Text(l10n.translate('financial')),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: widget.onBack,
@@ -506,7 +511,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Refresh',
+            tooltip: l10n.translate('refresh'),
             onPressed: _refreshData,
           ),
         ],
@@ -515,9 +520,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         children: [
           TabBar(
             controller: _tabController,
-            tabs: const [
-              Tab(text: 'Financial Management'),
-              Tab(text: 'Statistics'),
+            tabs: [
+              Tab(text: l10n.translate('financial')),
+              Tab(text: l10n.translate('statistics')),
             ],
           ),
           Expanded(

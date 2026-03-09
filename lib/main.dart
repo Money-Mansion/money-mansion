@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 import 'screens/game_screen.dart';
 import 'services/item_database_service.dart';
 import 'services/financial_database_service.dart';
 import 'services/goal_database_service.dart';
+import 'services/app_localizations_provider.dart';
+import 'models/game_state.dart';
+import 'models/room.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +44,22 @@ void main() async {
     rethrow;
   }
   
-  runApp(const MoneyMansionApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => GameState(
+            coins: 111,
+            money: 0.0,
+            date: 7.7,
+            rooms: [Room()],
+          ),
+        ),
+        ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
+      ],
+      child: const MoneyMansionApp(),
+    ),
+  );
 }
 
 class MoneyMansionApp extends StatelessWidget {

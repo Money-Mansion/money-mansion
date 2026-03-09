@@ -5,6 +5,7 @@ import 'item.dart';
 
 class GameState extends ChangeNotifier {
   int coins;
+  int chrumka; // Earned by completing goals
   double money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   List<Room> rooms;
@@ -13,6 +14,7 @@ class GameState extends ChangeNotifier {
 
   GameState({
     this.coins = 111,
+    this.chrumka = 0,
     this.money = 0.0,
     this.date = 7.7,
     List<Room>? rooms,
@@ -62,6 +64,19 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ===== CHRUMKA =====
+
+  void addChrumka(int amount) {
+    if (amount <= 0) return;
+    chrumka += amount;
+    notifyListeners();
+  }
+
+  void setChrumka(int amount) {
+    chrumka = amount;
+    notifyListeners();
+  }
+
   // ===== GOALS =====
 
   void addGoal(Goal goal) {
@@ -80,6 +95,9 @@ class GameState extends ChangeNotifier {
       if (completedGoal.difficulty != Goal.hardDifficulty) {
         coins += completedGoal.rewardCoins;
       }
+
+      // Reward 1 Chrumka for every completed goal
+      chrumka += 1;
 
       notifyListeners();
     }

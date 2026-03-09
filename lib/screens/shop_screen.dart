@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/shop_service.dart';
+import '../services/app_localizations_provider.dart';
 
 class ShopScreen extends StatefulWidget {
   final GameState gameState;
@@ -37,6 +39,7 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   void _buyItem(Item item) async {
+    final l10n = context.read<AppLocalizationsProvider>();
     if (widget.gameState.coins >= item.cost) {
       widget.gameState.spendCoins(item.cost);
       widget.gameState.addOwnedItem(item);
@@ -50,7 +53,7 @@ class _ShopScreenState extends State<ShopScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${item.name} purchased for ${item.cost} coins!'),
+            content: Text(l10n.translate('itemPurchasedSuccessfully')),
             duration: const Duration(seconds: 2),
           ),
         );
@@ -58,7 +61,7 @@ class _ShopScreenState extends State<ShopScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Not enough coins! Need ${item.cost}, have ${widget.gameState.coins}'),
+          content: Text(l10n.translate('notEnoughCoins')),
           duration: const Duration(seconds: 2),
           backgroundColor: Colors.red,
         ),
@@ -78,9 +81,11 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shop'),
+        title: Text(l10n.translate('shop')),
         leading: IconButton(
           key: const Key('back_button'),
           icon: const Icon(Icons.arrow_back),
@@ -110,7 +115,7 @@ class _ShopScreenState extends State<ShopScreen> {
                         ),
                       ),
                       child: Text(
-                        'Furniture',
+                        l10n.translate('furniture'),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -139,7 +144,7 @@ class _ShopScreenState extends State<ShopScreen> {
                         ),
                       ),
                       child: Text(
-                        'Real Estate',
+                        l10n.translate('realEstate'),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -160,15 +165,15 @@ class _ShopScreenState extends State<ShopScreen> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _selectedCategory == 0
-                    ? _buildFurnitureCategory()
-                    : _buildRealEstateCategory(),
+                    ? _buildFurnitureCategory(l10n)
+                    : _buildRealEstateCategory(l10n),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFurnitureCategory() {
+  Widget _buildFurnitureCategory(AppLocalizationsProvider l10n) {
     final items = _getItemsByCategory(0);
     
     if (items.isEmpty) {
@@ -245,7 +250,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 ElevatedButton.icon(
                   onPressed: () => _buyItem(item),
                   icon: const Icon(Icons.shopping_cart),
-                  label: const Text('Buy'),
+                  label: Text(l10n.translate('buy')),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange[400],
                     foregroundColor: Colors.white,
@@ -259,7 +264,7 @@ class _ShopScreenState extends State<ShopScreen> {
     );
   }
 
-  Widget _buildRealEstateCategory() {
+  Widget _buildRealEstateCategory(AppLocalizationsProvider l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

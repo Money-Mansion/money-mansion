@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
+import '../services/app_localizations_provider.dart';
 
 class InventoryScreen extends StatelessWidget {
   final GameState gameState;
@@ -14,11 +16,13 @@ class InventoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inventory'),
+        title: Text(l10n.translate('inventory')),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: onBack,
         ),
       ),
@@ -34,7 +38,7 @@ class InventoryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'No Items Yet',
+                    l10n.translate('noItemsYet'),
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -43,7 +47,7 @@ class InventoryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Your items will appear here',
+                    l10n.translate('yourItemsWillAppearHere'),
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -55,7 +59,7 @@ class InventoryScreen extends StatelessWidget {
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,

@@ -474,6 +474,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           await GoalDatabaseService.completeGoal(goal.id);
 
                       if (success) {
+                        // Awards coins + 1 Chrumka inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
 
@@ -484,7 +485,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               : 'Goal completed! +${goal.rewardCoins} coins';
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(completionText),
+                              content: Text(
+                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
+                              ),
                               duration: const Duration(seconds: 2),
                             ),
                           );
