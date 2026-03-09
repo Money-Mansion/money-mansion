@@ -82,11 +82,11 @@ class TopBar extends StatelessWidget {
                 value: _formatMoney(gameState.money),
               ),
 
-              // Chrumka
+              // Chrumka — shows real earned chrumka count (not coins)
               _ResourceDisplay(
                 icon: MyFlutterApp.chrumka,
-                color: const Color.fromARGB(0, 76, 175, 79),
-                value: gameState.coins.toString(),
+                color: const Color.fromARGB(0, 220, 100, 180),
+                value: gameState.chrumka.toString(),
               ),
 
               // Date

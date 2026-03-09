@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/app_localizations_provider.dart';
 
 class CalendarScreen extends StatefulWidget {
   final double date;
@@ -62,37 +64,46 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return days;
   }
 
-  String _getMonthName(int month) {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
+  String _getMonthName(int month, AppLocalizationsProvider l10n) {
+    final months = [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december'
     ];
-    return months[month - 1];
+    return l10n.translate(months[month - 1]);
   }
 
-  String _formatDate(DateTime date) {
-    return '${_getMonthName(date.month)} ${date.day}, ${date.year}';
+  String _formatDate(DateTime date, AppLocalizationsProvider l10n) {
+    return '${_getMonthName(date.month, l10n)} ${date.day}, ${date.year}';
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
     final daysInMonth = _getDaysInMonth(displayedMonth);
-    final weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final weekDays = [
+      l10n.translate('monday'),
+      l10n.translate('tuesday'),
+      l10n.translate('wednesday'),
+      l10n.translate('thursday'),
+      l10n.translate('friday'),
+      l10n.translate('saturday'),
+      l10n.translate('sunday'),
+    ];
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       appBar: AppBar(
-        title: const Text('Calendar'),
+        title: Text(l10n.translate('calendar')),
         backgroundColor: Colors.grey[400],
       ),
       body: SingleChildScrollView(
@@ -109,7 +120,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     onPressed: _previousMonth,
                   ),
                   Text(
-                    '${_getMonthName(displayedMonth.month)} ${displayedMonth.year}',
+                    '${_getMonthName(displayedMonth.month, l10n)} ${displayedMonth.year}',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -130,7 +141,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'Today: ${_formatDate(currentDate)}',
+                  '${l10n.translate('todayLabel')}: ${_formatDate(currentDate, l10n)}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

@@ -6,11 +6,13 @@ import '../games/room_world.dart';
 class RoomViewer extends StatefulWidget {
   final Room? room;
   final VoidCallback? onEditPressed;
+  final String language; // pass AppLocalizationsProvider.currentLanguage
 
   const RoomViewer({
     super.key,
     this.room,
     this.onEditPressed,
+    this.language = 'en',
   });
 
   @override
@@ -48,6 +50,7 @@ class _RoomViewerState extends State<RoomViewer> {
             game: roomWorld,
           ),
         ),
+
         // Edit button (bottom-right corner)
         if (widget.onEditPressed != null)
           Align(
