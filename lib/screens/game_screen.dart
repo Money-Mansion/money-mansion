@@ -8,6 +8,7 @@ import '../services/app_localizations_provider.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
+import '../widgets/chrumko_guide.dart';
 import 'shop_screen.dart';
 import 'goals_screen.dart';
 import 'inventory_screen.dart';
@@ -151,21 +152,42 @@ class _GameScreenState extends State<GameScreen> {
     
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
-      body: SafeArea(
-        child: Column(
-          children: [
-            TopBar(gameState: gameState),
-            
-            Expanded(
-              child: _getCurrentScreen(localizationsProvider),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Column(
+              children: [
+                // Top bar with coins, money, and date
+                TopBar(gameState: gameState),
+                
+                // Main game area
+                Expanded(
+                  child: _getCurrentScreen(localizationsProvider),
+                ),
+                
+                // Bottom navigation
+                BottomNavigation(
+                  selectedIndex: selectedNavIndex,
+                  onItemTapped: _onNavItemTapped,
+                ),
+              ],
             ),
-            
-            BottomNavigation(
-              selectedIndex: selectedNavIndex,
-              onItemTapped: _onNavItemTapped,
+          ),
+          // Chrumko guide - floating overlay (top-right corner) - only on default game screen
+          if (selectedNavIndex == -1)
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 100.0, 0, 0),
+                  child: ChrumkoGuide(
+                    language: localizationsProvider.currentLanguage,
+                    autoShowTips: true,
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
+        ],
       ),
       floatingActionButton: _DEBUG_MODE
           ? FloatingActionButton.small(
