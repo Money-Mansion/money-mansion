@@ -202,6 +202,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         // Chrumko image
         GestureDetector(

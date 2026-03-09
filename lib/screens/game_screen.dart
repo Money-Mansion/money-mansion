@@ -15,6 +15,7 @@ import 'inventory_screen.dart';
 import 'financial_management_screen.dart';
 import 'room_edit_screen.dart';
 import 'settings_screen.dart';
+import 'calendar_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -153,6 +154,7 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
           SafeArea(
             child: Column(
@@ -173,6 +175,88 @@ class _GameScreenState extends State<GameScreen> {
               ],
             ),
           ),
+          // Calendar button (top-left corner) - only on default game screen
+          if (selectedNavIndex == -1)
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 100.0, 0, 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CalendarScreen(date: gameState.date),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black, width: 2),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Column(
+                        children: [
+                          // Month header
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFE74C3C),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              ),
+                            ),
+                            child: Center(
+                              child: Builder(
+                                builder: (context) {
+                                  final now = DateTime.now();
+                                  final monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
+                                                      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                                  final monthStr = monthNames[now.month - 1];
+                                  return Text(
+                                    monthStr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          // Day
+                          Expanded(
+                            child: Center(
+                              child: Builder(
+                                builder: (context) {
+                                  final now = DateTime.now();
+                                  final dayStr = now.day.toString();
+                                  return Text(
+                                    dayStr,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           // Chrumko guide - floating overlay (top-right corner) - only on default game screen
           if (selectedNavIndex == -1)
             SafeArea(

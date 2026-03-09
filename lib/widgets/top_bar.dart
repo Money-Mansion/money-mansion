@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../models/game_state.dart';
 import '../my_flutter_app_icons.dart';
 import '../screens/settings_screen.dart';
-import '../screens/calendar_screen.dart';
 
 class TopBar extends StatelessWidget {
   final GameState gameState;
@@ -88,9 +87,6 @@ class TopBar extends StatelessWidget {
                 color: const Color.fromARGB(0, 220, 100, 180),
                 value: gameState.chrumka.toString(),
               ),
-
-              // Date
-              _CalendarWidget(date: gameState.date),
             ],
           ),
         );
@@ -145,81 +141,6 @@ class _ResourceDisplay extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _CalendarWidget extends StatelessWidget {
-  final double date;
-
-  const _CalendarWidget({required this.date});
-
-  @override
-  Widget build(BuildContext context) {
-    final now = DateTime.now();
-    final monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
-                        'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    final monthStr = monthNames[now.month - 1];
-    final dayStr = now.day.toString();
-
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CalendarScreen(date: date),
-          ),
-        );
-      },
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(
-          children: [
-            // Month header
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              decoration: const BoxDecoration(
-                color: Color(0xFFE74C3C),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4),
-                  topRight: Radius.circular(4),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  monthStr,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-
-            // Day
-            Expanded(
-              child: Center(
-                child: Text(
-                  dayStr,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
