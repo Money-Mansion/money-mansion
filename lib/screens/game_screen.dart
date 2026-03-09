@@ -153,6 +153,7 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
           SafeArea(
             child: Column(
