@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/room.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
+import '../services/app_localizations_provider.dart';
 import '../widgets/room_viewer.dart';
 
 class RoomEditScreen extends StatelessWidget {
@@ -16,6 +18,8 @@ class RoomEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = context.watch<AppLocalizationsProvider>().currentLanguage;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -26,6 +30,7 @@ class RoomEditScreen extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               child: RoomViewer(
                 room: room,
+                language: language, // ← fixes tips language in edit mode
                 onEditPressed: null, // Disable edit button in edit mode
               ),
             ),
@@ -119,7 +124,8 @@ class RoomEditScreen extends StatelessWidget {
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
@@ -200,4 +206,5 @@ class RoomEditScreen extends StatelessWidget {
         ],
       ),
     );
-  }}
+  }
+}
