@@ -9,11 +9,83 @@ import '../models/item.dart';
 final List<Item> GAME_ITEMS = [
   // Example item - DELETE THIS AFTER TESTING
   Item(
-    id: 'basic_door',
-    name: 'Basic Door',
+    id: 'dvere_biele',
+    name: 'Biele Dvere',
     type: ItemType.door,
-    texture: 'assets/images/items/basic_door.png',
+    texture: 'assets/images/items/dvere_biele.png',
     cost: 0,
+  ),
+
+  Item(
+    id: 'posteľ_základná',
+    name: 'Základná posteľ',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/posteľ_základná.png',
+    cost: 0,
+  ),
+
+  Item(
+    id: 'kvietok_s_chrumkom',
+    name: 'Chrumko na kvietku',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/kvietok_s_chrumkom.png',
+    cost: 55,
+  ),
+
+  Item(
+    id: 'obraz_s_chrumkom',
+    name: 'Chrumko v obraze',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_s_chrumkom.png',
+    cost: 75,
+  ),
+
+  Item(
+    id: 'kvietok_alien',
+    name: 'Mimozemsky kvietok',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/kvietok_alien.png',
+    cost: 50,
+  ),
+
+  Item(
+    id: 'kvietok_y',
+    name: 'Kvietky',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/kvietok_y.png',
+    cost: 50,
+  ),
+
+  Item(
+    id: 'kvietok_ruzovy',
+    name: 'Ruzovy kvietok',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/kvietok_ruzovy.png',
+    cost: 50,
+  ),
+
+  Item(
+    id: 'posteľ_dievčenská',
+    name: 'Dievčenská posteľ',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/posteľ_dievčenská.png',
+    cost: 300,
+  ),
+
+  Item(
+    id: 'skriňa_šatník',
+    name: 'Šatník',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/skriňa_šatník.png',
+    cost: 175,
+  ),
+
+  Item(
+    id: 'skriňa_knihy',
+    name: 'Knihovňa',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/skriňa_knihy.png',
+    cost: 200,
   ),
 
   // ADD YOUR ITEMS BELOW THIS LINE
