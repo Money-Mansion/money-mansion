@@ -208,6 +208,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     await showDialog(
       context: context,
       builder: (context) {
+        final l10n = Provider.of<AppLocalizationsProvider>(context);
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             final sourceGoals = _goals
@@ -284,11 +285,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     if (_isGoalCompleted(toGoalId)) {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              'Completed goals cannot accept more progress.',
+                              l10n.translate('completedGoalsCannotAccept'),
                             ),
-                            duration: Duration(seconds: 2),
+                            duration: const Duration(seconds: 2),
                           ),
                         );
                       }
@@ -376,8 +377,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             return AlertDialog(
               title: Text(
                 transaction == null
-                    ? 'Add Gain / Purchase'
-                    : 'Edit Transaction',
+                    ? l10n.translate('addGainOrPurchase')
+                    : l10n.translate('editTransaction'),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -399,8 +400,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String?>(
                     value: goalId,
-                    decoration: const InputDecoration(
-                      labelText: 'Allocate to Goal',
+                    decoration: InputDecoration(
+                      labelText: l10n.translate('allocateToGoal'),
                     ),
                     items: [
                       DropdownMenuItem<String?>(
@@ -419,11 +420,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Amount'),
+                    decoration: InputDecoration(labelText: l10n.translate('amount')),
                   ),
                   TextField(
                     controller: noteController,
-                    decoration: const InputDecoration(labelText: 'Note'),
+                    decoration: InputDecoration(labelText: l10n.translate('note')),
                   ),
                 ],
               ),
@@ -442,11 +443,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     if (_isGoalCompleted(goalId)) {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              'Completed goals cannot accept more progress.',
+                              l10n.translate('completedGoalsCannotAccept'),
                             ),
-                            duration: Duration(seconds: 2),
+                            duration: const Duration(seconds: 2),
                           ),
                         );
                       }
@@ -499,6 +500,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('financial')),
+        backgroundColor: Colors.green[600],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: widget.onBack,
@@ -529,7 +531,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                _buildFinancialTab(),
+                _buildFinancialTab(l10n),
                 _buildStatisticsTab(),
               ],
             ),
@@ -544,7 +546,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     );
   }
 
-  Widget _buildFinancialTab() {
+  Widget _buildFinancialTab(AppLocalizationsProvider l10n) {
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -587,7 +589,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             Padding(
               padding: const EdgeInsets.only(top: 80),
               child: Text(
-                'No transactions yet. Tap + to add one!',
+                l10n.translate('noTransactionsYet'),
                 style: TextStyle(color: Colors.grey[600]),
               ),
             ),
