@@ -218,10 +218,24 @@ class _ShopScreenState extends State<ShopScreen> {
             padding: const EdgeInsets.all(12),
             child: Row(
               children: [
-                Icon(
-                  Icons.chair,
-                  size: 40,
-                  color: Colors.orange[400],
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[300]!),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.grey[100],
+                  ),
+                  child: Image.asset(
+                    item.texture,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.image_not_supported,
+                        color: Colors.grey[400],
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
