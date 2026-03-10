@@ -289,16 +289,16 @@ class _ShopScreenState extends State<ShopScreen> {
             color: Colors.blue[400],
           ),
           const SizedBox(height: 16),
-          const Text(
-            'Real Estate',
-            style: TextStyle(
+          Text(
+            l10n.translate('realEstate'),
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Coming soon...',
+            l10n.translate('comingSoon'),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,

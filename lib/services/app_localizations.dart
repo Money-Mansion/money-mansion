@@ -38,6 +38,8 @@ class AppLocalizations {
       'unsavedChanges': 'Unsaved changes',
       'saveChanges': 'Save changes',
       'discardChanges': 'Discard changes',
+      'gameInfo': 'Game Info',
+      'moreSettingsComingSoon': 'More settings coming soon...',
       
       // Common actions
       'save': 'Save',
@@ -71,6 +73,19 @@ class AppLocalizations {
       'addGoal': 'Add Goal',
       'goalCompleted': 'Goal Completed!',
       'completeGoal': 'Complete Goal',
+      'noGoalsYet': 'No goals yet',
+      'createYourFirstGoal': 'Create your first goal to get started',
+      'reward': 'Reward',
+      'difficulty': 'Difficulty',
+      'easy': 'Easy',
+      'medium': 'Medium',
+      'hard': 'Hard',
+      'goalAmount': 'Goal Amount',
+      'enterMoneyTarget': 'Enter money target',
+      'coinsLabel': 'coins',
+      'dueDate': 'Due Date',
+      'enterGoalDescription': 'Enter goal description',
+      'enterGoalTitleHint': 'Enter goal title',
       
       // Items
       'itemName': 'Item Name',
@@ -99,6 +114,7 @@ class AppLocalizations {
       'itemPurchasedSuccessfully': 'Item purchased successfully!',
       'furniture': 'Furniture',
       'realEstate': 'Real Estate',
+      'comingSoon': 'Coming soon...',
       
       // Calendar months
       'january': 'January',
@@ -138,6 +154,7 @@ class AppLocalizations {
       'selectType': 'Select Type',
       'selectGoal': 'Select Goal (optional)',
       'createdAt': 'Created at',
+      'noTransactionsYet': 'No transactions yet. Tap + to add one!',
       
       // Additional missing texts
       'pickDate': 'Pick Date',
@@ -157,6 +174,12 @@ class AppLocalizations {
       'statistics': 'Statistics',
       'gain': 'Gain',
       'purchase': 'Purchase',
+      'addGainOrPurchase': 'Add Gain / Purchase',
+      'editTransaction': 'Edit Transaction',
+      'allocateToGoal': 'Allocate to Goal',
+      'amount': 'Amount',
+      'note': 'Note',
+      'completedGoalsCannotAccept': 'Completed goals cannot accept more progress.',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -209,6 +232,8 @@ class AppLocalizations {
       'unsavedChanges': 'Neuložené zmeny',
       'saveChanges': 'Uložiť zmeny',
       'discardChanges': 'Zavrhnúť zmeny',
+      'gameInfo': 'Informácie o hre',
+      'moreSettingsComingSoon': 'Ďalšie nastavenia čoskoro...',
       
       // Common actions
       'save': 'Uložiť',
@@ -242,6 +267,19 @@ class AppLocalizations {
       'addGoal': 'Pridať cieľ',
       'goalCompleted': 'Cieľ splnený!',
       'completeGoal': 'Splniť cieľ',
+      'noGoalsYet': 'Zatiaľ bez cieľov',
+      'createYourFirstGoal': 'Vytvor svoj prvý cieľ a začni',
+      'reward': 'Odmena',
+      'difficulty': 'Ťažkosť',
+      'easy': 'Ľahký',
+      'medium': 'Stredný',
+      'hard': 'Ťažký',
+      'goalAmount': 'Cieľová suma',
+      'enterMoneyTarget': 'Zadaj cieľovú sumu',
+      'coinsLabel': 'mincí',
+      'dueDate': 'Termín',
+      'enterGoalDescription': 'Zadaj popis cieľa',
+      'enterGoalTitleHint': 'Zadaj názov cieľa',
       
       // Items
       'itemName': 'Názov položky',
@@ -270,6 +308,7 @@ class AppLocalizations {
       'itemPurchasedSuccessfully': 'Nákup bol úspešný!',
       'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
+      'comingSoon': 'Čoskoro...',
       
       // Calendar months
       'january': 'Január',
@@ -308,8 +347,7 @@ class AppLocalizations {
       'amountEuro': 'Suma (€)',
       'selectType': 'Vyberte typ',
       'selectGoal': 'Vyberte cieľ (voliteľné)',
-      'createdAt': 'Vytvorené',
-      
+      'createdAt': 'Vytvorené',      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',      
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
@@ -328,6 +366,12 @@ class AppLocalizations {
       'statistics': 'Štatistika',
       'gain': 'Príjem',
       'purchase': 'Nákup',
+      'addGainOrPurchase': 'Pridať príjem / nákup',
+      'editTransaction': 'Upraviť transakciu',
+      'allocateToGoal': 'Prideliť k cieľu',
+      'amount': 'Suma',
+      'note': 'Poznámka',
+      'completedGoalsCannotAccept': 'Splnené ciele nemôžu prijímať ďalší pokrok.',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': 'Tip od Chrumka 💡',
