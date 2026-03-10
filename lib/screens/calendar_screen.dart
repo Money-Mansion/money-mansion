@@ -104,7 +104,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       appBar: AppBar(
         title: Text(l10n.translate('calendar')),
-        backgroundColor: Colors.grey[400],
+        backgroundColor: Colors.blue[500],
       ),
       body: SingleChildScrollView(
         child: Padding(

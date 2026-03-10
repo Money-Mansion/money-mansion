@@ -21,7 +21,9 @@ class SettingsScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(l10n.translate('settings')),
+            backgroundColor: Colors.orange[500],
             elevation: 0,
+            automaticallyImplyLeading: true,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -101,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            'More settings coming soon...',
+                            l10n.translate('moreSettingsComingSoon'),
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey[600],
@@ -122,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Game Info',
+                            l10n.translate('gameInfo'),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 16),

@@ -43,14 +43,7 @@ class TopBar extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        backgroundColor: Colors.grey[300],
-                        appBar: AppBar(
-                          title: const Text('Settings'),
-                          backgroundColor: Colors.grey[400],
-                        ),
-                        body: SettingsScreen(gameState: gameState),
-                      ),
+                      builder: (context) => SettingsScreen(gameState: gameState),
                     ),
                   );
                 },

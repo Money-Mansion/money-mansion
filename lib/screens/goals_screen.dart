@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../services/goal_database_service.dart';
+import '../services/app_localizations_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class GoalsScreen extends StatefulWidget {
@@ -91,7 +93,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     }
   }
 
-  void _showCreateGoalDialog() {
+  void _showCreateGoalDialog(AppLocalizationsProvider l10n) {
     DateTime selectedDate = _selectedDate;
     String selectedDifficulty = _selectedDifficulty;
 
@@ -99,58 +101,58 @@ class _GoalsScreenState extends State<GoalsScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, dialogSetState) => AlertDialog(
-          title: const Text('Create New Goal'),
+          title: Text(l10n.translate('createNewGoal')),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: _titleController,
-                  decoration: const InputDecoration(
-                    labelText: 'Goal Title',
-                    hintText: 'Enter goal title',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('goalTitle'),
+                    hintText: l10n.translate('enterGoalTitleHint'),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    hintText: 'Enter goal description',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('goalDescription'),
+                    hintText: l10n.translate('enterGoalDescription'),
+                    border: const OutlineInputBorder(),
                   ),
                   maxLines: 3,
                 ),
                 const SizedBox(height: 16),
                 InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Reward',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('reward'),
+                    border: const OutlineInputBorder(),
                   ),
                   child: Text(
-                    '${_difficultyRewards[selectedDifficulty]} coins',
+                    '${_difficultyRewards[selectedDifficulty]} ${l10n.translate('coinsLabel')}',
                   ),
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   value: selectedDifficulty,
-                  decoration: const InputDecoration(
-                    labelText: 'Difficulty',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('difficulty'),
+                    border: const OutlineInputBorder(),
                   ),
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: Goal.easyDifficulty,
-                      child: Text('Easy'),
+                      child: Text(l10n.translate('easy')),
                     ),
                     DropdownMenuItem(
                       value: Goal.mediumDifficulty,
-                      child: Text('Medium'),
+                      child: Text(l10n.translate('medium')),
                     ),
                     DropdownMenuItem(
                       value: Goal.hardDifficulty,
-                      child: Text('Hard'),
+                      child: Text(l10n.translate('hard')),
                     ),
                   ],
                   onChanged: (value) {
@@ -163,10 +165,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: _targetMoneyController,
-                  decoration: const InputDecoration(
-                    labelText: 'Goal Amount',
-                    hintText: 'Enter money target',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('goalAmount'),
+                    hintText: l10n.translate('enterMoneyTarget'),
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -175,7 +177,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Due Date: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
+                        '${l10n.translate('dueDate')}: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
                         style: const TextStyle(fontSize: 14),
                       ),
                     ),
@@ -195,7 +197,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           });
                         }
                       },
-                      child: const Text('Pick Date'),
+                      child: Text(l10n.translate('pickDate')),
                     ),
                   ],
                 ),
@@ -205,13 +207,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(l10n.translate('cancel')),
             ),
             ElevatedButton(
               onPressed: () async {
                 if (_titleController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please enter a goal title')),
+                    SnackBar(content: Text(l10n.translate('enterGoalTitle'))),
                   );
                   return;
                 }
@@ -249,24 +251,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     Navigator.pop(context);
                     setState(() {});
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Goal created successfully'),
-                        duration: Duration(seconds: 2),
+                      SnackBar(
+                        content: Text(l10n.translate('goalCreatedSuccessfully')),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }
                 } else {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Failed to create goal'),
-                        duration: Duration(seconds: 2),
+                      SnackBar(
+                        content: Text(l10n.translate('failedToCreateGoal')),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }
                 }
               },
-              child: const Text('Create Goal'),
+              child: Text(l10n.translate('createGoal')),
             ),
           ],
         ),
@@ -280,9 +282,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
     final activeGoals = goals.where((g) => !g.isCompleted).toList();
     final completedGoals = goals.where((g) => g.isCompleted).toList();
 
-    return Scaffold(
+    return Consumer<AppLocalizationsProvider>(
+      builder: (context, localizationsProvider, _) {
+        final l10n = localizationsProvider;
+        return Scaffold(
       appBar: AppBar(
-        title: const Text('Goals'),
+        title: Text(l10n.translate('goals')),
         backgroundColor: Colors.deepPurple[300],
         centerTitle: true,
         leading: IconButton(
@@ -340,7 +345,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No goals yet',
+                        l10n.translate('noGoalsYet'),
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -349,7 +354,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Create your first goal to get started',
+                        l10n.translate('createYourFirstGoal'),
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -392,10 +397,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        onPressed: _isSyncing ? null : _showCreateGoalDialog,
+        onPressed: _isSyncing ? null : () => _showCreateGoalDialog(l10n),
         backgroundColor: Colors.deepPurple[300],
         child: const Icon(Icons.add),
       ),
+    );
+      },
     );
   }
 
