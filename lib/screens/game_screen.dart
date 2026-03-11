@@ -26,16 +26,14 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
-  int selectedNavIndex = -1; // -1 = Room viewer (home), 0-3 = nav buttons
+  int selectedNavIndex = -1;
   bool _isInitialized = false;
-  
-  // DEBUG FLAG: Set to true to show debug buttons
+
   static const bool _DEBUG_MODE = false;
 
   @override
   void initState() {
     super.initState();
-    // Get gameState from Provider after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       gameState = context.read<GameState>();
       _initializeGameState();
@@ -52,14 +50,16 @@ class _GameScreenState extends State<GameScreen> {
   Future<void> _initializeGameState() async {
     final coins = await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
-    
+    final chrumka = await FinancialDatabaseService.getChrumka(); // ← load chrumka
+
     if (mounted) {
       gameState.setCoins(coins);
       gameState.setMoney(money);
+      gameState.setChrumka(chrumka); // ← restore chrumka
     }
-    
+
     await _loadOwnedItems();
-    
+
     if (mounted) {
       setState(() {
         _isInitialized = true;
@@ -68,8 +68,10 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _saveGameStateChanges() {
+    // Auto-save coins, money and chrumka whenever GameState notifies
     FinancialDatabaseService.saveCoins(gameState.coins);
     FinancialDatabaseService.saveMoney(gameState.money);
+    FinancialDatabaseService.saveChrumka(gameState.chrumka); // ← save chrumka
   }
 
   Future<void> _loadOwnedItems() async {
@@ -117,18 +119,14 @@ class _GameScreenState extends State<GameScreen> {
         return Padding(
           padding: const EdgeInsets.all(5.0),
           child: RoomViewer(
-            room: gameState.rooms.isNotEmpty
-                ? gameState.rooms[0]
-                : null,
-            language: localizationsProvider.currentLanguage, // ← passes 'en' or 'sk'
+            room: gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
+            language: localizationsProvider.currentLanguage,
             onEditPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => RoomEditScreen(
-                    room: gameState.rooms.isNotEmpty
-                        ? gameState.rooms[0]
-                        : null,
+                    room: gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
                     gameState: gameState,
                   ),
                 ),
@@ -142,15 +140,13 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     final localizationsProvider = context.watch<AppLocalizationsProvider>();
-    
+
     if (!_isInitialized) {
       return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
+        body: Center(child: CircularProgressIndicator()),
       );
     }
-    
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
       body: Stack(
@@ -159,15 +155,8 @@ class _GameScreenState extends State<GameScreen> {
           SafeArea(
             child: Column(
               children: [
-                // Top bar with coins, money, and date
                 TopBar(gameState: gameState),
-                
-                // Main game area
-                Expanded(
-                  child: _getCurrentScreen(localizationsProvider),
-                ),
-                
-                // Bottom navigation
+                Expanded(child: _getCurrentScreen(localizationsProvider)),
                 BottomNavigation(
                   selectedIndex: selectedNavIndex,
                   onItemTapped: _onNavItemTapped,
@@ -175,7 +164,7 @@ class _GameScreenState extends State<GameScreen> {
               ],
             ),
           ),
-          // Calendar button (top-left corner) - only on default game screen
+          // Calendar button — only on default game screen
           if (selectedNavIndex == -1)
             SafeArea(
               child: Align(
@@ -187,7 +176,8 @@ class _GameScreenState extends State<GameScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CalendarScreen(date: gameState.date),
+                          builder: (context) =>
+                              CalendarScreen(date: gameState.date),
                         ),
                       );
                     },
@@ -201,7 +191,6 @@ class _GameScreenState extends State<GameScreen> {
                       ),
                       child: Column(
                         children: [
-                          // Month header
                           Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -216,11 +205,12 @@ class _GameScreenState extends State<GameScreen> {
                               child: Builder(
                                 builder: (context) {
                                   final now = DateTime.now();
-                                  final monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
-                                                      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-                                  final monthStr = monthNames[now.month - 1];
+                                  final monthNames = [
+                                    'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                                    'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+                                  ];
                                   return Text(
-                                    monthStr,
+                                    monthNames[now.month - 1],
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 10,
@@ -231,15 +221,12 @@ class _GameScreenState extends State<GameScreen> {
                               ),
                             ),
                           ),
-                          // Day
                           Expanded(
                             child: Center(
                               child: Builder(
                                 builder: (context) {
-                                  final now = DateTime.now();
-                                  final dayStr = now.day.toString();
                                   return Text(
-                                    dayStr,
+                                    DateTime.now().day.toString(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -257,7 +244,7 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ),
             ),
-          // Chrumko guide - floating overlay (top-right corner) - only on default game screen
+          // Chrumko guide — only on default game screen
           if (selectedNavIndex == -1)
             SafeArea(
               child: Align(
@@ -284,6 +271,7 @@ class _GameScreenState extends State<GameScreen> {
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);
+                gameState.setChrumka(0);
                 setState(() {});
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(

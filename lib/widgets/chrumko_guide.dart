@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../services/app_localizations.dart';
 
@@ -25,6 +26,8 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
 
   Timer? _repeatTimer;
   Timer? _hideTimer;
+
+  final Random _random = Random();
 
   late AnimationController _animController;
   late Animation<double> _scaleAnim;
@@ -74,8 +77,15 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   // ── Tip logic ───────────────────────────────────────────────────────────────
   void _showNextTip() {
     if (!mounted) return;
+
+    // Pick a random tip, making sure it's different from the current one
+    int newIndex;
+    do {
+      newIndex = _random.nextInt(_tips.length);
+    } while (_tips.length > 1 && newIndex == _tipIndex);
+
     setState(() {
-      _tipIndex = (_tipIndex + 1) % _tips.length;
+      _tipIndex = newIndex;
       _showBubble = true;
     });
     _animController.forward(from: 0);
@@ -92,131 +102,122 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
     });
   }
 
-  // ── Speech bubble ───────────────────────────────────────────────────────────
-  Widget _buildSpeechBubble() {
-    return Positioned(
-      top: 15,
-      right: 130, // sits to the left of Chrumko (who is 150 wide)
-      child: ScaleTransition(
-        scale: _scaleAnim,
-        alignment: Alignment.centerRight,
-        child: GestureDetector(
-          onTap: _dismissBubble,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              // Bubble body
-              Container(
-                constraints: const BoxConstraints(maxWidth: 195),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.purple.withOpacity(0.18),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                  border: Border.all(
-                    color: Colors.purple.shade200,
-                    width: 1.5,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Header row
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _tipLabel,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple.shade400,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        GestureDetector(
-                          onTap: _dismissBubble,
-                          child: Icon(
-                            Icons.close_rounded,
-                            size: 12,
-                            color: Colors.purple.shade300,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    // Tip text
-                    Text(
-                      _tips[_tipIndex],
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF4A3F6B),
-                        height: 1.4,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      _tipDismiss,
-                      style: TextStyle(
-                        fontSize: 9,
-                        color: Colors.grey.shade400,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Tail pointing right toward Chrumko, slightly below top corner
-              Positioned(
-                top: 18,
-                right: -10,
-                child: CustomPaint(
-                  size: const Size(10, 14),
-                  painter: _BubbleTailPainter(
-                    color: Colors.white,
-                    borderColor: Colors.purple.shade200,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   // ── Build ───────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        // Chrumko image
-        GestureDetector(
-          onTap: _showNextTip,
-          child: Image.asset(
+    // The row puts the bubble to the left of Chrumko, both fully in-bounds
+    // so GestureDetector hit-testing works correctly.
+    return SizedBox(
+      height: 150,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Speech bubble — shown to the left of Chrumko
+          if (_showBubble)
+            ScaleTransition(
+              scale: _scaleAnim,
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: _dismissBubble,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      constraints: const BoxConstraints(maxWidth: 195),
+                      margin: const EdgeInsets.only(top: 15, right: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(4),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.purple.withOpacity(0.18),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                        border: Border.all(
+                          color: Colors.purple.shade200,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _tipLabel,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.purple.shade400,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Icon(
+                                Icons.close_rounded,
+                                size: 12,
+                                color: Colors.purple.shade300,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            _tips[_tipIndex],
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF4A3F6B),
+                              height: 1.4,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            _tipDismiss,
+                            style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey.shade400,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Tail pointing right toward Chrumko
+                    Positioned(
+                      top: 33,
+                      right: 0,
+                      child: CustomPaint(
+                        size: const Size(10, 14),
+                        painter: _BubbleTailPainter(
+                          color: Colors.white,
+                          borderColor: Colors.purple.shade200,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+          // Chrumko image — tips are automatic only, tapping does nothing
+          Image.asset(
             'assets/images/chrumko.png',
             width: 150,
             height: 150,
           ),
-        ),
-
-        // Speech bubble — only shown when _showBubble is true
-        if (_showBubble) _buildSpeechBubble(),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -42,7 +42,6 @@ class FinancialDatabaseService {
       onCreate: _onCreate,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 3) {
-          // Create game_state table if upgrading to v3
           await db.execute('''
             CREATE TABLE IF NOT EXISTS $_gameStateTable (
               key TEXT PRIMARY KEY,
@@ -53,7 +52,6 @@ class FinancialDatabaseService {
         await _ensureGoalIdColumn(db);
       },
       onOpen: (db) async {
-        // Ensure all tables exist
         await _ensureTransactionsTable(db);
         await _ensureGameStateTable(db);
         await _ensureGoalIdColumn(db);
@@ -62,7 +60,6 @@ class FinancialDatabaseService {
   }
 
   static Future<void> _onCreate(Database db, int version) async {
-    // Create transactions table
     await db.execute('''
       CREATE TABLE IF NOT EXISTS $_transactionsTable (
         id TEXT PRIMARY KEY,
@@ -73,8 +70,7 @@ class FinancialDatabaseService {
         goalId TEXT
       )
     ''');
-    
-    // Create game_state table (v3+)
+
     await db.execute('''
       CREATE TABLE IF NOT EXISTS $_gameStateTable (
         key TEXT PRIMARY KEY,
@@ -83,7 +79,6 @@ class FinancialDatabaseService {
     ''');
   }
 
-  // Ensure transactions table exists before any operation
   static Future<void> ensureTable() async {
     final db = await database;
     await _ensureTransactionsTable(db);
@@ -113,8 +108,7 @@ class FinancialDatabaseService {
 
   static Future<void> _ensureGoalIdColumn(Database db) async {
     final columns = await db.rawQuery('PRAGMA table_info($_transactionsTable)');
-    final columnNames =
-        columns.map((c) => c['name'] as String).toSet();
+    final columnNames = columns.map((c) => c['name'] as String).toSet();
     if (!columnNames.contains('goalId')) {
       await db.execute(
         'ALTER TABLE $_transactionsTable ADD COLUMN goalId TEXT',
@@ -122,9 +116,8 @@ class FinancialDatabaseService {
     }
   }
 
-  // ===== COINS & MONEY PERSISTENCE (v3+) =====
+  // ===== COINS =====
 
-  /// Save coins to database
   static Future<void> saveCoins(int coins) async {
     final db = await database;
     await db.insert(
@@ -134,7 +127,6 @@ class FinancialDatabaseService {
     );
   }
 
-  /// Load coins from database (returns 0 if not found)
   static Future<int> getCoins() async {
     final db = await database;
     try {
@@ -146,18 +138,14 @@ class FinancialDatabaseService {
       );
       if (result.isNotEmpty) {
         final value = result[0]['value'];
-        if (value is num) {
-          return value.toInt();
-        } else if (value is String) {
-          // Try parsing as double first (in case it's "10.0"), then convert to int
+        if (value is num) return value.toInt();
+        if (value is String) {
           try {
             return int.parse(value);
-          } catch (e) {
-            // If int parsing fails, try double then convert
+          } catch (_) {
             return double.parse(value).toInt();
           }
         }
-        return 0;
       }
       return 0;
     } catch (e) {
@@ -166,7 +154,8 @@ class FinancialDatabaseService {
     }
   }
 
-  /// Save money to database
+  // ===== MONEY =====
+
   static Future<void> saveMoney(double money) async {
     final db = await database;
     await db.insert(
@@ -176,7 +165,6 @@ class FinancialDatabaseService {
     );
   }
 
-  /// Load money from database (returns 0 if not found)
   static Future<double> getMoney() async {
     final db = await database;
     try {
@@ -188,12 +176,8 @@ class FinancialDatabaseService {
       );
       if (result.isNotEmpty) {
         final value = result[0]['value'];
-        if (value is num) {
-          return value.toDouble();
-        } else if (value is String) {
-          return double.parse(value);
-        }
-        return 0.0;
+        if (value is num) return value.toDouble();
+        if (value is String) return double.parse(value);
       }
       return 0.0;
     } catch (e) {
@@ -202,9 +186,48 @@ class FinancialDatabaseService {
     }
   }
 
+  // ===== CHRUMKA =====
+
+  static Future<void> saveChrumka(int chrumka) async {
+    final db = await database;
+    await db.insert(
+      _gameStateTable,
+      {'key': 'chrumka', 'value': chrumka.toDouble()},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<int> getChrumka() async {
+    final db = await database;
+    try {
+      final result = await db.query(
+        _gameStateTable,
+        where: 'key = ?',
+        whereArgs: ['chrumka'],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        final value = result[0]['value'];
+        if (value is num) return value.toInt();
+        if (value is String) {
+          try {
+            return int.parse(value);
+          } catch (_) {
+            return double.parse(value).toInt();
+          }
+        }
+      }
+      return 0;
+    } catch (e) {
+      print('Error loading chrumka: $e');
+      return 0;
+    }
+  }
+
   // ===== TRANSACTIONS =====
+
   static Future<List<TransactionModel>> getAll() async {
-    await ensureTable(); // ⚡ important
+    await ensureTable();
     final db = await database;
     final maps = await db.query(_transactionsTable, orderBy: 'date DESC');
     return maps.map((m) => TransactionModel(
@@ -217,7 +240,6 @@ class FinancialDatabaseService {
     )).toList();
   }
 
-  // Insert
   static Future<void> insert(TransactionModel t) async {
     await ensureTable();
     final db = await database;
@@ -225,7 +247,6 @@ class FinancialDatabaseService {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  // Update
   static Future<void> update(TransactionModel t) async {
     await ensureTable();
     final db = await database;
@@ -237,14 +258,13 @@ class FinancialDatabaseService {
     );
   }
 
-  // Delete
   static Future<void> delete(String id) async {
     await ensureTable();
     final db = await database;
     await db.delete(_transactionsTable, where: 'id = ?', whereArgs: [id]);
   }
 
-  // DEBUG: Clear all financial data (coins, money, and transactions)
+  // DEBUG: Clear all financial data (coins, money, chrumka, and transactions)
   static Future<void> clearAllFinancialData() async {
     final db = await database;
     await db.delete(_transactionsTable);
