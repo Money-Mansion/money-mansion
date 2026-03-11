@@ -45,7 +45,6 @@ class SettingsScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 16),
-                          // Language Options
                           Column(
                             children: supportedLanguages.map((languageCode) {
                               final isSelected =
@@ -128,40 +127,33 @@ class SettingsScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${l10n.translate('coins')}:',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              Text(
-                                '${gameState.coins}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.orange,
+                          // Coins
+                          AnimatedBuilder(
+                            animation: gameState,
+                            builder: (context, _) => Column(
+                              children: [
+                                _InfoRow(
+                                  label: '${l10n.translate('coins')}:',
+                                  value: '${gameState.coins}',
+                                  valueColor: Colors.orange,
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${l10n.translate('money')}:',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              Text(
-                                '\$${gameState.money.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                                const SizedBox(height: 12),
+                                // Money
+                                _InfoRow(
+                                  label: '${l10n.translate('money')}:',
+                                  value: '\$${gameState.money.toStringAsFixed(2)}',
+                                  valueColor: Colors.green,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 12),
+                                // Chrumka
+                                _InfoRow(
+                                  label: 'Chrumky:',
+                                  value: '${gameState.chrumka}',
+                                  valueColor: const Color.fromARGB(255, 200, 80, 160),
+                                  icon: '🐾',
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -177,3 +169,45 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color valueColor;
+  final String? icon;
+
+  const _InfoRow({
+    required this.label,
+    required this.value,
+    required this.valueColor,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16),
+        ),
+        Row(
+          children: [
+            if (icon != null) ...[
+              Text(icon!, style: const TextStyle(fontSize: 16)),
+              const SizedBox(width: 4),
+            ],
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: valueColor,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
