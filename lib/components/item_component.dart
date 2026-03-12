@@ -76,6 +76,7 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
     if (!game.isEditMode) {
       return;
     }
@@ -94,9 +95,11 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
   }
 
   @override
   void onDragCancel(DragCancelEvent event) {
+    super.onDragCancel(event);
   }
 }
