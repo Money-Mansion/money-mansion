@@ -111,5 +111,10 @@ class RoomLayoutDatabaseService {
 
     await batch.commit(noResult: true);
   }
+
+  static Future<void> clearAllRoomLayouts() async {
+    final db = await _databaseInstance;
+    await db.delete(_tableName);
+  }
 }
 

@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/room_layout_database_service.dart';
 
-class InventoryScreen extends StatelessWidget {
+class InventoryScreen extends StatefulWidget {
   final GameState gameState;
   final VoidCallback onBack;
 
@@ -15,6 +16,28 @@ class InventoryScreen extends StatelessWidget {
   });
 
   @override
+  State<InventoryScreen> createState() => _InventoryScreenState();
+}
+
+class _InventoryScreenState extends State<InventoryScreen> {
+  Set<String> _placedItemIds = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPlacedItems();
+  }
+
+  Future<void> _loadPlacedItems() async {
+    final placements = await RoomLayoutDatabaseService.getRoomLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+    );
+    setState(() {
+      _placedItemIds = {for (final p in placements) p.itemId};
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
     
@@ -23,10 +46,10 @@ class InventoryScreen extends StatelessWidget {
         title: Text(l10n.translate('inventory')),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: onBack,
+          onPressed: widget.onBack,
         ),
       ),
-      body: gameState.ownedItems.isEmpty
+      body: widget.gameState.ownedItems.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -65,74 +88,103 @@ class InventoryScreen extends StatelessWidget {
                   mainAxisSpacing: 16,
                   childAspectRatio: 0.85,
                 ),
-                itemCount: gameState.ownedItems.length,
+                itemCount: widget.gameState.ownedItems.length,
                 itemBuilder: (context, index) {
-                  final item = gameState.ownedItems[index];
-                  return _buildItemCard(item);
+                  final item = widget.gameState.ownedItems[index];
+                  final isPlaced = _placedItemIds.contains(item.id);
+                  return _buildItemCard(item, isPlaced);
                 },
               ),
             ),
     );
   }
 
-  Widget _buildItemCard(Item item) {
+  Widget _buildItemCard(Item item, bool isPlaced) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      color: isPlaced ? Colors.grey[300] : Colors.white,
+      child: Stack(
         children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: item.texture.isNotEmpty
-                  ? Image.asset(
-                      item.texture,
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(
-                      Icons.image_not_supported,
-                      size: 48,
-                      color: Colors.grey[400],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Opacity(
+                    opacity: isPlaced ? 0.5 : 1.0,
+                    child: item.texture.isNotEmpty
+                        ? Image.asset(
+                            item.texture,
+                            fit: BoxFit.contain,
+                          )
+                        : Icon(
+                            Icons.image_not_supported,
+                            size: 48,
+                            color: Colors.grey[400],
+                          ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  item.name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: isPlaced ? Colors.grey[600] : Colors.black,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isPlaced ? Colors.grey[400] : Colors.blue[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    item.type.toDisplayString(),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isPlaced ? Colors.grey[700] : Colors.blue[900],
                     ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              item.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
+              const SizedBox(height: 8),
+            ],
           ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.blue[100],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                item.type.toDisplayString(),
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.w500,
+          if (isPlaced)
+            Positioned.fill(
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'Placed',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
         ],
       ),
     );

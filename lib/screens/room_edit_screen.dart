@@ -111,6 +111,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   }
 
   void _showInventorySheet(BuildContext context) {
+    final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
+
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -166,7 +168,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                         itemCount: widget.gameState?.ownedItems.length ?? 0,
                         itemBuilder: (context, index) {
                           final item = widget.gameState!.ownedItems[index];
-                          return _buildItemCard(context, item);
+                          final isPlaced = placedItemIds.contains(item.id);
+                          return _buildItemCard(context, item, isPlaced);
                         },
                       ),
                     ),
@@ -177,71 +180,102 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     );
   }
 
-  Widget _buildItemCard(BuildContext context, Item item) {
+  Widget _buildItemCard(BuildContext context, Item item, bool isPlaced) {
     return GestureDetector(
-      onTap: () {
-        if (roomWorld != null) {
-          roomWorld!.addItemToRoom(item);
-          Navigator.pop(context);
-        }
-      },
+      onTap: isPlaced
+          ? null
+          : () {
+              if (roomWorld != null) {
+                roomWorld!.addItemToRoom(item);
+                Navigator.pop(context);
+              }
+            },
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        color: isPlaced ? Colors.grey[300] : Colors.white,
+        child: Stack(
           children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(6.0),
-                child: item.texture.isNotEmpty
-                    ? Image.asset(
-                        item.texture,
-                        fit: BoxFit.contain,
-                      )
-                    : Icon(
-                        Icons.image_not_supported,
-                        size: 32,
-                        color: Colors.grey[400],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Opacity(
+                      opacity: isPlaced ? 0.5 : 1.0,
+                      child: item.texture.isNotEmpty
+                          ? Image.asset(
+                              item.texture,
+                              fit: BoxFit.contain,
+                            )
+                          : Icon(
+                              Icons.image_not_supported,
+                              size: 32,
+                              color: Colors.grey[400],
+                            ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Text(
+                    item.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: isPlaced ? Colors.grey[600] : Colors.black,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: isPlaced ? Colors.grey[400] : Colors.blue[100],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      item.type.toDisplayString(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: isPlaced ? Colors.grey[700] : Colors.blue[900],
+                        fontWeight: FontWeight.w500,
                       ),
-              ),
-            ),
-            const SizedBox(height: 6),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: Text(
-                item.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+                const SizedBox(height: 4),
+              ],
             ),
-            const SizedBox(height: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  item.type.toDisplayString(),
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue[900],
-                    fontWeight: FontWeight.w500,
+            if (isPlaced)
+              Positioned.fill(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Text(
+                      'Placed',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 4),
           ],
         ),
       ),

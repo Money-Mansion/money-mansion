@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
@@ -24,17 +25,48 @@ class RoomWorld extends FlameGame {
 
   RoomComponent get roomComponent => room;
 
+  void _updateCameraAndRoomPosition() {
+    // 'size' is the current canvas size in world units.
+    if (size.x == 0 || size.y == 0) {
+      return;
+    }
+
+    // Center the room in the available canvas.
+    room.position = size / 2;
+
+    // Compute a uniform zoom so the 400x300 room fits inside the canvas
+    // while preserving aspect ratio.
+    const roomWidth = RoomComponent.roomWidth;
+    const roomHeight = RoomComponent.roomHeight;
+    final scaleX = size.x / roomWidth;
+    final scaleY = size.y / roomHeight;
+    final zoom = math.min(scaleX, scaleY);
+
+    camera.viewfinder.zoom = zoom;
+    camera.viewfinder.position = room.position.clone();
+  }
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     // Create and center the room component
     room = RoomComponent(game: this);
-    room.position = Vector2(size.x / 2, size.y / 2);
     add(room);
+
+    // Initial camera/room alignment
+    _updateCameraAndRoomPosition();
 
     if (!_loadCompleter.isCompleted) {
       _loadCompleter.complete();
+    }
+  }
+
+  @override
+  void onGameResize(Vector2 canvasSize) {
+    super.onGameResize(canvasSize);
+    if (_loadCompleter.isCompleted) {
+      _updateCameraAndRoomPosition();
     }
   }
 
@@ -104,6 +136,17 @@ class RoomWorld extends FlameGame {
     }
 
     return placements;
+  }
+
+  /// Get set of item IDs currently placed in the room
+  Set<String> getPlacedItemIds() {
+    final placedIds = <String>{};
+    for (final component in children) {
+      if (component is ItemComponent) {
+        placedIds.add(component.item.id);
+      }
+    }
+    return placedIds;
   }
 
   /// Clear all game components (except camera)
