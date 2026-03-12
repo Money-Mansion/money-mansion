@@ -4,9 +4,11 @@ import '../models/room.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/room_layout_database_service.dart';
 import '../widgets/room_viewer.dart';
+import '../games/room_world.dart';
 
-class RoomEditScreen extends StatelessWidget {
+class RoomEditScreen extends StatefulWidget {
   final Room? room;
   final GameState? gameState;
 
@@ -15,6 +17,22 @@ class RoomEditScreen extends StatelessWidget {
     this.room,
     this.gameState,
   });
+
+  @override
+  State<RoomEditScreen> createState() => _RoomEditScreenState();
+}
+
+class _RoomEditScreenState extends State<RoomEditScreen> {
+  RoomWorld? roomWorld;
+  bool _hasSelectedItem = false;
+
+  @override
+  void dispose() {
+    if (roomWorld != null) {
+      roomWorld!.onSelectionChanged = null;
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +44,21 @@ class RoomEditScreen extends StatelessWidget {
         children: [
           // Flame canvas filling the screen
           RoomViewer(
-            room: room,
+            room: widget.room,
             language: language,
+            gameState: widget.gameState,
             onEditPressed: null, // Disable edit button in edit mode
+            onRoomWorldReady: (RoomWorld world) {
+              setState(() {
+                roomWorld = world;
+                // Set up callback for selection changes
+                roomWorld!.onSelectionChanged = () {
+                  setState(() {
+                    _hasSelectedItem = roomWorld!.getSelectedItem() != null;
+                  });
+                };
+              });
+            },
           ),
           // Top-left buttons (Checkmark and X)
           Positioned(
@@ -41,7 +71,7 @@ class RoomEditScreen extends StatelessWidget {
                   mini: true,
                   heroTag: null,
                   backgroundColor: Colors.purple.shade300,
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: _onConfirmPressed,
                   child: const Icon(Icons.check, color: Colors.white),
                 ),
                 const SizedBox(width: 10),
@@ -68,12 +98,57 @@ class RoomEditScreen extends StatelessWidget {
               child: const Icon(Icons.inventory_2, color: Colors.white),
             ),
           ),
+          // Middle-bottom delete button (appears when item is selected)
+          if (_hasSelectedItem)
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: FloatingActionButton(
+                  mini: true,
+                  heroTag: null,
+                  backgroundColor: Colors.red[400],
+                  onPressed: _onDeleteSelectedItem,
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 
+  Future<void> _onConfirmPressed() async {
+    if (roomWorld == null) {
+      if (mounted) {
+        Navigator.pop(context);
+      }
+      return;
+    }
+
+    final placements = roomWorld!.getCurrentLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+    );
+
+    await RoomLayoutDatabaseService.saveRoomLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+      placements,
+    );
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
+  }
+
+  void _onDeleteSelectedItem() {
+    if (roomWorld == null) return;
+    roomWorld!.removeSelectedItem();
+  }
+
   void _showInventorySheet(BuildContext context) {
+    final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
+
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -106,7 +181,7 @@ class RoomEditScreen extends StatelessWidget {
             ),
             // Inventory items grid
             Expanded(
-              child: gameState?.ownedItems.isEmpty ?? true
+              child: widget.gameState?.ownedItems.isEmpty ?? true
                   ? Center(
                       child: Text(
                         'No items yet',
@@ -126,10 +201,11 @@ class RoomEditScreen extends StatelessWidget {
                           mainAxisSpacing: 12,
                           childAspectRatio: 0.8,
                         ),
-                        itemCount: gameState?.ownedItems.length ?? 0,
+                        itemCount: widget.gameState?.ownedItems.length ?? 0,
                         itemBuilder: (context, index) {
-                          final item = gameState!.ownedItems[index];
-                          return _buildItemCard(item);
+                          final item = widget.gameState!.ownedItems[index];
+                          final isPlaced = placedItemIds.contains(item.id);
+                          return _buildItemCard(context, item, isPlaced);
                         },
                       ),
                     ),
@@ -140,65 +216,104 @@ class RoomEditScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItemCard(Item item) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(6.0),
-              child: item.texture.isNotEmpty
-                  ? Image.asset(
-                      item.texture,
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(
-                      Icons.image_not_supported,
-                      size: 32,
-                      color: Colors.grey[400],
+  Widget _buildItemCard(BuildContext context, Item item, bool isPlaced) {
+    return GestureDetector(
+      onTap: isPlaced
+          ? null
+          : () {
+              if (roomWorld != null) {
+                roomWorld!.addItemToRoom(item);
+                Navigator.pop(context);
+              }
+            },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        color: isPlaced ? Colors.grey[300] : Colors.white,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Opacity(
+                      opacity: isPlaced ? 0.5 : 1.0,
+                      child: item.texture.isNotEmpty
+                          ? Image.asset(
+                              item.texture,
+                              fit: BoxFit.contain,
+                            )
+                          : Icon(
+                              Icons.image_not_supported,
+                              size: 32,
+                              color: Colors.grey[400],
+                            ),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Text(
+                    item.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: isPlaced ? Colors.grey[600] : Colors.black,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: isPlaced ? Colors.grey[400] : Colors.blue[100],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      item.type.toDisplayString(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: isPlaced ? Colors.grey[700] : Colors.blue[900],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+              ],
             ),
-          ),
-          const SizedBox(height: 6),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: Text(
-              item.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.blue[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                item.type.toDisplayString(),
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.w500,
+            if (isPlaced)
+              Positioned.fill(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Text(
+                      'Placed',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 4),
-        ],
+          ],
+        ),
       ),
     );
   }

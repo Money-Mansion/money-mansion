@@ -4,6 +4,7 @@ import '../models/game_state.dart';
 import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
+import '../services/room_layout_database_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
@@ -28,6 +29,7 @@ class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
   int selectedNavIndex = -1;
   bool _isInitialized = false;
+  int _roomViewerVersion = 0;
 
   static const bool _DEBUG_MODE = false;
 
@@ -119,8 +121,10 @@ class _GameScreenState extends State<GameScreen> {
         return Padding(
           padding: const EdgeInsets.all(5.0),
           child: RoomViewer(
+            key: ValueKey(_roomViewerVersion),
             room: gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
             language: localizationsProvider.currentLanguage,
+            gameState: gameState,
             onEditPressed: () {
               Navigator.push(
                 context,
@@ -130,7 +134,12 @@ class _GameScreenState extends State<GameScreen> {
                     gameState: gameState,
                   ),
                 ),
-              );
+              ).then((_) {
+                // Force RoomViewer (and its RoomWorld) to rebuild and reload layout
+                setState(() {
+                  _roomViewerVersion++;
+                });
+              });
             },
           ),
         );
@@ -268,6 +277,7 @@ class _GameScreenState extends State<GameScreen> {
                 await ItemDatabaseService.clearAllOwnedItems();
                 await FinancialDatabaseService.clearAllFinancialData();
                 await GoalDatabaseService.clearAllGoals();
+                await RoomLayoutDatabaseService.clearAllRoomLayouts();
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);

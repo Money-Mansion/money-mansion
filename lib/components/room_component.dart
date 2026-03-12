@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import '../games/room_world.dart';
 
 /// RoomComponent renders the room structure in the Flame world
 /// Composed of walls and floor sprites
-class RoomComponent extends PositionComponent {
+class RoomComponent extends PositionComponent with TapCallbacks {
   static const double roomWidth = 400;
   static const double roomHeight = 300;
   final RoomWorld game;
@@ -43,5 +44,21 @@ class RoomComponent extends PositionComponent {
     add(floor);
     add(leftWall);
     add(rightWall);
+  }
+
+  @override
+  bool containsLocalPoint(Vector2 point) {
+    // Treat the whole room rectangle as tappable
+    return point.x >= 0 &&
+        point.x <= size.x &&
+        point.y >= 0 &&
+        point.y <= size.y;
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    if (game.isEditMode) {
+      game.clearSelection();
+    }
   }
 }
