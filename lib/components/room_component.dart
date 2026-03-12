@@ -57,6 +57,8 @@ class RoomComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapDown(TapDownEvent event) {
-    game.clearSelection();
+    if (game.isEditMode) {
+      game.clearSelection();
+    }
   }
 }

@@ -28,6 +28,7 @@ class _GameScreenState extends State<GameScreen> {
   late GameState gameState;
   int selectedNavIndex = -1;
   bool _isInitialized = false;
+  int _roomViewerVersion = 0;
 
   static const bool _DEBUG_MODE = false;
 
@@ -119,8 +120,10 @@ class _GameScreenState extends State<GameScreen> {
         return Padding(
           padding: const EdgeInsets.all(5.0),
           child: RoomViewer(
+            key: ValueKey(_roomViewerVersion),
             room: gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
             language: localizationsProvider.currentLanguage,
+            gameState: gameState,
             onEditPressed: () {
               Navigator.push(
                 context,
@@ -130,7 +133,12 @@ class _GameScreenState extends State<GameScreen> {
                     gameState: gameState,
                   ),
                 ),
-              );
+              ).then((_) {
+                // Force RoomViewer (and its RoomWorld) to rebuild and reload layout
+                setState(() {
+                  _roomViewerVersion++;
+                });
+              });
             },
           ),
         );

@@ -68,11 +68,17 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void onTapDown(TapDownEvent event) {
+    if (!game.isEditMode) {
+      return;
+    }
     game.selectItem(this);
   }
 
   @override
   void onDragStart(DragStartEvent event) {
+    if (!game.isEditMode) {
+      return;
+    }
     if (!isSelected) {
       game.selectItem(this);
     }
@@ -80,6 +86,9 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    if (!game.isEditMode) {
+      return;
+    }
     position.add(event.localDelta);
   }
 

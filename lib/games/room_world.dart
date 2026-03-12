@@ -1,25 +1,41 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import '../components/room_component.dart';
 import '../components/item_component.dart';
 import '../models/item.dart';
+import '../models/room_item_placement.dart';
 
 /// RoomWorld is a Flame game that provides a canvas for the room and items.
 /// The room and item components are added to this world.
 class RoomWorld extends FlameGame {
-  RoomWorld() : super();
+  final bool isEditMode;
+
+  RoomWorld({this.isEditMode = false}) : super();
 
   ItemComponent? _selectedItem;
+  late final RoomComponent room;
+
+  final Completer<void> _loadCompleter = Completer<void>();
+
+  Future<void> get loaded => _loadCompleter.future;
+
+  RoomComponent get roomComponent => room;
 
   @override
   Future<void> onLoad() async {
-    super.onLoad();
-    
+    await super.onLoad();
+
     // Create and center the room component
-    final room = RoomComponent(game: this);
+    room = RoomComponent(game: this);
     room.position = Vector2(size.x / 2, size.y / 2);
     add(room);
+
+    if (!_loadCompleter.isCompleted) {
+      _loadCompleter.complete();
+    }
   }
 
   @override
@@ -53,14 +69,41 @@ class RoomWorld extends FlameGame {
     _selectedItem = null;
   }
 
-  /// Add an item to the center of the room
-  void addItemToRoom(Item item) {
+  /// Add an item to the room at a given world position.
+  /// If [position] is null, it will be added at the center of the world.
+  void addItemToRoom(
+    Item item, {
+    Vector2? position,
+  }) {
     final itemComponent = ItemComponent(
       item: item,
       game: this,
-      position: Vector2(size.x / 2, size.y / 2), // Center of the world
+      position: position ?? room.position.clone(),
     );
     add(itemComponent);
+  }
+
+  /// Get current layout of all items in this room world.
+  List<RoomItemPlacement> getCurrentLayout(String roomId) {
+    final placements = <RoomItemPlacement>[];
+    final roomCenter = room.position;
+
+    for (final component in children) {
+      if (component is ItemComponent) {
+        placements.add(
+          RoomItemPlacement(
+            roomId: roomId,
+            itemId: component.item.id,
+            // Store offset relative to the room center so that
+            // layouts stay consistent even if the canvas size changes.
+            x: component.position.x - roomCenter.x,
+            y: component.position.y - roomCenter.y,
+          ),
+        );
+      }
+    }
+
+    return placements;
   }
 
   /// Clear all game components (except camera)

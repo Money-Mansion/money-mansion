@@ -4,6 +4,7 @@ import '../models/room.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/room_layout_database_service.dart';
 import '../widgets/room_viewer.dart';
 import '../games/room_world.dart';
 
@@ -36,6 +37,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           RoomViewer(
             room: widget.room,
             language: language,
+            gameState: widget.gameState,
             onEditPressed: null, // Disable edit button in edit mode
             onRoomWorldReady: (RoomWorld world) {
               setState(() {
@@ -54,7 +56,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                   mini: true,
                   heroTag: null,
                   backgroundColor: Colors.purple.shade300,
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: _onConfirmPressed,
                   child: const Icon(Icons.check, color: Colors.white),
                 ),
                 const SizedBox(width: 10),
@@ -84,6 +86,28 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _onConfirmPressed() async {
+    if (roomWorld == null) {
+      if (mounted) {
+        Navigator.pop(context);
+      }
+      return;
+    }
+
+    final placements = roomWorld!.getCurrentLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+    );
+
+    await RoomLayoutDatabaseService.saveRoomLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+      placements,
+    );
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 
   void _showInventorySheet(BuildContext context) {
