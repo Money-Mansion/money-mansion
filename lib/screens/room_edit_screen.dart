@@ -5,8 +5,9 @@ import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
 import '../widgets/room_viewer.dart';
+import '../games/room_world.dart';
 
-class RoomEditScreen extends StatelessWidget {
+class RoomEditScreen extends StatefulWidget {
   final Room? room;
   final GameState? gameState;
 
@@ -15,6 +16,13 @@ class RoomEditScreen extends StatelessWidget {
     this.room,
     this.gameState,
   });
+
+  @override
+  State<RoomEditScreen> createState() => _RoomEditScreenState();
+}
+
+class _RoomEditScreenState extends State<RoomEditScreen> {
+  RoomWorld? roomWorld;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +34,14 @@ class RoomEditScreen extends StatelessWidget {
         children: [
           // Flame canvas filling the screen
           RoomViewer(
-            room: room,
+            room: widget.room,
             language: language,
             onEditPressed: null, // Disable edit button in edit mode
+            onRoomWorldReady: (RoomWorld world) {
+              setState(() {
+                roomWorld = world;
+              });
+            },
           ),
           // Top-left buttons (Checkmark and X)
           Positioned(
@@ -106,7 +119,7 @@ class RoomEditScreen extends StatelessWidget {
             ),
             // Inventory items grid
             Expanded(
-              child: gameState?.ownedItems.isEmpty ?? true
+              child: widget.gameState?.ownedItems.isEmpty ?? true
                   ? Center(
                       child: Text(
                         'No items yet',
@@ -126,10 +139,10 @@ class RoomEditScreen extends StatelessWidget {
                           mainAxisSpacing: 12,
                           childAspectRatio: 0.8,
                         ),
-                        itemCount: gameState?.ownedItems.length ?? 0,
+                        itemCount: widget.gameState?.ownedItems.length ?? 0,
                         itemBuilder: (context, index) {
-                          final item = gameState!.ownedItems[index];
-                          return _buildItemCard(item);
+                          final item = widget.gameState!.ownedItems[index];
+                          return _buildItemCard(context, item);
                         },
                       ),
                     ),
@@ -140,65 +153,73 @@ class RoomEditScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItemCard(Item item) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(6.0),
-              child: item.texture.isNotEmpty
-                  ? Image.asset(
-                      item.texture,
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(
-                      Icons.image_not_supported,
-                      size: 32,
-                      color: Colors.grey[400],
-                    ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: Text(
-              item.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+  Widget _buildItemCard(BuildContext context, Item item) {
+    return GestureDetector(
+      onTap: () {
+        if (roomWorld != null) {
+          roomWorld!.addItemToRoom(item);
+          Navigator.pop(context);
+        }
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(6.0),
+                child: item.texture.isNotEmpty
+                    ? Image.asset(
+                        item.texture,
+                        fit: BoxFit.contain,
+                      )
+                    : Icon(
+                        Icons.image_not_supported,
+                        size: 32,
+                        color: Colors.grey[400],
+                      ),
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
             ),
-          ),
-          const SizedBox(height: 2),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.blue[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
+            const SizedBox(height: 6),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
               child: Text(
-                item.type.toDisplayString(),
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.w500,
+                item.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.blue[100],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  item.type.toDisplayString(),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.blue[900],
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 4),
-        ],
+            const SizedBox(height: 4),
+          ],
+        ),
       ),
     );
   }

@@ -7,12 +7,14 @@ class RoomViewer extends StatefulWidget {
   final Room? room;
   final VoidCallback? onEditPressed;
   final String language; // pass AppLocalizationsProvider.currentLanguage
+  final Function(RoomWorld)? onRoomWorldReady;
 
   const RoomViewer({
     super.key,
     this.room,
     this.onEditPressed,
     this.language = 'en',
+    this.onRoomWorldReady,
   });
 
   @override
@@ -26,6 +28,10 @@ class _RoomViewerState extends State<RoomViewer> {
   void initState() {
     super.initState();
     roomWorld = RoomWorld();
+    // Call the callback to expose roomWorld to parent widget
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onRoomWorldReady?.call(roomWorld);
+    });
   }
 
   @override
