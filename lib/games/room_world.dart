@@ -18,6 +18,7 @@ class RoomWorld extends FlameGame {
 
   ItemComponent? _selectedItem;
   late final RoomComponent room;
+  VoidCallback? onSelectionChanged;
 
   final Completer<void> _loadCompleter = Completer<void>();
 
@@ -93,12 +94,26 @@ class RoomWorld extends FlameGame {
     _selectedItem?.isSelected = false;
     _selectedItem = item;
     _selectedItem?.isSelected = true;
+    onSelectionChanged?.call();
   }
 
   /// Clear any current selection
   void clearSelection() {
     _selectedItem?.isSelected = false;
     _selectedItem = null;
+    onSelectionChanged?.call();
+  }
+
+  /// Get the currently selected item
+  ItemComponent? getSelectedItem() => _selectedItem;
+
+  /// Remove the currently selected item from the room
+  void removeSelectedItem() {
+    if (_selectedItem != null) {
+      remove(_selectedItem!);
+      _selectedItem = null;
+      onSelectionChanged?.call();
+    }
   }
 
   /// Add an item to the room at a given world position.
@@ -152,5 +167,6 @@ class RoomWorld extends FlameGame {
   /// Clear all game components (except camera)
   void clearComponents() {
     removeWhere((component) => component != camera);
+    _selectedItem = null;
   }
 }

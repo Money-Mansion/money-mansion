@@ -24,6 +24,15 @@ class RoomEditScreen extends StatefulWidget {
 
 class _RoomEditScreenState extends State<RoomEditScreen> {
   RoomWorld? roomWorld;
+  bool _hasSelectedItem = false;
+
+  @override
+  void dispose() {
+    if (roomWorld != null) {
+      roomWorld!.onSelectionChanged = null;
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +51,12 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
             onRoomWorldReady: (RoomWorld world) {
               setState(() {
                 roomWorld = world;
+                // Set up callback for selection changes
+                roomWorld!.onSelectionChanged = () {
+                  setState(() {
+                    _hasSelectedItem = roomWorld!.getSelectedItem() != null;
+                  });
+                };
               });
             },
           ),
@@ -83,6 +98,22 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               child: const Icon(Icons.inventory_2, color: Colors.white),
             ),
           ),
+          // Middle-bottom delete button (appears when item is selected)
+          if (_hasSelectedItem)
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: FloatingActionButton(
+                  mini: true,
+                  heroTag: null,
+                  backgroundColor: Colors.red[400],
+                  onPressed: _onDeleteSelectedItem,
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -108,6 +139,11 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     if (mounted) {
       Navigator.pop(context);
     }
+  }
+
+  void _onDeleteSelectedItem() {
+    if (roomWorld == null) return;
+    roomWorld!.removeSelectedItem();
   }
 
   void _showInventorySheet(BuildContext context) {
