@@ -10,6 +10,8 @@ import '../models/item.dart';
 class RoomWorld extends FlameGame {
   RoomWorld() : super();
 
+  ItemComponent? _selectedItem;
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -34,6 +36,21 @@ class RoomWorld extends FlameGame {
   /// Add a component to the world
   void addComponent(Component component) {
     add(component);
+  }
+
+  /// Mark a specific item component as selected
+  void selectItem(ItemComponent item) {
+    if (_selectedItem == item) return;
+
+    _selectedItem?.isSelected = false;
+    _selectedItem = item;
+    _selectedItem?.isSelected = true;
+  }
+
+  /// Clear any current selection
+  void clearSelection() {
+    _selectedItem?.isSelected = false;
+    _selectedItem = null;
   }
 
   /// Add an item to the center of the room
