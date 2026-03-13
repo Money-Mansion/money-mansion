@@ -7,6 +7,7 @@ import 'services/item_database_service.dart';
 import 'services/financial_database_service.dart';
 import 'services/goal_database_service.dart';
 import 'services/app_localizations_provider.dart';
+import 'services/music_service.dart';
 import 'models/game_state.dart';
 import 'models/room.dart';
 
@@ -37,6 +38,17 @@ void main() async {
     
     await GoalDatabaseService.initializeDatabase();
     print('✓ GoalDatabaseService ready');
+    
+    // Initialize music service
+    final musicService = MusicService();
+    // Default list of available music tracks (no "assets/" prefix - AssetSource adds it)
+    musicService.initializeTracks([
+      'music/track1.mp3',
+      'music/track2.mp3',
+      'music/track3.mp3',
+      'music/track4.mp3',
+    ]);
+    print('✓ MusicService ready');
     
     print('=== App ready to launch ===');
   } catch (e) {

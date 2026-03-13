@@ -101,11 +101,45 @@ class SettingsScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 16),
-                          Text(
-                            l10n.translate('moreSettingsComingSoon'),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
+                          // Background Music Toggle
+                          AnimatedBuilder(
+                            animation: gameState,
+                            builder: (context, _) => SwitchListTile(
+                              title: Text(
+                                l10n.translate('backgroundMusic'),
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              value: gameState.isMusicEnabled(),
+                              onChanged: (value) {
+                                gameState.setMusicEnabled(value);
+                              },
+                              activeColor: Colors.orange,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          // Music Volume Slider
+                          AnimatedBuilder(
+                            animation: gameState,
+                            builder: (context, _) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  l10n.translate('musicVolume'),
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                Slider(
+                                  value: gameState.getMusicVolume(),
+                                  min: 0.0,
+                                  max: 1.0,
+                                  divisions: 10,
+                                  label: '${(gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
+                                  activeColor: Colors.orange,
+                                  inactiveColor: Colors.grey[300],
+                                  onChanged: (value) {
+                                    gameState.setMusicVolume(value);
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ],

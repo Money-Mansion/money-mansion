@@ -8,6 +8,8 @@ class GameState extends ChangeNotifier {
   int chrumka; // Earned by completing goals
   double money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
+  bool musicEnabled; // Background music setting
+  double musicVolume; // Music volume (0.0 to 1.0)
   List<Room> rooms;
   List<Goal> goals;
   List<Item> ownedItems;
@@ -17,6 +19,8 @@ class GameState extends ChangeNotifier {
     this.chrumka = 0,
     this.money = 0.0,
     this.date = 7.7,
+    this.musicEnabled = true,
+    this.musicVolume = 0.5,
     List<Room>? rooms,
     List<Goal>? goals,
     List<Item>? ownedItems,
@@ -131,5 +135,25 @@ class GameState extends ChangeNotifier {
   void clearOwnedItems() {
     ownedItems.clear();
     notifyListeners();
+  }
+
+  // ===== MUSIC SETTINGS =====
+
+  void setMusicEnabled(bool enabled) {
+    musicEnabled = enabled;
+    notifyListeners();
+  }
+
+  bool isMusicEnabled() {
+    return musicEnabled;
+  }
+
+  void setMusicVolume(double volume) {
+    musicVolume = volume.clamp(0.0, 1.0);
+    notifyListeners();
+  }
+
+  double getMusicVolume() {
+    return musicVolume;
   }
 }

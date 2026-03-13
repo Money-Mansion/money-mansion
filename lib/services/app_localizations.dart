@@ -41,6 +41,13 @@ class AppLocalizations {
       'gameInfo': 'Game Info',
       'moreSettingsComingSoon': 'More settings coming soon...',
       
+      // Music settings
+      'backgroundMusic': 'Background Music',
+      'enableBackgroundMusic': 'Enable Background Music',
+      'disableBackgroundMusic': 'Disable Background Music',
+      'musicVolume': 'Music Volume',
+      'volumeControl': 'Volume Control',
+      
       // Common actions
       'save': 'Save',
       'cancel': 'Cancel',
@@ -234,6 +241,13 @@ class AppLocalizations {
       'discardChanges': 'Zavrhnúť zmeny',
       'gameInfo': 'Informácie o hre',
       'moreSettingsComingSoon': 'Ďalšie nastavenia čoskoro...',
+      
+      // Music settings
+      'backgroundMusic': 'Hudba na pozadí',
+      'enableBackgroundMusic': 'Zapnúť hudbu na pozadí',
+      'disableBackgroundMusic': 'Vypnúť hudbu na pozadí',
+      'musicVolume': 'Hlasitosť hudby',
+      'volumeControl': 'Ovládanie hlasitosti',
       
       // Common actions
       'save': 'Uložiť',
