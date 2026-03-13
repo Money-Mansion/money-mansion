@@ -95,6 +95,14 @@ class _RoomViewerState extends State<RoomViewer> {
         SizedBox.expand(
           child: GameWidget(
             game: roomWorld,
+            // Avoid brief black flashes while the game initializes
+            // by matching the room background color.
+            backgroundBuilder: (context) => Container(
+              color: const Color(0xFFFFFBF5),
+            ),
+            loadingBuilder: (context) => Container(
+              color: const Color(0xFFFFFBF5),
+            ),
           ),
         ),
 
