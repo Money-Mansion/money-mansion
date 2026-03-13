@@ -41,7 +41,10 @@ class RoomWorld extends FlameGame {
     const roomHeight = RoomComponent.roomHeight;
     final scaleX = size.x / roomWidth;
     final scaleY = size.y / roomHeight;
-    final zoom = math.min(scaleX, scaleY);
+    // Use the smaller scale so the whole room fits, then
+    // apply a slight margin so there's some space to the edges.
+    final baseZoom = math.min(scaleX, scaleY);
+    final zoom = baseZoom * 0.9;
 
     camera.viewfinder.zoom = zoom;
     camera.viewfinder.position = room.position.clone();
@@ -53,14 +56,20 @@ class RoomWorld extends FlameGame {
 
     // Create and center the room component
     room = RoomComponent(game: this);
-    add(room);
-
-    // Initial camera/room alignment
-    _updateCameraAndRoomPosition();
+    // In Flame 1.10 the camera only affects components that are
+    // part of the `world`, so we must add the room there instead
+    // of directly to the game.
+    world.add(room);
 
     if (!_loadCompleter.isCompleted) {
       _loadCompleter.complete();
     }
+
+    // Initial camera/room alignment.
+    // At this point the game may still have size (0, 0);
+    // the first real canvas size will come through onGameResize,
+    // which will also call _updateCameraAndRoomPosition.
+    _updateCameraAndRoomPosition();
   }
 
   @override
@@ -127,7 +136,8 @@ class RoomWorld extends FlameGame {
       game: this,
       position: position ?? room.position.clone(),
     );
-    add(itemComponent);
+    // Add items to the world so they are affected by the camera.
+    world.add(itemComponent);
   }
 
   /// Get current layout of all items in this room world.
@@ -135,7 +145,8 @@ class RoomWorld extends FlameGame {
     final placements = <RoomItemPlacement>[];
     final roomCenter = room.position;
 
-    for (final component in children) {
+    // Only traverse world children; this skips camera/other non-room components.
+    for (final component in world.children) {
       if (component is ItemComponent) {
         placements.add(
           RoomItemPlacement(
@@ -156,7 +167,7 @@ class RoomWorld extends FlameGame {
   /// Get set of item IDs currently placed in the room
   Set<String> getPlacedItemIds() {
     final placedIds = <String>{};
-    for (final component in children) {
+    for (final component in world.children) {
       if (component is ItemComponent) {
         placedIds.add(component.item.id);
       }
@@ -166,7 +177,7 @@ class RoomWorld extends FlameGame {
 
   /// Clear all game components (except camera)
   void clearComponents() {
-    removeWhere((component) => component != camera);
+    world.removeWhere((component) => component is ItemComponent || component is RoomComponent);
     _selectedItem = null;
   }
 }
