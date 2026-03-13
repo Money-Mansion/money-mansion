@@ -6,6 +6,7 @@ import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/music_service.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -40,13 +41,27 @@ class _GameScreenState extends State<GameScreen> {
       gameState = context.read<GameState>();
       _initializeGameState();
       gameState.addListener(_saveGameStateChanges);
+      gameState.addListener(_handleMusicStateChange);
     });
   }
 
   @override
   void dispose() {
     gameState.removeListener(_saveGameStateChanges);
+    gameState.removeListener(_handleMusicStateChange);
     super.dispose();
+  }
+
+  void _handleMusicStateChange() {
+    // Handle music enabled/disabled toggle from settings
+    if (gameState.isMusicEnabled() && !MusicService().isPlayingMusic()) {
+      MusicService().startMusic();
+    } else if (!gameState.isMusicEnabled() && MusicService().isPlayingMusic()) {
+      MusicService().stopMusic();
+    }
+    
+    // Update volume whenever settings change
+    MusicService().setVolume(gameState.getMusicVolume());
   }
 
   Future<void> _initializeGameState() async {
@@ -58,6 +73,18 @@ class _GameScreenState extends State<GameScreen> {
       gameState.setCoins(coins);
       gameState.setMoney(money);
       gameState.setChrumka(chrumka); // ← restore chrumka
+      
+      // Set music volume
+      await MusicService().setVolume(gameState.getMusicVolume());
+      
+      // Small delay to ensure assets are loaded
+      await Future.delayed(const Duration(milliseconds: 500));
+      
+      // Start background music if enabled
+      if (gameState.isMusicEnabled()) {
+        print('🎵 Attempting to start background music...');
+        await MusicService().startMusic();
+      }
     }
 
     await _loadOwnedItems();
