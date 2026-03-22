@@ -69,40 +69,45 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
-
     if (isSelected) {
-      _renderHitboxOutline(canvas);
+      _renderHitboxGlow(canvas);
     }
+    super.render(canvas);
   }
 
-  /// Render the polygon hitbox outline for debugging/selection visualization
-  void _renderHitboxOutline(Canvas canvas) {
-    final paint = Paint()
-      ..color = const Color(0xFF9C27B0)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
+  /// Render a soft glowing effect around the hitbox (underneath the item)
+  void _renderHitboxGlow(Canvas canvas) {
+    const glowColor = Color(0xFF9C27B0);
+    
     for (final polygon in hitbox.polygons) {
+      if (polygon.points.isEmpty) continue;
+      
+      // Transform hitbox points to component-local coordinates and apply scale
+      final scaledPoints = polygon.points.map((point) {
+        return point * item.scale;
+      }).toList();
+      
+      // Build path for the polygon
       final path = Path();
-      
-      if (polygon.points.isNotEmpty) {
-        // Transform hitbox points to component-local coordinates and apply scale
-        final scaledPoints = polygon.points.map((point) {
-          return point * item.scale;
-        }).toList();
-        
-        path.moveTo(scaledPoints[0].x, scaledPoints[0].y);
-        
-        for (int i = 1; i < scaledPoints.length; i++) {
-          path.lineTo(scaledPoints[i].x, scaledPoints[i].y);
-        }
-        
-        // Close the polygon
-        path.close();
+      path.moveTo(scaledPoints[0].x, scaledPoints[0].y);
+      for (int i = 1; i < scaledPoints.length; i++) {
+        path.lineTo(scaledPoints[i].x, scaledPoints[i].y);
       }
+      path.close();
       
-      canvas.drawPath(path, paint);
+      // Draw glow along the edges using blurred strokes
+      for (int glowLayer = 3; glowLayer >= 1; glowLayer--) {
+        final opacity = (0.3 / glowLayer).clamp(0.0, 1.0);
+        final glowPaint = Paint()
+          ..color = glowColor.withValues(alpha: opacity)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4.0 + (2.0 * glowLayer)
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 5.0 * glowLayer);
+        
+        canvas.drawPath(path, glowPaint);
+      }
     }
   }
 

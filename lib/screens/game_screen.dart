@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _isInitialized = false;
   int _roomViewerVersion = 0;
 
-  static const bool _DEBUG_MODE = false;
+  static const bool _DEBUG_MODE = true;
 
   @override
   void initState() {
