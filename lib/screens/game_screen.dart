@@ -7,6 +7,7 @@ import '../services/goal_database_service.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/music_service.dart';
+import '../config/items_config.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -86,6 +87,9 @@ class _GameScreenState extends State<GameScreen> {
         await MusicService().startMusic();
       }
     }
+
+    // Sync owned items with latest config values (useful for development)
+    await ItemDatabaseService.syncOwnedItemsWithConfig(GAME_ITEMS);
 
     await _loadOwnedItems();
 

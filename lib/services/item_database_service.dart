@@ -2,6 +2,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'dart:io' show Platform;
 import '../models/item.dart';
+import '../config/items_config.dart';
 
 class ItemDatabaseService {
   static const String _ownedItemsTable = 'owned_items';
@@ -203,13 +204,22 @@ class ItemDatabaseService {
       await ensureTablesExist(db);
       final maps = await db.query(_ownedItemsTable);
 
+      // Create a map of config items by ID for quick lookup
+      final configMap = {for (var item in GAME_ITEMS) item.id: item};
+
       return List.generate(maps.length, (i) {
+        final id = maps[i]['id'] as String;
+        final configItem = configMap[id];
+        
         return Item(
-          id: maps[i]['id'] as String,
+          id: id,
           name: maps[i]['name'] as String,
           type: _stringToItemType(maps[i]['type'] as String),
           texture: maps[i]['texture'] as String,
           cost: maps[i]['cost'] as int,
+          // Merge scale and hitboxId from config if available
+          hitboxId: configItem?.hitboxId,
+          scale: configItem?.scale ?? 1.0,
         );
       });
     } catch (e) {
@@ -297,6 +307,56 @@ class ItemDatabaseService {
   }
 
   // Helper methods
+  // Sync owned items in database with items_config
+  // Updates owned items with the latest values from config (name, texture, cost, type)
+  // Useful for development to see config changes without clearing databases
+  static Future<int> syncOwnedItemsWithConfig(List<Item> configItems) async {
+    try {
+      final db = await database;
+      await ensureTablesExist(db);
+      
+      // Create a map of config items by ID for quick lookup
+      final configMap = {for (var item in configItems) item.id: item};
+      
+      // Get all owned items from database
+      final ownedItems = await getOwnedItems();
+      
+      int syncedCount = 0;
+      
+      // Update each owned item with latest config values
+      for (final ownedItem in ownedItems) {
+        if (configMap.containsKey(ownedItem.id)) {
+          final configItem = configMap[ownedItem.id]!;
+          
+          // Update the owned item with new values from config
+          await db.update(
+            _ownedItemsTable,
+            {
+              'name': configItem.name,
+              'type': _itemTypeToString(configItem.type),
+              'texture': configItem.texture,
+              'cost': configItem.cost,
+            },
+            where: 'id = ?',
+            whereArgs: [ownedItem.id],
+          );
+          
+          syncedCount++;
+          print('✓ Synced owned item: ${ownedItem.id}');
+        }
+      }
+      
+      if (syncedCount > 0) {
+        print('✓ Synced $syncedCount owned items with config');
+      }
+      
+      return syncedCount;
+    } catch (e) {
+      print('Error syncing owned items: $e');
+      return 0;
+    }
+  }
+
   static String _itemTypeToString(ItemType type) {
     return type.toString().split('.').last;
   }

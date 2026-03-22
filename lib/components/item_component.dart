@@ -36,15 +36,21 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
       }
       sprite = await game.loadSprite(texturePath);
       
-      // Get the natural sprite dimensions
+      // Get the natural sprite dimensions from the image
       if (sprite != null) {
-        spriteSize = Vector2(sprite!.src.width, sprite!.src.height);
+        // Get image dimensions
+        final imageWidth = sprite!.image.width.toDouble();
+        final imageHeight = sprite!.image.height.toDouble();
+        spriteSize = Vector2(imageWidth, imageHeight);
+        print('✓ Loaded sprite ${item.id}: size=${spriteSize.x}x${spriteSize.y}');
       } else {
         spriteSize = Vector2(100, 100); // Fallback
+        print('⚠ Sprite is null for ${item.id}, using fallback');
       }
       
       // Set the component size based on sprite dimensions and scale
       size = spriteSize * item.scale;
+      print('✓ Set ItemComponent size for ${item.id}: ${size.x}x${size.y} (scale: ${item.scale})');
     } catch (e) {
       print('Error loading item sprite: ${item.texture} - $e');
       spriteSize = Vector2(100, 100);

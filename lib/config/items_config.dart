@@ -15,7 +15,7 @@ final List<Item> GAME_ITEMS = [
     texture: 'assets/images/items/dvere_biele.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.2,
+    scale: 0.1,
   ),
 
   Item(
