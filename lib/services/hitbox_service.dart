@@ -45,6 +45,8 @@ class HitboxService {
   /// data: z1
   /// data: x2
   /// ... etc
+  /// 
+  /// Note: Flips Y coordinates to match Flame's coordinate system
   Hitbox _parseConvexShape(String id, String content) {
     final lines = content.split('\n');
     final dataPoints = <double>[];
@@ -72,13 +74,26 @@ class HitboxService {
     // Every 3 values = one point (x, y, z), ignore z
     final polygons = <Polygon>[];
     final points = <Vector2>[];
+    double minY = double.infinity, maxY = double.negativeInfinity;
 
+    // First pass: collect points and find Y bounds
+    for (int i = 0; i < dataPoints.length; i += 3) {
+      if (i + 1 < dataPoints.length) {
+        final y = dataPoints[i + 1];
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+
+    // Second pass: create points with flipped Y coordinates
     for (int i = 0; i < dataPoints.length; i += 3) {
       if (i + 1 < dataPoints.length) {
         final x = dataPoints[i];
         final y = dataPoints[i + 1];
         // z is at i + 2, but we ignore it for 2D collision
-        points.add(Vector2(x, y));
+        // Mirror Y around the midpoint to match Flame's coordinate system
+        final flippedY = minY + (maxY - y);
+        points.add(Vector2(x, flippedY));
       }
     }
 
