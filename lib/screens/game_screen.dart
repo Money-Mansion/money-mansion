@@ -66,7 +66,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Future<void> _initializeGameState() async {
-    final coins = await FinancialDatabaseService.getCoins();
+    final coins = _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
     final chrumka = await FinancialDatabaseService.getChrumka(); // ← load chrumka
 
