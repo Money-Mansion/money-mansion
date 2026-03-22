@@ -7,6 +7,7 @@ import '../services/goal_database_service.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/music_service.dart';
+import '../config/items_config.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
@@ -32,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _isInitialized = false;
   int _roomViewerVersion = 0;
 
-  static const bool _DEBUG_MODE = false;
+  static const bool _DEBUG_MODE = true;
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Future<void> _initializeGameState() async {
-    final coins = await FinancialDatabaseService.getCoins();
+    final coins = _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
     final chrumka = await FinancialDatabaseService.getChrumka(); // ← load chrumka
 
@@ -86,6 +87,9 @@ class _GameScreenState extends State<GameScreen> {
         await MusicService().startMusic();
       }
     }
+
+    // Sync owned items with latest config values (useful for development)
+    await ItemDatabaseService.syncOwnedItemsWithConfig(GAME_ITEMS);
 
     await _loadOwnedItems();
 

@@ -4,6 +4,8 @@ class Item {
   final ItemType type;
   final String texture; // Path to image in assets
   final int cost;
+  final String? hitboxId; // ID for loading hitbox from .convexshape file (defaults to id if null)
+  final double scale; // Scale factor for rendering (0.0 - 1.0+, default 1.0)
 
   Item({
     required this.id,
@@ -11,6 +13,8 @@ class Item {
     required this.type,
     required this.texture,
     required this.cost,
+    this.hitboxId,
+    this.scale = 1.0,
   });
 
   Item copyWith({
@@ -19,6 +23,8 @@ class Item {
     ItemType? type,
     String? texture,
     int? cost,
+    String? hitboxId,
+    double? scale,
   }) {
     return Item(
       id: id ?? this.id,
@@ -26,6 +32,8 @@ class Item {
       type: type ?? this.type,
       texture: texture ?? this.texture,
       cost: cost ?? this.cost,
+      hitboxId: hitboxId ?? this.hitboxId,
+      scale: scale ?? this.scale,
     );
   }
 }

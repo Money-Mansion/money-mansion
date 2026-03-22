@@ -14,6 +14,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.door,
     texture: 'assets/images/items/dvere_biele.png',
     cost: 0,
+    hitboxId: null,
+    scale: 0.11,
   ),
 
   Item(
@@ -22,6 +24,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.furniture,
     texture: 'assets/images/items/posteľ_základná.png',
     cost: 0,
+    hitboxId: null,
+    scale: 0.17,
   ),
 
   Item(
@@ -30,6 +34,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_s_chrumkom.png',
     cost: 55,
+    hitboxId: null,
+    scale: 0.15,
   ),
 
   Item(
@@ -38,6 +44,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_s_chrumkom.png',
     cost: 75,
+    hitboxId: null,
+    scale: 0.11,
   ),
 
   Item(
@@ -46,6 +54,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_alien.png',
     cost: 50,
+    hitboxId: null,
+    scale: 0.12,
   ),
 
   Item(
@@ -54,6 +64,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_y.png',
     cost: 50,
+    hitboxId: null,
+    scale: 0.15,
   ),
 
   Item(
@@ -62,6 +74,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_ruzovy.png',
     cost: 50,
+    hitboxId: null,
+    scale: 0.15,
   ),
 
   Item(
@@ -70,6 +84,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.furniture,
     texture: 'assets/images/items/posteľ_dievčenská.png',
     cost: 300,
+    hitboxId: null,
+    scale: 0.17,
   ),
 
   Item(
@@ -78,6 +94,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.furniture,
     texture: 'assets/images/items/skriňa_šatník.png',
     cost: 175,
+    hitboxId: null,
+    scale: 0.2,
   ),
 
   Item(
@@ -86,6 +104,8 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.furniture,
     texture: 'assets/images/items/skriňa_knihy.png',
     cost: 200,
+    hitboxId: null,
+    scale: 0.2,
   ),
 
   // ADD YOUR ITEMS BELOW THIS LINE
@@ -95,4 +115,6 @@ final List<Item> GAME_ITEMS = [
   // - type: category (door, window, furniture, flooring, wallpaper, decoration)
   // - texture: path to PNG file in assets/images/
   // - cost: coin price in shop
+  // - hitboxId: (optional) ID of hitbox file to load (defaults to item id)
+  // - scale: (optional) render scale factor, default 1.0
 ];

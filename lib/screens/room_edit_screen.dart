@@ -105,12 +105,38 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               left: 0,
               right: 0,
               child: Center(
-                child: FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.red[400],
-                  onPressed: _onDeleteSelectedItem,
-                  child: const Icon(Icons.delete, color: Colors.white),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Bring to front button
+                    FloatingActionButton(
+                      mini: true,
+                      heroTag: null,
+                      backgroundColor: Colors.green[400],
+                      onPressed: _onMoveToFront,
+                      child: const Icon(Icons.arrow_upward, color: Colors.white),
+                      tooltip: 'Move to front',
+                    ),
+                    const SizedBox(width: 10),
+                    // Delete button
+                    FloatingActionButton(
+                      mini: true,
+                      heroTag: null,
+                      backgroundColor: Colors.red[400],
+                      onPressed: _onDeleteSelectedItem,
+                      child: const Icon(Icons.delete, color: Colors.white),
+                    ),
+                    const SizedBox(width: 10),
+                    // Send to back button
+                    FloatingActionButton(
+                      mini: true,
+                      heroTag: null,
+                      backgroundColor: Colors.orange[400],
+                      onPressed: _onMoveToBack,
+                      child: const Icon(Icons.arrow_downward, color: Colors.white),
+                      tooltip: 'Move to back',
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -144,6 +170,16 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   void _onDeleteSelectedItem() {
     if (roomWorld == null) return;
     roomWorld!.removeSelectedItem();
+  }
+
+  void _onMoveToFront() {
+    if (roomWorld == null) return;
+    roomWorld!.moveSelectedItemToFront();
+  }
+
+  void _onMoveToBack() {
+    if (roomWorld == null) return;
+    roomWorld!.moveSelectedItemToBack();
   }
 
   void _showInventorySheet(BuildContext context) {
