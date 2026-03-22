@@ -33,6 +33,7 @@ flutter:
     - assets/images/room/
     - assets/images/items/
     - assets/music/
+    - assets/hitboxes/
 
   # Custom icon font
   fonts:
