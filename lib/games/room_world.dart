@@ -107,6 +107,68 @@ class RoomWorld extends FlameGame {
     }
   }
 
+  /// Move the currently selected item forward in the layer stack (on top of others)
+  void moveSelectedItemToFront() {
+    if (_selectedItem == null) return;
+    
+    // Get all items in the world
+    final items = <ItemComponent>[];
+    for (final component in world.children) {
+      if (component is ItemComponent) {
+        items.add(component);
+      }
+    }
+    
+    // Find the index of the selected item
+    final selectedIndex = items.indexOf(_selectedItem!);
+    if (selectedIndex < 0) return;
+    
+    // If already at the front, do nothing
+    if (selectedIndex == items.length - 1) return;
+    
+    // Remove and re-add to move to the end (top layer)
+    world.remove(_selectedItem!);
+    world.add(_selectedItem!);
+  }
+
+  /// Move the currently selected item backward in the layer stack (behind others)
+  void moveSelectedItemToBack() {
+    if (_selectedItem == null) return;
+    
+    // Get all items and the room in the world
+    final children = world.children.toList();
+    final items = <ItemComponent>[];
+    final nonItems = <Component>[];
+    
+    for (final component in children) {
+      if (component is ItemComponent) {
+        items.add(component);
+      } else {
+        nonItems.add(component);
+      }
+    }
+    
+    // Find the index of the selected item
+    final selectedIndex = items.indexOf(_selectedItem!);
+    if (selectedIndex < 0) return;
+    
+    // If already at the back, do nothing
+    if (selectedIndex == 0) return;
+    
+    // Remove all items from world
+    for (final item in items) {
+      world.remove(item);
+    }
+    
+    // Re-add in new order (selected item first/back, others in order)
+    final newItems = [...items];
+    newItems.removeAt(selectedIndex);
+    world.add(_selectedItem!); // Add selected to back
+    for (final item in newItems) {
+      world.add(item);
+    }
+  }
+
   /// Add an item to the room at a given world position.
   void addItemToRoom(Item item, {Vector2? position}) {
     final itemComponent = ItemComponent(
