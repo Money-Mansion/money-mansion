@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
-import '../services/goal_database_service.dart';
 import '../services/app_localizations_provider.dart';
-import 'package:uuid/uuid.dart';
+import '../services/goal_database_service.dart';
 
 class GoalsScreen extends StatefulWidget {
   final GameState gameState;
@@ -21,6 +21,8 @@ class GoalsScreen extends StatefulWidget {
 }
 
 class _GoalsScreenState extends State<GoalsScreen> {
+  static const int _hardGoalMilestoneCount = 5;
+
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _targetMoneyController;
@@ -42,6 +44,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
     return money.toStringAsFixed(2);
   }
 
+  int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
+    final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
+    return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -59,7 +66,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
     super.dispose();
   }
 
-  /// Load goals from local database
   Future<void> _loadGoalsFromBackend() async {
     try {
       if (!mounted) return;
@@ -278,6 +284,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
     final goals = widget.gameState.goals;
     final activeGoals = goals.where((g) => !g.isCompleted).toList();
     final completedGoals = goals.where((g) => g.isCompleted).toList();
@@ -407,10 +414,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   Widget _buildGoalCard(Goal goal) {
-    final bool hasTarget = goal.targetMoney > 0;
-    final double progress =
-        hasTarget ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1) : 0;
-    final bool canComplete = !hasTarget || progress >= 1;
+    final hasTarget = goal.targetMoney > 0;
+    final progress = hasTarget
+        ? (goal.allocatedMoney / goal.targetMoney).clamp(0.0, 1.0).toDouble()
+        : 0.0;
+    final canComplete = !hasTarget || progress >= 1;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -481,19 +489,14 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           await GoalDatabaseService.completeGoal(goal.id);
 
                       if (success) {
-                        // Awards coins + 1 Chrumka inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
 
                         if (mounted) {
-                          final completionText = goal.difficulty ==
-                                  Goal.hardDifficulty
-                              ? 'Goal completed!'
-                              : 'Goal completed! +${goal.rewardCoins} coins';
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
+                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka',
                               ),
                               duration: const Duration(seconds: 2),
                             ),
@@ -544,6 +547,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
               ),
               const SizedBox(height: 12),
+              if (!goal.isCompleted)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: widget.gameState.money > 0
+                        ? () => _showAllocateMoneyDialog(goal)
+                        : null,
+                    icon: const Icon(Icons.account_balance_wallet_outlined),
+                    label: const Text('Assign money'),
+                  ),
+                ),
+              if (!goal.isCompleted) const SizedBox(height: 12),
             ],
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -585,6 +600,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
+                    if (goal.allocatedMoney > 0) {
+                      widget.gameState.addMoney(goal.allocatedMoney);
+                    }
                     final success =
                         await GoalDatabaseService.deleteGoal(goal.id);
 
@@ -594,13 +612,20 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Goal deleted'),
+                          SnackBar(
+                            content: Text(
+                              goal.allocatedMoney > 0
+                                  ? 'Goal deleted and money returned to balance'
+                                  : 'Goal deleted',
+                            ),
                             duration: Duration(seconds: 2),
                           ),
                         );
                       }
                     } else {
+                      if (goal.allocatedMoney > 0) {
+                        widget.gameState.spendMoney(goal.allocatedMoney);
+                      }
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

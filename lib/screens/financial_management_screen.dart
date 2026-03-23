@@ -5,9 +5,9 @@ import 'package:fl_chart/fl_chart.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../models/transaction.dart';
+import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
-import '../services/app_localizations_provider.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -59,8 +59,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         ..addAll(goals);
       _isLoading = false;
     });
-
-    await _recalculateMoneyAndAllocations();
   }
 
   @override
@@ -92,116 +90,70 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return match.isEmpty ? null : match.first;
   }
 
-  bool _isGoalCompleted(String? goalId) {
-    final goal = _findGoal(goalId);
-    return goal?.isCompleted ?? false;
-  }
-
   int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
     final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
     return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
   }
 
-  Future<void> _recalculateMoneyAndAllocations() async {
-    double total = 0.0;
-    final Map<String, double> allocations = {};
+  (Goal, int) _applyDestinationGoalProgress(Goal goal) {
+    var updatedGoal = goal;
+    var newlyEarnedCoins = 0;
 
-    for (final t in _transactions) {
-      final signed = t.type == '+' ? t.amount : -t.amount;
-      total += signed;
-
-      if (t.goalId != null) {
-        allocations[t.goalId!] = (allocations[t.goalId!] ?? 0) + signed;
+    if (updatedGoal.difficulty == Goal.hardDifficulty &&
+        updatedGoal.targetMoney > 0) {
+      final progress = (updatedGoal.allocatedMoney / updatedGoal.targetMoney)
+          .clamp(0.0, 1.0)
+          .toDouble();
+      final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
+      if (reachedMilestones > updatedGoal.milestonesAwarded) {
+        final newlyEarned = _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            );
+        newlyEarnedCoins = newlyEarned;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
       }
     }
 
-    widget.gameState.setMoney(total);
+    return (updatedGoal, newlyEarnedCoins);
+  }
 
-    bool updated = false;
-    for (var i = 0; i < _goals.length; i++) {
-      final goal = _goals[i];
-      final allocated =
-          (allocations[goal.id] ?? 0).clamp(0, double.infinity).toDouble();
-      Goal updatedGoal = goal;
-
-      if ((goal.allocatedMoney - allocated).abs() > 0.009) {
-        updatedGoal = updatedGoal.copyWith(allocatedMoney: allocated);
-        await GoalDatabaseService.updateGoal(updatedGoal);
-        _goals[i] = updatedGoal;
-        updated = true;
-      }
-
-      if (updatedGoal.difficulty == Goal.hardDifficulty &&
-          updatedGoal.targetMoney > 0) {
-        final progress =
-            (allocated / updatedGoal.targetMoney).clamp(0.0, 1.0).toDouble();
-        final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
-        if (reachedMilestones > updatedGoal.milestonesAwarded) {
-          final newlyEarned = _hardGoalRewardForMilestones(
-                updatedGoal,
-                reachedMilestones,
-              ) -
-              _hardGoalRewardForMilestones(
-                updatedGoal,
-                updatedGoal.milestonesAwarded,
-              );
-          if (newlyEarned > 0) {
-            widget.gameState.addCoins(newlyEarned);
-          }
-          updatedGoal = updatedGoal.copyWith(
-            milestonesAwarded: reachedMilestones,
-          );
-          await GoalDatabaseService.updateGoal(updatedGoal);
-          _goals[i] = updatedGoal;
-          updated = true;
-        }
-      }
-
-      if (!updatedGoal.isCompleted &&
-          updatedGoal.targetMoney > 0 &&
-          allocated >= updatedGoal.targetMoney) {
-        updatedGoal = updatedGoal.copyWith(isCompleted: true);
-        await GoalDatabaseService.updateGoal(updatedGoal);
-        _goals[i] = updatedGoal;
-        widget.gameState.completeGoal(updatedGoal.id);
-        updated = true;
-      }
-    }
-
-    if (updated && mounted) {
-      setState(() {});
+  void _applyTransaction(TransactionModel transaction) {
+    final amount = transaction.amount;
+    if (transaction.type == '+') {
+      widget.gameState.addMoney(amount);
+    } else {
+      widget.gameState.spendMoney(amount);
     }
   }
 
-  // ===== MONEY LOGIC =====
-
-  void _applyTransaction(TransactionModel t) {
-    final double amount = t.amount;
-    t.type == '+'
-        ? widget.gameState.addMoney(amount)
-        : widget.gameState.spendMoney(amount);
+  void _revertTransaction(TransactionModel transaction) {
+    final amount = transaction.amount;
+    if (transaction.type == '+') {
+      widget.gameState.spendMoney(amount);
+    } else {
+      widget.gameState.addMoney(amount);
+    }
   }
 
-  void _revertTransaction(TransactionModel t) {
-    final double amount = t.amount;
-    t.type == '+'
-        ? widget.gameState.spendMoney(amount)
-        : widget.gameState.addMoney(amount);
-  }
-
-  Future<void> _removeTransaction(TransactionModel t) async {
-    _revertTransaction(t);
-    await FinancialDatabaseService.delete(t.id);
-    setState(() => _transactions.remove(t));
-    await _recalculateMoneyAndAllocations();
+  Future<void> _removeTransaction(TransactionModel transaction) async {
+    _revertTransaction(transaction);
+    await FinancialDatabaseService.delete(transaction.id);
+    setState(() => _transactions.remove(transaction));
   }
 
   void _addTransaction() {
     _showTransactionDialog();
   }
 
-  void _editTransaction(TransactionModel t) {
-    _showTransactionDialog(transaction: t);
+  void _editTransaction(TransactionModel transaction) {
+    _showTransactionDialog(transaction: transaction);
   }
 
   Future<void> _showReassignFundsDialog() async {
@@ -216,10 +168,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             final sourceGoals = _goals
-                .where((g) => !g.isCompleted && g.allocatedMoney > 0)
+                .where((goal) => !goal.isCompleted && goal.allocatedMoney > 0)
                 .toList();
             final destinationGoals = _goals
-                .where((g) => !g.isCompleted && g.id != fromGoalId)
+                .where((goal) => !goal.isCompleted && goal.id != fromGoalId)
                 .toList();
 
             return AlertDialog(
@@ -228,10 +180,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField<String>(
-                    value: fromGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'From goal',
-                    ),
+                    initialValue: fromGoalId,
+                    decoration: const InputDecoration(labelText: 'From goal'),
                     items: sourceGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -253,10 +203,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   ),
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
-                    value: toGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'To goal',
-                    ),
+                    initialValue: toGoalId,
+                    decoration: const InputDecoration(labelText: 'To goal'),
                     items: destinationGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -271,7 +219,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   const SizedBox(height: 8),
                   TextField(
                     controller: amountController,
-                    keyboardType: TextInputType.number,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     decoration: const InputDecoration(labelText: 'Amount'),
                   ),
                 ],
@@ -301,7 +251,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     }
 
                     final fromGoal = _findGoal(fromGoalId);
-                    if (fromGoal == null || amount > fromGoal.allocatedMoney) {
+                    final toGoal = _findGoal(toGoalId);
+                    if (fromGoal == null ||
+                        toGoal == null ||
+                        amount > fromGoal.allocatedMoney) {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -314,32 +267,54 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       return;
                     }
 
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: 'Reassigned to another goal',
-                      date: DateTime.now(),
-                      goalId: fromGoalId,
+                    final updatedSource = fromGoal.copyWith(
+                      allocatedMoney: fromGoal.allocatedMoney - amount,
                     );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: 'Reassigned from another goal',
-                      date: DateTime.now(),
-                      goalId: toGoalId,
+                    var updatedDestination = toGoal.copyWith(
+                      allocatedMoney: toGoal.allocatedMoney + amount,
                     );
+                    final progressResult =
+                        _applyDestinationGoalProgress(updatedDestination);
+                    updatedDestination = progressResult.$1;
+                    final newlyEarnedCoins = progressResult.$2;
+                    final shouldComplete = !updatedDestination.isCompleted &&
+                        updatedDestination.targetMoney > 0 &&
+                        updatedDestination.allocatedMoney >=
+                            updatedDestination.targetMoney;
+                    final storedDestination = shouldComplete
+                        ? updatedDestination.copyWith(isCompleted: true)
+                        : updatedDestination;
 
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
+                    final sourceSaved =
+                        await GoalDatabaseService.updateGoal(updatedSource);
+                    final destinationSaved =
+                        await GoalDatabaseService.updateGoal(storedDestination);
+                    if (!sourceSaved || !destinationSaved || !mounted) {
+                      return;
+                    }
 
-                    setState(() {
-                      _transactions.insert(0, creditTx);
-                      _transactions.insert(0, debitTx);
-                    });
+                    final sourceIndex = _goals
+                        .indexWhere((goal) => goal.id == updatedSource.id);
+                    final destinationIndex = _goals.indexWhere(
+                      (goal) => goal.id == updatedDestination.id,
+                    );
+                    if (sourceIndex != -1) {
+                      _goals[sourceIndex] = updatedSource;
+                    }
+                    if (destinationIndex != -1) {
+                      _goals[destinationIndex] = storedDestination;
+                    }
 
-                    await _recalculateMoneyAndAllocations();
+                    widget.gameState.updateGoal(updatedSource);
+                    widget.gameState.updateGoal(updatedDestination);
+                    if (newlyEarnedCoins > 0) {
+                      widget.gameState.addCoins(newlyEarnedCoins);
+                    }
+                    if (shouldComplete) {
+                      widget.gameState.completeGoal(updatedDestination.id);
+                    }
+
+                    setState(() {});
 
                     if (mounted) {
                       Navigator.pop(context);
@@ -522,19 +497,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     Navigator.pop(context);
                   },
                   child: Text(transaction == null ? l10n.translate('add') : l10n.translate('save')),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('financial')),
@@ -827,9 +794,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
               PieChartData(
                 sections: sections,
                 centerSpaceRadius: 40,
-              ),
-            ),
-          ),
           const SizedBox(height: 16),
           Expanded(
             child: SingleChildScrollView(

@@ -88,6 +88,13 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateGoal(Goal goal) {
+    final index = goals.indexWhere((g) => g.id == goal.id);
+    if (index == -1) return;
+    goals[index] = goal;
+    notifyListeners();
+  }
+
   void completeGoal(String goalId) {
     final index = goals.indexWhere((g) => g.id == goalId);
     if (index != -1 && !goals[index].isCompleted) {
