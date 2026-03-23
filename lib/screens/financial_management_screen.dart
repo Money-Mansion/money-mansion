@@ -76,7 +76,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   String _formatAmount(double amount) {
-    return amount % 1 == 0 ? "${amount.toInt()} €" : "${amount.toString()} €";
+    final rounded = (amount * 100).round() / 100;
+    return rounded % 1 == 0 ? "${rounded.toInt()} €" : "${rounded.toStringAsFixed(2)} €";
   }
 
   String? _goalTitle(String? goalId) {
@@ -664,7 +665,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         subtitleParts.add('Goal: $goalTitle');
       }
       if (categoryTitle != null) {
-        subtitleParts.add('Category: $categoryTitle');
+        subtitleParts.add('${l10n.translate('category')}: $categoryTitle');
       }
       final subtitleText = subtitleParts.join(' · ');
 
@@ -846,6 +847,12 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         LineChartData(
           gridData: FlGridData(show: true),
           titlesData: FlTitlesData(
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
