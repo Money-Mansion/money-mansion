@@ -74,6 +74,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return amount % 1 == 0 ? "${amount.toInt()} EUR" : "$amount EUR";
   }
 
+  String _tr(AppLocalizationsProvider l10n, String key) {
+    return l10n.translate(key);
+  }
+
   String? _goalTitle(String? goalId) {
     if (goalId == null) return null;
     final match = _goals.where((g) => g.id == goalId);
@@ -160,6 +164,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     await showDialog(
       context: context,
       builder: (context) {
+        final l10n = Provider.of<AppLocalizationsProvider>(context);
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             final sourceGoals = _goals
@@ -170,13 +175,15 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 .toList();
 
             return AlertDialog(
-              title: const Text('Reassign Funds'),
+              title: Text(_tr(l10n, 'reassignFunds')),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField<String>(
                     initialValue: fromGoalId,
-                    decoration: const InputDecoration(labelText: 'From goal'),
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'fromGoal'),
+                    ),
                     items: sourceGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -199,7 +206,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
                     initialValue: toGoalId,
-                    decoration: const InputDecoration(labelText: 'To goal'),
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'toGoal'),
+                    ),
                     items: destinationGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -217,7 +226,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                    decoration: const InputDecoration(labelText: 'Amount'),
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'amount'),
+                    ),
                   ),
                 ],
               ),
@@ -239,9 +250,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         amount > fromGoal.allocatedMoney) {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content:
-                                Text('Amount exceeds available goal funds.'),
+                          SnackBar(
+                            content: Text(
+                              _tr(l10n, 'amountExceedsAvailableGoalFunds'),
+                            ),
                             duration: Duration(seconds: 2),
                           ),
                         );
@@ -301,14 +313,16 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     if (mounted) {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Funds reassigned successfully'),
+                        SnackBar(
+                          content: Text(
+                            _tr(l10n, 'fundsReassignedSuccessfully'),
+                          ),
                           duration: Duration(seconds: 2),
                         ),
                       );
                     }
                   },
-                  child: const Text('Move'),
+                  child: Text(_tr(l10n, 'save')),
                 ),
               ],
             );
@@ -332,7 +346,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         return StatefulBuilder(
           builder: (context, dialogSetState) => AlertDialog(
             title: Text(
-              transaction == null ? 'Add Gain / Purchase' : 'Edit Transaction',
+              transaction == null
+                  ? _tr(l10n, 'addGainOrPurchase')
+                  : _tr(l10n, 'editTransaction'),
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -355,11 +371,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 TextField(
                   controller: amountController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Amount'),
+                  decoration: InputDecoration(labelText: _tr(l10n, 'amount')),
                 ),
                 TextField(
                   controller: noteController,
-                  decoration: const InputDecoration(labelText: 'Note'),
+                  decoration: InputDecoration(labelText: _tr(l10n, 'note')),
                 ),
               ],
             ),
@@ -430,7 +446,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.swap_horiz),
-            tooltip: 'Reassign funds between goals',
+            tooltip: _tr(l10n, 'reassignFunds'),
             onPressed: _showReassignFundsDialog,
           ),
           IconButton(
@@ -469,6 +485,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   Widget _buildFinancialTab() {
+    final l10n = context.watch<AppLocalizationsProvider>();
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -511,7 +528,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             Padding(
               padding: const EdgeInsets.only(top: 80),
               child: Text(
-                'No transactions yet. Tap + to add one!',
+                _tr(l10n, 'noTransactionsYetTapAdd'),
                 style: TextStyle(color: Colors.grey[600]),
               ),
             ),

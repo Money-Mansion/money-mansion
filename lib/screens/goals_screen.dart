@@ -44,6 +44,22 @@ class _GoalsScreenState extends State<GoalsScreen> {
     return money.toStringAsFixed(2);
   }
 
+  String _tr(AppLocalizationsProvider l10n, String key) {
+    return l10n.translate(key);
+  }
+
+  String _trParams(
+    AppLocalizationsProvider l10n,
+    String key,
+    Map<String, String> params,
+  ) {
+    var text = l10n.translate(key);
+    params.forEach((paramKey, value) {
+      text = text.replaceAll('{$paramKey}', value);
+    });
+    return text;
+  }
+
   int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
     final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
     return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
@@ -154,12 +170,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
     setState(() {});
 
+    final l10n = context.read<AppLocalizationsProvider>();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           shouldComplete
-              ? 'Money assigned and goal completed!'
-              : 'Money assigned to goal',
+              ? _tr(l10n, 'moneyAssignedAndGoalCompleted')
+              : _tr(l10n, 'moneyAssignedToGoal'),
         ),
         duration: const Duration(seconds: 2),
       ),
@@ -171,62 +188,72 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
     await showDialog(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text('Assign money to ${goal.title}'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Available balance: ${_formatMoney(widget.gameState.money)}',
+      builder: (dialogContext) {
+        final l10n = Provider.of<AppLocalizationsProvider>(dialogContext);
+        return AlertDialog(
+          title: Text(
+            _trParams(l10n, 'assignMoneyToGoal', {'goal': goal.title}),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _trParams(l10n, 'availableBalance', {
+                  'amount': _formatMoney(widget.gameState.money),
+                }),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: amountController,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                decoration: InputDecoration(
+                  labelText: _tr(l10n, 'amount'),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Cancel'),
             ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: amountController,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-              ),
-              decoration: const InputDecoration(
-                labelText: 'Amount',
-                border: OutlineInputBorder(),
-              ),
+            ElevatedButton(
+              onPressed: () async {
+                final amount = double.tryParse(amountController.text) ?? 0.0;
+                if (amount <= 0) {
+                  return;
+                }
+                if (amount > widget.gameState.money) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          _tr(l10n, 'amountExceedsCurrentAppBalance'),
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return;
+                }
+
+                Navigator.pop(dialogContext);
+                await _applyGoalAllocation(goal, amount);
+              },
+              child: Text(_tr(l10n, 'assignMoney')),
             ),
           ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              final amount = double.tryParse(amountController.text) ?? 0.0;
-              if (amount <= 0) {
-                return;
-              }
-              if (amount > widget.gameState.money) {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Amount exceeds current app balance.'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
-                return;
-              }
-
-              Navigator.pop(dialogContext);
-              await _applyGoalAllocation(goal, amount);
-            },
-            child: const Text('Assign'),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   void _showCreateGoalDialog() {
+    final l10n = context.read<AppLocalizationsProvider>();
     DateTime selectedDate = _selectedDate;
     String selectedDifficulty = _selectedDifficulty;
 
@@ -298,8 +325,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: _targetMoneyController,
-                  decoration: const InputDecoration(
-                    labelText: 'Goal Amount',
+                  decoration: InputDecoration(
+                    labelText: _tr(l10n, 'goalAmount'),
                     hintText: 'Enter money target',
                     border: OutlineInputBorder(),
                   ),
@@ -536,6 +563,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   Widget _buildGoalCard(Goal goal) {
+    final l10n = context.watch<AppLocalizationsProvider>();
     final hasTarget = goal.targetMoney > 0;
     final progress = hasTarget
         ? (goal.allocatedMoney / goal.targetMoney).clamp(0.0, 1.0).toDouble()
@@ -615,10 +643,14 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         setState(() {});
 
                         if (mounted) {
-                          final completionMessage = goal.difficulty ==
-                                  Goal.hardDifficulty
-                              ? 'Goal completed! +1 Chrumka'
-                              : 'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka';
+                          final completionMessage =
+                              goal.difficulty == Goal.hardDifficulty
+                                  ? _tr(l10n, 'goalCompletedChrumkaOnly')
+                                  : _trParams(
+                                      l10n,
+                                      'goalCompletedCoinsAndChrumka',
+                                      {'coins': goal.rewardCoins.toString()},
+                                    );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(completionMessage),
@@ -679,7 +711,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ? () => _showAllocateMoneyDialog(goal)
                         : null,
                     icon: const Icon(Icons.account_balance_wallet_outlined),
-                    label: const Text('Assign money'),
+                    label: Text(_tr(l10n, 'assignMoney')),
                   ),
                 ),
               if (!goal.isCompleted) const SizedBox(height: 12),
@@ -743,8 +775,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           SnackBar(
                             content: Text(
                               shouldRefundAllocatedMoney
-                                  ? 'Goal deleted and money returned to balance'
-                                  : 'Goal deleted',
+                                  ? _tr(l10n, 'goalDeletedAndMoneyReturned')
+                                  : _tr(l10n, 'goalDeleted'),
                             ),
                             duration: Duration(seconds: 2),
                           ),
