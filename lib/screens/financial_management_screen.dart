@@ -694,6 +694,57 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }).toList();
   }
 
+  List<Widget> _buildTransactionListGroupedByMonth(List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
+    if (transactions.isEmpty) {
+      return [];
+    }
+
+    // Group transactions by month
+    final Map<String, List<TransactionModel>> groupedByMonth = {};
+    for (final t in transactions) {
+      final monthKey = '${t.date.year}-${t.date.month.toString().padLeft(2, '0')}';
+      groupedByMonth.putIfAbsent(monthKey, () => []);
+      groupedByMonth[monthKey]!.add(t);
+    }
+
+    // Sort months in descending order (newest first)
+    final sortedMonths = groupedByMonth.keys.toList()..sort((a, b) => b.compareTo(a));
+
+    // Build widgets with month headers and transaction lists
+    final monthNames = [
+      'january', 'february', 'march', 'april', 'may', 'june',
+      'july', 'august', 'september', 'october', 'november', 'december'
+    ];
+
+    final widgets = <Widget>[];
+    for (final monthKey in sortedMonths) {
+      final parts = monthKey.split('-');
+      final year = int.parse(parts[0]);
+      final month = int.parse(parts[1]);
+
+      // Add month header
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 24, bottom: 12),
+          child: Text(
+            '${l10n.translate(monthNames[month - 1])} $year',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+            ),
+          ),
+        ),
+      );
+
+      // Add transactions for this month
+      final monthTransactions = groupedByMonth[monthKey] ?? [];
+      widgets.addAll(_buildTransactionList(monthTransactions, l10n));
+    }
+
+    return widgets;
+  }
+
   Widget _buildFinancialTab(AppLocalizationsProvider l10n) {
     if (_isLoading) {
       return const Center(
@@ -707,8 +758,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ..._buildTransactionList(_transactions, l10n),
+                ..._buildTransactionListGroupedByMonth(_transactions, l10n),
                 if (_transactions.isEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 80),
