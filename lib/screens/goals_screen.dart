@@ -60,6 +60,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
     return text;
   }
 
+  String _difficultyLabel(AppLocalizationsProvider l10n, String difficulty) {
+    switch (difficulty) {
+      case Goal.easyDifficulty:
+        return _tr(l10n, 'difficultyEasy');
+      case Goal.mediumDifficulty:
+        return _tr(l10n, 'difficultyMedium');
+      case Goal.hardDifficulty:
+        return _tr(l10n, 'difficultyHard');
+      default:
+        return difficulty;
+    }
+  }
+
   int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
     final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
     return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
@@ -286,8 +299,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 const SizedBox(height: 16),
                 InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Reward',
+                  decoration: InputDecoration(
+                    labelText: _tr(l10n, 'rewardLabel'),
                     border: OutlineInputBorder(),
                   ),
                   child: Text(
@@ -297,22 +310,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   initialValue: selectedDifficulty,
-                  decoration: const InputDecoration(
-                    labelText: 'Difficulty',
+                  decoration: InputDecoration(
+                    labelText: _tr(l10n, 'difficulty'),
                     border: OutlineInputBorder(),
                   ),
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: Goal.easyDifficulty,
-                      child: Text('Easy'),
+                      child: Text(_difficultyLabel(l10n, Goal.easyDifficulty)),
                     ),
                     DropdownMenuItem(
                       value: Goal.mediumDifficulty,
-                      child: Text('Medium'),
+                      child: Text(
+                        _difficultyLabel(l10n, Goal.mediumDifficulty),
+                      ),
                     ),
                     DropdownMenuItem(
                       value: Goal.hardDifficulty,
-                      child: Text('Hard'),
+                      child: Text(_difficultyLabel(l10n, Goal.hardDifficulty)),
                     ),
                   ],
                   onChanged: (value) {
@@ -609,7 +624,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${goal.difficulty} · Reward ${goal.rewardCoins}',
+                        '${_difficultyLabel(l10n, goal.difficulty)} - ${_tr(l10n, 'rewardLabel')} ${goal.rewardCoins}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[500],

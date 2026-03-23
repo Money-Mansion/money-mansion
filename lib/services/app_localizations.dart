@@ -179,6 +179,11 @@ class AppLocalizations {
           'Goal completed! +{coins} coins & +1 Chrumka',
       'goalDeletedAndMoneyReturned':
           'Goal deleted and money returned to balance',
+      'difficultyEasy': 'Easy',
+      'difficultyMedium': 'Medium',
+      'difficultyHard': 'Hard',
+      'difficulty': 'Difficulty',
+      'rewardLabel': 'Reward',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -353,6 +358,36 @@ class AppLocalizations {
       'statistics': 'Štatistika',
       'gain': 'Príjem',
       'purchase': 'Nákup',
+      'reassignFunds': 'Presun?? peniaze',
+      'fromGoal': 'Z cie?a',
+      'toGoal': 'Do cie?a',
+      'amount': 'Suma',
+      'note': 'Pozn?mka',
+      'amountExceedsAvailableGoalFunds':
+          'Suma prekra?uje dostupn? peniaze cie?a.',
+      'fundsReassignedSuccessfully': 'Peniaze boli ?spe?ne presunut?',
+      'addGainOrPurchase': 'Prida? pr?jem / n?kup',
+      'editTransaction': 'Upravi? transakciu',
+      'noTransactionsYetTapAdd':
+          'Zatia? nie s? ?iadne transakcie. Klepnite na + a pridajte jednu!',
+      'moneyAssignedAndGoalCompleted': 'Peniaze priraden? a cie? splnen?!',
+      'moneyAssignedToGoal': 'Peniaze boli priraden? k cie?u',
+      'assignMoneyToGoal': 'Priradi? peniaze k cie?u {goal}',
+      'availableBalance': 'Dostupn? zostatok: {amount}',
+      'amountExceedsCurrentAppBalance':
+          'Suma prekra?uje aktu?lny zostatok aplik?cie.',
+      'assignMoney': 'Priradi? peniaze',
+      'goalAmount': 'Suma cie?a',
+      'goalCompletedChrumkaOnly': 'Cie? splnen?! +1 Chrumka',
+      'goalCompletedCoinsAndChrumka':
+          'Cie? splnen?! +{coins} minc? & +1 Chrumka',
+      'goalDeletedAndMoneyReturned':
+          'Cie? bol vymazan? a peniaze sa vr?tili do zostatku',
+      'difficultyEasy': '?ahk?',
+      'difficultyMedium': 'Stredn?',
+      'difficultyHard': '?a?k?',
+      'difficulty': 'N?ro?nos?',
+      'rewardLabel': 'Odmena',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': 'Tip od Chrumka 💡',
