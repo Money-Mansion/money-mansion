@@ -4,9 +4,9 @@ import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../models/transaction.dart';
+import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
-import '../services/app_localizations_provider.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -56,8 +56,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         ..addAll(goals);
       _isLoading = false;
     });
-
-    await _recalculateMoneyAndAllocations();
   }
 
   @override
@@ -73,7 +71,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   String _formatAmount(double amount) {
-    return amount % 1 == 0 ? "${amount.toInt()} €" : "${amount.toString()} €";
+    return amount % 1 == 0 ? "${amount.toInt()} EUR" : "$amount EUR";
   }
 
   String? _goalTitle(String? goalId) {
@@ -88,116 +86,70 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return match.isEmpty ? null : match.first;
   }
 
-  bool _isGoalCompleted(String? goalId) {
-    final goal = _findGoal(goalId);
-    return goal?.isCompleted ?? false;
-  }
-
   int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
     final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
     return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
   }
 
-  Future<void> _recalculateMoneyAndAllocations() async {
-    double total = 0.0;
-    final Map<String, double> allocations = {};
+  (Goal, int) _applyDestinationGoalProgress(Goal goal) {
+    var updatedGoal = goal;
+    var newlyEarnedCoins = 0;
 
-    for (final t in _transactions) {
-      final signed = t.type == '+' ? t.amount : -t.amount;
-      total += signed;
-
-      if (t.goalId != null) {
-        allocations[t.goalId!] = (allocations[t.goalId!] ?? 0) + signed;
+    if (updatedGoal.difficulty == Goal.hardDifficulty &&
+        updatedGoal.targetMoney > 0) {
+      final progress = (updatedGoal.allocatedMoney / updatedGoal.targetMoney)
+          .clamp(0.0, 1.0)
+          .toDouble();
+      final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
+      if (reachedMilestones > updatedGoal.milestonesAwarded) {
+        final newlyEarned = _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            );
+        newlyEarnedCoins = newlyEarned;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
       }
     }
 
-    widget.gameState.setMoney(total);
+    return (updatedGoal, newlyEarnedCoins);
+  }
 
-    bool updated = false;
-    for (var i = 0; i < _goals.length; i++) {
-      final goal = _goals[i];
-      final allocated =
-          (allocations[goal.id] ?? 0).clamp(0, double.infinity).toDouble();
-      Goal updatedGoal = goal;
-
-      if ((goal.allocatedMoney - allocated).abs() > 0.009) {
-        updatedGoal = updatedGoal.copyWith(allocatedMoney: allocated);
-        await GoalDatabaseService.updateGoal(updatedGoal);
-        _goals[i] = updatedGoal;
-        updated = true;
-      }
-
-      if (updatedGoal.difficulty == Goal.hardDifficulty &&
-          updatedGoal.targetMoney > 0) {
-        final progress =
-            (allocated / updatedGoal.targetMoney).clamp(0.0, 1.0).toDouble();
-        final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
-        if (reachedMilestones > updatedGoal.milestonesAwarded) {
-          final newlyEarned = _hardGoalRewardForMilestones(
-                updatedGoal,
-                reachedMilestones,
-              ) -
-              _hardGoalRewardForMilestones(
-                updatedGoal,
-                updatedGoal.milestonesAwarded,
-              );
-          if (newlyEarned > 0) {
-            widget.gameState.addCoins(newlyEarned);
-          }
-          updatedGoal = updatedGoal.copyWith(
-            milestonesAwarded: reachedMilestones,
-          );
-          await GoalDatabaseService.updateGoal(updatedGoal);
-          _goals[i] = updatedGoal;
-          updated = true;
-        }
-      }
-
-      if (!updatedGoal.isCompleted &&
-          updatedGoal.targetMoney > 0 &&
-          allocated >= updatedGoal.targetMoney) {
-        updatedGoal = updatedGoal.copyWith(isCompleted: true);
-        await GoalDatabaseService.updateGoal(updatedGoal);
-        _goals[i] = updatedGoal;
-        widget.gameState.completeGoal(updatedGoal.id);
-        updated = true;
-      }
-    }
-
-    if (updated && mounted) {
-      setState(() {});
+  void _applyTransaction(TransactionModel transaction) {
+    final amount = transaction.amount;
+    if (transaction.type == '+') {
+      widget.gameState.addMoney(amount);
+    } else {
+      widget.gameState.spendMoney(amount);
     }
   }
 
-  // ===== MONEY LOGIC =====
-
-  void _applyTransaction(TransactionModel t) {
-    final double amount = t.amount;
-    t.type == '+'
-        ? widget.gameState.addMoney(amount)
-        : widget.gameState.spendMoney(amount);
+  void _revertTransaction(TransactionModel transaction) {
+    final amount = transaction.amount;
+    if (transaction.type == '+') {
+      widget.gameState.spendMoney(amount);
+    } else {
+      widget.gameState.addMoney(amount);
+    }
   }
 
-  void _revertTransaction(TransactionModel t) {
-    final double amount = t.amount;
-    t.type == '+'
-        ? widget.gameState.spendMoney(amount)
-        : widget.gameState.addMoney(amount);
-  }
-
-  Future<void> _removeTransaction(TransactionModel t) async {
-    _revertTransaction(t);
-    await FinancialDatabaseService.delete(t.id);
-    setState(() => _transactions.remove(t));
-    await _recalculateMoneyAndAllocations();
+  Future<void> _removeTransaction(TransactionModel transaction) async {
+    _revertTransaction(transaction);
+    await FinancialDatabaseService.delete(transaction.id);
+    setState(() => _transactions.remove(transaction));
   }
 
   void _addTransaction() {
     _showTransactionDialog();
   }
 
-  void _editTransaction(TransactionModel t) {
-    _showTransactionDialog(transaction: t);
+  void _editTransaction(TransactionModel transaction) {
+    _showTransactionDialog(transaction: transaction);
   }
 
   Future<void> _showReassignFundsDialog() async {
@@ -211,10 +163,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             final sourceGoals = _goals
-                .where((g) => !g.isCompleted && g.allocatedMoney > 0)
+                .where((goal) => !goal.isCompleted && goal.allocatedMoney > 0)
                 .toList();
             final destinationGoals = _goals
-                .where((g) => !g.isCompleted && g.id != fromGoalId)
+                .where((goal) => !goal.isCompleted && goal.id != fromGoalId)
                 .toList();
 
             return AlertDialog(
@@ -223,10 +175,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField<String>(
-                    value: fromGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'From goal',
-                    ),
+                    initialValue: fromGoalId,
+                    decoration: const InputDecoration(labelText: 'From goal'),
                     items: sourceGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -248,10 +198,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   ),
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
-                    value: toGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'To goal',
-                    ),
+                    initialValue: toGoalId,
+                    decoration: const InputDecoration(labelText: 'To goal'),
                     items: destinationGoals
                         .map(
                           (goal) => DropdownMenuItem<String>(
@@ -266,7 +214,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   const SizedBox(height: 8),
                   TextField(
                     controller: amountController,
-                    keyboardType: TextInputType.number,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     decoration: const InputDecoration(labelText: 'Amount'),
                   ),
                 ],
@@ -281,22 +231,12 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     if (fromGoalId == null || toGoalId == null) return;
                     final amount = double.tryParse(amountController.text) ?? 0;
                     if (amount <= 0) return;
-                    if (_isGoalCompleted(toGoalId)) {
-                      if (mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Completed goals cannot accept more progress.',
-                            ),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      }
-                      return;
-                    }
 
                     final fromGoal = _findGoal(fromGoalId);
-                    if (fromGoal == null || amount > fromGoal.allocatedMoney) {
+                    final toGoal = _findGoal(toGoalId);
+                    if (fromGoal == null ||
+                        toGoal == null ||
+                        amount > fromGoal.allocatedMoney) {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -309,32 +249,54 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       return;
                     }
 
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: 'Reassigned to another goal',
-                      date: DateTime.now(),
-                      goalId: fromGoalId,
+                    final updatedSource = fromGoal.copyWith(
+                      allocatedMoney: fromGoal.allocatedMoney - amount,
                     );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: 'Reassigned from another goal',
-                      date: DateTime.now(),
-                      goalId: toGoalId,
+                    var updatedDestination = toGoal.copyWith(
+                      allocatedMoney: toGoal.allocatedMoney + amount,
                     );
+                    final progressResult =
+                        _applyDestinationGoalProgress(updatedDestination);
+                    updatedDestination = progressResult.$1;
+                    final newlyEarnedCoins = progressResult.$2;
+                    final shouldComplete = !updatedDestination.isCompleted &&
+                        updatedDestination.targetMoney > 0 &&
+                        updatedDestination.allocatedMoney >=
+                            updatedDestination.targetMoney;
+                    final storedDestination = shouldComplete
+                        ? updatedDestination.copyWith(isCompleted: true)
+                        : updatedDestination;
 
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
+                    final sourceSaved =
+                        await GoalDatabaseService.updateGoal(updatedSource);
+                    final destinationSaved =
+                        await GoalDatabaseService.updateGoal(storedDestination);
+                    if (!sourceSaved || !destinationSaved || !mounted) {
+                      return;
+                    }
 
-                    setState(() {
-                      _transactions.insert(0, creditTx);
-                      _transactions.insert(0, debitTx);
-                    });
+                    final sourceIndex = _goals
+                        .indexWhere((goal) => goal.id == updatedSource.id);
+                    final destinationIndex = _goals.indexWhere(
+                      (goal) => goal.id == updatedDestination.id,
+                    );
+                    if (sourceIndex != -1) {
+                      _goals[sourceIndex] = updatedSource;
+                    }
+                    if (destinationIndex != -1) {
+                      _goals[destinationIndex] = storedDestination;
+                    }
 
-                    await _recalculateMoneyAndAllocations();
+                    widget.gameState.updateGoal(updatedSource);
+                    widget.gameState.updateGoal(updatedDestination);
+                    if (newlyEarnedCoins > 0) {
+                      widget.gameState.addCoins(newlyEarnedCoins);
+                    }
+                    if (shouldComplete) {
+                      widget.gameState.completeGoal(updatedDestination.id);
+                    }
+
+                    setState(() {});
 
                     if (mounted) {
                       Navigator.pop(context);
@@ -358,9 +320,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   void _showTransactionDialog({TransactionModel? transaction}) {
     String type = transaction?.type ?? '+';
-    String? goalId = transaction?.goalId;
-    final amountController =
-        TextEditingController(text: transaction?.amount.toString() ?? '');
+    final amountController = TextEditingController(
+      text: transaction?.amount.toString() ?? '',
+    );
     final noteController = TextEditingController(text: transaction?.note ?? '');
 
     showDialog(
@@ -368,125 +330,87 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       builder: (context) {
         final l10n = Provider.of<AppLocalizationsProvider>(context);
         return StatefulBuilder(
-          builder: (context, dialogSetState) {
-            final selectableGoals = _goals.where((goal) {
-              if (!goal.isCompleted) return true;
-              return goal.id == goalId;
-            }).toList();
-            return AlertDialog(
-              title: Text(
-                transaction == null
-                    ? 'Add Gain / Purchase'
-                    : 'Edit Transaction',
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownButton<String>(
-                    value: type,
-                    items: [
-                      DropdownMenuItem(
-                        value: '+',
-                        child: Text('${l10n.translate('gain')} (+)'),
-                      ),
-                      DropdownMenuItem(
-                        value: '-',
-                        child: Text('${l10n.translate('purchase')} (-)'),
-                      ),
-                    ],
-                    onChanged: (value) => dialogSetState(() => type = value!),
-                  ),
-                  const SizedBox(height: 8),
-                  DropdownButtonFormField<String?>(
-                    value: goalId,
-                    decoration: const InputDecoration(
-                      labelText: 'Allocate to Goal',
+          builder: (context, dialogSetState) => AlertDialog(
+            title: Text(
+              transaction == null ? 'Add Gain / Purchase' : 'Edit Transaction',
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: type,
+                  items: [
+                    DropdownMenuItem(
+                      value: '+',
+                      child: Text('${l10n.translate('gain')} (+)'),
                     ),
-                    items: [
-                      DropdownMenuItem<String?>(
-                        value: null,
-                        child: Text(l10n.translate('noGoalAllocation')),
-                      ),
-                      ...selectableGoals.map(
-                        (goal) => DropdownMenuItem<String?>(
-                          value: goal.id,
-                          child: Text(goal.title),
-                        ),
-                      ),
-                    ],
-                    onChanged: (value) => dialogSetState(() => goalId = value),
-                  ),
-                  TextField(
-                    controller: amountController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Amount'),
-                  ),
-                  TextField(
-                    controller: noteController,
-                    decoration: const InputDecoration(labelText: 'Note'),
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(l10n.translate('cancel')),
+                    DropdownMenuItem(
+                      value: '-',
+                      child: Text('${l10n.translate('purchase')} (-)'),
+                    ),
+                  ],
+                  onChanged: (value) => dialogSetState(() => type = value!),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final double amount =
-                        double.tryParse(amountController.text) ?? 0;
-                    if (amount <= 0) return;
-
-                    // 🔥 revert old transaction if editing
-                    if (_isGoalCompleted(goalId)) {
-                      if (mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Completed goals cannot accept more progress.',
-                            ),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      }
-                      return;
-                    }
-                    if (transaction != null) {
-                      _revertTransaction(transaction);
-                    }
-
-                    final newTransaction = TransactionModel(
-                      id: transaction?.id ?? const Uuid().v4(),
-                      type: type,
-                      amount: amount,
-                      note: noteController.text,
-                      date: DateTime.now(),
-                      goalId: goalId,
-                    );
-
-                    // 🔥 apply new transaction
-                    _applyTransaction(newTransaction);
-
-                    if (transaction == null) {
-                      await FinancialDatabaseService.insert(newTransaction);
-                      setState(() => _transactions.insert(0, newTransaction));
-                    } else {
-                      await FinancialDatabaseService.update(newTransaction);
-                      setState(() {
-                        final index = _transactions.indexOf(transaction);
-                        _transactions[index] = newTransaction;
-                      });
-                    }
-
-                    await _recalculateMoneyAndAllocations();
-                    Navigator.pop(context);
-                  },
-                  child: Text(transaction == null ? l10n.translate('add') : l10n.translate('save')),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: 'Amount'),
+                ),
+                TextField(
+                  controller: noteController,
+                  decoration: const InputDecoration(labelText: 'Note'),
                 ),
               ],
-            );
-          },
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(l10n.translate('cancel')),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final amount = double.tryParse(amountController.text) ?? 0;
+                  if (amount <= 0) return;
+
+                  if (transaction != null) {
+                    _revertTransaction(transaction);
+                  }
+
+                  final newTransaction = TransactionModel(
+                    id: transaction?.id ?? const Uuid().v4(),
+                    type: type,
+                    amount: amount,
+                    note: noteController.text,
+                    date: DateTime.now(),
+                    goalId: transaction?.goalId,
+                  );
+
+                  _applyTransaction(newTransaction);
+
+                  if (transaction == null) {
+                    await FinancialDatabaseService.insert(newTransaction);
+                    setState(() => _transactions.insert(0, newTransaction));
+                  } else {
+                    await FinancialDatabaseService.update(newTransaction);
+                    setState(() {
+                      final index = _transactions.indexOf(transaction);
+                      _transactions[index] = newTransaction;
+                    });
+                  }
+
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text(
+                  transaction == null
+                      ? l10n.translate('add')
+                      : l10n.translate('save'),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
@@ -495,7 +419,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('financial')),
@@ -555,25 +479,25 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          ..._transactions.map((t) {
-            final goalTitle = _goalTitle(t.goalId);
+          ..._transactions.map((transaction) {
+            final goalTitle = _goalTitle(transaction.goalId);
             final subtitleText = goalTitle == null
-                ? _formatDate(t.date)
-                : "${_formatDate(t.date)} - Goal: $goalTitle";
+                ? _formatDate(transaction.date)
+                : "${_formatDate(transaction.date)} - Goal: $goalTitle";
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
-                onLongPress: () => _editTransaction(t),
+                onLongPress: () => _editTransaction(transaction),
                 leading: Icon(
-                  t.type == '+' ? Icons.add : Icons.remove,
-                  color: t.type == '+' ? Colors.green : Colors.red,
+                  transaction.type == '+' ? Icons.add : Icons.remove,
+                  color: transaction.type == '+' ? Colors.green : Colors.red,
                 ),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _removeTransaction(t),
+                  onPressed: () => _removeTransaction(transaction),
                 ),
                 title: Text(
-                  "${_formatAmount(t.amount)}   ${t.note}",
+                  "${_formatAmount(transaction.amount)}   ${transaction.note}",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
