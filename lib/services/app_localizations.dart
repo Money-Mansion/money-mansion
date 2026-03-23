@@ -12,7 +12,7 @@ class AppLocalizations {
       'settings': 'Settings',
       'gamePreferences': 'Game preferences and options',
       'language': 'Language',
-      
+
       // Bottom navigation
       'gameTab': 'Game',
       'inventoryTab': 'Inventory',
@@ -21,16 +21,16 @@ class AppLocalizations {
       'calendarTab': 'Calendar',
       'financialTab': 'Financial',
       'settingsTab': 'Settings',
-      
+
       // Game screen
       'coins': 'Coins',
       'money': 'Money',
       'date': 'Date',
-      
+
       // Room viewer
       'room': 'Room',
       'editRoom': 'Edit Room',
-      
+
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
@@ -40,14 +40,14 @@ class AppLocalizations {
       'discardChanges': 'Discard changes',
       'gameInfo': 'Game Info',
       'moreSettingsComingSoon': 'More settings coming soon...',
-      
+
       // Music settings
       'backgroundMusic': 'Background Music',
       'enableBackgroundMusic': 'Enable Background Music',
       'disableBackgroundMusic': 'Disable Background Music',
       'musicVolume': 'Music Volume',
       'volumeControl': 'Volume Control',
-      
+
       // Common actions
       'save': 'Save',
       'cancel': 'Cancel',
@@ -56,14 +56,14 @@ class AppLocalizations {
       'add': 'Add',
       'back': 'Back',
       'ok': 'OK',
-      
+
       // Screens
       'inventory': 'Inventory',
       'shop': 'Shop',
       'goals': 'Goals',
       'calendar': 'Calendar',
       'financial': 'Financial',
-      
+
       // Financial
       'balance': 'Balance',
       'income': 'Income',
@@ -71,7 +71,7 @@ class AppLocalizations {
       'total': 'Total',
       'transactions': 'Transactions',
       'addTransaction': 'Add Transaction',
-      
+
       // Goals
       'goalName': 'Goal Name',
       'goalDescription': 'Description',
@@ -94,27 +94,27 @@ class AppLocalizations {
       'dueDate': 'Due Date',
       'enterGoalDescription': 'Enter goal description',
       'enterGoalTitleHint': 'Enter goal title',
-      
+
       // Items
       'itemName': 'Item Name',
       'itemPrice': 'Price',
       'buy': 'Buy',
       'sell': 'Sell',
       'owned': 'Owned',
-      
+
       // Calendar
       'month': 'Month',
       'year': 'Year',
       'today': 'Today',
-      
+
       // Confirmation dialogs
       'areYouSure': 'Are you sure?',
       'confirmation': 'Confirmation',
-      
+
       // Inventory
       'noItemsYet': 'No Items Yet',
       'yourItemsWillAppearHere': 'Your items will appear here',
-      
+
       // Shop
       'notEnoughCoins': 'Not enough coins!',
       'needCoinsHave': 'Need {need}, have {have}',
@@ -123,7 +123,7 @@ class AppLocalizations {
       'furniture': 'Furniture',
       'realEstate': 'Real Estate',
       'comingSoon': 'Coming soon...',
-      
+
       // Calendar months
       'january': 'January',
       'february': 'February',
@@ -137,7 +137,7 @@ class AppLocalizations {
       'october': 'October',
       'november': 'November',
       'december': 'December',
-      
+
       // Calendar weekdays
       'monday': 'Mon',
       'tuesday': 'Tue',
@@ -146,7 +146,7 @@ class AppLocalizations {
       'friday': 'Fri',
       'saturday': 'Sat',
       'sunday': 'Sun',
-      
+
       // Dialog labels
       'todayLabel': 'Today',
       'errorLoadingGoals': 'Error loading goals',
@@ -164,7 +164,7 @@ class AppLocalizations {
       'createdAt': 'Created at',
       'noTransactionsYet': 'No transactions yet. Tap + to add one!',
       'noDataForMonth': 'No data yet',
-      
+
       // Additional missing texts
       'pickDate': 'Pick Date',
       'enterGoalTitle': 'Please enter a goal title',
@@ -188,8 +188,27 @@ class AppLocalizations {
       'allocateToGoal': 'Allocate to Goal',
       'amount': 'Amount',
       'note': 'Note',
-      'completedGoalsCannotAccept': 'Completed goals cannot accept more progress.',
-      
+      'completedGoalsCannotAccept':
+          'Completed goals cannot accept more progress.',
+      'reassignFunds': 'Reassign Funds',
+      'fromGoal': 'From goal',
+      'toGoal': 'To goal',
+      'amountExceedsAvailableGoalFunds':
+          'Amount exceeds available goal funds.',
+      'fundsReassignedSuccessfully': 'Funds reassigned successfully',
+      'noTransactionsYetTapAdd': 'No transactions yet. Tap + to add one!',
+      'moneyAssignedAndGoalCompleted': 'Money assigned and goal completed!',
+      'moneyAssignedToGoal': 'Money assigned to goal',
+      'assignMoneyToGoal': 'Assign money to {goal}',
+      'availableBalance': 'Available balance: {amount}',
+      'amountExceedsCurrentAppBalance': 'Amount exceeds current app balance.',
+      'assignMoney': 'Assign money',
+      'goalCompletedChrumkaOnly': 'Goal completed! +1 Chrumka',
+      'goalCompletedCoinsAndChrumka':
+          'Goal completed! +{coins} coins & +1 Chrumka',
+      'goalDeletedAndMoneyReturned':
+          'Goal deleted and money returned to balance',
+
       // Transaction categories
       'category': 'Category',
       'categoryAuto': 'Auto',
@@ -206,17 +225,20 @@ class AppLocalizations {
       'chrumkoTipDismiss': 'Tap to dismiss',
       'chrumkoTip0': 'I always set aside part of my money. Try it too! 💰',
       'chrumkoTip1': 'Chrumko advises: think first, then buy. 🛍️',
-      'chrumkoTip2': 'I track my expenses. That way I know where my money goes! 📊',
+      'chrumkoTip2':
+          'I track my expenses. That way I know where my money goes! 📊',
       'chrumkoTip3': 'Even small savings grow into something big over time. 📈',
       'chrumkoTip4': 'When I plan my purchases, I save more money. 📝',
       'chrumkoTip5': 'I always keep a reserve for unexpected things! 🎁',
       'chrumkoTip6': 'A budget helps me stay in control of my money! 📋',
-      'chrumkoTip7': 'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
+      'chrumkoTip7':
+          'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
       'chrumkoTip8': 'Every saved euro is a step towards my goals! 🎯',
       'chrumkoTip9': 'Thoughtful decisions make money a great helper! 🤝',
       'chrumkoTip10': 'I save up for things that are truly important to me! 🌟',
       'chrumkoTip11': 'When I save regularly, my savings grow faster! 📈',
-      'chrumkoTip12': 'Before buying, I always ask myself: do I really need this? 🛒',
+      'chrumkoTip12':
+          'Before buying, I always ask myself: do I really need this? 🛒',
       'chrumkoTip13': 'Financial discipline helps me fulfil my dreams! 💭',
       'chrumkoTip14': 'Remember: money is a tool, not a goal! 🌍',
     },
@@ -226,7 +248,7 @@ class AppLocalizations {
       'settings': 'Nastavenia',
       'gamePreferences': 'Herné preferencie a možnosti',
       'language': 'Jazyk',
-      
+
       // Bottom navigation
       'gameTab': 'Hra',
       'inventoryTab': 'Inventár',
@@ -235,16 +257,16 @@ class AppLocalizations {
       'calendarTab': 'Kalendár',
       'financialTab': 'Financie',
       'settingsTab': 'Nastavenia',
-      
+
       // Game screen
       'coins': 'Mince',
       'money': 'Peniaze',
       'date': 'Dátum',
-      
+
       // Room viewer
       'room': 'Izba',
       'editRoom': 'Upraviť izbu',
-      
+
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
@@ -254,14 +276,14 @@ class AppLocalizations {
       'discardChanges': 'Zavrhnúť zmeny',
       'gameInfo': 'Informácie o hre',
       'moreSettingsComingSoon': 'Ďalšie nastavenia čoskoro...',
-      
+
       // Music settings
       'backgroundMusic': 'Hudba na pozadí',
       'enableBackgroundMusic': 'Zapnúť hudbu na pozadí',
       'disableBackgroundMusic': 'Vypnúť hudbu na pozadí',
       'musicVolume': 'Hlasitosť hudby',
       'volumeControl': 'Ovládanie hlasitosti',
-      
+
       // Common actions
       'save': 'Uložiť',
       'cancel': 'Zrušiť',
@@ -270,14 +292,14 @@ class AppLocalizations {
       'add': 'Pridať',
       'back': 'Späť',
       'ok': 'OK',
-      
+
       // Screens
       'inventory': 'Inventár',
       'shop': 'Obchod',
       'goals': 'Ciele',
       'calendar': 'Kalendár',
       'financial': 'Financie',
-      
+
       // Financial
       'balance': 'Zostatok',
       'income': 'Príjem',
@@ -285,7 +307,7 @@ class AppLocalizations {
       'total': 'Spolu',
       'transactions': 'Transakcie',
       'addTransaction': 'Pridať transakciu',
-      
+
       // Goals
       'goalName': 'Názov cieľa',
       'goalDescription': 'Popis',
@@ -308,27 +330,27 @@ class AppLocalizations {
       'dueDate': 'Termín',
       'enterGoalDescription': 'Zadaj popis cieľa',
       'enterGoalTitleHint': 'Zadaj názov cieľa',
-      
+
       // Items
       'itemName': 'Názov položky',
       'itemPrice': 'Cena',
       'buy': 'Kúpiť',
       'sell': 'Predať',
       'owned': 'Vlastní',
-      
+
       // Calendar
       'month': 'Mesiac',
       'year': 'Rok',
       'today': 'Dnes',
-      
+
       // Confirmation dialogs
       'areYouSure': 'Ste si istí?',
       'confirmation': 'Potvrdenie',
-      
+
       // Inventory
       'noItemsYet': 'Zatiaľ nie sú položky',
       'yourItemsWillAppearHere': 'Vaše položky sa objavia tu',
-      
+
       // Shop
       'notEnoughCoins': 'Nedostaatok mincí!',
       'needCoinsHave': 'Potrebujete {need}, máte {have}',
@@ -337,7 +359,7 @@ class AppLocalizations {
       'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
       'comingSoon': 'Čoskoro...',
-      
+
       // Calendar months
       'january': 'Január',
       'february': 'Február',
@@ -351,7 +373,7 @@ class AppLocalizations {
       'october': 'Október',
       'november': 'November',
       'december': 'December',
-      
+
       // Calendar weekdays
       'monday': 'Po',
       'tuesday': 'Ut',
@@ -360,7 +382,7 @@ class AppLocalizations {
       'friday': 'Pi',
       'saturday': 'So',
       'sunday': 'Ne',
-      
+
       // Dialog labels
       'todayLabel': 'Dnes',
       'errorLoadingGoals': 'Chyba pri načítaní cieľov',
@@ -375,8 +397,11 @@ class AppLocalizations {
       'amountEuro': 'Suma (€)',
       'selectType': 'Vyberte typ',
       'selectGoal': 'Vyberte cieľ (voliteľné)',
-      'createdAt': 'Vytvorené',      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
-      'noDataForMonth': 'Zatiaľ žiadne dáta',      
+      'createdAt': 'Vytvorené',
+      'noTransactionsYet':
+          'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
+      'noDataForMonth': 'Zatiaľ žiadne dáta',
+
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
@@ -400,7 +425,27 @@ class AppLocalizations {
       'allocateToGoal': 'Prideliť k cieľu',
       'amount': 'Suma',
       'note': 'Poznámka',
-      'completedGoalsCannotAccept': 'Splnené ciele nemôžu prijímať ďalší pokrok.',
+      'completedGoalsCannotAccept':
+          'Splnené ciele nemôžu prijímať ďalší pokrok.',
+      'reassignFunds': 'Presunúť prostriedky',
+      'fromGoal': 'Z cieľa',
+      'toGoal': 'Do cieľa',
+      'amountExceedsAvailableGoalFunds':
+          'Suma presahuje dostupné prostriedky cieľa.',
+      'fundsReassignedSuccessfully': 'Prostriedky boli úspešne presunuté',
+      'noTransactionsYetTapAdd':
+          'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
+      'moneyAssignedAndGoalCompleted': 'Peniaze pridelené a cieľ splnený!',
+      'moneyAssignedToGoal': 'Peniaze pridelené k cieľu',
+      'assignMoneyToGoal': 'Prideliť peniaze k {goal}',
+      'availableBalance': 'Dostupný zostatok: {amount}',
+      'amountExceedsCurrentAppBalance': 'Suma presahuje aktuálny zostatok.',
+      'assignMoney': 'Prideliť peniaze',
+      'goalCompletedChrumkaOnly': 'Cieľ splnený! +1 Chrumka',
+      'goalCompletedCoinsAndChrumka':
+          'Cieľ splnený! +{coins} mincí & +1 Chrumka',
+      'goalDeletedAndMoneyReturned':
+          'Cieľ vymazaný a peniaze vrátené do zostatku',
 
       // Transaction categories
       'category': 'Kategória',
@@ -418,13 +463,15 @@ class AppLocalizations {
       'chrumkoTipDismiss': 'Klepni pre zavretie',
       'chrumkoTip0': 'Ja si vždy časť peňazí odložím. Skús to aj ty! 💰',
       'chrumkoTip1': 'Chrumko radí: najprv premýšľaj, až potom nakupuj! 🛍️',
-      'chrumkoTip2': 'Ja si sledujem výdavky. Vďaka tomu viem, kam moje peniaze idú! 📊',
+      'chrumkoTip2':
+          'Ja si sledujem výdavky. Vďaka tomu viem, kam moje peniaze idú! 📊',
       'chrumkoTip3': 'Keď plánujem nákupy, ušetrím viac peňazí. 📝',
       'chrumkoTip4': 'Aj malé úspory sa časom zmenia na veľké! 📈',
       'chrumkoTip5': 'Ja si vždy nechám rezervu na nečakané veci! 🎁',
       'chrumkoTip6': 'Nemusím kúpiť všetko hneď. Niekedy sa oplatí počkať! ⏳',
       'chrumkoTip7': 'Každé ušetrené euro je krok k mojim cieľom! 🎯',
-      'chrumkoTip8': 'Premyslené rozhodnutia robia z peňazí dobrého pomocníka! 🤝',
+      'chrumkoTip8':
+          'Premyslené rozhodnutia robia z peňazí dobrého pomocníka! 🤝',
       'chrumkoTip9': 'Rozpočet mi pomáha mať peniaze pod kontrolou! 🔍',
       'chrumkoTip10': 'Ja šetrím na veci, ktoré sú pre mňa naozaj dôležité! 🌟',
       'chrumkoTip11': 'Keď šetrím pravidelne, moje úspory rastú rýchlejšie! 📈',
