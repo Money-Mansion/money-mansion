@@ -68,6 +68,7 @@ class AppLocalizations {
       'balance': 'Balance',
       'income': 'Income',
       'expense': 'Expense',
+      'total': 'Total',
       'transactions': 'Transactions',
       'addTransaction': 'Add Transaction',
       
@@ -162,6 +163,7 @@ class AppLocalizations {
       'selectGoal': 'Select Goal (optional)',
       'createdAt': 'Created at',
       'noTransactionsYet': 'No transactions yet. Tap + to add one!',
+      'noDataForMonth': 'No data yet',
       
       // Additional missing texts
       'pickDate': 'Pick Date',
@@ -187,6 +189,17 @@ class AppLocalizations {
       'amount': 'Amount',
       'note': 'Note',
       'completedGoalsCannotAccept': 'Completed goals cannot accept more progress.',
+      
+      // Transaction categories
+      'category': 'Category',
+      'categoryAuto': 'Auto',
+      'categoryRestaurants': 'Restaurants',
+      'categoryHealth': 'Health and care',
+      'categorySupermarket': 'Supermarket',
+      'categoryLeisure': 'Leisure',
+      'categoryOther': 'Other',
+      'categoryUnassigned': 'Unassigned',
+      'categoryPocketMoney': 'Pocket money',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -269,6 +282,7 @@ class AppLocalizations {
       'balance': 'Zostatok',
       'income': 'Príjem',
       'expense': 'Výdaj',
+      'total': 'Spolu',
       'transactions': 'Transakcie',
       'addTransaction': 'Pridať transakciu',
       
@@ -361,7 +375,8 @@ class AppLocalizations {
       'amountEuro': 'Suma (€)',
       'selectType': 'Vyberte typ',
       'selectGoal': 'Vyberte cieľ (voliteľné)',
-      'createdAt': 'Vytvorené',      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',      
+      'createdAt': 'Vytvorené',      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
+      'noDataForMonth': 'Zatiaľ žiadne dáta',      
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
@@ -386,6 +401,17 @@ class AppLocalizations {
       'amount': 'Suma',
       'note': 'Poznámka',
       'completedGoalsCannotAccept': 'Splnené ciele nemôžu prijímať ďalší pokrok.',
+
+      // Transaction categories
+      'category': 'Kategória',
+      'categoryAuto': 'Auto',
+      'categoryRestaurants': 'Reštaurácie',
+      'categoryHealth': 'Zdravie a starostlivosť',
+      'categorySupermarket': 'Supermarket',
+      'categoryLeisure': 'Voľný čas',
+      'categoryOther': 'Ostatné',
+      'categoryUnassigned': 'Nezaradené',
+      'categoryPocketMoney': 'Vreckové',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': 'Tip od Chrumka 💡',
