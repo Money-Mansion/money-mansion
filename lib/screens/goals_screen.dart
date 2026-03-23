@@ -493,11 +493,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         setState(() {});
 
                         if (mounted) {
+                          final completionMessage = goal.difficulty ==
+                                  Goal.hardDifficulty
+                              ? 'Goal completed! +1 Chrumka'
+                              : 'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka';
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka',
-                              ),
+                              content: Text(completionMessage),
                               duration: const Duration(seconds: 2),
                             ),
                           );
@@ -600,7 +602,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    if (goal.allocatedMoney > 0) {
+                    final shouldRefundAllocatedMoney =
+                        goal.allocatedMoney > 0 &&
+                            !(goal.isCompleted &&
+                                goal.difficulty == Goal.hardDifficulty);
+                    if (shouldRefundAllocatedMoney) {
                       widget.gameState.addMoney(goal.allocatedMoney);
                     }
                     final success =
@@ -614,7 +620,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              goal.allocatedMoney > 0
+                              shouldRefundAllocatedMoney
                                   ? 'Goal deleted and money returned to balance'
                                   : 'Goal deleted',
                             ),
@@ -623,7 +629,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         );
                       }
                     } else {
-                      if (goal.allocatedMoney > 0) {
+                      if (shouldRefundAllocatedMoney) {
                         widget.gameState.spendMoney(goal.allocatedMoney);
                       }
                       if (mounted) {
