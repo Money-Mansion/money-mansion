@@ -8,7 +8,7 @@ class FinancialDatabaseService {
   static const _dbName = 'money_mansion.db';
   static const _transactionsTable = 'transactions';
   static const _gameStateTable = 'game_state';
-  static const _dbVersion = 3;
+  static const _dbVersion = 4;
 
   static Database? _database;
   static bool _initialized = false;
@@ -50,11 +50,13 @@ class FinancialDatabaseService {
           ''');
         }
         await _ensureGoalIdColumn(db);
+        await _ensureCategoryColumn(db);
       },
       onOpen: (db) async {
         await _ensureTransactionsTable(db);
         await _ensureGameStateTable(db);
         await _ensureGoalIdColumn(db);
+        await _ensureCategoryColumn(db);
       },
     );
   }
@@ -67,7 +69,8 @@ class FinancialDatabaseService {
         amount REAL NOT NULL,
         note TEXT,
         date INTEGER NOT NULL,
-        goalId TEXT
+        goalId TEXT,
+        category TEXT
       )
     ''');
 
@@ -92,7 +95,8 @@ class FinancialDatabaseService {
         amount REAL NOT NULL,
         note TEXT,
         date INTEGER NOT NULL,
-        goalId TEXT
+        goalId TEXT,
+        category TEXT
       )
     ''');
   }
@@ -112,6 +116,16 @@ class FinancialDatabaseService {
     if (!columnNames.contains('goalId')) {
       await db.execute(
         'ALTER TABLE $_transactionsTable ADD COLUMN goalId TEXT',
+      );
+    }
+  }
+
+  static Future<void> _ensureCategoryColumn(Database db) async {
+    final columns = await db.rawQuery('PRAGMA table_info($_transactionsTable)');
+    final columnNames = columns.map((c) => c['name'] as String).toSet();
+    if (!columnNames.contains('category')) {
+      await db.execute(
+        'ALTER TABLE $_transactionsTable ADD COLUMN category TEXT',
       );
     }
   }
@@ -237,6 +251,7 @@ class FinancialDatabaseService {
       note: m['note'] as String? ?? '',
       date: DateTime.fromMillisecondsSinceEpoch(m['date'] as int),
       goalId: m['goalId'] as String?,
+      category: m['category'] as String?,
     )).toList();
   }
 
