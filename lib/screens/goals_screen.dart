@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
+import '../models/transaction.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
 
 class GoalsScreen extends StatefulWidget {
@@ -172,6 +174,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
     }
 
     widget.gameState.spendMoney(amount);
+
+    final l10n = context.read<AppLocalizationsProvider>();
+    final transaction = TransactionModel(
+      id: const Uuid().v4(),
+      type: '-',
+      amount: amount,
+      note: _trParams(l10n, 'assignMoneyToGoal', {'goal': goal.title}),
+      date: DateTime.now(),
+      goalId: goal.id,
+    );
+    await FinancialDatabaseService.insert(transaction);
+
     widget.gameState.updateGoal(updatedGoal);
     if (newlyEarnedCoins > 0) {
       widget.gameState.addCoins(newlyEarnedCoins);
@@ -782,6 +796,16 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         await GoalDatabaseService.deleteGoal(goal.id);
 
                     if (success) {
+                      if (shouldRefundAllocatedMoney) {
+                        final tx = TransactionModel(
+                          id: const Uuid().v4(),
+                          type: '+',
+                          amount: goal.allocatedMoney,
+                          note: _tr(l10n, 'goalDeletedAndMoneyReturned'),
+                          date: DateTime.now(),
+                        );
+                        await FinancialDatabaseService.insert(tx);
+                      }
                       widget.gameState.removeGoal(goal.id);
                       setState(() {});
 
