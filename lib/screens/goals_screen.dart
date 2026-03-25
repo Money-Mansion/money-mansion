@@ -245,7 +245,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(_tr(l10n, 'amountExceedsAvailableGoalFunds')),
+                        content: Text(_tr(l10n, 'amountExceedsGoalTarget')),
                         duration: const Duration(seconds: 2),
                       ),
                     );
@@ -621,7 +621,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              _tr(l10n, 'amountExceedsAvailableGoalFunds'),
+                              _tr(l10n, 'amountExceedsGoalTarget'),
                             ),
                             duration: const Duration(seconds: 2),
                           ),
@@ -1038,6 +1038,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
                     if (success) {
                       widget.gameState.removeGoal(goal.id);
+                      if (goal.difficulty == Goal.hardDifficulty && goal.milestonesAwarded > 0) {
+                        final coinsToRevoke = _hardGoalRewardForMilestones(goal, goal.milestonesAwarded);
+                        if (coinsToRevoke > 0) {
+                          widget.gameState.removeCoins(coinsToRevoke);
+                        }
+                      }
                       setState(() {});
 
                       if (mounted) {

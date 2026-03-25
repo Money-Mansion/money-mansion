@@ -163,6 +163,7 @@ class AppLocalizations {
       'amount': 'Amount',
       'note': 'Note',
       'amountExceedsAvailableGoalFunds': 'Amount exceeds available goal funds.',
+      'amountExceedsGoalTarget': 'Amount would exceed the target goal.',
       'fundsReassignedSuccessfully': 'Funds reassigned successfully',
       'addGainOrPurchase': 'Add Gain / Purchase',
       'editTransaction': 'Edit Transaction',
@@ -365,6 +366,7 @@ class AppLocalizations {
       'note': 'Poznámka',
       'amountExceedsAvailableGoalFunds':
           'Suma prekračuje dostupné peniaze cieľa.',
+      'amountExceedsGoalTarget': 'Suma by prekročila cieľovú sumu.',
       'fundsReassignedSuccessfully': 'Peniaze boli úspešne presunuté',
       'addGainOrPurchase': 'Pridať príjem / nákup',
       'editTransaction': 'Upraviť transakciu',
