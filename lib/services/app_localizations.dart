@@ -1,4 +1,4 @@
-﻿import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLocalizations {
   static const String _languageKey = 'app_language';
@@ -7,13 +7,13 @@ class AppLocalizations {
 
   static const Map<String, Map<String, String>> _translations = {
     'en': {
-      // Main app
       'appTitle': 'Money Mansion',
       'settings': 'Settings',
       'gamePreferences': 'Game preferences and options',
+      'gameInfo': 'Game information',
       'language': 'Language',
-
-      // Bottom navigation
+      'backgroundMusic': 'Background music',
+      'musicVolume': 'Music volume',
       'gameTab': 'Game',
       'inventoryTab': 'Inventory',
       'shopTab': 'Shop',
@@ -21,25 +21,17 @@ class AppLocalizations {
       'calendarTab': 'Calendar',
       'financialTab': 'Financial',
       'settingsTab': 'Settings',
-
-      // Game screen
       'coins': 'Coins',
       'money': 'Money',
       'date': 'Date',
-
-      // Room viewer
       'room': 'Room',
       'editRoom': 'Edit Room',
-
-      // Settings
       'languageEnglish': 'English',
-      'languageSlovak': 'Sloven─ìina',
-      'selectLanguage': 'Select Language',
+      'languageSlovak': 'Slovak',
+      'selectLanguage': 'Select language',
       'unsavedChanges': 'Unsaved changes',
       'saveChanges': 'Save changes',
       'discardChanges': 'Discard changes',
-
-      // Common actions
       'save': 'Save',
       'cancel': 'Cancel',
       'delete': 'Delete',
@@ -47,60 +39,42 @@ class AppLocalizations {
       'add': 'Add',
       'back': 'Back',
       'ok': 'OK',
-
-      // Screens
       'inventory': 'Inventory',
       'shop': 'Shop',
       'goals': 'Goals',
       'calendar': 'Calendar',
       'financial': 'Financial',
-
-      // Financial
       'balance': 'Balance',
       'income': 'Income',
       'expense': 'Expense',
       'transactions': 'Transactions',
-      'addTransaction': 'Add Transaction',
-
-      // Goals
-      'goalName': 'Goal Name',
+      'addTransaction': 'Add transaction',
+      'goalName': 'Goal name',
       'goalDescription': 'Description',
-      'targetAmount': 'Target Amount',
-      'currentAmount': 'Current Amount',
-      'rewardCoins': 'Reward Coins',
-      'addGoal': 'Add Goal',
-      'goalCompleted': 'Goal Completed!',
-      'completeGoal': 'Complete Goal',
-
-      // Items
-      'itemName': 'Item Name',
+      'targetAmount': 'Target amount',
+      'currentAmount': 'Current amount',
+      'rewardCoins': 'Reward coins',
+      'addGoal': 'Add goal',
+      'goalCompleted': 'Goal completed!',
+      'completeGoal': 'Complete goal',
+      'itemName': 'Item name',
       'itemPrice': 'Price',
       'buy': 'Buy',
       'sell': 'Sell',
       'owned': 'Owned',
-
-      // Calendar
       'month': 'Month',
       'year': 'Year',
       'today': 'Today',
-
-      // Confirmation dialogs
       'areYouSure': 'Are you sure?',
       'confirmation': 'Confirmation',
-
-      // Inventory
-      'noItemsYet': 'No Items Yet',
+      'noItemsYet': 'No items yet',
       'yourItemsWillAppearHere': 'Your items will appear here',
-
-      // Shop
       'notEnoughCoins': 'Not enough coins!',
       'needCoinsHave': 'Need {need}, have {have}',
       'purchasedFor': '{item} purchased for {cost} coins!',
       'itemPurchasedSuccessfully': 'Item purchased successfully!',
       'furniture': 'Furniture',
-      'realEstate': 'Real Estate',
-
-      // Calendar months
+      'realEstate': 'Real estate',
       'january': 'January',
       'february': 'February',
       'march': 'March',
@@ -113,8 +87,6 @@ class AppLocalizations {
       'october': 'October',
       'november': 'November',
       'december': 'December',
-
-      // Calendar weekdays
       'monday': 'Mon',
       'tuesday': 'Tue',
       'wednesday': 'Wed',
@@ -122,29 +94,25 @@ class AppLocalizations {
       'friday': 'Fri',
       'saturday': 'Sat',
       'sunday': 'Sun',
-
-      // Dialog labels
       'todayLabel': 'Today',
       'errorLoadingGoals': 'Error loading goals',
-      'createNewGoal': 'Create New Goal',
-      'goalTitle': 'Goal Title',
-      'coinsReward': 'Coins Reward',
-      'targetMoneyAmount': 'Target Money Amount (Γé¼)',
-      'selectDeadline': 'Select Deadline',
-      'addNew': 'Add New',
+      'createNewGoal': 'Create new goal',
+      'goalTitle': 'Goal title',
+      'coinsReward': 'Coins reward',
+      'targetMoneyAmount': 'Target money amount (EUR)',
+      'selectDeadline': 'Select deadline',
+      'addNew': 'Add new',
       'noTransactions': 'No transactions yet',
-      'addTransactionLabel': 'Add Transaction',
-      'amountEuro': 'Amount (Γé¼)',
-      'selectType': 'Select Type',
-      'selectGoal': 'Select Goal (optional)',
+      'addTransactionLabel': 'Add transaction',
+      'amountEuro': 'Amount (EUR)',
+      'selectType': 'Select type',
+      'selectGoal': 'Select goal (optional)',
       'createdAt': 'Created at',
-
-      // Additional missing texts
-      'pickDate': 'Pick Date',
+      'pickDate': 'Pick date',
       'enterGoalTitle': 'Please enter a goal title',
       'goalCreatedSuccessfully': 'Goal created successfully',
       'failedToCreateGoal': 'Failed to create goal',
-      'createGoal': 'Create Goal',
+      'createGoal': 'Create goal',
       'refreshGoals': 'Refresh goals',
       'failedToCompleteGoal': 'Failed to complete goal',
       'goalDeleted': 'Goal deleted',
@@ -157,7 +125,7 @@ class AppLocalizations {
       'statistics': 'Statistics',
       'gain': 'Gain',
       'purchase': 'Purchase',
-      'reassignFunds': 'Reassign Funds',
+      'reassignFunds': 'Reassign funds',
       'fromGoal': 'From goal',
       'toGoal': 'To goal',
       'amount': 'Amount',
@@ -165,8 +133,8 @@ class AppLocalizations {
       'amountExceedsAvailableGoalFunds': 'Amount exceeds available goal funds.',
       'amountExceedsGoalTarget': 'Amount would exceed the target goal.',
       'fundsReassignedSuccessfully': 'Funds reassigned successfully',
-      'addGainOrPurchase': 'Add Gain / Purchase',
-      'editTransaction': 'Edit Transaction',
+      'addGainOrPurchase': 'Add gain / purchase',
+      'editTransaction': 'Edit transaction',
       'noTransactionsYetTapAdd': 'No transactions yet. Tap + to add one!',
       'moneyAssignedAndGoalCompleted': 'Money assigned and goal completed!',
       'moneyAssignedToGoal': 'Money assigned to goal',
@@ -174,243 +142,195 @@ class AppLocalizations {
       'availableBalance': 'Available balance: {amount}',
       'amountExceedsCurrentAppBalance': 'Amount exceeds current app balance.',
       'assignMoney': 'Assign money',
-      'goalAmount': 'Goal Amount',
+      'goalAmount': 'Goal amount',
       'goalCompletedChrumkaOnly': 'Goal completed! +1 Chrumka',
-      'goalCompletedCoinsAndChrumka':
-          'Goal completed! +{coins} coins & +1 Chrumka',
-      'goalDeletedAndMoneyReturned':
-          'Goal deleted and money returned to balance',
+      'goalCompletedCoinsAndChrumka': 'Goal completed! +{coins} coins & +1 Chrumka',
+      'goalDeletedAndMoneyReturned': 'Goal deleted and money returned to balance',
       'difficultyEasy': 'Easy',
       'difficultyMedium': 'Medium',
       'difficultyHard': 'Hard',
       'difficulty': 'Difficulty',
       'rewardLabel': 'Reward',
-
-      // Chrumko tips bubble
-      'chrumkoTipLabel': "Chrumko's Tip ≡ƒÆí",
+      'chrumkoTipLabel': "Chrumko's tip",
       'chrumkoTipDismiss': 'Tap to dismiss',
-      'chrumkoTip0': 'I always set aside part of my money. Try it too! ≡ƒÆ░',
-      'chrumkoTip1': 'Chrumko advises: think first, then buy. ≡ƒ¢ì∩╕Å',
-      'chrumkoTip2':
-          'I track my expenses. That way I know where my money goes! ≡ƒôè',
-      'chrumkoTip3': 'Even small savings grow into something big over time. ≡ƒôê',
-      'chrumkoTip4': 'When I plan my purchases, I save more money. ≡ƒô¥',
-      'chrumkoTip5': 'I always keep a reserve for unexpected things! ≡ƒÄü',
-      'chrumkoTip6': 'A budget helps me stay in control of my money! ≡ƒôï',
-      'chrumkoTip7':
-          'I don\'t have to buy everything right away. Sometimes it pays to wait! ΓÅ│',
-      'chrumkoTip8': 'Every saved euro is a step towards my goals! ≡ƒÄ»',
-      'chrumkoTip9': 'Thoughtful decisions make money a great helper! ≡ƒñ¥',
-      'chrumkoTip10': 'I save up for things that are truly important to me! ≡ƒîƒ',
-      'chrumkoTip11': 'When I save regularly, my savings grow faster! ≡ƒôê',
-      'chrumkoTip12':
-          'Before buying, I always ask myself: do I really need this? ≡ƒ¢Æ',
-      'chrumkoTip13': 'Financial discipline helps me fulfil my dreams! ≡ƒÆ¡',
-      'chrumkoTip14': 'Remember: money is a tool, not a goal! ≡ƒîì',
+      'chrumkoTip0': 'I always set aside part of my money. Try it too!',
+      'chrumkoTip1': 'Think first, then buy.',
+      'chrumkoTip2': 'I track my expenses so I know where my money goes.',
+      'chrumkoTip3': 'Even small savings grow over time.',
+      'chrumkoTip4': 'When I plan my purchases, I save more money.',
+      'chrumkoTip5': 'I always keep a reserve for unexpected things.',
+      'chrumkoTip6': 'A budget helps me stay in control of my money.',
+      'chrumkoTip7': 'I do not have to buy everything right away. Waiting can help.',
+      'chrumkoTip8': 'Every saved euro is a step toward my goals.',
+      'chrumkoTip9': 'Thoughtful decisions make money a great helper.',
+      'chrumkoTip10': 'I save up for things that really matter to me.',
+      'chrumkoTip11': 'When I save regularly, my savings grow faster.',
+      'chrumkoTip12': 'Before buying, I ask: do I really need this?',
+      'chrumkoTip13': 'Financial discipline helps me achieve my dreams.',
+      'chrumkoTip14': 'Money is a tool, not a goal.',
     },
     'sk': {
-      // Main app
       'appTitle': 'Money Mansion',
       'settings': 'Nastavenia',
-      'gamePreferences': 'Hern├⌐ preferencie a mo┼╛nosti',
+      'gamePreferences': 'Herne preferencie a moznosti',
+      'gameInfo': 'Informacie o hre',
       'language': 'Jazyk',
-
-      // Bottom navigation
+      'backgroundMusic': 'Hudba na pozadi',
+      'musicVolume': 'Hlasitost hudby',
       'gameTab': 'Hra',
-      'inventoryTab': 'Invent├ír',
+      'inventoryTab': 'Inventar',
       'shopTab': 'Obchod',
       'goalsTab': 'Ciele',
-      'calendarTab': 'Kalend├ír',
+      'calendarTab': 'Kalendar',
       'financialTab': 'Financie',
       'settingsTab': 'Nastavenia',
-
-      // Game screen
       'coins': 'Mince',
       'money': 'Peniaze',
-      'date': 'D├ítum',
-
-      // Room viewer
+      'date': 'Datum',
       'room': 'Izba',
-      'editRoom': 'Upravi┼Ñ izbu',
-
-      // Settings
+      'editRoom': 'Upravit izbu',
       'languageEnglish': 'English',
-      'languageSlovak': 'Sloven─ìina',
+      'languageSlovak': 'Slovencina',
       'selectLanguage': 'Vyberte jazyk',
-      'unsavedChanges': 'Neulo┼╛en├⌐ zmeny',
-      'saveChanges': 'Ulo┼╛i┼Ñ zmeny',
-      'discardChanges': 'Zavrhn├║┼Ñ zmeny',
-
-      // Common actions
-      'save': 'Ulo┼╛i┼Ñ',
-      'cancel': 'Zru┼íi┼Ñ',
-      'delete': 'Vymaza┼Ñ',
-      'edit': 'Upravi┼Ñ',
-      'add': 'Prida┼Ñ',
-      'back': 'Sp├ñ┼Ñ',
+      'unsavedChanges': 'Neulozene zmeny',
+      'saveChanges': 'Ulozit zmeny',
+      'discardChanges': 'Zahodit zmeny',
+      'save': 'Ulozit',
+      'cancel': 'Zrusit',
+      'delete': 'Vymazat',
+      'edit': 'Upravit',
+      'add': 'Pridat',
+      'back': 'Spat',
       'ok': 'OK',
-
-      // Screens
-      'inventory': 'Invent├ír',
+      'inventory': 'Inventar',
       'shop': 'Obchod',
       'goals': 'Ciele',
-      'calendar': 'Kalend├ír',
+      'calendar': 'Kalendar',
       'financial': 'Financie',
-
-      // Financial
       'balance': 'Zostatok',
-      'income': 'Pr├¡jem',
-      'expense': 'V├╜daj',
+      'income': 'Prijem',
+      'expense': 'Vydaj',
       'transactions': 'Transakcie',
-      'addTransaction': 'Prida┼Ñ transakciu',
-
-      // Goals
-      'goalName': 'N├ízov cie─╛a',
+      'addTransaction': 'Pridat transakciu',
+      'goalName': 'Nazov ciela',
       'goalDescription': 'Popis',
-      'targetAmount': 'Cie─╛ov├í suma',
-      'currentAmount': 'Aktu├ílna suma',
+      'targetAmount': 'Cielova suma',
+      'currentAmount': 'Aktualna suma',
       'rewardCoins': 'Odmena v minciach',
-      'addGoal': 'Prida┼Ñ cie─╛',
-      'goalCompleted': 'Cie─╛ splnen├╜!',
-      'completeGoal': 'Splni┼Ñ cie─╛',
-
-      // Items
-      'itemName': 'N├ízov polo┼╛ky',
+      'addGoal': 'Pridat ciel',
+      'goalCompleted': 'Ciel splneny!',
+      'completeGoal': 'Splnit ciel',
+      'itemName': 'Nazov polozky',
       'itemPrice': 'Cena',
-      'buy': 'K├║pi┼Ñ',
-      'sell': 'Preda┼Ñ',
-      'owned': 'Vlastn├¡',
-
-      // Calendar
+      'buy': 'Kupit',
+      'sell': 'Predat',
+      'owned': 'Vlastni',
       'month': 'Mesiac',
       'year': 'Rok',
       'today': 'Dnes',
-
-      // Confirmation dialogs
-      'areYouSure': 'Ste si ist├¡?',
+      'areYouSure': 'Ste si isti?',
       'confirmation': 'Potvrdenie',
-
-      // Inventory
-      'noItemsYet': 'Zatia─╛ nie s├║ polo┼╛ky',
-      'yourItemsWillAppearHere': 'Va┼íe polo┼╛ky sa objavia tu',
-
-      // Shop
-      'notEnoughCoins': 'Nedostaatok minc├¡!',
-      'needCoinsHave': 'Potrebujete {need}, m├íte {have}',
-      'purchasedFor': '{item} k├║pen├⌐ za {cost} minc├¡!',
-      'itemPurchasedSuccessfully': 'N├íkup bol ├║spe┼ín├╜!',
-      'furniture': 'N├íbytok',
-      'realEstate': 'Nehnute─╛nosti',
-
-      // Calendar months
-      'january': 'Janu├ír',
-      'february': 'Febru├ír',
+      'noItemsYet': 'Zatial nie su polozky',
+      'yourItemsWillAppearHere': 'Vase polozky sa objavia tu',
+      'notEnoughCoins': 'Nedostatok minci!',
+      'needCoinsHave': 'Potrebujete {need}, mate {have}',
+      'purchasedFor': '{item} kupene za {cost} minci!',
+      'itemPurchasedSuccessfully': 'Nakup bol uspesny!',
+      'furniture': 'Nabytok',
+      'realEstate': 'Nehnutelnosti',
+      'january': 'Januar',
+      'february': 'Februar',
       'march': 'Marec',
-      'april': 'Apr├¡l',
-      'may': 'M├íj',
-      'june': 'J├║n',
-      'july': 'J├║l',
+      'april': 'April',
+      'may': 'Maj',
+      'june': 'Jun',
+      'july': 'Jul',
       'august': 'August',
       'september': 'September',
-      'october': 'Okt├│ber',
+      'october': 'Oktober',
       'november': 'November',
       'december': 'December',
-
-      // Calendar weekdays
       'monday': 'Po',
       'tuesday': 'Ut',
       'wednesday': 'St',
-      'thursday': '┼át',
+      'thursday': 'Stv',
       'friday': 'Pi',
       'saturday': 'So',
       'sunday': 'Ne',
-
-      // Dialog labels
       'todayLabel': 'Dnes',
-      'errorLoadingGoals': 'Chyba pri na─ì├¡tan├¡ cie─╛ov',
-      'createNewGoal': 'Vytvori┼Ñ nov├╜ cie─╛',
-      'goalTitle': 'N├ízov cie─╛a',
+      'errorLoadingGoals': 'Chyba pri nacitani cielov',
+      'createNewGoal': 'Vytvorit novy ciel',
+      'goalTitle': 'Nazov ciela',
       'coinsReward': 'Odmena v minciach',
-      'targetMoneyAmount': 'Cie─╛ov├í suma pe┼êaz├¡ (Γé¼)',
+      'targetMoneyAmount': 'Cielova suma penazi (EUR)',
       'selectDeadline': 'Vyberte deadline',
-      'addNew': 'Prida┼Ñ nov├╜',
-      'noTransactions': 'Zatia─╛ bez transakci├¡',
-      'addTransactionLabel': 'Prida┼Ñ transakciu',
-      'amountEuro': 'Suma (Γé¼)',
+      'addNew': 'Pridat nove',
+      'noTransactions': 'Zatial bez transakcii',
+      'addTransactionLabel': 'Pridat transakciu',
+      'amountEuro': 'Suma (EUR)',
       'selectType': 'Vyberte typ',
-      'selectGoal': 'Vyberte cie─╛ (volite─╛n├⌐)',
-      'createdAt': 'Vytvoren├⌐',
-
-      // Additional missing texts
-      'pickDate': 'Vyberte d├ítum',
-      'enterGoalTitle': 'Pros├¡m zadajte n├ízov cie─╛a',
-      'goalCreatedSuccessfully': 'Cie─╛ bol ├║spe┼íne vytvoren├╜',
-      'failedToCreateGoal': 'Chyba pri vytv├íran├¡ cie─╛a',
-      'createGoal': 'Vytvori┼Ñ cie─╛',
-      'refreshGoals': 'Obnovi┼Ñ ciele',
-      'failedToCompleteGoal': 'Chyba pri splnen├¡ cie─╛a',
-      'goalDeleted': 'Cie─╛ bol vymazan├╜',
-      'failedToDeleteGoal': 'Chyba pri vymaz├ívan├¡ cie─╛a',
-      'noGoalAllocation': 'Bez pridelenia cie─╛u',
-      'refresh': 'Obnovi┼Ñ',
-      'noGoal': 'Bez cie─╛a',
+      'selectGoal': 'Vyberte ciel (volitelne)',
+      'createdAt': 'Vytvorene',
+      'pickDate': 'Vyberte datum',
+      'enterGoalTitle': 'Prosim zadajte nazov ciela',
+      'goalCreatedSuccessfully': 'Ciel bol uspesne vytvoreny',
+      'failedToCreateGoal': 'Chyba pri vytvarani ciela',
+      'createGoal': 'Vytvorit ciel',
+      'refreshGoals': 'Obnovit ciele',
+      'failedToCompleteGoal': 'Chyba pri splneni ciela',
+      'goalDeleted': 'Ciel bol vymazany',
+      'failedToDeleteGoal': 'Chyba pri vymazavani ciela',
+      'noGoalAllocation': 'Bez pridelenia cielu',
+      'refresh': 'Obnovit',
+      'noGoal': 'Bez ciela',
       'plus': '+',
       'minus': '-',
-      'statistics': '┼átatistika',
-      'gain': 'Pr├¡jem',
-      'purchase': 'N├íkup',
-      'reassignFunds': 'Presun├║┼Ñ peniaze',
-      'fromGoal': 'Z cie─╛a',
-      'toGoal': 'Do cie─╛a',
+      'statistics': 'Statistika',
+      'gain': 'Prijem',
+      'purchase': 'Nakup',
+      'reassignFunds': 'Presunut peniaze',
+      'fromGoal': 'Z ciela',
+      'toGoal': 'Do ciela',
       'amount': 'Suma',
-      'note': 'Pozn├ímka',
-      'amountExceedsAvailableGoalFunds':
-          'Suma prekra─ìuje dostupn├⌐ peniaze cie─╛a.',
-      'amountExceedsGoalTarget': 'Suma by prekro─ìila cie─╛ov├║ sumu.',
-      'fundsReassignedSuccessfully': 'Peniaze boli ├║spe┼íne presunut├⌐',
-      'addGainOrPurchase': 'Prida┼Ñ pr├¡jem / n├íkup',
-      'editTransaction': 'Upravi┼Ñ transakciu',
-      'noTransactionsYetTapAdd':
-          'Zatia─╛ nie s├║ ┼╛iadne transakcie. Klepnite na + a pridajte jednu!',
-      'moneyAssignedAndGoalCompleted': 'Peniaze priraden├⌐ a cie─╛ splnen├╜!',
-      'moneyAssignedToGoal': 'Peniaze boli priraden├⌐ k cie─╛u',
-      'assignMoneyToGoal': 'Priradi┼Ñ peniaze k cie─╛u {goal}',
-      'availableBalance': 'Dostupn├╜ zostatok: {amount}',
-      'amountExceedsCurrentAppBalance':
-          'Suma prekra─ìuje aktu├ílny zostatok aplik├ície.',
-      'assignMoney': 'Priradi┼Ñ peniaze',
-      'goalAmount': 'Suma cie─╛a',
-      'goalCompletedChrumkaOnly': 'Cie─╛ splnen├╜! +1 Chrumka',
-      'goalCompletedCoinsAndChrumka':
-          'Cie─╛ splnen├╜! +{coins} minc├¡ & +1 Chrumka',
-      'goalDeletedAndMoneyReturned':
-          'Cie─╛ bol vymazan├╜ a peniaze sa vr├ítili do zostatku',
-      'difficultyEasy': '─╜ahk├í',
-      'difficultyMedium': 'Stredn├í',
-      'difficultyHard': '┼ña┼╛k├í',
-      'difficulty': 'N├íro─ìnos┼Ñ',
+      'note': 'Poznamka',
+      'amountExceedsAvailableGoalFunds': 'Suma prekracuje dostupne peniaze ciela.',
+      'amountExceedsGoalTarget': 'Suma by prekrocila cielovu sumu.',
+      'fundsReassignedSuccessfully': 'Peniaze boli uspesne presunute',
+      'addGainOrPurchase': 'Pridat prijem / nakup',
+      'editTransaction': 'Upravit transakciu',
+      'noTransactionsYetTapAdd': 'Zatial nie su ziadne transakcie. Klepnite na + a pridajte jednu.',
+      'moneyAssignedAndGoalCompleted': 'Peniaze priradene a ciel splneny!',
+      'moneyAssignedToGoal': 'Peniaze boli priradene k cielu',
+      'assignMoneyToGoal': 'Priradit peniaze k cielu {goal}',
+      'availableBalance': 'Dostupny zostatok: {amount}',
+      'amountExceedsCurrentAppBalance': 'Suma prekracuje aktualny zostatok aplikacie.',
+      'assignMoney': 'Priradit peniaze',
+      'goalAmount': 'Suma ciela',
+      'goalCompletedChrumkaOnly': 'Ciel splneny! +1 Chrumka',
+      'goalCompletedCoinsAndChrumka': 'Ciel splneny! +{coins} minci a +1 Chrumka',
+      'goalDeletedAndMoneyReturned': 'Ciel bol vymazany a peniaze sa vratili do zostatku',
+      'difficultyEasy': 'Lahka',
+      'difficultyMedium': 'Stredna',
+      'difficultyHard': 'Tazka',
+      'difficulty': 'Narocnost',
       'rewardLabel': 'Odmena',
-
-      // Chrumko tips bubble
-      'chrumkoTipLabel': 'Tip od Chrumka ≡ƒÆí',
-      'chrumkoTipDismiss': 'Klepni pre zavretie',
-      'chrumkoTip0': 'Ja si v┼╛dy ─ìas┼Ñ pe┼êaz├¡ odlo┼╛├¡m. Sk├║s to aj ty! ≡ƒÆ░',
-      'chrumkoTip1': 'Chrumko rad├¡: najprv prem├╜┼í─╛aj, a┼╛ potom nakupuj! ≡ƒ¢ì∩╕Å',
-      'chrumkoTip2':
-          'Ja si sledujem v├╜davky. V─Åaka tomu viem, kam moje peniaze id├║! ≡ƒôè',
-      'chrumkoTip3': 'Ke─Å pl├ínujem n├íkupy, u┼íetr├¡m viac pe┼êaz├¡. ≡ƒô¥',
-      'chrumkoTip4': 'Aj mal├⌐ ├║spory sa ─ìasom zmenia na ve─╛k├⌐! ≡ƒôê',
-      'chrumkoTip5': 'Ja si v┼╛dy nech├ím rezervu na ne─ìakan├⌐ veci! ≡ƒÄü',
-      'chrumkoTip6': 'Nemus├¡m k├║pi┼Ñ v┼íetko hne─Å. Niekedy sa oplat├¡ po─ìka┼Ñ! ΓÅ│',
-      'chrumkoTip7': 'Ka┼╛d├⌐ u┼íetren├⌐ euro je krok k mojim cie─╛om! ≡ƒÄ»',
-      'chrumkoTip8':
-          'Premyslen├⌐ rozhodnutia robia z pe┼êaz├¡ dobr├⌐ho pomocn├¡ka! ≡ƒñ¥',
-      'chrumkoTip9': 'Rozpo─ìet mi pom├íha ma┼Ñ peniaze pod kontrolou! ≡ƒöì',
-      'chrumkoTip10': 'Ja ┼íetr├¡m na veci, ktor├⌐ s├║ pre m┼êa naozaj d├┤le┼╛it├⌐! ≡ƒîƒ',
-      'chrumkoTip11': 'Ke─Å ┼íetr├¡m pravidelne, moje ├║spory rast├║ r├╜chlej┼íie! ≡ƒôê',
-      'chrumkoTip12': 'Pred n├íkupom si v┼╛dy polo┼╛├¡m ot├ízku: potrebujem to? ≡ƒ¢Æ',
-      'chrumkoTip13': 'Finan─ìn├í discipl├¡na mi pom├íha plni┼Ñ si sny! ≡ƒÆ¡',
-      'chrumkoTip14': 'Pam├ñtaj: peniaze s├║ n├ístroj, nie cie─╛! ≡ƒîì',
+      'chrumkoTipLabel': 'Tip od Chrumka',
+      'chrumkoTipDismiss': 'Klepnite pre zavretie',
+      'chrumkoTip0': 'Vzdy si odlozim cast penazi. Skus to aj ty!',
+      'chrumkoTip1': 'Najprv premyslaj, az potom nakupuj.',
+      'chrumkoTip2': 'Sledujem svoje vydavky, aby som vedel, kam moje peniaze idu.',
+      'chrumkoTip3': 'Aj male uspory casom narastu.',
+      'chrumkoTip4': 'Ked planujem nakupy, usetrim viac penazi.',
+      'chrumkoTip5': 'Vzdy si nechavam rezervu na necakane veci.',
+      'chrumkoTip6': 'Rozpocet mi pomaha mat peniaze pod kontrolou.',
+      'chrumkoTip7': 'Nemusim kupit vsetko hned. Niekedy sa oplati pockat.',
+      'chrumkoTip8': 'Kazde usetrene euro je krok k mojim cielom.',
+      'chrumkoTip9': 'Premyslene rozhodnutia robia z penazi dobreho pomocnika.',
+      'chrumkoTip10': 'Setrim na veci, ktore su pre mna naozaj dolezite.',
+      'chrumkoTip11': 'Ked setrim pravidelne, moje uspory rastu rychlejsie.',
+      'chrumkoTip12': 'Pred nakupom sa opytam: naozaj to potrebujem?',
+      'chrumkoTip13': 'Financna disciplina mi pomaha plnit si sny.',
+      'chrumkoTip14': 'Pamataj: peniaze su nastroj, nie ciel.',
     },
   };
 
@@ -425,10 +345,11 @@ class AppLocalizations {
   }
 
   static String translate(String key, {String language = _languageEn}) {
-    return _translations[language]?[key] ?? _translations[_languageEn]![key]!;
+    return _translations[language]?[key] ??
+        _translations[_languageEn]?[key] ??
+        key;
   }
 
-  /// Returns all 15 Chrumko tips for the given language.
   static List<String> getChrumkoTips(String language) {
     return List.generate(
       15,
@@ -441,6 +362,6 @@ class AppLocalizations {
   }
 
   static String getLanguageName(String languageCode) {
-    return languageCode == _languageSk ? 'Sloven─ìina' : 'English';
+    return languageCode == _languageSk ? 'Slovencina' : 'English';
   }
 }
