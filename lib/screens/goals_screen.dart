@@ -197,7 +197,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
     setState(() {});
 
-    final l10n = context.read<AppLocalizationsProvider>();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
