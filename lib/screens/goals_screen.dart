@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../models/game_state.dart';
 import '../models/goal.dart';
-import '../services/goal_database_service.dart';
 import '../services/app_localizations_provider.dart';
-import 'package:uuid/uuid.dart';
+import '../services/goal_database_service.dart';
 
 class GoalsScreen extends StatefulWidget {
   final GameState gameState;
@@ -21,6 +21,8 @@ class GoalsScreen extends StatefulWidget {
 }
 
 class _GoalsScreenState extends State<GoalsScreen> {
+  static const int _hardGoalMilestoneCount = 5;
+
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _targetMoneyController;
@@ -42,6 +44,40 @@ class _GoalsScreenState extends State<GoalsScreen> {
     return money.toStringAsFixed(2);
   }
 
+  String _tr(AppLocalizationsProvider l10n, String key) {
+    return l10n.translate(key);
+  }
+
+  String _trParams(
+    AppLocalizationsProvider l10n,
+    String key,
+    Map<String, String> params,
+  ) {
+    var text = l10n.translate(key);
+    params.forEach((paramKey, value) {
+      text = text.replaceAll('{$paramKey}', value);
+    });
+    return text;
+  }
+
+  String _difficultyLabel(AppLocalizationsProvider l10n, String difficulty) {
+    switch (difficulty) {
+      case Goal.easyDifficulty:
+        return _tr(l10n, 'difficultyEasy');
+      case Goal.mediumDifficulty:
+        return _tr(l10n, 'difficultyMedium');
+      case Goal.hardDifficulty:
+        return _tr(l10n, 'difficultyHard');
+      default:
+        return difficulty;
+    }
+  }
+
+  int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
+    final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
+    return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -59,7 +95,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
     super.dispose();
   }
 
-  /// Load goals from local database
   Future<void> _loadGoalsFromBackend() async {
     try {
       if (!mounted) return;
@@ -93,7 +128,157 @@ class _GoalsScreenState extends State<GoalsScreen> {
     }
   }
 
-  void _showCreateGoalDialog(AppLocalizationsProvider l10n) {
+  Future<void> _applyGoalAllocation(Goal goal, double amount) async {
+    if (amount <= 0 || amount > widget.gameState.money || goal.isCompleted) {
+      return;
+    }
+
+    var updatedGoal = goal.copyWith(
+      allocatedMoney: goal.allocatedMoney + amount,
+    );
+    var newlyEarnedCoins = 0;
+
+    if (updatedGoal.difficulty == Goal.hardDifficulty &&
+        updatedGoal.targetMoney > 0) {
+      final progress = (updatedGoal.allocatedMoney / updatedGoal.targetMoney)
+          .clamp(0.0, 1.0)
+          .toDouble();
+      final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
+      if (reachedMilestones > updatedGoal.milestonesAwarded) {
+        final newlyEarned = _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            );
+        newlyEarnedCoins = newlyEarned;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
+      }
+    }
+
+    final shouldComplete = !updatedGoal.isCompleted &&
+        updatedGoal.targetMoney > 0 &&
+        updatedGoal.allocatedMoney >= updatedGoal.targetMoney;
+    final storedGoal =
+        shouldComplete ? updatedGoal.copyWith(isCompleted: true) : updatedGoal;
+
+    final success = await GoalDatabaseService.updateGoal(storedGoal);
+    if (!success || !mounted) {
+      return;
+    }
+
+    widget.gameState.spendMoney(amount);
+
+    widget.gameState.updateGoal(updatedGoal);
+    if (newlyEarnedCoins > 0) {
+      widget.gameState.addCoins(newlyEarnedCoins);
+    }
+
+    if (shouldComplete) {
+      widget.gameState.completeGoal(goal.id);
+    }
+
+    setState(() {});
+
+    final l10n = context.read<AppLocalizationsProvider>();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          shouldComplete
+              ? _tr(l10n, 'moneyAssignedAndGoalCompleted')
+              : _tr(l10n, 'moneyAssignedToGoal'),
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> _showAllocateMoneyDialog(Goal goal) async {
+    final amountController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        final l10n = Provider.of<AppLocalizationsProvider>(dialogContext);
+        return AlertDialog(
+          title: Text(
+            _trParams(l10n, 'assignMoneyToGoal', {'goal': goal.title}),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _trParams(l10n, 'availableBalance', {
+                  'amount': _formatMoney(widget.gameState.money),
+                }),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: amountController,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                decoration: InputDecoration(
+                  labelText: _tr(l10n, 'amount'),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final amount = double.tryParse(amountController.text) ?? 0.0;
+                if (amount <= 0) {
+                  return;
+                }
+                if (goal.targetMoney > 0 && amount > goal.targetMoney - goal.allocatedMoney) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(_tr(l10n, 'amountExceedsGoalTarget')),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return;
+                }
+                if (amount > widget.gameState.money) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          _tr(l10n, 'amountExceedsCurrentAppBalance'),
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return;
+                }
+
+                Navigator.pop(dialogContext);
+                await _applyGoalAllocation(goal, amount);
+              },
+              child: Text(_tr(l10n, 'assignMoney')),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showCreateGoalDialog() {
+    final l10n = context.read<AppLocalizationsProvider>();
     DateTime selectedDate = _selectedDate;
     String selectedDifficulty = _selectedDifficulty;
 
@@ -101,58 +286,60 @@ class _GoalsScreenState extends State<GoalsScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, dialogSetState) => AlertDialog(
-          title: Text(l10n.translate('createNewGoal')),
+          title: const Text('Create New Goal'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: _titleController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalTitle'),
-                    hintText: l10n.translate('enterGoalTitleHint'),
-                    border: const OutlineInputBorder(),
+                  decoration: const InputDecoration(
+                    labelText: 'Goal Title',
+                    hintText: 'Enter goal title',
+                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalDescription'),
-                    hintText: l10n.translate('enterGoalDescription'),
-                    border: const OutlineInputBorder(),
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
+                    hintText: 'Enter goal description',
+                    border: OutlineInputBorder(),
                   ),
                   maxLines: 3,
                 ),
                 const SizedBox(height: 16),
                 InputDecorator(
                   decoration: InputDecoration(
-                    labelText: l10n.translate('reward'),
-                    border: const OutlineInputBorder(),
+                    labelText: _tr(l10n, 'rewardLabel'),
+                    border: OutlineInputBorder(),
                   ),
                   child: Text(
-                    '${_difficultyRewards[selectedDifficulty]} ${l10n.translate('coinsLabel')}',
+                    '${_difficultyRewards[selectedDifficulty]} coins',
                   ),
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
-                  value: selectedDifficulty,
+                  initialValue: selectedDifficulty,
                   decoration: InputDecoration(
-                    labelText: l10n.translate('difficulty'),
-                    border: const OutlineInputBorder(),
+                    labelText: _tr(l10n, 'difficulty'),
+                    border: OutlineInputBorder(),
                   ),
                   items: [
                     DropdownMenuItem(
                       value: Goal.easyDifficulty,
-                      child: Text(l10n.translate('easy')),
+                      child: Text(_difficultyLabel(l10n, Goal.easyDifficulty)),
                     ),
                     DropdownMenuItem(
                       value: Goal.mediumDifficulty,
-                      child: Text(l10n.translate('medium')),
+                      child: Text(
+                        _difficultyLabel(l10n, Goal.mediumDifficulty),
+                      ),
                     ),
                     DropdownMenuItem(
                       value: Goal.hardDifficulty,
-                      child: Text(l10n.translate('hard')),
+                      child: Text(_difficultyLabel(l10n, Goal.hardDifficulty)),
                     ),
                   ],
                   onChanged: (value) {
@@ -166,9 +353,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 TextField(
                   controller: _targetMoneyController,
                   decoration: InputDecoration(
-                    labelText: l10n.translate('goalAmount'),
-                    hintText: l10n.translate('enterMoneyTarget'),
-                    border: const OutlineInputBorder(),
+                    labelText: _tr(l10n, 'goalAmount'),
+                    hintText: 'Enter money target',
+                    border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -177,7 +364,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        '${l10n.translate('dueDate')}: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
+                        'Due Date: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
                         style: const TextStyle(fontSize: 14),
                       ),
                     ),
@@ -197,7 +384,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           });
                         }
                       },
-                      child: Text(l10n.translate('pickDate')),
+                      child: const Text('Pick Date'),
                     ),
                   ],
                 ),
@@ -207,13 +394,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(l10n.translate('cancel')),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () async {
                 if (_titleController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.translate('enterGoalTitle'))),
+                    const SnackBar(content: Text('Please enter a goal title')),
                   );
                   return;
                 }
@@ -251,24 +438,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     Navigator.pop(context);
                     setState(() {});
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.translate('goalCreatedSuccessfully')),
-                        duration: const Duration(seconds: 2),
+                      const SnackBar(
+                        content: Text('Goal created successfully'),
+                        duration: Duration(seconds: 2),
                       ),
                     );
                   }
                 } else {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.translate('failedToCreateGoal')),
-                        duration: const Duration(seconds: 2),
+                      const SnackBar(
+                        content: Text('Failed to create goal'),
+                        duration: Duration(seconds: 2),
                       ),
                     );
                   }
                 }
               },
-              child: Text(l10n.translate('createGoal')),
+              child: const Text('Create Goal'),
             ),
           ],
         ),
@@ -276,16 +463,252 @@ class _GoalsScreenState extends State<GoalsScreen> {
     );
   }
 
+  Goal? _findGoal(String? goalId) {
+    if (goalId == null) return null;
+    final match = widget.gameState.goals.where((g) => g.id == goalId);
+    return match.isEmpty ? null : match.first;
+  }
+
+  (Goal, int) _applyDestinationGoalProgress(Goal goal) {
+    var updatedGoal = goal;
+    var newlyEarnedCoins = 0;
+
+    if (updatedGoal.difficulty == Goal.hardDifficulty &&
+        updatedGoal.targetMoney > 0) {
+      final progress = (updatedGoal.allocatedMoney / updatedGoal.targetMoney)
+          .clamp(0.0, 1.0)
+          .toDouble();
+      final reachedMilestones = (progress * _hardGoalMilestoneCount).floor();
+      if (reachedMilestones > updatedGoal.milestonesAwarded) {
+        final newlyEarned = _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            );
+        newlyEarnedCoins = newlyEarned;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
+      } else if (reachedMilestones < updatedGoal.milestonesAwarded) {
+        final lostCoins = _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            );
+        newlyEarnedCoins = -lostCoins;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
+      }
+    }
+
+    return (updatedGoal, newlyEarnedCoins);
+  }
+
+  Future<void> _showReassignFundsDialog() async {
+    String? fromGoalId;
+    String? toGoalId;
+    final amountController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        final l10n = Provider.of<AppLocalizationsProvider>(context);
+        return StatefulBuilder(
+          builder: (context, dialogSetState) {
+            final sourceGoals = widget.gameState.goals
+                .where((goal) => !goal.isCompleted && goal.allocatedMoney > 0)
+                .toList();
+            final destinationGoals = widget.gameState.goals
+                .where((goal) => !goal.isCompleted && goal.id != fromGoalId)
+                .toList();
+
+            return AlertDialog(
+              title: Text(_tr(l10n, 'reassignFunds')),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButtonFormField<String>(
+                    initialValue: fromGoalId,
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'fromGoal'),
+                    ),
+                    items: sourceGoals
+                        .map(
+                          (goal) => DropdownMenuItem<String>(
+                            value: goal.id,
+                            child: Text(
+                              '${goal.title} (${_formatMoney(goal.allocatedMoney)})',
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      dialogSetState(() {
+                        fromGoalId = value;
+                        if (toGoalId == fromGoalId) {
+                          toGoalId = null;
+                        }
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    initialValue: toGoalId,
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'toGoal'),
+                    ),
+                    items: destinationGoals
+                        .map(
+                          (goal) => DropdownMenuItem<String>(
+                            value: goal.id,
+                            child: Text(goal.title),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) =>
+                        dialogSetState(() => toGoalId = value),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: amountController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: _tr(l10n, 'amount'),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (fromGoalId == null || toGoalId == null) return;
+                    final amount = double.tryParse(amountController.text) ?? 0;
+                    if (amount <= 0) return;
+
+                    final fromGoal = _findGoal(fromGoalId);
+                    final toGoal = _findGoal(toGoalId);
+                    if (fromGoal == null ||
+                        toGoal == null ||
+                        amount > fromGoal.allocatedMoney) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              _tr(l10n, 'amountExceedsAvailableGoalFunds'),
+                            ),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    if (toGoal.targetMoney > 0 && amount > toGoal.targetMoney - toGoal.allocatedMoney) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              _tr(l10n, 'amountExceedsGoalTarget'),
+                            ),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    var updatedSource = fromGoal.copyWith(
+                      allocatedMoney: fromGoal.allocatedMoney - amount,
+                    );
+                    final sourceProgressResult =
+                        _applyDestinationGoalProgress(updatedSource);
+                    updatedSource = sourceProgressResult.$1;
+                    final sourceCoinsDelta = sourceProgressResult.$2;
+
+                    var updatedDestination = toGoal.copyWith(
+                      allocatedMoney: toGoal.allocatedMoney + amount,
+                    );
+                    final destProgressResult =
+                        _applyDestinationGoalProgress(updatedDestination);
+                    updatedDestination = destProgressResult.$1;
+                    final destCoinsDelta = destProgressResult.$2;
+                    
+                    final totalCoinsDelta = sourceCoinsDelta + destCoinsDelta;
+
+                    final shouldComplete = !updatedDestination.isCompleted &&
+                        updatedDestination.targetMoney > 0 &&
+                        updatedDestination.allocatedMoney >=
+                            updatedDestination.targetMoney;
+                    final storedDestination = shouldComplete
+                        ? updatedDestination.copyWith(isCompleted: true)
+                        : updatedDestination;
+
+                    final sourceSaved =
+                        await GoalDatabaseService.updateGoal(updatedSource);
+                    final destinationSaved =
+                        await GoalDatabaseService.updateGoal(storedDestination);
+                    if (!sourceSaved || !destinationSaved || !mounted) {
+                      return;
+                    }
+
+                    widget.gameState.updateGoal(updatedSource);
+                    widget.gameState.updateGoal(updatedDestination);
+                    
+                    if (totalCoinsDelta > 0) {
+                      widget.gameState.addCoins(totalCoinsDelta);
+                    } else if (totalCoinsDelta < 0) {
+                      widget.gameState.removeCoins(totalCoinsDelta.abs());
+                    }
+                    
+                    if (shouldComplete) {
+                      widget.gameState.completeGoal(updatedDestination.id);
+                    }
+
+                    setState(() {});
+
+                    if (mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            _tr(l10n, 'fundsReassignedSuccessfully'),
+                          ),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(_tr(l10n, 'save')),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
     final goals = widget.gameState.goals;
     final activeGoals = goals.where((g) => !g.isCompleted).toList();
     final completedGoals = goals.where((g) => g.isCompleted).toList();
 
-    return Consumer<AppLocalizationsProvider>(
-      builder: (context, localizationsProvider, _) {
-        final l10n = localizationsProvider;
-        return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('goals')),
         backgroundColor: Colors.deepPurple[300],
@@ -295,6 +718,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
           onPressed: widget.onBack,
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.swap_horiz),
+            tooltip: _tr(l10n, 'reassignFunds'),
+            onPressed: _showReassignFundsDialog,
+          ),
           if (_isSyncing)
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -345,7 +773,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        l10n.translate('noGoalsYet'),
+                        'No goals yet',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -354,7 +782,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        l10n.translate('createYourFirstGoal'),
+                        'Create your first goal to get started',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -397,20 +825,20 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        onPressed: _isSyncing ? null : () => _showCreateGoalDialog(l10n),
+        onPressed: _isSyncing ? null : _showCreateGoalDialog,
         backgroundColor: Colors.deepPurple[300],
         child: const Icon(Icons.add),
       ),
     );
-      },
-    );
   }
 
   Widget _buildGoalCard(Goal goal) {
-    final bool hasTarget = goal.targetMoney > 0;
-    final double progress =
-        hasTarget ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1) : 0;
-    final bool canComplete = !hasTarget || progress >= 1;
+    final l10n = context.watch<AppLocalizationsProvider>();
+    final hasTarget = goal.targetMoney > 0;
+    final progress = hasTarget
+        ? (goal.allocatedMoney / goal.targetMoney).clamp(0.0, 1.0).toDouble()
+        : 0.0;
+    final canComplete = !hasTarget || progress >= 1;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -451,7 +879,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${goal.difficulty} · Reward ${goal.rewardCoins}',
+                        '${_difficultyLabel(l10n, goal.difficulty)} - ${_tr(l10n, 'rewardLabel')} ${goal.rewardCoins}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[500],
@@ -481,20 +909,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           await GoalDatabaseService.completeGoal(goal.id);
 
                       if (success) {
-                        // Awards coins + 1 Chrumka inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
 
                         if (mounted) {
-                          final completionText = goal.difficulty ==
-                                  Goal.hardDifficulty
-                              ? 'Goal completed!'
-                              : 'Goal completed! +${goal.rewardCoins} coins';
+                          final completionMessage =
+                              goal.difficulty == Goal.hardDifficulty
+                                  ? _tr(l10n, 'goalCompletedChrumkaOnly')
+                                  : _trParams(
+                                      l10n,
+                                      'goalCompletedCoinsAndChrumka',
+                                      {'coins': goal.rewardCoins.toString()},
+                                    );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
-                              ),
+                              content: Text(completionMessage),
                               duration: const Duration(seconds: 2),
                             ),
                           );
@@ -544,6 +973,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
               ),
               const SizedBox(height: 12),
+              if (!goal.isCompleted)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: widget.gameState.money > 0
+                        ? () => _showAllocateMoneyDialog(goal)
+                        : null,
+                    icon: const Icon(Icons.account_balance_wallet_outlined),
+                    label: Text(_tr(l10n, 'assignMoney')),
+                  ),
+                ),
+              if (!goal.isCompleted) const SizedBox(height: 12),
             ],
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -585,22 +1026,42 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
+                    final shouldRefundAllocatedMoney =
+                        goal.allocatedMoney > 0 &&
+                            !(goal.isCompleted &&
+                                goal.difficulty == Goal.hardDifficulty);
+                    if (shouldRefundAllocatedMoney) {
+                      widget.gameState.addMoney(goal.allocatedMoney);
+                    }
                     final success =
                         await GoalDatabaseService.deleteGoal(goal.id);
 
                     if (success) {
                       widget.gameState.removeGoal(goal.id);
+                      if (goal.difficulty == Goal.hardDifficulty && goal.milestonesAwarded > 0) {
+                        final coinsToRevoke = _hardGoalRewardForMilestones(goal, goal.milestonesAwarded);
+                        if (coinsToRevoke > 0) {
+                          widget.gameState.removeCoins(coinsToRevoke);
+                        }
+                      }
                       setState(() {});
 
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Goal deleted'),
+                          SnackBar(
+                            content: Text(
+                              shouldRefundAllocatedMoney
+                                  ? _tr(l10n, 'goalDeletedAndMoneyReturned')
+                                  : _tr(l10n, 'goalDeleted'),
+                            ),
                             duration: Duration(seconds: 2),
                           ),
                         );
                       }
                     } else {
+                      if (shouldRefundAllocatedMoney) {
+                        widget.gameState.spendMoney(goal.allocatedMoney);
+                      }
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

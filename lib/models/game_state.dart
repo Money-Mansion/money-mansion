@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+﻿import 'package:flutter/foundation.dart';
 import 'room.dart';
 import 'goal.dart';
 import 'item.dart';
@@ -7,9 +7,9 @@ class GameState extends ChangeNotifier {
   int coins;
   int chrumka; // Earned by completing goals
   double money; // Real-world financial tracking (starts at 0, user-logged)
-  double date; // Herný dátum (napr. 7.7)
-  bool musicEnabled; // Background music setting
-  double musicVolume; // Music volume (0.0 to 1.0)
+  double date; // Hern├╜ d├ítum (napr. 7.7)
+  bool _musicEnabled;
+  double _musicVolume;
   List<Room> rooms;
   List<Goal> goals;
   List<Item> ownedItems;
@@ -19,12 +19,14 @@ class GameState extends ChangeNotifier {
     this.chrumka = 0,
     this.money = 0.0,
     this.date = 7.7,
-    this.musicEnabled = true,
-    this.musicVolume = 0.5,
+    bool musicEnabled = true,
+    double musicVolume = 0.5,
     List<Room>? rooms,
     List<Goal>? goals,
     List<Item>? ownedItems,
-  })  : rooms = rooms ?? [],
+  })  : _musicEnabled = musicEnabled,
+        _musicVolume = musicVolume.clamp(0.0, 1.0),
+        rooms = rooms ?? [],
         goals = goals ?? [],
         ownedItems = ownedItems ?? [];
 
@@ -68,6 +70,39 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeCoins(int amount) {
+    if (amount <= 0) return;
+    if (coins >= amount) {
+      coins -= amount;
+    } else {
+      coins = 0;
+    }
+    notifyListeners();
+  }
+
+  // ===== MUSIC =====
+
+  bool isMusicEnabled() {
+    return _musicEnabled;
+  }
+
+  void setMusicEnabled(bool enabled) {
+    if (_musicEnabled == enabled) return;
+    _musicEnabled = enabled;
+    notifyListeners();
+  }
+
+  double getMusicVolume() {
+    return _musicVolume;
+  }
+
+  void setMusicVolume(double volume) {
+    final normalizedVolume = volume.clamp(0.0, 1.0);
+    if (_musicVolume == normalizedVolume) return;
+    _musicVolume = normalizedVolume;
+    notifyListeners();
+  }
+
   // ===== CHRUMKA =====
 
   void addChrumka(int amount) {
@@ -85,6 +120,13 @@ class GameState extends ChangeNotifier {
 
   void addGoal(Goal goal) {
     goals.add(goal);
+    notifyListeners();
+  }
+
+  void updateGoal(Goal goal) {
+    final index = goals.indexWhere((g) => g.id == goal.id);
+    if (index == -1) return;
+    goals[index] = goal;
     notifyListeners();
   }
 
@@ -135,25 +177,5 @@ class GameState extends ChangeNotifier {
   void clearOwnedItems() {
     ownedItems.clear();
     notifyListeners();
-  }
-
-  // ===== MUSIC SETTINGS =====
-
-  void setMusicEnabled(bool enabled) {
-    musicEnabled = enabled;
-    notifyListeners();
-  }
-
-  bool isMusicEnabled() {
-    return musicEnabled;
-  }
-
-  void setMusicVolume(double volume) {
-    musicVolume = volume.clamp(0.0, 1.0);
-    notifyListeners();
-  }
-
-  double getMusicVolume() {
-    return musicVolume;
   }
 }
