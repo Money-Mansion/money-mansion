@@ -201,6 +201,10 @@ class AppLocalizations {
       'categoryUnassigned': 'Unassigned',
       'categoryPocketMoney': 'Pocket money',
 
+      // Chrumko learning
+      'quizes': 'Quizes',
+      'lessons': 'Lessons',
+
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
       'chrumkoTipDismiss': 'Tap to dismiss',
@@ -412,6 +416,10 @@ class AppLocalizations {
       'categoryOther': 'Ostatné',
       'categoryUnassigned': 'Nezaradené',
       'categoryPocketMoney': 'Vreckové',
+
+      // Chrumko learning
+      'quizes': 'Kvízy',
+      'lessons': 'Lekcie',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': 'Tip od Chrumka 💡',

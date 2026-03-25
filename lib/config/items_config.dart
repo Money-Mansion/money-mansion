@@ -9,6 +9,126 @@ import '../models/item.dart';
 final List<Item> GAME_ITEMS = [
   // Example item - DELETE THIS AFTER TESTING
   Item(
+    id: 'polica_kniznica_cierna',
+    name: 'Čierna knižnica',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/polica_kniznica_cierna.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'okno_zrkadlo',
+    name: 'Zrkadlo',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/okno_zrkadlo.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'okno_normalne',
+    name: 'Normálne okno',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/okno_normalne.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'okno_modre',
+    name: 'Modré okno',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/okno_modre.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'okno_duhove',
+    name: 'Duhové okno',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/okno_duhove.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'okno_cierne',
+    name: 'Čierne okno',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/okno_cierne.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_tvary',
+    name: 'Obraz s tvarmi',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_tvary.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_stastne_zvieratka',
+    name: 'Obraz so šťastnými zvieratkami',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_stastne_zvieratka.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_skibidi',
+    name: 'Skibidi obraz',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_skibidi.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_salvador_dali',
+    name: 'Obraz Salvadora Daliho',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_salvador_dali.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_nastenka',
+    name: 'Nástenka',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_nastenka.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
+    id: 'obraz_drak',
+    name: 'Obraz draka',
+    type: ItemType.decoration,
+    texture: 'assets/images/items/obraz_drak.png',
+    cost: 0,
+    hitboxId: 'obraz',
+    scale: 0.11,
+  ),
+
+  Item(
     id: 'gauc_zeleny',
     name: 'Zelený gauč',
     type: ItemType.furniture,
@@ -234,16 +354,6 @@ final List<Item> GAME_ITEMS = [
     type: ItemType.furniture,
     texture: 'assets/images/items/skriňa_šatník.png',
     cost: 175,
-    hitboxId: null,
-    scale: 0.2,
-  ),
-
-  Item(
-    id: 'skriňa_knihy',
-    name: 'Knihovňa',
-    type: ItemType.furniture,
-    texture: 'assets/images/items/skriňa_knihy.png',
-    cost: 200,
     hitboxId: null,
     scale: 0.2,
   ),

@@ -12,6 +12,7 @@ import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
 import '../widgets/chrumko_guide.dart';
+import '../widgets/chrumko_learning_overlay.dart';
 import 'shop_screen.dart';
 import 'goals_screen.dart';
 import 'inventory_screen.dart';
@@ -32,6 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   int selectedNavIndex = -1;
   bool _isInitialized = false;
   int _roomViewerVersion = 0;
+  bool _overlayOpen = false;
 
   static const bool _DEBUG_MODE = true;
 
@@ -294,9 +296,23 @@ class _GameScreenState extends State<GameScreen> {
                   child: ChrumkoGuide(
                     language: localizationsProvider.currentLanguage,
                     autoShowTips: true,
+                    onClicked: () {
+                      setState(() {
+                        _overlayOpen = !_overlayOpen;
+                      });
+                    },
                   ),
                 ),
               ),
+            ),
+          // Chrumko learning overlay — only on default game screen when open
+          if (selectedNavIndex == -1 && _overlayOpen)
+            ChrumkoLearningOverlay(
+              onClose: () {
+                setState(() {
+                  _overlayOpen = false;
+                });
+              },
             ),
         ],
       ),
