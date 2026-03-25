@@ -184,6 +184,7 @@ class SettingsScreen extends StatelessWidget {
                                   label: 'Chrumky:',
                                   value: '${gameState.chrumka}',
                                   valueColor: const Color.fromARGB(255, 200, 80, 160),
+                                  icon: '🐾',
                                 ),
                               ],
                             ),
@@ -206,11 +207,13 @@ class _InfoRow extends StatelessWidget {
   final String label;
   final String value;
   final Color valueColor;
+  final String? icon;
 
   const _InfoRow({
     required this.label,
     required this.value,
     required this.valueColor,
+    this.icon,
   });
 
   @override
@@ -222,13 +225,21 @@ class _InfoRow extends StatelessWidget {
           label,
           style: const TextStyle(fontSize: 16),
         ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: valueColor,
-          ),
+        Row(
+          children: [
+            if (icon != null) ...[
+              Text(icon!, style: const TextStyle(fontSize: 16)),
+              const SizedBox(width: 4),
+            ],
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: valueColor,
+              ),
+            ),
+          ],
         ),
       ],
     );
