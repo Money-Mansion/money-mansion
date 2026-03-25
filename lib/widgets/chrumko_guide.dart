@@ -8,11 +8,13 @@ import '../services/app_localizations.dart';
 class ChrumkoGuide extends StatefulWidget {
   final String language;
   final bool autoShowTips;
+  final VoidCallback? onClicked;
 
   const ChrumkoGuide({
     super.key,
     required this.language,
     this.autoShowTips = true,
+    this.onClicked,
   });
 
   @override
@@ -20,9 +22,10 @@ class ChrumkoGuide extends StatefulWidget {
 }
 
 class _ChrumkoGuideState extends State<ChrumkoGuide>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   int _tipIndex = 0;
   bool _showBubble = false;
+  bool _overlayOpen = false;
 
   Timer? _repeatTimer;
   Timer? _hideTimer;
@@ -30,7 +33,9 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   final Random _random = Random();
 
   late AnimationController _animController;
+  late AnimationController _positionController;
   late Animation<double> _scaleAnim;
+  late Animation<double> _opacityAnim;
 
   // Tips are derived from the current language at display time
   List<String> get _tips => AppLocalizations.getChrumkoTips(widget.language);
@@ -54,6 +59,15 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
       reverseCurve: Curves.easeIn,
     );
 
+    // Position animation controller for overlay open/close
+    _positionController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _opacityAnim = Tween<double>(begin: 1.0, end: 0.6).animate(
+      CurvedAnimation(parent: _positionController, curve: Curves.easeInOutCubic),
+    );
+
     if (widget.autoShowTips) {
       // Show first tip 5 s after screen loads
       Future.delayed(const Duration(seconds: 5), _showNextTip);
@@ -71,6 +85,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
     _repeatTimer?.cancel();
     _hideTimer?.cancel();
     _animController.dispose();
+    _positionController.dispose();
     super.dispose();
   }
 
@@ -100,6 +115,40 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
     _animController.reverse().then((_) {
       if (mounted) setState(() => _showBubble = false);
     });
+  }
+
+  // ── Overlay interaction ──────────────────────────────────────────────────────
+  void _toggleOverlay() {
+    if (widget.onClicked == null) return;
+
+    setState(() {
+      _overlayOpen = !_overlayOpen;
+    });
+
+    if (_overlayOpen) {
+      // Animate Chrumko when overlay opens (fade to 0.6 opacity)
+      _positionController.forward();
+      // Disable tips when overlay opens
+      _repeatTimer?.cancel();
+      _hideTimer?.cancel();
+      _dismissBubble();
+    } else {
+      // Animate Chrumko back when overlay closes (fade back to 1.0)
+      _positionController.reverse();
+      // Resume tips when overlay closes
+      if (widget.autoShowTips) {
+        // Show a tip after 2 seconds
+        Future.delayed(const Duration(seconds: 2), _showNextTip);
+        // Resume periodic tips every 3 minutes
+        _repeatTimer = Timer.periodic(
+          const Duration(minutes: 3),
+          (_) => _showNextTip(),
+        );
+      }
+    }
+
+    // Notify parent that Chrumko was clicked
+    widget.onClicked?.call();
   }
 
   // ── Build ───────────────────────────────────────────────────────────────────
@@ -210,11 +259,17 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
               ),
             ),
 
-          // Chrumko image — tips are automatic only, tapping does nothing
-          Image.asset(
-            'assets/images/chrumko.png',
-            width: 150,
-            height: 150,
+          // Chrumko image — tappable to open overlay
+          FadeTransition(
+            opacity: _opacityAnim,
+            child: GestureDetector(
+              onTap: _toggleOverlay,
+              child: Image.asset(
+                'assets/images/chrumko.png',
+                width: 150,
+                height: 150,
+              ),
+            ),
           ),
         ],
       ),
