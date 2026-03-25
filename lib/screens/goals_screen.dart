@@ -241,6 +241,17 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 if (amount <= 0) {
                   return;
                 }
+                if (goal.targetMoney > 0 && amount > goal.targetMoney - goal.allocatedMoney) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(_tr(l10n, 'amountExceedsAvailableGoalFunds')),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return;
+                }
                 if (amount > widget.gameState.money) {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -481,6 +492,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
         updatedGoal = updatedGoal.copyWith(
           milestonesAwarded: reachedMilestones,
         );
+      } else if (reachedMilestones < updatedGoal.milestonesAwarded) {
+        final lostCoins = _hardGoalRewardForMilestones(
+              updatedGoal,
+              updatedGoal.milestonesAwarded,
+            ) -
+            _hardGoalRewardForMilestones(
+              updatedGoal,
+              reachedMilestones,
+            );
+        newlyEarnedCoins = -lostCoins;
+        updatedGoal = updatedGoal.copyWith(
+          milestonesAwarded: reachedMilestones,
+        );
       }
     }
 
@@ -592,16 +616,38 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       return;
                     }
 
-                    final updatedSource = fromGoal.copyWith(
+                    if (toGoal.targetMoney > 0 && amount > toGoal.targetMoney - toGoal.allocatedMoney) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              _tr(l10n, 'amountExceedsAvailableGoalFunds'),
+                            ),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    var updatedSource = fromGoal.copyWith(
                       allocatedMoney: fromGoal.allocatedMoney - amount,
                     );
+                    final sourceProgressResult =
+                        _applyDestinationGoalProgress(updatedSource);
+                    updatedSource = sourceProgressResult.$1;
+                    final sourceCoinsDelta = sourceProgressResult.$2;
+
                     var updatedDestination = toGoal.copyWith(
                       allocatedMoney: toGoal.allocatedMoney + amount,
                     );
-                    final progressResult =
+                    final destProgressResult =
                         _applyDestinationGoalProgress(updatedDestination);
-                    updatedDestination = progressResult.$1;
-                    final newlyEarnedCoins = progressResult.$2;
+                    updatedDestination = destProgressResult.$1;
+                    final destCoinsDelta = destProgressResult.$2;
+                    
+                    final totalCoinsDelta = sourceCoinsDelta + destCoinsDelta;
+
                     final shouldComplete = !updatedDestination.isCompleted &&
                         updatedDestination.targetMoney > 0 &&
                         updatedDestination.allocatedMoney >=
@@ -620,9 +666,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
                     widget.gameState.updateGoal(updatedSource);
                     widget.gameState.updateGoal(updatedDestination);
-                    if (newlyEarnedCoins > 0) {
-                      widget.gameState.addCoins(newlyEarnedCoins);
+                    
+                    if (totalCoinsDelta > 0) {
+                      widget.gameState.addCoins(totalCoinsDelta);
+                    } else if (totalCoinsDelta < 0) {
+                      widget.gameState.removeCoins(totalCoinsDelta.abs());
                     }
+                    
                     if (shouldComplete) {
                       widget.gameState.completeGoal(updatedDestination.id);
                     }

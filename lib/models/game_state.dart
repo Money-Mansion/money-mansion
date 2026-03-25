@@ -64,6 +64,16 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeCoins(int amount) {
+    if (amount <= 0) return;
+    if (coins >= amount) {
+      coins -= amount;
+    } else {
+      coins = 0;
+    }
+    notifyListeners();
+  }
+
   // ===== CHRUMKA =====
 
   void addChrumka(int amount) {
