@@ -177,10 +177,14 @@ class _ShopScreenState extends State<ShopScreen>
       );
     }
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    // Aim for cards ~130px wide — more columns on wider screens
+    final crossAxisCount = (screenWidth / 130).floor().clamp(2, 6);
+
     return GridView.builder(
       padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
         crossAxisSpacing: 6,
         mainAxisSpacing: 6,
         childAspectRatio: 0.68,
