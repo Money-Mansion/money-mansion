@@ -1,25 +1,32 @@
 class Item {
   final String id;
-  final String name;
+  final String name;    // Slovak name
+  final String nameEn;  // English name
   final ItemType type;
-  final String texture; // Path to image in assets
+  final String texture;
   final int cost;
-  final String? hitboxId; // ID for loading hitbox from .convexshape file (defaults to id if null)
-  final double scale; // Scale factor for rendering (0.0 - 1.0+, default 1.0)
+  final String? hitboxId;
+  final double scale;
 
   Item({
     required this.id,
     required this.name,
+    String? nameEn,     // optional — falls back to name if not provided
     required this.type,
     required this.texture,
     required this.cost,
     this.hitboxId,
     this.scale = 1.0,
-  });
+  }) : nameEn = nameEn ?? name;
+
+  /// Returns the localised name for the given language code.
+  String localizedName(String language) =>
+      language == 'en' ? nameEn : name;
 
   Item copyWith({
     String? id,
     String? name,
+    String? nameEn,
     ItemType? type,
     String? texture,
     int? cost,
@@ -29,6 +36,7 @@ class Item {
     return Item(
       id: id ?? this.id,
       name: name ?? this.name,
+      nameEn: nameEn ?? this.nameEn,
       type: type ?? this.type,
       texture: texture ?? this.texture,
       cost: cost ?? this.cost,

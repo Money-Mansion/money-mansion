@@ -25,7 +25,6 @@ class _ShopScreenState extends State<ShopScreen>
   bool _isLoading = true;
   late TabController _tabController;
 
-  // Category definitions — label key + optional ItemType filter (null = All)
   static const List<_Category> _categories = [
     _Category(labelKey: 'all', type: null),
     _Category(labelKey: 'furniture', type: ItemType.furniture),
@@ -83,13 +82,14 @@ class _ShopScreenState extends State<ShopScreen>
   }
 
   List<Item> _itemsForCategory(_Category category) {
-    if (category.type == null) return _shopItems; // All
+    if (category.type == null) return _shopItems;
     return _shopItems.where((i) => i.type == category.type).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final language = l10n.currentLanguage;
 
     return Scaffold(
       appBar: AppBar(
@@ -146,13 +146,13 @@ class _ShopScreenState extends State<ShopScreen>
               controller: _tabController,
               children: _categories.map((cat) {
                 final items = _itemsForCategory(cat);
-                return _buildItemGrid(items, l10n);
+                return _buildItemGrid(items, l10n, language);
               }).toList(),
             ),
     );
   }
 
-  Widget _buildItemGrid(List<Item> items, AppLocalizationsProvider l10n) {
+  Widget _buildItemGrid(List<Item> items, AppLocalizationsProvider l10n, String language) {
     if (items.isEmpty) {
       return Center(
         child: Column(
@@ -162,14 +162,13 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              'You own all items in this category!',
+              language == 'sk'
+                  ? 'Všetky položky v tejto kategórii vlastníš!'
+                  : 'You own all items in this category!',
               style: TextStyle(fontSize: 14, color: Colors.grey[600]),
             ),
           ],
@@ -177,9 +176,8 @@ class _ShopScreenState extends State<ShopScreen>
       );
     }
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    // Aim for cards ~130px wide — more columns on wider screens
-    final crossAxisCount = (screenWidth / 130).floor().clamp(2, 6);
+    final crossAxisCount =
+        (MediaQuery.of(context).size.width / 130).floor().clamp(2, 6);
 
     return GridView.builder(
       padding: const EdgeInsets.all(8),
@@ -190,11 +188,12 @@ class _ShopScreenState extends State<ShopScreen>
         childAspectRatio: 0.68,
       ),
       itemCount: items.length,
-      itemBuilder: (context, index) => _buildItemCard(items[index], l10n),
+      itemBuilder: (context, index) =>
+          _buildItemCard(items[index], l10n, language),
     );
   }
 
-  Widget _buildItemCard(Item item, AppLocalizationsProvider l10n) {
+  Widget _buildItemCard(Item item, AppLocalizationsProvider l10n, String language) {
     final canAfford = widget.gameState.coins >= item.cost;
 
     return Card(
@@ -230,11 +229,9 @@ class _ShopScreenState extends State<ShopScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item.name,
+                  item.localizedName(language), // ← uses EN or SK name
                   style: const TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 9, fontWeight: FontWeight.bold),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -249,7 +246,8 @@ class _ShopScreenState extends State<ShopScreen>
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
-                        color: canAfford ? Colors.orange[700] : Colors.red[400],
+                        color:
+                            canAfford ? Colors.orange[700] : Colors.red[400],
                       ),
                     ),
                   ],
@@ -300,20 +298,19 @@ class _ShopScreenState extends State<ShopScreen>
   String _categoryLabel(String key, AppLocalizationsProvider l10n) {
     switch (key) {
       case 'all':
-        return 'All';
+        return l10n.currentLanguage == 'sk' ? 'Všetko' : 'All';
       case 'furniture':
         return l10n.translate('furniture');
       case 'decoration':
-        return 'Decor';
+        return l10n.currentLanguage == 'sk' ? 'Dekor' : 'Decor';
       case 'doors':
-        return 'Doors';
+        return l10n.currentLanguage == 'sk' ? 'Dvere' : 'Doors';
       default:
         return key;
     }
   }
 }
 
-// Simple data class for category definitions
 class _Category {
   final String labelKey;
   final ItemType? type;
