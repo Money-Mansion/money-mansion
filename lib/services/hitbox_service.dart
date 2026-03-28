@@ -49,58 +49,79 @@ class HitboxService {
   /// Note: Flips Y coordinates to match Flame's coordinate system
   Hitbox _parseConvexShape(String id, String content) {
     final lines = content.split('\n');
-    final dataPoints = <double>[];
-
+    final polygons = <Polygon>[];
+    
+    // Parse each TYPE_HULL section separately
+    List<List<double>> hullSections = [];
+    List<double> currentHull = [];
+    
     for (final line in lines) {
       final trimmed = line.trim();
-      if (trimmed.startsWith('data:')) {
+      
+      // New hull section detected
+      if (trimmed.startsWith('shape_type:')) {
+        if (currentHull.isNotEmpty) {
+          hullSections.add(currentHull);
+          currentHull = [];
+        }
+      }
+      // Parse data points
+      else if (trimmed.startsWith('data:')) {
         final valueStr = trimmed.replaceFirst('data:', '').trim();
         if (valueStr.isNotEmpty) {
           try {
-            dataPoints.add(double.parse(valueStr));
+            currentHull.add(double.parse(valueStr));
           } catch (e) {
             print('Warning: Could not parse data value "$valueStr"');
           }
         }
       }
     }
-
-    if (dataPoints.isEmpty) {
-      print('Warning: No data points found in hitbox file');
+    
+    // Don't forget the last hull
+    if (currentHull.isNotEmpty) {
+      hullSections.add(currentHull);
+    }
+    
+    if (hullSections.isEmpty) {
+      print('Warning: No hull sections found in hitbox file for $id');
       return _createDefaultBoxHitbox(id);
     }
-
-    // Convert flat list of coordinates into polygons
-    // Every 3 values = one point (x, y, z), ignore z
-    final polygons = <Polygon>[];
-    final points = <Vector2>[];
+    
+    // Convert each hull section into a separate polygon
+    // First, find global Y bounds across all hulls
     double minY = double.infinity, maxY = double.negativeInfinity;
-
-    // First pass: collect points and find Y bounds
-    for (int i = 0; i < dataPoints.length; i += 3) {
-      if (i + 1 < dataPoints.length) {
-        final y = dataPoints[i + 1];
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
+    
+    for (final hullData in hullSections) {
+      for (int i = 0; i < hullData.length; i += 3) {
+        if (i + 1 < hullData.length) {
+          final y = hullData[i + 1];
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
       }
     }
-
-    // Second pass: create points with flipped Y coordinates
-    for (int i = 0; i < dataPoints.length; i += 3) {
-      if (i + 1 < dataPoints.length) {
-        final x = dataPoints[i];
-        final y = dataPoints[i + 1];
-        // z is at i + 2, but we ignore it for 2D collision
-        // Mirror Y around the midpoint to match Flame's coordinate system
-        final flippedY = minY + (maxY - y);
-        points.add(Vector2(x, flippedY));
+    
+    // Create a polygon for each hull
+    for (final hullData in hullSections) {
+      final points = <Vector2>[];
+      
+      for (int i = 0; i < hullData.length; i += 3) {
+        if (i + 1 < hullData.length) {
+          final x = hullData[i];
+          final y = hullData[i + 1];
+          // z is at i + 2, but we ignore it for 2D collision
+          // Mirror Y around the midpoint to match Flame's coordinate system
+          final flippedY = minY + (maxY - y);
+          points.add(Vector2(x, flippedY));
+        }
+      }
+      
+      if (points.isNotEmpty) {
+        polygons.add(Polygon(points: points));
       }
     }
-
-    if (points.isNotEmpty) {
-      polygons.add(Polygon(points: points));
-    }
-
+    
     return Hitbox(id: id, polygons: polygons);
   }
 

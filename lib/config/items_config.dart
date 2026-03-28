@@ -3,6 +3,7 @@ import 'items/doors.dart';
 import 'items/furniture.dart';
 import 'items/decorations.dart';
 import 'items/carpets.dart';
+import 'items/tables.dart';
 
 /// Centralized list of all available items in the game.
 /// 
@@ -11,6 +12,7 @@ import 'items/carpets.dart';
 /// - furniture.dart: Furniture (sofas, beds, wardrobes)
 /// - decorations.dart: Decorations (paintings, shelves, plants, etc.)
 /// - carpets.dart: Carpets and rugs
+/// - tables.dart: Tables and desks
 ///
 /// When a player purchases an item, it's added to the owned_items database table.
 /// The owned_items table is the source of truth for what the player owns.
@@ -25,5 +27,4 @@ final List<Item> GAME_ITEMS = [
   ...doorItems,
   ...furnitureItems,
   ...decorationItems,
-  ...carpetItems,
-];
+  ...carpetItems,  ...tableItems,];

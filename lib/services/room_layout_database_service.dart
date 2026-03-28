@@ -9,7 +9,7 @@ class RoomLayoutDatabaseService {
 
   static const String _tableName = 'room_layout';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 3;
+  static const int _dbVersion = 4;
 
   static Database? _database;
   static bool _initialized = false;

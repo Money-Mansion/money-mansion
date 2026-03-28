@@ -7,7 +7,7 @@ import '../config/items_config.dart';
 class ItemDatabaseService {
   static const String _ownedItemsTable = 'owned_items';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 3;
+  static const int _dbVersion = 4;
 
   static Database? _database;
   static bool _initialized = false;
@@ -88,6 +88,45 @@ class ItemDatabaseService {
           }
         }
         
+        // Migrate to v4: add room component tables
+        if (oldVersion < 4) {
+          try {
+            await db.execute('''
+              CREATE TABLE IF NOT EXISTS owned_room_components (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                type TEXT NOT NULL,
+                texture TEXT NOT NULL,
+                cost INTEGER NOT NULL
+              )
+            ''');
+            
+            await db.execute('''
+              CREATE TABLE IF NOT EXISTS room_selected_components (
+                role TEXT PRIMARY KEY,
+                selected_component_id TEXT NOT NULL,
+                FOREIGN KEY(selected_component_id) REFERENCES owned_room_components(id)
+              )
+            ''');
+            
+            // Initialize default selections
+            await db.insert(
+              'room_selected_components',
+              {'role': 'wall', 'selected_component_id': 'none'},
+              conflictAlgorithm: ConflictAlgorithm.ignore,
+            );
+            await db.insert(
+              'room_selected_components',
+              {'role': 'floor', 'selected_component_id': 'none'},
+              conflictAlgorithm: ConflictAlgorithm.ignore,
+            );
+            
+            print('✓ Room component tables created during migration');
+          } catch (e) {
+            print('Room component migration error: $e');
+          }
+        }
+        
         // Ensure goals table exists
         await _createGoalsTable(db);
       },
@@ -141,6 +180,47 @@ class ItemDatabaseService {
         )
       ''');
       print('✓ Created/verified owned_items table');
+      
+      // Create room component tables (v4 schema)
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS owned_room_components (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          type TEXT NOT NULL,
+          texture TEXT NOT NULL,
+          cost INTEGER NOT NULL
+        )
+      ''');
+      print('✓ Created/verified owned_room_components table');
+      
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS room_selected_components (
+          role TEXT PRIMARY KEY,
+          selected_component_id TEXT NOT NULL
+        )
+      ''');
+      print('✓ Created/verified room_selected_components table');
+      
+      // Initialize default selections if they don't exist
+      try {
+        await db.insert(
+          'room_selected_components',
+          {'role': 'wall', 'selected_component_id': 'none'},
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      } catch (e) {
+        // Already exists, ignore
+      }
+      
+      try {
+        await db.insert(
+          'room_selected_components',
+          {'role': 'floor', 'selected_component_id': 'none'},
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      } catch (e) {
+        // Already exists, ignore
+      }
       
       await _createGoalsTable(db);
       print('✓ Created/verified goals table');
