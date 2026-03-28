@@ -5,6 +5,7 @@ final List<Item> doorItems = [
   Item(
     id: 'dvere_biele',
     name: 'Biele Dvere',
+    nameEn: 'White Door',
     type: ItemType.door,
     texture: 'assets/images/items/dvere_biele.png',
     cost: 0,
