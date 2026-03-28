@@ -48,11 +48,10 @@ class MyFlutterApp {
   static const Widget coins = ImageWidget(iconData: IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg));
   static const Widget robot = ImageWidget(iconData: IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPkg));
   static const Widget cat = ImageWidget(assetImage: "assets/images/alien150.png");
-  static const Widget house = ImageWidget(assetImage: "assets/images/house32.png");
-  static const Widget man = ImageWidget(assetImage: "assets/images/man32.png");
-  static const Widget task = ImageWidget(assetImage: "assets/images/task32.png");
-  static const Widget stats = ImageWidget(assetImage: "assets/images/stats32.png");
-  static const Widget shop = ImageWidget(assetImage: "assets/images/shop32.png");
+  static const Widget house = ImageWidget(assetImage: "assets/images/house178.png");
+  static const Widget man = ImageWidget(assetImage: "assets/images/man178.png");
+  static const Widget task = ImageWidget(assetImage: "assets/images/task178.png");
+  static const Widget shop = ImageWidget(assetImage: "assets/images/stats178.png");
   static const Widget chrumka = ImageWidget(assetImage: "assets/images/chrumka32.png");
 }
 
