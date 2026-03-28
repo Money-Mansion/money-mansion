@@ -55,7 +55,7 @@ class _RoomViewerState extends State<RoomViewer> {
 
     if (!mounted) return;
 
-    final roomCenter = roomWorld.roomComponent.position;
+    final roomCenter = roomWorld.roomComponent?.position ?? Vector2.zero();
 
     for (final placement in placements) {
       final Item? item = widget.gameState!.ownedItems

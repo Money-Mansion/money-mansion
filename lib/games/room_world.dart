@@ -17,19 +17,20 @@ class RoomWorld extends FlameGame {
   RoomWorld({this.isEditMode = false}) : super();
 
   ItemComponent? _selectedItem;
-  late final RoomComponent room;
+  RoomComponent? room; // Nullable to allow reloading
   VoidCallback? onSelectionChanged;
 
   final Completer<void> _loadCompleter = Completer<void>();
 
   Future<void> get loaded => _loadCompleter.future;
 
-  RoomComponent get roomComponent => room;
+  RoomComponent? get roomComponent => room;
 
   void _updateCameraAndRoomPosition() {
     if (size.x == 0 || size.y == 0) return;
+    if (room == null) return;
 
-    room.position = size / 2;
+    room!.position = size / 2;
 
     const roomWidth = RoomComponent.roomWidth;
     const roomHeight = RoomComponent.roomHeight;
@@ -39,7 +40,7 @@ class RoomWorld extends FlameGame {
     final zoom = baseZoom * 0.9;
 
     camera.viewfinder.zoom = zoom;
-    camera.viewfinder.position = room.position.clone();
+    camera.viewfinder.position = room!.position.clone();
   }
 
   @override
@@ -47,7 +48,9 @@ class RoomWorld extends FlameGame {
     await super.onLoad();
 
     room = RoomComponent(game: this);
-    world.add(room);
+    if (room != null) {
+      world.add(room!);
+    }
 
     if (!_loadCompleter.isCompleted) {
       _loadCompleter.complete();
@@ -171,10 +174,11 @@ class RoomWorld extends FlameGame {
 
   /// Add an item to the room at a given world position.
   void addItemToRoom(Item item, {Vector2? position}) {
+    if (room == null) return;
     final itemComponent = ItemComponent(
       item: item,
       game: this,
-      position: position ?? room.position.clone(),
+      position: position ?? room!.position.clone(),
     );
     world.add(itemComponent);
   }
@@ -182,7 +186,8 @@ class RoomWorld extends FlameGame {
   /// Get current layout of all items in this room world.
   List<RoomItemPlacement> getCurrentLayout(String roomId) {
     final placements = <RoomItemPlacement>[];
-    final roomCenter = room.position;
+    if (room == null) return placements;
+    final roomCenter = room!.position;
 
     for (final component in world.children) {
       if (component is ItemComponent) {
@@ -217,5 +222,17 @@ class RoomWorld extends FlameGame {
       (component) => component is ItemComponent || component is RoomComponent,
     );
     _selectedItem = null;
+  }
+
+  /// Reload the room component (called when room components are changed)
+  void reloadComponents() {
+    // Remove the current room component if it exists
+    if (room != null) {
+      world.remove(room!);
+    }
+    
+    // Create a new room component which will load the latest from database
+    room = RoomComponent(game: this);
+    world.add(room!);
   }
 }

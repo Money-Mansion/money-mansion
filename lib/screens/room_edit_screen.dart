@@ -6,6 +6,7 @@ import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
 import '../widgets/room_viewer.dart';
+import '../widgets/room_components_sheet.dart';
 import '../games/room_world.dart';
 
 class RoomEditScreen extends StatefulWidget {
@@ -86,16 +87,31 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ],
             ),
           ),
-          // Bottom-left inventory button
+          // Bottom-left buttons (Room Components above Inventory)
           Positioned(
             bottom: 20,
             left: 20,
-            child: FloatingActionButton(
-              mini: true,
-              heroTag: null,
-              backgroundColor: Colors.blue.shade300,
-              onPressed: () => _showInventorySheet(context),
-              child: const Icon(Icons.inventory_2, color: Colors.white),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Room Components button
+                FloatingActionButton(
+                  mini: true,
+                  heroTag: null,
+                  backgroundColor: Colors.amber.shade300,
+                  onPressed: () => _showRoomComponentsSheet(context),
+                  child: const Icon(Icons.home_work, color: Colors.white),
+                ),
+                const SizedBox(height: 10),
+                // Inventory button
+                FloatingActionButton(
+                  mini: true,
+                  heroTag: null,
+                  backgroundColor: Colors.blue.shade300,
+                  onPressed: () => _showInventorySheet(context),
+                  child: const Icon(Icons.inventory_2, color: Colors.white),
+                ),
+              ],
             ),
           ),
           // Middle-bottom delete button (appears when item is selected)
@@ -180,6 +196,23 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   void _onMoveToBack() {
     if (roomWorld == null) return;
     roomWorld!.moveSelectedItemToBack();
+  }
+
+  void _showRoomComponentsSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => RoomComponentsSheet(
+        onComponentsChanged: () {
+          // Reload room components when user changes them
+          if (roomWorld != null) {
+            setState(() {
+              // Trigger room reload by forcing a rebuild
+              roomWorld!.reloadComponents();
+            });
+          }
+        },
+      ),
+    );
   }
 
   void _showInventorySheet(BuildContext context) {
