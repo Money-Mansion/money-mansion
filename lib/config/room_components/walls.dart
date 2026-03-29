@@ -12,6 +12,15 @@ import '../../models/room_component.dart';
 
 final List<RoomComponent> wallComponents = [
   RoomComponent(
+    id: 'wall_greenish_wallpaper',
+    name: 'Stena so zelenou tapetou',
+    nameEn: 'Greenish Wallpaper Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_greenish_wallpaper.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
     id: 'wall_basic',
     name: 'Základná stena',
     nameEn: 'Basic Wall',
