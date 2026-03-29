@@ -19,4 +19,12 @@ final List<RoomComponent> floorComponents = [
     texture: 'room/basic_floor.png',
     cost: 0, // Starting floor is free (default)
   ),
+  RoomComponent(
+    id: 'floor_wood_squares',
+    name: 'Drevené dlaždice',
+    nameEn: 'Wooden Squares',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_wood_squares.png',
+    cost: 0, // Starting floor is free (default)
+  ),
 ];

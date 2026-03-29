@@ -5,6 +5,7 @@ import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
 import '../services/room_layout_database_service.dart';
+import '../services/room_component_database_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/music_service.dart';
 import '../config/items_config.dart';
@@ -325,6 +326,7 @@ class _GameScreenState extends State<GameScreen> {
                 await FinancialDatabaseService.clearAllFinancialData();
                 await GoalDatabaseService.clearAllGoals();
                 await RoomLayoutDatabaseService.clearAllRoomLayouts();
+                await RoomComponentDatabaseService.clearAllOwnedComponents();
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);
