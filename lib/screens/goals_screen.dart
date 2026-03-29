@@ -5,6 +5,7 @@ import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/goal_database_service.dart';
+import '../services/goal_ai_service.dart';
 
 class GoalsScreen extends StatefulWidget {
   final GameState gameState;
@@ -118,10 +119,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
       });
 
       if (mounted) {
+        final l10n = context.read<AppLocalizationsProvider>();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to load goals.'),
-            duration: Duration(seconds: 3),
+          SnackBar(
+            content: Text(_tr(l10n, 'goalLoadFail')),
+            duration: const Duration(seconds: 3),
           ),
         );
       }
@@ -310,44 +312,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   maxLines: 3,
                 ),
                 const SizedBox(height: 16),
-                InputDecorator(
-                  decoration: InputDecoration(
-                    labelText: _tr(l10n, 'rewardLabel'),
-                    border: OutlineInputBorder(),
-                  ),
+                Align(
+                  alignment: Alignment.centerLeft,
                   child: Text(
-                    '${_difficultyRewards[selectedDifficulty]} coins',
+                    'Difficulty will be chosen automatically by AI.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                DropdownButtonFormField<String>(
-                  initialValue: selectedDifficulty,
-                  decoration: InputDecoration(
-                    labelText: _tr(l10n, 'difficulty'),
-                    border: OutlineInputBorder(),
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: Goal.easyDifficulty,
-                      child: Text(_difficultyLabel(l10n, Goal.easyDifficulty)),
-                    ),
-                    DropdownMenuItem(
-                      value: Goal.mediumDifficulty,
-                      child: Text(
-                        _difficultyLabel(l10n, Goal.mediumDifficulty),
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: Goal.hardDifficulty,
-                      child: Text(_difficultyLabel(l10n, Goal.hardDifficulty)),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    if (value == null) return;
-                    dialogSetState(() {
-                      selectedDifficulty = value;
-                    });
-                  },
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -405,6 +378,38 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   return;
                 }
 
+                setState(() {
+                  _isSyncing = true;
+                });
+
+                final aiResult = await GoalAiService.classifyGoal(
+                  title: _titleController.text,
+                  description: _descriptionController.text,
+                  targetMoney: double.tryParse(_targetMoneyController.text),
+                  dueDate: selectedDate,
+                  language: l10n.currentLanguage,
+                );
+
+                if (aiResult.needsMoreInfo) {
+                  setState(() {
+                    _isSyncing = false;
+                  });
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          aiResult.reason ??
+                              'Please provide more details about the goal.',
+                        ),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return;
+                }
+
+                selectedDifficulty = aiResult.difficulty ?? selectedDifficulty;
+
                 final newGoal = Goal(
                   id: const Uuid().v4(),
                   title: _titleController.text,
@@ -415,10 +420,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       double.tryParse(_targetMoneyController.text) ?? 0.0,
                   dueDate: selectedDate,
                 );
-
-                setState(() {
-                  _isSyncing = true;
-                });
 
                 final success = await GoalDatabaseService.createGoal(newGoal);
 
@@ -438,18 +439,28 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     Navigator.pop(context);
                     setState(() {});
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Goal created successfully'),
-                        duration: Duration(seconds: 2),
+                      SnackBar(
+                        content: Text(_tr(l10n, 'goalCreateSuccess')),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
+                    if (aiResult.reason != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Difficulty set to ${newGoal.difficulty}: ${aiResult.reason}',
+                          ),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    }
                   }
                 } else {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Failed to create goal'),
-                        duration: Duration(seconds: 2),
+                      SnackBar(
+                        content: Text(_tr(l10n, 'goalCreateFail')),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }
@@ -773,7 +784,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No goals yet',
+                        _tr(l10n, 'goalsEmptyTitle'),
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -782,7 +793,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Create your first goal to get started',
+                        _tr(l10n, 'goalsEmptySubtitle'),
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -797,7 +808,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Active Goals (${activeGoals.length})',
+                          '${_tr(l10n, 'goalsActive')} (${activeGoals.length})',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -811,7 +822,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
                         child: Text(
-                          'Completed Goals (${completedGoals.length})',
+                          '${_tr(l10n, 'goalsCompleted')} (${completedGoals.length})',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -892,18 +903,16 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   Checkbox(
                     value: false,
                     onChanged: (value) async {
-                      if (!canComplete) {
-                        if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                'Goal can only be completed at 100% progress.',
-                              ),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                        return;
+                          if (!canComplete) {
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(_tr(l10n, 'goalCompleteProgressError')),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                            return;
                       }
                       final success =
                           await GoalDatabaseService.completeGoal(goal.id);
