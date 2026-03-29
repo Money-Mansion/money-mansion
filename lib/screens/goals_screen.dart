@@ -4,10 +4,6 @@ import '../models/game_state.dart';
 import '../models/goal.dart';
 import '../services/goal_database_service.dart';
 import '../services/app_localizations_provider.dart';
-import '../services/goal_ai_service.dart';
-import '../services/financial_database_service.dart';
-import '../services/goal_allocation_service.dart';
-import '../models/transaction.dart';
 import 'package:uuid/uuid.dart';
 
 class GoalsScreen extends StatefulWidget {
@@ -29,6 +25,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   late TextEditingController _descriptionController;
   late TextEditingController _targetMoneyController;
   DateTime _selectedDate = DateTime.now();
+  String _selectedDifficulty = Goal.easyDifficulty;
   bool _isLoading = true;
   bool _isSyncing = false;
 
@@ -37,153 +34,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
     Goal.mediumDifficulty: 100,
     Goal.hardDifficulty: 200,
   };
-
-  Future<void> _showReassignFundsDialog() async {
-    String? fromGoalId;
-    String? toGoalId;
-    final amountController = TextEditingController();
-    final l10n = context.read<AppLocalizationsProvider>();
-
-    final sourceGoals = widget.gameState.goals
-        .where((g) => !g.isCompleted && g.allocatedMoney > 0)
-        .toList();
-
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, dialogSetState) {
-            final destinationGoals = widget.gameState.goals
-                .where((g) => !g.isCompleted && g.id != fromGoalId)
-                .toList();
-
-            return AlertDialog(
-              title: Text(l10n.translate('reassignFundsTitle')),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownButtonFormField<String>(
-                    value: fromGoalId,
-                    decoration: InputDecoration(
-                      labelText: l10n.translate('fromGoal'),
-                    ),
-                    items: sourceGoals
-                        .map(
-                          (goal) => DropdownMenuItem<String>(
-                            value: goal.id,
-                            child: Text(
-                              '${goal.title} (${_formatMoney(goal.allocatedMoney)})',
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      dialogSetState(() {
-                        fromGoalId = value;
-                        if (toGoalId == fromGoalId) {
-                          toGoalId = null;
-                        }
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  DropdownButtonFormField<String>(
-                    value: toGoalId,
-                    decoration: InputDecoration(
-                      labelText: l10n.translate('toGoal'),
-                    ),
-                    items: destinationGoals
-                        .map(
-                          (goal) => DropdownMenuItem<String>(
-                            value: goal.id,
-                            child: Text(goal.title),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) =>
-                        dialogSetState(() => toGoalId = value),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: amountController,
-                    keyboardType: TextInputType.number,
-                    decoration:
-                        InputDecoration(labelText: l10n.translate('amount')),
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(l10n.translate('cancel')),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (fromGoalId == null || toGoalId == null) return;
-                    final amount =
-                        double.tryParse(amountController.text) ?? 0;
-                    if (amount <= 0) return;
-
-                    final fromGoal = widget.gameState.goals
-                        .firstWhere((g) => g.id == fromGoalId);
-                    if (amount > fromGoal.allocatedMoney) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('amountExceedsGoalFunds')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                      return;
-                    }
-
-                    final toGoal = widget.gameState.goals
-                        .firstWhere((g) => g.id == toGoalId);
-
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: l10n.translate('reassignedToAnother'),
-                      date: DateTime.now(),
-                      goalId: fromGoalId,
-                      category: null,
-                    );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: l10n.translate('reassignedFromAnother'),
-                      date: DateTime.now(),
-                      goalId: toGoalId,
-                      category: null,
-                    );
-
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
-                    await _recalculateMoneyAndAllocations();
-
-                    if (mounted) {
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('fundsReassignedSuccess')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  },
-                  child: Text(l10n.translate('reassignMove')),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
 
   String _formatMoney(double money) {
     if (money % 1 == 0) {
@@ -234,24 +84,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.read<AppLocalizationsProvider>().translate('goalLoadFail')),
-            duration: const Duration(seconds: 3),
+          const SnackBar(
+            content: Text('Failed to load goals.'),
+            duration: Duration(seconds: 3),
           ),
         );
       }
     }
   }
 
-  Future<void> _recalculateMoneyAndAllocations() async {
-    await GoalAllocationService.recalculate(widget.gameState);
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   void _showCreateGoalDialog(AppLocalizationsProvider l10n) {
     DateTime selectedDate = _selectedDate;
+    String selectedDifficulty = _selectedDifficulty;
 
     showDialog(
       context: context,
@@ -281,26 +125,42 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   maxLines: 3,
                 ),
                 const SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.centerLeft,
+                InputDecorator(
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('reward'),
+                    border: const OutlineInputBorder(),
+                  ),
                   child: Text(
-                    '${l10n.translate('difficulty')}: ${l10n.translate('difficultyChosenByAi')}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[700],
-                    ),
+                    '${_difficultyRewards[selectedDifficulty]} ${l10n.translate('coinsLabel')}',
                   ),
                 ),
                 const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    l10n.translate('rewardAiInfo'),
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                    ),
+                DropdownButtonFormField<String>(
+                  value: selectedDifficulty,
+                  decoration: InputDecoration(
+                    labelText: l10n.translate('difficulty'),
+                    border: const OutlineInputBorder(),
                   ),
+                  items: [
+                    DropdownMenuItem(
+                      value: Goal.easyDifficulty,
+                      child: Text(l10n.translate('easy')),
+                    ),
+                    DropdownMenuItem(
+                      value: Goal.mediumDifficulty,
+                      child: Text(l10n.translate('medium')),
+                    ),
+                    DropdownMenuItem(
+                      value: Goal.hardDifficulty,
+                      child: Text(l10n.translate('hard')),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value == null) return;
+                    dialogSetState(() {
+                      selectedDifficulty = value;
+                    });
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -350,9 +210,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               child: Text(l10n.translate('cancel')),
             ),
             ElevatedButton(
-              onPressed: _isSyncing
-                  ? null
-                  : () async {
+              onPressed: () async {
                 if (_titleController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(l10n.translate('enterGoalTitle'))),
@@ -360,55 +218,20 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   return;
                 }
 
-                final parsedTarget =
-                    double.tryParse(_targetMoneyController.text.trim());
-                final targetMoney =
-                    parsedTarget != null && parsedTarget > 0 ? parsedTarget : null;
-
-                setState(() {
-                  _isSyncing = true;
-                });
-
-                final aiResult = await GoalAiService.classifyGoal(
-                  title: _titleController.text,
-                  description: _descriptionController.text,
-                  targetMoney: targetMoney,
-                  dueDate: selectedDate,
-                  language: l10n.currentLanguage,
-                );
-
-                if (!mounted) return;
-
-                if (aiResult.needsMoreInfo) {
-                  setState(() {
-                    _isSyncing = false;
-                  });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        aiResult.reason ??
-                            l10n.translate('needMoreGoalDetails'),
-                      ),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                  return;
-                }
-
-                var resolvedDifficulty = aiResult.difficulty ?? Goal.easyDifficulty;
-                if (!_difficultyRewards.containsKey(resolvedDifficulty)) {
-                  resolvedDifficulty = Goal.easyDifficulty;
-                }
-
                 final newGoal = Goal(
                   id: const Uuid().v4(),
                   title: _titleController.text,
                   description: _descriptionController.text,
-                  difficulty: resolvedDifficulty,
-                  rewardCoins: _difficultyRewards[resolvedDifficulty] ?? 50,
-                  targetMoney: targetMoney ?? 0.0,
+                  difficulty: selectedDifficulty,
+                  rewardCoins: _difficultyRewards[selectedDifficulty] ?? 50,
+                  targetMoney:
+                      double.tryParse(_targetMoneyController.text) ?? 0.0,
                   dueDate: selectedDate,
                 );
+
+                setState(() {
+                  _isSyncing = true;
+                });
 
                 final success = await GoalDatabaseService.createGoal(newGoal);
 
@@ -422,6 +245,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   _descriptionController.clear();
                   _targetMoneyController.text = '0';
                   _selectedDate = DateTime.now();
+                  _selectedDifficulty = Goal.easyDifficulty;
 
                   if (mounted) {
                     Navigator.pop(context);
@@ -432,19 +256,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         duration: const Duration(seconds: 2),
                       ),
                     );
-                    if (aiResult.reason != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            l10n
-                                .translate('aiSetDifficulty')
-                                .replaceFirst('{difficulty}', resolvedDifficulty)
-                                .replaceFirst('{reason}', aiResult.reason!),
-                          ),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
                   }
                 } else {
                   if (mounted) {
@@ -461,107 +272,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<void> _showAllocateMoneyDialog(Goal goal) async {
-    final l10n = context.read<AppLocalizationsProvider>();
-    final amountController = TextEditingController();
-
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          l10n.translate('assignMoneyToGoal').replaceFirst('{goal}', goal.title),
-        ),
-        content: TextField(
-          controller: amountController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: l10n.translate('enterAmount'),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.translate('cancel')),
-          ),
-          ElevatedButton(
-            onPressed: _isSyncing
-                ? null
-                : () async {
-                    final amount =
-                        double.tryParse(amountController.text.trim()) ?? 0.0;
-                    if (amount <= 0) return;
-
-                    if (amount > widget.gameState.money + 0.0001) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('amountExceedsBalance')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                      return;
-                    }
-
-                    if (goal.targetMoney > 0 &&
-                        amount > goal.targetMoney - goal.allocatedMoney + 0.0001) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('amountExceedsGoalTarget')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                      return;
-                    }
-
-                    setState(() => _isSyncing = true);
-
-                    final note = l10n
-                        .translate('assignMoneyToGoal')
-                        .replaceFirst('{goal}', goal.title);
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: note,
-                      date: DateTime.now(),
-                      goalId: null,
-                      category: null,
-                    );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: note,
-                      date: DateTime.now(),
-                      goalId: goal.id,
-                      category: null,
-                    );
-
-                    // Reassign funds without showing in transaction lists
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
-                    await _recalculateMoneyAndAllocations();
-
-                    if (mounted) {
-                      setState(() => _isSyncing = false);
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('moneyAssignedSuccess')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  },
-            child: Text(l10n.translate('assignMoney')),
-          ),
-        ],
       ),
     );
   }
@@ -601,12 +311,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             IconButton(
               onPressed: _loadGoalsFromBackend,
               icon: const Icon(Icons.refresh),
-              tooltip: l10n.translate('refreshGoals'),
-            ),
-          IconButton(
-            onPressed: _showReassignFundsDialog,
-            icon: const Icon(Icons.swap_horiz),
-            tooltip: l10n.translate('reassignTooltip'),
+              tooltip: 'Refresh goals',
             ),
         ],
       ),
@@ -621,9 +326,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    l10n.translate('loadingGoals'),
-                    style: const TextStyle(fontSize: 16),
+                  const Text(
+                    'Loading goals...',
+                    style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
@@ -664,7 +369,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          '${l10n.translate('goalsActive')} (${activeGoals.length})',
+                          'Active Goals (${activeGoals.length})',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -678,7 +383,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
                         child: Text(
-                          '${l10n.translate('goalsCompleted')} (${completedGoals.length})',
+                          'Completed Goals (${completedGoals.length})',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -702,7 +407,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   Widget _buildGoalCard(Goal goal) {
-    final l10n = context.read<AppLocalizationsProvider>();
     final bool hasTarget = goal.targetMoney > 0;
     final double progress =
         hasTarget ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1) : 0;
@@ -747,7 +451,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${goal.difficulty} · ${l10n.translate('goalRewardLabel').replaceFirst('{coins}', goal.rewardCoins.toString())}',
+                        '${goal.difficulty} · Reward ${goal.rewardCoins}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[500],
@@ -763,11 +467,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       if (!canComplete) {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text(
-                                l10n.translate('goalCompleteProgressError'),
+                                'Goal can only be completed at 100% progress.',
                               ),
-                              duration: const Duration(seconds: 2),
+                              duration: Duration(seconds: 2),
                             ),
                           );
                         }
@@ -784,14 +488,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         if (mounted) {
                           final completionText = goal.difficulty ==
                                   Goal.hardDifficulty
-                              ? l10n.translate('goalCompletedChrumka')
-                              : l10n
-                                  .translate('goalCompletedCoinsChrumka')
-                                  .replaceFirst(
-                                      '{coins}', goal.rewardCoins.toString());
+                              ? 'Goal completed!'
+                              : 'Goal completed! +${goal.rewardCoins} coins';
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(completionText),
+                              content: Text(
+                                'Goal completed! +${goal.rewardCoins} coins & +1 Chrumka 🐾',
+                              ),
                               duration: const Duration(seconds: 2),
                             ),
                           );
@@ -799,10 +502,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       } else {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text(l10n.translate('failedToCompleteGoal')),
-                              duration: const Duration(seconds: 2),
+                            const SnackBar(
+                              content: Text('Failed to complete goal'),
+                              duration: Duration(seconds: 2),
                             ),
                           );
                         }
@@ -820,9 +522,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             const SizedBox(height: 12),
             if (hasTarget) ...[
               Text(
-                l10n.translate('savedProgress')
-                    .replaceFirst('{saved}', _formatMoney(goal.allocatedMoney))
-                    .replaceFirst('{target}', _formatMoney(goal.targetMoney)),
+                'Saved ${_formatMoney(goal.allocatedMoney)} / ${_formatMoney(goal.targetMoney)}',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[700],
@@ -845,18 +545,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
               ),
               const SizedBox(height: 12),
             ],
-            if (!goal.isCompleted)
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton.icon(
-                  onPressed: widget.gameState.money > 0
-                      ? () => _showAllocateMoneyDialog(goal)
-                      : null,
-                  icon: const Icon(Icons.account_balance_wallet_outlined),
-                  label: Text(l10n.translate('assignMoney')),
-                ),
-              ),
-            if (!goal.isCompleted) const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -897,40 +585,27 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    if (goal.isCompleted) {
-                      return;
-                    }
                     final success =
                         await GoalDatabaseService.deleteGoal(goal.id);
 
                     if (success) {
-                      // Refund allocated money back to balance
-                      if (goal.allocatedMoney > 0) {
-                        widget.gameState.addMoney(goal.allocatedMoney);
-                      }
-                      // Remove previously awarded coins for this goal
-                      if (goal.isCompleted && goal.difficulty != Goal.hardDifficulty) {
-                        widget.gameState.spendCoins(goal.rewardCoins);
-                      }
                       widget.gameState.removeGoal(goal.id);
                       setState(() {});
 
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(l10n.translate('goalDeleted')),
-                            duration: const Duration(seconds: 2),
+                          const SnackBar(
+                            content: Text('Goal deleted'),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       }
                     } else {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              l10n.translate('failedToDeleteGoal'),
-                            ),
-                            duration: const Duration(seconds: 2),
+                          const SnackBar(
+                            content: Text('Failed to delete goal'),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       }
