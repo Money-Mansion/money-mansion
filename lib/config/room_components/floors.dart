@@ -63,4 +63,76 @@ final List<RoomComponent> floorComponents = [
     texture: 'room/floor_wood_squares.png',
     cost: 0, // Starting floor is free (default)
   ),
+
+  RoomComponent(
+    id: 'floor_bloody_marble',
+    name: 'Červenkastý mramor',
+    nameEn: 'Redish Marble',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_bloody_marble.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_magic_stones',
+    name: 'Magické kamene',
+    nameEn: 'Magic Stones',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_magic_stones.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_magic_stone_runes',
+    name: 'Magické kamene s runami',
+    nameEn: 'Magic Stones with Runes',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_magic_stone_runes.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_ruined1',
+    name: 'Zničená podlaha 1',
+    nameEn: 'Ruined Floor 1',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_ruined1.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_ruined2',
+    name: 'Zničená podlaha 2',
+    nameEn: 'Ruined Floor 2',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_ruined2.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_wood',
+    name: 'Drevená podlaha',
+    nameEn: 'Wood Floor',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_wood.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_blueNwhite_squares',
+    name: 'Modré a biele dlaždice',
+    nameEn: 'Blue and White Squares',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_blueNwhite_squares.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_cat_disco',
+    name: 'Mačacia disko',
+    nameEn: 'Cat Disco',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_cat_disco.png',
+    cost: 0,
+  ),
 ];
