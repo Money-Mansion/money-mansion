@@ -12,6 +12,42 @@ import '../../models/room_component.dart';
 
 final List<RoomComponent> floorComponents = [
   RoomComponent(
+    id: 'floor_grey_marble',
+    name: 'Sivý mramor',
+    nameEn: 'Grey Marble Floor',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_grey_marble.png',
+    cost: 0, // Example cost
+  ),
+
+  RoomComponent(
+    id: 'floor_grey_parquets',
+    name: 'Sivé parkety',
+    nameEn: 'Grey Parquet Floor',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_grey_parquets.png',
+    cost: 0, // Example cost
+  ),
+
+  RoomComponent(
+    id: 'floor_parquets',
+    name: 'Parkety',
+    nameEn: 'Parquet Floor',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_parquets.png',
+    cost: 0, // Example cost
+  ),
+
+  RoomComponent(
+    id: 'floor_aqua_hexagons',
+    name: 'Hexagonová podlaha',
+    nameEn: 'Aqua Hexagons',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_aqua_hexagons.png',
+    cost: 0, // Example cost
+  ),
+
+  RoomComponent(
     id: 'floor_basic',
     name: 'Základná podlaha',
     nameEn: 'Basic Floor',
