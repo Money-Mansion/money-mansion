@@ -3,6 +3,39 @@ import '../../models/item.dart';
 /// Furniture items - sofas, beds, cabinets, wardrobes
 final List<Item> furnitureItems = [
   Item(
+    id: 'gauc_zniceny2',
+    name: 'Zničený gauč 2',
+    nameEn: 'Ruined Sofa 2',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/gauc_zniceny2.png',
+    cost: 0,
+    hitboxId: 'gauc',
+    scale: 0.14,
+  ),
+
+  Item(
+    id: 'gauc_zniceny1',
+    name: 'Zničený gauč 1',
+    nameEn: 'Ruined Sofa 1',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/gauc_zniceny1.png',
+    cost: 0,
+    hitboxId: 'gauc',
+    scale: 0.14,
+  ),
+
+  Item(
+    id: 'postel_znicena',
+    name: 'Zničená posteľ',
+    nameEn: 'Ruined Bed',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_znicena.png',
+    cost: 0,
+    hitboxId: 'posteľ_zámok',
+    scale: 0.14,
+  ),
+
+  Item(
     id: 'polica_kniznica_cierna',
     name: 'Čierna knižnica',
     nameEn: 'Black Bookcase',
