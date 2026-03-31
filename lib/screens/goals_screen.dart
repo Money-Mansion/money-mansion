@@ -147,7 +147,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       note: l10n.translate('reassignedToAnother'),
                       date: DateTime.now(),
                       goalId: fromGoalId,
-                      category: null,
                     );
                     final creditTx = TransactionModel(
                       id: const Uuid().v4(),
@@ -156,7 +155,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       note: l10n.translate('reassignedFromAnother'),
                       date: DateTime.now(),
                       goalId: toGoalId,
-                      category: null,
                     );
 
                     await FinancialDatabaseService.insert(debitTx);
@@ -530,7 +528,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       note: note,
                       date: DateTime.now(),
                       goalId: null,
-                      category: null,
                     );
                     final creditTx = TransactionModel(
                       id: const Uuid().v4(),
@@ -539,7 +536,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       note: note,
                       date: DateTime.now(),
                       goalId: goal.id,
-                      category: null,
                     );
 
                     // Reassign funds without showing in transaction lists
