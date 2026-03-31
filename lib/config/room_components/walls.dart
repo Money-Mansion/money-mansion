@@ -12,6 +12,87 @@ import '../../models/room_component.dart';
 
 final List<RoomComponent> wallComponents = [
   RoomComponent(
+    id: 'wall_sky',
+    name: 'Stena obloha',
+    nameEn: 'Sky Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_sky.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_leafs',
+    name: 'Lístie',
+    nameEn: 'Leaf Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_leafs.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_rainbow',
+    name: 'Stena s poníkmi',
+    nameEn: 'Rainbow Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_rainbow.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_bricks',
+    name: 'Múr',
+    nameEn: 'Bricks',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_bricks.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_roald_dahl',
+    name: 'Stena Roalda Dahla',
+    nameEn: 'Roald Dahl Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_roald_dahl.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_bricks_3d',
+    name: 'Stena s tehlami',
+    nameEn: 'Bricks Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_bricks_3d.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_donuts',
+    name: 'Stena s donutmi',
+    nameEn: 'Donut Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_donuts.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_waterfall',
+    name: 'Stena s vodopádom',
+    nameEn: 'Waterfall Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_waterfall.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
+    id: 'wall_sky_animals',
+    name: 'Stena so zvieratkami na obláčikoch',
+    nameEn: 'Sky Animals Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_sky_animals.png',
+    cost: 0, // Starting wall is free (default)
+  ),
+
+  RoomComponent(
     id: 'wall_greenish_wallpaper',
     name: 'Stena so zelenou tapetou',
     nameEn: 'Greenish Wallpaper Wall',

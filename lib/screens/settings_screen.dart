@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/financial_database_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   final GameState gameState;
@@ -110,8 +111,9 @@ class SettingsScreen extends StatelessWidget {
                                 style: const TextStyle(fontSize: 16),
                               ),
                               value: gameState.isMusicEnabled(),
-                              onChanged: (value) {
+                              onChanged: (value) async {
                                 gameState.setMusicEnabled(value);
+                                await FinancialDatabaseService.saveMusicEnabled(value);
                               },
                               activeColor: Colors.orange,
                             ),
@@ -135,8 +137,9 @@ class SettingsScreen extends StatelessWidget {
                                   label: '${(gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
                                   activeColor: Colors.orange,
                                   inactiveColor: Colors.grey[300],
-                                  onChanged: (value) {
+                                  onChanged: (value) async {
                                     gameState.setMusicVolume(value);
+                                    await FinancialDatabaseService.saveMusicVolume(value);
                                   },
                                 ),
                               ],

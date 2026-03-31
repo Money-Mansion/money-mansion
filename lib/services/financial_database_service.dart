@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
-import 'dart:io' show Platform;
+import 'dart:io' show Platform, File;
 import '../models/transaction.dart';
 
 class FinancialDatabaseService {
@@ -28,7 +28,11 @@ class FinancialDatabaseService {
   // Get database instance
   static Future<Database> get database async {
     await initializeDatabase();
-    _database ??= await _initDatabase();
+    if (_database == null) {
+      _database = await _initDatabase();
+      // Ensure all tables exist after opening
+      await _ensureAllTables(_database!);
+    }
     return _database!;
   }
 
@@ -41,14 +45,9 @@ class FinancialDatabaseService {
       version: _dbVersion,
       onCreate: _onCreate,
       onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 3) {
-          await db.execute('''
-            CREATE TABLE IF NOT EXISTS $_gameStateTable (
-              key TEXT PRIMARY KEY,
-              value REAL NOT NULL
-            )
-          ''');
-        }
+        // Ensure all tables exist for any upgrade
+        await _ensureTransactionsTable(db);
+        await _ensureGameStateTable(db);
         await _ensureGoalIdColumn(db);
         await _ensureCategoryColumn(db);
       },
@@ -59,6 +58,35 @@ class FinancialDatabaseService {
         await _ensureCategoryColumn(db);
       },
     );
+  }
+
+  static Future<void> _ensureAllTables(Database db) async {
+    await _ensureTransactionsTable(db);
+    await _ensureGameStateTable(db);
+    await _ensureGoalIdColumn(db);
+    await _ensureCategoryColumn(db);
+  }
+
+  static Future<void> clearAndReinitialize() async {
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
+    
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, _dbName);
+    
+    // Delete the corrupted database file
+    final dbFile = File(path);
+    if (await dbFile.exists()) {
+      await dbFile.delete();
+      print('Deleted corrupted database file');
+    }
+    
+    // Reinitialize
+    _database = await _initDatabase();
+    await _ensureAllTables(_database!);
+    print('Database reinitialized successfully');
   }
 
   static Future<void> _onCreate(Database db, int version) async {
@@ -235,6 +263,70 @@ class FinancialDatabaseService {
     } catch (e) {
       print('Error loading chrumka: $e');
       return 0;
+    }
+  }
+
+  // ===== MUSIC ENABLED =====
+
+  static Future<void> saveMusicEnabled(bool enabled) async {
+    final db = await database;
+    await db.insert(
+      _gameStateTable,
+      {'key': 'musicEnabled', 'value': enabled ? 1.0 : 0.0},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<bool> getMusicEnabled() async {
+    final db = await database;
+    try {
+      final result = await db.query(
+        _gameStateTable,
+        where: 'key = ?',
+        whereArgs: ['musicEnabled'],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        final value = result[0]['value'];
+        if (value is num) return value != 0;
+        if (value is String) return value != '0';
+      }
+      return true; // Default to enabled
+    } catch (e) {
+      print('Error loading musicEnabled: $e');
+      return true;
+    }
+  }
+
+  // ===== MUSIC VOLUME =====
+
+  static Future<void> saveMusicVolume(double volume) async {
+    final db = await database;
+    await db.insert(
+      _gameStateTable,
+      {'key': 'musicVolume', 'value': volume},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<double> getMusicVolume() async {
+    final db = await database;
+    try {
+      final result = await db.query(
+        _gameStateTable,
+        where: 'key = ?',
+        whereArgs: ['musicVolume'],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        final value = result[0]['value'];
+        if (value is num) return value.toDouble();
+        if (value is String) return double.parse(value);
+      }
+      return 0.5; // Default volume
+    } catch (e) {
+      print('Error loading musicVolume: $e');
+      return 0.5;
     }
   }
 

@@ -38,7 +38,15 @@ void main() async {
     print('✓ RoomComponentDatabaseService defaults ensured');
     
     await FinancialDatabaseService.initializeDatabase();
-    print('✓ FinancialDatabaseService ready');
+    // Ensure database is fully initialized by accessing it once
+    try {
+      await FinancialDatabaseService.database;
+      print('✓ FinancialDatabaseService ready');
+    } catch (e) {
+      print('⚠ FinancialDatabaseService initialization error, attempting recovery: $e');
+      await FinancialDatabaseService.clearAndReinitialize();
+      print('✓ FinancialDatabaseService recovered');
+    }
     
     await GoalDatabaseService.initializeDatabase();
     print('✓ GoalDatabaseService ready');
@@ -60,6 +68,10 @@ void main() async {
     rethrow;
   }
   
+  // Load music preferences from database
+  final musicEnabled = await FinancialDatabaseService.getMusicEnabled();
+  final musicVolume = await FinancialDatabaseService.getMusicVolume();
+
   runApp(
     MultiProvider(
       providers: [
@@ -68,6 +80,8 @@ void main() async {
             coins: 111,
             money: 0.0,
             date: 7.7,
+            musicEnabled: musicEnabled,
+            musicVolume: musicVolume,
             rooms: [Room()],
           ),
         ),
