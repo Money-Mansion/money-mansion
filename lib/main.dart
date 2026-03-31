@@ -38,7 +38,15 @@ void main() async {
     print('✓ RoomComponentDatabaseService defaults ensured');
     
     await FinancialDatabaseService.initializeDatabase();
-    print('✓ FinancialDatabaseService ready');
+    // Ensure database is fully initialized by accessing it once
+    try {
+      await FinancialDatabaseService.database;
+      print('✓ FinancialDatabaseService ready');
+    } catch (e) {
+      print('⚠ FinancialDatabaseService initialization error, attempting recovery: $e');
+      await FinancialDatabaseService.clearAndReinitialize();
+      print('✓ FinancialDatabaseService recovered');
+    }
     
     await GoalDatabaseService.initializeDatabase();
     print('✓ GoalDatabaseService ready');

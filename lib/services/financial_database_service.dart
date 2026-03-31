@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
-import 'dart:io' show Platform;
+import 'dart:io' show Platform, File;
 import '../models/transaction.dart';
 
 class FinancialDatabaseService {
@@ -28,7 +28,11 @@ class FinancialDatabaseService {
   // Get database instance
   static Future<Database> get database async {
     await initializeDatabase();
-    _database ??= await _initDatabase();
+    if (_database == null) {
+      _database = await _initDatabase();
+      // Ensure all tables exist after opening
+      await _ensureAllTables(_database!);
+    }
     return _database!;
   }
 
@@ -41,14 +45,9 @@ class FinancialDatabaseService {
       version: _dbVersion,
       onCreate: _onCreate,
       onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 3) {
-          await db.execute('''
-            CREATE TABLE IF NOT EXISTS $_gameStateTable (
-              key TEXT PRIMARY KEY,
-              value REAL NOT NULL
-            )
-          ''');
-        }
+        // Ensure all tables exist for any upgrade
+        await _ensureTransactionsTable(db);
+        await _ensureGameStateTable(db);
         await _ensureGoalIdColumn(db);
         await _ensureCategoryColumn(db);
       },
@@ -59,6 +58,35 @@ class FinancialDatabaseService {
         await _ensureCategoryColumn(db);
       },
     );
+  }
+
+  static Future<void> _ensureAllTables(Database db) async {
+    await _ensureTransactionsTable(db);
+    await _ensureGameStateTable(db);
+    await _ensureGoalIdColumn(db);
+    await _ensureCategoryColumn(db);
+  }
+
+  static Future<void> clearAndReinitialize() async {
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
+    
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, _dbName);
+    
+    // Delete the corrupted database file
+    final dbFile = File(path);
+    if (await dbFile.exists()) {
+      await dbFile.delete();
+      print('Deleted corrupted database file');
+    }
+    
+    // Reinitialize
+    _database = await _initDatabase();
+    await _ensureAllTables(_database!);
+    print('Database reinitialized successfully');
   }
 
   static Future<void> _onCreate(Database db, int version) async {
