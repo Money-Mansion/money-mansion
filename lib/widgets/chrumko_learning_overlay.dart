@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/lesson_service.dart';
+import '../models/lesson.dart';
+import '../screens/lessons/lesson_category_screen.dart';
 
 /// ChrumkoLearningOverlay displays a modal overlay with Quizes and Lessons tabs.
 ///
@@ -118,20 +121,132 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
 
   /// Builds a placeholder content widget for a tab.
   Widget _buildTabContent(AppLocalizationsProvider l10n, String tabKey) {
+    if (tabKey == 'lessons') {
+      return const _LessonsTab();
+    }
+    // Placeholder for quizzes
+    return _PlaceholderTab(
+      icon: Icons.quiz_outlined,
+      title: l10n.translate(tabKey),
+      subtitle: 'Coming soon...',
+    );
+  }
+}
+
+class _LessonsTab extends StatelessWidget {
+  const _LessonsTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final categories = const LessonService().getCategories();
+
+    return Container(
+      color: Colors.white,
+      child: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: categories.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 10),
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return _LessonCategoryCard(category: category);
+        },
+      ),
+    );
+  }
+}
+
+class _LessonCategoryCard extends StatelessWidget {
+  final LessonCategory category;
+
+  const _LessonCategoryCard({required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      elevation: 1,
+      borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => LessonCategoryScreen(category: category),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3E8FF),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.menu_book_rounded,
+                    color: Color(0xFF7E57C2)),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      category.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${category.lessons.length} lekcií',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded, color: Colors.black54),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PlaceholderTab extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+
+  const _PlaceholderTab({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            tabKey == 'quizes'
-                ? Icons.quiz_outlined
-                : Icons.school_outlined,
+            icon,
             size: 48,
             color: Colors.deepPurple.withOpacity(0.5),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.translate(tabKey),
+            title,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -140,7 +255,7 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
           ),
           const SizedBox(height: 8),
           Text(
-            'Coming soon...',
+            subtitle,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[400],
