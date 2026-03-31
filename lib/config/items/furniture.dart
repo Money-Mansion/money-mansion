@@ -9,7 +9,7 @@ final List<Item> furnitureItems = [
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny2.png',
     cost: 0,
-    hitboxId: 'gauc',
+    hitboxId: 'gauc', //OPRAVIŤ
     scale: 0.14,
   ),
 
@@ -20,7 +20,7 @@ final List<Item> furnitureItems = [
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny1.png',
     cost: 0,
-    hitboxId: 'gauc',
+    hitboxId: 'gauc', //OPRAVIŤ
     scale: 0.14,
   ),
 

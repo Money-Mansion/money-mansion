@@ -29,18 +29,22 @@ class GameScreen extends StatefulWidget {
   State<GameScreen> createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   late GameState gameState;
   int selectedNavIndex = -1;
   bool _isInitialized = false;
   int _roomViewerVersion = 0;
   bool _overlayOpen = false;
+  bool _wasMusicPlayingBeforePause = false;
 
   static const bool _DEBUG_MODE = true;
 
   @override
   void initState() {
     super.initState();
+    // Register this widget as a lifecycle observer
+    WidgetsBinding.instance.addObserver(this);
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       gameState = context.read<GameState>();
       _initializeGameState();
@@ -51,9 +55,43 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void dispose() {
+    // Unregister lifecycle observer
+    WidgetsBinding.instance.removeObserver(this);
+    
     gameState.removeListener(_saveGameStateChanges);
     gameState.removeListener(_handleMusicStateChange);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('🔄 App lifecycle changed: $state');
+    
+    switch (state) {
+      case AppLifecycleState.paused:
+        // App is in background — automatically stop music
+        if (MusicService().isPlayingMusic()) {
+          _wasMusicPlayingBeforePause = true;
+          print('⏸️ App paused, stopping music');
+          MusicService().pauseMusic();
+        }
+        break;
+      case AppLifecycleState.resumed:
+        // App is back in foreground — resume music if it was playing
+        if (_wasMusicPlayingBeforePause && gameState.isMusicEnabled()) {
+          print('▶️ App resumed, resuming music');
+          MusicService().resumeMusic();
+          _wasMusicPlayingBeforePause = false;
+        }
+        break;
+      case AppLifecycleState.detached:
+        // App is closing — stop music
+        print('🛑 App detached, stopping music');
+        MusicService().stopMusic();
+        break;
+      default:
+        break;
+    }
   }
 
   void _handleMusicStateChange() {

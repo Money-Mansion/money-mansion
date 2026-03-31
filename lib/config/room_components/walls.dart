@@ -48,11 +48,11 @@ final List<RoomComponent> wallComponents = [
   ),
 
   RoomComponent(
-    id: 'wall_roald_dahl',
-    name: 'Stena Roalda Dahla',
-    nameEn: 'Roald Dahl Wall',
+    id: 'wall_salvador_dali',
+    name: 'Stena Salvadora Daliho',
+    nameEn: 'Salvador Dali Wall',
     type: RoomComponentType.wall,
-    texture: 'room/wall_roald_dahl.png',
+    texture: 'room/wall_salvador_dali.png',
     cost: 0, // Starting wall is free (default)
   ),
 
