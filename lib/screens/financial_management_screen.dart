@@ -296,20 +296,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     );
   }
 
-  static const List<String> _categories = [
-    'categoryAuto',
-    'categoryRestaurants',
-    'categoryHealth',
-    'categorySupermarket',
-    'categoryLeisure',
-    'categoryOther',
-    'categoryUnassigned',
-    'categoryPocketMoney',
-  ];
-
   void _showTransactionDialog({TransactionModel? transaction}) {
     String type = transaction?.type ?? '+';
-    String? category = transaction?.category;
     final amountController =
         TextEditingController(text: transaction?.amount.toString() ?? '');
     final noteController = TextEditingController(text: transaction?.note ?? '');
@@ -346,26 +334,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     }),
                   ),
                   const SizedBox(height: 8),
-                  DropdownButtonFormField<String?>(
-                    value: category,
-                    decoration: InputDecoration(
-                      labelText: l10n.translate('category'),
-                    ),
-                    items: [
-                      DropdownMenuItem<String?>(
-                        value: null,
-                        child: Text(l10n.translate('categoryUnassigned')),
-                      ),
-                      ..._categories.map(
-                        (cat) => DropdownMenuItem<String?>(
-                          value: cat,
-                          child: Text(l10n.translate(cat)),
-                        ),
-                      ),
-                    ],
-                    onChanged: (value) => dialogSetState(() => category = value),
-                  ),
-                  const SizedBox(height: 8),
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
@@ -400,7 +368,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       note: noteController.text,
                       date: DateTime.now(),
                       goalId: null,
-                      category: category,
                     );
 
                     // 🔥 apply new transaction
@@ -455,18 +422,18 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           TabBar(
             controller: _tabController,
             tabs: [
+              Tab(text: l10n.translate('total')),
               Tab(text: l10n.translate('income')),
               Tab(text: l10n.translate('expense')),
-              Tab(text: l10n.translate('total')),
             ],
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
+                _buildFinancialTab(l10n),
                 _buildIncomeTab(l10n),
                 _buildExpenseTab(l10n),
-                _buildFinancialTab(l10n),
               ],
             ),
           ),
@@ -489,27 +456,18 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     final incomeTransactions = _getTransactionsForMonth('+');
 
-    return Row(
+    return Column(
       children: [
+        _buildMonthSelector(l10n),
         Expanded(
-          child: Column(
-            children: [
-              _buildMonthSelector(l10n),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      ..._buildTransactionList(incomeTransactions, l10n),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                ..._buildTransactionList(incomeTransactions, l10n),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: _buildCategoryPieChart(incomeTransactions, l10n),
         ),
       ],
     );
@@ -524,27 +482,18 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     final expenseTransactions = _getTransactionsForMonth('-');
 
-    return Row(
+    return Column(
       children: [
+        _buildMonthSelector(l10n),
         Expanded(
-          child: Column(
-            children: [
-              _buildMonthSelector(l10n),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      ..._buildTransactionList(expenseTransactions, l10n),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                ..._buildTransactionList(expenseTransactions, l10n),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: _buildCategoryPieChart(expenseTransactions, l10n),
         ),
       ],
     );
@@ -553,13 +502,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   List<Widget> _buildTransactionList(List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
     return transactions.map((t) {
       final goalTitle = _goalTitle(t.goalId);
-      final categoryTitle = t.category != null ? l10n.translate(t.category!) : null;
       final subtitleParts = [_formatDate(t.date)];
       if (goalTitle != null) {
         subtitleParts.add('Goal: $goalTitle');
-      }
-      if (categoryTitle != null) {
-        subtitleParts.add('${l10n.translate('category')}: $categoryTitle');
       }
       final subtitleText = subtitleParts.join(' · ');
 
@@ -646,8 +591,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       );
     }
 
-    return Row(
+    return Column(
       children: [
+        Expanded(
+          child: _buildMonthlyLineChart(l10n),
+        ),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -667,113 +615,14 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             ),
           ),
         ),
-        Expanded(
-          child: _buildMonthlyLineChart(l10n),
-        ),
       ],
     );
   }
 
-  Widget _buildCategoryPieChart(List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
-    if (transactions.isEmpty) {
-      return Center(
-        child: Text(
-          l10n.translate('noDataForMonth'),
-          style: TextStyle(color: Colors.grey[600]),
-        ),
-      );
-    }
-
-    // Group by category
-    final Map<String, double> categoryTotals = {};
-    for (final t in transactions) {
-      final category = t.category ?? 'categoryUnassigned';
-      categoryTotals[category] = (categoryTotals[category] ?? 0) + t.amount;
-    }
-
-    // Create pie chart sections
-    final entries = categoryTotals.entries.toList();
-    final sections = entries.asMap().entries.map((entry) {
-      final index = entry.key;
-      final category = entry.value.key;
-      final amount = entry.value.value;
-      final percentage = (amount / categoryTotals.values.fold(0.0, (a, b) => a + b)) * 100;
-
-      return PieChartSectionData(
-        color: _getCategoryColor(index),
-        value: amount,
-        title: '${percentage.toStringAsFixed(1)}%',
-        radius: 60,
-        titleStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      );
-    }).toList();
-
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Expanded(
-            child: PieChart(
-              PieChartData(
-                sections: sections,
-                centerSpaceRadius: 40,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: categoryTotals.entries.toList().asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final category = entry.value.key;
-                  final amount = entry.value.value;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: _getCategoryColor(index),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            l10n.translate(category),
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatAmount(amount),
-                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildMonthlyLineChart(AppLocalizationsProvider l10n) {
-    // Get monthly data for last 12 months
-    final monthlyData = _getMonthlyData();
-    if (monthlyData.isEmpty) {
+    // Get daily data for last 6 months
+    final dailyData = _getDailyData();
+    if (dailyData.isEmpty) {
       return Center(
         child: Text(
           l10n.translate('noDataForMonth'),
@@ -783,9 +632,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     // Create line chart spots
-    final spots = monthlyData.asMap().entries.map((entry) {
-      return FlSpot(entry.key.toDouble(), entry.value);
-    }).toList();
+    final spots = <FlSpot>[];
+    for (int i = 0; i < dailyData.length; i++) {
+      spots.add(FlSpot(i.toDouble(), dailyData[i]));
+    }
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -804,13 +654,14 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   final index = value.toInt();
-                  if (index < 0 || index >= monthlyData.length) {
+                  if (index < 0 || index >= dailyData.length || index % 15 != 0) {
                     return const SizedBox.shrink();
                   }
                   final now = DateTime.now();
-                  final month = DateTime(now.year, now.month - (monthlyData.length - 1 - index), 1);
+                  final sixMonthsAgo = DateTime(now.year, now.month - 6, 1);
+                  final date = sixMonthsAgo.add(Duration(days: index));
                   return Text(
-                    '${month.month}/${month.year.toString().substring(2)}',
+                    '${date.day}.${date.month}',
                     style: const TextStyle(fontSize: 10),
                   );
                 },
@@ -834,7 +685,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           lineBarsData: [
             LineChartBarData(
               spots: spots,
-              isCurved: true,
+              isCurved: false,
               color: Colors.blue,
               barWidth: 2,
               dotData: FlDotData(show: true),
@@ -844,11 +695,33 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
               ),
             ),
           ],
-          minY: monthlyData.reduce((a, b) => a < b ? a : b) * 0.9,
-          maxY: monthlyData.reduce((a, b) => a > b ? a : b) * 1.1,
+          minY: dailyData.reduce((a, b) => a < b ? a : b) * 0.9,
+          maxY: dailyData.reduce((a, b) => a > b ? a : b) * 1.1,
         ),
       ),
     );
+  }
+
+  List<double> _getDailyData() {
+    final now = DateTime.now();
+    final sixMonthsAgo = DateTime(now.year, now.month - 6, 1);
+    
+    // Calculate days between 6 months ago and now
+    final daysDifference = now.difference(sixMonthsAgo).inDays;
+    final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
+
+    // Populate daily totals
+    for (final t in _transactions) {
+      if (t.date.isAfter(sixMonthsAgo) && t.date.isBefore(now)) {
+        final dayIndex = t.date.difference(sixMonthsAgo).inDays;
+        if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
+          final amount = t.type == '+' ? t.amount : -t.amount;
+          dailyTotals[dayIndex] += amount;
+        }
+      }
+    }
+
+    return dailyTotals;
   }
 
   List<double> _getMonthlyData() {
@@ -871,20 +744,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     return monthlyTotals;
-  }
-
-  Color _getCategoryColor(int index) {
-    final colors = [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.orange,
-      Colors.purple,
-      Colors.pink,
-      Colors.teal,
-      Colors.indigo,
-    ];
-    return colors[index % colors.length];
   }
 
   Widget _buildMonthSelector(AppLocalizationsProvider l10n) {
