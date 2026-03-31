@@ -266,6 +266,70 @@ class FinancialDatabaseService {
     }
   }
 
+  // ===== MUSIC ENABLED =====
+
+  static Future<void> saveMusicEnabled(bool enabled) async {
+    final db = await database;
+    await db.insert(
+      _gameStateTable,
+      {'key': 'musicEnabled', 'value': enabled ? 1.0 : 0.0},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<bool> getMusicEnabled() async {
+    final db = await database;
+    try {
+      final result = await db.query(
+        _gameStateTable,
+        where: 'key = ?',
+        whereArgs: ['musicEnabled'],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        final value = result[0]['value'];
+        if (value is num) return value != 0;
+        if (value is String) return value != '0';
+      }
+      return true; // Default to enabled
+    } catch (e) {
+      print('Error loading musicEnabled: $e');
+      return true;
+    }
+  }
+
+  // ===== MUSIC VOLUME =====
+
+  static Future<void> saveMusicVolume(double volume) async {
+    final db = await database;
+    await db.insert(
+      _gameStateTable,
+      {'key': 'musicVolume', 'value': volume},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<double> getMusicVolume() async {
+    final db = await database;
+    try {
+      final result = await db.query(
+        _gameStateTable,
+        where: 'key = ?',
+        whereArgs: ['musicVolume'],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        final value = result[0]['value'];
+        if (value is num) return value.toDouble();
+        if (value is String) return double.parse(value);
+      }
+      return 0.5; // Default volume
+    } catch (e) {
+      print('Error loading musicVolume: $e');
+      return 0.5;
+    }
+  }
+
   // ===== TRANSACTIONS =====
 
   static Future<List<TransactionModel>> getAll() async {
