@@ -16,6 +16,7 @@ class TutorialOverlay extends StatelessWidget {
     final step = tutorial.currentStep;
 
     if (!tutorial.isActive || step == null) return const SizedBox.shrink();
+    if (step.id == 'finish') return const SizedBox.shrink();
 
     final isForThisScreen = step.screenId == currentScreenId;
     final satisfied = tutorial.isCurrentStepSatisfied;
