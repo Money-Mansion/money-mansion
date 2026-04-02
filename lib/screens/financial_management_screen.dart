@@ -455,6 +455,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     final incomeTransactions = _getTransactionsForMonth('+');
+    final totalIncome = incomeTransactions.fold<double>(0, (sum, t) => sum + t.amount);
 
     return Column(
       children: [
@@ -464,6 +465,17 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    '${l10n.translate('total')}: ${_formatAmount(totalIncome)}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[700],
+                    ),
+                  ),
+                ),
                 ..._buildTransactionList(incomeTransactions, l10n),
               ],
             ),
@@ -481,6 +493,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     final expenseTransactions = _getTransactionsForMonth('-');
+    final totalExpense = expenseTransactions.fold<double>(0, (sum, t) => sum + t.amount);
 
     return Column(
       children: [
@@ -490,6 +503,17 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    '${l10n.translate('total')}: ${_formatAmount(totalExpense)}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[700],
+                    ),
+                  ),
+                ),
                 ..._buildTransactionList(expenseTransactions, l10n),
               ],
             ),
@@ -576,8 +600,28 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         ),
       );
 
-      // Add transactions for this month
+      // Calculate and display total for this month
       final monthTransactions = groupedByMonth[monthKey] ?? [];
+      final monthTotal = monthTransactions.fold<double>(0, (sum, t) {
+        final amount = t.type == '+' ? t.amount : -t.amount;
+        return sum + amount;
+      });
+      
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Text(
+            '${l10n.translate('total')}: ${_formatAmount(monthTotal.abs())}',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: monthTotal >= 0 ? Colors.green[600] : Colors.red[600],
+            ),
+          ),
+        ),
+      );
+
+      // Add transactions for this month
       widgets.addAll(_buildTransactionList(monthTransactions, l10n));
     }
 
