@@ -9,6 +9,8 @@ import '../services/financial_database_service.dart';
 import '../services/goal_allocation_service.dart';
 import '../services/goal_database_service.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/tutorial_provider.dart';
+import '../widgets/tutorial_target.dart';
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -78,7 +80,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   String _formatAmount(double amount) {
     final rounded = (amount * 100).round() / 100;
-    return rounded % 1 == 0 ? "${rounded.toInt()} €" : "${rounded.toStringAsFixed(2)} €";
+    return rounded % 1 == 0
+        ? "${rounded.toInt()} €"
+        : "${rounded.toStringAsFixed(2)} €";
   }
 
   String? _goalTitle(String? goalId) {
@@ -136,6 +140,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   void _addTransaction() {
+    context.read<TutorialProvider>().registerAction('add_transaction');
     _showTransactionDialog();
   }
 
@@ -337,11 +342,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: l10n.translate('amount')),
+                    decoration:
+                        InputDecoration(labelText: l10n.translate('amount')),
                   ),
                   TextField(
                     controller: noteController,
-                    decoration: InputDecoration(labelText: l10n.translate('note')),
+                    decoration:
+                        InputDecoration(labelText: l10n.translate('note')),
                   ),
                 ],
               ),
@@ -387,7 +394,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                     await _recalculateMoneyAndAllocations();
                     Navigator.pop(context);
                   },
-                  child: Text(transaction == null ? l10n.translate('add') : l10n.translate('save')),
+                  child: Text(transaction == null
+                      ? l10n.translate('add')
+                      : l10n.translate('save')),
                 ),
               ],
             );
@@ -400,7 +409,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('financial')),
@@ -439,10 +448,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: null,
-        onPressed: _addTransaction,
-        child: const Icon(Icons.add),
+      floatingActionButton: TutorialTarget(
+        id: 'add_transaction',
+        child: FloatingActionButton(
+          heroTag: null,
+          onPressed: _addTransaction,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
@@ -499,7 +511,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     );
   }
 
-  List<Widget> _buildTransactionList(List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
+  List<Widget> _buildTransactionList(
+      List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
     return transactions.map((t) {
       final goalTitle = _goalTitle(t.goalId);
       final subtitleParts = [_formatDate(t.date)];
@@ -533,7 +546,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }).toList();
   }
 
-  List<Widget> _buildTransactionListGroupedByMonth(List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
+  List<Widget> _buildTransactionListGroupedByMonth(
+      List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
     if (transactions.isEmpty) {
       return [];
     }
@@ -541,18 +555,30 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     // Group transactions by month
     final Map<String, List<TransactionModel>> groupedByMonth = {};
     for (final t in transactions) {
-      final monthKey = '${t.date.year}-${t.date.month.toString().padLeft(2, '0')}';
+      final monthKey =
+          '${t.date.year}-${t.date.month.toString().padLeft(2, '0')}';
       groupedByMonth.putIfAbsent(monthKey, () => []);
       groupedByMonth[monthKey]!.add(t);
     }
 
     // Sort months in descending order (newest first)
-    final sortedMonths = groupedByMonth.keys.toList()..sort((a, b) => b.compareTo(a));
+    final sortedMonths = groupedByMonth.keys.toList()
+      ..sort((a, b) => b.compareTo(a));
 
     // Build widgets with month headers and transaction lists
     final monthNames = [
-      'january', 'february', 'march', 'april', 'may', 'june',
-      'july', 'august', 'september', 'october', 'november', 'december'
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december'
     ];
 
     final widgets = <Widget>[];
@@ -654,7 +680,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   final index = value.toInt();
-                  if (index < 0 || index >= dailyData.length || index % 15 != 0) {
+                  if (index < 0 ||
+                      index >= dailyData.length ||
+                      index % 15 != 0) {
                     return const SizedBox.shrink();
                   }
                   final now = DateTime.now();
@@ -705,7 +733,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   List<double> _getDailyData() {
     final now = DateTime.now();
     final sixMonthsAgo = DateTime(now.year, now.month - 6, 1);
-    
+
     // Calculate days between 6 months ago and now
     final daysDifference = now.difference(sixMonthsAgo).inDays;
     final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
@@ -748,10 +776,20 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   Widget _buildMonthSelector(AppLocalizationsProvider l10n) {
     final monthNames = [
-      'january', 'february', 'march', 'april', 'may', 'june',
-      'july', 'august', 'september', 'october', 'november', 'december'
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december'
     ];
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
@@ -760,7 +798,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               setState(() {
-                _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1, 1);
+                _selectedMonth =
+                    DateTime(_selectedMonth.year, _selectedMonth.month - 1, 1);
               });
             },
           ),
@@ -775,7 +814,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             icon: const Icon(Icons.arrow_forward),
             onPressed: () {
               setState(() {
-                _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
+                _selectedMonth =
+                    DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
               });
             },
           ),
@@ -786,11 +826,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   List<TransactionModel> _getTransactionsForMonth(String type) {
     final monthStart = _selectedMonth;
-    final monthEnd = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0, 23, 59, 59);
-    
+    final monthEnd =
+        DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0, 23, 59, 59);
+
     return _transactions.where((t) {
-      return t.type == type && t.date.isAfter(monthStart) && t.date.isBefore(monthEnd);
+      return t.type == type &&
+          t.date.isAfter(monthStart) &&
+          t.date.isBefore(monthEnd);
     }).toList();
   }
-
 }

@@ -12,7 +12,7 @@ class AppLocalizations {
       'settings': 'Settings',
       'gamePreferences': 'Game preferences and options',
       'language': 'Language',
-      
+
       // Bottom navigation
       'gameTab': 'Game',
       'inventoryTab': 'Inventory',
@@ -21,16 +21,71 @@ class AppLocalizations {
       'calendarTab': 'Calendar',
       'financialTab': 'Financial',
       'settingsTab': 'Settings',
-      
+
       // Game screen
       'coins': 'Coins',
       'money': 'Money',
       'date': 'Date',
-      
+
       // Room viewer
       'room': 'Room',
       'editRoom': 'Edit Room',
-      
+
+      // Onboarding
+      'onboardingTitle': 'Welcome',
+      'onboardingSubtitle':
+          'Set up your profile so we can personalize Money Mansion for you.',
+      'onboardingNameLabel': 'Name or nickname',
+      'onboardingAgeLabel': 'Age',
+      'onboardingIncomeLabel': 'Monthly income',
+      'onboardingContinue': 'Continue',
+      'onboardingNameError': 'Please enter your name.',
+      'onboardingAgeError': 'Enter a valid age greater than 0.',
+      'onboardingIncomeError': 'Enter a monthly income of 0 or more.',
+      'onboardingExperienceLabel': 'Financial experience',
+      'onboardingGoalLabel': 'Main goal',
+      'onboardingExpensesLabel': 'Estimated monthly expenses (optional)',
+      'onboardingIncomeTypeLabel': 'Income type',
+      'experienceBeginner': 'Beginner',
+      'experienceIntermediate': 'Intermediate',
+      'goalSaving': 'Saving',
+      'goalLearning': 'Learning',
+      'goalTracking': 'Tracking spending',
+      'incomeTypeStudent': 'Student',
+      'incomeTypePartTime': 'Part-time',
+      'incomeTypeFullTime': 'Full-time',
+      'onboardingExpensesError': 'Enter monthly expenses of 0 or more.',
+
+      // Tutorial
+      'tutorialNext': 'Next',
+      'tutorialSkip': 'Skip tutorial',
+      'tutorialRestart': 'Restart tutorial',
+      'tutorialNavigateHint': 'Navigate to this screen to continue.',
+      'tutorialHomeWelcome':
+          'Welcome! This is your room. Chrumko will guide you through the app.',
+      'tutorialHomeBalance':
+          'Here you see your coins and money. Use them to improve your mansion!',
+      'tutorialFinancialNav':
+          'Open the Financial tab to see income and expenses.',
+      'tutorialFinancialAction': 'Tap + to add a transaction.',
+      'tutorialGoalsNav': 'Open Goals to set saving targets.',
+      'tutorialGoalsAction': 'Tap + to create a goal and set a target.',
+      'tutorialInventoryNav': 'Open Inventory to view items you own.',
+      'tutorialInventoryAction': 'Browse your owned items.',
+      'tutorialSettings':
+          'Settings: change language, music, and restart the tutorial anytime.',
+      'tutorialDoAction': 'Do this action to continue.',
+      'tutorialAddGoal': 'Tap + to create a goal and set a target.',
+      'tutorialCalendar': 'Open the calendar to view dates and plan.',
+      'tutorialLessons': 'Open Chrumko learning to see lessons & quizzes.',
+      'tutorialRoomEdit': 'Open room edit to customize your mansion.',
+      'tutorialFinish': 'Great job! Tutorial complete.',
+      'tutorialShopNav': 'Open the Shop to browse and buy items.',
+      'tutorialShopAction': 'Browse items and buy what you like.',
+      'tutorialCalendarAction': 'Tap the calendar to see dates.',
+      'tutorialSettingsAction': 'Open settings to adjust language and music.',
+      'tutorialBack': 'Tap back to continue.',
+
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
@@ -40,14 +95,14 @@ class AppLocalizations {
       'discardChanges': 'Discard changes',
       'gameInfo': 'Game Info',
       'moreSettingsComingSoon': 'More settings coming soon...',
-      
+
       // Music settings
       'backgroundMusic': 'Background Music',
       'enableBackgroundMusic': 'Enable Background Music',
       'disableBackgroundMusic': 'Disable Background Music',
       'musicVolume': 'Music Volume',
       'volumeControl': 'Volume Control',
-      
+
       // Common actions
       'save': 'Save',
       'cancel': 'Cancel',
@@ -56,14 +111,14 @@ class AppLocalizations {
       'add': 'Add',
       'back': 'Back',
       'ok': 'OK',
-      
+
       // Screens
       'inventory': 'Inventory',
       'shop': 'Shop',
       'goals': 'Goals',
       'calendar': 'Calendar',
       'financial': 'Financial',
-      
+
       // Financial
       'balance': 'Balance',
       'income': 'Income',
@@ -71,7 +126,7 @@ class AppLocalizations {
       'total': 'Total',
       'transactions': 'Transactions',
       'addTransaction': 'Add Transaction',
-      
+
       // Goals
       'goalName': 'Goal Name',
       'goalDescription': 'Description',
@@ -95,7 +150,8 @@ class AppLocalizations {
       'enterGoalDescription': 'Enter goal description',
       'enterGoalTitleHint': 'Enter goal title',
       'goalLoadFail': 'Failed to load goals.',
-      'rewardAiInfo': 'Reward is based on AI difficulty (Easy: 50, Medium: 100, Hard: 200).',
+      'rewardAiInfo':
+          'Reward is based on AI difficulty (Easy: 50, Medium: 100, Hard: 200).',
       'needMoreGoalDetails': 'Please provide more details about the goal.',
       'aiSetDifficulty': 'Difficulty set to {difficulty}: {reason}',
       'refreshGoals': 'Refresh goals',
@@ -103,8 +159,10 @@ class AppLocalizations {
       'goalsActive': 'Active Goals',
       'goalsCompleted': 'Completed Goals',
       'goalRewardLabel': 'Reward {coins}',
-      'goalCompleteProgressError': 'Goal can only be completed at 100% progress.',
-      'goalCompletedCoinsChrumka': 'Goal completed! +{coins} coins & +1 Chrumka',
+      'goalCompleteProgressError':
+          'Goal can only be completed at 100% progress.',
+      'goalCompletedCoinsChrumka':
+          'Goal completed! +{coins} coins & +1 Chrumka',
       'goalCompletedChrumka': 'Goal completed! +1 Chrumka',
       'failedToCompleteGoal': 'Failed to complete goal',
       'goalDeleted': 'Goal deleted',
@@ -119,7 +177,8 @@ class AppLocalizations {
       'amountExceedsGoalTarget': 'Amount exceeds goal target.',
       'moneyAssignedSuccess': 'Money assigned to goal.',
       'notEnoughBalance': 'Not enough balance to assign.',
-      'incomeGoalDisabledHelper': 'Income goes to balance. Assign it to goals later.',
+      'incomeGoalDisabledHelper':
+          'Income goes to balance. Assign it to goals later.',
       'reassignFundsTitle': 'Reassign Funds',
       'fromGoal': 'From goal',
       'toGoal': 'To goal',
@@ -128,27 +187,27 @@ class AppLocalizations {
       'reassignedToAnother': 'Reassigned to another goal',
       'reassignedFromAnother': 'Reassigned from another goal',
       'reassignTooltip': 'Reassign funds between goals',
-      
+
       // Items
       'itemName': 'Item Name',
       'itemPrice': 'Price',
       'buy': 'Buy',
       'sell': 'Sell',
       'owned': 'Owned',
-      
+
       // Calendar
       'month': 'Month',
       'year': 'Year',
       'today': 'Today',
-      
+
       // Confirmation dialogs
       'areYouSure': 'Are you sure?',
       'confirmation': 'Confirmation',
-      
+
       // Inventory
       'noItemsYet': 'No Items Yet',
       'yourItemsWillAppearHere': 'Your items will appear here',
-      
+
       // Shop
       'notEnoughCoins': 'Not enough coins!',
       'needCoinsHave': 'Need {need}, have {have}',
@@ -157,7 +216,7 @@ class AppLocalizations {
       'furniture': 'Furniture',
       'realEstate': 'Real Estate',
       'comingSoon': 'Coming soon...',
-      
+
       // Calendar months
       'january': 'January',
       'february': 'February',
@@ -171,7 +230,7 @@ class AppLocalizations {
       'october': 'October',
       'november': 'November',
       'december': 'December',
-      
+
       // Calendar weekdays
       'monday': 'Mon',
       'tuesday': 'Tue',
@@ -180,7 +239,7 @@ class AppLocalizations {
       'friday': 'Fri',
       'saturday': 'Sat',
       'sunday': 'Sun',
-      
+
       // Dialog labels
       'todayLabel': 'Today',
       'errorLoadingGoals': 'Error loading goals',
@@ -198,7 +257,7 @@ class AppLocalizations {
       'createdAt': 'Created at',
       'noTransactionsYet': 'No transactions yet. Tap + to add one!',
       'noDataForMonth': 'No data yet',
-      
+
       // Additional missing texts
       'pickDate': 'Pick Date',
       'enterGoalTitle': 'Please enter a goal title',
@@ -218,8 +277,9 @@ class AppLocalizations {
       'allocateToGoal': 'Allocate to Goal',
       'amount': 'Amount',
       'note': 'Note',
-      'completedGoalsCannotAccept': 'Completed goals cannot accept more progress.',
-      
+      'completedGoalsCannotAccept':
+          'Completed goals cannot accept more progress.',
+
       // Transaction categories
       'category': 'Category',
       'categoryAuto': 'Auto',
@@ -240,17 +300,20 @@ class AppLocalizations {
       'chrumkoTipDismiss': 'Tap to dismiss',
       'chrumkoTip0': 'I always set aside part of my money. Try it too! 💰',
       'chrumkoTip1': 'Chrumko advises: think first, then buy. 🛍️',
-      'chrumkoTip2': 'I track my expenses. That way I know where my money goes! 📊',
+      'chrumkoTip2':
+          'I track my expenses. That way I know where my money goes! 📊',
       'chrumkoTip3': 'Even small savings grow into something big over time. 📈',
       'chrumkoTip4': 'When I plan my purchases, I save more money. 📝',
       'chrumkoTip5': 'I always keep a reserve for unexpected things! 🎁',
       'chrumkoTip6': 'A budget helps me stay in control of my money! 📋',
-      'chrumkoTip7': 'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
+      'chrumkoTip7':
+          'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
       'chrumkoTip8': 'Every saved euro is a step towards my goals! 🎯',
       'chrumkoTip9': 'Thoughtful decisions make money a great helper! 🤝',
       'chrumkoTip10': 'I save up for things that are truly important to me! 🌟',
       'chrumkoTip11': 'When I save regularly, my savings grow faster! 📈',
-      'chrumkoTip12': 'Before buying, I always ask myself: do I really need this? 🛒',
+      'chrumkoTip12':
+          'Before buying, I always ask myself: do I really need this? 🛒',
       'chrumkoTip13': 'Financial discipline helps me fulfil my dreams! 💭',
       'chrumkoTip14': 'Remember: money is a tool, not a goal! 🌍',
     },
@@ -260,7 +323,7 @@ class AppLocalizations {
       'settings': 'Nastavenia',
       'gamePreferences': 'Herné preferencie a možnosti',
       'language': 'Jazyk',
-      
+
       // Bottom navigation
       'gameTab': 'Hra',
       'inventoryTab': 'Inventár',
@@ -269,16 +332,77 @@ class AppLocalizations {
       'calendarTab': 'Kalendár',
       'financialTab': 'Financie',
       'settingsTab': 'Nastavenia',
-      
+
       // Game screen
       'coins': 'Mince',
       'money': 'Peniaze',
       'date': 'Dátum',
-      
+
       // Room viewer
       'room': 'Izba',
       'editRoom': 'Upraviť izbu',
-      
+
+      // Onboarding
+      'onboardingTitle': 'Vitajte',
+      'onboardingSubtitle':
+          'Nastavte si profil, aby sme prispôsobili Money Mansion.',
+      'onboardingNameLabel': 'Meno alebo prezývka',
+      'onboardingAgeLabel': 'Vek',
+      'onboardingIncomeLabel': 'Mesačný príjem',
+      'onboardingContinue': 'Pokračovať',
+      'onboardingNameError': 'Zadajte svoje meno alebo prezývku.',
+      'onboardingAgeError': 'Zadajte platný vek väčší ako 0.',
+      'onboardingIncomeError': 'Zadajte mesačný príjem minimálne 0.',
+      'onboardingExperienceLabel': 'Finančné skúsenosti',
+      'onboardingGoalLabel': 'Hlavný cieľ',
+      'onboardingExpensesLabel': 'Odhad mesačných výdavkov (voliteľné)',
+      'onboardingIncomeTypeLabel': 'Typ príjmu',
+      'experienceBeginner': 'Začiatočník',
+      'experienceIntermediate': 'Stredne pokročilý',
+      'goalSaving': 'Sporenie',
+      'goalLearning': 'Vzdelávanie',
+      'goalTracking': 'Sledovanie výdavkov',
+      'incomeTypeStudent': 'Študent',
+      'incomeTypePartTime': 'Polovičný úväzok',
+      'incomeTypeFullTime': 'Plný úväzok',
+      'onboardingExpensesError': 'Zadajte mesačné výdavky aspoň 0.',
+
+      // Tutorial
+      'tutorialNext': 'Ďalej',
+      'tutorialSkip': 'Preskočiť návod',
+      'tutorialRestart': 'Spustiť návod znova',
+      'tutorialNavigateHint': 'Pre pokračovanie prejdi na túto obrazovku.',
+      'tutorialHomeWelcome':
+          'Vitaj! Toto je tvoja izba. Chrumko ťa prevedie aplikáciou.',
+      'tutorialHomeBalance':
+          'Tu vidíš mince a peniaze. Použi ich na vylepšenie svojho sídla.',
+      'tutorialShop': 'Obchod: kupuj nábytok a predmety na vylepšenie izby.',
+      'tutorialFinancial':
+          'Financie: sleduj príjmy a výdavky a uč sa zdravé návyky.',
+      'tutorialFinancialNav': 'Otvor kartu Financie a pozri príjmy a výdavky.',
+      'tutorialFinancialAction': 'Klepni na + a pridaj transakciu.',
+      'tutorialGoals':
+          'Ciele: vytváraj úsporné ciele a získavaj odmeny od Chrumka.',
+      'tutorialGoalsAction': 'Klepni na + a vytvor cieľ s cieľovou sumou.',
+      'tutorialInventory': 'Inventár: spravuj položky, ktoré už vlastníš.',
+      'tutorialInventoryNav': 'Otvor Inventár a pozri svoje veci.',
+      'tutorialInventoryAction': 'Prezri si svoje vlastnené položky.',
+      'tutorialSettings':
+          'Nastavenia: zmeň jazyk, hudbu a kedykoľvek reštartuj návod.',
+      'tutorialDoAction': 'Vykonaj túto akciu, aby si pokračoval.',
+      'tutorialAddTransaction':
+          'Klepni na + a pridaj transakciu, aby si sa naučil sledovať výdavky.',
+      'tutorialAddGoal': 'Klepni na + a vytvor si cieľ s cieľovou sumou.',
+      'tutorialCalendar': 'Otvorte kalendár a skontrolujte dátumy.',
+      'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy.',
+      'tutorialLessons': 'Otvorte Chrumko učenie a pozrite si lekcie a kvízy.',
+      'tutorialRoomEdit': 'Otvorte úpravu izby a prispôsobte svoje sídlo.',
+      'tutorialBack': 'Vráť sa späť pre pokračovanie.',
+      'tutorialFinish': 'Super! Návod je hotový.',
+      'tutorialShopNav': 'Otvor Obchod a prehliadaj si tovar.',
+      'tutorialShopAction': 'Prezri si a kúp položky, ktoré sa ti páčia.',
+      'tutorialSettingsAction': 'Otvor nastavenia a uprav jazyk alebo hudbu.',
+
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
@@ -288,14 +412,14 @@ class AppLocalizations {
       'discardChanges': 'Zavrhnúť zmeny',
       'gameInfo': 'Informácie o hre',
       'moreSettingsComingSoon': 'Ďalšie nastavenia čoskoro...',
-      
+
       // Music settings
       'backgroundMusic': 'Hudba na pozadí',
       'enableBackgroundMusic': 'Zapnúť hudbu na pozadí',
       'disableBackgroundMusic': 'Vypnúť hudbu na pozadí',
       'musicVolume': 'Hlasitosť hudby',
       'volumeControl': 'Ovládanie hlasitosti',
-      
+
       // Common actions
       'save': 'Uložiť',
       'cancel': 'Zrušiť',
@@ -304,14 +428,14 @@ class AppLocalizations {
       'add': 'Pridať',
       'back': 'Späť',
       'ok': 'OK',
-      
+
       // Screens
       'inventory': 'Inventár',
       'shop': 'Obchod',
       'goals': 'Ciele',
       'calendar': 'Kalendár',
       'financial': 'Financie',
-      
+
       // Financial
       'balance': 'Zostatok',
       'income': 'Príjem',
@@ -319,7 +443,7 @@ class AppLocalizations {
       'total': 'Spolu',
       'transactions': 'Transakcie',
       'addTransaction': 'Pridať transakciu',
-      
+
       // Goals
       'goalName': 'Názov cieľa',
       'goalDescription': 'Popis',
@@ -343,7 +467,8 @@ class AppLocalizations {
       'enterGoalDescription': 'Zadaj popis cieľa',
       'enterGoalTitleHint': 'Zadaj názov cieľa',
       'goalLoadFail': 'Nepodarilo sa načítať ciele.',
-      'rewardAiInfo': 'Odmena závisí od AI náročnosti (Ľahký: 50, Stredný: 100, Ťažký: 200).',
+      'rewardAiInfo':
+          'Odmena závisí od AI náročnosti (Ľahký: 50, Stredný: 100, Ťažký: 200).',
       'needMoreGoalDetails': 'Prosím, pridajte viac detailov o cieli.',
       'aiSetDifficulty': 'Náročnosť nastavená na {difficulty}: {reason}',
       'refreshGoals': 'Obnoviť ciele',
@@ -351,8 +476,10 @@ class AppLocalizations {
       'goalsActive': 'Aktívne ciele',
       'goalsCompleted': 'Dokončené ciele',
       'goalRewardLabel': 'Odmena {coins}',
-      'goalCompleteProgressError': 'Cieľ možno dokončiť len pri 100 % progrese.',
-      'goalCompletedCoinsChrumka': 'Cieľ dokončený! +{coins} mincí a +1 Chrumka',
+      'goalCompleteProgressError':
+          'Cieľ možno dokončiť len pri 100 % progrese.',
+      'goalCompletedCoinsChrumka':
+          'Cieľ dokončený! +{coins} mincí a +1 Chrumka',
       'goalCompletedChrumka': 'Cieľ dokončený! +1 Chrumka',
       'failedToCompleteGoal': 'Cieľ sa nepodarilo dokončiť',
       'goalDeleted': 'Cieľ bol odstránený',
@@ -367,7 +494,8 @@ class AppLocalizations {
       'amountExceedsGoalTarget': 'Suma presahuje cieľovú hodnotu.',
       'moneyAssignedSuccess': 'Peniaze boli priradené k cieľu.',
       'notEnoughBalance': 'Nedostatočný zostatok na priradenie.',
-      'incomeGoalDisabledHelper': 'Príjem ide do zostatku. Priraďte ho k cieľom neskôr.',
+      'incomeGoalDisabledHelper':
+          'Príjem ide do zostatku. Priraďte ho k cieľom neskôr.',
       'reassignFundsTitle': 'Presunúť prostriedky',
       'fromGoal': 'Z cieľa',
       'toGoal': 'Do cieľa',
@@ -376,27 +504,27 @@ class AppLocalizations {
       'reassignedToAnother': 'Presunuté do iného cieľa',
       'reassignedFromAnother': 'Presunuté z iného cieľa',
       'reassignTooltip': 'Presuňte peniaze medzi cieľmi',
-      
+
       // Items
       'itemName': 'Názov položky',
       'itemPrice': 'Cena',
       'buy': 'Kúpiť',
       'sell': 'Predať',
       'owned': 'Vlastní',
-      
+
       // Calendar
       'month': 'Mesiac',
       'year': 'Rok',
       'today': 'Dnes',
-      
+
       // Confirmation dialogs
       'areYouSure': 'Ste si istí?',
       'confirmation': 'Potvrdenie',
-      
+
       // Inventory
       'noItemsYet': 'Zatiaľ nie sú položky',
       'yourItemsWillAppearHere': 'Vaše položky sa objavia tu',
-      
+
       // Shop
       'notEnoughCoins': 'Nedostaatok mincí!',
       'needCoinsHave': 'Potrebujete {need}, máte {have}',
@@ -405,7 +533,7 @@ class AppLocalizations {
       'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
       'comingSoon': 'Čoskoro...',
-      
+
       // Calendar months
       'january': 'Január',
       'february': 'Február',
@@ -419,7 +547,7 @@ class AppLocalizations {
       'october': 'Október',
       'november': 'November',
       'december': 'December',
-      
+
       // Calendar weekdays
       'monday': 'Po',
       'tuesday': 'Ut',
@@ -428,7 +556,7 @@ class AppLocalizations {
       'friday': 'Pi',
       'saturday': 'So',
       'sunday': 'Ne',
-      
+
       // Dialog labels
       'todayLabel': 'Dnes',
       'errorLoadingGoals': 'Chyba pri načítaní cieľov',
@@ -443,8 +571,9 @@ class AppLocalizations {
       'amountEuro': 'Suma (€)',
       'selectType': 'Vyberte typ',
       'selectGoal': 'Vyberte cieľ (voliteľné)',
-      'createdAt': 'Vytvorené',      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
-      'noDataForMonth': 'Zatiaľ žiadne dáta',      
+      'createdAt': 'Vytvorené',
+      'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
+      'noDataForMonth': 'Zatiaľ žiadne dáta',
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
@@ -464,7 +593,8 @@ class AppLocalizations {
       'allocateToGoal': 'Prideliť k cieľu',
       'amount': 'Suma',
       'note': 'Poznámka',
-      'completedGoalsCannotAccept': 'Splnené ciele nemôžu prijímať ďalší pokrok.',
+      'completedGoalsCannotAccept':
+          'Splnené ciele nemôžu prijímať ďalší pokrok.',
 
       // Transaction categories
       'category': 'Kategória',
@@ -486,13 +616,15 @@ class AppLocalizations {
       'chrumkoTipDismiss': 'Klepni pre zavretie',
       'chrumkoTip0': 'Ja si vždy časť peňazí odložím. Skús to aj ty! 💰',
       'chrumkoTip1': 'Chrumko radí: najprv premýšľaj, až potom nakupuj! 🛍️',
-      'chrumkoTip2': 'Ja si sledujem výdavky. Vďaka tomu viem, kam moje peniaze idú! 📊',
+      'chrumkoTip2':
+          'Ja si sledujem výdavky. Vďaka tomu viem, kam moje peniaze idú! 📊',
       'chrumkoTip3': 'Keď plánujem nákupy, ušetrím viac peňazí. 📝',
       'chrumkoTip4': 'Aj malé úspory sa časom zmenia na veľké! 📈',
       'chrumkoTip5': 'Ja si vždy nechám rezervu na nečakané veci! 🎁',
       'chrumkoTip6': 'Nemusím kúpiť všetko hneď. Niekedy sa oplatí počkať! ⏳',
       'chrumkoTip7': 'Každé ušetrené euro je krok k mojim cieľom! 🎯',
-      'chrumkoTip8': 'Premyslené rozhodnutia robia z peňazí dobrého pomocníka! 🤝',
+      'chrumkoTip8':
+          'Premyslené rozhodnutia robia z peňazí dobrého pomocníka! 🤝',
       'chrumkoTip9': 'Rozpočet mi pomáha mať peniaze pod kontrolou! 🔍',
       'chrumkoTip10': 'Ja šetrím na veci, ktoré sú pre mňa naozaj dôležité! 🌟',
       'chrumkoTip11': 'Keď šetrím pravidelne, moje úspory rastú rýchlejšie! 📈',

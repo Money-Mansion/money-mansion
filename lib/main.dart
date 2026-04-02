@@ -9,15 +9,18 @@ import 'services/goal_database_service.dart';
 import 'services/room_component_database_service.dart';
 import 'services/app_localizations_provider.dart';
 import 'services/music_service.dart';
+import 'services/onboarding_service.dart';
+import 'services/tutorial_provider.dart';
 import 'models/game_state.dart';
 import 'models/room.dart';
+import 'screens/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   print('=== App Starting ===');
   print('→ Platform: ${Platform.operatingSystem}');
-  
+
   // Initialize FFI for desktop platforms
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     print('→ Desktop platform detected, initializing FFI...');
@@ -27,30 +30,31 @@ void main() async {
   } else {
     print('ℹ Mobile platform detected');
   }
-  
+
   // Initialize all database services
   print('→ Initializing database services...');
   try {
     await ItemDatabaseService.initializeDatabase();
     print('✓ ItemDatabaseService ready');
-    
+
     await RoomComponentDatabaseService.ensureDefaultComponentsOwned();
     print('✓ RoomComponentDatabaseService defaults ensured');
-    
+
     await FinancialDatabaseService.initializeDatabase();
     // Ensure database is fully initialized by accessing it once
     try {
       await FinancialDatabaseService.database;
       print('✓ FinancialDatabaseService ready');
     } catch (e) {
-      print('⚠ FinancialDatabaseService initialization error, attempting recovery: $e');
+      print(
+          '⚠ FinancialDatabaseService initialization error, attempting recovery: $e');
       await FinancialDatabaseService.clearAndReinitialize();
       print('✓ FinancialDatabaseService recovered');
     }
-    
+
     await GoalDatabaseService.initializeDatabase();
     print('✓ GoalDatabaseService ready');
-    
+
     // Initialize music service
     final musicService = MusicService();
     // Default list of available music tracks (no "assets/" prefix - AssetSource adds it)
@@ -61,16 +65,17 @@ void main() async {
       'music/track4.mp3',
     ]);
     print('✓ MusicService ready');
-    
+
     print('=== App ready to launch ===');
   } catch (e) {
     print('ERROR during initialization: $e');
     rethrow;
   }
-  
+
   // Load music preferences from database
   final musicEnabled = await FinancialDatabaseService.getMusicEnabled();
   final musicVolume = await FinancialDatabaseService.getMusicVolume();
+  final isFirstLaunch = await OnboardingService.isFirstLaunch();
 
   runApp(
     MultiProvider(
@@ -86,14 +91,17 @@ void main() async {
           ),
         ),
         ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
+        ChangeNotifierProvider(create: (_) => TutorialProvider()),
       ],
-      child: const MoneyMansionApp(),
+      child: MoneyMansionApp(isFirstLaunch: isFirstLaunch),
     ),
   );
 }
 
 class MoneyMansionApp extends StatelessWidget {
-  const MoneyMansionApp({super.key});
+  final bool isFirstLaunch;
+
+  const MoneyMansionApp({super.key, required this.isFirstLaunch});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +115,7 @@ class MoneyMansionApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
       ),
-      home: const GameScreen(),
+      home: isFirstLaunch ? const OnboardingScreen() : const GameScreen(),
     );
   }
 }

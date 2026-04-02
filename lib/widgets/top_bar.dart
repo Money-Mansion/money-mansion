@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../my_flutter_app_icons.dart';
 import '../screens/settings_screen.dart';
+import '../services/tutorial_provider.dart';
+import 'tutorial_target.dart';
 
 class TopBar extends StatelessWidget {
   final GameState gameState;
@@ -28,7 +31,7 @@ class TopBar extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xFFE8D4F0),
             borderRadius:
-            const BorderRadius.vertical(bottom: Radius.circular(30)),
+                const BorderRadius.vertical(bottom: Radius.circular(30)),
             border: Border.all(
               color: const Color(0xFFB8A8D8),
               width: 3,
@@ -38,24 +41,31 @@ class TopBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Settings icon
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SettingsScreen(gameState: gameState),
+              TutorialTarget(
+                id: 'open_settings',
+                child: GestureDetector(
+                  onTap: () {
+                    context
+                        .read<TutorialProvider>()
+                        .registerAction('open_settings');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsScreen(gameState: gameState),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.grey[700] ?? Colors.grey,
+                        BlendMode.srcATop,
+                      ),
+                      child: MyFlutterApp.settings,
                     ),
-                  );
-                },
-                child: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      Colors.grey[700] ?? Colors.grey,
-                      BlendMode.srcATop,
-                    ),
-                    child: MyFlutterApp.settings,
                   ),
                 ),
               ),

@@ -4,6 +4,8 @@ import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
+import '../services/tutorial_provider.dart';
+import '../widgets/tutorial_target.dart';
 
 class InventoryScreen extends StatefulWidget {
   final GameState gameState;
@@ -40,13 +42,19 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('inventory')),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: widget.onBack,
+        leading: TutorialTarget(
+          id: 'nav_back',
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              context.read<TutorialProvider>().registerAction('go_back');
+              widget.onBack();
+            },
+          ),
         ),
       ),
       body: widget.gameState.ownedItems.isEmpty
@@ -148,7 +156,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: isPlaced ? Colors.grey[400] : Colors.blue[100],
                     borderRadius: BorderRadius.circular(8),
@@ -169,7 +178,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
             Positioned.fill(
               child: Center(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(8),
