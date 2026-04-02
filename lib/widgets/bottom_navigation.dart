@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../my_flutter_app_icons.dart';
+import 'tutorial_target.dart';
 
 class BottomNavigation extends StatelessWidget {
   final int selectedIndex;
@@ -34,6 +35,7 @@ class BottomNavigation extends StatelessWidget {
               color: const Color(0xFFE89BAC), // Soft pink
               isSelected: selectedIndex == 0,
               onTap: () => onItemTapped(0),
+              tutorialId: 'nav_shop',
             ),
             _NavButton(
               key: const Key('nav_button_1'),
@@ -41,6 +43,7 @@ class BottomNavigation extends StatelessWidget {
               color: const Color(0xFFB8D98E), // Soft green
               isSelected: selectedIndex == 1,
               onTap: () => onItemTapped(1),
+              tutorialId: 'nav_financial',
             ),
             _NavButton(
               key: const Key('nav_button_2'),
@@ -48,6 +51,7 @@ class BottomNavigation extends StatelessWidget {
               color: const Color.fromARGB(255, 157, 204, 224), // Blue
               isSelected: selectedIndex == 2,
               onTap: () => onItemTapped(2),
+              tutorialId: 'nav_goals',
             ),
             _NavButton(
               key: const Key('nav_button_3'),
@@ -55,6 +59,7 @@ class BottomNavigation extends StatelessWidget {
               color: const Color.fromARGB(255, 239, 187, 199), // Soft pink
               isSelected: selectedIndex == 3,
               onTap: () => onItemTapped(3),
+              tutorialId: 'nav_inventory',
             ),
           ],
         ),
@@ -68,6 +73,7 @@ class _NavButton extends StatelessWidget {
   final Color color;
   final bool isSelected;
   final VoidCallback onTap;
+  final String tutorialId;
 
   const _NavButton({
     super.key,
@@ -75,37 +81,43 @@ class _NavButton extends StatelessWidget {
     required this.color,
     required this.isSelected,
     required this.onTap,
+    required this.tutorialId,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 56,
-        height: 56,
-        decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.25) : Colors.white.withOpacity(0.5),
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: color,
-            width: 3,
+    return TutorialTarget(
+      id: tutorialId,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: isSelected
+                ? color.withOpacity(0.25)
+                : Colors.white.withOpacity(0.5),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: color,
+              width: 3,
+            ),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: color.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                    ),
+                  ]
+                : [],
           ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: color.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              : [],
-        ),
-        child: Center(
-          child: SizedBox(
-            width: 32,
-            height: 32,
-            child: icon,
+          child: Center(
+            child: SizedBox(
+              width: 32,
+              height: 32,
+              child: icon,
+            ),
           ),
         ),
       ),

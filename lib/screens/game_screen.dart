@@ -8,12 +8,16 @@ import '../services/room_layout_database_service.dart';
 import '../services/room_component_database_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/music_service.dart';
+import '../services/tutorial_provider.dart';
+import '../services/onboarding_service.dart';
 import '../config/items_config.dart';
 import '../widgets/top_bar.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/bottom_navigation.dart';
 import '../widgets/chrumko_guide.dart';
 import '../widgets/chrumko_learning_overlay.dart';
+import '../widgets/tutorial_overlay.dart';
+import '../widgets/tutorial_target.dart';
 import 'shop_screen.dart';
 import 'goals_screen.dart';
 import 'inventory_screen.dart';
@@ -101,27 +105,29 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     } else if (!gameState.isMusicEnabled() && MusicService().isPlayingMusic()) {
       MusicService().stopMusic();
     }
-    
+
     // Update volume whenever settings change
     MusicService().setVolume(gameState.getMusicVolume());
   }
 
   Future<void> _initializeGameState() async {
-    final coins = _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
+    final coins =
+        _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
-    final chrumka = await FinancialDatabaseService.getChrumka(); // ← load chrumka
+    final chrumka =
+        await FinancialDatabaseService.getChrumka(); // ← load chrumka
 
     if (mounted) {
       gameState.setCoins(coins);
       gameState.setMoney(money);
       gameState.setChrumka(chrumka); // ← restore chrumka
-      
+
       // Set music volume
       await MusicService().setVolume(gameState.getMusicVolume());
-      
+
       // Small delay to ensure assets are loaded
       await Future.delayed(const Duration(milliseconds: 500));
-      
+
       // Start background music if enabled
       if (gameState.isMusicEnabled()) {
         print('🎵 Attempting to start background music...');
@@ -161,6 +167,43 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     setState(() {
       selectedNavIndex = index;
     });
+    final tutorial = context.read<TutorialProvider>();
+    switch (index) {
+      case 0:
+        tutorial.registerAction('open_shop');
+        break;
+      case 1:
+        tutorial.registerAction('open_financial');
+        break;
+      case 2:
+        tutorial.registerAction('open_goals');
+        break;
+      case 3:
+        tutorial.registerAction('open_inventory');
+        break;
+      case 4:
+        tutorial.registerAction('open_settings');
+        break;
+      default:
+        break;
+    }
+  }
+
+  String _currentScreenId() {
+    switch (selectedNavIndex) {
+      case 0:
+        return 'shop';
+      case 1:
+        return 'financial';
+      case 2:
+        return 'goals';
+      case 3:
+        return 'inventory';
+      case 4:
+        return 'settings';
+      default:
+        return 'home';
+    }
   }
 
   Widget _getCurrentScreen(AppLocalizationsProvider localizationsProvider) {
@@ -198,11 +241,13 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
             language: localizationsProvider.currentLanguage,
             gameState: gameState,
             onEditPressed: () {
+              context.read<TutorialProvider>().registerAction('open_room_edit');
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => RoomEditScreen(
-                    room: gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
+                    room:
+                        gameState.rooms.isNotEmpty ? gameState.rooms[0] : null,
                     gameState: gameState,
                   ),
                 ),
@@ -221,6 +266,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final localizationsProvider = context.watch<AppLocalizationsProvider>();
+    final tutorialProvider = context.watch<TutorialProvider>();
 
     if (!_isInitialized) {
       return const Scaffold(
@@ -252,73 +298,89 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 100.0, 0, 0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              CalendarScreen(date: gameState.date),
+                  child: TutorialTarget(
+                    id: 'open_calendar',
+                    child: GestureDetector(
+                      onTap: () {
+                        context
+                            .read<TutorialProvider>()
+                            .registerAction('open_calendar');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                CalendarScreen(date: gameState.date),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.circular(6),
                         ),
-                      );
-                    },
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFE74C3C),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4),
-                                topRight: Radius.circular(4),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFE74C3C),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4),
+                                  topRight: Radius.circular(4),
+                                ),
+                              ),
+                              child: Center(
+                                child: Builder(
+                                  builder: (context) {
+                                    final now = DateTime.now();
+                                    final monthNames = [
+                                      'JAN',
+                                      'FEB',
+                                      'MAR',
+                                      'APR',
+                                      'MAY',
+                                      'JUN',
+                                      'JUL',
+                                      'AUG',
+                                      'SEP',
+                                      'OCT',
+                                      'NOV',
+                                      'DEC'
+                                    ];
+                                    return Text(
+                                      monthNames[now.month - 1],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            child: Center(
-                              child: Builder(
-                                builder: (context) {
-                                  final now = DateTime.now();
-                                  final monthNames = [
-                                    'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-                                    'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-                                  ];
-                                  return Text(
-                                    monthNames[now.month - 1],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  );
-                                },
+                            Expanded(
+                              child: Center(
+                                child: Builder(
+                                  builder: (context) {
+                                    return Text(
+                                      DateTime.now().day.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Builder(
-                                builder: (context) {
-                                  return Text(
-                                    DateTime.now().day.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -332,14 +394,22 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 alignment: Alignment.topRight,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 100.0, 0, 0),
-                  child: ChrumkoGuide(
-                    language: localizationsProvider.currentLanguage,
-                    autoShowTips: true,
-                    onClicked: () {
-                      setState(() {
-                        _overlayOpen = !_overlayOpen;
-                      });
-                    },
+                  child: TutorialTarget(
+                    id: 'open_lessons',
+                    child: ChrumkoGuide(
+                      language: localizationsProvider.currentLanguage,
+                      autoShowTips: true,
+                      onClicked: () {
+                        setState(() {
+                          _overlayOpen = !_overlayOpen;
+                        });
+                        if (_overlayOpen) {
+                          context
+                              .read<TutorialProvider>()
+                              .registerAction('open_lessons');
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -353,6 +423,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 });
               },
             ),
+          TutorialOverlay(currentScreenId: _currentScreenId()),
         ],
       ),
       floatingActionButton: _DEBUG_MODE
@@ -365,6 +436,8 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 await GoalDatabaseService.clearAllGoals();
                 await RoomLayoutDatabaseService.clearAllRoomLayouts();
                 await RoomComponentDatabaseService.clearAllOwnedComponents();
+                await tutorialProvider.restartTutorial();
+                await OnboardingService.resetOnboarding();
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);

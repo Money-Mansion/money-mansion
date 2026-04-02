@@ -5,6 +5,7 @@ import '../models/item.dart';
 import '../models/game_state.dart';
 import '../games/room_world.dart';
 import '../services/room_layout_database_service.dart';
+import 'tutorial_target.dart';
 
 class RoomViewer extends StatefulWidget {
   final Room? room;
@@ -58,9 +59,7 @@ class _RoomViewerState extends State<RoomViewer> {
     final roomCenter = roomWorld.roomComponent?.position ?? Vector2.zero();
 
     for (final placement in placements) {
-      final Item? item = widget.gameState!.ownedItems
-          .cast<Item?>()
-          .firstWhere(
+      final Item? item = widget.gameState!.ownedItems.cast<Item?>().firstWhere(
             (i) => i?.id == placement.itemId,
             orElse: () => null,
           );
@@ -112,12 +111,15 @@ class _RoomViewerState extends State<RoomViewer> {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton(
-                mini: true,
-                heroTag: null,
-                backgroundColor: Colors.purple.shade300,
-                onPressed: widget.onEditPressed,
-                child: const Icon(Icons.edit, color: Colors.white),
+              child: TutorialTarget(
+                id: 'open_room_edit',
+                child: FloatingActionButton(
+                  mini: true,
+                  heroTag: null,
+                  backgroundColor: Colors.purple.shade300,
+                  onPressed: widget.onEditPressed,
+                  child: const Icon(Icons.edit, color: Colors.white),
+                ),
               ),
             ),
           ),
