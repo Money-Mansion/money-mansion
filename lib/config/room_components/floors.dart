@@ -135,4 +135,85 @@ final List<RoomComponent> floorComponents = [
     texture: 'room/floor_cat_disco.png',
     cost: 0,
   ),
+
+  RoomComponent(
+    id: 'floor_blackNwhite_squares',
+    name: 'Čierno-biele dlaždice',
+    nameEn: 'Black and White Squares',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_blackNwhite_squares.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_crossing_parquets',
+    name: 'Prekrížené parkety',
+    nameEn: 'Crossed Parquets',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_crossing_parquets.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_crossing_parquets_dark',
+    name: 'Prekrížené parkety - tmavé',
+    nameEn: 'Crossed Parquets Dark',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_crossing_parquets_dark.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_grey_hexagons',
+    name: 'Sivé hexagóny',
+    nameEn: 'Grey Hexagons',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_grey_hexagons.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_magic_stones2',
+    name: 'Magické kamene 2',
+    nameEn: 'Magic Stones 2',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_magic_stones2.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_wood2',
+    name: 'Drevená podlaha 2',
+    nameEn: 'Wood Floor 2',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_wood2.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_wood3',
+    name: 'Drevená podlaha 3',
+    nameEn: 'Wood Floor 3',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_wood3.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_zigzag_parquets',
+    name: 'Cikcak parkety',
+    nameEn: 'Zigzag Parquets',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_zigzag_parquets.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'floor_zigzag_parquets_lightbrown',
+    name: 'Cikcak parkety - svetlohneď',
+    nameEn: 'Zigzag Parquets Light Brown',
+    type: RoomComponentType.floor,
+    texture: 'room/floor_zigzag_parquets_lightbrown.png',
+    cost: 0,
+  ),
 ];

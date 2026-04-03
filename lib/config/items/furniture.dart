@@ -32,7 +32,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_znicena.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.14,
+    scale: 0.13,
   ),
 
   Item(
@@ -103,7 +103,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_zámok.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.16,
   ),
   Item(
     id: 'gauc_zeleny',
@@ -173,7 +173,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_základná.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.14,
   ),
   Item(
     id: 'posteľ_dievčenská',
@@ -183,7 +183,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_dievčenská.png',
     cost: 300,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.16,
   ),
   Item(
     id: 'skriňa_šatník',

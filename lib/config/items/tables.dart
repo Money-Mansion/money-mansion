@@ -20,7 +20,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_aura.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.09,
   ),
   Item(
     id: 'stol_cyberpunk',
