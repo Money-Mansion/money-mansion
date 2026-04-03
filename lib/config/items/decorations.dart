@@ -71,7 +71,7 @@ final List<Item> decorationItems = [
     texture: 'assets/images/items/psik_maly.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.07,
+    scale: 0.055,
   ),
   Item(
     id: 'psik_velky',
