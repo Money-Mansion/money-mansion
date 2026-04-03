@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 
@@ -12,12 +13,12 @@ class TutorialTargetRegistry {
 
   void setTarget(String id, Rect rect) {
     _targets[id] = rect;
-    version.value++;
+    Future.microtask(() => version.value++);
   }
 
   void removeTarget(String id) {
     _targets.remove(id);
-    version.value++;
+    Future.microtask(() => version.value++);
   }
 
   Rect? getTarget(String id) => _targets[id];

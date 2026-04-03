@@ -9,7 +9,7 @@ final List<Item> furnitureItems = [
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny2.png',
     cost: 0,
-    hitboxId: 'gauc', //OPRAVIŤ
+    hitboxId: null, //OPRAVIŤ
     scale: 0.14,
   ),
 
@@ -20,7 +20,7 @@ final List<Item> furnitureItems = [
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny1.png',
     cost: 0,
-    hitboxId: 'gauc', //OPRAVIŤ
+    hitboxId: null, //OPRAVIŤ
     scale: 0.14,
   ),
 
@@ -31,8 +31,8 @@ final List<Item> furnitureItems = [
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_znicena.png',
     cost: 0,
-    hitboxId: 'posteľ_zámok',
-    scale: 0.14,
+    hitboxId: null,
+    scale: 0.13,
   ),
 
   Item(
@@ -103,7 +103,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_zámok.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.16,
   ),
   Item(
     id: 'gauc_zeleny',
@@ -173,7 +173,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_základná.png',
     cost: 0,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.14,
   ),
   Item(
     id: 'posteľ_dievčenská',
@@ -183,7 +183,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_dievčenská.png',
     cost: 300,
     hitboxId: null,
-    scale: 0.17,
+    scale: 0.16,
   ),
   Item(
     id: 'skriňa_šatník',
@@ -194,5 +194,170 @@ final List<Item> furnitureItems = [
     cost: 175,
     hitboxId: null,
     scale: 0.2,
+  ),
+
+  Item(
+    id: 'police_mile',
+    name: 'Milé poličky',
+    nameEn: 'Cute Shelf',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/police_mile.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.09,
+  ),
+
+  Item(
+    id: 'skrina_rohove_boxy',
+    name: 'Rohová skriňa - boxy',
+    nameEn: 'Corner Cabinet - Boxes',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/skrina_rohove_boxy.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.15,
+  ),
+
+  Item(
+    id: 'skrina_rohove_policky',
+    name: 'Rohové poličky',
+    nameEn: 'Corner Cabinet - Shelves',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/skrina_rohove_policky.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.12,
+  ),
+
+  Item(
+    id: 'skrina_rohove_policky_macko',
+    name: 'Rohová skriňa - poličky s mackom',
+    nameEn: 'Corner Cabinet - Shelves with Cat',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/skrina_rohove_policky_macko.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.15,
+  ),
+
+  Item(
+    id: 'postel_chlapcenska1',
+    name: 'Chlapčenská posteľ 1',
+    nameEn: 'Boys Bed 1',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_chlapcenska1.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_chlapcenska2',
+    name: 'Chlapčenská posteľ 2',
+    nameEn: 'Boys Bed 2',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_chlapcenska2.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_dieta',
+    name: 'Detská posteľ',
+    nameEn: 'Child Bed',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_dieta.png',
+    cost: 0,
+    hitboxId: 'postel_obluky',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_jemna',
+    name: 'Jemná posteľ',
+    nameEn: 'Gentle Bed',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_jemna.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_ponik1',
+    name: 'Poníková posteľ 1',
+    nameEn: 'Pony Bed 1',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_ponik1.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_ponik2',
+    name: 'Poníková posteľ 2',
+    nameEn: 'Pony Bed 2',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_ponik2.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_ponik3',
+    name: 'Poníková posteľ 3',
+    nameEn: 'Pony Bed 3',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_ponik3.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_ponik4',
+    name: 'Poníková posteľ 4',
+    nameEn: 'Pony Bed 4',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_ponik4.png',
+    cost: 0,
+    hitboxId: 'postel_obluky',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_portal',
+    name: 'Portálová posteľ',
+    nameEn: 'Portal Bed',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_portal.png',
+    cost: 0,
+    hitboxId: null,
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_velka_modra',
+    name: 'Veľká modrá posteľ',
+    nameEn: 'Big Blue Bed',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_velka_modra.png',
+    cost: 0,
+    hitboxId: 'postel_velka_opierka',
+    scale: 0.16,
+  ),
+
+  Item(
+    id: 'postel_zamok_tmava',
+    name: 'Zamok - tmavá',
+    nameEn: 'Castle - Dark',
+    type: ItemType.furniture,
+    texture: 'assets/images/items/postel_zamok_tmava.png',
+    cost: 0,
+    hitboxId: 'posteľ_zámok',
+    scale: 0.16,
   ),
 ];
