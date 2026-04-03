@@ -117,4 +117,94 @@ final List<RoomComponent> wallComponents = [
     texture: 'room/wall_triangles.png',
     cost: 0, // Starting wall is free (default)
   ),
+
+  RoomComponent(
+    id: 'wall_ancient',
+    name: 'Starobylá stena',
+    nameEn: 'Ancient Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_ancient.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_city',
+    name: 'Stena mesto',
+    nameEn: 'City Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_city.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_eep',
+    name: 'Spiaca stena',
+    nameEn: 'Eep Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_eep.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_gaming',
+    name: 'gamer stena',
+    nameEn: 'Gaming Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_gaming.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_kawai_adventure',
+    name: 'Zlaté dobrodružstvo',
+    nameEn: 'Kawaii Adventure Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_kawai_adventure.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_pacman',
+    name: 'Pacman stena',
+    nameEn: 'Pacman Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_pacman.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_rhombus',
+    name: 'Stena z kosoštvorcov',
+    nameEn: 'Rhombus Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_rhombus.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_shapes',
+    name: 'Stena s geometrickými tvarmi',
+    nameEn: 'Shapes Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_shapes.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_strips',
+    name: 'Stena s prúžkami',
+    nameEn: 'Strips Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_strips.png',
+    cost: 0,
+  ),
+
+  RoomComponent(
+    id: 'wall_vibes',
+    name: 'Vibes stena',
+    nameEn: 'Vibes Wall',
+    type: RoomComponentType.wall,
+    texture: 'room/wall_vibes.png',
+    cost: 0,
+  ),
 ];
