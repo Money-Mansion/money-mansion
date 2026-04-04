@@ -29,22 +29,31 @@ class CameraControlComponent extends PositionComponent with DragCallbacks {
     size = gameSize;
   }
 
-  /// Handle single-finger drag for camera panning
+  /// Handle single-finger drag for camera panning or moving selected item
+  @override
+  void onDragStart(DragStartEvent event) {
+    print('🎥📍 CameraControl.onDragStart()');
+    super.onDragStart(event);
+  }
+
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
 
-    // Only pan camera if:
-    // 1. In edit mode
-    // 2. No item is selected
-    final editMode = game.isEditMode;
-    final selectedItem = game.getSelectedItem();
-    
-    if (!editMode || selectedItem != null) {
+    if (!game.isEditMode) {
       return;
     }
 
-    game.panCamera(event.localDelta);
+    final selectedItem = game.getSelectedItem();
+    if (selectedItem != null) {
+      // Route drag to selected item
+      print('🎥📍 CameraControl.onDragUpdate - moving selected item by ${event.localDelta}');
+      selectedItem.position.add(event.localDelta);
+    } else {
+      // Pan camera
+      print('🎥📍 CameraControl.onDragUpdate - panning camera by ${event.localDelta}');
+      game.panCamera(event.localDelta);
+    }
   }
 
   /// Allow all drags (hit detection is handled by priority)
@@ -53,11 +62,5 @@ class CameraControlComponent extends PositionComponent with DragCallbacks {
     final result = size != Vector2.zero();
     print('🎥 CameraControl.containsLocalPoint -> size=${size}, result=$result');
     return result;
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    print('🎥📍 CameraControl.onDragStart()');
-    super.onDragStart(event);
   }
 }

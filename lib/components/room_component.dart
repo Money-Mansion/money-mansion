@@ -76,13 +76,19 @@ class RoomComponent extends PositionComponent with TapCallbacks {
   void onTapDown(TapDownEvent event) {
     print('🏠🔴 RoomComponent.onTapDown - editMode=${game.isEditMode}');
     if (!game.isEditMode) return;
+    // Don't clear selection here - wait for onTap to ensure it's not a drag
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    print('🏠✓ RoomComponent.onTapUp - editMode=${game.isEditMode}');
+    if (!game.isEditMode) return;
     
     // Check if the tap is on the currently selected item
     // If it is, don't clear (the item was just selected by ItemComponent)
     final selectedItem = game.getSelectedItem();
     if (selectedItem != null) {
       // Convert tap position to world coordinates
-      // event.localPosition is in world space (Flame's local position for hit events is world-space)
       final tapPos = event.localPosition;
       final itemPos = selectedItem.position;
       final itemSize = selectedItem.size;
@@ -92,13 +98,13 @@ class RoomComponent extends PositionComponent with TapCallbacks {
           tapPos.x <= itemPos.x + itemSize.x / 2 &&
           tapPos.y >= itemPos.y - itemSize.y / 2 &&
           tapPos.y <= itemPos.y + itemSize.y / 2) {
-        print('🏠🔴   -> TAP ON SELECTED ITEM, not clearing');
+        print('🏠✓   -> TAP ON SELECTED ITEM, not clearing');
         return;
       }
     }
     
     // Tap is not on selected item (or no item selected), clear selection
-    print('🏠🔴   -> CLEARING selection');
+    print('🏠✓   -> CLEARING selection');
     game.clearSelection();
   }
 }

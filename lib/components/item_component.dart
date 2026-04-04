@@ -9,7 +9,7 @@ import '../services/hitbox_service.dart';
 
 /// ItemComponent represents an item placed in the room
 /// It displays the item's texture sprite at a specified position with polygon-based collision
-class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
+class ItemComponent extends SpriteComponent with TapCallbacks {
   final Item item;
   final RoomWorld game;
   bool isSelected = false;
@@ -146,46 +146,22 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
     if (!game.isEditMode) {
       return;
     }
-    print('📦🔴   -> SELECTING item ${item.id}');
+    // Don't select here - wait for onTap to determine if it's a tap or drag
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    print('📦✓ ItemComponent(${item.id}).onTapUp - editMode=${game.isEditMode}');
+    if (!game.isEditMode) {
+      return;
+    }
+    print('📦✓   -> SELECTING item ${item.id}');
     game.selectItem(this);
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-    print('📦📍 ItemComponent(${item.id}).onDragStart - editMode=${game.isEditMode}, isSelected=$isSelected');
-    if (!game.isEditMode) {
-      return;
-    }
-    if (!isSelected) {
-      print('📦📍   -> SELECTING item ${item.id}');
-      game.selectItem(this);
-    }
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    print('📦📍 ItemComponent(${item.id}).onDragUpdate delta=${event.localDelta}');
-    if (!game.isEditMode) {
-      return;
-    }
-    print('📦📍   -> MOVING item by ${event.localDelta}');
-    position.add(event.localDelta);
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
   }
 
   /// Toggle horizontal flip (mirror) of the item and its hitbox
   void toggleFlip() {
     isFlipped = !isFlipped;
     // Flipping is handled in render() and containsLocalPoint() methods
-  }
-
-  @override
-  void onDragCancel(DragCancelEvent event) {
-    super.onDragCancel(event);
   }
 }
