@@ -13,88 +13,88 @@ import '../../models/room_component.dart';
 final List<RoomComponent> floorComponents = [
   RoomComponent(
     id: 'floor_grey_marble',
-    name: 'Sivý mramor',
-    nameEn: 'Grey Marble Floor',
+    name: 'sivý mramor',
+    nameEn: 'grey marble floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_grey_marble.png',
-    cost: 0, // Example cost
+    cost: 70, // Example cost
   ),
 
   RoomComponent(
     id: 'floor_grey_parquets',
-    name: 'Sivé parkety',
-    nameEn: 'Grey Parquet Floor',
+    name: 'prekrížené svetlo-sivé parkety',
+    nameEn: 'crossed light grey parquets',
     type: RoomComponentType.floor,
     texture: 'room/floor_grey_parquets.png',
-    cost: 0, // Example cost
+    cost: 70, // Example cost
   ),
 
   RoomComponent(
     id: 'floor_parquets',
-    name: 'Parkety',
-    nameEn: 'Parquet Floor',
+    name: 'dubové drevo parkety',
+    nameEn: 'oak wood parquet floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_parquets.png',
-    cost: 0, // Example cost
+    cost: 70, // Example cost
   ),
 
   RoomComponent(
     id: 'floor_aqua_hexagons',
-    name: 'Hexagonová podlaha',
-    nameEn: 'Aqua Hexagons',
+    name: 'modrá hexagonová podlaha',
+    nameEn: 'aqua hexagon floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_aqua_hexagons.png',
-    cost: 0, // Example cost
+    cost: 70, // Example cost
   ),
 
   RoomComponent(
     id: 'floor_basic',
-    name: 'Základná podlaha',
-    nameEn: 'Basic Floor',
+    name: 'klasická podlaha',
+    nameEn: 'basic Floor',
     type: RoomComponentType.floor,
     texture: 'room/basic_floor.png',
-    cost: 0, // Starting floor is free (default)
+    cost: 70, // Starting floor is free (default)
   ),
   RoomComponent(
     id: 'floor_wood_squares',
-    name: 'Drevené dlaždice',
-    nameEn: 'Wooden Squares',
+    name: 'drevené dlaždice',
+    nameEn: 'wooden Squares',
     type: RoomComponentType.floor,
     texture: 'room/floor_wood_squares.png',
-    cost: 0, // Starting floor is free (default)
+    cost: 70, // Starting floor is free (default)
   ),
 
   RoomComponent(
     id: 'floor_bloody_marble',
-    name: 'Červenkastý mramor',
-    nameEn: 'Redish Marble',
+    name: 'červený mramor',
+    nameEn: 'red marble',
     type: RoomComponentType.floor,
     texture: 'room/floor_bloody_marble.png',
-    cost: 0,
+    cost: 80,
   ),
 
   RoomComponent(
     id: 'floor_magic_stones',
-    name: 'Magické kamene',
-    nameEn: 'Magic Stones',
+    name: 'magické kamene',
+    nameEn: 'magic stones',
     type: RoomComponentType.floor,
     texture: 'room/floor_magic_stones.png',
-    cost: 0,
+    cost: 100,
   ),
 
   RoomComponent(
     id: 'floor_magic_stone_runes',
-    name: 'Magické kamene s runami',
-    nameEn: 'Magic Stones with Runes',
+    name: 'magické kamene s runami',
+    nameEn: 'magic stones with runes',
     type: RoomComponentType.floor,
     texture: 'room/floor_magic_stone_runes.png',
-    cost: 0,
+    cost: 120,
   ),
 
   RoomComponent(
     id: 'floor_ruined1',
-    name: 'Zničená podlaha 1',
-    nameEn: 'Ruined Floor 1',
+    name: 'zničená podlaha 1',
+    nameEn: 'ruined Floor 1',
     type: RoomComponentType.floor,
     texture: 'room/floor_ruined1.png',
     cost: 0,
@@ -102,8 +102,8 @@ final List<RoomComponent> floorComponents = [
 
   RoomComponent(
     id: 'floor_ruined2',
-    name: 'Zničená podlaha 2',
-    nameEn: 'Ruined Floor 2',
+    name: 'zničená podlaha 2',
+    nameEn: 'ruined Floor 2',
     type: RoomComponentType.floor,
     texture: 'room/floor_ruined2.png',
     cost: 0,
@@ -111,109 +111,109 @@ final List<RoomComponent> floorComponents = [
 
   RoomComponent(
     id: 'floor_wood',
-    name: 'Drevená podlaha',
-    nameEn: 'Wood Floor',
+    name: 'drevená podlaha orechové drevo',
+    nameEn: 'wood floor walnut wood',
     type: RoomComponentType.floor,
     texture: 'room/floor_wood.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_blueNwhite_squares',
-    name: 'Modré a biele dlaždice',
-    nameEn: 'Blue and White Squares',
+    name: 'modré a biele dlaždice',
+    nameEn: 'blue and white squares',
     type: RoomComponentType.floor,
     texture: 'room/floor_blueNwhite_squares.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_cat_disco',
-    name: 'Mačacia disko',
-    nameEn: 'Cat Disco',
+    name: 'mačacie dlaždice',
+    nameEn: 'cat squares',
     type: RoomComponentType.floor,
     texture: 'room/floor_cat_disco.png',
-    cost: 0,
+    cost: 80,
   ),
 
   RoomComponent(
     id: 'floor_blackNwhite_squares',
-    name: 'Čierno-biele dlaždice',
-    nameEn: 'Black and White Squares',
+    name: 'čierno-biele dlaždice',
+    nameEn: 'black and white squares',
     type: RoomComponentType.floor,
     texture: 'room/floor_blackNwhite_squares.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_crossing_parquets',
-    name: 'Prekrížené parkety',
-    nameEn: 'Crossed Parquets',
+    name: 'prekrížené sivé parkety',
+    nameEn: 'crossed grey parquets',
     type: RoomComponentType.floor,
     texture: 'room/floor_crossing_parquets.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_crossing_parquets_dark',
-    name: 'Prekrížené parkety - tmavé',
-    nameEn: 'Crossed Parquets Dark',
+    name: 'prekrížené tmavo-sivé parkety',
+    nameEn: 'crossed dark grey parquets',
     type: RoomComponentType.floor,
     texture: 'room/floor_crossing_parquets_dark.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_grey_hexagons',
-    name: 'Sivé hexagóny',
-    nameEn: 'Grey Hexagons',
+    name: 'sivá hexagonová podlaha',
+    nameEn: 'grey hexagon floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_grey_hexagons.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_magic_stones2',
-    name: 'Magické kamene 2',
-    nameEn: 'Magic Stones 2',
+    name: 'magické kamene 2',
+    nameEn: 'magic stones 2',
     type: RoomComponentType.floor,
     texture: 'room/floor_magic_stones2.png',
-    cost: 0,
+    cost: 100,
   ),
 
   RoomComponent(
     id: 'floor_wood2',
-    name: 'Drevená podlaha 2',
-    nameEn: 'Wood Floor 2',
+    name: 'drevená podlaha čerešňové drevo',
+    nameEn: 'wood floor cherry wood',
     type: RoomComponentType.floor,
     texture: 'room/floor_wood2.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_wood3',
-    name: 'Drevená podlaha 3',
-    nameEn: 'Wood Floor 3',
+    name: 'drevená podlaha dubové drevo',
+    nameEn: 'wood floor oak wood',
     type: RoomComponentType.floor,
     texture: 'room/floor_wood3.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_zigzag_parquets',
-    name: 'Cikcak parkety',
-    nameEn: 'Zigzag Parquets',
+    name: 'orechové drevo parkety',
+    nameEn: 'walnut wood parquet floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_zigzag_parquets.png',
-    cost: 0,
+    cost: 70,
   ),
 
   RoomComponent(
     id: 'floor_zigzag_parquets_lightbrown',
-    name: 'Cikcak parkety - svetlohneď',
-    nameEn: 'Zigzag Parquets Light Brown',
+    name: 'javorové drevo parkety',
+    nameEn: 'maple wood parquet floor',
     type: RoomComponentType.floor,
     texture: 'room/floor_zigzag_parquets_lightbrown.png',
-    cost: 0,
+    cost: 70,
   ),
 ];

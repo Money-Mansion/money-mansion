@@ -46,9 +46,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // Register this widget as a lifecycle observer
     WidgetsBinding.instance.addObserver(this);
-    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       gameState = context.read<GameState>();
       _initializeGameState();
@@ -59,9 +57,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    // Unregister lifecycle observer
     WidgetsBinding.instance.removeObserver(this);
-    
     gameState.removeListener(_saveGameStateChanges);
     gameState.removeListener(_handleMusicStateChange);
     super.dispose();
@@ -70,10 +66,8 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('🔄 App lifecycle changed: $state');
-    
     switch (state) {
       case AppLifecycleState.paused:
-        // App is in background — automatically stop music
         if (MusicService().isPlayingMusic()) {
           _wasMusicPlayingBeforePause = true;
           print('⏸️ App paused, stopping music');
@@ -81,7 +75,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
         }
         break;
       case AppLifecycleState.resumed:
-        // App is back in foreground — resume music if it was playing
         if (_wasMusicPlayingBeforePause && gameState.isMusicEnabled()) {
           print('▶️ App resumed, resuming music');
           MusicService().resumeMusic();
@@ -89,7 +82,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
         }
         break;
       case AppLifecycleState.detached:
-        // App is closing — stop music
         print('🛑 App detached, stopping music');
         MusicService().stopMusic();
         break;
@@ -99,14 +91,11 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   }
 
   void _handleMusicStateChange() {
-    // Handle music enabled/disabled toggle from settings
     if (gameState.isMusicEnabled() && !MusicService().isPlayingMusic()) {
       MusicService().startMusic();
     } else if (!gameState.isMusicEnabled() && MusicService().isPlayingMusic()) {
       MusicService().stopMusic();
     }
-
-    // Update volume whenever settings change
     MusicService().setVolume(gameState.getMusicVolume());
   }
 
@@ -114,30 +103,23 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     final coins =
         _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
-    final chrumka =
-        await FinancialDatabaseService.getChrumka(); // ← load chrumka
+    final chrumka = await FinancialDatabaseService.getChrumka();
 
     if (mounted) {
       gameState.setCoins(coins);
       gameState.setMoney(money);
-      gameState.setChrumka(chrumka); // ← restore chrumka
+      gameState.setChrumka(chrumka);
 
-      // Set music volume
       await MusicService().setVolume(gameState.getMusicVolume());
-
-      // Small delay to ensure assets are loaded
       await Future.delayed(const Duration(milliseconds: 500));
 
-      // Start background music if enabled
       if (gameState.isMusicEnabled()) {
         print('🎵 Attempting to start background music...');
         await MusicService().startMusic();
       }
     }
 
-    // Sync owned items with latest config values (useful for development)
     await ItemDatabaseService.syncOwnedItemsWithConfig(GAME_ITEMS);
-
     await _loadOwnedItems();
 
     if (mounted) {
@@ -148,10 +130,9 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   }
 
   void _saveGameStateChanges() {
-    // Auto-save coins, money and chrumka whenever GameState notifies
     FinancialDatabaseService.saveCoins(gameState.coins);
     FinancialDatabaseService.saveMoney(gameState.money);
-    FinancialDatabaseService.saveChrumka(gameState.chrumka); // ← save chrumka
+    FinancialDatabaseService.saveChrumka(gameState.chrumka);
   }
 
   Future<void> _loadOwnedItems() async {
@@ -252,7 +233,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                   ),
                 ),
               ).then((_) {
-                // Force RoomViewer (and its RoomWorld) to rebuild and reload layout
                 setState(() {
                   _roomViewerVersion++;
                 });
@@ -261,6 +241,75 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
           ),
         );
     }
+  }
+
+  /// Calendar icon styled to match the app's purple aesthetic
+  Widget _buildCalendarIcon() {
+    final now = DateTime.now();
+    final monthNames = [
+      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+
+    return Container(
+      width: 56,
+      height: 56,
+      decoration: BoxDecoration(
+        color: const Color(0xFFE8D4F0), // matches TopBar background
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: const Color(0xFFB8A8D8), // app purple border
+          width: 2.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFB8A8D8).withOpacity(0.35),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Month header — purple pill
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            decoration: const BoxDecoration(
+              color: Color(0xFFB8A8D8),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(13),
+                topRight: Radius.circular(13),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                monthNames[now.month - 1],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+          ),
+          // Day number
+          Expanded(
+            child: Center(
+              child: Text(
+                now.day.toString(),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6B5B8C), // app purple text
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -275,7 +324,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     }
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 240, 227, 241),
+      backgroundColor: Colors.white,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -291,7 +340,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
               ],
             ),
           ),
-          // Calendar button — only on default game screen
+          // Calendar icon — only on default game screen
           if (selectedNavIndex == -1)
             SafeArea(
               child: Align(
@@ -313,75 +362,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                           ),
                         );
                       },
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black, width: 2),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFE74C3C),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4),
-                                  topRight: Radius.circular(4),
-                                ),
-                              ),
-                              child: Center(
-                                child: Builder(
-                                  builder: (context) {
-                                    final now = DateTime.now();
-                                    final monthNames = [
-                                      'JAN',
-                                      'FEB',
-                                      'MAR',
-                                      'APR',
-                                      'MAY',
-                                      'JUN',
-                                      'JUL',
-                                      'AUG',
-                                      'SEP',
-                                      'OCT',
-                                      'NOV',
-                                      'DEC'
-                                    ];
-                                    return Text(
-                                      monthNames[now.month - 1],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Center(
-                                child: Builder(
-                                  builder: (context) {
-                                    return Text(
-                                      DateTime.now().day.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: _buildCalendarIcon(),
                     ),
                   ),
                 ),
@@ -414,7 +395,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 ),
               ),
             ),
-          // Chrumko learning overlay — only on default game screen when open
+          // Chrumko learning overlay
           if (selectedNavIndex == -1 && _overlayOpen)
             ChrumkoLearningOverlay(
               onClose: () {

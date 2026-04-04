@@ -10,6 +10,12 @@ import '../widgets/room_components_sheet.dart';
 import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
 
+// App colour constants
+const _purple      = Color(0xFF6B5B8C);
+const _purpleLight = Color(0xFFB8A8D8);
+const _purpleBg    = Color(0xFFE8D4F0);
+const _cream       = Color(0xFFFFFBF5);
+
 class RoomEditScreen extends StatefulWidget {
   final Room? room;
   final GameState? gameState;
@@ -38,22 +44,23 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final language = context.watch<AppLocalizationsProvider>().currentLanguage;
+    final l10n = context.watch<AppLocalizationsProvider>();
+    final language = l10n.currentLanguage;
+    final sk = language == 'sk';
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Flame canvas filling the screen
+          // ── Flame canvas ──────────────────────────────────────────────────
           RoomViewer(
             room: widget.room,
             language: language,
             gameState: widget.gameState,
-            onEditPressed: null, // Disable edit button in edit mode
+            onEditPressed: null,
             onRoomWorldReady: (RoomWorld world) {
               setState(() {
                 roomWorld = world;
-                // Set up callback for selection changes
                 roomWorld!.onSelectionChanged = () {
                   setState(() {
                     _hasSelectedItem = roomWorld!.getSelectedItem() != null;
@@ -86,29 +93,26 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               child: const Icon(Icons.close, color: Colors.white),
             ),
           ),
-          // Bottom-left buttons (Room Components above Inventory)
+
+          // ── Bottom-left: room components + inventory ──────────────────────
           Positioned(
-            bottom: 20,
-            left: 20,
+            bottom: 24,
+            left: 16,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Room Components button
-                FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.amber.shade300,
-                  onPressed: () => _showRoomComponentsSheet(context),
-                  child: const Icon(Icons.home_work, color: Colors.white),
+                _BottomFab(
+                  icon: Icons.home_work_rounded,
+                  color: Colors.amber.shade400,
+                  tooltip: sk ? 'Komponenty izby' : 'Room components',
+                  onTap: () => _showRoomComponentsSheet(context),
                 ),
                 const SizedBox(height: 10),
-                // Inventory button
-                FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.blue.shade300,
-                  onPressed: () => _showInventorySheet(context),
-                  child: const Icon(Icons.inventory_2, color: Colors.white),
+                _BottomFab(
+                  icon: Icons.inventory_2_rounded,
+                  color: _purpleLight,
+                  tooltip: sk ? 'Inventár' : 'Inventory',
+                  onTap: () => _showInventorySheet(context, l10n),
                 ),
               ],
             ),
@@ -170,42 +174,26 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     );
   }
 
+  // ── Actions ───────────────────────────────────────────────────────────────
+
   Future<void> _onConfirmPressed() async {
     if (roomWorld == null) {
-      if (mounted) {
-        Navigator.pop(context);
-      }
+      if (mounted) Navigator.pop(context);
       return;
     }
-
     final placements = roomWorld!.getCurrentLayout(
       RoomLayoutDatabaseService.defaultRoomId,
     );
-
     await RoomLayoutDatabaseService.saveRoomLayout(
       RoomLayoutDatabaseService.defaultRoomId,
       placements,
     );
-
-    if (mounted) {
-      Navigator.pop(context);
-    }
+    if (mounted) Navigator.pop(context);
   }
 
-  void _onDeleteSelectedItem() {
-    if (roomWorld == null) return;
-    roomWorld!.removeSelectedItem();
-  }
-
-  void _onMoveToFront() {
-    if (roomWorld == null) return;
-    roomWorld!.moveSelectedItemToFront();
-  }
-
-  void _onMoveToBack() {
-    if (roomWorld == null) return;
-    roomWorld!.moveSelectedItemToBack();
-  }
+  void _onDeleteSelectedItem() => roomWorld?.removeSelectedItem();
+  void _onMoveToFront() => roomWorld?.moveSelectedItemToFront();
+  void _onMoveToBack() => roomWorld?.moveSelectedItemToBack();
 
   void _onFlipItem() {
     if (roomWorld == null) return;
@@ -215,91 +203,146 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   void _showRoomComponentsSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) => RoomComponentsSheet(
         onComponentsChanged: () {
-          // Reload room components when user changes them
           if (roomWorld != null) {
-            setState(() {
-              // Trigger room reload by forcing a rebuild
-              roomWorld!.reloadComponents();
-            });
+            setState(() => roomWorld!.reloadComponents());
           }
         },
       ),
     );
   }
 
-  void _showInventorySheet(BuildContext context) {
+  // ── Inventory draggable sheet ─────────────────────────────────────────────
+
+  void _showInventorySheet(
+      BuildContext context, AppLocalizationsProvider l10n) {
     final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
+    final sk = l10n.currentLanguage == 'sk';
+    final items = widget.gameState?.ownedItems ?? [];
+    final screenH = MediaQuery.of(context).size.height;
 
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.33,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: Column(
-          children: [
-            // Header with title and close button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Inventory',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+      isScrollControlled: true,        // lets us control height freely
+      backgroundColor: Colors.transparent,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,         // ~60% of screen — room still visible
+        minChildSize: 0.18,             // pull down → almost hidden
+        maxChildSize: 0.82,             // pull up → nearly full screen
+        snap: true,
+        snapSizes: const [0.18, 0.42, 0.82],
+        builder: (context, scrollController) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: _cream,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 16,
+                  offset: Offset(0, -4),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // ── Drag handle ──────────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 4),
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: _purpleLight,
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
+                ),
+
+                // ── Header ───────────────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.inventory_2_rounded,
+                          color: _purple, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        sk ? 'Inventár' : 'Inventory',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: _purple,
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.close_rounded,
+                            color: _purple),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            // Inventory items grid
-            Expanded(
-              child: widget.gameState?.ownedItems.isEmpty ?? true
-                  ? Center(
-                      child: Text(
-                        'No items yet',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
+                ),
+
+                const Divider(color: _purpleLight, height: 1),
+
+                // ── Grid or empty state ───────────────────────────────────
+                Expanded(
+                  child: items.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.inventory_2_outlined,
+                                  size: 48,
+                                  color: _purpleLight),
+                              const SizedBox(height: 12),
+                              Text(
+                                sk
+                                    ? 'Zatiaľ žiadne predmety'
+                                    : 'No items yet',
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey[500]),
+                              ),
+                            ],
+                          ),
+                        )
+                      : GridView.builder(
+                          controller: scrollController,
+                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            childAspectRatio: 0.78,
+                          ),
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            final isPlaced =
+                                placedItemIds.contains(item.id);
+                            return _buildItemCard(
+                                context, item, isPlaced, l10n);
+                          },
                         ),
-                      ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemCount: widget.gameState?.ownedItems.length ?? 0,
-                        itemBuilder: (context, index) {
-                          final item = widget.gameState!.ownedItems[index];
-                          final isPlaced = placedItemIds.contains(item.id);
-                          return _buildItemCard(context, item, isPlaced);
-                        },
-                      ),
-                    ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildItemCard(BuildContext context, Item item, bool isPlaced) {
+  Widget _buildItemCard(BuildContext context, Item item, bool isPlaced,
+      AppLocalizationsProvider l10n) {
+    final sk = l10n.currentLanguage == 'sk';
+
     return GestureDetector(
       onTap: isPlaced
           ? null
@@ -309,93 +352,233 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                 Navigator.pop(context);
               }
             },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isPlaced ? Colors.grey[200] : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isPlaced ? Colors.grey.shade300 : _purpleLight,
+            width: 1.5,
+          ),
+          boxShadow: isPlaced
+              ? []
+              : [
+                  BoxShadow(
+                    color: _purpleLight.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
         ),
-        color: isPlaced ? Colors.grey[300] : Colors.white,
         child: Stack(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Image
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(6.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
                     child: Opacity(
-                      opacity: isPlaced ? 0.5 : 1.0,
+                      opacity: isPlaced ? 0.45 : 1.0,
                       child: item.texture.isNotEmpty
-                          ? Image.asset(
-                              item.texture,
-                              fit: BoxFit.contain,
-                            )
-                          : Icon(
-                              Icons.image_not_supported,
-                              size: 32,
-                              color: Colors.grey[400],
-                            ),
+                          ? Image.asset(item.texture, fit: BoxFit.contain)
+                          : Icon(Icons.image_not_supported,
+                              size: 28, color: Colors.grey[400]),
                     ),
                   ),
                 ),
-                const SizedBox(height: 6),
+                // Name
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 2),
                   child: Text(
-                    item.name,
+                    item.localizedName(l10n.currentLanguage),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 9,
                       fontWeight: FontWeight.bold,
-                      color: isPlaced ? Colors.grey[600] : Colors.black,
+                      color: isPlaced ? Colors.grey[500] : _purple,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(height: 2),
+                // Type chip
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: isPlaced ? Colors.grey[400] : Colors.blue[100],
-                      borderRadius: BorderRadius.circular(8),
+                      color: isPlaced
+                          ? Colors.grey[300]
+                          : _purpleBg,
+                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
                       item.type.toDisplayString(),
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 10,
-                        color: isPlaced ? Colors.grey[700] : Colors.blue[900],
+                        fontSize: 8,
+                        color: isPlaced ? Colors.grey[600] : _purple,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 4),
               ],
             ),
+            // "Placed" overlay
             if (isPlaced)
               Positioned.fill(
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      'Placed',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: _purple.withOpacity(0.85),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        sk ? 'Umiestnené' : 'Placed',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Small helper widgets ────────────────────────────────────────────────────
+
+class _TopButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  const _TopButton({
+    required this.icon,
+    required this.color,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.4),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Icon(icon, color: Colors.white, size: 20),
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomFab extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  const _BottomFab({
+    required this.icon,
+    required this.color,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.4),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Icon(icon, color: Colors.white, size: 22),
+        ),
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  const _ActionButton({
+    required this.icon,
+    required this.color,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.35),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Icon(icon, color: Colors.white, size: 20),
         ),
       ),
     );
