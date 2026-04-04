@@ -383,6 +383,7 @@ class AppLocalizations {
       'tutorialFinancialAction': 'Klepni na + a pridaj transakciu.',
       'tutorialGoals':
           'Ciele: vytváraj úsporné ciele a získavaj odmeny od Chrumka.',
+      'tutorialGoalsNav': 'Otvor kartu Ciele a nastav si úsporné ciele.',
       'tutorialGoalsAction': 'Klepni na + a vytvor cieľ s cieľovou sumou.',
       'tutorialInventory': 'Inventár: spravuj položky, ktoré už vlastníš.',
       'tutorialInventoryNav': 'Otvor Inventár a pozri svoje veci.',
