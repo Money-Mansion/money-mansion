@@ -147,7 +147,7 @@ class RoomWorld extends FlameGame {
     }
   }
 
-  /// Move the currently selected item forward in the layer stack (on top of others)
+  /// Move the currently selected item up by one layer (gradually)
   void moveSelectedItemToFront() {
     if (_selectedItem == null) return;
     
@@ -161,50 +161,52 @@ class RoomWorld extends FlameGame {
     
     // Find the index of the selected item
     final selectedIndex = items.indexOf(_selectedItem!);
-    if (selectedIndex < 0) return;
+    if (selectedIndex < 0 || selectedIndex == items.length - 1) {
+      return; // Already at the top or not found
+    }
     
-    // If already at the front, do nothing
-    if (selectedIndex == items.length - 1) return;
+    // Swap with the next item (move up by one position)
+    final temp = items[selectedIndex];
+    items[selectedIndex] = items[selectedIndex + 1];
+    items[selectedIndex + 1] = temp;
     
-    // Remove and re-add to move to the end (top layer)
-    world.remove(_selectedItem!);
-    world.add(_selectedItem!);
+    // Remove all items and re-add in new order
+    for (final item in items) {
+      world.remove(item);
+    }
+    for (final item in items) {
+      world.add(item);
+    }
   }
 
-  /// Move the currently selected item backward in the layer stack (behind others)
+  /// Move the currently selected item down by one layer (gradually)
   void moveSelectedItemToBack() {
     if (_selectedItem == null) return;
     
-    // Get all items and the room in the world
-    final children = world.children.toList();
+    // Get all items in the world
     final items = <ItemComponent>[];
-    final nonItems = <Component>[];
-    
-    for (final component in children) {
+    for (final component in world.children) {
       if (component is ItemComponent) {
         items.add(component);
-      } else {
-        nonItems.add(component);
       }
     }
     
     // Find the index of the selected item
     final selectedIndex = items.indexOf(_selectedItem!);
-    if (selectedIndex < 0) return;
+    if (selectedIndex <= 0) {
+      return; // Already at the bottom or not found
+    }
     
-    // If already at the back, do nothing
-    if (selectedIndex == 0) return;
+    // Swap with the previous item (move down by one position)
+    final temp = items[selectedIndex];
+    items[selectedIndex] = items[selectedIndex - 1];
+    items[selectedIndex - 1] = temp;
     
-    // Remove all items from world
+    // Remove all items and re-add in new order
     for (final item in items) {
       world.remove(item);
     }
-    
-    // Re-add in new order (selected item first/back, others in order)
-    final newItems = [...items];
-    newItems.removeAt(selectedIndex);
-    world.add(_selectedItem!); // Add selected to back
-    for (final item in newItems) {
+    for (final item in items) {
       world.add(item);
     }
   }
