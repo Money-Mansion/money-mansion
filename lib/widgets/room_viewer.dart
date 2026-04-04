@@ -65,11 +65,16 @@ class _RoomViewerState extends State<RoomViewer> {
           );
 
       if (item != null) {
-        roomWorld.addItemToRoom(
+        final itemComponent = roomWorld.addItemToRoom(
           item,
           // Convert stored offset-from-room-center back into a world position
           position: roomCenter + Vector2(placement.x, placement.y),
         );
+        
+        // Apply flip state if it was saved
+        if (placement.isFlipped) {
+          itemComponent.isFlipped = true;
+        }
       }
     }
   }

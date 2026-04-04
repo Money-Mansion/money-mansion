@@ -7,6 +7,7 @@ import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/room_components_sheet.dart';
+import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
 
 // App colour constants
@@ -68,27 +69,28 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               });
             },
           ),
-
-          // ── Top-left: confirm / cancel ────────────────────────────────────
+          // Top-left button (Checkmark only)
           Positioned(
-            top: 40,
-            left: 16,
-            child: Row(
-              children: [
-                _TopButton(
-                  icon: Icons.check_rounded,
-                  color: Colors.purple.shade300,
-                  tooltip: sk ? 'Uložiť' : 'Save',
-                  onTap: _onConfirmPressed,
-                ),
-                const SizedBox(width: 8),
-                _TopButton(
-                  icon: Icons.close_rounded,
-                  color: Colors.pink.shade300,
-                  tooltip: sk ? 'Zrušiť' : 'Cancel',
-                  onTap: () => Navigator.pop(context),
-                ),
-              ],
+            top: 20,
+            left: 20,
+            child: FloatingActionButton(
+              mini: true,
+              heroTag: null,
+              backgroundColor: Colors.purple.shade300,
+              onPressed: _onConfirmPressed,
+              child: const Icon(Icons.check, color: Colors.white),
+            ),
+          ),
+          // Top-right button (X close)
+          Positioned(
+            top: 20,
+            right: 20,
+            child: FloatingActionButton(
+              mini: true,
+              heroTag: null,
+              backgroundColor: Colors.pink.shade300,
+              onPressed: () => Navigator.pop(context),
+              child: const Icon(Icons.close, color: Colors.white),
             ),
           ),
 
@@ -115,58 +117,58 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ],
             ),
           ),
-
-          // ── Centre-bottom: item action bar (shown when item selected) ─────
+          // Bottom-right item control buttons (appears when item is selected)
           if (_hasSelectedItem)
             Positioned(
-              bottom: 24,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.92),
-                    borderRadius: BorderRadius.circular(30),
-                    border:
-                        Border.all(color: _purpleLight, width: 1.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _purpleLight.withOpacity(0.4),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+              bottom: 20,
+              right: 20,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Move to front button (arrow up)
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.green[400],
+                    onPressed: _onMoveToFront,
+                    child: const Icon(Icons.arrow_upward, color: Colors.white),
+                    tooltip: 'Move to front',
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _ActionButton(
-                        icon: Icons.arrow_upward_rounded,
-                        color: Colors.green.shade400,
-                        tooltip: sk ? 'Do popredia' : 'Bring to front',
-                        onTap: _onMoveToFront,
-                      ),
-                      const SizedBox(width: 10),
-                      _ActionButton(
-                        icon: Icons.delete_rounded,
-                        color: Colors.red.shade400,
-                        tooltip: sk ? 'Odstrániť' : 'Delete',
-                        onTap: _onDeleteSelectedItem,
-                      ),
-                      const SizedBox(width: 10),
-                      _ActionButton(
-                        icon: Icons.arrow_downward_rounded,
-                        color: Colors.orange.shade400,
-                        tooltip: sk ? 'Do pozadia' : 'Send to back',
-                        onTap: _onMoveToBack,
-                      ),
-                    ],
+                  const SizedBox(height: 10),
+                  // Flip button
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.blue[400],
+                    onPressed: _onFlipItem,
+                    child: const Icon(Icons.flip, color: Colors.white),
+                    tooltip: 'Flip horizontally',
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  // Move to back button (arrow down)
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.orange[400],
+                    onPressed: _onMoveToBack,
+                    child: const Icon(Icons.arrow_downward, color: Colors.white),
+                    tooltip: 'Move to back',
+                  ),
+                  const SizedBox(height: 10),
+                  // Delete button
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.red[400],
+                    onPressed: _onDeleteSelectedItem,
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                ],
               ),
             ),
+          // Right-side zoom slider
+          if (roomWorld != null)
+            ZoomSlider(gameWorld: roomWorld!),
         ],
       ),
     );
@@ -192,6 +194,11 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   void _onDeleteSelectedItem() => roomWorld?.removeSelectedItem();
   void _onMoveToFront() => roomWorld?.moveSelectedItemToFront();
   void _onMoveToBack() => roomWorld?.moveSelectedItemToBack();
+
+  void _onFlipItem() {
+    if (roomWorld == null) return;
+    roomWorld!.flipSelectedItem();
+  }
 
   void _showRoomComponentsSheet(BuildContext context) {
     showModalBottomSheet(

@@ -50,13 +50,33 @@ class RoomLayoutDatabaseService {
   }
 
   static Future<void> _createTable(Database db) async {
+    // First, check if the table exists and has the isFlipped column
+    try {
+      final result = await db.rawQuery(
+        "PRAGMA table_info($_tableName)",
+      );
+      final hasIsFlippedColumn = result.any((col) => col['name'] == 'isFlipped');
+      
+      if (!hasIsFlippedColumn) {
+        // Add isFlipped column if it doesn't exist
+        await db.execute(
+          'ALTER TABLE $_tableName ADD COLUMN isFlipped INTEGER DEFAULT 0',
+        );
+        print('✓ Added isFlipped column to room_layout table');
+      }
+    } catch (e) {
+      // Table might not exist yet, which is fine
+    }
+    
+    // Create table with new schema
     await db.execute('''
       CREATE TABLE IF NOT EXISTS $_tableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         roomId TEXT NOT NULL,
         itemId TEXT NOT NULL,
         x REAL NOT NULL,
-        y REAL NOT NULL
+        y REAL NOT NULL,
+        isFlipped INTEGER DEFAULT 0
       )
     ''');
   }
@@ -78,6 +98,7 @@ class RoomLayoutDatabaseService {
             itemId: m['itemId'] as String,
             x: (m['x'] as num).toDouble(),
             y: (m['y'] as num).toDouble(),
+            isFlipped: (m['isFlipped'] as int?) == 1,
           ),
         )
         .toList();
@@ -106,6 +127,7 @@ class RoomLayoutDatabaseService {
         'itemId': p.itemId,
         'x': p.x,
         'y': p.y,
+        'isFlipped': p.isFlipped ? 1 : 0,
       });
     }
 
