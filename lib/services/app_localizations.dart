@@ -38,6 +38,7 @@ class AppLocalizations {
       'onboardingNameLabel': 'Name or nickname',
       'onboardingAgeLabel': 'Age',
       'onboardingIncomeLabel': 'Monthly income',
+      'onboardingLanguageLabel': 'Language',
       'onboardingContinue': 'Continue',
       'onboardingNameError': 'Please enter your name.',
       'onboardingAgeError': 'Enter a valid age greater than 0.',
@@ -61,30 +62,67 @@ class AppLocalizations {
       'tutorialSkip': 'Skip tutorial',
       'tutorialRestart': 'Restart tutorial',
       'tutorialNavigateHint': 'Navigate to this screen to continue.',
+      'tutorialTapHere': 'Tap here',
+      'tutorialTapToContinue': 'tap to continue →',
+      'tutorialTapToFinish': 'tap to finish 🎉',
+      'tutorialSpeakerName': 'Chrumko',
+      'tutorialTopBar':
+          'At the top you can see your Coins 🪙, Money 💶 and Chrumky 🐾. Coins are earned in-game; money tracks your real finances!',
+      'tutorialFinancialIntro':
+          'Welcome to my favourite tab — Finances! Here I track every euro that comes in or goes out. The chart shows your balance over time.',
+      'tutorialFinancialTabs':
+          'Use the tabs at the top: Total shows everything, Income shows gains, and Expense shows purchases. I always review all three!',
+      'tutorialShopCategories':
+          'I love browsing the categories — Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
+      'tutorialGoalsIntro':
+          'Here are your saving goals! Each goal has a target amount, a deadline and a difficulty that I set automatically using AI. Pretty smart, right?',
+      'tutorialGoalsAssign':
+          'Tap any goal card to assign money from your balance to it. I always put a little aside each week — small steps, big results! 💪',
+      'tutorialGoalsReassign':
+          'See the ⇄ button in the top right? That lets me move money between goals if my priorities change. Very handy!',
+      'tutorialGoalsComplete':
+          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward. Completing goals also earns you a Chrumka! 🐾',
+      'tutorialRoomExplain':
+          'This is your mansion! As you earn coins and buy items, your room fills up with furniture. The better your finances, the better your home!',
+      'tutorialSettingsInfo':
+          'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile. Feel free to explore everything!',
       'tutorialHomeWelcome':
-          'Welcome! This is your room. Chrumko will guide you through the app.',
+          'Hey there! I\'m Chrumko, your financial guide. Welcome to your very own mansion — let me show you around!',
       'tutorialHomeBalance':
-          'Here you see your coins and money. Use them to improve your mansion!',
+          'Up here you can see your coins and money. These are your most important resources — spend them wisely!',
       'tutorialFinancialNav':
-          'Open the Financial tab to see income and expenses.',
-      'tutorialFinancialAction': 'Tap + to add a transaction.',
-      'tutorialGoalsNav': 'Open Goals to set saving targets.',
-      'tutorialGoalsAction': 'Tap + to create a goal and set a target.',
-      'tutorialInventoryNav': 'Open Inventory to view items you own.',
-      'tutorialInventoryAction': 'Browse your owned items.',
+          'First things first — let me show you the Financial tab. That\'s where I keep track of all income and expenses!',
+      'tutorialFinancialAction':
+          'Great! Now tap the + button to add your first transaction. I always log everything — it\'s the key to good finances!',
+      'tutorialGoalsNav':
+          'Next up — the Goals tab! I love setting saving targets. Let me show you where to find them.',
+      'tutorialGoalsAction':
+          'Tap + to create a goal. I recommend starting with something achievable — small wins build great habits!',
+      'tutorialInventoryNav':
+          'Let\'s check out your Inventory! That\'s where all the items you own are stored.',
+      'tutorialInventoryAction':
+          'Here are all your owned items. I always keep track of what I have — knowledge is power!',
       'tutorialSettings':
-          'Settings: change language, music, and restart the tutorial anytime.',
+          'In Settings you can change the language, toggle music, and even restart this tutorial if you want a refresher from me!',
       'tutorialDoAction': 'Do this action to continue.',
-      'tutorialAddGoal': 'Tap + to create a goal and set a target.',
-      'tutorialCalendar': 'Open the calendar to view dates and plan.',
-      'tutorialLessons': 'Open Chrumko learning to see lessons & quizzes.',
-      'tutorialRoomEdit': 'Open room edit to customize your mansion.',
-      'tutorialFinish': 'Great job! Tutorial complete.',
-      'tutorialShopNav': 'Open the Shop to browse and buy items.',
-      'tutorialShopAction': 'Browse items and buy what you like.',
+      'tutorialAddGoal':
+          'Tap + to create a goal. I always set a target amount — it keeps me motivated!',
+      'tutorialCalendar':
+          'This is the Calendar! I use it to plan ahead and never miss important financial dates.',
+      'tutorialLessons':
+          'And here\'s my favourite spot — the Learning section! Come back here to find lessons and quizzes I\'ve prepared for you.',
+      'tutorialRoomEdit':
+          'You can customise your mansion right here! I believe a good environment motivates better financial decisions.',
+      'tutorialFinish':
+          'You made it! I\'m proud of you. You\'re all set to take control of your finances. Remember — I\'m always here to help! 💪',
+      'tutorialShopNav':
+          'Now let\'s visit the Shop! I always browse before buying — smart shopping starts with knowing your options.',
+      'tutorialShopAction':
+          'Browse the items and buy what you like. Just remember — only spend what you can afford! I always do. 😄',
       'tutorialCalendarAction': 'Tap the calendar to see dates.',
       'tutorialSettingsAction': 'Open settings to adjust language and music.',
-      'tutorialBack': 'Tap back to continue.',
+      'tutorialBack':
+          'Nicely done! Now tap the back button and let\'s continue our tour.',
 
       // Settings
       'languageEnglish': 'English',
@@ -349,6 +387,7 @@ class AppLocalizations {
       'onboardingNameLabel': 'Meno alebo prezývka',
       'onboardingAgeLabel': 'Vek',
       'onboardingIncomeLabel': 'Mesačný príjem',
+      'onboardingLanguageLabel': 'Jazyk',
       'onboardingContinue': 'Pokračovať',
       'onboardingNameError': 'Zadajte svoje meno alebo prezývku.',
       'onboardingAgeError': 'Zadajte platný vek väčší ako 0.',
@@ -372,35 +411,76 @@ class AppLocalizations {
       'tutorialSkip': 'Preskočiť návod',
       'tutorialRestart': 'Spustiť návod znova',
       'tutorialNavigateHint': 'Pre pokračovanie prejdi na túto obrazovku.',
+      'tutorialTapHere': 'Klepni sem',
+      'tutorialTapToContinue': 'klepni pre pokračovanie →',
+      'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
+      'tutorialSpeakerName': 'Chrumko',
+      'tutorialTopBar':
+          'Hore vidíš Mince 🪙, Peniaze 💶 a Chrumky 🐾. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
+      'tutorialFinancialIntro':
+          'Vitaj na mojej obľúbenej karte — Financie! Tu sledujem každé euro, ktoré príde alebo odíde. Graf ukazuje zostatok v čase.',
+      'tutorialFinancialTabs':
+          'Použi karty hore: Spolu ukazuje všetko, Príjem ukazuje zisky a Výdaj ukazuje nákupy. Ja si vždy prezerám všetky tri!',
+      'tutorialShopCategories':
+          'Milujem prezeranie kategórií — Nábytok, Dekor, Dvere, Steny, Podlahy. Každá má iné predmety na vylepšenie sídla!',
+      'tutorialGoalsIntro':
+          'Tu sú tvoje ciele sporenia! Každý cieľ má cieľovú sumu, termín a náročnosť, ktorú nastavujem automaticky pomocou AI. Šikovné, nie?',
+      'tutorialGoalsAssign':
+          'Klepni na kartu ľubovoľného cieľa a priraď mu peniaze zo zostatku. Ja si vždy odložím trochu každý týždeň — malé kroky, veľké výsledky! 💪',
+      'tutorialGoalsReassign':
+          'Vidíš tlačidlo ⇄ vpravo hore? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
+      'tutorialGoalsComplete':
+          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu. Splnenie cieľa ti tiež prinesie Chrumku! 🐾',
+      'tutorialRoomExplain':
+          'Toto je tvoje sídlo! Keď zarábam mince a kupujem predmety, izba sa plní nábytkom. Čím lepšie sú moje financie, tým krajší je môj domov!',
+      'tutorialSettingsInfo':
+          'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil. Pokojne si všetko prezri!',
       'tutorialHomeWelcome':
-          'Vitaj! Toto je tvoja izba. Chrumko ťa prevedie aplikáciou.',
+          'Ahoj! Som Chrumko, tvoj finančný sprievodca. Vitaj vo svojom sídle — ukážem ti, ako tu všetko funguje!',
       'tutorialHomeBalance':
-          'Tu vidíš mince a peniaze. Použi ich na vylepšenie svojho sídla.',
-      'tutorialShop': 'Obchod: kupuj nábytok a predmety na vylepšenie izby.',
+          'Hore vidíš svoje mince a peniaze. To sú tvoje najdôležitejšie zdroje — narábaj s nimi múdro!',
+      'tutorialShop':
+          'V obchode si môžeš kúpiť nábytok a predmety. Ja vždy premýšľam, než niečo kúpim!',
       'tutorialFinancial':
-          'Financie: sleduj príjmy a výdavky a uč sa zdravé návyky.',
-      'tutorialFinancialNav': 'Otvor kartu Financie a pozri príjmy a výdavky.',
-      'tutorialFinancialAction': 'Klepni na + a pridaj transakciu.',
+          'Vo Financiách sledujem všetky príjmy a výdavky. Vďaka tomu mám peniaze vždy pod kontrolou!',
+      'tutorialFinancialNav':
+          'Prvá zastávka — karta Financie! Tam si evidujem všetky príjmy a výdavky. Poďme sa pozrieť!',
+      'tutorialFinancialAction':
+          'Skvelé! Klepni na + a pridaj svoju prvú transakciu. Ja si zaznamenávam každú — je to základ dobrých financií!',
       'tutorialGoals':
-          'Ciele: vytváraj úsporné ciele a získavaj odmeny od Chrumka.',
-      'tutorialGoalsAction': 'Klepni na + a vytvor cieľ s cieľovou sumou.',
-      'tutorialInventory': 'Inventár: spravuj položky, ktoré už vlastníš.',
-      'tutorialInventoryNav': 'Otvor Inventár a pozri svoje veci.',
-      'tutorialInventoryAction': 'Prezri si svoje vlastnené položky.',
+          'Rád si stanovujem ciele sporenia. Odporúčam začať niečím dosiahnuteľným — malé úspechy budujú skvelé návyky!',
+      'tutorialGoalsAction':
+          'Klepni na + a vytvor cieľ. Ja odporúčam začať niečím dosiahnuteľným — malé víťazstvá budujú skvelé návyky!',
+      'tutorialGoalsNav':
+          'Ďalej — karta Ciele! Zbožňujem stanovovať si ciele sporenia. Ukážem ti kde ich nájdeš.',
+      'tutorialInventory':
+          'V inventári mám prehľad o všetkom, čo vlastním. Prehľad je základ!',
+      'tutorialInventoryNav':
+          'Pozrime sa do Inventára! Tam sú uložené všetky predmety, ktoré vlastníš.',
+      'tutorialInventoryAction':
+          'Tu sú tvoje vlastnené predmety. Ja si vždy sledujem, čo mám — vedomosti sú sila!',
       'tutorialSettings':
-          'Nastavenia: zmeň jazyk, hudbu a kedykoľvek reštartuj návod.',
+          'V nastaveniach môžeš zmeniť jazyk, zapnúť hudbu a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady!',
       'tutorialDoAction': 'Vykonaj túto akciu, aby si pokračoval.',
       'tutorialAddTransaction':
-          'Klepni na + a pridaj transakciu, aby si sa naučil sledovať výdavky.',
-      'tutorialAddGoal': 'Klepni na + a vytvor si cieľ s cieľovou sumou.',
-      'tutorialCalendar': 'Otvorte kalendár a skontrolujte dátumy.',
+          'Klepni na + a pridaj transakciu. Ja si zaznamenávam každú — je to základ!',
+      'tutorialAddGoal':
+          'Klepni na + a vytvor cieľ. Ja si vždy stanovujem cieľovú sumu — motivuje ma to!',
+      'tutorialCalendar':
+          'Tu je Kalendár! Ja ho používam na plánovanie a nikdy nezabudnem na dôležité finančné dátumy.',
       'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy.',
-      'tutorialLessons': 'Otvorte Chrumko učenie a pozrite si lekcie a kvízy.',
-      'tutorialRoomEdit': 'Otvorte úpravu izby a prispôsobte svoje sídlo.',
-      'tutorialBack': 'Vráť sa späť pre pokračovanie.',
-      'tutorialFinish': 'Super! Návod je hotový.',
-      'tutorialShopNav': 'Otvor Obchod a prehliadaj si tovar.',
-      'tutorialShopAction': 'Prezri si a kúp položky, ktoré sa ti páčia.',
+      'tutorialLessons':
+          'A toto je moje obľúbené miesto — sekcia Učenia! Vrať sa sem pre lekcie a kvízy, ktoré som pre teba pripravil.',
+      'tutorialRoomEdit':
+          'Tu si môžeš prispôsobiť svoje sídlo! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
+      'tutorialBack':
+          'Výborne! Teraz klepni na tlačidlo späť a pokračujme v prehliadke.',
+      'tutorialFinish':
+          'Zvládol si to! Som na teba hrdý. Teraz si pripravený prevziať kontrolu nad svojimi financiami. Pamätaj — vždy som tu pre teba! 💪',
+      'tutorialShopNav':
+          'Poďme sa pozrieť do Obchodu! Ja vždy prehliadam pred nákupom — múdre nakupovanie začína poznaním možností.',
+      'tutorialShopAction':
+          'Prezri si tovar a kúp, čo sa ti páči. Len pamätaj — míňaj len to, čo si môžeš dovoliť! Ja sa vždy riadim týmto pravidlom. 😄',
       'tutorialSettingsAction': 'Otvor nastavenia a uprav jazyk alebo hudbu.',
 
       // Settings

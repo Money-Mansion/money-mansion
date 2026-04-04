@@ -8,6 +8,11 @@ class ItemDatabaseService {
   static const String _ownedItemsTable = 'owned_items';
   static const String _dbName = 'money_mansion.db';
   static const int _dbVersion = 4;
+  static const List<String> _starterBrokenItemIds = [
+    'gauc_zniceny1',
+    'gauc_zniceny2',
+    'postel_znicena',
+  ];
 
   static Database? _database;
   static bool _initialized = false;
@@ -434,6 +439,39 @@ class ItemDatabaseService {
     } catch (e) {
       print('Error syncing owned items: $e');
       return 0;
+    }
+  }
+
+  /// Ensure starter "destroyed" items are owned on first load.
+  /// Safe to call on every startup.
+  static Future<void> ensureStarterBrokenItemsOwned(List<Item> configItems) async {
+    try {
+      final db = await database;
+      await ensureTablesExist(db);
+
+      final existingIds = (await getOwnedItems()).map((i) => i.id).toSet();
+      for (final id in _starterBrokenItemIds) {
+        if (existingIds.contains(id)) continue;
+
+        final configItem =
+            configItems.firstWhere((item) => item.id == id, orElse: () => configItems.first);
+
+        await db.insert(
+          _ownedItemsTable,
+          {
+            'id': configItem.id,
+            'name': configItem.name,
+            'type': _itemTypeToString(configItem.type),
+            'texture': configItem.texture,
+            'cost': configItem.cost,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+
+        print('âœ“ Starter broken item granted: $id');
+      }
+    } catch (e) {
+      print('Error ensuring starter broken items: $e');
     }
   }
 

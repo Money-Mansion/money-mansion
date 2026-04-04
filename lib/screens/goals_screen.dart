@@ -612,10 +612,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   icon: const Icon(Icons.refresh),
                   tooltip: l10n.translate('refreshGoals'),
                 ),
-              IconButton(
-                onPressed: _showReassignFundsDialog,
-                icon: const Icon(Icons.swap_horiz),
-                tooltip: l10n.translate('reassignTooltip'),
+              TutorialTarget(
+                id: 'reassign_funds',
+                child: IconButton(
+                  onPressed: _showReassignFundsDialog,
+                  icon: const Icon(Icons.swap_horiz),
+                  tooltip: l10n.translate('reassignTooltip'),
+                ),
               ),
             ],
           ),

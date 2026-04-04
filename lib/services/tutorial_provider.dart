@@ -15,12 +15,20 @@ class TutorialProvider extends ChangeNotifier {
   SharedPreferences? _prefs;
 
   final List<TutorialStep> _steps = const [
+    // ── Home ─────────────────────────────────────────────────────────────
     TutorialStep(
       id: 'home_intro',
       screenId: 'home',
       messageKey: 'tutorialHomeWelcome',
       targetAlignment: Alignment.topCenter,
     ),
+    TutorialStep(
+      id: 'topbar_explain',
+      screenId: 'home',
+      messageKey: 'tutorialTopBar',
+    ),
+
+    // ── Financial ────────────────────────────────────────────────────────
     TutorialStep(
       id: 'financial_nav',
       screenId: 'home',
@@ -29,12 +37,24 @@ class TutorialProvider extends ChangeNotifier {
       targetId: 'nav_financial',
     ),
     TutorialStep(
+      id: 'financial_intro',
+      screenId: 'financial',
+      messageKey: 'tutorialFinancialIntro',
+    ),
+    TutorialStep(
       id: 'financial_add',
       screenId: 'financial',
       messageKey: 'tutorialFinancialAction',
       requiredActionId: 'add_transaction',
       targetId: 'add_transaction',
     ),
+    TutorialStep(
+      id: 'financial_tabs',
+      screenId: 'financial',
+      messageKey: 'tutorialFinancialTabs',
+    ),
+
+    // ── Shop ─────────────────────────────────────────────────────────────
     TutorialStep(
       id: 'shop_nav',
       screenId: 'home',
@@ -46,8 +66,14 @@ class TutorialProvider extends ChangeNotifier {
       id: 'shop_action',
       screenId: 'shop',
       messageKey: 'tutorialShopAction',
-      targetId: 'nav_shop',
     ),
+    TutorialStep(
+      id: 'shop_categories',
+      screenId: 'shop',
+      messageKey: 'tutorialShopCategories',
+    ),
+
+    // ── Goals ────────────────────────────────────────────────────────────
     TutorialStep(
       id: 'goals_nav',
       screenId: 'home',
@@ -56,12 +82,35 @@ class TutorialProvider extends ChangeNotifier {
       targetId: 'nav_goals',
     ),
     TutorialStep(
+      id: 'goals_intro',
+      screenId: 'goals',
+      messageKey: 'tutorialGoalsIntro',
+    ),
+    TutorialStep(
       id: 'goal_add',
       screenId: 'goals',
       messageKey: 'tutorialGoalsAction',
       requiredActionId: 'add_goal',
       targetId: 'add_goal',
     ),
+    TutorialStep(
+      id: 'goals_assign',
+      screenId: 'goals',
+      messageKey: 'tutorialGoalsAssign',
+    ),
+    TutorialStep(
+      id: 'goals_reassign',
+      screenId: 'goals',
+      messageKey: 'tutorialGoalsReassign',
+      targetId: 'reassign_funds',
+    ),
+    TutorialStep(
+      id: 'goals_complete',
+      screenId: 'goals',
+      messageKey: 'tutorialGoalsComplete',
+    ),
+
+    // ── Inventory ────────────────────────────────────────────────────────
     TutorialStep(
       id: 'inventory_nav',
       screenId: 'home',
@@ -73,7 +122,6 @@ class TutorialProvider extends ChangeNotifier {
       id: 'inventory_action',
       screenId: 'inventory',
       messageKey: 'tutorialInventoryAction',
-      targetId: 'nav_inventory',
     ),
     TutorialStep(
       id: 'back_after_inventory',
@@ -82,19 +130,12 @@ class TutorialProvider extends ChangeNotifier {
       requiredActionId: 'go_back',
       targetId: 'nav_back',
     ),
+
+    // ── Room ─────────────────────────────────────────────────────────────
     TutorialStep(
-      id: 'calendar_action',
+      id: 'room_explain',
       screenId: 'home',
-      messageKey: 'tutorialCalendar',
-      requiredActionId: 'open_calendar',
-      targetId: 'open_calendar',
-    ),
-    TutorialStep(
-      id: 'lessons_action',
-      screenId: 'home',
-      messageKey: 'tutorialLessons',
-      requiredActionId: 'open_lessons',
-      targetId: 'open_lessons',
+      messageKey: 'tutorialRoomExplain',
     ),
     TutorialStep(
       id: 'room_edit_action',
@@ -103,6 +144,26 @@ class TutorialProvider extends ChangeNotifier {
       requiredActionId: 'open_room_edit',
       targetId: 'open_room_edit',
     ),
+
+    // ── Calendar ─────────────────────────────────────────────────────────
+    TutorialStep(
+      id: 'calendar_action',
+      screenId: 'home',
+      messageKey: 'tutorialCalendar',
+      requiredActionId: 'open_calendar',
+      targetId: 'open_calendar',
+    ),
+
+    // ── Lessons ──────────────────────────────────────────────────────────
+    TutorialStep(
+      id: 'lessons_action',
+      screenId: 'home',
+      messageKey: 'tutorialLessons',
+      requiredActionId: 'open_lessons',
+      targetId: 'open_lessons',
+    ),
+
+    // ── Settings ─────────────────────────────────────────────────────────
     TutorialStep(
       id: 'settings_action',
       screenId: 'home',
@@ -110,6 +171,13 @@ class TutorialProvider extends ChangeNotifier {
       requiredActionId: 'open_settings',
       targetId: 'open_settings',
     ),
+    TutorialStep(
+      id: 'settings_info',
+      screenId: 'settings',
+      messageKey: 'tutorialSettingsInfo',
+    ),
+
+    // ── Finish ───────────────────────────────────────────────────────────
     TutorialStep(
       id: 'finish',
       screenId: 'home',

@@ -19,6 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _expensesController = TextEditingController();
 
   String? _errorMessage;
+  String? _selectedLanguage;
   bool _isSaving = false;
   FinancialExperience _experience = FinancialExperience.beginner;
   MainGoal _mainGoal = MainGoal.saving;
@@ -105,6 +106,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
     final theme = Theme.of(context);
+    final supportedLanguages = l10n.getSupportedLanguages();
+    _selectedLanguage ??= l10n.currentLanguage;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 227, 241),
@@ -133,6 +136,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   const SizedBox(height: 32),
+                  _buildDropdown<String>(
+                    label: l10n.translate('onboardingLanguageLabel'),
+                    value: _selectedLanguage!,
+                    items: supportedLanguages
+                        .map(
+                          (code) => DropdownMenuItem(
+                            value: code,
+                            child: Text(l10n.getLanguageName(code)),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() => _selectedLanguage = value);
+                      l10n.setLanguage(value);
+                    },
+                  ),
+                  const SizedBox(height: 16),
                   _buildTextField(
                     controller: _nameController,
                     label: l10n.translate('onboardingNameLabel'),
