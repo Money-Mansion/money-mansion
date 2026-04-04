@@ -209,15 +209,25 @@ class RoomWorld extends FlameGame {
     }
   }
 
+  /// Flip (mirror) the currently selected item horizontally
+  void flipSelectedItem() {
+    if (_selectedItem == null) return;
+    _selectedItem!.toggleFlip();
+  }
+
   /// Add an item to the room at a given world position.
-  void addItemToRoom(Item item, {Vector2? position}) {
-    if (room == null) return;
+  /// Returns the created ItemComponent so caller can set additional properties like isFlipped.
+  ItemComponent addItemToRoom(Item item, {Vector2? position}) {
+    if (room == null) {
+      throw StateError('Cannot add item: room is not loaded');
+    }
     final itemComponent = ItemComponent(
       item: item,
       game: this,
       position: position ?? room!.position.clone(),
     );
     world.add(itemComponent);
+    return itemComponent;
   }
 
   /// Get current layout of all items in this room world.
@@ -234,6 +244,7 @@ class RoomWorld extends FlameGame {
             itemId: component.item.id,
             x: component.position.x - roomCenter.x,
             y: component.position.y - roomCenter.y,
+            isFlipped: component.isFlipped,
           ),
         );
       }

@@ -13,6 +13,7 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
   final Item item;
   final RoomWorld game;
   bool isSelected = false;
+  bool isFlipped = false; // Track whether item is horizontally flipped
   
   late Hitbox hitbox;
   late Vector2 spriteSize;
@@ -69,10 +70,24 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void render(Canvas canvas) {
-    if (isSelected) {
-      _renderHitboxGlow(canvas);
+    if (isFlipped) {
+      // Save canvas state
+      canvas.save();
+      // Flip the canvas horizontally around the component center
+      canvas.scale(-1, 1);
+      // Render with flipped canvas
+      if (isSelected) {
+        _renderHitboxGlow(canvas);
+      }
+      super.render(canvas);
+      // Restore canvas state
+      canvas.restore();
+    } else {
+      if (isSelected) {
+        _renderHitboxGlow(canvas);
+      }
+      super.render(canvas);
     }
-    super.render(canvas);
   }
 
   /// Render a soft glowing effect around the hitbox (underneath the item)
@@ -115,7 +130,12 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
   bool containsLocalPoint(Vector2 point) {
     // Use point-in-polygon collision detection
     // Scale the point back to hitbox space (reverse the scale transformation)
-    final hitboxPoint = point / item.scale;
+    var hitboxPoint = point / item.scale;
+    
+    // If flipped, mirror the X coordinate for collision detection
+    if (isFlipped) {
+      hitboxPoint = Vector2(-hitboxPoint.x, hitboxPoint.y);
+    }
     
     return hitbox.containsPoint(hitboxPoint);
   }
@@ -156,6 +176,12 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
+  }
+
+  /// Toggle horizontal flip (mirror) of the item and its hitbox
+  void toggleFlip() {
+    isFlipped = !isFlipped;
+    // Flipping is handled in render() and containsLocalPoint() methods
   }
 
   @override

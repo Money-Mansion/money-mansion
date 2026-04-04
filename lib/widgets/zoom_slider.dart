@@ -34,13 +34,9 @@ class _ZoomSliderState extends State<ZoomSlider> {
     // Convert global X to local X within the widget
     final localX = renderBox.globalToLocal(Offset(globalX, 0)).dx;
 
-    // Account for label widths and padding in the Row
-    const leftLabelWidth = 24;  // "Out" text width
-    const padding = 8;
-    const rightLabelWidth = 16; // "In" text width
-    
-    final trackLeft = leftLabelWidth + padding;  // Where track actually starts
-    final trackRight = renderBox.size.width - rightLabelWidth - padding;  // Where track actually ends
+    // Track spans the full width since we removed labels
+    final trackLeft = 0.0;
+    final trackRight = renderBox.size.width;
     final trackWidth = trackRight - trackLeft;
 
     if (trackWidth <= 0) return;
@@ -69,8 +65,8 @@ class _ZoomSliderState extends State<ZoomSlider> {
 
     return Positioned(
       bottom: 20,
-      left: 60,
-      right: 60,
+      left: 80,
+      right: 80,
       height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,28 +84,9 @@ class _ZoomSliderState extends State<ZoomSlider> {
                 onHover: (event) {
                   // Allow visual feedback on hover if needed
                 },
-                child: Row(
-                  children: [
-                    // Left label (for min zoom)
-                    const Text(
-                      'Out',
-                      style: TextStyle(fontSize: 8, color: Colors.grey),
-                    ),
-                    const SizedBox(width: 8),
-                    // Expandable track area
-                    Expanded(
-                      child: CustomPaint(
-                        painter: _ZoomTrackPainter(currentZoom: _currentZoom, minZoom: widget.gameWorld.minZoom, maxZoom: widget.gameWorld.maxZoom),
-                        child: Container(),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    // Right label (for max zoom)
-                    const Text(
-                      'In',
-                      style: TextStyle(fontSize: 8, color: Colors.grey),
-                    ),
-                  ],
+                child: CustomPaint(
+                  painter: _ZoomTrackPainter(currentZoom: _currentZoom, minZoom: widget.gameWorld.minZoom, maxZoom: widget.gameWorld.maxZoom),
+                  child: Container(),
                 ),
               ),
             ),

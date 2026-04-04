@@ -131,6 +131,16 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     tooltip: 'Move to front',
                   ),
                   const SizedBox(height: 10),
+                  // Flip button
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.blue[400],
+                    onPressed: _onFlipItem,
+                    child: const Icon(Icons.flip, color: Colors.white),
+                    tooltip: 'Flip horizontally',
+                  ),
+                  const SizedBox(height: 10),
                   // Move to back button (arrow down)
                   FloatingActionButton(
                     mini: true,
@@ -195,6 +205,11 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   void _onMoveToBack() {
     if (roomWorld == null) return;
     roomWorld!.moveSelectedItemToBack();
+  }
+
+  void _onFlipItem() {
+    if (roomWorld == null) return;
+    roomWorld!.flipSelectedItem();
   }
 
   void _showRoomComponentsSheet(BuildContext context) {
