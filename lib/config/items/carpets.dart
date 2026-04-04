@@ -4,7 +4,7 @@ import '../../models/item.dart';
 final List<Item> carpetItems = [
   Item(
     id: 'koberec_skibidi',
-    name: 'Skibidi koberec',
+    name: 's',
     nameEn: 'Skibidi Rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_skibidi.png',
