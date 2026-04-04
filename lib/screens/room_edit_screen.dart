@@ -7,6 +7,7 @@ import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/room_components_sheet.dart';
+import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
 
 class RoomEditScreen extends StatefulWidget {
@@ -61,30 +62,28 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               });
             },
           ),
-          // Top-left buttons (Checkmark and X)
+          // Top-left button (Checkmark only)
           Positioned(
             top: 20,
             left: 20,
-            child: Row(
-              children: [
-                // Checkmark button
-                FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.purple.shade300,
-                  onPressed: _onConfirmPressed,
-                  child: const Icon(Icons.check, color: Colors.white),
-                ),
-                const SizedBox(width: 10),
-                // X button
-                FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.pink.shade300,
-                  onPressed: () => Navigator.pop(context),
-                  child: const Icon(Icons.close, color: Colors.white),
-                ),
-              ],
+            child: FloatingActionButton(
+              mini: true,
+              heroTag: null,
+              backgroundColor: Colors.purple.shade300,
+              onPressed: _onConfirmPressed,
+              child: const Icon(Icons.check, color: Colors.white),
+            ),
+          ),
+          // Top-right button (X close)
+          Positioned(
+            top: 20,
+            right: 20,
+            child: FloatingActionButton(
+              mini: true,
+              heroTag: null,
+              backgroundColor: Colors.pink.shade300,
+              onPressed: () => Navigator.pop(context),
+              child: const Icon(Icons.close, color: Colors.white),
             ),
           ),
           // Bottom-left buttons (Room Components above Inventory)
@@ -114,48 +113,48 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ],
             ),
           ),
-          // Middle-bottom delete button (appears when item is selected)
+          // Bottom-right item control buttons (appears when item is selected)
           if (_hasSelectedItem)
             Positioned(
               bottom: 20,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Bring to front button
-                    FloatingActionButton(
-                      mini: true,
-                      heroTag: null,
-                      backgroundColor: Colors.green[400],
-                      onPressed: _onMoveToFront,
-                      child: const Icon(Icons.arrow_upward, color: Colors.white),
-                      tooltip: 'Move to front',
-                    ),
-                    const SizedBox(width: 10),
-                    // Delete button
-                    FloatingActionButton(
-                      mini: true,
-                      heroTag: null,
-                      backgroundColor: Colors.red[400],
-                      onPressed: _onDeleteSelectedItem,
-                      child: const Icon(Icons.delete, color: Colors.white),
-                    ),
-                    const SizedBox(width: 10),
-                    // Send to back button
-                    FloatingActionButton(
-                      mini: true,
-                      heroTag: null,
-                      backgroundColor: Colors.orange[400],
-                      onPressed: _onMoveToBack,
-                      child: const Icon(Icons.arrow_downward, color: Colors.white),
-                      tooltip: 'Move to back',
-                    ),
-                  ],
-                ),
+              right: 20,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Move to front button (arrow up)
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.green[400],
+                    onPressed: _onMoveToFront,
+                    child: const Icon(Icons.arrow_upward, color: Colors.white),
+                    tooltip: 'Move to front',
+                  ),
+                  const SizedBox(height: 10),
+                  // Move to back button (arrow down)
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.orange[400],
+                    onPressed: _onMoveToBack,
+                    child: const Icon(Icons.arrow_downward, color: Colors.white),
+                    tooltip: 'Move to back',
+                  ),
+                  const SizedBox(height: 10),
+                  // Delete button
+                  FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.red[400],
+                    onPressed: _onDeleteSelectedItem,
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                ],
               ),
             ),
+          // Right-side zoom slider
+          if (roomWorld != null)
+            ZoomSlider(gameWorld: roomWorld!),
         ],
       ),
     );

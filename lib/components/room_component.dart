@@ -59,7 +59,13 @@ class RoomComponent extends PositionComponent with TapCallbacks {
 
   @override
   bool containsLocalPoint(Vector2 point) {
-    // Treat the whole room rectangle as tappable
+    // In edit mode: accept taps anywhere on the canvas (let onTapDown handle the logic)
+    // This allows deselecting by tapping empty space anywhere
+    if (game.isEditMode) {
+      return true;  // Accept all taps so onTapDown gets called
+    }
+    
+    // In view mode: only the room rectangle is tappable
     return point.x >= 0 &&
         point.x <= size.x &&
         point.y >= 0 &&
@@ -68,8 +74,31 @@ class RoomComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapDown(TapDownEvent event) {
-    if (game.isEditMode) {
-      game.clearSelection();
+    print('🏠🔴 RoomComponent.onTapDown - editMode=${game.isEditMode}');
+    if (!game.isEditMode) return;
+    
+    // Check if the tap is on the currently selected item
+    // If it is, don't clear (the item was just selected by ItemComponent)
+    final selectedItem = game.getSelectedItem();
+    if (selectedItem != null) {
+      // Convert tap position to world coordinates
+      // event.localPosition is in world space (Flame's local position for hit events is world-space)
+      final tapPos = event.localPosition;
+      final itemPos = selectedItem.position;
+      final itemSize = selectedItem.size;
+      
+      // Check if tap is within item bounds
+      if (tapPos.x >= itemPos.x - itemSize.x / 2 &&
+          tapPos.x <= itemPos.x + itemSize.x / 2 &&
+          tapPos.y >= itemPos.y - itemSize.y / 2 &&
+          tapPos.y <= itemPos.y + itemSize.y / 2) {
+        print('🏠🔴   -> TAP ON SELECTED ITEM, not clearing');
+        return;
+      }
     }
+    
+    // Tap is not on selected item (or no item selected), clear selection
+    print('🏠🔴   -> CLEARING selection');
+    game.clearSelection();
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import '../components/room_component.dart';
+import '../components/camera_control_component.dart';
 import '../components/item_component.dart';
 import '../models/item.dart';
 import '../models/room_item_placement.dart';
@@ -19,6 +20,12 @@ class RoomWorld extends FlameGame {
   ItemComponent? _selectedItem;
   RoomComponent? room; // Nullable to allow reloading
   VoidCallback? onSelectionChanged;
+
+  // Camera control fields (edit mode only)
+  late double _defaultZoom;
+  final double _minZoom = 0.5;   // Can zoom out to 50%
+  final double _maxZoom = 3.0;   // Can zoom in to 300%
+  bool _hasInitializedCamera = false;  // Prevent re-centering on resize in edit mode
 
   final Completer<void> _loadCompleter = Completer<void>();
 
@@ -39,6 +46,7 @@ class RoomWorld extends FlameGame {
     final baseZoom = math.min(scaleX, scaleY);
     final zoom = baseZoom * 0.9;
 
+    _defaultZoom = zoom;
     camera.viewfinder.zoom = zoom;
     camera.viewfinder.position = room!.position.clone();
   }
@@ -52,18 +60,34 @@ class RoomWorld extends FlameGame {
       world.add(room!);
     }
 
+    // Add camera control component (handles gestures in edit mode)
+    if (isEditMode) {
+      world.add(CameraControlComponent(game: this));
+    }
+
     if (!_loadCompleter.isCompleted) {
       _loadCompleter.complete();
     }
 
     _updateCameraAndRoomPosition();
+    _hasInitializedCamera = true;  // Mark camera as initialized
   }
 
   @override
   void onGameResize(Vector2 canvasSize) {
     super.onGameResize(canvasSize);
+    // In edit mode, don't reset camera on resize (user may have panned it)
+    // Only update room position and zoom once during initial load
     if (_loadCompleter.isCompleted) {
-      _updateCameraAndRoomPosition();
+      if (isEditMode && _hasInitializedCamera) {
+        // In edit mode: only update room position, don't reset camera
+        if (room != null) {
+          room!.position = size / 2;
+        }
+      } else {
+        // In view mode or first load: reset everything
+        _updateCameraAndRoomPosition();
+      }
     }
   }
 
@@ -99,7 +123,20 @@ class RoomWorld extends FlameGame {
   }
 
   /// Get the currently selected item
-  ItemComponent? getSelectedItem() => _selectedItem;
+  ItemComponent? getSelectedItem() {
+    return _selectedItem;
+  }
+
+  /// Get zoom bounds and current zoom level
+  double get minZoom => _minZoom;
+  double get maxZoom => _maxZoom;
+  double get currentZoom => camera.viewfinder.zoom;
+  
+  /// Set zoom to a specific value (clamped to min/max)
+  void setZoom(double newZoom) {
+    final clampedZoom = newZoom.clamp(_minZoom, _maxZoom);
+    camera.viewfinder.zoom = clampedZoom;
+  }
 
   /// Remove the currently selected item from the room
   void removeSelectedItem() {
@@ -234,5 +271,56 @@ class RoomWorld extends FlameGame {
     // Create a new room component which will load the latest from database
     room = RoomComponent(game: this);
     world.add(room!);
+  }
+
+  /// Public method to pan the camera
+  void panCamera(Vector2 delta) {
+    // Move camera opposite to drag direction (dragging left pans right)
+    final oldPos = camera.viewfinder.position.clone();
+    final scaledDelta = -delta / camera.viewfinder.zoom;
+    // Directly set position components (add() doesn't persist on getter/setter properties)
+    camera.viewfinder.position = camera.viewfinder.position + scaledDelta;
+    _clampCameraPosition();
+  }
+
+  /// Public method to zoom by a fixed amount
+  void zoomByAmount(double zoomDelta) {
+    final newZoom = (camera.viewfinder.zoom + zoomDelta)
+        .clamp(_minZoom, _maxZoom);
+    
+    camera.viewfinder.zoom = newZoom;
+    _clampCameraPosition();
+  }
+
+  /// Clamp camera position to keep the room mostly visible
+  void _clampCameraPosition() {
+    if (room == null) return;
+    
+    final roomPos = room!.position;
+    final roomWidth = RoomComponent.roomWidth;
+    final roomHeight = RoomComponent.roomHeight;
+    
+    // Allow panning but keep at least 40% of room visible
+    final maxOffsetX = (roomWidth * 0.3) / camera.viewfinder.zoom;
+    final maxOffsetY = (roomHeight * 0.3) / camera.viewfinder.zoom;
+    
+    final oldX = camera.viewfinder.position.x;
+    final oldY = camera.viewfinder.position.y;
+    
+    camera.viewfinder.position.x = camera.viewfinder.position.x
+        .clamp(roomPos.x - maxOffsetX, roomPos.x + maxOffsetX);
+    camera.viewfinder.position.y = camera.viewfinder.position.y
+        .clamp(roomPos.y - maxOffsetY, roomPos.y + maxOffsetY);
+    
+    if (oldX != camera.viewfinder.position.x || oldY != camera.viewfinder.position.y) {
+      // Camera was clamped (normal during panning)
+    }
+  }
+
+  /// Reset camera to default zoom and position (public method for UI)
+  void resetCamera() {
+    if (room == null) return;
+    camera.viewfinder.zoom = _defaultZoom;
+    camera.viewfinder.position = room!.position.clone();
   }
 }

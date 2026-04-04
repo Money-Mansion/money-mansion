@@ -122,28 +122,34 @@ class ItemComponent extends SpriteComponent with DragCallbacks, TapCallbacks {
 
   @override
   void onTapDown(TapDownEvent event) {
+    print('📦🔴 ItemComponent(${item.id}).onTapDown - editMode=${game.isEditMode}');
     if (!game.isEditMode) {
       return;
     }
+    print('📦🔴   -> SELECTING item ${item.id}');
     game.selectItem(this);
   }
 
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
+    print('📦📍 ItemComponent(${item.id}).onDragStart - editMode=${game.isEditMode}, isSelected=$isSelected');
     if (!game.isEditMode) {
       return;
     }
     if (!isSelected) {
+      print('📦📍   -> SELECTING item ${item.id}');
       game.selectItem(this);
     }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    print('📦📍 ItemComponent(${item.id}).onDragUpdate delta=${event.localDelta}');
     if (!game.isEditMode) {
       return;
     }
+    print('📦📍   -> MOVING item by ${event.localDelta}');
     position.add(event.localDelta);
   }
 
