@@ -5,7 +5,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_basic',
     name: 'klasický stôl',
-    nameEn: 'basic Table',
+    nameEn: 'basic table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_basic.png',
     cost: 150,
@@ -15,7 +15,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_aura',
     name: 'aura stôl',
-    nameEn: 'aura Table',
+    nameEn: 'aura table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_aura.png',
     cost: 150,
@@ -25,7 +25,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_cyberpunk',
     name: 'futuristický stôl',
-    nameEn: 'cyberpunk Table',
+    nameEn: 'cyberpunk table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_cyberpunk.png',
     cost: 250,
@@ -35,7 +35,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_delta',
     name: 'herný stôl',
-    nameEn: 'gaming Table',
+    nameEn: 'gaming table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_delta.png',
     cost: 150,
@@ -45,7 +45,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_dievcensky',
     name: 'roztomilý ružový stôl',
-    nameEn: 'cutepink Table',
+    nameEn: 'cutepink table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_dievcensky.png',
     cost: 250,
@@ -54,8 +54,8 @@ final List<Item> tableItems = [
   ),
   Item(
     id: 'stol_drak',
-    name: 'Stôl drak',
-    nameEn: 'Dragon Table',
+    name: 'stôl drak',
+    nameEn: 'dragon table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_drak.png',
     cost: 250,
@@ -145,7 +145,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_smajlik',
     name: 'detský stôl',
-    nameEn: 'kids Table',
+    nameEn: 'kids table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_smajlik.png',
     cost: 150,

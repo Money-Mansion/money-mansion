@@ -4,8 +4,8 @@ import '../../models/item.dart';
 final List<Item> doorItems = [
   Item(
     id: 'dvere_biele',
-    name: 'biele Dvere',
-    nameEn: 'white Door',
+    name: 'biele dvere',
+    nameEn: 'white door',
     type: ItemType.door,
     texture: 'assets/images/items/dvere_biele.png',
     cost: 70,
@@ -14,8 +14,8 @@ final List<Item> doorItems = [
   ),
   Item(
     id: 'dvere_hnede',
-    name: 'hnedé Dvere',
-    nameEn: 'brown Door',
+    name: 'hnedé dvere',
+    nameEn: 'brown door',
     type: ItemType.door,
     texture: 'assets/images/items/dvere_hnede.png',
     cost: 70,
@@ -24,8 +24,8 @@ final List<Item> doorItems = [
   ),
   Item(
     id: 'dvere_cierne',
-    name: 'čierne Dvere',
-    nameEn: 'black Door',
+    name: 'čierne dvere',
+    nameEn: 'black door',
     type: ItemType.door,
     texture: 'assets/images/items/dvere_cierne.png',
     cost: 80,
@@ -44,8 +44,8 @@ final List<Item> doorItems = [
   ),
   Item(
     id: 'dvere_ruzove',
-    name: 'ružové Dvere',
-    nameEn: 'pink Door',
+    name: 'ružové dvere',
+    nameEn: 'pink door',
     type: ItemType.door,
     texture: 'assets/images/items/dvere_ruzove.png',
     cost: 100,
