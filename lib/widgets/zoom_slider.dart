@@ -5,12 +5,15 @@ import '../games/room_world.dart';
 /// - Positioned at the bottom of the screen as an overlay
 /// - Drag horizontally to adjust zoom (left = min zoom, right = max zoom)
 /// - Only visible in edit mode
+/// - Respects SafeArea padding on all sides
 class ZoomSlider extends StatefulWidget {
   final RoomWorld gameWorld;
+  final EdgeInsets safeAreaPadding;
 
   const ZoomSlider({
     super.key,
     required this.gameWorld,
+    this.safeAreaPadding = EdgeInsets.zero,
   });
 
   @override
@@ -64,9 +67,9 @@ class _ZoomSliderState extends State<ZoomSlider> {
     _currentZoom = widget.gameWorld.currentZoom;
 
     return Positioned(
-      bottom: 20,
-      left: 80,
-      right: 80,
+      bottom: widget.safeAreaPadding.bottom + 20,
+      left: widget.safeAreaPadding.left + 80,
+      right: widget.safeAreaPadding.right + 80,
       height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

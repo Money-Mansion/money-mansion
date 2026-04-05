@@ -71,6 +71,9 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
     return ValueListenableBuilder<int>(
       valueListenable: TutorialTargetRegistry.instance.version,
       builder: (context, _, __) {
+        // Get safe area padding to keep overlays within visible bounds
+        final safeAreaPadding = MediaQuery.of(context).padding;
+        
         // ── Resolve target rect ──────────────────────────────────────────
         Rect? targetRectLocal;
         if (step.targetId != null) {
@@ -167,11 +170,12 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
               // Positioned at top or bottom, sized to wrap content only.
               // The gradient backdrop is IgnorePointer so taps pass through it.
               // Only the white bubble and skip button capture touches.
+              // Respects SafeArea padding on all sides.
               Positioned(
-                left: 0,
-                right: 0,
-                top: dialogueAtTop ? 0 : null,
-                bottom: dialogueAtTop ? null : 0,
+                left: safeAreaPadding.left,
+                right: safeAreaPadding.right,
+                top: dialogueAtTop ? safeAreaPadding.top : null,
+                bottom: dialogueAtTop ? null : safeAreaPadding.bottom,
                 child: _ChrumkoDialogue(
                   imagePath: _chrumkoImage(step.id),
                   dialogueAtTop: dialogueAtTop,
