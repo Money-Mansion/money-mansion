@@ -237,6 +237,12 @@ class AppLocalizations {
       'month': 'Month',
       'year': 'Year',
       'today': 'Today',
+      'legend': 'Legend',
+      'completed': 'Completed',
+      'overdue': 'Overdue',
+      'upcoming': 'Upcoming',
+      'dueToday': 'Due today',
+      'net': 'Net',
 
       // Confirmation dialogs
       'areYouSure': 'Are you sure?',
@@ -596,6 +602,12 @@ class AppLocalizations {
       'month': 'Mesiac',
       'year': 'Rok',
       'today': 'Dnes',
+      'legend': 'Legenda',
+      'completed': 'Splnené',
+      'overdue': 'Prepadnuté',
+      'upcoming': 'Pripravované',
+      'dueToday': 'Splatný dnes',
+      'net': 'Čistý',
 
       // Confirmation dialogs
       'areYouSure': 'Ste si istí?',
