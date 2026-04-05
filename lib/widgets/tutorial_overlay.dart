@@ -35,9 +35,16 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
       case 'goals_complete':
         return 'assets/images/chrumko_nápad.png';
       case 'lessons_action':
+      case 'lessons_return':
         return 'assets/images/chrumko_nápad.png';
       case 'room_explain':
       case 'room_edit_action':
+      case 'room_edit_intro':
+      case 'room_edit_open_inventory':
+      case 'room_edit_place_item':
+      case 'room_edit_save':
+        return 'assets/images/chrumko_ukazuje.png';
+      case 'calendar_action':
         return 'assets/images/chrumko_ukazuje.png';
       case 'settings_action':
       case 'settings_info':
@@ -63,9 +70,7 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
 
     // Auto-advance as soon as the required action is satisfied.
     if (satisfied && step.requiredActionId != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.read<TutorialProvider>().nextStep();
-      });
+      context.read<TutorialProvider>().scheduleAutoAdvanceWhenSatisfied();
     }
 
     return ValueListenableBuilder<int>(
@@ -89,7 +94,12 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         final screenHeight = MediaQuery.of(context).size.height;
         final targetIsLow = targetRectLocal != null &&
             targetRectLocal.center.dy > screenHeight * 0.5;
-        final dialogueAtTop = targetIsLow;
+        // Keep dialogue above the learning overlay bottom bar (tabs + Return).
+        // Room edit: keep the bubble high so bottom inventory FABs stay tappable.
+        final dialogueAtTop = targetIsLow ||
+            step.id == 'lessons_return' ||
+            step.id == 'room_edit_intro' ||
+            step.id == 'room_edit_place_item';
 
         // Build hint message
         String? hint;

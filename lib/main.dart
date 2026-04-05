@@ -38,6 +38,7 @@ void main() async {
     print('✓ ItemDatabaseService ready');
 
     await RoomComponentDatabaseService.ensureDefaultComponentsOwned();
+    await RoomComponentDatabaseService.ensureStarterRuinedFloorsOwned();
     print('✓ RoomComponentDatabaseService defaults ensured');
 
     await FinancialDatabaseService.initializeDatabase();

@@ -1,4 +1,5 @@
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import '../config/room_components_config.dart';
 import '../models/room_component.dart';
 import 'item_database_service.dart';
 
@@ -330,6 +331,33 @@ class RoomComponentDatabaseService {
     } catch (e) {
       print('Error ensuring default components: $e');
       return false;
+    }
+  }
+
+  /// [floor_ruined1] / [floor_ruined2] — zničená podlaha — granted like starter furniture.
+  static const List<String> _starterRuinedFloorIds = [
+    'floor_ruined1',
+    'floor_ruined2',
+  ];
+
+  /// Ensures ruined starter floors from config are in [owned_room_components].
+  static Future<void> ensureStarterRuinedFloorsOwned() async {
+    try {
+      await ensureTablesExist();
+      for (final id in _starterRuinedFloorIds) {
+        if (await isComponentOwned(id)) continue;
+
+        RoomComponent? comp;
+        try {
+          comp = ROOM_COMPONENTS.firstWhere((c) => c.id == id);
+        } catch (_) {
+          continue;
+        }
+
+        await addOwnedComponent(comp);
+      }
+    } catch (e) {
+      print('Error ensuring starter ruined floors: $e');
     }
   }
 

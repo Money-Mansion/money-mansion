@@ -83,7 +83,7 @@ class AppLocalizations {
       'tutorialGoalsComplete':
           'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward. Completing goals also earns you a Chrumka! 🐾',
       'tutorialRoomExplain':
-          'This is your mansion! As you earn coins and buy items, your room fills up with furniture. The better your finances, the better your home!',
+          'This is your mansion! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
           'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile. Feel free to explore everything!',
       'tutorialHomeWelcome':
@@ -111,8 +111,18 @@ class AppLocalizations {
           'This is the Calendar! I use it to plan ahead and never miss important financial dates.',
       'tutorialLessons':
           'And here\'s my favourite spot — the Learning section! Come back here to find lessons and quizzes I\'ve prepared for you.',
+      'tutorialLessonsReturn':
+          'Browse lessons or quizzes if you like. When you\'re ready, tap Return in the bottom-left corner to close this — then we\'ll continue!',
       'tutorialRoomEdit':
           'You can customise your mansion right here! I believe a good environment motivates better financial decisions.',
+      'tutorialRoomEditIntro':
+          'Welcome to edit mode! Drag with two fingers to move the view, pinch to zoom, and use the purple inventory button when you\'re ready to pull items into the room.',
+      'tutorialRoomEditInventory':
+          'Tap the inventory button — you\'ll see everything you own. Pick any item that isn\'t already placed and tap it to drop it into your room.',
+      'tutorialRoomEditPlace':
+          'Nice! Drag the item to move it, or tap empty space to deselect. When you\'re happy with the layout, we\'ll save it next.',
+      'tutorialRoomEditSave':
+          'Tap the checkmark to save your layout and return home. You can always come back to edit again later!',
       'tutorialFinish':
           'You made it! I\'m proud of you. You\'re all set to take control of your finances. Remember — I\'m always here to help! 💪',
       'tutorialShopNav':
@@ -438,7 +448,7 @@ class AppLocalizations {
       'tutorialGoalsComplete':
           'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu. Splnenie cieľa ti tiež prinesie Chrumku! 🐾',
       'tutorialRoomExplain':
-          'Toto je tvoje sídlo! Keď zarábam mince a kupujem predmety, izba sa plní nábytkom. Čím lepšie sú moje financie, tým krajší je môj domov!',
+          'Toto je tvoje sídlo! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
           'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil. Pokojne si všetko prezri!',
       'tutorialHomeWelcome':
@@ -477,8 +487,18 @@ class AppLocalizations {
       'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy.',
       'tutorialLessons':
           'A toto je moje obľúbené miesto — sekcia Učenia! Vrať sa sem pre lekcie a kvízy, ktoré som pre teba pripravil.',
+      'tutorialLessonsReturn':
+          'Môžeš si pozrieť lekcie alebo kvízy. Keď budeš pripravený, klepni v ľavom dolnom rohu na Späť a zatvor to — potom pokračujeme!',
       'tutorialRoomEdit':
           'Tu si môžeš prispôsobiť svoje sídlo! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
+      'tutorialRoomEditIntro':
+          'Vitaj v režime úprav! Potiahnutím dvoma prstami posunieš pohľad, štipnutím priblížiš alebo oddiališ, a keď budeš pripravený, použi fialové tlačidlo inventára.',
+      'tutorialRoomEditInventory':
+          'Klepni na inventár — uvidíš všetko, čo vlastníš. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
+      'tutorialRoomEditPlace':
+          'Super! Predmet potiahni, aby si ho presunul, alebo klepni na prázdne miesto, aby si zrušil výber. Keď budeš spokojný s rozložením, uložíme ho.',
+      'tutorialRoomEditSave':
+          'Klepni na fajku a ulož rozloženie a vráť sa domov. K úpravám sa môžeš kedykoľvek vrátiť!',
       'tutorialBack':
           'Výborne! Teraz klepni na tlačidlo späť a pokračujme v prehliadke.',
       'tutorialFinish':

@@ -121,6 +121,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
 
     await ItemDatabaseService.syncOwnedItemsWithConfig(GAME_ITEMS);
     await ItemDatabaseService.ensureStarterBrokenItemsOwned(GAME_ITEMS);
+    await ItemDatabaseService.ensureStarterDecorItemsOwned(GAME_ITEMS);
     await _loadOwnedItems();
 
     if (mounted) {
@@ -401,6 +402,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
           if (selectedNavIndex == -1 && _overlayOpen)
             ChrumkoLearningOverlay(
               onClose: () {
+                context.read<TutorialProvider>().registerAction('close_lessons');
                 setState(() {
                   _overlayOpen = false;
                 });
