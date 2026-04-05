@@ -143,7 +143,8 @@ class _ShopScreenState extends State<ShopScreen>
         title: Text(l10n.translate('shop')),
         leading: IconButton(
           key: const Key('back_button'),
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.close),
+          color: Colors.black,
           onPressed: widget.onBack,
         ),
         bottom: TabBar(

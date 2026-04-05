@@ -138,7 +138,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text(l10n.translate('settings')),
             backgroundColor: Colors.orange[500],
             elevation: 0,
-            automaticallyImplyLeading: true,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              color: Colors.black,
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
           body: SingleChildScrollView(
             child: Padding(

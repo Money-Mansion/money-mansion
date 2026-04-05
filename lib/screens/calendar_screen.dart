@@ -94,6 +94,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
         backgroundColor: _purpleBg,
         elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          color: Colors.black,
+          onPressed: () => Navigator.pop(context),
+        ),
         iconTheme: const IconThemeData(color: _purple),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
