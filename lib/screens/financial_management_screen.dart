@@ -415,7 +415,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         title: Text(l10n.translate('financial')),
         backgroundColor: Colors.green[600],
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.close),
+          color: Colors.black,
           onPressed: widget.onBack,
         ),
         actions: [

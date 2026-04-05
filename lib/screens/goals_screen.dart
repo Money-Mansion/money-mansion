@@ -590,7 +590,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             backgroundColor: Colors.deepPurple[300],
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.close),
+              color: Colors.black,
               onPressed: widget.onBack,
             ),
             actions: [

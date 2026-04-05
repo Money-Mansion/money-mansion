@@ -276,6 +276,9 @@ class RoomWorld extends FlameGame {
 
   /// Reload the room component (called when room components are changed)
   void reloadComponents() {
+    // Get all items to maintain their z-order and state
+    final items = world.children.whereType<ItemComponent>().toList();
+    
     // Remove the current room component if it exists
     if (room != null) {
       world.remove(room!);
@@ -284,6 +287,11 @@ class RoomWorld extends FlameGame {
     // Create a new room component which will load the latest from database
     room = RoomComponent(game: this);
     world.add(room!);
+    
+    // Re-add all items to ensure they render on top of the new room
+    for (final item in items) {
+      world.add(item);
+    }
   }
 
   /// Public method to pan the camera

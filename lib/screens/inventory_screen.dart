@@ -49,7 +49,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
         leading: TutorialTarget(
           id: 'nav_back',
           child: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.close),
+            color: Colors.black,
             onPressed: () {
               context.read<TutorialProvider>().registerAction('go_back');
               widget.onBack();

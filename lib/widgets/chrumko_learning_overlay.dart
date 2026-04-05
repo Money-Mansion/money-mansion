@@ -122,7 +122,7 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
   /// Builds a placeholder content widget for a tab.
   Widget _buildTabContent(AppLocalizationsProvider l10n, String tabKey) {
     if (tabKey == 'lessons') {
-      return const _LessonsTab();
+      return _LessonsTab(onClose: widget.onClose);
     }
     // Placeholder for quizzes
     return _PlaceholderTab(
@@ -134,7 +134,9 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
 }
 
 class _LessonsTab extends StatelessWidget {
-  const _LessonsTab();
+  final VoidCallback onClose;
+
+  const _LessonsTab({required this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +150,7 @@ class _LessonsTab extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(height: 10),
         itemBuilder: (context, index) {
           final category = categories[index];
-          return _LessonCategoryCard(category: category);
+          return _LessonCategoryCard(category: category, onClose: onClose);
         },
       ),
     );
@@ -157,8 +159,12 @@ class _LessonsTab extends StatelessWidget {
 
 class _LessonCategoryCard extends StatelessWidget {
   final LessonCategory category;
+  final VoidCallback onClose;
 
-  const _LessonCategoryCard({required this.category});
+  const _LessonCategoryCard({
+    required this.category,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +175,8 @@ class _LessonCategoryCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
+          // Close the overlay before navigating
+          onClose();
           Navigator.push(
             context,
             MaterialPageRoute(

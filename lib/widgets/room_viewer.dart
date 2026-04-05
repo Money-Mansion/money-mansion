@@ -110,20 +110,22 @@ class _RoomViewerState extends State<RoomViewer> {
           ),
         ),
 
-        // Edit button (bottom-right corner)
+        // Edit button (bottom-right corner) - respects SafeArea
         if (widget.onEditPressed != null)
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TutorialTarget(
-                id: 'open_room_edit',
-                child: FloatingActionButton(
-                  mini: true,
-                  heroTag: null,
-                  backgroundColor: Colors.purple.shade300,
-                  onPressed: widget.onEditPressed,
-                  child: const Icon(Icons.edit, color: Colors.white),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TutorialTarget(
+                  id: 'open_room_edit',
+                  child: FloatingActionButton(
+                    mini: true,
+                    heroTag: null,
+                    backgroundColor: Colors.purple.shade300,
+                    onPressed: widget.onEditPressed,
+                    child: const Icon(Icons.edit, color: Colors.white),
+                  ),
                 ),
               ),
             ),

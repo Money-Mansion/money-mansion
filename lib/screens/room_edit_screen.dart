@@ -48,6 +48,14 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     final language = l10n.currentLanguage;
     final sk = language == 'sk';
 
+    // Get safe area insets to keep UI overlays within visible bounds
+    final mediaQuery = MediaQuery.of(context);
+    final safeAreaPadding = mediaQuery.padding;
+    final topSafeArea = safeAreaPadding.top;
+    final bottomSafeArea = safeAreaPadding.bottom;
+    final leftSafeArea = safeAreaPadding.left;
+    final rightSafeArea = safeAreaPadding.right;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -71,8 +79,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           ),
           // Top-left button (Checkmark only)
           Positioned(
-            top: 20,
-            left: 20,
+            top: topSafeArea + 20,
+            left: leftSafeArea + 20,
             child: FloatingActionButton(
               mini: true,
               heroTag: null,
@@ -83,8 +91,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           ),
           // Top-right button (X close)
           Positioned(
-            top: 20,
-            right: 20,
+            top: topSafeArea + 20,
+            right: rightSafeArea + 20,
             child: FloatingActionButton(
               mini: true,
               heroTag: null,
@@ -96,8 +104,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
 
           // ── Bottom-left: room components + inventory ──────────────────────
           Positioned(
-            bottom: 24,
-            left: 16,
+            bottom: bottomSafeArea + 24,
+            left: leftSafeArea + 16,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -120,8 +128,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           // Bottom-right item control buttons (appears when item is selected)
           if (_hasSelectedItem)
             Positioned(
-              bottom: 20,
-              right: 20,
+              bottom: bottomSafeArea + 20,
+              right: rightSafeArea + 20,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -168,7 +176,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
             ),
           // Right-side zoom slider
           if (roomWorld != null)
-            ZoomSlider(gameWorld: roomWorld!),
+            ZoomSlider(gameWorld: roomWorld!, safeAreaPadding: safeAreaPadding),
         ],
       ),
     );
