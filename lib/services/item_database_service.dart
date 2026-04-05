@@ -8,11 +8,18 @@ class ItemDatabaseService {
   static const String _ownedItemsTable = 'owned_items';
   static const String _dbName = 'money_mansion.db';
   static const int _dbVersion = 4;
-  static const List<String> _starterBrokenItemIds = [
-    'gauc_zniceny1',
-    'gauc_zniceny2',
-    'postel_znicena',
-  ];
+  /// IDs of all “zničené” (broken) furniture from [configItems] — kept in sync when new items are added.
+  static List<String> _zniceneItemIdsFromConfig(List<Item> configItems) {
+    final ids = <String>[];
+    for (final item in configItems) {
+      final id = item.id.toLowerCase();
+      if (id.contains('zniceny') || id.contains('znicena')) {
+        ids.add(item.id);
+      }
+    }
+    ids.sort();
+    return ids;
+  }
 
   /// Extra small decorations granted at startup so new players can practise room layout.
   static const List<String> _starterDecorItemIds = [
@@ -448,19 +455,26 @@ class ItemDatabaseService {
     }
   }
 
-  /// Ensure starter "destroyed" items are owned on first load.
+  /// Ensure every zničený / zničená item from config is owned (startup and after sync).
   /// Safe to call on every startup.
   static Future<void> ensureStarterBrokenItemsOwned(List<Item> configItems) async {
     try {
       final db = await database;
       await ensureTablesExist(db);
 
+      final toOwn = _zniceneItemIdsFromConfig(configItems);
+      if (toOwn.isEmpty) return;
+
       final existingIds = (await getOwnedItems()).map((i) => i.id).toSet();
-      for (final id in _starterBrokenItemIds) {
+      for (final id in toOwn) {
         if (existingIds.contains(id)) continue;
 
-        final configItem =
-            configItems.firstWhere((item) => item.id == id, orElse: () => configItems.first);
+        Item? configItem;
+        try {
+          configItem = configItems.firstWhere((item) => item.id == id);
+        } catch (_) {
+          continue;
+        }
 
         await db.insert(
           _ownedItemsTable,
@@ -474,7 +488,7 @@ class ItemDatabaseService {
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
 
-        print('âœ“ Starter broken item granted: $id');
+        print('✓ Starter zničené item granted: $id');
       }
     } catch (e) {
       print('Error ensuring starter broken items: $e');
