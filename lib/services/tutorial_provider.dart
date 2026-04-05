@@ -144,6 +144,31 @@ class TutorialProvider extends ChangeNotifier {
       requiredActionId: 'open_room_edit',
       targetId: 'open_room_edit',
     ),
+    TutorialStep(
+      id: 'room_edit_intro',
+      screenId: 'room_edit',
+      messageKey: 'tutorialRoomEditIntro',
+    ),
+    TutorialStep(
+      id: 'room_edit_open_inventory',
+      screenId: 'room_edit',
+      messageKey: 'tutorialRoomEditInventory',
+      requiredActionId: 'room_edit_open_inventory',
+      targetId: 'room_edit_inventory',
+    ),
+    TutorialStep(
+      id: 'room_edit_place_item',
+      screenId: 'room_edit',
+      messageKey: 'tutorialRoomEditPlace',
+      requiredActionId: 'place_item_in_room',
+    ),
+    TutorialStep(
+      id: 'room_edit_save',
+      screenId: 'room_edit',
+      messageKey: 'tutorialRoomEditSave',
+      requiredActionId: 'room_edit_confirm',
+      targetId: 'room_edit_save',
+    ),
 
     // ── Calendar ─────────────────────────────────────────────────────────
     TutorialStep(
@@ -161,6 +186,12 @@ class TutorialProvider extends ChangeNotifier {
       messageKey: 'tutorialLessons',
       requiredActionId: 'open_lessons',
       targetId: 'open_lessons',
+    ),
+    TutorialStep(
+      id: 'lessons_return',
+      screenId: 'home',
+      messageKey: 'tutorialLessonsReturn',
+      requiredActionId: 'close_lessons',
     ),
 
     // ── Settings ─────────────────────────────────────────────────────────
@@ -259,5 +290,24 @@ class TutorialProvider extends ChangeNotifier {
       await _persist();
       notifyListeners();
     }
+  }
+
+  /// Schedules at most one [nextStep] for the current satisfied action.
+  /// Multiple [TutorialOverlay]s (e.g. under GameScreen and RoomEditScreen)
+  /// may call this from build; only the first callback that still matches
+  /// advances, so we do not skip steps (e.g. calendar after room save).
+  void scheduleAutoAdvanceWhenSatisfied() {
+    if (!isActive) return;
+    final step = currentStep;
+    if (step == null || step.requiredActionId == null || !_currentSatisfied) {
+      return;
+    }
+    final indexWhenScheduled = _currentIndex;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!isActive) return;
+      if (_currentIndex != indexWhenScheduled) return;
+      if (!_currentSatisfied) return;
+      nextStep();
+    });
   }
 }

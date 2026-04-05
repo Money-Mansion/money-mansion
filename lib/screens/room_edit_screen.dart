@@ -5,8 +5,11 @@ import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
+import '../services/tutorial_provider.dart';
 import '../widgets/room_viewer.dart';
 import '../widgets/room_components_sheet.dart';
+import '../widgets/tutorial_overlay.dart';
+import '../widgets/tutorial_target.dart';
 import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
 
@@ -73,12 +76,15 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           Positioned(
             top: 20,
             left: 20,
-            child: FloatingActionButton(
-              mini: true,
-              heroTag: null,
-              backgroundColor: Colors.purple.shade300,
-              onPressed: _onConfirmPressed,
-              child: const Icon(Icons.check, color: Colors.white),
+            child: TutorialTarget(
+              id: 'room_edit_save',
+              child: FloatingActionButton(
+                mini: true,
+                heroTag: null,
+                backgroundColor: Colors.purple.shade300,
+                onPressed: _onConfirmPressed,
+                child: const Icon(Icons.check, color: Colors.white),
+              ),
             ),
           ),
           // Top-right button (X close)
@@ -108,11 +114,14 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                   onTap: () => _showRoomComponentsSheet(context),
                 ),
                 const SizedBox(height: 10),
-                _BottomFab(
-                  icon: Icons.inventory_2_rounded,
-                  color: _purpleLight,
-                  tooltip: sk ? 'Inventár' : 'Inventory',
-                  onTap: () => _showInventorySheet(context, l10n),
+                TutorialTarget(
+                  id: 'room_edit_inventory',
+                  child: _BottomFab(
+                    icon: Icons.inventory_2_rounded,
+                    color: _purpleLight,
+                    tooltip: sk ? 'Inventár' : 'Inventory',
+                    onTap: () => _showInventorySheet(context, l10n),
+                  ),
                 ),
               ],
             ),
@@ -169,6 +178,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           // Right-side zoom slider
           if (roomWorld != null)
             ZoomSlider(gameWorld: roomWorld!),
+          TutorialOverlay(currentScreenId: 'room_edit'),
         ],
       ),
     );
@@ -188,7 +198,15 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
       RoomLayoutDatabaseService.defaultRoomId,
       placements,
     );
-    if (mounted) Navigator.pop(context);
+    if (!mounted) return;
+    await context.read<TutorialProvider>().registerAction('room_edit_confirm');
+    if (!mounted) return;
+    // Advance tutorial overlay before pop so post-frame callbacks use a valid context.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) Navigator.pop(context);
+      });
+    });
   }
 
   void _onDeleteSelectedItem() => roomWorld?.removeSelectedItem();
@@ -219,6 +237,9 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
 
   void _showInventorySheet(
       BuildContext context, AppLocalizationsProvider l10n) {
+    context
+        .read<TutorialProvider>()
+        .registerAction('room_edit_open_inventory');
     final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
     final sk = l10n.currentLanguage == 'sk';
     final items = widget.gameState?.ownedItems ?? [];
@@ -348,6 +369,9 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           ? null
           : () {
               if (roomWorld != null) {
+                context
+                    .read<TutorialProvider>()
+                    .registerAction('place_item_in_room');
                 roomWorld!.addItemToRoom(item);
                 Navigator.pop(context);
               }

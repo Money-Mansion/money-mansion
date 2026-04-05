@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/tutorial_provider.dart';
 import '../services/lesson_service.dart';
 import '../models/lesson.dart';
 import '../screens/lessons/lesson_category_screen.dart';
@@ -47,6 +48,9 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final tutorial = context.watch<TutorialProvider>();
+    final showReturnBox = tutorial.isActive &&
+        tutorial.currentStep?.id == 'lessons_return';
 
     return Material(
       color: Colors.transparent,
@@ -82,11 +86,65 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                     top: false,
                     child: Row(
                       children: [
-                        // Back button (bottom-left)
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: widget.onClose,
-                          tooltip: l10n.translate('back'),
+                        SizedBox(
+                          width: showReturnBox ? 148 : 48,
+                          child: showReturnBox
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 6, 4, 6),
+                                  child: Material(
+                                    color: Colors.white,
+                                    elevation: 6,
+                                    shadowColor:
+                                        Colors.deepOrange.withOpacity(0.35),
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: InkWell(
+                                      onTap: widget.onClose,
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: Colors.deepOrange,
+                                            width: 2.5,
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(
+                                              Icons.arrow_back_rounded,
+                                              color: Colors.deepOrange,
+                                              size: 22,
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Flexible(
+                                              child: Text(
+                                                l10n.translate('back'),
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.deepOrange,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: widget.onClose,
+                                  tooltip: l10n.translate('back'),
+                                ),
                         ),
                         // TabBar (centered, flexible)
                         Expanded(
@@ -103,9 +161,8 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                             }).toList(),
                           ),
                         ),
-                        // Spacer to balance back button
                         SizedBox(
-                          width: 48,
+                          width: showReturnBox ? 148 : 48,
                         ),
                       ],
                     ),

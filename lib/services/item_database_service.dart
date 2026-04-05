@@ -14,6 +14,12 @@ class ItemDatabaseService {
     'postel_znicena',
   ];
 
+  /// Extra small decorations granted at startup so new players can practise room layout.
+  static const List<String> _starterDecorItemIds = [
+    'hoblub',
+    'morca',
+  ];
+
   static Database? _database;
   static bool _initialized = false;
 
@@ -472,6 +478,40 @@ class ItemDatabaseService {
       }
     } catch (e) {
       print('Error ensuring starter broken items: $e');
+    }
+  }
+
+  /// Ensure a few decoration items are owned for early room customisation / tutorial.
+  static Future<void> ensureStarterDecorItemsOwned(List<Item> configItems) async {
+    try {
+      final db = await database;
+      await ensureTablesExist(db);
+
+      final existingIds = (await getOwnedItems()).map((i) => i.id).toSet();
+      for (final id in _starterDecorItemIds) {
+        if (existingIds.contains(id)) continue;
+
+        Item? configItem;
+        try {
+          configItem = configItems.firstWhere((item) => item.id == id);
+        } catch (_) {
+          continue;
+        }
+
+        await db.insert(
+          _ownedItemsTable,
+          {
+            'id': configItem.id,
+            'name': configItem.name,
+            'type': _itemTypeToString(configItem.type),
+            'texture': configItem.texture,
+            'cost': configItem.cost,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    } catch (e) {
+      print('Error ensuring starter decor items: $e');
     }
   }
 
