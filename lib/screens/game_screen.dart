@@ -382,6 +382,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                     child: ChrumkoGuide(
                       language: localizationsProvider.currentLanguage,
                       autoShowTips: true,
+                      isOverlayOpen: _overlayOpen,
                       onClicked: () {
                         setState(() {
                           _overlayOpen = !_overlayOpen;

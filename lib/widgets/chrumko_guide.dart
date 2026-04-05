@@ -9,12 +9,14 @@ class ChrumkoGuide extends StatefulWidget {
   final String language;
   final bool autoShowTips;
   final VoidCallback? onClicked;
+  final bool isOverlayOpen;
 
   const ChrumkoGuide({
     super.key,
     required this.language,
     this.autoShowTips = true,
     this.onClicked,
+    this.isOverlayOpen = false,
   });
 
   @override
@@ -87,6 +89,23 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
     _animController.dispose();
     _positionController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(ChrumkoGuide oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Sync animation with parent's isOverlayOpen state
+    if (oldWidget.isOverlayOpen != widget.isOverlayOpen) {
+      if (widget.isOverlayOpen) {
+        // Overlay opened - fade to reduced opacity
+        _positionController.forward();
+        _overlayOpen = true;
+      } else {
+        // Overlay closed - restore full opacity
+        _positionController.reverse();
+        _overlayOpen = false;
+      }
+    }
   }
 
   // ── Tip logic ───────────────────────────────────────────────────────────────
