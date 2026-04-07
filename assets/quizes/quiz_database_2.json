@@ -1,0 +1,907 @@
+{
+  "quizzes": [
+    {
+      "section": 5,
+      "sectionName": "CENA A HODNOTA",
+      "lessons": [
+        {
+          "lessonId": 5001,
+          "lessonNumber": 1,
+          "lessonName": "Cena vs kvalita",
+          "questions": [
+            {
+              "questionId": "5001_01",
+              "type": "theoretical",
+              "question": "Znamená vyššia cena vždy lepšiu kvalitu?",
+              "options": [
+                "Áno, vždy",
+                "Nie, vyššia cena nie je garantia lepšej kvality",
+                "Nikdy",
+                "Niekedy neexistuje kvalita"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Vyššia cena nie je garantia lepšej kvality. Niekedy vyššia cena súvisí so značkou, obalom alebo reklamou namiesto samotného výrobku."
+            },
+            {
+              "questionId": "5001_02",
+              "type": "practical",
+              "question": "Chrumko si v papiernictve vyberá ceruzku do školy. Drahšia má farebný obal, lacnejšia je jednoduchá. Čo by mal skúsiť?",
+              "options": [
+                "Kúpiť si len drahšiu",
+                "Nič nekúpiť",
+                "Obe ceruzky vyskúsiť na papieri",
+                "Klásť sa na cenu"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko by mal skúsiť obe ceruzky. Často sa zistí, že obe píšu rovnako dobre a rozdiel je len v obale alebo značke."
+            },
+            {
+              "questionId": "5001_03",
+              "type": "practical",
+              "question": "Kedy sa oplatí kúpiť drahšiu vec?",
+              "options": [
+                "Nikdy",
+                "Keď je viditeľne lepšej kvality alebo vydržaní dlhšie",
+                "Vždy",
+                "Niekedy"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Niekedy drahší výrobok je naozaj vyrobený z lepších materiálov alebo vydržaní dlhšie. Vtedy sa vyššia cena oplatí."
+            },
+            {
+              "questionId": "5001_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí o ceruzke?",
+              "options": [
+                "Drahšia je vždy lepšia",
+                "Lacnejšia je vždy lepšia",
+                "Nie je vždy pravda, že drahšia vec je automaticky lepšia",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko si uvedomí, že nie vždy je drahšia vec automaticky lepšia. Niekedy je rozdiel len v obale alebo značke."
+            }
+          ]
+        },
+        {
+          "lessonId": 5002,
+          "lessonNumber": 2,
+          "lessonName": "Lacné vs drahé",
+          "questions": [
+            {
+              "questionId": "5002_01",
+              "type": "theoretical",
+              "question": "Prečo môžu dve podobné veci stáť odkúpy rozdielne peniaze?",
+              "options": [
+                "Nikdy sa nestvájú",
+                "Na cenu vplýva materiál, výroba, značka, veľkosť balenia aj miesto predaja",
+                "Vždy stojú rovnako",
+                "Nie je žiadny dôvod"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Na cenu vplýva materiál, spôsob výroby, značka, veľkosť balenia aj miesto, kde sa výrobok predáva."
+            },
+            {
+              "questionId": "5002_02",
+              "type": "practical",
+              "question": "Chrumko potrebuje nový zošit do školy. Kde by mal hľadať?",
+              "options": [
+                "Len v prvom obchode",
+                "V jednom obchode",
+                "V niekoľkých obchodoch a porovnať ceny",
+                "Nikde"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko by mal hľadať v niekoľkých obchodoch a porovnať ceny. Rovnaký zošit môže v rôznych obchodoch stáť inak."
+            },
+            {
+              "questionId": "5002_03",
+              "type": "practical",
+              "question": "V prvom obchode vidí zošit s pekným obalom za vyššiu cenu. V inom obchode nájde podobný lacnejšie. Čo je rozdiel?",
+              "options": [
+                "Prvý je lepší",
+                "Druhý je horšej",
+                "Rozdiel je len v obale a značke, majú rovnaký počet strán",
+                "Nie je rozdiel"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Oba zošity majú rovnaký počet strán a dajú sa rovnako používať. Rozdiel je len v obale a značke."
+            },
+            {
+              "questionId": "5002_04",
+              "type": "practical",
+              "question": "Čo zistí Chrumko?",
+              "options": [
+                "Musieť kúpiť prvý",
+                "Nesmieť nakupovať",
+                "Niekedy stačí pozrieť viac miest, aby našiel lepšiu cenu",
+                "Všetko je drahé"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko zistí, že niekedy stačí pozrieť viac miest, aby našiel lepšiu cenu za rovnaký alebo podobný výrobok."
+            }
+          ]
+        },
+        {
+          "lessonId": 5003,
+          "lessonNumber": 3,
+          "lessonName": "Čo znamená výhodná kúpa",
+          "questions": [
+            {
+              "questionId": "5003_01",
+              "type": "theoretical",
+              "question": "Čo je výhodná kúpa?",
+              "options": [
+                "Vždy nízka cena",
+                "Výrobok dobre slúži, vydržaní a jeho cena zodpovedá tomu, čo ponúka",
+                "Len veľký nákup",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Výhodná kúpa neznamená len nízku cenu. Dôležité je, aby výrobok dobre slúžil, vydržaní a aby jeho cena zodpovedala tomu, čo ponúka."
+            },
+            {
+              "questionId": "5003_02",
+              "type": "practical",
+              "question": "Chrumko si chce kúpiť novú fľašu na vodu. Vidí veľmi lacnú plastovú, ale tenká a krehká. Vedľa je pevnejšia za viac. Čo by mal spraviť?",
+              "options": [
+                "Kúpiť si lacnú, pretože je lacnejšia",
+                "Nič si nekúpiť",
+                "Vybrať si pevnú, pretože ju bude používať každý deň",
+                "Požiadať o tú najdrahšiu"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko by si mal vybrať pevnú fľašu, pretože ju bude používať každý deň a bude jej dlhšie slúžiť."
+            },
+            {
+              "questionId": "5003_03",
+              "type": "practical",
+              "question": "Je lacná fľaša výhodná, ak sa rýchlo pokazí?",
+              "options": [
+                "Áno, vždy je lacnejší",
+                "Nie, nie je výhodná, keď sa pokazí",
+                "Možno",
+                "Všetko je jedno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Lacná vec, ktorá se rýchlo pokazí, nie je vývodná. Naopak, vec, ktorú používame dlho a často, môže byť výhodná aj keď stojí viac."
+            },
+            {
+              "questionId": "5003_04",
+              "type": "practical",
+              "question": "Po niekoľkých týždňoch je Chrumko s výberom fľaše spokojný. Prečo?",
+              "options": [
+                "Pretože je lacnejšia",
+                "Pretože sa nepoškodila a stále dobre slúži",
+                "Pretože je pekná",
+                "Všetko je zbytočné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko je spokojný, pretože sa fľaša nepoškodila a stále dobre slúži. To bola výhodná investícia."
+            }
+          ]
+        },
+        {
+          "lessonId": 5004,
+          "lessonNumber": 4,
+          "lessonName": "Porovnávanie cien",
+          "questions": [
+            {
+              "questionId": "5004_01",
+              "type": "theoretical",
+              "question": "Prečo sa oplatí porovnávať ceny?",
+              "options": [
+                "Nikdy sa nezoplatí",
+                "Pomáha rozhodnúť sa rozumnejšie a často aj ušetriť",
+                "Je to núdza",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Porovnávanie cien pomáha rozhodnúť sa rozumnejšie a často aj ušetriť. Aj malý rozdiel sa pri viacerých nákupoch môže nazbierať."
+            },
+            {
+              "questionId": "5004_02",
+              "type": "practical",
+              "question": "Chrumko si chce kúpiť pastelky. V prvom obchode nájde balenie, ktoré sa mu páči. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ho kúpiť",
+                "Pozrieť sa aj v iných obchodoch",
+                "Nič si nekúpiť",
+                "Požiadať o pomoc"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko by si mal pozrieť aj v iných obchodoch. Rovnaké pastelky môžu byť lacnejšie jinde."
+            },
+            {
+              "questionId": "5004_03",
+              "type": "practical",
+              "question": "V inom obchode nájde Chrumko rovnaké pastelky lacnejšie. Čo by mal urobiť?",
+              "options": [
+                "Kúpiť si ich v prvom obchode",
+                "Nič si nekúpiť",
+                "Kúpiť si pastelky za lepšiu cenu",
+                "Všetko je jedno"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko sa rozhodne kúpiť pastelky za lepšiu cenu. Tak mu zostanú peniaze aj na ďalšie školské potreby."
+            },
+            {
+              "questionId": "5004_04",
+              "type": "practical",
+              "question": "Aký je přínos porovnávania cien?",
+              "options": [
+                "Žiadny",
+                "Môžeš ušetriť a mať viac peňazí na iné veci",
+                "Je to zbytočné",
+                "Všetko stojí rovnako"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Porovnávaním cien môžeš ušetriť a mať viac peňazí na iné veci, ktoré potrebuješ alebo chceš."
+            }
+          ]
+        },
+        {
+          "lessonId": 5005,
+          "lessonNumber": 5,
+          "lessonName": "Jednotková cena",
+          "questions": [
+            {
+              "questionId": "5005_01",
+              "type": "theoretical",
+              "question": "Čo je jednotková cena?",
+              "options": [
+                "Len celková cena",
+                "Koľko stojí jeden kus, jeden liter alebo jeden gram",
+                "Nič nie je dôležité",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Jednotková cena ukazuje, koľko stojí jeden kus, jeden liter alebo jeden gram. To pomáha porovnávať rôzne veľkosti balení."
+            },
+            {
+              "questionId": "5005_02",
+              "type": "practical",
+              "question": "Je väčšie balenie vždy drahšie?",
+              "options": [
+                "Áno, vždy",
+                "Nie, väčšie balenie môže vyjsť výhodnejšie",
+                "Nikdy",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Niekedy väčšie balenie stojí viac peňazí naraz, ale oplatí sa viac ako malé balenie, keď sa pozerá na jednotkovú cenu."
+            },
+            {
+              "questionId": "5005_03",
+              "type": "practical",
+              "question": "Chrumko si chce kúpiť vodu pred cestou. Vidí dve malé fľaše a jednu veľkú. Najprv si myslí, že dve malé budú lepšie. Čo si uvedomí?",
+              "options": [
+                "Dve malé sú vždy lepšie",
+                "Dve malé spolu stoja viac než jedna veľká",
+                "Veľká je vždy lepšia",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keď sa pozrie bližšie, Chrumko zistí, že dve malé spolu stoja viac než jedna veľká fľaša."
+            },
+            {
+              "questionId": "5005_04",
+              "type": "practical",
+              "question": "Ako si Chrumko uvedomí, ktorá je výhodnejšia?",
+              "options": [
+                "Podľa ceny na obale",
+                "Podľa veľkosti",
+                "Mama mu ukáže, že vo väčšej fľaši je viac vody za lepšiu cenu",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Mama mu ukáže, že vo väčšej fľaši je viac vody za lepšiu cenu. Chrumko pochopí, že niekedy sa oplatí pozerať aj na množstvo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": 6,
+      "sectionName": "NAKUPOVANIE A ROZHODOVANIE",
+      "lessons": [
+        {
+          "lessonId": 6001,
+          "lessonNumber": 1,
+          "lessonName": "Ako funguje obchod",
+          "questions": [
+            {
+              "questionId": "6001_01",
+              "type": "theoretical",
+              "question": "Čo je obchod?",
+              "options": [
+                "Miesto, kde sa len stála hudba",
+                "Miesto, kde sa stretáva predaj a kúpa vecí",
+                "Nemá žiadny zmysel",
+                "Len pre zabávenie"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchod je miesto, kde se tretáva predaj a kúpa vecí. Obchod nakupuje výrobky a potom ich ponúka zákazníkom."
+            },
+            {
+              "questionId": "6001_02",
+              "type": "practical",
+              "question": "Čo všetko je zahrnuté v cene výrobku v obchode?",
+              "options": [
+                "Len samotný výrobok",
+                "Samotná vec, doprava, skladovanie, pracovníci a prevádzka",
+                "Nic bez podľa",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "V cene výrobku sú zahrnuté náklady na dopravu, skladovanie, pracovníkov v obchode a prevádzku obchodu."
+            },
+            {
+              "questionId": "6001_03",
+              "type": "practical",
+              "question": "Prečo rovnaký výrobok nemusí stáť všade rovnako?",
+              "options": [
+                "Vždy stojí rovnako",
+                "Pretože obchody majú rôzne náklady a ceny",
+                "Nikdy sa nezmení",
+                "Nema żadného dôvodu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rovnaký výrobok nemusí stáť všade rovnako, pretože rôzne obchody majú rôzne náklady na dopravu, skladovanie a prevádzku."
+            },
+            {
+              "questionId": "6001_04",
+              "type": "practical",
+              "question": "Ako funguje zaplatenia v obchode?",
+              "options": [
+                "Všetko je zadarmo",
+                "Pri pokladni sa výrobky naskenujú, každá sa pripočíta k výslednej cene a zaplatíš",
+                "Peniaze sa vrátia",
+                "Nie je potrebné platiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri pokladni sa výrobky naskenujú a na displeji sa objaví celková suma. To znamená, že obchod funguje ako výmena peňazí za tovar."
+            }
+          ]
+        },
+        {
+          "lessonId": 6002,
+          "lessonNumber": 2,
+          "lessonName": "Zľavy",
+          "questions": [
+            {
+              "questionId": "6002_01",
+              "type": "theoretical",
+              "question": "Čo je zľava?",
+              "options": [
+                "Zvýšenie ceny",
+                "Zníženie ceny oproti pôvodnej sume",
+                "Úplne zadarmo",
+                "Drahšia vec"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Zľava znamená, že výrobok stojí menej ako predtým. Obchody ju používajú, aby prilákali zákazníkov."
+            },
+            {
+              "questionId": "6002_02",
+              "type": "practical",
+              "question": "Znamená zľava, že si musíš kúpiť danú vec?",
+              "options": [
+                "Áno, vždy",
+                "Nie, nižšia cena ešte neznamená, že vec potrebuješ",
+                "Musíš ju kúpiť",
+                "Všetko je núdza"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak si človek kúpi vec len preto, že je zlacnená, môže minúť peniaze na niečo, čo by si inak vôbec nevybral."
+            },
+            {
+              "questionId": "6002_03",
+              "type": "practical",
+              "question": "Chrumko ide do obchodu kúpiť len desiatu. Uvidí zľavu na mliečnu čokoládu. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ju kúpiť",
+                "Rozmýšľať, či ju skutočne potrebuje a chce",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že sladkosť vôbec neplánoval kúpiť a doma má ešte iné. Rozhodne sa peniaze nechať."
+            },
+            {
+              "questionId": "6002_04",
+              "type": "practical",
+              "question": "Je aí výhodná zľava v tomto prípade?",
+              "options": [
+                "Áno, výhodná",
+                "Nie, nie je výhodná, pretože Chrumko vec nepotrebuje",
+                "Vždy je výhodná",
+                "Niekedy možno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pre Chrumko nie je výhodná, pretože nepotrebuje sladkosť. Výhodná zľava je len na vec, ktorú skutočne chceš a potrebuješ."
+            }
+          ]
+        },
+        {
+          "lessonId": 6003,
+          "lessonNumber": 3,
+          "lessonName": "Akcie a marketingové triky",
+          "questions": [
+            {
+              "questionId": "6003_01",
+              "type": "theoretical",
+              "question": "Prečo obchody používajú farebné nápisy a veľké písmená?",
+              "options": [
+                "Bez dôvodu",
+                "Aby výrobky pôsobili zaujímavejšie a pritiahnuli pozornosť",
+                "Na zdobenie",
+                "Nie je to dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchody používajú farebné nápisy a veľké písmená, aby výrobky pôsobili zaujímavejšie a pritiahnuli našu pozornosť."
+            },
+            {
+              "questionId": "6003_02",
+              "type": "practical",
+              "question": "Chrumko si v obchode všimne veľký žltý nápis 'výhodné balenie za najlepšiu cenu'. Čo By mal spraviť?",
+              "options": [
+                "Hneď si kúpiť",
+                "Pozrieť sa na skutočnú cenu a porovnať s inými výrobkami",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko by si mal pozrieť na skutočnú cenu a porovnať s inými výrobkami. Veľký nápis ešte neznamená automaticky najlepšiu kúpu."
+            },
+            {
+              "questionId": "6003_03",
+              "type": "practical",
+              "question": "Čo zistí Chrumko o tomto výrobku?",
+              "options": [
+                "Je to naozaj najlepšia kúpa",
+                "Rozdiel je veľmi malý alebo existuje iný podobný výrobok lacnejšie",
+                "Je to jediná varianta",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keď sa pozrie bližšie, Chrumko zistí, že rozdiel je veľmi malý alebo existuje iný podobný výrobok za ešte lepšiu cenu."
+            },
+            {
+              "questionId": "6003_04",
+              "type": "practical",
+              "question": "Čo sa naučí Chrumko?",
+              "options": [
+                "Všetko veriť slogánom",
+                "Že veľký nápis ešte neznamená automaticky najlepšiu kúpu",
+                "Vždy kúpiť prvú vec",
+                "Nie je to dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že veľký nápis ešte neznamená automaticky najlepšiu kúpu. Treba primeraně porovnávať ceny."
+            }
+          ]
+        },
+        {
+          "lessonId": 6004,
+          "lessonNumber": 4,
+          "lessonName": "Impulzívne nákupy",
+          "questions": [
+            {
+              "questionId": "6004_01",
+              "type": "theoretical",
+              "question": "Čo je impulzívny nákup?",
+              "options": [
+                "Premyslený nákup",
+                "Rýchly nákup bez plánovania a rozmýšľania",
+                "Najlepší nákup",
+                "Nikdy sa nestáva"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulzívny nákup je rýchly nákup bez plánovania. Vzniká vtedy, keď nás niečo zaujme a rozhodneme sa okamžite."
+            },
+            {
+              "questionId": "6004_02",
+              "type": "practical",
+              "question": "Kde sa často stávajú impulzívne nákupy?",
+              "options": [
+                "Len doma",
+                "Pri pokladni, kde sú malé výrobky ľahko viditeľné",
+                "Nikdy sa nestávajú",
+                "Všade rovnako"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulzívne nákupy sa často stávajú pri pokladni, kde sú malé výrobky ľahko viditeľné a dostaneme na ne chuť."
+            },
+            {
+              "questionId": "6004_03",
+              "type": "practical",
+              "question": "Chrumko stojí pri pokladni s mamou. Uvidí farebné žuvačky. Čo sa stane?",
+              "options": [
+                "Nič, nebude ich chcieť",
+                "Dostane chuť si ich kúpiť",
+                "Bude ich ignorovať",
+                "Všetko je jedno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko dostane chuť si žuvačky kúpiť. Sú položené presne tam, kde si ich každý všimne, a je tam veľa svábania."
+            },
+            {
+              "questionId": "6004_04",
+              "type": "practical",
+              "question": "Čo by mal Chrumko urobiť?",
+              "options": [
+                "Hneď si ich kúpiť",
+                "Chvíľu počkať a myslieť si, či ich skutočne potrebuje",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že doma má ešte sladkosť z minulého dňa. Rozhodne se chvíľu počkať a žuvačky si nekúpi."
+            }
+          ]
+        },
+        {
+          "lessonId": 6005,
+          "lessonNumber": 5,
+          "lessonName": "Ako sa rozhodovať vlastnou hlavou",
+          "questions": [
+            {
+              "questionId": "6005_01",
+              "type": "theoretical",
+              "question": "Ako zistiť, či niečo chceme preto, že to potrebujeme?",
+              "options": [
+                "Nie je dôvodu premýšľať",
+                "Položiť si otázky: Potrebujem to? Budem to používať dlhšie?",
+                "Kúpiť všetko čo vidím",
+                "Všetko je impulzívne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pomáha položiť si otázky: Potrebujem to? Budem to používať dlhšie? Oplatí sa mi za to minúť peniaze?"
+            },
+            {
+              "questionId": "6005_02",
+              "type": "practical",
+              "question": "Chrumko ide do obchodu kúpiť zošit. Vidí pero s farebným obalom a obľúbenou postavičkou. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ho kúpiť",
+                "Zastaviť sa a chvíľu premýšľať, či ho skutočne potrebuje",
+                "Všetko si kúpiť",
+                "Nikdy si ničt nekúpiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko by si mal zastaviť a premyslieť si, či pero skutočne potrebuje."
+            },
+            {
+              "questionId": "6005_03",
+              "type": "practical",
+              "question": "Čo Chrumko zistí o pere?",
+              "options": [
+                "Potrebuje si ho kúpiť",
+                "Doma má ešte dve funkčné perá",
+                "Je to jediné pero",
+                "Všetky sú rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si spomenie, že doma má ešte dve funkčné perá a nové pero neopredmetu v skutočnosti nepotrebuje."
+            },
+            {
+              "questionId": "6005_04",
+              "type": "practical",
+              "question": "Čo sa nakoniec rozhodne Chrumko?",
+              "options": [
+                "Kúpiť si pero aj zošit",
+                "Nekúpiť nič",
+                "Kúpiť si len zošit a pero nechať v obchode",
+                "Všetko si kúpiť na úver"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko si kúpi len zošit a pero nechá v obchode. O pár dní je rád, že peniaze minul len na to, čo skutočne potreboval."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": 7,
+      "sectionName": "PENIAZE V RODINE",
+      "lessons": [
+        {
+          "lessonId": 7001,
+          "lessonNumber": 1,
+          "lessonName": "Odkiaľ rodina berie peniaze",
+          "questions": [
+            {
+              "questionId": "7001_01",
+              "type": "theoretical",
+              "question": "Ako rodina najčastejšie získava peniaze?",
+              "options": [
+                "Nachádzajú ich",
+                "Z práce dospelých - plat alebo mzda",
+                "Dostávajú ich zadarmo",
+                "Peniaze majú proste"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rodina získava peniaze najčastejšie z práce dospelých. Keď rodičia pracujú, dostávajú za svoju prácu plat alebo odmenu."
+            },
+            {
+              "questionId": "7001_02",
+              "type": "practical",
+              "question": "Chrumko si všimne, že mama pozerá na telefóne správu z banky. Čo sa valstane?",
+              "options": [
+                "Nič nie podľa",
+                "Mama dostala výplatu za prácu",
+                "Peniaze zmizli",
+                "Vždy je to problém"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama dostala výplatu - peniaze, ktoré ju dostáva za prácu. Tieto peniaze prichádzajú na jej bankový účet."
+            },
+            {
+              "questionId": "7001_03",
+              "type": "practical",
+              "question": "Na čo sa z týchto peňazí používajú?",
+              "options": [
+                "Len na hračky",
+                "Na nájom, potraviny, školské potreby a ďalšie",
+                "Sú úplne zbytočné",
+                "Nikdy nie sú potrebné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Z týchto peňazí rodina platí nájom, potraviny aj školské potreby. Z nich financuje všetko, čo rodina potrebuje."
+            },
+            {
+              "questionId": "7001_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Peniaze sa majú proste",
+                "Peniaze, ktoré doma používajú, prichádzajú preto, že rodičia pracujú",
+                "Peniaze nie sú dôležité",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že peniaze v domácnosti prichádzajú preto, že rodičia pracujú a dostávajú za svoju prácu odplatu."
+            }
+          ]
+        },
+        {
+          "lessonId": 7002,
+          "lessonNumber": 2,
+          "lessonName": "Výdavky domácnosti",
+          "questions": [
+            {
+              "questionId": "7002_01",
+              "type": "theoretical",
+              "question": "Čo sú výdavky domácnosti?",
+              "options": [
+                "Všetko, čo si kúpime",
+                "Všetky peniaze, ktoré treba zaplatiť na fungovanie domova",
+                "Majetok",
+                "Nič nie je dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Výdavky domácnosti sú všetky peniaze, ktoré treba zaplatiť na fungovanie domova - bývanie, jedlo, voda, elektrina, doprava, atd."
+            },
+            {
+              "questionId": "7002_02",
+              "type": "practical",
+              "question": "Chrumko sa čuduje, prečo rodičia tohto mesiaca nekúpili dekoratívny kvetináč, ktorý sa im páčil. Čo otec hovorí?",
+              "options": [
+                "Majú všetky peniaze",
+                "Peniaze nemajú",
+                "Museli platiť účet za internet, vodu a ďalšie povinné výdavky",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Otec mu hovorí, že museli platiť účet za internet, vodu a ďalšie povinné výdavky. Aj keď to nie sú veľké veci, spolu tvoria väčšiu sumu."
+            },
+            {
+              "questionId": "7002_03",
+              "type": "practical",
+              "question": "Čo patrí medzi výdavky domácnosti?",
+              "options": [
+                "Len jedlo",
+                "Bývanie, jedlo, voda, elektrina, internet, doprava, oblečenie, školské potreby",
+                "Len oblečenie",
+                "Nič nie je dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Medzi výdavky patrí bývanie, jedlo, voda, elektrina, internet, doprava, oblečenie, školské potreby a ďalšie."
+            },
+            {
+              "questionId": "7002_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Všetky peniaze sú na zábavu",
+                "Peniaze často odchádzajú na veľa malých podľa potrebných platieb, nie len na veľké nákupy",
+                "Výdavky nemajú zmysel",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že peniaze často odchádzajú na veľa malých potrebných platieb, aj keď nič veľké nekúpujú."
+            }
+          ]
+        },
+        {
+          "lessonId": 7003,
+          "lessonNumber": 3,
+          "lessonName": "Bývanie stojí peniaze",
+          "questions": [
+            {
+              "questionId": "7003_01",
+              "type": "theoretical",
+              "question": "Prečo sa platí za bývanie, aj keď v ňom žijeme?",
+              "options": [
+                "Nie je dôvodu platiť",
+                "Bývanie vyžaduje starostlivosť, údržbu a služby, ktoré stoja peniaze",
+                "Všetko je zadarmo",
+                "Nikdy sa neplati"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Za bývanie sa platí nájom, hypotéka alebo poplatky spojené s bývaním. Tiež k tomu patria služby ako voda, kúrenie, odvoz odpadu."
+            },
+            {
+              "questionId": "7003_02",
+              "type": "practical",
+              "question": "Čo všetko je zahrnuté v platbach za bývanie?",
+              "options": [
+                "Len samotný priestor",
+                "Priestor, voda, kúrenie, spoločné priestory, údržba a opravy",
+                "Nič nie je zahrnuté",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Plachy za bývanie zahŕňajú nielen samotný priestor, ale aj vodu, kúrenie, spoločné priestory a údržbu."
+            },
+            {
+              "questionId": "7003_03",
+              "type": "practical",
+              "question": "Ako sa Chrumko učí o bytě?",
+              "options": [
+                "Všetko je zadarmo",
+                "Bývanie znamená nielen priestor, ale aj starostlivosť o údržbu",
+                "Byt sa nikdy nemusí opravovať",
+                "Všetko je permanentne zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama mu vysvetlí, že bývanie znamená nielen samotný priestor, ale aj starostlivosť o údržbu, keď sa pokazí, keď treba opraviť strechu."
+            },
+            {
+              "questionId": "7003_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Byt je zadarmo",
+                "Domov potrebuje starostlivosť a údržbu, ktorá stojí peniaze",
+                "Opravy sa nikdy nerobia",
+                "Všetko je zbytočné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že domov potrebuje starostlivosť a údržbu, a to všetko stojí peniaze."
+            }
+          ]
+        },
+        {
+          "lessonId": 7004,
+          "lessonNumber": 4,
+          "lessonName": "Jedlo stojí peniaze",
+          "questions": [
+            {
+              "questionId": "7004_01",
+              "type": "theoretical",
+              "question": "Prečo neostáva chladnička sama s jedlom?",
+              "options": [
+                "Jedlo raste doma",
+                "Potraviny sa spotrebúvajú a treba ich pravidelne kupovať",
+                "Chladnička je magická",
+                "Jedlo je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Jedlo patrí medzi pravidelné výdavky. Potraviny sa spotrebúvajú a treba ich kupovať často."
+            },
+            {
+              "questionId": "7004_02",
+              "type": "practical",
+              "question": "Chrumko ide s mamou na menší nákup. Co kupujú?",
+              "options": [
+                "Nič",
+                "Chlieb, mlieko, ovocie, syr, cestoviny a jogurty",
+                "Len hračky",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Do košíka dávajú chlieb, mlieko, ovocie, syr, cestoviny a jogurty. Zdá sa mu, že kupujú len pár vecí."
+            },
+            {
+              "questionId": "7004_03",
+              "type": "practical",
+              "question": "Čo vidí Chrumko pri pokladni?",
+              "options": [
+                "Nižšiu sumu",
+                "Vyššiu sumu, ako čakal",
+                "Všetko je zadarmo",
+                "Peniaze sa vracajú"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri pokladni vidí Chrumko vyššiu sumu, ako očakával. Mama mu vysvetlí, že aj bežné potraviny spolu stoja dosť peňazí."
+            },
+            {
+              "questionId": "7004_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Jedlo je zadarmo",
+                "Jedlo je veľmi drahé a všetki ho nepoužívajú",
+                "Jedlo je pravidelná veľká časť rodinných výdavkov",
+                "Všetko je absurdné"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko si uvedomí, že jedlo je pravidelná veľká časť rodinných výdavkov. Peniaze na potraviny sa vypláca pravidelne."
+            }
+          ]
+        },
+        {
+          "lessonId": 7005,
+          "lessonNumber": 5,
+          "lessonName": "Energia stojí peniaze",
+          "questions": [
+            {
+              "questionId": "7005_01",
+              "type": "theoretical",
+              "question": "Prečo rodičia vypínajú svetlo, aj keď ho mohli nechať dlhšie?",
+              "options": [
+                "Bez dôvodu",
+                "Pretože elektrina, voda a kúrenie stoja peniaze",
+                "Svetlo je zadarmo",
+                "Nikdy sa to nedáže"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Elektrina, voda a kúrenie sú služby, za ktoré rodina platí pravidelné účty. Čím viac energie sa používa, tým vyššia môže byť suma."
+            },
+            {
+              "questionId": "7005_02",
+              "type": "practical",
+              "question": "Chrumko odíde z izby a nechá zapnuté svetlo. Čo mama robí?",
+              "options": [
+                "Necháva ho zapnuté",
+                "Zavolá na Chrumka, aby ho vypol",
+                "Všetko je jedno",
+                "Svetlo je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama ho zavolá späť a poprosí ho, aby vypol svetlo. Vysvetlí mu, že aj malé veci se počas mesiaca spočítajú."
+            },
+            {
+              "questionId": "7005_03",
+              "type": "practical",
+              "question": "Ako sa rodina snaží šetriť energiou?",
+              "options": [
+                "Nekúpi",
+                "Vypína svetlo, zatvárajú vodu, nenechávajú dlho otvornú chladničku",
+                "Nie, vôbec",
+                "Všetko je bezúčelné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rodina zatvárajú vodu, vypína svetlo a nenechávajú dlho otvornú chladničku. Toto všetko pomáha šetriť energiou."
+            },
+            {
+              "questionId": "7005_04",
+              "type": "practical",
+              "question": "Čo si Chrumko postupne chápe?",
+              "options": [
+                "Elektrina je zadarmo",
+                "Energia síce nie je viditeľná, ale stoji peniaze každý deň",
+                "Energia nikdy nie je potrebná",
+                "Všetko je bezúčelne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko postupne chápe, že energia síce nie je viditeľná ako predmet, ale stojí peniaze každý deň na účtoch."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

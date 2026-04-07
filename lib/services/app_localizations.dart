@@ -349,6 +349,21 @@ class AppLocalizations {
       'quizes': 'Quizes',
       'lessons': 'Lessons',
 
+      // Quiz screens
+      'quizResults': 'Quiz Results',
+      'quizScore': 'Score: ',
+      'quizCorrect': 'Correct',
+      'quizOut': 'out of',
+      'quizClose': 'Close',
+      'quizRetry': 'Retry',
+      'quizExcellent': '🎉 Excellent! You master this lesson!',
+      'quizGood': '👍 Good performance! Try it again.',
+      'quizOkay': '📚 A little more study needed!',
+      'quizTryAgain': '💪 Try again - you know you\'ll improve!',
+      'quizLoading': 'Loading questions...',
+      'quizNoQuestions': 'No questions available for this lesson',
+      'quizError': 'Error: ',
+
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
       'chrumkoTipDismiss': 'Tap to dismiss',
@@ -743,6 +758,21 @@ class AppLocalizations {
       'chrumkoTip12': 'Pred nákupom si vždy položím otázku: potrebujem to? 🛒',
       'chrumkoTip13': 'Finančná disciplína mi pomáha plniť si sny! 💭',
       'chrumkoTip14': 'Pamätaj: peniaze sú nástroj, nie cieľ! 🌍',
+
+      // Quiz screens
+      'quizResults': 'Výsledky kvízu',
+      'quizScore': 'Skóre: ',
+      'quizCorrect': 'Správne',
+      'quizOut': 'z',
+      'quizClose': 'Zavrieť',
+      'quizRetry': 'Znova',
+      'quizExcellent': '🎉 Výborně! Ovládaš túto lekciu!',
+      'quizGood': '👍 Dobrý výkon! Skús si to ešte raz.',
+      'quizOkay': '📚 Ešte trochu študovať!',
+      'quizTryAgain': '💪 Skús znova - vieš, že sa zlepšíš!',
+      'quizLoading': 'Načítavajú sa otázky...',
+      'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
+      'quizError': 'Chyba: ',
     },
   };
 

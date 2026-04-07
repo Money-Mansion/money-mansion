@@ -6,6 +6,7 @@ import 'screens/game_screen.dart';
 import 'services/item_database_service.dart';
 import 'services/financial_database_service.dart';
 import 'services/goal_database_service.dart';
+import 'services/quiz_progress_database_service.dart';
 import 'services/room_component_database_service.dart';
 import 'services/app_localizations_provider.dart';
 import 'services/music_service.dart';
@@ -55,6 +56,9 @@ void main() async {
 
     await GoalDatabaseService.initializeDatabase();
     print('✓ GoalDatabaseService ready');
+
+    await QuizProgressDatabaseService.initializeDatabase();
+    print('✓ QuizProgressDatabaseService ready');
 
     // Initialize music service
     final musicService = MusicService();
