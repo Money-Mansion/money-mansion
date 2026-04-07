@@ -28,12 +28,25 @@ class _ShopScreenState extends State<ShopScreen>
   bool _isLoading = true;
   late TabController _tabController;
 
+  // ---------------------------------------------------------------------------
+  // Categories
+  // ---------------------------------------------------------------------------
+  // "All" tab shows only items (no walls/floors).
+  // Room-component-only categories (walls, floors) are at the end.
   static const List<_Category> _categories = [
-    _Category(labelKey: 'all', itemType: null),
-    _Category(labelKey: 'furniture', itemType: ItemType.furniture),
-    _Category(labelKey: 'decoration', itemType: ItemType.decoration),
-    _Category(labelKey: 'doors', itemType: ItemType.door),
-    _Category(labelKey: 'walls', isRoomComponent: true, componentType: RoomComponentType.wall),
+    // ── Item categories ──────────────────────────────────────────────
+    _Category(labelKey: 'all'),
+    _Category(labelKey: 'beds',      itemSubtype: _ItemSubtype.beds),
+    _Category(labelKey: 'sofas',     itemSubtype: _ItemSubtype.sofas),
+    _Category(labelKey: 'tables',    itemSubtype: _ItemSubtype.tables),
+    _Category(labelKey: 'shelves',   itemSubtype: _ItemSubtype.shelves),
+    _Category(labelKey: 'rugs',      itemSubtype: _ItemSubtype.rugs),
+    _Category(labelKey: 'wallDecor', itemSubtype: _ItemSubtype.wallDecor),
+    _Category(labelKey: 'plants',    itemSubtype: _ItemSubtype.plants),
+    _Category(labelKey: 'lighting',  itemSubtype: _ItemSubtype.lighting),
+    _Category(labelKey: 'doors',     itemType: ItemType.door),
+    // ── Room-component categories ─────────────────────────────────────
+    _Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
     _Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
   ];
 
@@ -66,72 +79,74 @@ class _ShopScreenState extends State<ShopScreen>
     });
   }
 
-  void _buyItem(Item item) async {
-    final l10n = context.read<AppLocalizationsProvider>();
-    if (widget.gameState.coins >= item.cost) {
-      widget.gameState.spendCoins(item.cost);
-      widget.gameState.addOwnedItem(item);
+  // ---------------------------------------------------------------------------
+  // Subtype filtering helpers
+  // ---------------------------------------------------------------------------
 
-      await ShopService.buyItem(item.id);
-      await _loadShopItems();
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.translate('itemPurchasedSuccessfully')),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.translate('notEnoughCoins')),
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  void _buyRoomComponent(RoomComponent component) async {
-    final l10n = context.read<AppLocalizationsProvider>();
-    if (widget.gameState.coins >= component.cost) {
-      widget.gameState.spendCoins(component.cost);
-
-      await RoomComponentService.buyComponent(component.id);
-      await _loadShopRoomComponents();
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.translate('itemPurchasedSuccessfully')),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.translate('notEnoughCoins')),
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-        ),
-      );
+  /// Returns true if the item belongs to the given subtype bucket.
+  bool _matchesSubtype(Item item, _ItemSubtype subtype) {
+    final id = item.id;
+    switch (subtype) {
+      case _ItemSubtype.beds:
+        return id.startsWith('postel_') ||
+            id.startsWith('posteľ_') ||
+            id == 'postel_znicena';
+      case _ItemSubtype.sofas:
+        return id.startsWith('gauc_');
+      case _ItemSubtype.tables:
+        return id.startsWith('stol_');
+      case _ItemSubtype.shelves:
+        return id.startsWith('polica') ||
+            id.startsWith('police') ||
+            id.startsWith('skriňa') ||
+            id.startsWith('skrina') ||
+            id == 'polica_kniznica_cierna';
+      case _ItemSubtype.rugs:
+        return id.startsWith('koberec_');
+      case _ItemSubtype.wallDecor:
+        return id.startsWith('obraz_') ||
+            id.startsWith('okno_') ||
+            id == 'okno_zrkadlo';
+      case _ItemSubtype.plants:
+        return id.startsWith('kvietok_');
+      case _ItemSubtype.lighting:
+        // No items yet — placeholder for future lamps, etc.
+        return id.startsWith('lampa_') || id.startsWith('svetlo_');
     }
   }
 
   List<dynamic> _itemsForCategory(_Category category) {
+    // Room-component tabs
     if (category.isRoomComponent) {
       if (category.componentType == null) return _shopRoomComponents;
       return _shopRoomComponents
           .where((c) => c.type == category.componentType)
           .toList();
-    } else {
-      if (category.itemType == null) return _shopItems;
+    }
+
+    // "All" tab — only items (no room components)
+    if (category.labelKey == 'all') {
+      return _shopItems;
+    }
+
+    // Subtype filter
+    if (category.itemSubtype != null) {
+      return _shopItems
+          .where((i) => _matchesSubtype(i, category.itemSubtype!))
+          .toList();
+    }
+
+    // ItemType filter (doors)
+    if (category.itemType != null) {
       return _shopItems.where((i) => i.type == category.itemType).toList();
     }
+
+    return [];
   }
+
+  // ---------------------------------------------------------------------------
+  // Build
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -156,11 +171,14 @@ class _ShopScreenState extends State<ShopScreen>
           indicatorWeight: 3,
           tabs: _categories.map((cat) {
             final count = _isLoading ? null : _itemsForCategory(cat).length;
+            final icon = cat.isRoomComponent
+                ? _roomComponentIcon(cat.componentType)
+                : _categoryIcon(cat.labelKey);
             return Tab(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(cat.isRoomComponent ? _roomComponentIcon(cat.componentType) : _categoryIcon(cat.itemType), size: 16),
+                  Icon(icon, size: 16),
                   const SizedBox(width: 6),
                   Text(_categoryLabel(cat.labelKey, l10n)),
                   if (count != null && count > 0) ...[
@@ -195,14 +213,20 @@ class _ShopScreenState extends State<ShopScreen>
               children: _categories.map((cat) {
                 final items = _itemsForCategory(cat);
                 return cat.isRoomComponent
-                    ? _buildRoomComponentGrid(items as List<RoomComponent>, l10n, language)
+                    ? _buildRoomComponentGrid(
+                        items as List<RoomComponent>, l10n, language)
                     : _buildItemGrid(items as List<Item>, l10n, language);
               }).toList(),
             ),
     );
   }
 
-  Widget _buildItemGrid(List<Item> items, AppLocalizationsProvider l10n, String language) {
+  // ---------------------------------------------------------------------------
+  // Grid builders
+  // ---------------------------------------------------------------------------
+
+  Widget _buildItemGrid(
+      List<Item> items, AppLocalizationsProvider l10n, String language) {
     if (items.isEmpty) {
       return Center(
         child: Column(
@@ -212,7 +236,8 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -243,7 +268,8 @@ class _ShopScreenState extends State<ShopScreen>
     );
   }
 
-  Widget _buildItemCard(Item item, AppLocalizationsProvider l10n, String language) {
+  Widget _buildItemCard(
+      Item item, AppLocalizationsProvider l10n, String language) {
     final canAfford = widget.gameState.coins >= item.cost;
 
     return Card(
@@ -252,7 +278,6 @@ class _ShopScreenState extends State<ShopScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Image area
           Expanded(
             child: ClipRRect(
               borderRadius:
@@ -272,7 +297,6 @@ class _ShopScreenState extends State<ShopScreen>
               ),
             ),
           ),
-          // Info + buy button
           Padding(
             padding: const EdgeInsets.fromLTRB(4, 3, 4, 4),
             child: Column(
@@ -296,8 +320,9 @@ class _ShopScreenState extends State<ShopScreen>
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
-                        color:
-                            canAfford ? Colors.orange[700] : Colors.red[400],
+                        color: canAfford
+                            ? Colors.orange[700]
+                            : Colors.red[400],
                       ),
                     ),
                   ],
@@ -308,10 +333,12 @@ class _ShopScreenState extends State<ShopScreen>
                   child: ElevatedButton(
                     onPressed: canAfford ? () => _buyItem(item) : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          canAfford ? Colors.orange[400] : Colors.grey[300],
-                      foregroundColor:
-                          canAfford ? Colors.white : Colors.grey[500],
+                      backgroundColor: canAfford
+                          ? Colors.orange[400]
+                          : Colors.grey[300],
+                      foregroundColor: canAfford
+                          ? Colors.white
+                          : Colors.grey[500],
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(0, 20),
                       shape: RoundedRectangleBorder(
@@ -332,7 +359,8 @@ class _ShopScreenState extends State<ShopScreen>
     );
   }
 
-  Widget _buildRoomComponentGrid(List<RoomComponent> components, AppLocalizationsProvider l10n, String language) {
+  Widget _buildRoomComponentGrid(List<RoomComponent> components,
+      AppLocalizationsProvider l10n, String language) {
     if (components.isEmpty) {
       return Center(
         child: Column(
@@ -342,7 +370,8 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -373,7 +402,8 @@ class _ShopScreenState extends State<ShopScreen>
     );
   }
 
-  Widget _buildRoomComponentCard(RoomComponent component, AppLocalizationsProvider l10n, String language) {
+  Widget _buildRoomComponentCard(RoomComponent component,
+      AppLocalizationsProvider l10n, String language) {
     final canAfford = widget.gameState.coins >= component.cost;
 
     return Card(
@@ -382,7 +412,6 @@ class _ShopScreenState extends State<ShopScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Image area
           Expanded(
             child: ClipRRect(
               borderRadius:
@@ -402,7 +431,6 @@ class _ShopScreenState extends State<ShopScreen>
               ),
             ),
           ),
-          // Info + buy button
           Padding(
             padding: const EdgeInsets.fromLTRB(4, 3, 4, 4),
             child: Column(
@@ -426,8 +454,9 @@ class _ShopScreenState extends State<ShopScreen>
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
-                        color:
-                            canAfford ? Colors.orange[700] : Colors.red[400],
+                        color: canAfford
+                            ? Colors.orange[700]
+                            : Colors.red[400],
                       ),
                     ),
                   ],
@@ -436,12 +465,15 @@ class _ShopScreenState extends State<ShopScreen>
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: canAfford ? () => _buyRoomComponent(component) : null,
+                    onPressed:
+                        canAfford ? () => _buyRoomComponent(component) : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          canAfford ? Colors.orange[400] : Colors.grey[300],
-                      foregroundColor:
-                          canAfford ? Colors.white : Colors.grey[500],
+                      backgroundColor: canAfford
+                          ? Colors.orange[400]
+                          : Colors.grey[300],
+                      foregroundColor: canAfford
+                          ? Colors.white
+                          : Colors.grey[500],
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(0, 20),
                       shape: RoundedRectangleBorder(
@@ -462,59 +494,143 @@ class _ShopScreenState extends State<ShopScreen>
     );
   }
 
-  IconData _categoryIcon(ItemType? type) {
-    switch (type) {
-      case ItemType.furniture:
-        return Icons.chair;
-      case ItemType.decoration:
-        return Icons.local_florist;
-      case ItemType.door:
-        return Icons.door_front_door;
-      default:
-        return Icons.grid_view;
+  // ---------------------------------------------------------------------------
+  // Purchase handlers
+  // ---------------------------------------------------------------------------
+
+  void _buyItem(Item item) async {
+    final l10n = context.read<AppLocalizationsProvider>();
+    if (widget.gameState.coins >= item.cost) {
+      widget.gameState.spendCoins(item.cost);
+      widget.gameState.addOwnedItem(item);
+      await ShopService.buyItem(item.id);
+      await _loadShopItems();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.translate('itemPurchasedSuccessfully')),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.translate('notEnoughCoins')),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  void _buyRoomComponent(RoomComponent component) async {
+    final l10n = context.read<AppLocalizationsProvider>();
+    if (widget.gameState.coins >= component.cost) {
+      widget.gameState.spendCoins(component.cost);
+      await RoomComponentService.buyComponent(component.id);
+      await _loadShopRoomComponents();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.translate('itemPurchasedSuccessfully')),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.translate('notEnoughCoins')),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Icon & label helpers
+  // ---------------------------------------------------------------------------
+
+  IconData _categoryIcon(String labelKey) {
+    switch (labelKey) {
+      case 'all':       return Icons.grid_view;
+      case 'beds':      return Icons.bed;
+      case 'sofas':     return Icons.chair;
+      case 'tables':    return Icons.table_restaurant;
+      case 'shelves':   return Icons.shelves;
+      case 'rugs':      return Icons.square_foot;
+      case 'wallDecor': return Icons.image;
+      case 'plants':    return Icons.local_florist;
+      case 'lighting':  return Icons.lightbulb_outline;
+      case 'doors':     return Icons.door_front_door;
+      default:          return Icons.grid_view;
     }
   }
 
   IconData _roomComponentIcon(RoomComponentType? type) {
     switch (type) {
-      case RoomComponentType.wall:
-        return Icons.wallpaper;
-      case RoomComponentType.floor:
-        return Icons.square_foot;
-      default:
-        return Icons.home;
+      case RoomComponentType.wall:  return Icons.wallpaper;
+      case RoomComponentType.floor: return Icons.square_foot;
+      default:                      return Icons.home;
     }
   }
 
   String _categoryLabel(String key, AppLocalizationsProvider l10n) {
+    final isSk = l10n.currentLanguage == 'sk';
     switch (key) {
-      case 'all':
-        return l10n.currentLanguage == 'sk' ? 'Všetko' : 'All';
-      case 'furniture':
-        return l10n.translate('furniture');
-      case 'decoration':
-        return l10n.currentLanguage == 'sk' ? 'Dekor' : 'Decor';
-      case 'doors':
-        return l10n.currentLanguage == 'sk' ? 'Dvere' : 'Doors';
-      case 'walls':
-        return l10n.currentLanguage == 'sk' ? 'Steny' : 'Walls';
-      case 'floors':
-        return l10n.currentLanguage == 'sk' ? 'Podlahy' : 'Floors';
-      default:
-        return key;
+      case 'all':       return isSk ? 'Všetko'   : 'All';
+      case 'beds':      return isSk ? 'Postele'  : 'Beds';
+      case 'sofas':     return isSk ? 'Sedačky'  : 'Sofas';
+      case 'tables':    return isSk ? 'Stoly'    : 'Tables';
+      case 'shelves':   return isSk ? 'Skrine'   : 'Shelves';
+      case 'rugs':      return isSk ? 'Koberce'  : 'Rugs';
+      case 'wallDecor': return isSk ? 'Steny'    : 'Wall Decor';
+      case 'plants':    return isSk ? 'Rastliny' : 'Plants';
+      case 'lighting':  return isSk ? 'Svetlá'   : 'Lighting';
+      case 'doors':     return isSk ? 'Dvere'    : 'Doors';
+      case 'walls':     return isSk ? 'Tapety'   : 'Walls';
+      case 'floors':    return isSk ? 'Podlahy'  : 'Floors';
+      default:          return key;
     }
   }
 }
 
+// ---------------------------------------------------------------------------
+// Data types
+// ---------------------------------------------------------------------------
+
+/// Fine-grained item subtypes used for tab filtering.
+/// These live purely in the UI layer — no changes needed to Item/ItemType.
+enum _ItemSubtype {
+  beds,
+  sofas,
+  tables,
+  shelves,
+  rugs,
+  wallDecor,
+  plants,
+  lighting,
+}
+
 class _Category {
   final String labelKey;
+
+  // For plain ItemType filtering (e.g. doors)
   final ItemType? itemType;
+
+  // For fine-grained subtype filtering
+  final _ItemSubtype? itemSubtype;
+
+  // For room-component tabs (walls, floors)
   final bool isRoomComponent;
   final RoomComponentType? componentType;
 
   const _Category({
     required this.labelKey,
     this.itemType,
+    this.itemSubtype,
     this.isRoomComponent = false,
     this.componentType,
   });
