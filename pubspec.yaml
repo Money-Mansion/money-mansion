@@ -37,6 +37,7 @@ flutter:
     - assets/previews/
     - assets/music/
     - assets/hitboxes/
+    - assets/quizes/
 
   # Custom icon font
   fonts:

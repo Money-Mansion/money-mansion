@@ -1,0 +1,907 @@
+{
+  "quizzes": [
+    {
+      "section": 8,
+      "sectionName": "PRÁCA A PRÍJEM",
+      "lessons": [
+        {
+          "lessonId": 8001,
+          "lessonNumber": 1,
+          "lessonName": "Prečo ľudia pracujú",
+          "questions": [
+            {
+              "questionId": "8001_01",
+              "type": "theoretical",
+              "question": "Prečo ľudia pracujú?",
+              "options": [
+                "Bez dôvodu",
+                "Aby získali peniaze na bežný život a splnili si svoje povinnosti",
+                "Práca je zlá",
+                "Nikdy sa to nedáže"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ľudia pracujú preto, aby získali peniaze na bežný život - jedlo, bývanie, oblečenie a ďalšie potreby."
+            },
+            {
+              "questionId": "8001_02",
+              "type": "practical",
+              "question": "Chrumko si všimne, že mama sa ráno pripravuje do práce. Prečo pracuje, aj keď prší?",
+              "options": [
+                "Musí sa nudí",
+                "Nema inú voľbu",
+                "Aby za svoju prácu dostala peniaze, z ktorých rodina platí nájom, potraviny a školské potreby",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Mama musí ísť do práce, pretože za svoju prácu dostáva peniaze, z ktorých rodina platí všetko potrebné."
+            },
+            {
+              "questionId": "8001_03",
+              "type": "practical",
+              "question": "Aké majú práce ľudí v spoločnosti?",
+              "options": [
+                "Žiadnu",
+                "Pomáhajú ostatným - učia, liečia, opravujú, vyrábajú, poskytujú služby",
+                "Všetky sú rovnaké",
+                "Práca je zbytočná"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mnohí ľudia svojou prácou pomáhajú ostatným. Každá práca má svoju hodnotu, pretože prispieva k fungovaniu spoločnosti."
+            },
+            {
+              "questionId": "8001_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Mama je lenivá",
+                "Práca je zbytočná",
+                "Práca pomáha zabezpečiť veľa vecí, ktoré doma používajú a sú pre nich samozrejmé",
+                "Všetko je magické"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko si uvedomí, že práca pomáha zabezpečiť veľa vecí, ktoré doma používajú a sú pre nich samozrejmé."
+            }
+          ]
+        },
+        {
+          "lessonId": 8002,
+          "lessonNumber": 2,
+          "lessonName": "Typy povolaní",
+          "questions": [
+            {
+              "questionId": "8002_01",
+              "type": "theoretical",
+              "question": "Robia všetci dospelí rovnakú prácu?",
+              "options": [
+                "Áno, všetci robia to isté",
+                "Nie, ľudia vykonávajú rôzne povolania podľa skúseností a schopností",
+                "Práca je zbytočná",
+                "Nikdy nie sú rozdiely"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ľudia vykonávajú rôzne povolania podľa toho, čo vedia, čo ich baví a čo spoločnosť potrebuje."
+            },
+            {
+              "questionId": "8002_02",
+              "type": "practical",
+              "question": "Chrumko ide ráno do školy. Koľko rozdielnych prác vidí?",
+              "options": [
+                "Len jednu",
+                "Vodič autobusu, učiteľka, opraváči chodníka aj ďalšie v obchode a na pošte",
+                "Žiadnu",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko vidí, koľko rôznych ľudí pracuje - vodič, učiteľka, opraváči, predavačka, poštár a ďalší."
+            },
+            {
+              "questionId": "8002_03",
+              "type": "theoretical",
+              "question": "Aké sú druhy prác?",
+              "options": [
+                "Len jedna",
+                "Práce s ľuďmi, technikou, zvieratami, budovami alebo informáciami",
+                "Nikdy nie sú rozdiely",
+                "Všetko je jedno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Existujú povolania, pri ktorých človek niečo vyrába, opravuje, učí, lieči, organizuje alebo pracuje s informáciami."
+            },
+            {
+              "questionId": "8002_04",
+              "type": "practical",
+              "question": "Prečo je dôležité mať rôzne povolania?",
+              "options": [
+                "Nie je to dôležité",
+                "Všetky sa navzájom dopĺňajú a spolu pomáhajú, aby svet fungoval",
+                "Jeden by stačil",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Každé povolanie má svoj zmysel. Všetky rôzne práce sa navzájom dopĺňajú a spolu pomáhajú svetu fungovať."
+            }
+          ]
+        },
+        {
+          "lessonId": 8003,
+          "lessonNumber": 3,
+          "lessonName": "Plat a odmena",
+          "questions": [
+            {
+              "questionId": "8003_01",
+              "type": "theoretical",
+              "question": "Dostáva každý za svoju prácu rovnaké peniaze?",
+              "options": [
+                "Áno, vždy",
+                "Nie, výška platu závisí od druhu práce, skúseností a zodpovednosti",
+                "Nikdy",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Výška platu závisí od druhu práce, skúseností, zodpovednosti a času, ktorý človek práci venuje."
+            },
+            {
+              "questionId": "8003_02",
+              "type": "practical",
+              "question": "Ako často dostáva každý plat za prácu?",
+              "options": [
+                "Každý deň",
+                "Keď si to vyžiada",
+                "Pravidelne, najčastejšie raz za mesiac",
+                "Nikdy sa nepočítava"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Plat dostáva clovek pravidelne, zvyčajne raz za mesiac na bankový účet."
+            },
+            {
+              "questionId": "8003_03",
+              "type": "practical",
+              "question": "Chrumko sa rozpráva s otcom o platech. Čo otec hovorí?",
+              "options": [
+                "Peniaze prichádzajú každý deň",
+                "Plat dostáva raz za mesiac a z neho rodina platí všetko potrebné",
+                "Peniaze sú vylúčené",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec mu vysvetlí, že plat dostáva raz za mesiac a z týchto peňazí rodina postupne platí během celého mesiaca."
+            },
+            {
+              "questionId": "8003_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Peniaze sú zadarmo",
+                "Peniaze za prácu treba rozumne rozdeliť na dlhší čas",
+                "Nikdy sa nie zvládne",
+                "Všetko je bezúčelne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že peniaze za prácu treba rozumne rozdeliť, aby wystačili na dlhší čas."
+            }
+          ]
+        },
+        {
+          "lessonId": 8004,
+          "lessonNumber": 4,
+          "lessonName": "Čas = odmena",
+          "questions": [
+            {
+              "questionId": "8004_01",
+              "type": "theoretical",
+              "question": "Prečo je čas dôležitý pri práci?",
+              "options": [
+                "Nie je podľa",
+                "Človek dostáva peniaze podľa času, ktorý práci venuje",
+                "Čas je zbytočný",
+                "Nikdy sa netočí"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri mnohých prácach platí, že človek dostáva peniaze podľa času, ktorý odpracuje - čím viac hodín, tým väčšia odmena."
+            },
+            {
+              "questionId": "8004_02",
+              "type": "practical",
+              "question": "Chrumko vidí, že jeho starší brat pracuje u susedov. Čo robí?",
+              "options": [
+                "Hrá si",
+                "Pomáha celé dopoludnie - zbiera lístie, hrabe trávu, nosí konáre",
+                "Sedí doma",
+                "Nič nerobí"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Brat pracuje cez vikend celé dopoludnie. Pracujú spolu a venujú tomu čas aj úsilie."
+            },
+            {
+              "questionId": "8004_03",
+              "type": "practical",
+              "question": "Čo dostane brat za prácu?",
+              "options": [
+                "Nič",
+                "Malú odmenu",
+                "Nedá sa povedať",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Po práci dostane brat malú odmenu. Sused mu vysvetlí, že odmena patrí za čas aj za pomoc, ktorú venoval."
+            },
+            {
+              "questionId": "8004_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Čas je zbytočný",
+                "Čas a úsilie se pri práci počítajú",
+                "Peniaze sú len čísla",
+                "Práca je zbytočná"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že čas a úsilie sa pri práci počítajú. Viac času alebo lepšia práca znamená vyššiu odmenu."
+            }
+          ]
+        },
+        {
+          "lessonId": 8005,
+          "lessonNumber": 5,
+          "lessonName": "Produktivita",
+          "questions": [
+            {
+              "questionId": "8005_01",
+              "type": "theoretical",
+              "question": "Čo je produktivita?",
+              "options": [
+                "Pomalá práca",
+                "Koľko práce zvládne človek za určitý čas",
+                "Bez práce",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Produktivita znamená, koľko práce zvládne človek za určitý čas. Ak pracuje sústredene, zvláda viac za kratší čas."
+            },
+            {
+              "questionId": "8005_02",
+              "type": "practical",
+              "question": "Chrumko si robí domácu úlohu. Prvý deň stále pozerá na mobil. Čo sa stane?",
+              "options": [
+                "Úloha mu trvá krátko",
+                "Úloha mu trvá veľmi dlho, pretože sa rozptyľuje",
+                "Úlohu nevie urobiť",
+                "Všetko je rýchle"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Úloha mu trvá veľmi dlho, pretože se stále rozptyľuje a prerušuje prácu."
+            },
+            {
+              "questionId": "8005_03",
+              "type": "practical",
+              "question": "Druhý deň si Chrumko sadne inak. Čo robí?",
+              "options": [
+                "Opäť sa rozptyľuje",
+                "Sadne bez vyrušovania, pripraví si všetko potrebné a pracuje sústredene",
+                "Nekončí úlohu",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si sadne bez vyrušovania, všetko si pripraví a pracuje sústredene. Tentoraz sa mu to daří lepšie."
+            },
+            {
+              "questionId": "8005_04",
+              "type": "practical",
+              "question": "Ako dlho mu trvá úloha druhý deň?",
+              "options": [
+                "Rovnako dlho",
+                "Rýchlejšie a bez stresu",
+                "Nikdy ju nedokončí",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Úlohu dokončí rýchlejšie a bez stresu. Chrumko si uvedomí, že keď pracuje pozorne, zvládne viac za kratší čas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": 9,
+      "sectionName": "ROZPOČET",
+      "lessons": [
+        {
+          "lessonId": 9001,
+          "lessonNumber": 1,
+          "lessonName": "Čo je rozpočet",
+          "questions": [
+            {
+              "questionId": "9001_01",
+              "type": "theoretical",
+              "question": "Čo je rozpočet?",
+              "options": [
+                "List s číslami",
+                "Plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme použiť",
+                "Nič podľa",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rozpočet je plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme použiť. Pomáha s peniazmi."
+            },
+            {
+              "questionId": "9001_02",
+              "type": "practical",
+              "question": "Chrumko vidí, že mama si zapisuje čísla do zošita. Čo robí?",
+              "options": [
+                "Počítačky neznámy",
+                "Plánuje výdavky na celý mesiac",
+                "Píše príbeh",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama si plánuje výdavky na celý mesiac. Najprv zapíše peniaze, ktoré dostane, a potom to, čo treba zaplatiť."
+            },
+            {
+              "questionId": "9001_03",
+              "type": "practical",
+              "question": "Ako mama robí rozpočet?",
+              "options": [
+                "Bez plánu",
+                "Hneď míní všetko",
+                "Zapíše peniaze, výdavky, potom rozmýšľa, čo zostane",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Mama zapíše peniaze, ktoré rodina dostane, a potom výdavky. Až potom rozmýšľa, čo zostane na ďalšie veci."
+            },
+            {
+              "questionId": "9001_04",
+              "type": "practical",
+              "question": "Čo je cieľ rozpočtu?",
+              "options": [
+                "Bez podľa cieľu",
+                "Aby si ľudia vedeli lepšie rozdeliť peniaze a vyhnúť sa finančným problémom",
+                "Aby minuli všetko",
+                "Všetko je plán"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rozpočet pomáha mať v peniazoch poriadok a vedieť, koľko si môžeme dovoliť."
+            }
+          ]
+        },
+        {
+          "lessonId": 9002,
+          "lessonNumber": 2,
+          "lessonName": "Príjmy a výdavky",
+          "questions": [
+            {
+              "questionId": "9002_01",
+              "type": "theoretical",
+              "question": "Čo sú príjmy a čo sú výdavky?",
+              "options": [
+                "To isté",
+                "Príjmy - peniaze, ktoré prichádzajú; Výdavky - peniaze, ktoré odchádzajú",
+                "Nie je rozdiel",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Príjmy sú peniaze, ktoré prichádzajú. Výdavky sú peniaze, ktoré domácnosť míňa."
+            },
+            {
+              "questionId": "9002_02",
+              "type": "practical",
+              "question": "Chrumko myslí si, že keď rodičia dostanú výplatu, všetko si môžu kúpiť. Čo otec hovorí?",
+              "options": [
+                "Áno, všetko si kúpiť",
+                "Ešte predtým treba odpočítať bývanie, jedlo a ďalšie účty",
+                "Nič sa nemiňa",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec mu hovorí, že ešte predtým treba odpočítať bývanie, jedlo a ďalšie účty. Až potom zostane menšia suma."
+            },
+            {
+              "questionId": "9002_03",
+              "type": "practical",
+              "question": "Čo sa stane, ak sú výdavky vyššie ako príjmy?",
+              "options": [
+                "Všetko je v poriadku",
+                "Peniaze môžu chýbať",
+                "Vždy stačí",
+                "Bez problému"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak sú výdavky vyššie ako príjmy, peniaze môžu chýbať a rodina bude mať problém."
+            },
+            {
+              "questionId": "9002_04",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Všetko je zadarmo",
+                "Dôležité nie je len to, čo príde, ale aj to, čo odíde",
+                "Peniaze sú bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že dôležité nie je len to, čo príde, ale aj to, čo odíde a na čo sa to spotrebuje."
+            }
+          ]
+        },
+        {
+          "lessonId": 9003,
+          "lessonNumber": 3,
+          "lessonName": "Mesačné plánovanie",
+          "questions": [
+            {
+              "questionId": "9003_01",
+              "type": "theoretical",
+              "question": "Prečo nemenia všetke peniaze hneď na začiatku mesiaca?",
+              "options": [
+                "Bez dôvodu",
+                "Pretože peniaze musia vystačiť na celý mesiac",
+                "Vždy sa minú hneď",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Peniaze musia často vystačiť na celý mesiac. Preto rodina plánuje, čo bude potrebovať teraz a čo neskôr."
+            },
+            {
+              "questionId": "9003_02",
+              "type": "practical",
+              "question": "Chrumko navrhne kúpiť novú hru hneď po výplate. Čo mama hovorí?",
+              "options": [
+                "Áno, hneď si ju kúpi",
+                "Najprv musia zaplaťť dôležité platby, až potom uvidia, čo si môžu dovoliť",
+                "Všetko je zadarmo",
+                "Bez diskusie"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama mu vysvetlí, že najprv musia zaplatiť všetko dôležité. O niekoľko dní prídu ďalšie platby."
+            },
+            {
+              "questionId": "9003_03",
+              "type": "practical",
+              "question": "Čo si Chrumko uvedomí?",
+              "options": [
+                "Všetko je zadarmo",
+                "Peniaze treba rozložiť na dlhší čas",
+                "Hneď sa minú",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že peniaze treba rozložiť na dlhší čas, aby vydržali na celý mesiac."
+            },
+            {
+              "questionId": "9003_04",
+              "type": "practical",
+              "question": "Prečo je plannovanie, dôležité?",
+              "options": [
+                "Niet",
+                "Pomáha vyhnúť sa finančným problémom a vedieť, kedy si čo môžu dovoliť",
+                "Všetko je chaotické",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Plánovanie pomáha vedieť dopredu, na čo peniaze použijú, a vyhne sa nečakaným problémom."
+            }
+          ]
+        },
+        {
+          "lessonId": 9004,
+          "lessonNumber": 4,
+          "lessonName": "Fixné výdavky",
+          "questions": [
+            {
+              "questionId": "9004_01",
+              "type": "theoretical",
+              "question": "Čo sú fixné výdavky?",
+              "options": [
+                "Výdavky, ktoré sa menia",
+                "Platby, ktoré sa opakujú pravidelne s podobnou sumou",
+                "Úplne zadarmo",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixné výdavky sú platby, ktoré sa opakujú pravidelne a majú podobnú sumu."
+            },
+            {
+              "questionId": "9004_02",
+              "type": "practical",
+              "question": "Aké sú príklady fixných výdavkov?",
+              "options": [
+                "Len hračky",
+                "Bývanie, internet, telefón, školský obed a ďalšie",
+                "Nic nie je podľa",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixné výdavky sú napríklad bývanie, internet, telefón alebo školský obed - veci, ktoré treba platiť každý mesiac."
+            },
+            {
+              "questionId": "9004_03",
+              "type": "practical",
+              "question": "Chrumko sa pýta, prečo rodičia hovoria o tých istých platbách. Čo otec hovorí?",
+              "options": [
+                "Bez dôvodu",
+                "Tieto platby prichádzajú pravidelne, nemožnosť si ich vynechať",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec mu hovorí, že tieto platby prichádzajú pravidelne a nedajú sa jednoducho vynechať."
+            },
+            {
+              "questionId": "9004_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Všetko je chaotické",
+                "Niektoré peniaze sú dopredu určené na tieto platby",
+                "Bez zmyslu",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že niektoré peniaze sú dopredu určené na tieto povinné platby."
+            }
+          ]
+        },
+        {
+          "lessonId": 9005,
+          "lessonNumber": 5,
+          "lessonName": "Variabilné výdavky",
+          "questions": [
+            {
+              "questionId": "9005_01",
+              "type": "theoretical",
+              "question": "Čo sú variabilné výdavky?",
+              "options": [
+                "Výdavky, ktoré sa nikdy nemenia",
+                "Výdavky, ktoré sa menia podľa potreby",
+                "Vždy rovnaké",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variabilné výdavky sú tie, ktoré sa menia podľa potreby. Niekedy sú vyššie, inokedy nižšie."
+            },
+            {
+              "questionId": "9005_02",
+              "type": "practical",
+              "question": "Aké sú příklady variabilných výdavkov?",
+              "options": [
+                "Len bývanie",
+                "Jedlo, oblečenie, výlety alebo drobné nákupy",
+                "Nič nie je podľa",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variabilné výdavky zahŕňajú jedlo, oblečenie, výlety alebo drobné nákupy - veci, ktoré se menia."
+            },
+            {
+              "questionId": "9005_03",
+              "type": "practical",
+              "question": "Jeden týždeň Chrumko s rodičmi kupuje len základné potraviny. Iný týždeň kupujú aj ovocie navyše. Čo sa stane?",
+              "options": [
+                "Suma je rovnaká",
+                "Tentoraz je suma vyšsia",
+                "Všetko je zadarmo",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Niekedy je suma pri pokladni vyšssia, pretože kupujú aj iné veci."
+            },
+            {
+              "questionId": "9005_04",
+              "type": "practical",
+              "question": "Čo Chrumko pochopí?",
+              "options": [
+                "Všetko je zadarmo",
+                "Nie každý mesiac stojí všetko rovnako, výdavky sa zmieňujú",
+                "Bez zmyslu",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že nie každý mesiac stojí všetko rovnako. Niektoré výdavky sa menia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": 10,
+      "sectionName": "BANKA A PENIAZE",
+      "lessons": [
+        {
+          "lessonId": 10001,
+          "lessonNumber": 1,
+          "lessonName": "Čo robí banka",
+          "questions": [
+            {
+              "questionId": "10001_01",
+              "type": "theoretical",
+              "question": "Čo je banka?",
+              "options": [
+                "Miesto, kde sa tancuje",
+                "Miesto, kde si ľudia uchovávajú peniaze bezpečne a pomáha s nimi",
+                "Obchod",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Banka je miesto, kde si ľudia uchovávajú peniaze bezpečne. Pomáha prijímať, posielať a spravovať peniaze."
+            },
+            {
+              "questionId": "10001_02",
+              "type": "practical",
+              "question": "Chrumko sa pýta, kam idú peniaze, keď mama ich nedržuje v peňaženke. Ako mama odpovedá?",
+              "options": [
+                "Stratili sa",
+                "Sú uložené bezpečne v banke na účte",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama hovorí, že výplata prišla priamo do banky na účet. Peniaze sú tam bezpečne uložené."
+            },
+            {
+              "questionId": "10001_03",
+              "type": "practical",
+              "question": "Ako Chrumko vidí svoje peniaze, keď sú v banke?",
+              "options": [
+                "Vôbec ich nevidí",
+                "Mama mu ukáže v mobile, že vidí prijatú sumu na účte",
+                "Sú to len čísla",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama mu ukáže na mobile, ako sú peniaze zapísané na účte. Nie sú fyzické, ale reálne."
+            },
+            {
+              "questionId": "10001_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Všetko je chaotické",
+                "Peniaze môžu byť uložené bezpečne aj bez toho, aby ich držal v ruke",
+                "Bez zmyslu",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že peniaze môžu byť uložené bezpečne v banke bez toho, aby ich fyzicky držal."
+            }
+          ]
+        },
+        {
+          "lessonId": 10002,
+          "lessonNumber": 2,
+          "lessonName": "Bankový účet",
+          "questions": [
+            {
+              "questionId": "10002_01",
+              "type": "theoretical",
+              "question": "Čo je bankový účet?",
+              "options": [
+                "Miesto, kde sa hrá",
+                "Miesto, kde má každý človek svoje peniaze evidované",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Bankový účet je miesto, kde má každý človekon svoje peniaze zapísané. Každý účet patrí konkrétnemu majiteľovi."
+            },
+            {
+              "questionId": "10002_02",
+              "type": "practical",
+              "question": "Ako vidí otec stav svojho účtu?",
+              "options": [
+                "Vôbec ho nevidí",
+                "Kontroluje ho v mobile - vidí, koľko peňazí je momentálne na účte",
+                "Choká do banky",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec si otvorí mobilnú aplikáciu banky a vidí, koľko peňazí je na jeho účte."
+            },
+            {
+              "questionId": "10002_03",
+              "type": "practical",
+              "question": "Čo sa stane, keď sa zaplatí alebo príde peniaze?",
+              "options": [
+                "Nič sa nemení",
+                "Suma na účte sa zmení - zväčší sa alebo zmenší",
+                "Všetko sa stratí",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keď sa zaplatí, suma sa zmenší. Keď príde príjem, suma sa zvýši. Účet ukazuje presný stav peňazí."
+            },
+            {
+              "questionId": "10002_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí o účte?",
+              "options": [
+                "Všetko je chaotické",
+                "Účet funguje ako prehľad peňazí - vidieť všetko, čo príde a čo odíde",
+                "Bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko pochopí, že účet funguje ako prehľad peňazí. Vidí presne, koľko ich má."
+            }
+          ]
+        },
+        {
+          "lessonId": 10003,
+          "lessonNumber": 3,
+          "lessonName": "Platobná karta",
+          "questions": [
+            {
+              "questionId": "10003_01",
+              "type": "theoretical",
+              "question": "Čo je platobná karta?",
+              "options": [
+                "Len papier",
+                "Nástroj, ktorý sa používa na platenie peniazmi z účtu",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Platobná karta je nástroj, ktorý umožňuje platiť peniazmi z bankového účtu bez fyzickej hotovosti."
+            },
+            {
+              "questionId": "10003_02",
+              "type": "practical",
+              "question": "Chrumko ide s mamou do obchodu. Ako mama platí?",
+              "options": [
+                "Hotovosťou",
+                "Kartou - vloží ju do terminálu",
+                "Požičianím si peňazí",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama vloží kartu do terminálu pri pokladni a zaplatí kartou namiesto hotovosti."
+            },
+            {
+              "questionId": "10003_03",
+              "type": "practical",
+              "question": "Čo sa stane po zaplatení?",
+              "options": [
+                "Nič sa nemení",
+                "Peniaze se odpočítajú z účtu",
+                "Všetko sa stratí",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Po zaplatení sa suma zobrazí na termináli a peniaze odchádzajú z účtu. Karta je len nástroj na prístup."
+            },
+            {
+              "questionId": "10003_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí o karte?",
+              "options": [
+                "Karta sú peniaze",
+                "Karta len pomáha používať peniaze, ktoré sú uložené v banke",
+                "Bez podľa",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že karta je len nástroj. Skutočné peniaze sú uložené v banke."
+            }
+          ]
+        },
+        {
+          "lessonId": 10004,
+          "lessonNumber": 4,
+          "lessonName": "PIN",
+          "questions": [
+            {
+              "questionId": "10004_01",
+              "type": "theoretical",
+              "question": "Čo je PIN?",
+              "options": [
+                "Priateľ",
+                "Krátky číselný kód, ktorý chráni platobnú kartu",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "PIN je krátky číselný kód, ktorý chráni platobnú kartu. Pomáha potvrdiť, že kartu používa správny človek."
+            },
+            {
+              "questionId": "10004_02",
+              "type": "practical",
+              "question": "Čo si všimne Chrumko, keď mama platí?",
+              "options": [
+                "Mama všetko ukazuje",
+                "Mama zakrýva rukou klávesnicu, keď zadáva PIN",
+                "PIN je verejný",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama zakrýva klávesnicu, keď zadáva PIN. Chce, aby PIN nikto nevidel."
+            },
+            {
+              "questionId": "10004_03",
+              "type": "practical",
+              "question": "Prečo je dôležité chrániť PIN?",
+              "options": [
+                "Bez dôvodu",
+                "Ak by niekto cudí PIN poznal, mohol by používať cudzie peniaze",
+                "Všetko je verejné",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak by ho niekto cudzí poznal spolu s kartou, mohol by používať cudzie peniaze. Preto je bezpečnosť dôležitá."
+            },
+            {
+              "questionId": "10004_04",
+              "type": "practical",
+              "question": "Čo hovorí mama Chrumkovi?",
+              "options": [
+                "PIN je bez podľa",
+                "Tajné údaje treba chrániť",
+                "Všetko môže vedieť",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama hovorí Chrumkovi, že tajné údaje treba chrániť. PIN je dôležitá časť bezpečnosti."
+            }
+          ]
+        },
+        {
+          "lessonId": 10005,
+          "lessonNumber": 5,
+          "lessonName": "Prevod peňazí",
+          "questions": [
+            {
+              "questionId": "10005_01",
+              "type": "theoretical",
+              "question": "Čo je prevod peňazí?",
+              "options": [
+                "Fyzické nosenie peňazí",
+                "Poslanie peňazí z jedného účtu na druhý elektronicky",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Prevod peňazí znamená poslanie peňazí z jedného účtu na druhý cez bankový systém."
+            },
+            {
+              "questionId": "10005_02",
+              "type": "practical",
+              "question": "Prečo sa prevádzajú peniaze?",
+              "options": [
+                "Bez dôvodu",
+                "Na zaplatenie účtov alebo na poslanie peňazí medzi ľuďmi",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Prevody sa používajú na platenie účtov alebo na poslanie peňazí napríklad blízkym osobám."
+            },
+            {
+              "questionId": "10005_03",
+              "type": "practical",
+              "question": "Chrumko počuje, že mama posiela peniaze babke. Myslí si, že ide na poštu. Čo sa naozaj stane?",
+              "options": [
+                "Peniaze sa nosia fyzicky",
+                "Mama zadá číslo účtu, sumu a peniaze sa pošlú digitálne",
+                "Všetko sa stratí",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama zadá v mobile číslo účtu babky a sumu. Peniaze sa posielajú elektronicky bez fyzického nosenia."
+            },
+            {
+              "questionId": "10005_04",
+              "type": "practical",
+              "question": "Čo si Chrumko pochopí?",
+              "options": [
+                "Všetko je chaotické",
+                "Dnes sa peniaze pohybujú digitálne bez fyzického kontaktu",
+                "Bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že dnes sa peniaze často pohybujú digitálne bez toho, aby ich fyzicky prenášal."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
