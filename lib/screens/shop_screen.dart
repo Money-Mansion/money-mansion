@@ -37,10 +37,10 @@ class _ShopScreenState extends State<ShopScreen>
     // ── Item categories ──────────────────────────────────────────────
     _Category(labelKey: 'all'),
     _Category(labelKey: 'beds',      itemSubtype: _ItemSubtype.beds),
-    _Category(labelKey: 'sofas',     itemSubtype: _ItemSubtype.sofas),
+    _Category(labelKey: 'seating',     itemSubtype: _ItemSubtype.seating),
     _Category(labelKey: 'tables',    itemSubtype: _ItemSubtype.tables),
-    _Category(labelKey: 'shelves',   itemSubtype: _ItemSubtype.shelves),
-    _Category(labelKey: 'rugs',      itemSubtype: _ItemSubtype.rugs),
+    _Category(labelKey: 'storage',   itemSubtype: _ItemSubtype.storage),
+    _Category(labelKey: 'carpets',      itemSubtype: _ItemSubtype.carpets),
     _Category(labelKey: 'wallDecor', itemSubtype: _ItemSubtype.wallDecor),
     _Category(labelKey: 'plants',    itemSubtype: _ItemSubtype.plants),
     _Category(labelKey: 'lighting',  itemSubtype: _ItemSubtype.lighting),
@@ -91,17 +91,17 @@ class _ShopScreenState extends State<ShopScreen>
         return id.startsWith('postel_') ||
             id.startsWith('posteľ_') ||
             id == 'postel_znicena';
-      case _ItemSubtype.sofas:
+      case _ItemSubtype.seating:
         return id.startsWith('gauc_');
       case _ItemSubtype.tables:
         return id.startsWith('stol_');
-      case _ItemSubtype.shelves:
+      case _ItemSubtype.storage:
         return id.startsWith('polica') ||
             id.startsWith('police') ||
             id.startsWith('skriňa') ||
             id.startsWith('skrina') ||
             id == 'polica_kniznica_cierna';
-      case _ItemSubtype.rugs:
+      case _ItemSubtype.carpets:
         return id.startsWith('koberec_');
       case _ItemSubtype.wallDecor:
         return id.startsWith('obraz_') ||
@@ -557,10 +557,10 @@ class _ShopScreenState extends State<ShopScreen>
     switch (labelKey) {
       case 'all':       return Icons.grid_view;
       case 'beds':      return Icons.bed;
-      case 'sofas':     return Icons.chair;
+      case 'seating':     return Icons.chair;
       case 'tables':    return Icons.table_restaurant;
-      case 'shelves':   return Icons.shelves;
-      case 'rugs':      return Icons.square_foot;
+      case 'storage':   return Icons.shelves;
+      case 'carpets':   return Icons.square_foot;
       case 'wallDecor': return Icons.image;
       case 'plants':    return Icons.local_florist;
       case 'lighting':  return Icons.lightbulb_outline;
@@ -582,10 +582,10 @@ class _ShopScreenState extends State<ShopScreen>
     switch (key) {
       case 'all':       return isSk ? 'Všetko'   : 'All';
       case 'beds':      return isSk ? 'Postele'  : 'Beds';
-      case 'sofas':     return isSk ? 'Sedačky'  : 'Sofas';
+      case 'seating':   return isSk ? 'Posedenie': 'Seating';
       case 'tables':    return isSk ? 'Stoly'    : 'Tables';
-      case 'shelves':   return isSk ? 'Skrine'   : 'Shelves';
-      case 'rugs':      return isSk ? 'Koberce'  : 'Rugs';
+      case 'storage':   return isSk ? 'Úložný priestor'   : 'Storage';
+      case 'carpets':   return isSk ? 'Koberce'  : 'Carpets';
       case 'wallDecor': return isSk ? 'Steny'    : 'Wall Decor';
       case 'plants':    return isSk ? 'Rastliny' : 'Plants';
       case 'lighting':  return isSk ? 'Svetlá'   : 'Lighting';
@@ -605,10 +605,10 @@ class _ShopScreenState extends State<ShopScreen>
 /// These live purely in the UI layer — no changes needed to Item/ItemType.
 enum _ItemSubtype {
   beds,
-  sofas,
+  seating,
   tables,
-  shelves,
-  rugs,
+  storage,
+  carpets,
   wallDecor,
   plants,
   lighting,
