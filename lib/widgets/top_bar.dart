@@ -72,15 +72,15 @@ class TopBar extends StatelessWidget {
 
               // Coins
               _ResourceDisplay(
-                icon: MyFlutterApp.coins,
-                color: Colors.orange,
+                icon: MyFlutterApp.kojn,
+                color: const Color.fromARGB(62, 255, 153, 0),
                 value: gameState.coins.toString(),
               ),
 
               // Money (real-world financial tracking)
               _ResourceDisplay(
-                icon: MyFlutterApp.money,
-                color: Colors.green,
+                icon: MyFlutterApp.shop,
+                color: const Color.fromARGB(0, 76, 175, 79),
                 value: _formatMoney(gameState.money),
               ),
 
