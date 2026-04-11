@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../services/app_localizations.dart';
+import '../services/onboarding_service.dart';
 
 /// ChrumkoGuide is a reusable widget that displays Chrumko (the guide character)
 /// with a dynamic tips system, animations, and speech bubbles.
@@ -28,6 +29,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   int _tipIndex = 0;
   bool _showBubble = false;
   bool _overlayOpen = false;
+  String? _username;
 
   Timer? _repeatTimer;
   Timer? _hideTimer;
@@ -50,6 +52,8 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   @override
   void initState() {
     super.initState();
+
+    _loadUsername();
 
     _animController = AnimationController(
       vsync: this,
@@ -80,6 +84,14 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
         (_) => _showNextTip(),
       );
     }
+  }
+
+  Future<void> _loadUsername() async {
+    final profile = await OnboardingService.getUserProfile();
+    if (!mounted) return;
+    setState(() {
+      _username = profile?.username;
+    });
   }
 
   @override
@@ -242,7 +254,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            _tips[_tipIndex],
+                            _formattedTip(_tips[_tipIndex]),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF4A3F6B),
@@ -293,6 +305,11 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
         ],
       ),
     );
+  }
+
+  String _formattedTip(String tip) {
+    if (_username == null || _username!.trim().isEmpty) return tip;
+    return '${_username!}, $tip';
   }
 }
 

@@ -20,7 +20,8 @@ class ZoomSlider extends StatefulWidget {
   State<ZoomSlider> createState() => _ZoomSliderState();
 }
 
-class _ZoomSliderState extends State<ZoomSlider> {
+class _ZoomSliderState extends State<ZoomSlider>
+    with SingleTickerProviderStateMixin {
   late double _currentZoom;
 
   @override
@@ -83,14 +84,13 @@ class _ZoomSliderState extends State<ZoomSlider> {
               onHorizontalDragStart: (details) {
                 _updateZoomFromX(details.globalPosition.dx);
               },
-              child: MouseRegion(
-                onHover: (event) {
-                  // Allow visual feedback on hover if needed
-                },
-                child: CustomPaint(
-                  painter: _ZoomTrackPainter(currentZoom: _currentZoom, minZoom: widget.gameWorld.minZoom, maxZoom: widget.gameWorld.maxZoom),
-                  child: Container(),
+              child: CustomPaint(
+                painter: _ZoomTrackPainter(
+                  currentZoom: _currentZoom,
+                  minZoom: widget.gameWorld.minZoom,
+                  maxZoom: widget.gameWorld.maxZoom,
                 ),
+                child: Container(),
               ),
             ),
           ),
@@ -114,12 +114,6 @@ class _ZoomTrackPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Draw background
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      Paint()..color = Colors.grey[100]!,
-    );
-
     // Draw track line (horizontal)
     final trackPaint = Paint()
       ..color = Colors.grey[400]!

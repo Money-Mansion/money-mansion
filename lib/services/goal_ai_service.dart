@@ -1,15 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'onboarding_service.dart';
+
 /// Calls Groq Llama 3.1-8B to classify a child's savings goal into Easy, Medium, Hard, or request more info.
 class GoalAiService {
   static const _apiKey = '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';
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
-  static const _model = 'llama-3.1-8b-instant';
+  static const _model = 'llama-3.3-70b-versatile';
 
-  // Amount thresholds for super-easy bias
-  static const double _easyMax = 1000; // Almost all goals should be easy
-  static const double _mediumMax = 5000; // Tiny step above easy
+  // Heuristic thresholds relative to a low child income (defaults to 20 EUR/month)
+  static const double _defaultMonthlyIncome = 20; // typical allowance
+  static const double _easyMultiplier = 3; // ~3 months of saving
+  static const double _mediumMultiplier = 8; // ~8 months of saving
   // Hard is extremely rare
 
   static Future<GoalAiResult> classifyGoal({
@@ -19,6 +22,10 @@ class GoalAiService {
     DateTime? dueDate,
     String language = 'en',
   }) async {
+    final userProfile = await OnboardingService.getUserProfile();
+    final monthlyIncomeForHeuristic =
+        userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
+
     if (_isVague(description)) {
       return GoalAiResult.needsMoreInfo(
         reason: 'Please add a clear description for this goal.',
@@ -31,6 +38,8 @@ class GoalAiService {
       targetMoney: targetMoney,
       dueDate: dueDate,
       language: language,
+      userProfile: userProfile,
+      assumedMonthlyIncome: monthlyIncomeForHeuristic,
     );
 
     try {
@@ -59,6 +68,7 @@ class GoalAiService {
           title: title,
           description: description,
           targetMoney: targetMoney,
+          monthlyIncome: monthlyIncomeForHeuristic,
           reason: 'AI unavailable (${response.statusCode})',
         );
       }
@@ -70,6 +80,7 @@ class GoalAiService {
           title: title,
           description: description,
           targetMoney: targetMoney,
+          monthlyIncome: monthlyIncomeForHeuristic,
           reason: 'Empty AI response',
         );
       }
@@ -90,7 +101,8 @@ class GoalAiService {
       }
 
       // fallback based on amount
-      final amountDifficulty = _difficultyFromAmount(targetMoney);
+      final amountDifficulty =
+          _difficultyFromAmount(targetMoney, monthlyIncomeForHeuristic);
       if (amountDifficulty != null) {
         return GoalAiResult.difficulty(amountDifficulty, reason: parsedReason);
       }
@@ -102,6 +114,7 @@ class GoalAiService {
         title: title,
         description: description,
         targetMoney: targetMoney,
+        monthlyIncome: monthlyIncomeForHeuristic,
         reason: 'Local fallback after exception',
       );
     }
@@ -113,20 +126,23 @@ class GoalAiService {
     double? targetMoney,
     DateTime? dueDate,
     required String language,
+    UserProfile? userProfile,
+    required double assumedMonthlyIncome,
   }) {
     final due = dueDate != null
         ? '${dueDate.year}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}'
         : 'not provided';
     final target =
     targetMoney != null && targetMoney > 0 ? targetMoney.toStringAsFixed(2) : 'not provided';
+    final profileSnippet = _profileSnippet(userProfile);
 
     return '''
 You are helping a kids finance app. Respond in language code: $language.
 
-Your job is to decide how difficult a savings goal is for a child. Use both the title and description.
-assume the child is around 10 years old. Consider what the goal would feel like to them.
-assume the child has no money saved yet, so the target amount is what they need to reach from zero.
-assume max income of child is around 20 EUR/month from allowances, chores, and small gigs.
+Your job is to decide how difficult a savings goal is for a child with very low income. Use both the title and description.
+Assume the child is around 10 years old. Consider what the goal would feel like to them.
+Assume the child has no savings yet, so the target amount is from zero.
+Assume the child's monthly income is about $assumedMonthlyIncome EUR (allowance/chores) unless the profile below says otherwise.
 RULES:
 
 1. If the goal is unclear, too short, or missing details -> return MORE_INFO.
@@ -151,6 +167,7 @@ Title: $title
 Description: $description
 Target amount: $target
 Due date: $due
+User context: $profileSnippet
 respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the kids finance like 20/month, 10 years old
 ''';
   }
@@ -164,9 +181,11 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
     required String title,
     required String description,
     required double? targetMoney,
+    required double monthlyIncome,
     String? reason,
   }) {
-    final amountDifficulty = _difficultyFromAmount(targetMoney);
+    final amountDifficulty =
+        _difficultyFromAmount(targetMoney, monthlyIncome);
     if (amountDifficulty != null) {
       return GoalAiResult.difficulty(amountDifficulty, reason: reason);
     }
@@ -187,10 +206,54 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
     return text.substring(0, max) + '...';
   }
 
-  static String? _difficultyFromAmount(double? amount) {
+  static String _profileSnippet(UserProfile? profile) {
+    if (profile == null) {
+      return 'age not set; income ~20; beginner by default; goal: saving; income type: student.';
+    }
+
+    final experience = profile.experience == FinancialExperience.intermediate
+        ? 'intermediate experience'
+        : 'beginner experience';
+
+    final goal = () {
+      switch (profile.mainGoal) {
+        case MainGoal.learning:
+          return 'goal: learning';
+        case MainGoal.tracking:
+          return 'goal: tracking spending';
+        case MainGoal.saving:
+        default:
+          return 'goal: saving';
+      }
+    }();
+
+    final incomeType = () {
+      switch (profile.incomeType) {
+        case IncomeType.partTime:
+          return 'income type: part-time';
+        case IncomeType.fullTime:
+          return 'income type: full-time';
+        case IncomeType.student:
+        default:
+          return 'income type: student';
+      }
+    }();
+
+    final expenses = profile.monthlyExpenses != null
+        ? 'monthly expenses: ${profile.monthlyExpenses!.toStringAsFixed(2)}'
+        : 'monthly expenses not provided (assume low)';
+
+    return 'age ${profile.age}; monthly income ${profile.monthlyIncome.toStringAsFixed(2)}; $expenses; $experience; $goal; $incomeType';
+  }
+
+  static String? _difficultyFromAmount(double? amount, double monthlyIncome) {
     if (amount == null || amount <= 0) return null;
-    if (amount < _easyMax) return 'Easy';
-    if (amount <= _mediumMax) return 'Medium';
+
+    final easyMax = monthlyIncome * _easyMultiplier;
+    final mediumMax = monthlyIncome * _mediumMultiplier;
+
+    if (amount <= easyMax) return 'Easy';
+    if (amount <= mediumMax) return 'Medium';
     return 'Hard';
   }
 }
