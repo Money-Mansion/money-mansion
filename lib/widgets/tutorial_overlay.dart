@@ -148,7 +148,9 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         return Positioned.fill(
           child: Stack(
             children: [
-              // Input blocker absorbs all taps except the current tutorial target.
+              // Input blocker: allows only the active target (if any). If the
+              // target rect is unavailable, block everything underneath so only
+              // the overlay UI remains interactive.
               if (targetRectLocal != null)
                 _TutorialBlocker(
                   allowedRect: targetRectLocal,
@@ -171,7 +173,9 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                         ),
                       );
                   },
-                ),
+                )
+              else
+                const _FullScreenBlocker(),
               // ── Target highlight (pointer-transparent, purely visual) ───
               if (targetRectLocal != null)
                 IgnorePointer(
@@ -554,7 +558,7 @@ class RenderTutorialBlocker extends RenderBox {
 
   @override
   void handleEvent(PointerEvent event, covariant HitTestEntry entry) {
-    if (event is PointerDownEvent) {
+    if (event is PointerDownEvent || event is PointerUpEvent) {
       onBlockedTap?.call();
     }
   }
@@ -562,5 +566,20 @@ class RenderTutorialBlocker extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     // Transparent blocker – nothing to paint.
+  }
+}
+
+/// Blocks all input beneath it; used when a tutorial step has no resolved target.
+class _FullScreenBlocker extends StatelessWidget {
+  const _FullScreenBlocker();
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: AbsorbPointer(
+        // Transparent; purely for input absorption.
+        child: Container(color: Colors.transparent),
+      ),
+    );
   }
 }

@@ -20,7 +20,7 @@ class GoalAiService {
     required String description,
     double? targetMoney,
     DateTime? dueDate,
-    String language = 'en',
+    String language = 'en',ww
   }) async {
     final userProfile = await OnboardingService.getUserProfile();
     final monthlyIncomeForHeuristic =
