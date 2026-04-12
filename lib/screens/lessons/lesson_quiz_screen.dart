@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/lesson_quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
+import '../../services/streak_service.dart';
 import '../../services/app_localizations_provider.dart';
 import '../../services/app_localizations.dart';
+import '../../models/game_state.dart';
 
 class LessonQuizScreen extends StatefulWidget {
   final int lessonId;
@@ -161,6 +163,12 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   widget.lessonId.toString(),
                   score,
                 );
+                // Update streak when quiz is completed
+                final newStreak = await StreakService.onQuizCompleted();
+                // Update GameState so TopBar shows the new streak
+                if (mounted) {
+                  context.read<GameState>().setCurrentStreak(newStreak);
+                }
               }
               Navigator.of(context).pop(); // Close dialog
               // Wait a moment then close the quiz screen

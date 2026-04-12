@@ -213,44 +213,6 @@ class FinancialDatabaseService {
     }
   }
 
-  // ===== CHRUMKA =====
-
-  static Future<void> saveChrumka(int chrumka) async {
-    final db = await database;
-    await db.insert(
-      _gameStateTable,
-      {'key': 'chrumka', 'value': chrumka.toDouble()},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  static Future<int> getChrumka() async {
-    final db = await database;
-    try {
-      final result = await db.query(
-        _gameStateTable,
-        where: 'key = ?',
-        whereArgs: ['chrumka'],
-        limit: 1,
-      );
-      if (result.isNotEmpty) {
-        final value = result[0]['value'];
-        if (value is num) return value.toInt();
-        if (value is String) {
-          try {
-            return int.parse(value);
-          } catch (_) {
-            return double.parse(value).toInt();
-          }
-        }
-      }
-      return 0;
-    } catch (e) {
-      print('Error loading chrumka: $e');
-      return 0;
-    }
-  }
-
   // ===== MUSIC ENABLED =====
 
   static Future<void> saveMusicEnabled(bool enabled) async {
@@ -355,7 +317,7 @@ class FinancialDatabaseService {
     await db.delete(_transactionsTable, where: 'id = ?', whereArgs: [id]);
   }
 
-  // DEBUG: Clear all financial data (coins, money, chrumka, and transactions)
+  // DEBUG: Clear all financial data (coins, money, and transactions)
   static Future<void> clearAllFinancialData() async {
     final db = await database;
     await db.delete(_transactionsTable);
