@@ -32,10 +32,13 @@ class _ShopScreenState extends State<ShopScreen>
   // Categories
   // ---------------------------------------------------------------------------
   // "All" tab shows only items (no walls/floors).
-  // Room-component-only categories (walls, floors) are at the end.
+  // Walls and floors come right after "All".
   static const List<_Category> _categories = [
-    // ── Item categories ──────────────────────────────────────────────
+    // ── All & Room-component categories ──────────────────────────────
     _Category(labelKey: 'all'),
+    _Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
+    _Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
+    // ── Item categories ──────────────────────────────────────────────
     _Category(labelKey: 'beds',      itemSubtype: _ItemSubtype.beds),
     _Category(labelKey: 'seating',     itemSubtype: _ItemSubtype.seating),
     _Category(labelKey: 'tables',    itemSubtype: _ItemSubtype.tables),
@@ -45,9 +48,6 @@ class _ShopScreenState extends State<ShopScreen>
     _Category(labelKey: 'plants',    itemSubtype: _ItemSubtype.plants),
     _Category(labelKey: 'lighting',  itemSubtype: _ItemSubtype.lighting),
     _Category(labelKey: 'doors',     itemType: ItemType.door),
-    // ── Room-component categories ─────────────────────────────────────
-    _Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
-    _Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
   ];
 
   @override
