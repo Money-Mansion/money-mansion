@@ -40,7 +40,6 @@ flutter:
     - assets/images/
     - assets/images/room/
     - assets/images/items/
-    - assets/previews/
     - assets/music/
     - assets/hitboxes/
     - assets/quizes/

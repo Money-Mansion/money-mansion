@@ -4,9 +4,10 @@ import '../models/game_state.dart';
 import '../my_flutter_app_icons.dart';
 import '../screens/settings_screen.dart';
 import '../services/tutorial_provider.dart';
+import '../services/streak_service.dart';
 import 'tutorial_target.dart';
 
-class TopBar extends StatelessWidget {
+class TopBar extends StatefulWidget {
   final GameState gameState;
 
   const TopBar({
@@ -14,6 +15,11 @@ class TopBar extends StatelessWidget {
     required this.gameState,
   });
 
+  @override
+  State<TopBar> createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
   String _formatMoney(double money) {
     if (money % 1 == 0) {
       return money.toStringAsFixed(0);
@@ -24,7 +30,7 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: gameState, // listens to coins/money changes
+      animation: widget.gameState, // listens to coins/money/streak changes
       builder: (context, _) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -52,7 +58,7 @@ class TopBar extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            SettingsScreen(gameState: gameState),
+                            SettingsScreen(gameState: widget.gameState),
                       ),
                     );
                   },
@@ -74,21 +80,19 @@ class TopBar extends StatelessWidget {
               _ResourceDisplay(
                 icon: MyFlutterApp.kojn,
                 color: const Color.fromARGB(62, 255, 153, 0),
-                value: gameState.coins.toString(),
+                value: widget.gameState.coins.toString(),
               ),
 
               // Money (real-world financial tracking)
               _ResourceDisplay(
                 icon: MyFlutterApp.shop,
                 color: const Color.fromARGB(0, 76, 175, 79),
-                value: _formatMoney(gameState.money),
+                value: _formatMoney(widget.gameState.money),
               ),
 
-              // Chrumka — shows real earned chrumka count (not coins)
-              _ResourceDisplay(
-                icon: MyFlutterApp.chrumka,
-                color: const Color.fromARGB(0, 220, 100, 180),
-                value: gameState.chrumka.toString(),
+              // Streak counter — shows current daily quiz streak (no bubble)
+              _StreakDisplay(
+                value: widget.gameState.currentStreak.toString(),
               ),
             ],
           ),
@@ -145,6 +149,36 @@ class _ResourceDisplay extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _StreakDisplay extends StatelessWidget {
+  final String value;
+
+  const _StreakDisplay({
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(
+          Icons.local_fire_department,
+          color: Color(0xFF9575CD),
+          size: 24,
+        ),
+        const SizedBox(width: 6),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF9575CD),
+          ),
+        ),
+      ],
     );
   }
 }
