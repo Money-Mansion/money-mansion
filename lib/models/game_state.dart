@@ -5,7 +5,7 @@ import 'item.dart';
 
 class GameState extends ChangeNotifier {
   int coins;
-  int chrumka; // Earned by completing goals
+  int currentStreak; // Daily quiz streak
   double money; // Real-world financial tracking (starts at 0, user-logged)
   double date; // Herný dátum (napr. 7.7)
   bool musicEnabled; // Background music setting
@@ -16,7 +16,7 @@ class GameState extends ChangeNotifier {
 
   GameState({
     this.coins = 111,
-    this.chrumka = 0,
+    this.currentStreak = 0,
     this.money = 0.0,
     this.date = 7.7,
     this.musicEnabled = true,
@@ -68,16 +68,10 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ===== CHRUMKA =====
+  // ===== STREAK =====
 
-  void addChrumka(int amount) {
-    if (amount <= 0) return;
-    chrumka += amount;
-    notifyListeners();
-  }
-
-  void setChrumka(int amount) {
-    chrumka = amount;
+  void setCurrentStreak(int streak) {
+    currentStreak = streak;
     notifyListeners();
   }
 
@@ -99,9 +93,6 @@ class GameState extends ChangeNotifier {
       if (completedGoal.difficulty != Goal.hardDifficulty) {
         coins += completedGoal.rewardCoins;
       }
-
-      // Reward 1 Chrumka for every completed goal
-      chrumka += 1;
 
       notifyListeners();
     }
