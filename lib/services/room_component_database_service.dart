@@ -261,7 +261,7 @@ class RoomComponentDatabaseService {
     }
   }
 
-  /// Ensure default components (wall_basic, floor_basic) are always owned
+  /// Ensure default components (wall_basic, floor_ruined1) are always owned
   /// Call this when the app starts to guarantee defaults exist
   static Future<bool> ensureDefaultComponentsOwned() async {
     try {
@@ -270,7 +270,7 @@ class RoomComponentDatabaseService {
 
       // Import default components config
       const defaultWall = 'wall_basic';
-      const defaultFloor = 'floor_basic';
+      const defaultFloor = 'floor_ruined1';
 
       // Check if wall_basic exists, if not add it
       final wallExists = await db.rawQuery(
@@ -293,25 +293,36 @@ class RoomComponentDatabaseService {
         print('✓ Added default wall_basic to owned components');
       }
 
-      // Check if floor_basic exists, if not add it
+      // Check if floor_ruined1 exists, if not add it (prefer config values)
       final floorExists = await db.rawQuery(
         'SELECT COUNT(*) as count FROM $_ownedComponentsTable WHERE id = ?',
         [defaultFloor],
       );
 
       if ((floorExists[0]['count'] as int) == 0) {
+        RoomComponent? configFloor;
+        try {
+          configFloor =
+              ROOM_COMPONENTS.firstWhere((component) => component.id == defaultFloor);
+        } catch (_) {
+          configFloor = null;
+        }
+
         await db.insert(
           _ownedComponentsTable,
           {
             'id': defaultFloor,
-            'name': 'Basic Floor',
+            'name': configFloor?.name ?? 'Ruined Floor',
             'type': 'floor',
-            'texture': 'room/basic_floor.png',
-            'cost': 0,
+            // Config textures include the assets/images prefix; fall back to room/ path
+            'texture': (configFloor?.texture.isNotEmpty ?? false)
+                ? configFloor!.texture
+                : 'room/floor_ruined1.png',
+            'cost': configFloor?.cost ?? 0,
           },
           conflictAlgorithm: ConflictAlgorithm.ignore,
         );
-        print('✓ Added default floor_basic to owned components');
+        print('✓ Added default floor_ruined1 to owned components');
       }
 
       // Ensure default selections are set
@@ -324,7 +335,7 @@ class RoomComponentDatabaseService {
       final floorSelection = await getSelectedComponentForRole('floor');
       if (floorSelection == null || floorSelection == 'none') {
         await setSelectedComponentForRole('floor', defaultFloor);
-        print('✓ Set default floor selection to floor_basic');
+        print('✓ Set default floor selection to floor_ruined1');
       }
 
       return true;

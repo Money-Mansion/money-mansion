@@ -67,72 +67,73 @@ class AppLocalizations {
       'tutorialTapToFinish': 'tap to finish 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'At the top you can see your Coins 🪙 and Money 💶. Coins are earned in-game; money tracks your real finances!',
+          'At the top you can see your Coins 🪙, Money 💶 and Chrumky 🐾, {name}. Coins are earned in-game; money tracks your real finances!',
       'tutorialFinancialIntro':
-          'Welcome to my favourite tab — Finances! Here I track every euro that comes in or goes out. The chart shows your balance over time.',
+          'Welcome to my favourite tab, {name} — Finances! Here I track every euro that comes in or goes out. The chart shows your balance over time.',
       'tutorialFinancialTabs':
-          'Use the tabs at the top: Total shows everything, Income shows gains, and Expense shows purchases. I always review all three!',
+          'Use the tabs at the top, {name}: Total shows everything, Income shows gains, and Expense shows purchases. I always review all three!',
       'tutorialShopCategories':
-          'I love browsing the categories — Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
+          'I love browsing the categories, {name} — Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
       'tutorialGoalsIntro':
-          'Here are your saving goals! Each goal has a target amount, a deadline and a difficulty that I set automatically using AI. Pretty smart, right?',
+          'Here are your saving goals, {name}! Each goal has a target amount, a deadline and a difficulty that I set automatically using AI. Pretty smart, right?',
       'tutorialGoalsAssign':
-          'Tap any goal card to assign money from your balance to it. I always put a little aside each week — small steps, big results! 💪',
+          'Tap any goal card to assign money from your balance to it, {name}. I always put a little aside each week — small steps, big results! 💪',
       'tutorialGoalsReassign':
-          'See the ⇄ button in the top right? That lets me move money between goals if my priorities change. Very handy!',
+          'See the ⇄ button in the top right, {name}? That lets me move money between goals if my priorities change. Very handy!',
       'tutorialGoalsComplete':
-          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward.',
+          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward, {name}. Completing goals also earns you a Chrumka! 🐾',
       'tutorialRoomExplain':
-          'This is your mansion! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
+          'This is your mansion, {name}! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
-          'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile. Feel free to explore everything!',
+          'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile, {name}. Feel free to explore everything!',
       'tutorialHomeWelcome':
-          'Hey there! I\'m Chrumko, your financial guide. Welcome to your very own mansion — let me show you around!',
+          'Hey there, {name}! I\'m Chrumko, your financial guide. Welcome to your very own mansion — let me show you around!',
       'tutorialHomeBalance':
-          'Up here you can see your coins and money. These are your most important resources — spend them wisely!',
+          'Up here you can see your coins and money, {name}. These are your most important resources — spend them wisely!',
       'tutorialFinancialNav':
-          'First things first — let me show you the Financial tab. That\'s where I keep track of all income and expenses!',
+          'First things first, {name} — let me show you the Financial tab. That\'s where I keep track of all income and expenses!',
       'tutorialFinancialAction':
-          'Great! Now tap the + button to add your first transaction. I always log everything — it\'s the key to good finances!',
+          'Great job, {name}! Now tap the + button to add your first transaction. I always log everything — it\'s the key to good finances!',
       'tutorialGoalsNav':
-          'Next up — the Goals tab! I love setting saving targets. Let me show you where to find them.',
+          'Next up, {name} — the Goals tab! I love setting saving targets. Let me show you where to find them.',
       'tutorialGoalsAction':
-          'Tap + to create a goal. I recommend starting with something achievable — small wins build great habits!',
+          'Tap + to create a goal, {name}. I recommend starting with something achievable — small wins build great habits!',
       'tutorialInventoryNav':
-          'Let\'s check out your Inventory! That\'s where all the items you own are stored.',
+          'Let\'s check out your Inventory, {name}! That\'s where all the items you own are stored.',
       'tutorialInventoryAction':
-          'Here are all your owned items. I always keep track of what I have — knowledge is power!',
+          'Here are all your owned items, {name}. I always keep track of what I have — knowledge is power!',
       'tutorialSettings':
-          'In Settings you can change the language, toggle music, and even restart this tutorial if you want a refresher from me!',
-      'tutorialDoAction': 'Do this action to continue.',
+          'In Settings you can change the language, toggle music, and even restart this tutorial if you want a refresher from me, {name}!',
+      'tutorialDoAction': 'Do this action to continue, {name}.',
       'tutorialAddGoal':
-          'Tap + to create a goal. I always set a target amount — it keeps me motivated!',
+          'Tap + to create a goal, {name}. I always set a target amount — it keeps me motivated!',
       'tutorialCalendar':
-          'This is the Calendar! I use it to plan ahead and never miss important financial dates.',
+          'This is the Calendar, {name}! I use it to plan ahead and never miss important financial dates.',
       'tutorialLessons':
-          'And here\'s my favourite spot — the Learning section! Come back here to find lessons and quizzes I\'ve prepared for you.',
+          'And here\'s my favourite spot, {name} — the Learning section! Come back here to find lessons and quizzes I\'ve prepared for you.',
       'tutorialLessonsReturn':
-          'Browse lessons or quizzes if you like. When you\'re ready, tap Return in the bottom-left corner to close this — then we\'ll continue!',
+          'Browse lessons or quizzes if you like, {name}. When you\'re ready, tap Return in the bottom-left corner to close this — then we\'ll continue!',
       'tutorialRoomEdit':
-          'You can customise your mansion right here! I believe a good environment motivates better financial decisions.',
+          'You can customise your mansion right here, {name}! I believe a good environment motivates better financial decisions.',
       'tutorialRoomEditIntro':
-          'Welcome to edit mode! Drag with one finger to move the view, use the bottom slider to zoom, and tap the purple inventory button when you\'re ready to pull items into the room.',
+          'Welcome to edit mode, {name}! Drag with one finger to move the view, use the bottom slider to zoom, and tap the purple inventory button when you\'re ready to pull items into the room.',
       'tutorialRoomEditInventory':
-          'Tap the inventory button — you\'ll see everything you own. Pick any item that isn\'t already placed and tap it to drop it into your room.',
+          'Tap the inventory button — you\'ll see everything you own, {name}. Pick any item that isn\'t already placed and tap it to drop it into your room.',
       'tutorialRoomEditPlace':
-          'Nice! Drag the item to move it, or tap empty space to deselect. When you\'re happy with the layout, we\'ll save it next.',
+          'Nice, {name}! Drag the item to move it, or tap empty space to deselect. When you\'re happy with the layout, we\'ll save it next.',
       'tutorialRoomEditSave':
-          'Tap the checkmark to save your layout and return home. You can always come back to edit again later!',
+          'Tap the checkmark to save your layout and return home, {name}. You can always come back to edit again later!',
       'tutorialFinish':
-          'You made it! I\'m proud of you. You\'re all set to take control of your finances. Remember — I\'m always here to help! 💪',
+          'You made it, {name}! I\'m proud of you. You\'re all set to take control of your finances. Remember — I\'m always here to help! 💪',
       'tutorialShopNav':
-          'Now let\'s visit the Shop! I always browse before buying — smart shopping starts with knowing your options.',
+          'Now let\'s visit the Shop, {name}! I always browse before buying — smart shopping starts with knowing your options.',
       'tutorialShopAction':
-          'Browse the items and buy what you like. Just remember — only spend what you can afford! I always do. 😄',
-      'tutorialCalendarAction': 'Tap the calendar to see dates.',
-      'tutorialSettingsAction': 'Open settings to adjust language and music.',
+          'Browse the items and buy what you like, {name}. Just remember — only spend what you can afford! I always do. 😄',
+      'tutorialCalendarAction': 'Tap the calendar to see dates, {name}.',
+      'tutorialSettingsAction':
+          'Open settings to adjust language and music, {name}.',
       'tutorialBack':
-          'Nicely done! Now tap the back button and let\'s continue our tour.',
+          'Nicely done, {name}! Now tap the back button and let\'s continue our tour.',
 
       // Settings
       'languageEnglish': 'English',
@@ -445,82 +446,83 @@ class AppLocalizations {
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'Hore vidíš Mince 🪙 a Peniaze 💶. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
+          'Hore vidíš Mince 🪙, Peniaze 💶 a Chrumky 🐾, {name}. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
       'tutorialFinancialIntro':
-          'Vitaj na mojej obľúbenej karte — Financie! Tu sledujem každé euro, ktoré príde alebo odíde. Graf ukazuje zostatok v čase.',
+          'Vitaj na mojej obľúbenej karte, {name} — Financie! Tu sledujem každé euro, ktoré príde alebo odíde. Graf ukazuje zostatok v čase.',
       'tutorialFinancialTabs':
-          'Použi karty hore: Spolu ukazuje všetko, Príjem ukazuje zisky a Výdaj ukazuje nákupy. Ja si vždy prezerám všetky tri!',
+          'Použi karty hore, {name}: Spolu ukazuje všetko, Príjem ukazuje zisky a Výdaj ukazuje nákupy. Ja si vždy prezerám všetky tri!',
       'tutorialShopCategories':
-          'Milujem prezeranie kategórií — Nábytok, Dekor, Dvere, Steny, Podlahy. Každá má iné predmety na vylepšenie sídla!',
+          'Milujem prezeranie kategórií, {name} — Nábytok, Dekor, Dvere, Steny, Podlahy. Každá má iné predmety na vylepšenie sídla!',
       'tutorialGoalsIntro':
-          'Tu sú tvoje ciele sporenia! Každý cieľ má cieľovú sumu, termín a náročnosť, ktorú nastavujem automaticky pomocou AI. Šikovné, nie?',
+          'Tu sú tvoje ciele sporenia, {name}! Každý cieľ má cieľovú sumu, termín a náročnosť, ktorú nastavujem automaticky pomocou AI. Šikovné, nie?',
       'tutorialGoalsAssign':
-          'Klepni na kartu ľubovoľného cieľa a priraď mu peniaze zo zostatku. Ja si vždy odložím trochu každý týždeň — malé kroky, veľké výsledky! 💪',
+          'Klepni na kartu ľubovoľného cieľa a priraď mu peniaze zo zostatku, {name}. Ja si vždy odložím trochu každý týždeň — malé kroky, veľké výsledky! 💪',
       'tutorialGoalsReassign':
-          'Vidíš tlačidlo ⇄ vpravo hore? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
+          'Vidíš tlačidlo ⇄ vpravo hore, {name}? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
       'tutorialGoalsComplete':
-          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu.',
+          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu, {name}. Splnenie cieľa ti tiež prinesie Chrumku! 🐾',
       'tutorialRoomExplain':
-          'Toto je tvoje sídlo! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
+          'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
-          'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil. Pokojne si všetko prezri!',
+          'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil, {name}. Pokojne si všetko prezri!',
       'tutorialHomeWelcome':
-          'Ahoj! Som Chrumko, tvoj finančný sprievodca. Vitaj vo svojom sídle — ukážem ti, ako tu všetko funguje!',
+          'Ahoj, {name}! Som Chrumko, tvoj finančný sprievodca. Vitaj vo svojom sídle — ukážem ti, ako tu všetko funguje!',
       'tutorialHomeBalance':
-          'Hore vidíš svoje mince a peniaze. To sú tvoje najdôležitejšie zdroje — narábaj s nimi múdro!',
+          'Hore vidíš svoje mince a peniaze, {name}. To sú tvoje najdôležitejšie zdroje — narábaj s nimi múdro!',
       'tutorialShop':
-          'V obchode si môžeš kúpiť nábytok a predmety. Ja vždy premýšľam, než niečo kúpim!',
+          'V obchode si môžeš kúpiť nábytok a predmety, {name}. Ja vždy premýšľam, než niečo kúpim!',
       'tutorialFinancial':
-          'Vo Financiách sledujem všetky príjmy a výdavky. Vďaka tomu mám peniaze vždy pod kontrolou!',
+          'Vo Financiách sledujem všetky príjmy a výdavky, {name}. Vďaka tomu mám peniaze vždy pod kontrolou!',
       'tutorialFinancialNav':
-          'Prvá zastávka — karta Financie! Tam si evidujem všetky príjmy a výdavky. Poďme sa pozrieť!',
+          'Prvá zastávka, {name} — karta Financie! Tam si evidujem všetky príjmy a výdavky. Poďme sa pozrieť!',
       'tutorialFinancialAction':
-          'Skvelé! Klepni na + a pridaj svoju prvú transakciu. Ja si zaznamenávam každú — je to základ dobrých financií!',
+          'Skvelé, {name}! Klepni na + a pridaj svoju prvú transakciu. Ja si zaznamenávam každú — je to základ dobrých financií!',
       'tutorialGoals':
-          'Rád si stanovujem ciele sporenia. Odporúčam začať niečím dosiahnuteľným — malé úspechy budujú skvelé návyky!',
+          'Rád si stanovujem ciele sporenia, {name}. Odporúčam začať niečím dosiahnuteľným — malé úspechy budujú skvelé návyky!',
       'tutorialGoalsAction':
-          'Klepni na + a vytvor cieľ. Ja odporúčam začať niečím dosiahnuteľným — malé víťazstvá budujú skvelé návyky!',
+          'Klepni na + a vytvor cieľ, {name}. Ja odporúčam začať niečím dosiahnuteľným — malé víťazstvá budujú skvelé návyky!',
       'tutorialGoalsNav':
-          'Ďalej — karta Ciele! Zbožňujem stanovovať si ciele sporenia. Ukážem ti kde ich nájdeš.',
+          'Ďalej, {name} — karta Ciele! Zbožňujem stanovovať si ciele sporenia. Ukážem ti kde ich nájdeš.',
       'tutorialInventory':
-          'V inventári mám prehľad o všetkom, čo vlastním. Prehľad je základ!',
+          'V inventári mám prehľad o všetkom, čo vlastním, {name}. Prehľad je základ!',
       'tutorialInventoryNav':
-          'Pozrime sa do Inventára! Tam sú uložené všetky predmety, ktoré vlastníš.',
+          'Pozrime sa do Inventára, {name}! Tam sú uložené všetky predmety, ktoré vlastníš.',
       'tutorialInventoryAction':
-          'Tu sú tvoje vlastnené predmety. Ja si vždy sledujem, čo mám — vedomosti sú sila!',
+          'Tu sú tvoje vlastnené predmety, {name}. Ja si vždy sledujem, čo mám — vedomosti sú sila!',
       'tutorialSettings':
-          'V nastaveniach môžeš zmeniť jazyk, zapnúť hudbu a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady!',
-      'tutorialDoAction': 'Vykonaj túto akciu, aby si pokračoval.',
+          'V nastaveniach môžeš zmeniť jazyk, zapnúť hudbu a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady, {name}!',
+      'tutorialDoAction': 'Vykonaj túto akciu, {name}, aby si pokračoval.',
       'tutorialAddTransaction':
-          'Klepni na + a pridaj transakciu. Ja si zaznamenávam každú — je to základ!',
+          'Klepni na + a pridaj transakciu, {name}. Ja si zaznamenávam každú — je to základ!',
       'tutorialAddGoal':
-          'Klepni na + a vytvor cieľ. Ja si vždy stanovujem cieľovú sumu — motivuje ma to!',
+          'Klepni na + a vytvor cieľ, {name}. Ja si vždy stanovujem cieľovú sumu — motivuje ma to!',
       'tutorialCalendar':
-          'Tu je Kalendár! Ja ho používam na plánovanie a nikdy nezabudnem na dôležité finančné dátumy.',
-      'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy.',
+          'Tu je Kalendár, {name}! Ja ho používam na plánovanie a nikdy nezabudnem na dôležité finančné dátumy.',
+      'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy, {name}.',
       'tutorialLessons':
-          'A toto je moje obľúbené miesto — sekcia Učenia! Vrať sa sem pre lekcie a kvízy, ktoré som pre teba pripravil.',
+          'A toto je moje obľúbené miesto, {name} — sekcia Učenia! Vrať sa sem pre lekcie a kvízy, ktoré som pre teba pripravil.',
       'tutorialLessonsReturn':
-          'Môžeš si pozrieť lekcie alebo kvízy. Keď budeš pripravený, klepni v ľavom dolnom rohu na Späť a zatvor to — potom pokračujeme!',
+          'Môžeš si pozrieť lekcie alebo kvízy, {name}. Keď budeš pripravený, klepni v ľavom dolnom rohu na Späť a zatvor to — potom pokračujeme!',
       'tutorialRoomEdit':
-          'Tu si môžeš prispôsobiť svoje sídlo! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
+          'Tu si môžeš prispôsobiť svoje sídlo, {name}! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
       'tutorialRoomEditIntro':
-          'Vitaj v režime úprav! Potiahnutím jedným prstom posunieš pohľad, priblíženie nastav posuvníkom dole, a keď budeš pripravený, klepni na fialové tlačidlo inventára.',
+          'Vitaj v režime úprav, {name}! Potiahnutím jedným prstom posunieš pohľad, priblíženie nastav posuvníkom dole, a keď budeš pripravený, klepni na fialové tlačidlo inventára.',
       'tutorialRoomEditInventory':
-          'Klepni na inventár — uvidíš všetko, čo vlastníš. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
+          'Klepni na inventár — uvidíš všetko, čo vlastníš, {name}. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
       'tutorialRoomEditPlace':
-          'Super! Predmet potiahni, aby si ho presunul, alebo klepni na prázdne miesto, aby si zrušil výber. Keď budeš spokojný s rozložením, uložíme ho.',
+          'Super, {name}! Predmet potiahni, aby si ho presunul, alebo klepni na prázdne miesto, aby si zrušil výber. Keď budeš spokojný s rozložením, uložíme ho.',
       'tutorialRoomEditSave':
-          'Klepni na fajku a ulož rozloženie a vráť sa domov. K úpravám sa môžeš kedykoľvek vrátiť!',
+          'Klepni na fajku a ulož rozloženie a vráť sa domov, {name}. K úpravám sa môžeš kedykoľvek vrátiť!',
       'tutorialBack':
-          'Výborne! Teraz klepni na tlačidlo späť a pokračujme v prehliadke.',
+          'Výborne, {name}! Teraz klepni na tlačidlo späť a pokračujme v prehliadke.',
       'tutorialFinish':
-          'Zvládol si to! Som na teba hrdý. Teraz si pripravený prevziať kontrolu nad svojimi financiami. Pamätaj — vždy som tu pre teba! 💪',
+          'Zvládol si to, {name}! Som na teba hrdý. Teraz si pripravený prevziať kontrolu nad svojimi financiami. Pamätaj — vždy som tu pre teba! 💪',
       'tutorialShopNav':
-          'Poďme sa pozrieť do Obchodu! Ja vždy prehliadam pred nákupom — múdre nakupovanie začína poznaním možností.',
+          'Poďme sa pozrieť do Obchodu, {name}! Ja vždy prehliadam pred nákupom — múdre nakupovanie začína poznaním možností.',
       'tutorialShopAction':
-          'Prezri si tovar a kúp, čo sa ti páči. Len pamätaj — míňaj len to, čo si môžeš dovoliť! Ja sa vždy riadim týmto pravidlom. 😄',
-      'tutorialSettingsAction': 'Otvor nastavenia a uprav jazyk alebo hudbu.',
+          'Prezri si tovar a kúp, čo sa ti páči, {name}. Len pamätaj — míňaj len to, čo si môžeš dovoliť! Ja sa vždy riadim týmto pravidlom. 😄',
+      'tutorialSettingsAction':
+          'Otvor nastavenia a uprav jazyk alebo hudbu, {name}.',
 
       // Settings
       'languageEnglish': 'English',
@@ -782,8 +784,14 @@ class AppLocalizations {
     return prefs.getString(_languageKey) ?? _languageEn;
   }
 
-  static String translate(String key, {String language = _languageEn}) {
-    return _translations[language]?[key] ?? _translations[_languageEn]![key]!;
+  static String translate(
+    String key, {
+    String language = _languageEn,
+    Map<String, String>? replacements,
+  }) {
+    final value =
+        _translations[language]?[key] ?? _translations[_languageEn]![key]!;
+    return _applyReplacements(value, replacements);
   }
 
   /// Returns all 15 Chrumko tips for the given language.
@@ -800,5 +808,35 @@ class AppLocalizations {
 
   static String getLanguageName(String languageCode) {
     return languageCode == _languageSk ? 'Slovenčina' : 'English';
+  }
+
+  /// Replace placeholders like `{name}` with provided values.
+  /// If a replacement is empty/null, the placeholder and adjacent spaces/commas
+  /// are removed so text still reads naturally (e.g., "Great job, {name}!" →
+  /// "Great job!" when the name is missing).
+  static String _applyReplacements(
+      String value, Map<String, String>? replacements) {
+    if (replacements == null || replacements.isEmpty) return value;
+
+    var result = value;
+    replacements.forEach((key, raw) {
+      final token = '{$key}';
+      final replacement = raw.trim();
+      if (replacement.isEmpty) {
+        result = result.replaceAll(
+          RegExp('[ ,]*\\$token[ ,]*'),
+          '',
+        );
+      } else {
+        result = result.replaceAll(token, replacement);
+      }
+    });
+
+    // Tidy up any double spaces created by removals.
+    result = result.replaceAll(RegExp(' {2,}'), ' ').trim();
+    // Clean spaces before punctuation.
+    result = result.replaceAll(' ,', ',').replaceAll(' !', '!');
+    result = result.replaceAll(' ?', '?').replaceAll(' .', '.');
+    return result;
   }
 }

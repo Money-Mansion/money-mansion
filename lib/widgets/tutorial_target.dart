@@ -14,17 +14,26 @@ class TutorialTarget extends StatefulWidget {
 
 class _TutorialTargetState extends State<TutorialTarget> {
   final GlobalKey _key = GlobalKey();
+  Rect? _lastRect;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _updateRect());
+    _startTracking();
   }
 
   @override
   void didUpdateWidget(covariant TutorialTarget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _updateRect());
+    _updateRect();
+  }
+
+  void _startTracking() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _updateRect();
+      _startTracking();
+    });
   }
 
   void _updateRect() {
@@ -32,8 +41,16 @@ class _TutorialTargetState extends State<TutorialTarget> {
     if (context == null) return;
     final renderBox = context.findRenderObject() as RenderBox?;
     if (renderBox == null || !renderBox.hasSize) return;
-    final offset = renderBox.localToGlobal(Offset.zero);
+
+    final overlayBox =
+        Overlay.of(context)?.context.findRenderObject() as RenderBox?;
+    final offset = overlayBox != null
+        ? renderBox.localToGlobal(Offset.zero, ancestor: overlayBox)
+        : renderBox.localToGlobal(Offset.zero);
     final rect = offset & renderBox.size;
+
+    if (_lastRect == rect) return;
+    _lastRect = rect;
     TutorialTargetRegistry.instance.setTarget(widget.id, rect);
   }
 
