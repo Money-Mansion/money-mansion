@@ -800,18 +800,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           await GoalDatabaseService.completeGoal(goal.id);
 
                       if (success) {
-                        // Awards coins + 1 Chrumka inside GameState
+                        // Awards coins inside GameState
                         widget.gameState.completeGoal(goal.id);
                         setState(() {});
 
                         if (mounted) {
-                          final completionText = goal.difficulty ==
-                                  Goal.hardDifficulty
-                              ? l10n.translate('goalCompletedChrumka')
-                              : l10n
-                                  .translate('goalCompletedCoinsChrumka')
-                                  .replaceFirst(
-                                      '{coins}', goal.rewardCoins.toString());
+                          final completionText = l10n
+                              .translate('goalCompleted')
+                              .replaceFirst(
+                                  '{coins}', goal.rewardCoins.toString());
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(completionText),

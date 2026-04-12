@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
+import '../services/streak_service.dart';
 import '../services/onboarding_service.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
@@ -354,13 +355,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   valueColor: Colors.green,
                                 ),
                                 const SizedBox(height: 12),
-                                // Chrumka
-                                _InfoRow(
-                                  label: 'Chrumky:',
-                                  value: '${widget.gameState.chrumka}',
-                                  valueColor:
-                                      const Color.fromARGB(255, 200, 80, 160),
-                                  icon: '🐾',
+                                // Streak
+                                FutureBuilder<int>(
+                                  future: StreakService.getCurrentStreak(),
+                                  builder: (context, snapshot) => _InfoRow(
+                                    label: 'Quiz Streak:',
+                                    value: '${snapshot.data ?? 0}',
+                                    valueColor:
+                                        const Color.fromARGB(255, 149, 117, 205),
+                                    icon: '🔥',
+                                  ),
                                 ),
                               ],
                             ),

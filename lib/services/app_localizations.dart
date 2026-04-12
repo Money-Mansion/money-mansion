@@ -67,7 +67,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'tap to finish 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'At the top you can see your Coins 🪙, Money 💶 and Chrumky 🐾. Coins are earned in-game; money tracks your real finances!',
+          'At the top you can see your Coins 🪙 and Money 💶. Coins are earned in-game; money tracks your real finances!',
       'tutorialFinancialIntro':
           'Welcome to my favourite tab — Finances! Here I track every euro that comes in or goes out. The chart shows your balance over time.',
       'tutorialFinancialTabs':
@@ -81,7 +81,7 @@ class AppLocalizations {
       'tutorialGoalsReassign':
           'See the ⇄ button in the top right? That lets me move money between goals if my priorities change. Very handy!',
       'tutorialGoalsComplete':
-          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward. Completing goals also earns you a Chrumka! 🐾',
+          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward.',
       'tutorialRoomExplain':
           'This is your mansion! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
@@ -182,7 +182,7 @@ class AppLocalizations {
       'currentAmount': 'Current Amount',
       'rewardCoins': 'Reward Coins',
       'addGoal': 'Add Goal',
-      'goalCompleted': 'Goal Completed!',
+      'goalCompleted': 'Goal Completed! +{coins} coins',
       'completeGoal': 'Complete Goal',
       'noGoalsYet': 'No goals yet',
       'createYourFirstGoal': 'Create your first goal to get started',
@@ -209,9 +209,7 @@ class AppLocalizations {
       'goalRewardLabel': 'Reward {coins}',
       'goalCompleteProgressError':
           'Goal can only be completed at 100% progress.',
-      'goalCompletedCoinsChrumka':
-          'Goal completed! +{coins} coins & +1 Chrumka',
-      'goalCompletedChrumka': 'Goal completed! +1 Chrumka',
+
       'failedToCompleteGoal': 'Failed to complete goal',
       'goalDeleted': 'Goal deleted',
       'failedToDeleteGoal': 'Failed to delete goal',
@@ -447,7 +445,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'Hore vidíš Mince 🪙, Peniaze 💶 a Chrumky 🐾. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
+          'Hore vidíš Mince 🪙 a Peniaze 💶. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
       'tutorialFinancialIntro':
           'Vitaj na mojej obľúbenej karte — Financie! Tu sledujem každé euro, ktoré príde alebo odíde. Graf ukazuje zostatok v čase.',
       'tutorialFinancialTabs':
@@ -461,7 +459,7 @@ class AppLocalizations {
       'tutorialGoalsReassign':
           'Vidíš tlačidlo ⇄ vpravo hore? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
       'tutorialGoalsComplete':
-          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu. Splnenie cieľa ti tiež prinesie Chrumku! 🐾',
+          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu.',
       'tutorialRoomExplain':
           'Toto je tvoje sídlo! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
@@ -572,7 +570,7 @@ class AppLocalizations {
       'currentAmount': 'Aktuálna suma',
       'rewardCoins': 'Odmena v minciach',
       'addGoal': 'Pridať cieľ',
-      'goalCompleted': 'Cieľ splnený!',
+      'goalCompleted': 'Cieľ splnený! +{coins} mincí',
       'completeGoal': 'Splniť cieľ',
       'noGoalsYet': 'Zatiaľ bez cieľov',
       'createYourFirstGoal': 'Vytvor svoj prvý cieľ a začni',
@@ -599,9 +597,7 @@ class AppLocalizations {
       'goalRewardLabel': 'Odmena {coins}',
       'goalCompleteProgressError':
           'Cieľ možno dokončiť len pri 100 % progrese.',
-      'goalCompletedCoinsChrumka':
-          'Cieľ dokončený! +{coins} mincí a +1 Chrumka',
-      'goalCompletedChrumka': 'Cieľ dokončený! +1 Chrumka',
+
       'failedToCompleteGoal': 'Cieľ sa nepodarilo dokončiť',
       'goalDeleted': 'Cieľ bol odstránený',
       'failedToDeleteGoal': 'Cieľ sa nepodarilo odstrániť',

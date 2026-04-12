@@ -104,13 +104,11 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     final coins =
         _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
-    final chrumka = await FinancialDatabaseService.getChrumka();
     final streak = await StreakService.getCurrentStreak();
 
     if (mounted) {
       gameState.setCoins(coins);
       gameState.setMoney(money);
-      gameState.setChrumka(chrumka);
       gameState.setCurrentStreak(streak);
 
       await MusicService().setVolume(gameState.getMusicVolume());
@@ -137,7 +135,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   void _saveGameStateChanges() {
     FinancialDatabaseService.saveCoins(gameState.coins);
     FinancialDatabaseService.saveMoney(gameState.money);
-    FinancialDatabaseService.saveChrumka(gameState.chrumka);
   }
 
   Future<void> _loadOwnedItems() async {
@@ -429,7 +426,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);
-                gameState.setChrumka(0);
+                gameState.setCurrentStreak(0);
                 setState(() {});
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
