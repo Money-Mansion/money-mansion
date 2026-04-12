@@ -24,8 +24,17 @@ class RoomComponent extends PositionComponent with TapCallbacks {
     final selectedFloorComponent = await RoomComponentService.getCurrentComponentForRole('floor');
     
     // Use selected components if available, otherwise use defaults
-    final wallTexture = selectedWallComponent?.texture ?? 'room/basic_right_wall.png';
-    final floorTexture = selectedFloorComponent?.texture ?? 'room/basic_floor.png';
+    // Normalize texture paths because Flame prefixes assets/images/ automatically.
+    String _normalizeTexture(String path) =>
+        path.startsWith('assets/images/') ? path.replaceFirst('assets/images/', '') : path;
+
+    final wallTexture = _normalizeTexture(
+      selectedWallComponent?.texture ?? 'room/basic_right_wall.png',
+    );
+    // Default to a ruined floor so the room starts in a damaged state
+    final floorTexture = _normalizeTexture(
+      selectedFloorComponent?.texture ?? 'room/floor_ruined1.png',
+    );
 
     // Load floor sprite
     final floor = SpriteComponent(

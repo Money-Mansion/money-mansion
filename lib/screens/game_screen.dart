@@ -121,7 +121,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
 
     await ItemDatabaseService.syncOwnedItemsWithConfig(GAME_ITEMS);
     await ItemDatabaseService.ensureStarterBrokenItemsOwned(GAME_ITEMS);
-    await ItemDatabaseService.ensureStarterDecorItemsOwned(GAME_ITEMS);
     await _loadOwnedItems();
 
     if (mounted) {

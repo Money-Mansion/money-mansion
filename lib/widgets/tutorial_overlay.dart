@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/onboarding_service.dart';
 import '../services/tutorial_provider.dart';
 import '../services/tutorial_target_registry.dart';
 
@@ -13,6 +15,24 @@ class TutorialOverlay extends StatefulWidget {
 }
 
 class _TutorialOverlayState extends State<TutorialOverlay> {
+  String? _username;
+  DateTime? _lastBlockedMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final profile = await OnboardingService.getUserProfile();
+    if (!mounted) return;
+    final name = profile?.username.trim();
+    setState(() {
+      _username = (name != null && name.isNotEmpty) ? name : null;
+    });
+  }
+
   String _chrumkoImage(String stepId) {
     switch (stepId) {
       case 'home_intro':
@@ -78,13 +98,20 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
       builder: (context, _, __) {
         // Get safe area padding to keep overlays within visible bounds
         final safeAreaPadding = MediaQuery.of(context).padding;
-        
+
         // ── Resolve target rect ──────────────────────────────────────────
         Rect? targetRectLocal;
         if (step.targetId != null) {
           final rect =
               TutorialTargetRegistry.instance.getTarget(step.targetId!);
-          final box = context.findRenderObject() as RenderBox?;
+
+          // Prefer the root overlay for consistent coordinate space across
+          // routes; fall back to this widget's box if overlay isn't ready.
+          final overlayBox =
+              Overlay.of(context)?.context.findRenderObject() as RenderBox?;
+          final fallbackBox = context.findRenderObject() as RenderBox?;
+          final box = overlayBox ?? fallbackBox;
+
           if (rect != null && box != null) {
             final origin = box.localToGlobal(Offset.zero);
             targetRectLocal = rect.shift(-origin);
@@ -104,18 +131,47 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         // Build hint message
         String? hint;
         if (!isForThisScreen) {
-          hint = l10n.translate('tutorialNavigateHint');
+          hint = l10n.translate(
+            'tutorialNavigateHint',
+            replacements: {'name': _username ?? ''},
+          );
         } else if (step.requiredActionId != null && !satisfied) {
-          hint = l10n.translate('tutorialDoAction');
+          hint = l10n.translate(
+            'tutorialDoAction',
+            replacements: {'name': _username ?? ''},
+          );
         }
 
         // Tapping the bubble advances when no action is required (passive steps).
-        final canTapToContinue =
-            isFinish || step.requiredActionId == null;
+        final canTapToContinue = isFinish || step.requiredActionId == null;
 
         return Positioned.fill(
           child: Stack(
             children: [
+              // Input blocker absorbs all taps except the current tutorial target.
+              if (targetRectLocal != null)
+                _TutorialBlocker(
+                  allowedRect: targetRectLocal,
+                  onBlockedTap: () {
+                    // Gentle nudge via Chrumko when tapping outside the target.
+                    final now = DateTime.now();
+                    if (_lastBlockedMessage != null &&
+                        now.difference(_lastBlockedMessage!) <
+                            const Duration(seconds: 1)) {
+                      return;
+                    }
+                    _lastBlockedMessage = now;
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          content: Text(l10n.translate('tutorialTapHere')),
+                          duration: const Duration(milliseconds: 900),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                  },
+                ),
               // ── Target highlight (pointer-transparent, purely visual) ───
               if (targetRectLocal != null)
                 IgnorePointer(
@@ -131,8 +187,8 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                           curve: Curves.easeInOut,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                                color: Colors.deepOrange, width: 3),
+                            border:
+                                Border.all(color: Colors.deepOrange, width: 3),
                             color: Colors.deepOrange.withOpacity(0.12),
                             boxShadow: [
                               BoxShadow(
@@ -189,14 +245,15 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                 child: _ChrumkoDialogue(
                   imagePath: _chrumkoImage(step.id),
                   dialogueAtTop: dialogueAtTop,
-                  message: l10n.translate(step.messageKey),
+                  message: l10n.translate(
+                    step.messageKey,
+                    replacements: {'name': _username ?? ''},
+                  ),
                   hint: hint,
                   isFinish: isFinish,
                   canTapToContinue: canTapToContinue,
-                  onContinue: () =>
-                      context.read<TutorialProvider>().nextStep(),
-                  onSkip: () =>
-                      context.read<TutorialProvider>().skipTutorial(),
+                  onContinue: () => context.read<TutorialProvider>().nextStep(),
+                  onSkip: () => context.read<TutorialProvider>().skipTutorial(),
                   skipLabel: l10n.translate('tutorialSkip'),
                   tapToContinueLabel: l10n.translate('tutorialTapToContinue'),
                   tapToFinishLabel: l10n.translate('tutorialTapToFinish'),
@@ -245,9 +302,8 @@ class _ChrumkoDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: dialogueAtTop
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.end,
+      crossAxisAlignment:
+          dialogueAtTop ? CrossAxisAlignment.start : CrossAxisAlignment.end,
       children: [
         // ── Chrumko character image ─────────────────────────────────────
         // IgnorePointer so touches pass through to the app beneath.
@@ -258,9 +314,8 @@ class _ChrumkoDialogue extends StatelessWidget {
             child: Image.asset(
               imagePath,
               fit: BoxFit.contain,
-              alignment: dialogueAtTop
-                  ? Alignment.topCenter
-                  : Alignment.bottomCenter,
+              alignment:
+                  dialogueAtTop ? Alignment.topCenter : Alignment.bottomCenter,
               errorBuilder: (_, __, ___) => const SizedBox.shrink(),
             ),
           ),
@@ -435,4 +490,77 @@ class _BubbleTailPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+/// Absorbs taps outside the active tutorial target so only the highlighted
+/// element (and the dialogue above this widget in the Stack) remain clickable.
+class _TutorialBlocker extends LeafRenderObjectWidget {
+  final Rect allowedRect;
+  final VoidCallback? onBlockedTap;
+
+  const _TutorialBlocker({
+    required this.allowedRect,
+    this.onBlockedTap,
+  });
+
+  @override
+  RenderTutorialBlocker createRenderObject(BuildContext context) {
+    return RenderTutorialBlocker(
+      allowedRect: allowedRect,
+      onBlockedTap: onBlockedTap,
+    );
+  }
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    RenderTutorialBlocker renderObject,
+  ) {
+    renderObject
+      ..allowedRect = allowedRect
+      ..onBlockedTap = onBlockedTap;
+  }
+}
+
+class RenderTutorialBlocker extends RenderBox {
+  RenderTutorialBlocker({
+    required Rect allowedRect,
+    this.onBlockedTap,
+  }) : _allowedRect = allowedRect;
+
+  Rect _allowedRect;
+  VoidCallback? onBlockedTap;
+
+  set allowedRect(Rect value) {
+    if (value == _allowedRect) return;
+    _allowedRect = value;
+    markNeedsLayout();
+  }
+
+  @override
+  void performLayout() {
+    size = constraints.biggest;
+  }
+
+  @override
+  bool hitTest(BoxHitTestResult result, {required Offset position}) {
+    // Let touches inside the allowed rect pass through to widgets below.
+    if (_allowedRect.contains(position)) {
+      return false;
+    }
+    result.add(BoxHitTestEntry(this, position));
+    return true;
+  }
+
+  @override
+  void handleEvent(PointerEvent event, covariant HitTestEntry entry) {
+    if (event is PointerDownEvent) {
+      onBlockedTap?.call();
+    }
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    // Transparent blocker – nothing to paint.
+  }
 }

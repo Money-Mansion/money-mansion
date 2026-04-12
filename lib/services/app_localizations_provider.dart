@@ -24,8 +24,12 @@ class AppLocalizationsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String translate(String key) {
-    return AppLocalizations.translate(key, language: _currentLanguage);
+  String translate(String key, {Map<String, String>? replacements}) {
+    return AppLocalizations.translate(
+      key,
+      language: _currentLanguage,
+      replacements: replacements,
+    );
   }
 
   String getLanguageName(String languageCode) {
