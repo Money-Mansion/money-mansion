@@ -86,51 +86,94 @@ class _QuizSectionScreenState extends State<QuizSectionScreen> {
             );
           }
 
-          return GridView.builder(
-            padding: const EdgeInsets.all(16),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 20,
-              childAspectRatio: 0.85,
-            ),
-            itemCount: lessons.length,
-            itemBuilder: (context, index) {
-              final quiz = lessons[index];
-              final status = _getStatusForQuiz(progressList, quiz.id);
-              final score = _getScoreForQuiz(progressList, quiz.id);
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              children: List.generate(
+                lessons.length,
+                (index) {
+                  final quiz = lessons[index];
+                  final status = _getStatusForQuiz(progressList, quiz.id);
+                  final score = _getScoreForQuiz(progressList, quiz.id);
+                  
+                  // Create zigzag effect: alternate between left, center, right
+                  final horizontalOffset = index % 2 == 0 ? -30.0 : 30.0;
 
-              return GestureDetector(
-                onTap: () {
-                  // Navigate to quiz gameplay screen
-                  final lessonId = int.tryParse(quiz.id) ?? int.parse(quiz.id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LessonQuizScreen(
-                        lessonId: lessonId,
-                        lessonTitle: quiz.name,
+                  return Column(
+                    children: [
+                      // Draw connecting line between circles (except for first item)
+                      if (index > 0)
+                        SizedBox(
+                          height: 40,
+                          child: CustomPaint(
+                            painter: _PathPainter(),
+                            size: const Size(double.infinity, 40),
+                          ),
+                        ),
+                      Transform.translate(
+                        offset: Offset(horizontalOffset, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            // Navigate to quiz gameplay screen
+                            final lessonId = int.tryParse(quiz.id) ?? int.parse(quiz.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LessonQuizScreen(
+                                  lessonId: lessonId,
+                                  lessonTitle: quiz.name,
+                                ),
+                              ),
+                            ).then((_) {
+                              // Refresh progress after returning from quiz
+                              setState(() {
+                                progressFuture = QuizProgressDatabaseService.getSectionProgress(
+                                  widget.section.id,
+                                );
+                              });
+                            });
+                          },
+                          child: QuizProgressCircle(
+                            title: quiz.name,
+                            status: status,
+                            score: score,
+                          ),
+                        ),
                       ),
-                    ),
-                  ).then((_) {
-                    // Refresh progress after returning from quiz
-                    setState(() {
-                      progressFuture = QuizProgressDatabaseService.getSectionProgress(
-                        widget.section.id,
-                      );
-                    });
-                  });
+                    ],
+                  );
                 },
-                child: QuizProgressCircle(
-                  title: quiz.name,
-                  status: status,
-                  score: score,
-                ),
-              );
-            },
+              ),
+            ),
           );
         },
       ),
     );
   }
+}
+
+class _PathPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.grey[400]!
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    // Draw curved connector line from top center to bottom center
+    final path = Path();
+    path.moveTo(size.width / 2, 0);
+    path.cubicTo(
+      size.width / 2,
+      size.height / 2,
+      size.width / 2,
+      size.height / 2,
+      size.width / 2,
+      size.height,
+    );
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

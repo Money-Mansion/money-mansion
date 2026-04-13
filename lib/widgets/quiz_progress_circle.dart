@@ -5,28 +5,27 @@ class QuizProgressCircle extends StatelessWidget {
   final String title;
   final QuizStatus status;
   final int score;
+  final bool locked;
+  final Color sectionColor;
 
   const QuizProgressCircle({
     super.key,
     required this.title,
     required this.status,
     this.score = 0,
+    this.locked = false,
+    this.sectionColor = const Color(0xFFBDBDBD),
   });
 
-  Color _getStatusColor() {
-    switch (status) {
-      case QuizStatus.excellent:
-        return const Color(0xFF4CAF50); // Green (zelený - 90%+)
-      case QuizStatus.good:
-        return const Color(0xFFFFC107); // Yellow (žltý - 60%-89%)
-      case QuizStatus.poor:
-        return const Color(0xFFF44336); // Red (červený - <60%)
-      case QuizStatus.notDone:
-        return const Color(0xFFBDBDBD); // Gray (sivý - neurobený)
-    }
+  Color _getCircleColor() {
+    // Always use section color, only icon changes based on status
+    return sectionColor;
   }
 
   IconData _getStatusIcon() {
+    if (locked) {
+      return Icons.lock;
+    }
     switch (status) {
       case QuizStatus.excellent:
         return Icons.check;
@@ -42,7 +41,9 @@ class QuizProgressCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: '$title${status != QuizStatus.notDone ? ' - ${score}%' : ''}',
+      message: locked 
+        ? '$title - Zamknuté' 
+        : '$title${status != QuizStatus.notDone ? ' - ${score}%' : ''}',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,21 +51,38 @@ class QuizProgressCircle extends StatelessWidget {
             width: 70,
             height: 70,
             decoration: BoxDecoration(
-              color: _getStatusColor(),
+              color: _getCircleColor(),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: _getStatusColor().withOpacity(0.4),
+                  color: _getCircleColor().withOpacity(0.4),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
               ],
             ),
             child: Center(
-              child: Icon(
-                _getStatusIcon(),
-                color: Colors.white,
-                size: 32,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    _getStatusIcon(),
+                    color: locked ? Colors.grey[700] : Colors.white,
+                    size: 32,
+                  ),
+                  if (locked)
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.grey[600]!,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
           ),

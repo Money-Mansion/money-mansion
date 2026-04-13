@@ -28,12 +28,12 @@
               "question": "Chrumko drží v ruke mincu. Ako ju môže použiť?",
               "options": [
                 "Nedá sa s ňou nič urobiť",
-                "Môže si za ňu v obchode kúpiť jablko alebo džús",
+                "Môže si za ňu v obchode kúpiť jablko alebo šťavu",
                 "Môže ju nosiť ako šperk",
                 "Môže ju použiť na hrenie"
               ],
               "correctAnswer": 1,
-              "explanation": "Minca má hodnotu, takže je Chrumko môže použiť v obchode na nákup - napríklad na jablko alebo džús pri pokladni."
+              "explanation": "Minca má hodnotu, takže je Chrumko môže použiť v obchode na nákup - napríklad na jablko alebo šťavu pri pokladni."
             },
             {
               "questionId": "1001_03",
@@ -215,10 +215,10 @@
             {
               "questionId": "1004_03",
               "type": "practical",
-              "question": "Chrumko chce kúpiť kravatu. Predavačka mu ponúkne dve možnosti. Ktorá je zaplatenie kartou?",
+              "question": "Chrumko chce kúpiť chlieb. Predavačka mu ponúkne dve možnosti. Ktorá je zaplatenie kartou?",
               "options": [
                 "Zaplatenie mincami a bankovkami",
-                "Poslaniepenazí z účtu",
+                "Poslanie peňazí z účtu",
                 "Obidve sú úplne rozdielne",
                 "Ani jedna nie je kúpa"
               ],
@@ -261,15 +261,15 @@
             {
               "questionId": "1005_02",
               "type": "practical",
-              "question": "Chrumko má v peňaženke jedno euro. Džús stojí 90 centov a keksík 50 centov. Čo si môže kúpiť?",
+              "question": "Chrumko má v peňaženke jedno euro. Šťava stojí 90 centov a keksík 50 centov. Čo si môže kúpiť?",
               "options": [
                 "Môže si kúpiť obidve veci",
                 "Nemôže si kúpiť nič",
-                "Môže si kúpiť len jedno - buď džús alebo keksík",
+                "Môže si kúpiť len jedno - buď šťavu alebo keksík",
                 "Môžu si kúpiť aj tri veci"
               ],
               "correctAnswer": 2,
-              "explanation": "Džús (90 centov) + keksík (50 centov) = 140 centov = 1,40 eur. To je viac ako 1 euro, takže Chrumko si nemôže kúpiť obidve. Musí sa rozhodnúť."
+              "explanation": "Šťava (90 centov) + keksík (50 centov) = 140 centov = 1,40 eur. To je viac ako 1 euro, takže Chrumko si nemôže kúpiť obidve. Musí sa rozhodnúť."
             },
             {
               "questionId": "1005_03",
@@ -291,11 +291,11 @@
               "options": [
                 "Nemôže si kúpiť nič",
                 "Môžu si kúpiť všetko v celom obchode",
-                "Mohli by si kúpiť obidve veci - džús aj keksík - naraz",
+                "Mohli by si kúpiť obidve veci - šťavu aj keksík - naraz",
                 "Peniaze sa stratia"
               ],
               "correctAnswer": 2,
-              "explanation": "Ak by mal Chrumko viac peňazí, napríklad 1,50 eur, mohli by si kúpiť všetky veci, ktoré chcel - aj džús aj keksík."
+              "explanation": "Ak by mal Chrumko viac peňazí, napríklad 1,50 eur, mohli by si kúpiť všetky veci, ktoré chcel - aj šťavu aj keksík."
             }
           ]
         },

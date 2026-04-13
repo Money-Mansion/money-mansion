@@ -151,7 +151,7 @@
                 "Môže si kúpiť chlieb hneď"
               ],
               "correctAnswer": 2,
-              "explanation": "Ak Chrumko v minca nemá, musí si ju najprv obstať. Preto bola platba v minulosti zložitejšia."
+              "explanation": "Ak Chrumko vajcia nemá, musí si ich najprv obstať. Až potom ich môže vymeniť za chlieb. Preto bola platba v minulosti zložitejšia."
             },
             {
               "questionId": "1003_03",
@@ -215,7 +215,7 @@
             {
               "questionId": "1004_03",
               "type": "practical",
-              "question": "Chrumko si chce kúpiť kravatu. Predávajúci mu ponúka dve možnosti. Ktorá je platba kartou?",
+              "question": "Chrumko si chce kúpiť chlieb. Predávajúci mu ponúka dve možnosti. Ktorá je platba kartou?",
               "options": [
                 "Platba mincami a bankovkami",
                 "Zaslanie peňazí z účtu",
@@ -261,15 +261,15 @@
             {
               "questionId": "1005_02",
               "type": "practical",
-              "question": "Chrumko má v peňaženke 1 euro. Šťava stojí 90 centov a kekáň 50 centov. Čo si môže kúpiť?",
+              "question": "Chrumko má v peňaženke 1 euro. Šťava stojí 90 centov a keksík stojí 50 centov. Čo si môže kúpiť?",
               "options": [
-                "Aby si kúpil obe veci",
+                "Mohol by si kúpiť obe veci",
                 "Nemôže si nič kúpiť",
-                "Môže si kúpiť len jedno - buď šťavu alebo kekáň",
+                "Môže si kúpiť len jednu vec - buď šťavu alebo keksík",
                 "Môže si kúpiť tri veci"
               ],
               "correctAnswer": 2,
-              "explanation": "Šťava (90 centov) + kekáň (50 centov) = 140 centov = 1,40 eur. To je viac ako 1 euro, takže si Chrumko nemôže kúpiť obe. Musí si vybrať."
+              "explanation": "Šťava (90 centov) + keksík (50 centov) = 140 centov = 1,40 eur. To je viac ako 1 euro, takže si Chrumko nemôže kúpiť obe. Musí si vybrať jednu."
             },
             {
               "questionId": "1005_03",
@@ -291,11 +291,11 @@
               "options": [
                 "Nemôže si nič kúpiť",
                 "Môže si kúpiť všetko v celom obchode",
-                "Mohol by si kúpiť obe veci - šťavu a kekáň - naraz",
+                "Mohol by si kúpiť obe veci - šťavu a keksík - naraz",
                 "Peniaze sa stratia"
               ],
               "correctAnswer": 2,
-              "explanation": "Ak by mal Chrumko viac peňazí, napríklad 1,50 eur, mohol by si kúpiť všetko, čo chcel - šťavu aj kekáň."
+              "explanation": "Ak by mal Chrumko viac peňazí, napríklad 1,50 eur, mohol by si kúpiť všetky veci, ktoré chcel - šťavu aj keksík."
             }
           ]
         },
