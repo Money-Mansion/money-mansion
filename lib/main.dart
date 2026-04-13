@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform;
 import 'screens/game_screen.dart';
 import 'services/item_database_service.dart';
@@ -20,15 +21,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   print('=== App Starting ===');
-  print('→ Platform: ${Platform.operatingSystem}');
+  if (!kIsWeb) {
+    print('→ Platform: ${Platform.operatingSystem}');
+  }
 
   // Initialize FFI for desktop platforms
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
     print('→ Desktop platform detected, initializing FFI...');
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
     print('✓ FFI initialized');
-  } else {
+  } else if (!kIsWeb) {
     print('ℹ Mobile platform detected');
   }
 

@@ -302,6 +302,18 @@ class _QuizzesTabState extends State<_QuizzesTab> {
   late Future<List<QuizProgress>> allProgressFuture;
   String _lastLanguage = 'en';
 
+  // Section colors - each section gets a unique color
+  static const List<Color> sectionColors = [
+    Color(0xFF7E57C2), // Purple
+    Color(0xFF26A69A), // Teal
+    Color(0xFFEC407A), // Pink
+    Color(0xFFFFA726), // Orange
+    Color(0xFF5C6BC0), // Indigo
+    Color(0xFF66BB6A), // Green
+    Color(0xFFAB47BC), // Deep Purple
+    Color(0xFF29B6F6), // Light Blue
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -345,6 +357,19 @@ class _QuizzesTabState extends State<_QuizzesTab> {
     }
   }
 
+  /// Determine which quiz index should be unlocked in a section
+  /// Returns the index of the first notDone quiz, or 0 if all are complete
+  int _getUnlockedQuizIndex(List<Quiz> quizzes, List<QuizProgress> progressList) {
+    for (int i = 0; i < quizzes.length; i++) {
+      final status = _getStatusForQuiz(progressList, quizzes[i].id);
+      if (status == QuizStatus.notDone) {
+        return i;
+      }
+    }
+    // All done, return 0 (user can still access first one)
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
@@ -386,6 +411,8 @@ class _QuizzesTabState extends State<_QuizzesTab> {
                 separatorBuilder: (_, __) => const SizedBox(height: 24),
                 itemBuilder: (context, sectionIndex) {
                   final section = sections[sectionIndex];
+                  final sectionColor = sectionColors[sectionIndex % sectionColors.length];
+                  final unlockedIndex = _getUnlockedQuizIndex(section.lessons, progressList);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -402,46 +429,71 @@ class _QuizzesTabState extends State<_QuizzesTab> {
                           ),
                         ),
                       ),
-                      // GridView with quiz circles
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 0.85,
-                        ),
-                        itemCount: section.lessons.length,
-                        itemBuilder: (context, quizIndex) {
-                          final quiz = section.lessons[quizIndex];
-                          final status = _getStatusForQuiz(progressList, quiz.id);
-                          final score = _getScoreForQuiz(progressList, quiz.id);
+                      // Column with quiz circles in zigzag pattern
+                      Column(
+                        children: List.generate(
+                          section.lessons.length,
+                          (quizIndex) {
+                            final quiz = section.lessons[quizIndex];
+                            final status = _getStatusForQuiz(progressList, quiz.id);
+                            final score = _getScoreForQuiz(progressList, quiz.id);
+                            final isLocked = quizIndex > unlockedIndex;
+                            
+                            // Create randomized zigzag effect with multiple positions
+                            final offsets = [-50.0, -30.0, -10.0, 10.0, 30.0, 50.0];
+                            final horizontalOffset = offsets[(quiz.id.hashCode + quizIndex).abs() % offsets.length];
+                            
+                            // Calculate previous offset only if not first item
+                            final prevHorizontalOffset = quizIndex > 0
+                              ? offsets[(section.lessons[quizIndex - 1].id.hashCode + quizIndex - 1).abs() % offsets.length]
+                              : 0.0;
 
-                          return GestureDetector(
-                            onTap: () {
-                              final lessonId = int.tryParse(quiz.id) ?? 1001;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LessonQuizScreen(
-                                    lessonId: lessonId,
-                                    lessonTitle: quiz.name,
+                            return Column(
+                              children: [
+                                // Draw connecting line between circles (except for first item)
+                                if (quizIndex > 0)
+                                  SizedBox(
+                                    height: 40,
+                                    child: CustomPaint(
+                                      painter: _PathPainter(
+                                        prevOffset: prevHorizontalOffset,
+                                        currOffset: horizontalOffset,
+                                        color: sectionColor,
+                                      ),
+                                      size: const Size(double.infinity, 40),
+                                    ),
+                                  ),
+                                Transform.translate(
+                                  offset: Offset(horizontalOffset, 0),
+                                  child: GestureDetector(
+                                    onTap: isLocked ? null : () {
+                                      final lessonId = int.tryParse(quiz.id) ?? 1001;
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LessonQuizScreen(
+                                            lessonId: lessonId,
+                                            lessonTitle: quiz.name,
+                                          ),
+                                        ),
+                                      ).then((_) {
+                                        // Close overlay after returning from quiz
+                                        widget.onClose();
+                                      });
+                                    },
+                                    child: QuizProgressCircle(
+                                      title: quiz.name,
+                                      status: status,
+                                      score: score,
+                                      locked: isLocked,
+                                      sectionColor: sectionColor,
+                                    ),
                                   ),
                                 ),
-                              ).then((_) {
-                                // Close overlay after returning from quiz
-                                widget.onClose();
-                              });
-                            },
-                            child: QuizProgressCircle(
-                              title: quiz.name,
-                              status: status,
-                              score: score,
-                            ),
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   );
@@ -570,4 +622,44 @@ class _PlaceholderTab extends StatelessWidget {
       ),
     );
   }
+}
+
+class _PathPainter extends CustomPainter {
+  final double prevOffset;
+  final double currOffset;
+  final Color color;
+
+  _PathPainter({
+    required this.prevOffset,
+    required this.currOffset,
+    this.color = const Color(0xFFBDBDBD),
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    // Draw curved connector line from previous circle to current circle
+    final path = Path();
+    // Start from center bottom of previous circle
+    path.moveTo(size.width / 2 + prevOffset, 0);
+    
+    // Curve smoothly to center top of current circle
+    path.cubicTo(
+      size.width / 2 + prevOffset, // first control point x
+      size.height / 3, // first control point y
+      size.width / 2 + currOffset, // second control point x
+      size.height * 2 / 3, // second control point y
+      size.width / 2 + currOffset, // end x
+      size.height, // end y
+    );
+    
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
