@@ -137,7 +137,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(l10n.translate('settings')),
-            backgroundColor: Colors.orange[500],
+            backgroundColor: const Color.fromARGB(255, 149, 117, 205),
             elevation: 0,
             automaticallyImplyLeading: false,
             leading: TutorialTarget(
@@ -181,7 +181,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   _showSnack(l10n.translate('tutorialRestart'));
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.deepOrange,
+                                  backgroundColor: const Color.fromARGB(255, 103, 58, 183),
                                   foregroundColor: Colors.white,
                                 ),
                                 child: Text(l10n.translate('tutorialRestart')),
@@ -224,7 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: isSelected
-                                        ? Colors.orange
+                                        ? const Color.fromARGB(255, 103, 58, 183)
                                         : Colors.grey[300]!,
                                     width: isSelected ? 2 : 1,
                                   ),
@@ -240,7 +240,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         l10n.setLanguage(value);
                                       }
                                     },
-                                    activeColor: Colors.orange,
+                                    activeColor: const Color.fromARGB(255, 103, 58, 183),
                                   ),
                                   onTap: () {
                                     l10n.setLanguage(languageCode);
@@ -287,7 +287,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       .read<TutorialProvider>()
                                       .registerAction('toggle_music');
                                 },
-                                activeColor: Colors.orange,
+                                activeColor: const Color.fromARGB(255, 103, 58, 183),
                               ),
                             ),
                           ),
@@ -309,7 +309,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   divisions: 10,
                                   label:
                                       '${(widget.gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
-                                  activeColor: Colors.orange,
+                                  activeColor: const Color.fromARGB(255, 103, 58, 183),
                                   inactiveColor: Colors.grey[300],
                                   onChanged: (value) async {
                                     widget.gameState.setMusicVolume(value);
@@ -543,7 +543,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.deepOrange),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
         ),
       ),
     );
@@ -567,7 +567,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.deepOrange),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
         ),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
