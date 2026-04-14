@@ -6,6 +6,7 @@ import '../models/room_component.dart';
 import '../services/shop_service.dart';
 import '../services/room_component_service.dart';
 import '../services/app_localizations_provider.dart';
+import '../widgets/tutorial_target.dart';
 
 class ShopScreen extends StatefulWidget {
   final GameState gameState;
@@ -156,11 +157,14 @@ class _ShopScreenState extends State<ShopScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.translate('shop')),
-        leading: IconButton(
-          key: const Key('back_button'),
-          icon: const Icon(Icons.close),
-          color: Colors.black,
-          onPressed: widget.onBack,
+        leading: TutorialTarget(
+          id: 'close_shop',
+          child: IconButton(
+            key: const Key('back_button'),
+            icon: const Icon(Icons.close),
+            color: Colors.black,
+            onPressed: widget.onBack,
+          ),
         ),
         bottom: TabBar(
           controller: _tabController,

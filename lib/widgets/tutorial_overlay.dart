@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/onboarding_service.dart';
@@ -17,6 +16,27 @@ class TutorialOverlay extends StatefulWidget {
 class _TutorialOverlayState extends State<TutorialOverlay> {
   String? _username;
   DateTime? _lastBlockedMessage;
+  static const Set<String> _exitTargetIds = {
+    'nav_shop',
+    'nav_financial',
+    'nav_goals',
+    'nav_inventory',
+    'nav_back',
+    'open_settings',
+    'open_calendar',
+    'open_lessons',
+    'open_room_edit',
+    'room_edit_save',
+    'room_edit_components',
+    'room_edit_inventory',
+    'close_lessons',
+    'close_shop',
+    'close_financial',
+    'close_goals',
+    'close_settings',
+    'close_calendar',
+    'close_room_edit',
+  };
 
   @override
   void initState() {
@@ -100,23 +120,66 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         final safeAreaPadding = MediaQuery.of(context).padding;
 
         // ── Resolve target rect ──────────────────────────────────────────
-        Rect? targetRectLocal;
-        if (step.targetId != null) {
-          final rect =
-              TutorialTargetRegistry.instance.getTarget(step.targetId!);
+        // Prefer the root overlay for consistent coordinate space across
+        // routes; fall back to this widget's box if overlay isn't ready.
+        final overlayBox =
+            Overlay.of(context)?.context.findRenderObject() as RenderBox?;
+        final fallbackBox = context.findRenderObject() as RenderBox?;
+        final box = overlayBox ?? fallbackBox;
+        Rect? toLocalRect(String targetId) {
+          final rect = TutorialTargetRegistry.instance.getTarget(targetId);
+          if (rect == null || box == null) return null;
+          // Targets are tracked in overlay coordinates when available.
+          if (overlayBox != null && identical(box, overlayBox)) {
+            return rect;
+          }
+          final origin = box.localToGlobal(Offset.zero);
+          return rect.shift(-origin);
+        }
 
-          // Prefer the root overlay for consistent coordinate space across
-          // routes; fall back to this widget's box if overlay isn't ready.
-          final overlayBox =
-              Overlay.of(context)?.context.findRenderObject() as RenderBox?;
-          final fallbackBox = context.findRenderObject() as RenderBox?;
-          final box = overlayBox ?? fallbackBox;
-
-          if (rect != null && box != null) {
-            final origin = box.localToGlobal(Offset.zero);
-            targetRectLocal = rect.shift(-origin);
+        final targetRectLocal =
+            step.targetId != null ? toLocalRect(step.targetId!) : null;
+        final List<Rect> alwaysAllowedRects = [];
+        if (targetRectLocal != null) {
+          alwaysAllowedRects.add(targetRectLocal);
+        }
+        if (step.id == 'room_edit_open_inventory' ||
+            step.id == 'room_edit_place_item') {
+          final inventoryRect = toLocalRect('room_edit_inventory');
+          if (inventoryRect != null) {
+            alwaysAllowedRects.add(inventoryRect);
           }
         }
+        if (step.screenId == 'room_edit') {
+          final zoomSliderRect = toLocalRect('room_edit_zoom_slider');
+          if (zoomSliderRect != null) {
+            alwaysAllowedRects.add(zoomSliderRect);
+          }
+        }
+        if (step.id == 'lessons_return') {
+          final quizzesTabRect = toLocalRect('tab_quizes');
+          final lessonsTabRect = toLocalRect('tab_lessons');
+          if (quizzesTabRect != null) alwaysAllowedRects.add(quizzesTabRect);
+          if (lessonsTabRect != null) alwaysAllowedRects.add(lessonsTabRect);
+        }
+        final blockedExitRects = _exitTargetIds
+            .where((id) {
+              if (id == step.targetId) return false;
+              // Keep inventory button usable while user is expected to place
+              // items, so they can reopen inventory multiple times.
+              if (id == 'room_edit_inventory' &&
+                  (step.id == 'room_edit_open_inventory' ||
+                      step.id == 'room_edit_place_item')) {
+                return false;
+              }
+              return true;
+            })
+            .map(toLocalRect)
+            .whereType<Rect>()
+            .where(
+              (rect) => !alwaysAllowedRects.any(rect.overlaps),
+            )
+            .toList(growable: false);
 
         final screenHeight = MediaQuery.of(context).size.height;
         final targetIsLow = targetRectLocal != null &&
@@ -148,14 +211,10 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         return Positioned.fill(
           child: Stack(
             children: [
-              // Input blocker: allows only the active target (if any). If the
-              // target rect is unavailable, block everything underneath so only
-              // the overlay UI remains interactive.
-              if (targetRectLocal != null)
-                _TutorialBlocker(
-                  allowedRect: targetRectLocal,
+              for (final rect in blockedExitRects)
+                _RectInputBlocker(
+                  blockedRect: rect,
                   onBlockedTap: () {
-                    // Gentle nudge via Chrumko when tapping outside the target.
                     final now = DateTime.now();
                     if (_lastBlockedMessage != null &&
                         now.difference(_lastBlockedMessage!) <
@@ -173,9 +232,7 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                         ),
                       );
                   },
-                )
-              else
-                const _FullScreenBlocker(),
+                ),
               // ── Target highlight (pointer-transparent, purely visual) ───
               if (targetRectLocal != null)
                 IgnorePointer(
@@ -496,89 +553,26 @@ class _BubbleTailPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-/// Absorbs taps outside the active tutorial target so only the highlighted
-/// element (and the dialogue above this widget in the Stack) remain clickable.
-class _TutorialBlocker extends LeafRenderObjectWidget {
-  final Rect allowedRect;
+/// Blocks input only inside a specific rectangle.
+class _RectInputBlocker extends StatelessWidget {
+  final Rect blockedRect;
   final VoidCallback? onBlockedTap;
 
-  const _TutorialBlocker({
-    required this.allowedRect,
+  const _RectInputBlocker({
+    required this.blockedRect,
     this.onBlockedTap,
   });
 
   @override
-  RenderTutorialBlocker createRenderObject(BuildContext context) {
-    return RenderTutorialBlocker(
-      allowedRect: allowedRect,
-      onBlockedTap: onBlockedTap,
-    );
-  }
-
-  @override
-  void updateRenderObject(
-    BuildContext context,
-    RenderTutorialBlocker renderObject,
-  ) {
-    renderObject
-      ..allowedRect = allowedRect
-      ..onBlockedTap = onBlockedTap;
-  }
-}
-
-class RenderTutorialBlocker extends RenderBox {
-  RenderTutorialBlocker({
-    required Rect allowedRect,
-    this.onBlockedTap,
-  }) : _allowedRect = allowedRect;
-
-  Rect _allowedRect;
-  VoidCallback? onBlockedTap;
-
-  set allowedRect(Rect value) {
-    if (value == _allowedRect) return;
-    _allowedRect = value;
-    markNeedsLayout();
-  }
-
-  @override
-  void performLayout() {
-    size = constraints.biggest;
-  }
-
-  @override
-  bool hitTest(BoxHitTestResult result, {required Offset position}) {
-    // Let touches inside the allowed rect pass through to widgets below.
-    if (_allowedRect.contains(position)) {
-      return false;
-    }
-    result.add(BoxHitTestEntry(this, position));
-    return true;
-  }
-
-  @override
-  void handleEvent(PointerEvent event, covariant HitTestEntry entry) {
-    if (event is PointerDownEvent || event is PointerUpEvent) {
-      onBlockedTap?.call();
-    }
-  }
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    // Transparent blocker – nothing to paint.
-  }
-}
-
-/// Blocks all input beneath it; used when a tutorial step has no resolved target.
-class _FullScreenBlocker extends StatelessWidget {
-  const _FullScreenBlocker();
-
-  @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: AbsorbPointer(
-        // Transparent; purely for input absorption.
-        child: Container(color: Colors.transparent),
+    return Positioned(
+      left: blockedRect.left,
+      top: blockedRect.top,
+      width: blockedRect.width,
+      height: blockedRect.height,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onBlockedTap,
       ),
     );
   }

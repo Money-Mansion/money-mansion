@@ -192,6 +192,7 @@ class TutorialProvider extends ChangeNotifier {
       screenId: 'home',
       messageKey: 'tutorialLessonsReturn',
       requiredActionId: 'close_lessons',
+      targetId: 'close_lessons',
     ),
 
     // ── Settings ─────────────────────────────────────────────────────────
