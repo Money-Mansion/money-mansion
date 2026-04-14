@@ -116,7 +116,7 @@ class AppLocalizations {
       'tutorialRoomEdit':
           'You can customise your mansion right here, {name}! I believe a good environment motivates better financial decisions.',
       'tutorialRoomEditIntro':
-          'Welcome to edit mode, {name}! Drag with one finger to move the view, use the bottom slider to zoom, and tap the purple inventory button when you\'re ready to pull items into the room.',
+          'Welcome to edit mode, {name}! Drag with one finger to move the view, pinch with two fingers to zoom, and tap the purple inventory button when you\'re ready to pull items into the room.',
       'tutorialRoomEditInventory':
           'Tap the inventory button — you\'ll see everything you own, {name}. Pick any item that isn\'t already placed and tap it to drop it into your room.',
       'tutorialRoomEditPlace':
@@ -506,7 +506,7 @@ class AppLocalizations {
       'tutorialRoomEdit':
           'Tu si môžeš prispôsobiť svoje sídlo, {name}! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
       'tutorialRoomEditIntro':
-          'Vitaj v režime úprav, {name}! Potiahnutím jedným prstom posunieš pohľad, priblíženie nastav posuvníkom dole, a keď budeš pripravený, klepni na fialové tlačidlo inventára.',
+          'Vitaj v režime úprav, {name}! Potiahnutím jedným prstom posunieš pohľad, priblíženie spravíš štipnutím dvoma prstami, a keď budeš pripravený, klepni na fialové tlačidlo inventára.',
       'tutorialRoomEditInventory':
           'Klepni na inventár — uvidíš všetko, čo vlastníš, {name}. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
       'tutorialRoomEditPlace':
