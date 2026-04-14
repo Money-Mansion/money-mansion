@@ -6,10 +6,12 @@ import '../models/quiz_progress.dart';
 class QuizProgressDatabaseService {
   static const String _tableName = 'quiz_progress';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 3;
+  static const int _dbVersion = 4; // Incremented for rewardedQuestionIds column
 
   static Database? _database;
   static bool _initialized = false;
+
+
 
   static Future<void> initializeDatabase() async {
     if (_initialized) return;
@@ -19,7 +21,6 @@ class QuizProgressDatabaseService {
       databaseFactory = databaseFactoryFfi;
     }
     
-    // Initialize database and create table
     _database ??= await _initDatabase();
     _initialized = true;
   }
@@ -38,26 +39,45 @@ class QuizProgressDatabaseService {
       path,
       version: _dbVersion,
       onCreate: _createTable,
-      onUpgrade: (db, oldVersion, newVersion) async {
-        await _createTable(db, newVersion);
-      },
-      onOpen: (db) async {
-        await _createTable(db, _dbVersion);
-      },
+      onUpgrade: _onUpgrade,
     );
   }
 
+  static Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // Migrate from older versions
+    if (oldVersion < 4) {
+      try {
+        // Check if column already exists
+        final info = await db.rawQuery('PRAGMA table_info($_tableName)');
+        final hasRewardedColumn = info.any((col) => col['name'] == 'rewardedQuestionIds');
+        
+        if (!hasRewardedColumn) {
+          await db.execute(
+            'ALTER TABLE $_tableName ADD COLUMN rewardedQuestionIds TEXT DEFAULT ""'
+          );
+        }
+      } catch (e) {
+        print('Error during migration: $e');
+      }
+    }
+  }
+
   static Future<void> _createTable(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS $_tableName (
-        quizId TEXT NOT NULL,
-        sectionId TEXT NOT NULL,
-        score INTEGER NOT NULL DEFAULT 0,
-        isCompleted INTEGER NOT NULL DEFAULT 0,
-        completedDate INTEGER,
-        PRIMARY KEY (quizId, sectionId)
-      )
-    ''');
+    try {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS $_tableName (
+          quizId TEXT NOT NULL,
+          sectionId TEXT NOT NULL,
+          score INTEGER NOT NULL DEFAULT 0,
+          isCompleted INTEGER NOT NULL DEFAULT 0,
+          completedDate INTEGER,
+          rewardedQuestionIds TEXT DEFAULT "",
+          PRIMARY KEY (quizId, sectionId)
+        )
+      ''');
+    } catch (e) {
+      print('Error creating table: $e');
+    }
   }
 
   /// Get progress for a specific quiz
@@ -67,7 +87,6 @@ class QuizProgressDatabaseService {
   ) async {
     try {
       final db = await database;
-      await _createTable(db, _dbVersion);
       final result = await db.query(
         _tableName,
         where: 'sectionId = ? AND quizId = ?',
@@ -91,7 +110,6 @@ class QuizProgressDatabaseService {
   ) async {
     try {
       final db = await database;
-      await _createTable(db, _dbVersion);
       final result = await db.query(
         _tableName,
         where: 'sectionId = ?',
@@ -109,7 +127,6 @@ class QuizProgressDatabaseService {
   static Future<void> saveProgress(QuizProgress progress) async {
     try {
       final db = await database;
-      await _createTable(db, _dbVersion);
       await db.insert(
         _tableName,
         progress.toMap(),
@@ -127,9 +144,11 @@ class QuizProgressDatabaseService {
     int score,
   ) async {
     try {
-      // Ensure table exists before trying to insert
       final db = await database;
-      await _createTable(db, _dbVersion);
+      
+      // Get existing progress to preserve rewarded questions
+      var existingProgress = await getProgress(sectionId, quizId);
+      final rewardedIds = existingProgress?.rewardedQuestionIds ?? {};
       
       final newProgress = QuizProgress(
         quizId: quizId,
@@ -137,6 +156,7 @@ class QuizProgressDatabaseService {
         score: score,
         isCompleted: true,
         completedDate: DateTime.now(),
+        rewardedQuestionIds: rewardedIds,
       );
       
       await db.insert(
@@ -149,11 +169,60 @@ class QuizProgressDatabaseService {
     }
   }
 
-  /// Get all quiz progress
+  /// Mark a question as rewarded for a quiz
+  static Future<void> markQuestionAsRewarded(
+    String sectionId,
+    String quizId,
+    String questionId,
+  ) async {
+    try {
+      final db = await database;
+
+      // Get existing progress
+      var existingProgress = await getProgress(sectionId, quizId);
+      
+      // If no progress exists, create new one
+      existingProgress ??= QuizProgress(
+        quizId: quizId,
+        sectionId: sectionId,
+      );
+
+      // Add question ID to rewarded set
+      final updatedRewardedIds = {...existingProgress.rewardedQuestionIds, questionId};
+      final updatedProgress = existingProgress.copyWith(
+        rewardedQuestionIds: updatedRewardedIds,
+      );
+
+      // Save back to database
+      await db.insert(
+        _tableName,
+        updatedProgress.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print('Error marking question as rewarded: $e');
+    }
+  }
+
+  /// Check if a question has already been rewarded
+  static Future<bool> isQuestionRewarded(
+    String sectionId,
+    String quizId,
+    String questionId,
+  ) async {
+    try {
+      final progress = await getProgress(sectionId, quizId);
+      return progress?.rewardedQuestionIds.contains(questionId) ?? false;
+    } catch (e) {
+      print('Error checking if question is rewarded: $e');
+      return false;
+    }
+  }
+
+  /// Get all progress
   static Future<List<QuizProgress>> getAllProgress() async {
     try {
       final db = await database;
-      await _createTable(db, _dbVersion);
       final result = await db.query(_tableName);
       return result.map((map) => QuizProgress.fromMap(map)).toList();
     } catch (e) {
@@ -166,7 +235,6 @@ class QuizProgressDatabaseService {
   static Future<void> clearAllProgress() async {
     try {
       final db = await database;
-      await _createTable(db, _dbVersion);
       await db.delete(_tableName);
     } catch (e) {
       print('Error clearing progress: $e');
