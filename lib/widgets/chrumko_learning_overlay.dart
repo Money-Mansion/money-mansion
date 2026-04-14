@@ -11,6 +11,7 @@ import '../screens/lessons/lesson_category_screen.dart';
 import '../screens/lessons/lesson_quiz_screen.dart';
 import '../screens/quizes/quiz_section_screen.dart';
 import 'quiz_progress_circle.dart';
+import 'tutorial_target.dart';
 
 /// ChrumkoLearningOverlay displays a modal overlay with Quizes and Lessons tabs.
 ///
@@ -55,8 +56,8 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
     final tutorial = context.watch<TutorialProvider>();
-    final showReturnBox = tutorial.isActive &&
-        tutorial.currentStep?.id == 'lessons_return';
+    final lockLearningContent =
+        tutorial.isActive && tutorial.currentStep?.id == 'lessons_return';
 
     return Material(
       color: Colors.transparent,
@@ -75,14 +76,17 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
               children: [
                 // Empty content area (TabBarView)
                 Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      // Quizes tab
-                      _buildTabContent(l10n, 'quizes'),
-                      // Lessons tab
-                      _buildTabContent(l10n, 'lessons'),
-                    ],
+                  child: AbsorbPointer(
+                    absorbing: lockLearningContent,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        // Quizes tab
+                        _buildTabContent(l10n, 'quizes'),
+                        // Lessons tab
+                        _buildTabContent(l10n, 'lessons'),
+                      ],
+                    ),
                   ),
                 ),
                 // Bottom bar with TabBar and back button
@@ -93,64 +97,15 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                     child: Row(
                       children: [
                         SizedBox(
-                          width: showReturnBox ? 148 : 48,
-                          child: showReturnBox
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 6, 4, 6),
-                                  child: Material(
-                                    color: Colors.white,
-                                    elevation: 6,
-                                    shadowColor:
-                                        Colors.deepOrange.withOpacity(0.35),
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: InkWell(
-                                      onTap: widget.onClose,
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                            color: Colors.deepOrange,
-                                            width: 2.5,
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 10,
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const Icon(
-                                              Icons.arrow_back_rounded,
-                                              color: Colors.deepOrange,
-                                              size: 22,
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Flexible(
-                                              child: Text(
-                                                l10n.translate('back'),
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w800,
-                                                  color: Colors.deepOrange,
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : IconButton(
-                                  icon: const Icon(Icons.arrow_back),
-                                  onPressed: widget.onClose,
-                                  tooltip: l10n.translate('back'),
-                                ),
+                          width: 48,
+                          child: TutorialTarget(
+                            id: 'close_lessons',
+                            child: IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              onPressed: widget.onClose,
+                              tooltip: l10n.translate('back'),
+                            ),
+                          ),
                         ),
                         // TabBar (centered, flexible)
                         Expanded(
@@ -161,14 +116,20 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                             indicatorColor: Colors.deepPurple,
                             indicatorWeight: 3,
                             tabs: _tabKeys.map((key) {
-                              return Tab(
-                                text: l10n.translate(key),
+                              final targetId = key == 'quizes'
+                                  ? 'tab_quizes'
+                                  : 'tab_lessons';
+                              return TutorialTarget(
+                                id: targetId,
+                                child: Tab(
+                                  text: l10n.translate(key),
+                                ),
                               );
                             }).toList(),
                           ),
                         ),
                         SizedBox(
-                          width: showReturnBox ? 148 : 48,
+                          width: 48,
                         ),
                       ],
                     ),

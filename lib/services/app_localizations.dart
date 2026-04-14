@@ -81,7 +81,7 @@ class AppLocalizations {
       'tutorialGoalsReassign':
           'See the ⇄ button in the top right, {name}? That lets me move money between goals if my priorities change. Very handy!',
       'tutorialGoalsComplete':
-          'Once a goal reaches 100%, tick the checkbox to complete it and claim your coin reward, {name}. Completing goals also earns you a Chrumka! 🐾',
+          'Once a goal reaches 100%, tick the checkbox to complete it, {name}. Each completed goal gives coins based on its difficulty: Easy 50, Medium 100, Hard 200.',
       'tutorialRoomExplain':
           'This is your mansion, {name}! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
@@ -110,9 +110,9 @@ class AppLocalizations {
       'tutorialCalendar':
           'This is the Calendar, {name}! I use it to plan ahead and never miss important financial dates.',
       'tutorialLessons':
-          'And here\'s my favourite spot, {name} — the Learning section! Come back here to find lessons and quizzes I\'ve prepared for you.',
+          'And here\'s my favourite spot, {name} — the Learning section! Here you can study lessons and complete quizzes. Every finished quiz raises your streak.',
       'tutorialLessonsReturn':
-          'Browse lessons or quizzes if you like, {name}. When you\'re ready, tap Return in the bottom-left corner to close this — then we\'ll continue!',
+          'You can switch between lessons and quizzes here, {name}. Finishing a quiz increases your streak. When you\'re ready, tap the back button in the bottom-left corner to close this — then we\'ll continue!',
       'tutorialRoomEdit':
           'You can customise your mansion right here, {name}! I believe a good environment motivates better financial decisions.',
       'tutorialRoomEditIntro':
@@ -460,7 +460,7 @@ class AppLocalizations {
       'tutorialGoalsReassign':
           'Vidíš tlačidlo ⇄ vpravo hore, {name}? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
       'tutorialGoalsComplete':
-          'Keď cieľ dosiahne 100%, zaškrtni políčko a dostaň mincovú odmenu, {name}. Splnenie cieľa ti tiež prinesie Chrumku! 🐾',
+          'Keď cieľ dosiahne 100 %, zaškrtni políčko a dokonči ho, {name}. Za splnený cieľ dostaneš mince podľa náročnosti: ľahký 50, stredný 100, ťažký 200.',
       'tutorialRoomExplain':
           'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
@@ -500,9 +500,9 @@ class AppLocalizations {
           'Tu je Kalendár, {name}! Ja ho používam na plánovanie a nikdy nezabudnem na dôležité finančné dátumy.',
       'tutorialCalendarAction': 'Klepni na kalendár a pozri dátumy, {name}.',
       'tutorialLessons':
-          'A toto je moje obľúbené miesto, {name} — sekcia Učenia! Vrať sa sem pre lekcie a kvízy, ktoré som pre teba pripravil.',
+          'A toto je moje obľúbené miesto, {name} — sekcia Učenia! Nájdeš tu lekcie a kvízy. Každý dokončený kvíz ti zvýši streak.',
       'tutorialLessonsReturn':
-          'Môžeš si pozrieť lekcie alebo kvízy, {name}. Keď budeš pripravený, klepni v ľavom dolnom rohu na Späť a zatvor to — potom pokračujeme!',
+          'Tu môžeš prepínať medzi lekciami a kvízmi, {name}. Dokončenie kvízu ti zvýši streak. Keď budeš pripravený, klepni v ľavom dolnom rohu na tlačidlo späť a zatvor to — potom pokračujeme!',
       'tutorialRoomEdit':
           'Tu si môžeš prispôsobiť svoje sídlo, {name}! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
       'tutorialRoomEditIntro':

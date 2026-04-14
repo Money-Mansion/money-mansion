@@ -414,10 +414,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       appBar: AppBar(
         title: Text(l10n.translate('financial')),
         backgroundColor: Colors.green[600],
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          color: Colors.black,
-          onPressed: widget.onBack,
+        leading: TutorialTarget(
+          id: 'close_financial',
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            color: Colors.black,
+            onPressed: widget.onBack,
+          ),
         ),
         actions: [
           IconButton(

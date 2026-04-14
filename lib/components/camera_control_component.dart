@@ -40,7 +40,7 @@ class CameraControlComponent extends PositionComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
 
-    if (!game.isEditMode) {
+    if (!game.isEditMode || game.isPinching) {
       return;
     }
 

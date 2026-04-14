@@ -589,10 +589,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
             title: Text(l10n.translate('goals')),
             backgroundColor: Colors.deepPurple[300],
             centerTitle: true,
-            leading: IconButton(
-              icon: const Icon(Icons.close),
-              color: Colors.black,
-              onPressed: widget.onBack,
+            leading: TutorialTarget(
+              id: 'close_goals',
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                color: Colors.black,
+                onPressed: widget.onBack,
+              ),
             ),
             actions: [
               if (_isSyncing)
