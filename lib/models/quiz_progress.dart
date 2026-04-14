@@ -4,14 +4,16 @@ class QuizProgress {
   final int score; // 0-100
   final bool isCompleted;
   final DateTime? completedDate;
+  final Set<String> rewardedQuestionIds; // Track which questions have been rewarded
 
-  const QuizProgress({
+  QuizProgress({
     required this.quizId,
     required this.sectionId,
     this.score = 0,
     this.isCompleted = false,
     this.completedDate,
-  });
+    Set<String>? rewardedQuestionIds,
+  }) : rewardedQuestionIds = rewardedQuestionIds ?? {};
 
   /// Get the status color based on score
   /// Green (90%+), Yellow (60%-89%), Red (<60%), Gray (not done)
@@ -34,6 +36,7 @@ class QuizProgress {
     int? score,
     bool? isCompleted,
     DateTime? completedDate,
+    Set<String>? rewardedQuestionIds,
   }) {
     return QuizProgress(
       quizId: quizId ?? this.quizId,
@@ -41,6 +44,7 @@ class QuizProgress {
       score: score ?? this.score,
       isCompleted: isCompleted ?? this.isCompleted,
       completedDate: completedDate ?? this.completedDate,
+      rewardedQuestionIds: rewardedQuestionIds ?? this.rewardedQuestionIds,
     );
   }
 
@@ -51,10 +55,16 @@ class QuizProgress {
       'score': score,
       'isCompleted': isCompleted ? 1 : 0,
       'completedDate': completedDate?.millisecondsSinceEpoch,
+      'rewardedQuestionIds': rewardedQuestionIds.join(','),
     };
   }
 
   factory QuizProgress.fromMap(Map<String, dynamic> map) {
+    final rewardedIdsString = map['rewardedQuestionIds'] as String? ?? '';
+    final rewardedIds = rewardedIdsString.isEmpty
+        ? <String>{}
+        : rewardedIdsString.split(',').toSet();
+    
     return QuizProgress(
       quizId: map['quizId'] as String,
       sectionId: map['sectionId'] as String,
@@ -63,6 +73,7 @@ class QuizProgress {
       completedDate: map['completedDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['completedDate'] as int)
           : null,
+      rewardedQuestionIds: rewardedIds,
     );
   }
 }

@@ -68,6 +68,13 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Award coins for a correct quiz answer on first attempt
+  void awardQuizQuestionCoins(int amount) {
+    if (amount <= 0) return;
+    coins += amount;
+    notifyListeners();
+  }
+
   // ===== STREAK =====
 
   void setCurrentStreak(int streak) {

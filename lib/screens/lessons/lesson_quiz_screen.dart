@@ -82,7 +82,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     }
   }
 
-  void _answerQuestion(int selectedIndex) {
+  void _answerQuestion(int selectedIndex) async {
     if (showFeedback) return; // Prevent multiple answers
 
     final correctIndex =
@@ -95,6 +95,57 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       showFeedback = true;
       if (correct) correctAnswers++;
     });
+
+    // If correct, check if we should award coins
+    if (correct && quizInfo != null) {
+      final question = questions[currentQuestionIndex];
+      final isAlreadyRewarded = await QuizProgressDatabaseService.isQuestionRewarded(
+        quizInfo!.sectionId,
+        widget.lessonId.toString(),
+        question.id,
+      );
+
+      if (!isAlreadyRewarded && mounted) {
+        // Award coins
+        const coinsPerQuestion = 10; // Configure as needed
+        context.read<GameState>().awardQuizQuestionCoins(coinsPerQuestion);
+        
+        // Mark as rewarded
+        await QuizProgressDatabaseService.markQuestionAsRewarded(
+          quizInfo!.sectionId,
+          widget.lessonId.toString(),
+          question.id,
+        );
+
+        // Show reward animation/notification
+        _showCoinRewardNotification(coinsPerQuestion);
+      }
+    }
+  }
+
+  void _showCoinRewardNotification(int coins) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(milliseconds: 1200),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF4CAF50),
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.monetization_on, color: Color(0xFFFFD700), size: 20),
+            const SizedBox(width: 8),
+            Text(
+              '+$coins mincí!',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _nextQuestion() {
