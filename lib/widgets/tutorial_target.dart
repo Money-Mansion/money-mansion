@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
 import '../services/tutorial_target_registry.dart';
 
 /// Wrap any widget that should be highlighted during the tutorial.
@@ -44,10 +45,11 @@ class _TutorialTargetState extends State<TutorialTarget> {
 
     final overlayBox =
         Overlay.of(context)?.context.findRenderObject() as RenderBox?;
-    final offset = overlayBox != null
-        ? renderBox.localToGlobal(Offset.zero, ancestor: overlayBox)
-        : renderBox.localToGlobal(Offset.zero);
-    final rect = offset & renderBox.size;
+    final Matrix4 transform = renderBox.getTransformTo(overlayBox);
+    final Rect rect = MatrixUtils.transformRect(
+      transform,
+      renderBox.paintBounds,
+    );
 
     if (_lastRect == rect) return;
     _lastRect = rect;

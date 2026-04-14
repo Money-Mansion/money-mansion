@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/room.dart';
@@ -36,6 +37,20 @@ class RoomEditScreen extends StatefulWidget {
 class _RoomEditScreenState extends State<RoomEditScreen> {
   RoomWorld? roomWorld;
   bool _hasSelectedItem = false;
+
+  bool get _showDesktopZoomSlider {
+    if (kIsWeb) return true;
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.windows:
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+        return true;
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+      case TargetPlatform.fuchsia:
+        return false;
+    }
+  }
 
   @override
   void dispose() {
@@ -99,12 +114,15 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
           Positioned(
             top: topSafeArea + 20,
             right: rightSafeArea + 20,
-            child: FloatingActionButton(
-              mini: true,
-              heroTag: null,
-              backgroundColor: Colors.pink.shade300,
-              onPressed: () => Navigator.pop(context),
-              child: const Icon(Icons.close, color: Colors.white),
+            child: TutorialTarget(
+              id: 'close_room_edit',
+              child: FloatingActionButton(
+                mini: true,
+                heroTag: null,
+                backgroundColor: Colors.pink.shade300,
+                onPressed: () => Navigator.pop(context),
+                child: const Icon(Icons.close, color: Colors.white),
+              ),
             ),
           ),
 
@@ -115,11 +133,14 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _BottomFab(
-                  icon: Icons.home_work_rounded,
-                  color: Colors.amber.shade400,
-                  tooltip: sk ? 'Komponenty izby' : 'Room components',
-                  onTap: () => _showRoomComponentsSheet(context),
+                TutorialTarget(
+                  id: 'room_edit_components',
+                  child: _BottomFab(
+                    icon: Icons.home_work_rounded,
+                    color: Colors.amber.shade400,
+                    tooltip: sk ? 'Komponenty izby' : 'Room components',
+                    onTap: () => _showRoomComponentsSheet(context),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 TutorialTarget(
@@ -184,8 +205,14 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ),
             ),
           // Right-side zoom slider
-          if (roomWorld != null)
-            ZoomSlider(gameWorld: roomWorld!, safeAreaPadding: safeAreaPadding),
+          if (roomWorld != null && _showDesktopZoomSlider)
+            TutorialTarget(
+              id: 'room_edit_zoom_slider',
+              child: ZoomSlider(
+                gameWorld: roomWorld!,
+                safeAreaPadding: safeAreaPadding,
+              ),
+            ),
           TutorialOverlay(currentScreenId: 'room_edit'),
         ],
       ),

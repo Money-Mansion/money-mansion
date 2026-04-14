@@ -26,6 +26,7 @@ class RoomWorld extends FlameGame {
   final double _minZoom = 0.5;   // Can zoom out to 50%
   final double _maxZoom = 3.0;   // Can zoom in to 300%
   bool _hasInitializedCamera = false;  // Prevent re-centering on resize in edit mode
+  bool _isPinching = false;
 
   final Completer<void> _loadCompleter = Completer<void>();
 
@@ -131,11 +132,21 @@ class RoomWorld extends FlameGame {
   double get minZoom => _minZoom;
   double get maxZoom => _maxZoom;
   double get currentZoom => camera.viewfinder.zoom;
+  bool get isPinching => _isPinching;
   
   /// Set zoom to a specific value (clamped to min/max)
   void setZoom(double newZoom) {
     final clampedZoom = newZoom.clamp(_minZoom, _maxZoom);
     camera.viewfinder.zoom = clampedZoom;
+    _clampCameraPosition();
+  }
+
+  void beginPinch() {
+    _isPinching = true;
+  }
+
+  void endPinch() {
+    _isPinching = false;
   }
 
   /// Remove the currently selected item from the room

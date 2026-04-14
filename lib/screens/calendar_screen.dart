@@ -4,6 +4,7 @@ import '../services/app_localizations_provider.dart';
 import '../models/calendar_day_data.dart';
 import '../services/goal_database_service.dart';
 import '../services/financial_database_service.dart';
+import '../widgets/tutorial_target.dart';
 
 class CalendarScreen extends StatefulWidget {
   final double date;
@@ -148,10 +149,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
         backgroundColor: _purpleBg,
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),
+        leading: TutorialTarget(
+          id: 'close_calendar',
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         iconTheme: const IconThemeData(color: _purple),
         shape: const RoundedRectangleBorder(

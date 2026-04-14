@@ -140,10 +140,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             backgroundColor: Colors.orange[500],
             elevation: 0,
             automaticallyImplyLeading: false,
-            leading: IconButton(
-              icon: const Icon(Icons.close),
-              color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+            leading: TutorialTarget(
+              id: 'close_settings',
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                color: Colors.black,
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
           ),
           body: SingleChildScrollView(
