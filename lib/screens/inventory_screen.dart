@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money_mansion_skeleton/models/room_component.dart';
+import 'package:money_mansion_skeleton/screens/category.dart';
+import 'package:money_mansion_skeleton/services/shop_service.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
@@ -21,13 +24,111 @@ class InventoryScreen extends StatefulWidget {
   State<InventoryScreen> createState() => _InventoryScreenState();
 }
 
-class _InventoryScreenState extends State<InventoryScreen> {
+class _InventoryScreenState extends State<InventoryScreen> with SingleTickerProviderStateMixin {
   Set<String> _placedItemIds = {};
+  late TabController _tabController;
+  bool _isLoading = true;
+  List<RoomComponent> _inventoryRoomComponents = [];
+  List<Item> _inventoryItems = [];
+
+
+
+  static const List<Category> _categories = [
+    // ── All & Room-component categories ──────────────────────────────
+    Category(labelKey: 'all'),
+    Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
+    Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
+    // ── Item categories ──────────────────────────────────────────────
+    Category(labelKey: 'beds',      itemSubtype: ItemSubtype.beds),
+    Category(labelKey: 'seating',     itemSubtype: ItemSubtype.seating),
+    Category(labelKey: 'tables',    itemSubtype: ItemSubtype.tables),
+    Category(labelKey: 'storage',   itemSubtype: ItemSubtype.storage),
+    Category(labelKey: 'carpets',      itemSubtype: ItemSubtype.carpets),
+    Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
+    Category(labelKey: 'plants',    itemSubtype: ItemSubtype.plants),
+    Category(labelKey: 'lighting',  itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'doors',     itemType: ItemType.door),
+  ];
+
+  IconData _categoryIcon(String labelKey) {
+    switch (labelKey) {
+      case 'all':       return Icons.grid_view;
+      case 'beds':      return Icons.bed;
+      case 'seating':   return Icons.chair;
+      case 'tables':    return Icons.table_restaurant;
+      case 'storage':   return Icons.shelves;
+      case 'carpets':   return Icons.square_foot;
+      case 'wallDecor': return Icons.image;
+      case 'plants':    return Icons.local_florist;
+      case 'lighting':  return Icons.lightbulb_outline;
+      case 'doors':     return Icons.door_front_door;
+      default:          return Icons.grid_view;
+    }
+  }
+
+  String _categoryLabel(String key, AppLocalizationsProvider l10n) {
+    final isSk = l10n.currentLanguage == 'sk';
+    switch (key) {
+      case 'all':       return isSk ? 'Všetko'   : 'All';
+      case 'beds':      return isSk ? 'Postele'  : 'Beds';
+      case 'seating':   return isSk ? 'Posedenie': 'Seating';
+      case 'tables':    return isSk ? 'Stoly'    : 'Tables';
+      case 'storage':   return isSk ? 'Úložný priestor'   : 'Storage';
+      case 'carpets':   return isSk ? 'Koberce'  : 'Carpets';
+      case 'wallDecor': return isSk ? 'Steny'    : 'Wall Decor';
+      case 'plants':    return isSk ? 'Rastliny' : 'Plants';
+      case 'lighting':  return isSk ? 'Svetlá'   : 'Lighting';
+      case 'doors':     return isSk ? 'Dvere'    : 'Doors';
+      case 'walls':     return isSk ? 'Tapety'   : 'Walls';
+      case 'floors':    return isSk ? 'Podlahy'  : 'Floors';
+      default:          return key;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: _categories.length, vsync: this);
     _loadPlacedItems();
+    _loadShopItems();
+  }
+
+  Future<void> _loadShopItems() async {
+    final items = await ShopService.getShopItems();
+    setState(() {
+      _inventoryItems = items;
+      _isLoading = false;
+    });
+  }
+  bool _matchesSubtype(Item item, ItemSubtype subtype) {
+    final id = item.id;
+    switch (subtype) {
+      case ItemSubtype.beds:
+        return id.startsWith('postel_') ||
+            id.startsWith('posteľ_') ||
+            id == 'postel_znicena';
+      case ItemSubtype.seating:
+        return id.startsWith('gauc_');
+      case ItemSubtype.tables:
+        return id.startsWith('stol_');
+      case ItemSubtype.storage:
+        return id.startsWith('polica') ||
+            id.startsWith('police') ||
+            id.startsWith('skriňa') ||
+            id.startsWith('skrina') ||
+            id == 'polica_kniznica_cierna';
+      case ItemSubtype.carpets:
+        return id.startsWith('koberec_');
+      case ItemSubtype.wallDecor:
+        return id.startsWith('obraz_') ||
+            id.startsWith('okno_') ||
+            id == 'okno_zrkadlo';
+      case ItemSubtype.plants:
+        return id.startsWith('kvietok_');
+      case ItemSubtype.lighting:
+        // No items yet — placeholder for future lamps, etc.
+        return id.startsWith('lampa_') || id.startsWith('svetlo_');
+    }
   }
 
   Future<void> _loadPlacedItems() async {
@@ -35,9 +136,40 @@ class _InventoryScreenState extends State<InventoryScreen> {
       RoomLayoutDatabaseService.defaultRoomId,
     );
     setState(() {
-      _placedItemIds = {for (final p in placements) p.itemId};
+      _inventoryItems = widget.gameState.ownedItems;
+      // _placedItemIds = {for (final p in placements) p.itemId};
     });
   }
+
+  List<dynamic> _itemsForCategory(Category category) {
+    // Room-component tabs
+    if (category.isRoomComponent) {
+      if (category.componentType == null) return _inventoryRoomComponents;
+      return _inventoryRoomComponents
+          .where((c) => c.type == category.componentType)
+          .toList();
+    }
+
+    // "All" tab — only items (no room components)
+    if (category.labelKey == 'all') {
+      return _inventoryItems;
+    }
+
+    // Subtype filter
+    if (category.itemSubtype != null) {
+      return _inventoryItems
+          .where((i) => _matchesSubtype(i, category.itemSubtype!))
+          .toList();
+    }
+
+    // ItemType filter (doors)
+    if (category.itemType != null) {
+      return _inventoryItems.where((i) => i.type == category.itemType).toList();
+    }
+
+    return [];
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +188,47 @@ class _InventoryScreenState extends State<InventoryScreen> {
               widget.onBack();
             },
           ),
+        ),
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          labelColor: Colors.deepPurple,
+          unselectedLabelColor: Colors.grey[600],
+          indicatorColor: Colors.deepPurple,
+          indicatorWeight: 3,
+          tabs: _categories.map((cat) {
+            final count = _isLoading ? null : _itemsForCategory(cat).length;
+            final icon = _categoryIcon(cat.labelKey);
+            return Tab(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(icon, size: 16),
+                  const SizedBox(width: 6),
+                  Text(_categoryLabel(cat.labelKey, l10n)),
+                  if (count != null && count > 0) ...[
+                    const SizedBox(width: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        '$count',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            );
+          }).toList(),
         ),
       ),
       body: widget.gameState.ownedItems.isEmpty
