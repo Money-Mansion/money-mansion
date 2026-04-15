@@ -7,6 +7,7 @@ import '../services/shop_service.dart';
 import '../services/room_component_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../widgets/tutorial_target.dart';
+import 'category.dart';
 
 class ShopScreen extends StatefulWidget {
   final GameState gameState;
@@ -34,21 +35,21 @@ class _ShopScreenState extends State<ShopScreen>
   // ---------------------------------------------------------------------------
   // "All" tab shows only items (no walls/floors).
   // Walls and floors come right after "All".
-  static const List<_Category> _categories = [
+  static const List<Category> _categories = [
     // ── All & Room-component categories ──────────────────────────────
-    _Category(labelKey: 'all'),
-    _Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
-    _Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
+    Category(labelKey: 'all'),
+    Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
+    Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
     // ── Item categories ──────────────────────────────────────────────
-    _Category(labelKey: 'beds',      itemSubtype: _ItemSubtype.beds),
-    _Category(labelKey: 'seating',     itemSubtype: _ItemSubtype.seating),
-    _Category(labelKey: 'tables',    itemSubtype: _ItemSubtype.tables),
-    _Category(labelKey: 'storage',   itemSubtype: _ItemSubtype.storage),
-    _Category(labelKey: 'carpets',      itemSubtype: _ItemSubtype.carpets),
-    _Category(labelKey: 'wallDecor', itemSubtype: _ItemSubtype.wallDecor),
-    _Category(labelKey: 'plants',    itemSubtype: _ItemSubtype.plants),
-    _Category(labelKey: 'lighting',  itemSubtype: _ItemSubtype.lighting),
-    _Category(labelKey: 'doors',     itemType: ItemType.door),
+    Category(labelKey: 'beds',      itemSubtype: ItemSubtype.beds),
+    Category(labelKey: 'seating',     itemSubtype: ItemSubtype.seating),
+    Category(labelKey: 'tables',    itemSubtype: ItemSubtype.tables),
+    Category(labelKey: 'storage',   itemSubtype: ItemSubtype.storage),
+    Category(labelKey: 'carpets',      itemSubtype: ItemSubtype.carpets),
+    Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
+    Category(labelKey: 'plants',    itemSubtype: ItemSubtype.plants),
+    Category(labelKey: 'lighting',  itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'doors',     itemType: ItemType.door),
   ];
 
   @override
@@ -85,38 +86,38 @@ class _ShopScreenState extends State<ShopScreen>
   // ---------------------------------------------------------------------------
 
   /// Returns true if the item belongs to the given subtype bucket.
-  bool _matchesSubtype(Item item, _ItemSubtype subtype) {
+  bool _matchesSubtype(Item item, ItemSubtype subtype) {
     final id = item.id;
     switch (subtype) {
-      case _ItemSubtype.beds:
+      case ItemSubtype.beds:
         return id.startsWith('postel_') ||
             id.startsWith('posteľ_') ||
             id == 'postel_znicena';
-      case _ItemSubtype.seating:
+      case ItemSubtype.seating:
         return id.startsWith('gauc_');
-      case _ItemSubtype.tables:
+      case ItemSubtype.tables:
         return id.startsWith('stol_');
-      case _ItemSubtype.storage:
+      case ItemSubtype.storage:
         return id.startsWith('polica') ||
             id.startsWith('police') ||
             id.startsWith('skriňa') ||
             id.startsWith('skrina') ||
             id == 'polica_kniznica_cierna';
-      case _ItemSubtype.carpets:
+      case ItemSubtype.carpets:
         return id.startsWith('koberec_');
-      case _ItemSubtype.wallDecor:
+      case ItemSubtype.wallDecor:
         return id.startsWith('obraz_') ||
             id.startsWith('okno_') ||
             id == 'okno_zrkadlo';
-      case _ItemSubtype.plants:
+      case ItemSubtype.plants:
         return id.startsWith('kvietok_');
-      case _ItemSubtype.lighting:
+      case ItemSubtype.lighting:
         // No items yet — placeholder for future lamps, etc.
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
     }
   }
 
-  List<dynamic> _itemsForCategory(_Category category) {
+  List<dynamic> _itemsForCategory(Category category) {
     // Room-component tabs
     if (category.isRoomComponent) {
       if (category.componentType == null) return _shopRoomComponents;
@@ -607,35 +608,35 @@ class _ShopScreenState extends State<ShopScreen>
 
 /// Fine-grained item subtypes used for tab filtering.
 /// These live purely in the UI layer — no changes needed to Item/ItemType.
-enum _ItemSubtype {
-  beds,
-  seating,
-  tables,
-  storage,
-  carpets,
-  wallDecor,
-  plants,
-  lighting,
-}
+// enum _ItemSubtype {
+//   beds,
+//   seating,
+//   tables,
+//   storage,
+//   carpets,
+//   wallDecor,
+//   plants,
+//   lighting,
+// }
 
-class _Category {
-  final String labelKey;
+// class _Category {
+//   final String labelKey;
 
-  // For plain ItemType filtering (e.g. doors)
-  final ItemType? itemType;
+//   // For plain ItemType filtering (e.g. doors)
+//   final ItemType? itemType;
 
-  // For fine-grained subtype filtering
-  final _ItemSubtype? itemSubtype;
+//   // For fine-grained subtype filtering
+//   final _ItemSubtype? itemSubtype;
 
-  // For room-component tabs (walls, floors)
-  final bool isRoomComponent;
-  final RoomComponentType? componentType;
+//   // For room-component tabs (walls, floors)
+//   final bool isRoomComponent;
+//   final RoomComponentType? componentType;
 
-  const _Category({
-    required this.labelKey,
-    this.itemType,
-    this.itemSubtype,
-    this.isRoomComponent = false,
-    this.componentType,
-  });
-}
+//   const _Category({
+//     required this.labelKey,
+//     this.itemType,
+//     this.itemSubtype,
+//     this.isRoomComponent = false,
+//     this.componentType,
+//   });
+// }
