@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/room.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
+import '../screens/category.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/tutorial_provider.dart';
@@ -66,7 +67,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     final language = l10n.currentLanguage;
     final sk = language == 'sk';
 
-    // Get safe area insets to keep UI overlays within visible bounds
     final mediaQuery = MediaQuery.of(context);
     final safeAreaPadding = mediaQuery.padding;
     final topSafeArea = safeAreaPadding.top;
@@ -78,7 +78,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // ── Flame canvas ──────────────────────────────────────────────────
           RoomViewer(
             room: widget.room,
             language: language,
@@ -95,7 +94,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               });
             },
           ),
-          // Top-left button (Checkmark only)
           Positioned(
             top: topSafeArea + 20,
             left: leftSafeArea + 20,
@@ -110,7 +108,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ),
             ),
           ),
-          // Top-right button (X close)
           Positioned(
             top: topSafeArea + 20,
             right: rightSafeArea + 20,
@@ -125,8 +122,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ),
             ),
           ),
-
-          // ── Bottom-left: room components + inventory ──────────────────────
           Positioned(
             bottom: bottomSafeArea + 24,
             left: leftSafeArea + 16,
@@ -155,7 +150,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               ],
             ),
           ),
-          // Bottom-right item control buttons (appears when item is selected)
           if (_hasSelectedItem)
             Positioned(
               bottom: bottomSafeArea + 20,
@@ -163,7 +157,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Move to front button (arrow up)
                   FloatingActionButton(
                     mini: true,
                     heroTag: null,
@@ -173,7 +166,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     tooltip: 'Move to front',
                   ),
                   const SizedBox(height: 10),
-                  // Flip button
                   FloatingActionButton(
                     mini: true,
                     heroTag: null,
@@ -183,7 +175,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     tooltip: 'Flip horizontally',
                   ),
                   const SizedBox(height: 10),
-                  // Move to back button (arrow down)
                   FloatingActionButton(
                     mini: true,
                     heroTag: null,
@@ -193,7 +184,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     tooltip: 'Move to back',
                   ),
                   const SizedBox(height: 10),
-                  // Delete button
                   FloatingActionButton(
                     mini: true,
                     heroTag: null,
@@ -204,7 +194,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                 ],
               ),
             ),
-          // Right-side zoom slider
           if (roomWorld != null && _showDesktopZoomSlider)
             TutorialTarget(
               id: 'room_edit_zoom_slider',
@@ -236,7 +225,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     if (!mounted) return;
     await context.read<TutorialProvider>().registerAction('room_edit_confirm');
     if (!mounted) return;
-    // Advance tutorial overlay before pop so post-frame callbacks use a valid context.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) Navigator.pop(context);
@@ -268,149 +256,335 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
     );
   }
 
-  // ── Inventory draggable sheet ─────────────────────────────────────────────
+  // ── Inventory draggable sheet with category tabs ──────────────────────────
 
   void _showInventorySheet(
       BuildContext context, AppLocalizationsProvider l10n) {
     context
         .read<TutorialProvider>()
         .registerAction('room_edit_open_inventory');
+
     final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
-    final sk = l10n.currentLanguage == 'sk';
     final items = widget.gameState?.ownedItems ?? [];
-    final screenH = MediaQuery.of(context).size.height;
 
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,        // lets us control height freely
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.6,         // ~60% of screen — room still visible
-        minChildSize: 0.18,             // pull down → almost hidden
-        maxChildSize: 0.82,             // pull up → nearly full screen
-        snap: true,
-        snapSizes: const [0.18, 0.42, 0.82],
-        builder: (context, scrollController) {
-          return Container(
-            decoration: const BoxDecoration(
-              color: _cream,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 16,
-                  offset: Offset(0, -4),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                // ── Drag handle ──────────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 4),
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: _purpleLight,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-
-                // ── Header ───────────────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.inventory_2_rounded,
-                          color: _purple, size: 20),
-                      const SizedBox(width: 8),
-                      Text(
-                        sk ? 'Inventár' : 'Inventory',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: _purple,
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.close_rounded,
-                            color: _purple),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const Divider(color: _purpleLight, height: 1),
-
-                // ── Grid or empty state ───────────────────────────────────
-                Expanded(
-                  child: items.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.inventory_2_outlined,
-                                  size: 48,
-                                  color: _purpleLight),
-                              const SizedBox(height: 12),
-                              Text(
-                                sk
-                                    ? 'Zatiaľ žiadne predmety'
-                                    : 'No items yet',
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.grey[500]),
-                              ),
-                            ],
-                          ),
-                        )
-                      : GridView.builder(
-                          controller: scrollController,
-                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                            childAspectRatio: 0.78,
-                          ),
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            final item = items[index];
-                            final isPlaced =
-                                placedItemIds.contains(item.id);
-                            return _buildItemCard(
-                                context, item, isPlaced, l10n);
-                          },
-                        ),
-                ),
-              ],
-            ),
-          );
+      builder: (context) => _InventorySheet(
+        items: items,
+        placedItemIds: placedItemIds,
+        l10n: l10n,
+        onItemTap: (Item item) {
+          if (roomWorld != null) {
+            context
+                .read<TutorialProvider>()
+                .registerAction('place_item_in_room');
+            roomWorld!.addItemToRoom(item);
+            Navigator.pop(context);
+          }
         },
       ),
     );
   }
+}
 
-  Widget _buildItemCard(BuildContext context, Item item, bool isPlaced,
-      AppLocalizationsProvider l10n) {
-    final sk = l10n.currentLanguage == 'sk';
+// ── Inventory sheet with full tab bar ────────────────────────────────────────
+
+class _InventorySheet extends StatefulWidget {
+  final List<Item> items;
+  final Set<String> placedItemIds;
+  final AppLocalizationsProvider l10n;
+  final void Function(Item) onItemTap;
+
+  const _InventorySheet({
+    required this.items,
+    required this.placedItemIds,
+    required this.l10n,
+    required this.onItemTap,
+  });
+
+  @override
+  State<_InventorySheet> createState() => _InventorySheetState();
+}
+
+class _InventorySheetState extends State<_InventorySheet>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  static const List<Category> _categories = [
+    Category(labelKey: 'all'),
+    Category(labelKey: 'beds', itemSubtype: ItemSubtype.beds),
+    Category(labelKey: 'seating', itemSubtype: ItemSubtype.seating),
+    Category(labelKey: 'tables', itemSubtype: ItemSubtype.tables),
+    Category(labelKey: 'storage', itemSubtype: ItemSubtype.storage),
+    Category(labelKey: 'carpets', itemSubtype: ItemSubtype.carpets),
+    Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
+    Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
+    Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'doors', itemType: ItemType.door),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: _categories.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  bool _matchesSubtype(Item item, ItemSubtype subtype) {
+    final id = item.id;
+    switch (subtype) {
+      case ItemSubtype.beds:
+        return id.startsWith('postel_') ||
+            id.startsWith('posteľ_') ||
+            id == 'postel_znicena';
+      case ItemSubtype.seating:
+        return id.startsWith('gauc_');
+      case ItemSubtype.tables:
+        return id.startsWith('stol_');
+      case ItemSubtype.storage:
+        return id.startsWith('polica') ||
+            id.startsWith('police') ||
+            id.startsWith('skriňa') ||
+            id.startsWith('skrina') ||
+            id == 'polica_kniznica_cierna';
+      case ItemSubtype.carpets:
+        return id.startsWith('koberec_');
+      case ItemSubtype.wallDecor:
+        return id.startsWith('obraz_') ||
+            id.startsWith('okno_') ||
+            id == 'okno_zrkadlo';
+      case ItemSubtype.plants:
+        return id.startsWith('kvietok_');
+      case ItemSubtype.lighting:
+        return id.startsWith('lampa_') || id.startsWith('svetlo_');
+    }
+  }
+
+  List<Item> _itemsForCategory(Category category) {
+    if (category.labelKey == 'all') return widget.items;
+
+    if (category.itemSubtype != null) {
+      return widget.items
+          .where((i) => _matchesSubtype(i, category.itemSubtype!))
+          .toList();
+    }
+
+    if (category.itemType != null) {
+      return widget.items.where((i) => i.type == category.itemType).toList();
+    }
+
+    return [];
+  }
+
+  IconData _categoryIcon(String labelKey) {
+    switch (labelKey) {
+      case 'all':       return Icons.grid_view;
+      case 'beds':      return Icons.bed;
+      case 'seating':   return Icons.chair;
+      case 'tables':    return Icons.table_restaurant;
+      case 'storage':   return Icons.shelves;
+      case 'carpets':   return Icons.square_foot;
+      case 'wallDecor': return Icons.image;
+      case 'plants':    return Icons.local_florist;
+      case 'lighting':  return Icons.lightbulb_outline;
+      case 'doors':     return Icons.door_front_door;
+      default:          return Icons.grid_view;
+    }
+  }
+
+  String _categoryLabel(String key) {
+    final isSk = widget.l10n.currentLanguage == 'sk';
+    switch (key) {
+      case 'all':       return isSk ? 'Všetko'          : 'All';
+      case 'beds':      return isSk ? 'Postele'         : 'Beds';
+      case 'seating':   return isSk ? 'Posedenie'       : 'Seating';
+      case 'tables':    return isSk ? 'Stoly'           : 'Tables';
+      case 'storage':   return isSk ? 'Úložný priestor' : 'Storage';
+      case 'carpets':   return isSk ? 'Koberce'         : 'Carpets';
+      case 'wallDecor': return isSk ? 'Steny'           : 'Wall Decor';
+      case 'plants':    return isSk ? 'Rastliny'        : 'Plants';
+      case 'lighting':  return isSk ? 'Svetlá'          : 'Lighting';
+      case 'doors':     return isSk ? 'Dvere'           : 'Doors';
+      default:          return key;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final sk = widget.l10n.currentLanguage == 'sk';
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.6,
+      minChildSize: 0.18,
+      maxChildSize: 0.82,
+      snap: true,
+      snapSizes: const [0.18, 0.42, 0.82],
+      builder: (context, scrollController) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: _cream,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 16,
+                offset: Offset(0, -4),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              // ── Drag handle ────────────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 4),
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: _purpleLight,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+
+              // ── Header ─────────────────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
+                child: Row(
+                  children: [
+                    const Icon(Icons.inventory_2_rounded,
+                        color: _purple, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      sk ? 'Inventár' : 'Inventory',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: _purple,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.close_rounded, color: _purple),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+
+              // ── Tab bar ────────────────────────────────────────────
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                labelColor: _purple,
+                unselectedLabelColor: Colors.grey[500],
+                indicatorColor: _purple,
+                indicatorWeight: 2,
+                dividerColor: _purpleLight,
+                tabs: _categories.map((cat) {
+                  final count = _itemsForCategory(cat).length;
+                  return Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(_categoryIcon(cat.labelKey), size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          _categoryLabel(cat.labelKey),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        if (count > 0) ...[
+                          const SizedBox(width: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: _purple.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '$count',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: _purple,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+
+              const Divider(color: _purpleLight, height: 1),
+
+              // ── Tab content ────────────────────────────────────────
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: _categories.map((cat) {
+                    final items = _itemsForCategory(cat);
+                    if (items.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.inventory_2_outlined,
+                                size: 40, color: _purpleLight),
+                            const SizedBox(height: 10),
+                            Text(
+                              sk
+                                  ? 'Zatiaľ žiadne predmety'
+                                  : 'No items yet',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.grey[500]),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return GridView.builder(
+                      controller: scrollController,
+                      padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 0.78,
+                      ),
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        final isPlaced =
+                            widget.placedItemIds.contains(item.id);
+                        return _buildItemCard(item, isPlaced);
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildItemCard(Item item, bool isPlaced) {
+    final sk = widget.l10n.currentLanguage == 'sk';
 
     return GestureDetector(
-      onTap: isPlaced
-          ? null
-          : () {
-              if (roomWorld != null) {
-                context
-                    .read<TutorialProvider>()
-                    .registerAction('place_item_in_room');
-                roomWorld!.addItemToRoom(item);
-                Navigator.pop(context);
-              }
-            },
+      onTap: isPlaced ? null : () => widget.onItemTap(item),
       child: Container(
         decoration: BoxDecoration(
           color: isPlaced ? Colors.grey[200] : Colors.white,
@@ -434,7 +608,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Image
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(6),
@@ -447,11 +620,10 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     ),
                   ),
                 ),
-                // Name
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4, 0, 4, 2),
                   child: Text(
-                    item.localizedName(l10n.currentLanguage),
+                    item.localizedName(widget.l10n.currentLanguage),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 9,
@@ -462,16 +634,13 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                // Type chip
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: isPlaced
-                          ? Colors.grey[300]
-                          : _purpleBg,
+                      color: isPlaced ? Colors.grey[300] : _purpleBg,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
@@ -487,7 +656,6 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                 ),
               ],
             ),
-            // "Placed" overlay
             if (isPlaced)
               Positioned.fill(
                 child: Container(
@@ -522,47 +690,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
   }
 }
 
-// ── Small helper widgets ────────────────────────────────────────────────────
-
-class _TopButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String tooltip;
-  final VoidCallback onTap;
-
-  const _TopButton({
-    required this.icon,
-    required this.color,
-    required this.tooltip,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: tooltip,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(0.4),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Icon(icon, color: Colors.white, size: 20),
-        ),
-      ),
-    );
-  }
-}
+// ── Small helper widgets ──────────────────────────────────────────────────────
 
 class _BottomFab extends StatelessWidget {
   final IconData icon;
@@ -598,46 +726,6 @@ class _BottomFab extends StatelessWidget {
             ],
           ),
           child: Icon(icon, color: Colors.white, size: 22),
-        ),
-      ),
-    );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String tooltip;
-  final VoidCallback onTap;
-
-  const _ActionButton({
-    required this.icon,
-    required this.color,
-    required this.tooltip,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: tooltip,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(0.35),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Icon(icon, color: Colors.white, size: 20),
         ),
       ),
     );
