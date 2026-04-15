@@ -20,6 +20,8 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
+const CARD_BG=Color.fromRGBO(86, 12, 109, 0.624);
+
 class _SettingsScreenState extends State<SettingsScreen> {
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
@@ -160,6 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   // Tutorial controls
                   Card(
                     elevation: 2,
+                    color: CARD_BG,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -201,6 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   // Language Selection Card
                   Card(
                     elevation: 2,
+                    color: CARD_BG,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -257,6 +261,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   // Game Preferences Section
                   Card(
                     elevation: 2,
+                    color: CARD_BG,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -329,6 +334,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Card(
                     elevation: 2,
                     margin: const EdgeInsets.symmetric(vertical: 8),
+                    color: CARD_BG,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -388,6 +394,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildProfileCard(AppLocalizationsProvider l10n) {
     return Card(
       elevation: 2,
+      color: CARD_BG,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -502,6 +509,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: _savingProfile ? null : () => _saveProfile(l10n),
+                  style: FilledButton.styleFrom(
+                                  backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                                  foregroundColor: Colors.white,
+                                ),
                   child: _savingProfile
                       ? const SizedBox(
                           width: 20,
