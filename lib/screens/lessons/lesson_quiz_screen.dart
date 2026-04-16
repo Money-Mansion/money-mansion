@@ -278,6 +278,12 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       appBar: AppBar(
         title: Text(widget.lessonTitle),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: FutureBuilder<List<QuizQuestion>>(
         future: questionsFuture,
