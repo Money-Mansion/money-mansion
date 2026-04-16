@@ -194,8 +194,6 @@ class _LessonCategoryCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
-          // Close the overlay before navigating
-          onClose();
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -437,10 +435,7 @@ class _QuizzesTabState extends State<_QuizzesTab> {
                                             lessonTitle: quiz.name,
                                           ),
                                         ),
-                                      ).then((_) {
-                                        // Close overlay after returning from quiz
-                                        widget.onClose();
-                                      });
+                                      );
                                     },
                                     child: QuizProgressCircle(
                                       title: quiz.name,
@@ -486,7 +481,6 @@ class _QuizSectionCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
-          onClose();
           Navigator.push(
             context,
             MaterialPageRoute(

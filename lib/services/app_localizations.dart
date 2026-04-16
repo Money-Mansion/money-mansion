@@ -166,7 +166,7 @@ class AppLocalizations {
       'shop': 'Shop',
       'goals': 'Goals',
       'calendar': 'Calendar',
-      'financial': 'Financial',
+      'financial': 'Financial Management',
 
       // Financial
       'balance': 'Balance',
