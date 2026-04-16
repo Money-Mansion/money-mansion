@@ -20,7 +20,8 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-const CARD_BG=Color.fromRGBO(86, 12, 109, 0.624);
+const CARD_BG=Color.fromARGB(255, 215, 203, 235);
+
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final _nameController = TextEditingController();
