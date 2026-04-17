@@ -26,6 +26,11 @@ class LessonSlide {
   final String? storyBody;
   final String? storyBodySk;
 
+  /// Optional custom icon widget (e.g. MyFlutterApp.coins, MyFlutterApp.chrumka).
+  /// Used by [LessonSlideType.icon] and also replaces the emoji circle on
+  /// [LessonSlideType.intro] / [LessonSlideType.story] when provided.
+  final Widget? iconWidget;
+
   const LessonSlide({
     required this.type,
     this.emoji,
@@ -41,21 +46,61 @@ class LessonSlide {
     this.storyTitleSk,
     this.storyBody,
     this.storyBodySk,
+    this.iconWidget,
   });
+
+  /// Convenience factory — creates a [LessonSlideType.icon] slide in one line.
+  ///
+  /// Example:
+  /// ```dart
+  /// LessonSlide.icon(
+  ///   iconWidget: MyFlutterApp.coins,
+  ///   title: 'Coins & Cash',
+  ///   titleSk: 'Mince a hotovosť',
+  ///   body: 'Coins are the oldest form of money still in use today.',
+  ///   bodySk: 'Mince sú najstaršia forma peňazí, ktorá sa stále používa.',
+  ///   accentColor: Color(0xFFF5A623),
+  /// )
+  /// ```
+  factory LessonSlide.icon({
+    required Widget iconWidget,
+    String? title,
+    String? titleSk,
+    String? body,
+    String? bodySk,
+    String? emoji,
+    Color? accentColor,
+  }) {
+    return LessonSlide(
+      type: LessonSlideType.icon,
+      iconWidget: iconWidget,
+      emoji: emoji,
+      title: title,
+      titleSk: titleSk,
+      body: body,
+      bodySk: bodySk,
+      accentColor: accentColor,
+    );
+  }
 }
 
 class FactItem {
   final String emoji;
   final String text;
   final String textSk;
+
+  /// Optional per-item icon widget — overrides [emoji] when provided.
+  final Widget? iconWidget;
+
   const FactItem({
     required this.emoji,
     required this.text,
     required this.textSk,
+    this.iconWidget,
   });
 }
 
-enum LessonSlideType { intro, info, facts, highlight, tip, story }
+enum LessonSlideType { intro, info, facts, highlight, tip, story, icon }
 
 // ─────────────────────────────────────────────
 // LESSON CONTENT DATABASE
@@ -86,21 +131,44 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       bodySk: 'Peniaze používame, keď si chceme niečo kúpiť. Ľudia sa dohodli, že peniaze budú mať hodnotu a budú sa dať vymeniť za veci, ktoré potrebujeme alebo chceme – napríklad jedlo, oblečenie alebo hračky.',
       accentColor: Color(0xFFF5A623),
     ),
+    // ── EXAMPLE: icon slide using MyFlutterApp.coins ──
+    LessonSlide.icon(
+      iconWidget: MyFlutterApp.payment,
+      title: '3 Forms of Money',
+      titleSk: '3 formy peňazí',
+      body: 'Coins, banknotes, and digital money are the three main forms used today.',
+      bodySk: 'Mince, bankovky a digitálne peniaze sú tri hlavné formy, ktoré sa dnes používajú.',
+      accentColor: Color(0xFFF5A623),
+    ),
     LessonSlide(
       type: LessonSlideType.facts,
       emoji: '📋',
       title: '3 Forms of Money',
       titleSk: '3 formy peňazí',
       facts: [
-        FactItem(emoji: '🪙', text: 'Coins — small metal discs for everyday purchases', textSk: 'Mince — malé kovové disky na každodenné nákupy'),
-        FactItem(emoji: '💵', text: 'Banknotes — paper money for larger amounts', textSk: 'Bankovky — papierové peniaze pre väčšie sumy'),
-        FactItem(emoji: '💳', text: 'Digital money — pay by card or phone instantly', textSk: 'Digitálne peniaze — platiť kartou alebo telefónom okamžite'),
+        FactItem(
+          emoji: '🪙',
+          text: 'Coins — small metal discs for everyday purchases',
+          textSk: 'Mince — malé kovové disky na každodenné nákupy',
+        ),
+        FactItem(
+          emoji: '💵',
+          text: 'Banknotes — paper money for larger amounts',
+          textSk: 'Bankovky — papierové peniaze pre väčšie sumy',
+        ),
+        FactItem(
+          emoji: '💳',
+          text: 'Digital money — pay by card or phone instantly',
+          textSk: 'Digitálne peniaze — platiť kartou alebo telefónom okamžite',
+        ),
       ],
       accentColor: Color(0xFFF5A623),
     ),
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      // Use Chrumka asset on the story slide
+      iconWidget: MyFlutterApp.chrumko_coin,
       storyTitle: 'Chrumko\'s Coin',
       storyTitleSk: 'Chrumkova minca',
       storyBody: 'Chrumko holds a coin in his hand. By itself, it\'s just a small piece of metal. When he gives it to the shop cashier, he can buy an apple or juice with it. This works because the shop knows that the coin has value.',
@@ -156,13 +224,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       bodySk: 'Staré spoločnosti používali mušle, soľ, kamene a dokonca dobytok! Slovo "plat" súvisí s latinským slovom pre soľ.',
       accentColor: Color(0xFF4CAF50),
     ),
-        LessonSlide(
+    LessonSlide(
       type: LessonSlideType.story,
       emoji: "🍎",
+      iconWidget: MyFlutterApp.cereal,
       storyTitle: 'Snack swap',
       storyTitleSk: 'Výmena snacku',
-      storyBody: 'Chrumko has an apple for his snack, but he’d rather have a cereal bar. He asks his friend, who has a cereal bar, if they can swap snacks, but she doesn’t want the apple because she already has one.  If he had money, he could buy the cereal bar right away without having to look for someone who wants an apple. ',
-      storyBodySk: 'Chrumko má na desiatu jablko ale radšej by si dal cereálnu tyčinku. Poprosí kamarátku, ktorá má cereálnu tyčinku, aby si desiatu vymenili, ale ona jablko nechce, lebo už jedno má. Keby mal peniaze, mohol by si cereálnu tyčinku kúpiť hneď bez hľadania niekoho, kto chce práve jablko. ',
+      storyBody: 'Chrumko has an apple for his snack, but he\'d rather have a cereal bar. He asks his friend, who has a cereal bar, if they can swap snacks, but she doesn\'t want the apple because she already has one. If he had money, he could buy the cereal bar right away without having to look for someone who wants an apple.',
+      storyBodySk: 'Chrumko má na desiatu jablko ale radšej by si dal cereálnu tyčinku. Poprosí kamarátku, ktorá má cereálnu tyčinku, aby si desiatu vymenili, ale ona jablko nechce, lebo už jedno má. Keby mal peniaze, mohol by si cereálnu tyčinku kúpiť hneď bez hľadania niekoho, kto chce práve jablko.',
       accentColor: Color(0xFF9C27B0),
     ),
   ],
@@ -178,12 +247,12 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       accentColor: Color(0xFF795548),
     ),
     LessonSlide(
-      type: LessonSlideType.info,
-      emoji: '🍞',
-      title: 'Chrumko Needs Bread',
-      titleSk: 'Chrumko potrebuje chlieb',
-      body: 'Imagine coins didn\'t exist and Chrumko wanted bread. The baker would ask for two eggs. If Chrumko had no eggs, he\'d first have to find some. That\'s why paying used to be so much more complicated!',
-      bodySk: 'Predstav si, že mince by neexistovali a Chrumko by chcel chlieb. Pekár by si vypýtal dve vajcia. Ak by Chrumko vajcia nemal, najprv by ich musel zohnať. Aj preto bolo platenie kedysi oveľa zložitejšie!',
+      type: LessonSlideType.story,
+      iconWidget: MyFlutterApp.barter,
+      storyTitle: 'Chrumko Needs Bread',
+      storyTitleSk: 'Chrumko potrebuje chlieb',
+      storyBody: 'Imagine coins didn\'t exist and Chrumko wanted bread. The baker would ask for two eggs. If Chrumko had no eggs, he\'d first have to find some. That\'s why paying used to be so much more complicated!',
+      storyBodySk: 'Predstav si, že mince by neexistovali a Chrumko by chcel chlieb. Pekár by si vypýtal dve vajcia. Ak by Chrumko vajcia nemal, najprv by ich musel zohnať. Aj preto bolo platenie kedysi oveľa zložitejšie!',
       accentColor: Color(0xFF795548),
     ),
     LessonSlide(
@@ -194,18 +263,13 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(emoji: '🐄', text: '9000 BC: Cattle & grain used as payment', textSk: '9000 pr. n. l.: Dobytok a obilie ako platidlo'),
         FactItem(emoji: '🐚', text: '1200 BC: Cowrie shells in China & Africa', textSk: '1200 pr. n. l.: Mušle v Číne a Afrike'),
-        FactItem(emoji: '🪙', text: '600 BC: First metal coins in Lydia (Turkey)', textSk: '600 pr. n. l.: Prvé kovové mince v Lydii (Turecko)'),
+        FactItem(
+          emoji: '🪙',
+          text: '600 BC: First metal coins in Lydia (Turkey)',
+          textSk: '600 pr. n. l.: Prvé kovové mince v Lydii (Turecko)',
+        ),
         FactItem(emoji: '📜', text: '700 AD: First paper money in China', textSk: '700 n. l.: Prvé papierové peniaze v Číne'),
       ],
-      accentColor: Color(0xFF795548),
-    ),
-    LessonSlide(
-      type: LessonSlideType.story,
-      emoji: '👦',
-      storyTitle: 'Bread Without Coins',
-      storyTitleSk: 'Chlieb bez mincí',
-      storyBody: 'Imagine coins didn\'t exist and Chrumko wanted bread. The baker would ask for two eggs. If Chrumko didn\'t have eggs, he\'d have to search for someone who had them. This is why paying was so much harder in the past!',
-      storyBodySk: 'Predstav si, že mince by neexistovali a Chrumko by chcel chlieb. Pekár by si vypýtal dve vajcia. Ak by Chrumko vajcia nemal, najprv by ich musel zohnať. Aj preto bolo platenie kedysi oveľa zložitejšie!',
       accentColor: Color(0xFF795548),
     ),
     LessonSlide(
@@ -215,7 +279,6 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       highlightTextSk: 'Papierové peniaze boli vynájdené pred viac ako 1 300 rokmi — v Číne!',
       accentColor: Color(0xFFE91E63),
     ),
-    
   ],
 
   'mince_bankovky_digitalne': [
@@ -229,12 +292,12 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       accentColor: Color(0xFF009688),
     ),
     LessonSlide(
-      type: LessonSlideType.info,
-      emoji: '👔',
-      title: 'Chrumko Buys a Tie',
-      titleSk: 'Chrumko si kupuje kravatu',
-      body: 'Chrumko wants to buy a new tie. The shop assistant asks: card or cash? Banknotes and coins = cash. Card payment = digital money sent from his account. Both options mean paying money — just different ways!',
-      bodySk: 'Chrumko si chce kúpiť novú kravatu. Predavačka sa ho opýta: kartou alebo v hotovosti? Bankovky a mince = hotovosť. Platba kartou = digitálne peniaze poslané z účtu. Obe možnosti znamenajú platbu peniazmi — len iným spôsobom!',
+      type: LessonSlideType.story,
+      iconWidget: MyFlutterApp.tie,
+      storyTitle: 'Chrumko Buys a Tie',
+      storyTitleSk: 'Chrumko si kupuje kravatu',
+      storyBody: 'Chrumko wants to buy a new tie. The shop assistant asks: card or cash? Banknotes and coins = cash. Card payment = digital money sent from his account. Both options mean paying money — just different ways!',
+      storyBodySk: 'Chrumko si chce kúpiť novú kravatu. Predavačka sa ho opýta: kartou alebo v hotovosti? Bankovky a mince = hotovosť. Platba kartou = digitálne peniaze poslané z účtu. Obe možnosti znamenajú platbu peniazmi — len iným spôsobom!',
       accentColor: Color(0xFF009688),
     ),
     LessonSlide(
@@ -243,24 +306,25 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Types of Money Today',
       titleSk: 'Typy peňazí dnes',
       facts: [
-        FactItem(emoji: '🪙', text: 'Coins — metal, great for small purchases', textSk: 'Mince — kovové, ideálne na malé nákupy'),
-        FactItem(emoji: '💵', text: 'Banknotes — paper, convenient to carry', textSk: 'Bankovky — papierové, pohodlné na nosenie'),
-        FactItem(emoji: '📱', text: 'Digital — stored in your bank account, pay by card or phone', textSk: 'Digitálne — uložené v bankovom účte, platiť kartou alebo telefónom'),
+        FactItem(
+          emoji: '🪙',
+          text: 'Coins — metal, great for small purchases',
+          textSk: 'Mince — kovové, ideálne na malé nákupy',
+        ),
+        FactItem(
+          emoji: '💵',
+          text: 'Banknotes — paper, convenient to carry',
+          textSk: 'Bankovky — papierové, pohodlné na nosenie',
+        ),
+        FactItem(emoji: '📱', text: 'Digital — stored in your bank account, pay by card or phone', 
+        textSk: 'Digitálne — uložené v bankovom účte, platiť kartou alebo telefónom'),
       ],
       accentColor: Color(0xFF009688),
     ),
+    // ── EXAMPLE: standalone icon slide with MyFlutterApp.robot ──
     LessonSlide(
-      type: LessonSlideType.story,
-      emoji: '👦',
-      storyTitle: 'How to Pay',
-      storyTitleSk: 'Ako platiť',
-      storyBody: 'Chrumko wants to buy a new tie. The shop assistant asks: card or cash? Banknotes and coins equal cash. Paying by card means digital money sent from his account. Both options mean paying for the tie — just in different ways!',
-      storyBodySk: 'Chrumko si chce kúpiť novú kravatu. Predavačka sa ho opýta: kartou alebo v hotovosti? Bankovky a mince sú hotovosť. Platba kartou znamená digitálne peniaze poslané z účtu. Obe možnosti znamenajú platbu — len iným spôsobom!',
-      accentColor: Color(0xFF009688),
-    ),
-    LessonSlide(
-      type: LessonSlideType.tip,
-      emoji: '🔮',
+      type: LessonSlideType.info,
+      emoji: '🏦',
       title: 'The Future of Money',
       titleSk: 'Budúcnosť peňazí',
       body: 'More and more purchases happen without any physical money. Some countries are even testing "digital currencies" issued directly by their central banks!',
@@ -294,8 +358,16 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Comparing Values',
       titleSk: 'Porovnávanie hodnôt',
       facts: [
-        FactItem(emoji: '🪙', text: 'A coin with "50" = 50 cents (less than €1)', textSk: 'Minca s číslom „50" = 50 centov (menej ako 1 €)'),
-        FactItem(emoji: '💵', text: 'A note with "50" = €50 (much more!)', textSk: 'Bankovka s číslom „50" = 50 € (oveľa viac!)'),
+        FactItem(
+          emoji: '🪙',
+          text: 'A coin with "50" = 50 cents (less than €1)',
+          textSk: 'Minca s číslom „50" = 50 centov (menej ako 1 €)',
+        ),
+        FactItem(
+          emoji: '💵',
+          text: 'A note with "50" = €50 (much more!)',
+          textSk: 'Bankovka s číslom „50" = 50 € (oveľa viac!)',
+        ),
         FactItem(emoji: '🧮', text: 'Knowing values helps you know what you can buy', textSk: 'Poznanie hodnôt ti pomôže vedieť, čo si môžeš kúpiť'),
       ],
       accentColor: Color(0xFF9C27B0),
@@ -303,6 +375,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Not Enough for Both',
       storyTitleSk: 'Nie dosť na obidve',
       storyBody: 'Chrumko has one euro and wants juice and biscuits from the shop. He checks the prices: juice costs 90 cents and biscuits cost 50 cents. When he adds them up, he realizes one euro isn\'t enough for both. He has to choose which one he wants more!',
@@ -340,6 +413,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Spending Too Fast',
       storyTitleSk: 'Príliš rýchle míňanie',
       storyBody: 'Chrumko gets five euros and buys sweets for all of it. Later, he wants a new toy but has no money left. He spent everything at once, so nothing is left. Next time, he\'ll save some money so he has it for other things he\'ll want later.',
@@ -389,8 +463,18 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'How People Earn Money',
       titleSk: 'Ako ľudia zarábajú peniaze',
       facts: [
-        FactItem(emoji: '👔', text: 'Salary — regular pay from an employer', textSk: 'Plat — pravidelná odmena od zamestnávateľa'),
-        FactItem(emoji: '🏪', text: 'Business — selling goods or services', textSk: 'Podnikanie — predaj tovarov alebo služieb'),
+        FactItem(
+          emoji: '👔',
+          text: 'Salary — regular pay from an employer',
+          textSk: 'Plat — pravidelná odmena od zamestnávateľa',
+          iconWidget: MyFlutterApp.user,
+        ),
+        FactItem(
+          emoji: '🏪',
+          text: 'Business — selling goods or services',
+          textSk: 'Podnikanie — predaj tovarov alebo služieb',
+          iconWidget: MyFlutterApp.shop,
+        ),
         FactItem(emoji: '🎁', text: 'Gifts / pocket money — for children especially!', textSk: 'Dary / vreckové — hlavne pre deti!'),
       ],
       accentColor: Color(0xFF4CAF50),
@@ -398,6 +482,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Work Brings Money',
       storyTitleSk: 'Práca prináša peniaze',
       storyBody: 'Chrumko notices that his mom goes to work every day. At the end of the month, she receives money in her bank account. From this money, the family pays for rent, buys food, and saves some for later. Chrumko realizes that the money in their home comes from work.',
@@ -421,6 +506,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.intro,
       emoji: '🏠',
+      iconWidget: MyFlutterApp.house,
       title: 'What Do I Need to Live?',
       titleSk: 'Čo potrebujem na život?',
       body: 'What does a person truly need? Not everything we want is something we actually need!',
@@ -453,6 +539,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Smart Shopping',
       storyTitleSk: 'Múdre nakupovanie',
       storyBody: 'Chrumko goes to the shop after school. He buys a snack first because he knows food is a need. Only then does he think about whether any money is left for chocolate. This shows he understands what\'s important!',
@@ -503,6 +590,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'The Plushie Temptation',
       storyTitleSk: 'Pokušenie s plyšákom',
       storyBody: 'Chrumko sees a new plush toy in the shop that he likes. Then he remembers he already has a similar one at home. He realizes he doesn\'t really need it — it\'s just something he wants. And that\'s okay, as long as he understands the difference!',
@@ -552,6 +640,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Cool Pencil Case',
       storyTitleSk: 'Fajný peračník',
       storyBody: 'Chrumko sees a classmate with a cool new pencil case. He wants one immediately, even though his own works perfectly fine! He waits for a moment and realizes he doesn\'t actually need a new one at all. Sometimes waiting helps!',
@@ -603,6 +692,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'The Ad Trick',
       storyTitleSk: 'Trik s reklamou',
       storyBody: 'Chrumko sees a TV ad for a huge chocolate bar. It looks enormous and delicious! The next day, he finds it in the shop, but it\'s much smaller than on TV. The packaging is nice, but the real chocolate is very different from what the ad showed.',
@@ -653,6 +743,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Sad Day Shopping',
       storyTitleSk: 'Nakupovanie v smutnosti',
       storyBody: 'Chrumko loses the final round of a game. He\'s angry and sad. On the way home, he sees a shop and wants to buy something to feel better. He stops and thinks: he\'s not really hungry and has snacks at home. He decides to wait instead of buying!',
@@ -669,10 +760,6 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       accentColor: Color(0xFF2196F3),
     ),
   ],
-
-  // Continue with remaining lessons...
-  // (Due to length, I'll include the structure and a few more complete examples)
-  // The pattern is: intro, info, facts, story, highlight/tip
 
   'vreckove': [
     LessonSlide(
@@ -699,15 +786,26 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'The 50-30-20 Rule',
       titleSk: 'Pravidlo 50-30-20',
       facts: [
-        FactItem(emoji: '🛒', text: '50% — Needs: things you actually have to buy', textSk: '50% — Potreby: veci, ktoré naozaj musíš kúpiť'),
+        FactItem(
+          emoji: '🛒',
+          text: '50% — Needs: things you actually have to buy',
+          textSk: '50% — Potreby: veci, ktoré naozaj musíš kúpiť',
+          iconWidget: MyFlutterApp.basket,
+        ),
         FactItem(emoji: '🎮', text: '30% — Wants: fun stuff you enjoy', textSk: '30% — Túžby: zábavné veci, ktoré si užívaš'),
-        FactItem(emoji: '🏦', text: '20% — Savings: save for bigger goals!', textSk: '20% — Sporenie: šetri na väčšie ciele!'),
+        FactItem(
+          emoji: '🏦',
+          text: '20% — Savings: save for bigger goals!',
+          textSk: '20% — Sporenie: šetri na väčšie ciele!',
+          iconWidget: MyFlutterApp.target,
+        ),
       ],
       accentColor: Color(0xFFF5A623),
     ),
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '👦',
+      iconWidget: MyFlutterApp.chrumka,
       storyTitle: 'Weekly Planning',
       storyTitleSk: 'Týždenné plánovanie',
       storyBody: 'Chrumko gets ten euros at the start of the week. He sees a treat at school he\'d like. But he remembers: in two days he\'s going to the cinema with friends! He buys only a small thing now and saves money for the cinema.',
@@ -724,10 +822,65 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       accentColor: Color(0xFF4CAF50),
     ),
   ],
-
-  // The rest of the lessons follow the same pattern...
-  // I'll add a few more key ones and include the story type for each
 };
+
+// ─────────────────────────────────────────────
+// ICON WIDGET HELPER
+// ─────────────────────────────────────────────
+
+/// Renders a [MyFlutterApp] / [ImageWidget] inside a styled circle container
+/// matching the lesson accent colour. Drop this anywhere you need a standalone
+/// icon display outside of a slide.
+///
+/// Example:
+/// ```dart
+/// LessonIconDisplay(
+///   iconWidget: MyFlutterApp.coins,
+///   accentColor: Color(0xFFF5A623),
+///   size: 100,
+/// )
+/// ```
+class LessonIconDisplay extends StatelessWidget {
+  const LessonIconDisplay({
+    super.key,
+    required this.iconWidget,
+    this.accentColor = const Color(0xFFF5A623),
+    this.size = 120,
+    this.iconSize = 64,
+  });
+
+  final Widget iconWidget;
+  final Color accentColor;
+  final double size;
+  final double iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: accentColor.withOpacity(0),
+        shape: BoxShape.rectangle,
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withOpacity(0),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Center(
+        child: SizedBox(
+          width: iconSize,
+          height: iconSize,
+          // ImageWidget / Icon widgets honour the SizedBox constraints
+          child: FittedBox(fit: BoxFit.contain, child: iconWidget),
+        ),
+      ),
+    );
+  }
+}
 
 // ─────────────────────────────────────────────
 // MAIN SCREEN WIDGET
@@ -756,7 +909,6 @@ class _LessonContentScreenState extends State<LessonContentScreen>
   late Animation<double> _fadeAnim;
   late Animation<Offset> _slideAnim;
 
-  // Allow isSlovak to also be read live from Provider
   bool get _isSk {
     try {
       final l10n = context.read<AppLocalizationsProvider>();
@@ -951,13 +1103,49 @@ class _LessonContentScreenState extends State<LessonContentScreen>
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
       child: switch (slide.type) {
-        LessonSlideType.intro => _buildIntroSlide(slide, accent),
-        LessonSlideType.info => _buildInfoSlide(slide, accent),
-        LessonSlideType.facts => _buildFactsSlide(slide, accent),
+        LessonSlideType.intro     => _buildIntroSlide(slide, accent),
+        LessonSlideType.info      => _buildInfoSlide(slide, accent),
+        LessonSlideType.facts     => _buildFactsSlide(slide, accent),
         LessonSlideType.highlight => _buildHighlightSlide(slide, accent),
-        LessonSlideType.tip => _buildTipSlide(slide, accent),
-        LessonSlideType.story => _buildStorySlide(slide, accent),
+        LessonSlideType.tip       => _buildTipSlide(slide, accent),
+        LessonSlideType.story     => _buildStorySlide(slide, accent),
+        LessonSlideType.icon      => _buildIconSlide(slide, accent),
       },
+    );
+  }
+
+  // ── ICON AVATAR HELPER ────────────────────────
+  // Shared between intro, story and the new icon slide.
+  // Prefers iconWidget over emoji when both are supplied.
+
+  Widget _buildAvatarWidget({
+    required LessonSlide slide,
+    required Color accent,
+    double containerSize = 120,
+    double iconSize = 72,
+    double emojiSize = 64,
+  }) {
+    if (slide.iconWidget != null) {
+      return LessonIconDisplay(
+        iconWidget: slide.iconWidget!,
+        accentColor: accent,
+        size: containerSize,
+        iconSize: iconSize,
+      );
+    }
+    return Container(
+      width: containerSize,
+      height: containerSize,
+      decoration: BoxDecoration(
+        color: accent.withOpacity(0.12),
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Text(
+          slide.emoji ?? '📖',
+          style: TextStyle(fontSize: emojiSize),
+        ),
+      ),
     );
   }
 
@@ -965,29 +1153,15 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   Widget _buildIntroSlide(LessonSlide s, Color accent) {
     final title = _isSk ? (s.titleSk ?? s.title!) : s.title!;
-    final body = _isSk ? (s.bodySk ?? s.body!) : s.body!;
+    final body  = _isSk ? (s.bodySk  ?? s.body!)  : s.body!;
     return Column(
       children: [
         const SizedBox(height: 24),
-        Container(
-          width: 120,
-          height: 120,
-          decoration: BoxDecoration(
-            color: accent.withOpacity(0.12),
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(s.emoji ?? '💰', style: const TextStyle(fontSize: 64)),
-          ),
-        ),
+        _buildAvatarWidget(slide: s, accent: accent),
         const SizedBox(height: 28),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w800,
-            height: 1.2,
-          ),
+          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w800, height: 1.2),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
@@ -997,20 +1171,12 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.06),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
+              BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, 4)),
             ],
           ),
           child: Text(
             body,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.55,
-              color: Color(0xFF333333),
-            ),
+            style: const TextStyle(fontSize: 16, height: 1.55, color: Color(0xFF333333)),
             textAlign: TextAlign.center,
           ),
         ),
@@ -1021,7 +1187,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   Widget _buildInfoSlide(LessonSlide s, Color accent) {
     final title = _isSk ? (s.titleSk ?? s.title!) : s.title!;
-    final body = _isSk ? (s.bodySk ?? s.body!) : s.body!;
+    final body  = _isSk ? (s.bodySk  ?? s.body!)  : s.body!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1031,10 +1197,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             Text(s.emoji ?? '📖', style: const TextStyle(fontSize: 40)),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-              ),
+              child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
             ),
           ],
         ),
@@ -1047,20 +1210,12 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: accent.withOpacity(0.3), width: 2),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
+              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(0, 3)),
             ],
           ),
           child: Text(
             body,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.6,
-              color: Color(0xFF333333),
-            ),
+            style: const TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF333333)),
           ),
         ),
         const SizedBox(height: 24),
@@ -1079,10 +1234,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             Text(s.emoji ?? '📋', style: const TextStyle(fontSize: 40)),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-              ),
+              child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
             ),
           ],
         ),
@@ -1095,10 +1247,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             duration: Duration(milliseconds: 300 + i * 80),
             builder: (ctx, val, child) => Opacity(
               opacity: val,
-              child: Transform.translate(
-                offset: Offset(20 * (1 - val), 0),
-                child: child,
-              ),
+              child: Transform.translate(offset: Offset(20 * (1 - val), 0), child: child),
             ),
             child: Container(
               margin: const EdgeInsets.only(bottom: 10),
@@ -1107,15 +1256,12 @@ class _LessonContentScreenState extends State<LessonContentScreen>
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 6,
-                    offset: const Offset(0, 2),
-                  ),
+                  BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6, offset: const Offset(0, 2)),
                 ],
               ),
               child: Row(
                 children: [
+                  // Per-item: prefer iconWidget over emoji
                   Container(
                     width: 44,
                     height: 44,
@@ -1124,18 +1270,20 @@ class _LessonContentScreenState extends State<LessonContentScreen>
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                      child: Text(fact.emoji, style: const TextStyle(fontSize: 22)),
+                      child: fact.iconWidget != null
+                          ? SizedBox(
+                              width: 28,
+                              height: 28,
+                              child: FittedBox(fit: BoxFit.contain, child: fact.iconWidget),
+                            )
+                          : Text(fact.emoji, style: const TextStyle(fontSize: 22)),
                     ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Text(
                       text,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        height: 1.45,
-                        color: Color(0xFF333333),
-                      ),
+                      style: const TextStyle(fontSize: 14, height: 1.45, color: Color(0xFF333333)),
                     ),
                   ),
                 ],
@@ -1149,9 +1297,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
   }
 
   Widget _buildHighlightSlide(LessonSlide s, Color accent) {
-    final text = _isSk
-        ? (s.highlightTextSk ?? s.highlightText!)
-        : s.highlightText!;
+    final text = _isSk ? (s.highlightTextSk ?? s.highlightText!) : s.highlightText!;
     return Column(
       children: [
         const SizedBox(height: 40),
@@ -1168,21 +1314,12 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             ),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
-              BoxShadow(
-                color: accent.withOpacity(0.35),
-                blurRadius: 20,
-                offset: const Offset(0, 8),
-              ),
+              BoxShadow(color: accent.withOpacity(0.35), blurRadius: 20, offset: const Offset(0, 8)),
             ],
           ),
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, height: 1.4),
             textAlign: TextAlign.center,
           ),
         ),
@@ -1193,17 +1330,13 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   Widget _buildTipSlide(LessonSlide s, Color accent) {
     final title = _isSk ? (s.titleSk ?? s.title!) : s.title!;
-    final body = _isSk ? (s.bodySk ?? s.body!) : s.body!;
+    final body  = _isSk ? (s.bodySk  ?? s.body!)  : s.body!;
     return Column(
       children: [
         const SizedBox(height: 24),
         Text(s.emoji ?? '💡', style: const TextStyle(fontSize: 64)),
         const SizedBox(height: 20),
-        Text(
-          title,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-          textAlign: TextAlign.center,
-        ),
+        Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800), textAlign: TextAlign.center),
         const SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -1226,29 +1359,15 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   Widget _buildStorySlide(LessonSlide s, Color accent) {
     final title = _isSk ? (s.storyTitleSk ?? s.storyTitle!) : s.storyTitle!;
-    final body = _isSk ? (s.storyBodySk ?? s.storyBody!) : s.storyBody!;
+    final body  = _isSk ? (s.storyBodySk  ?? s.storyBody!)  : s.storyBody!;
     return Column(
       children: [
         const SizedBox(height: 16),
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: accent.withOpacity(0.15),
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(s.emoji ?? '👦', style: const TextStyle(fontSize: 48)),
-          ),
-        ),
+        _buildAvatarWidget(slide: s, accent: accent, containerSize: 80, iconSize: 52, emojiSize: 48),
         const SizedBox(height: 24),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
-            height: 1.2,
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, height: 1.2),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
@@ -1260,22 +1379,55 @@ class _LessonContentScreenState extends State<LessonContentScreen>
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: accent.withOpacity(0.2), width: 1.5),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.04),
-                blurRadius: 10,
-                offset: const Offset(0, 3),
-              ),
+              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0, 3)),
             ],
           ),
           child: Text(
             body,
-            style: const TextStyle(
-              fontSize: 15,
-              height: 1.65,
-              color: Color(0xFF444444),
-            ),
+            style: const TextStyle(fontSize: 15, height: 1.65, color: Color(0xFF444444)),
           ),
         ),
+        const SizedBox(height: 24),
+      ],
+    );
+  }
+
+  /// New slide type: full-page icon showcase with title + body text below.
+  /// Created via [LessonSlide.icon()] factory or by setting
+  /// [type: LessonSlideType.icon] manually.
+  Widget _buildIconSlide(LessonSlide s, Color accent) {
+    final title = _isSk ? (s.titleSk ?? s.title ?? '') : (s.title ?? '');
+    final body  = _isSk ? (s.bodySk  ?? s.body  ?? '') : (s.body  ?? '');
+    return Column(
+      children: [
+        const SizedBox(height: 32),
+        _buildAvatarWidget(slide: s, accent: accent, containerSize: 140, iconSize: 88, emojiSize: 72),
+        const SizedBox(height: 28),
+        if (title.isNotEmpty)
+          Text(
+            title,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, height: 1.2),
+            textAlign: TextAlign.center,
+          ),
+        if (title.isNotEmpty) const SizedBox(height: 16),
+        if (body.isNotEmpty)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: accent.withOpacity(0.25), width: 1.5),
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 3)),
+              ],
+            ),
+            child: Text(
+              body,
+              style: const TextStyle(fontSize: 15, height: 1.65, color: Color(0xFF444444)),
+              textAlign: TextAlign.center,
+            ),
+          ),
         const SizedBox(height: 24),
       ],
     );
@@ -1318,11 +1470,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
                   color: accent,
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: [
-                    BoxShadow(
-                      color: accent.withOpacity(0.4),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
+                    BoxShadow(color: accent.withOpacity(0.4), blurRadius: 12, offset: const Offset(0, 4)),
                   ],
                 ),
                 child: Center(
@@ -1330,7 +1478,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
                     isLast
                         ? (widget.lesson.quizLessonId != null
                             ? (_isSk ? '🎯 Spustiť kvíz' : '🎯 Start Quiz')
-                            : (_isSk ? '✅ Dokončiť' : '✅ Finish'))
+                            : (_isSk ? '✅ Dokončiť'     : '✅ Finish'))
                         : (_isSk ? 'Pokračovať →' : 'Continue →'),
                     style: const TextStyle(
                       color: Colors.white,
