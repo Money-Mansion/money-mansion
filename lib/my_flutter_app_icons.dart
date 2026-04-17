@@ -54,22 +54,30 @@ class MyFlutterApp {
   static const Widget shop = ImageWidget(assetImage: "assets/images/stats178.png");
   static const Widget chrumka = ImageWidget(assetImage: "assets/images/chrumka 32.png");
   static const Widget kojn = ImageWidget(assetImage: "assets/images/coinik150.png");
+  static const Widget payment = ImageWidget(assetImage: "assets/images/platby.png", width: 500, height: 500,);
+  static const Widget chrumko_coin = ImageWidget(assetImage: "assets/images/chrumko_coin.png", width: 500, height: 500,);
+  static const Widget cereal = ImageWidget(assetImage: "assets/images/cereal_bar.png", width: 500, height: 500,);
+  static const Widget barter = ImageWidget(assetImage: "assets/images/egg_bread.png", width: 500, height: 500,);
+  static const Widget tie = ImageWidget(assetImage: "assets/images/tie.png", width: 500, height: 500,);
 }
 
 class ImageWidget extends StatelessWidget {
-  const ImageWidget({Key? key, this.assetImage = null, this.iconData = null, this.width=150, this.height=150}) : super(key: key);
+  const ImageWidget({Key? key, this.assetImage = null, this.iconData = null, this.width, this.height}) : super(key: key);
   final String? assetImage;
   final IconData? iconData;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
+
+  double get effectiveWidth => width ?? 150;
+  double get effectiveHeight => height ?? 150;
 
   @override
   Widget build(BuildContext context) {
     if (this.assetImage != null) {
       return Image.asset(
         this.assetImage!, 
-        width: this.width,                
-        height: this.height,              
+        width: effectiveWidth,                
+        height: effectiveHeight,              
       );
     }
     else if(this.iconData != null) {
@@ -81,4 +89,3 @@ class ImageWidget extends StatelessWidget {
 
   }
 }
-
