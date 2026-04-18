@@ -2,11 +2,15 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class QuizService {
+  /// Loading the NEW improved quiz files (1 file per section)
+  /// All legacy files are disconnected and kept on disk as backup only:
+  /// - quiz_database_1.json, 2.json, 3.json (old plain versions)
+  /// - quiz_database_*_sk01.json, quiz_database_*_en01.json (old renamed versions)
   static const Map<String, List<String>> _quizFilesByLanguage = {
     'sk': [
-      'assets/quizes/quiz_database_1.json',
-      'assets/quizes/quiz_database_2.json',
-      'assets/quizes/quiz_database_3.json',
+      'assets/quizes/quiz_database_01_sk.json',
+      'assets/quizes/quiz_database_02_sk.json',
+      'assets/quizes/quiz_database_03_sk.json',
     ],
     'en': [
       'assets/quizes/quiz_database_01_en.json',

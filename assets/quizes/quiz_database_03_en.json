@@ -1,517 +1,405 @@
 {
   "quizzes": [
     {
-      "section": 8,
-      "sectionName": "WORK AND INCOME",
+      "section": 3,
+      "sectionName": "FIRST EXPERIENCES WITH MONEY",
       "lessons": [
         {
-          "lessonId": 8001,
+          "lessonId": 3001,
           "lessonNumber": 1,
-          "lessonName": "Why people work",
+          "lessonName": "Pocket money",
           "questions": [
             {
-              "questionId": "8001_01",
+              "questionId": "3001_01",
               "type": "theoretical",
-              "question": "Why do people work?",
+              "question": "What is pocket money?",
               "options": [
-                "For no reason",
-                "To earn money for daily life and fulfill their duties",
-                "Work is bad",
-                "It never makes sense"
+                "Money a person receives from their parents",
+                "Money a person must spend right away",
+                "Money a child receives from the bank to a children’s account",
+                "Money that belongs to friends"
               ],
-              "correctAnswer": 1,
-              "explanation": "People work to earn money for their daily lives - food, housing, clothing, and other needs."
+              "correctAnswer": 0,
+              "explanation": "Pocket money is a set amount given by parents to help children learn about value."
             },
             {
-              "questionId": "8001_02",
-              "type": "practical",
-              "question": "Chrumko notices his mom getting ready for work in the morning. Why does she work even when it's raining?",
+              "questionId": "3001_02",
+              "type": "theoretical",
+              "question": "Why do children receive pocket money?",
               "options": [
-                "She's bored",
-                "She has no other choice",
-                "So she can earn money from her work to pay for housing, food, and school supplies",
-                "Everything is chaotic"
+                "So they have more toys",
+                "So money is spent on their desires",
+                "So they learn to manage money",
+                "So they always have more than others"
               ],
               "correctAnswer": 2,
-              "explanation": "Mom has to go to work because she earns money from her work with which the family pays for everything they need."
+              "explanation": "It is a tool for learning how to make choices and handle a budget."
             },
             {
-              "questionId": "8001_03",
-              "type": "practical",
-              "question": "What value do people's jobs have in society?",
+              "questionId": "3001_03",
+              "type": "theoretical",
+              "question": "What can happen if a child spends all their pocket money at once?",
               "options": [
-                "None",
-                "They help others - they teach, heal, repair, manufacture, provide services",
-                "All are the same",
-                "Work is pointless"
+                "They will receive new money",
+                "They will not have any money later",
+                "The money will come back",
+                "They can go to the bank and collect more money"
               ],
               "correctAnswer": 1,
-              "explanation": "Many people help others through their work. Every job has its value because it contributes to society functioning."
+              "explanation": "Money is finite; once it is spent, you must wait for the next allowance."
             },
             {
-              "questionId": "8001_04",
-              "type": "practical",
-              "question": "What does Chrumko realize?",
+              "questionId": "3001_04",
+              "type": "theoretical",
+              "question": "What is the best way to deal with the pocket money a child receives?",
               "options": [
-                "Mom is lazy",
-                "Work is pointless",
-                "Work helps secure many things they have at home and are taken for granted",
-                "Everything is magical"
+                "Spend everything at once",
+                "Buy nothing",
+                "Divide the money between now and later",
+                "Only buy sweets"
               ],
               "correctAnswer": 2,
-              "explanation": "Chrumko realizes that work helps secure many things they have at home and are taken for granted."
+              "explanation": "Splitting money ensures you can enjoy something now while saving for the future."
+            },
+            {
+              "questionId": "3001_05",
+              "type": "practical",
+              "question": "Chrumko has 10 euros and knows he is going to the cinema in a few days. What should he do?",
+              "options": [
+                "Spend everything on fun",
+                "Put aside part of the money",
+                "Buy a toy",
+                "Buy tickets for his friends"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Saving a portion ensures he has enough for his planned cinema trip."
+            },
+            {
+              "questionId": "3001_06",
+              "type": "practical",
+              "question": "Chrumko buys a small thing and keeps the rest. Why?",
+              "options": [
+                "Because he had no other option",
+                "So he will have money later as well",
+                "Because he did not want to buy anything",
+                "To spend less time in the shop"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keeping change allows for future purchases or emergencies."
             }
           ]
         },
         {
-          "lessonId": 8002,
+          "lessonId": 3002,
           "lessonNumber": 2,
-          "lessonName": "Types of occupations",
+          "lessonName": "How to divide money",
           "questions": [
             {
-              "questionId": "8002_01",
+              "questionId": "3002_01",
               "type": "theoretical",
-              "question": "Do all adults do the same work?",
-              "options": [
-                "Yes, everyone does the same thing",
-                "No, people have different occupations based on their skills and abilities",
-                "Work is pointless",
-                "There are never differences"
-              ],
-              "correctAnswer": 1,
-              "explanation": "People have different occupations based on what they know, what they enjoy, and what society needs."
-            },
-            {
-              "questionId": "8002_02",
-              "type": "practical",
-              "question": "Chrumko goes to school in the morning. How many different types of work does he see?",
-              "options": [
-                "Only one",
-                "Bus driver, teacher, road workers and others in the store and post office",
-                "None",
-                "Everything is the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko sees how many different people work - drivers, teachers, workers, salespeople, postal workers, and others."
-            },
-            {
-              "questionId": "8002_03",
-              "type": "theoretical",
-              "question": "What are the types of occupations?",
-              "options": [
-                "Only one",
-                "Jobs with people, technology, animals, buildings, or information",
-                "There are never differences",
-                "Everything is one"
-              ],
-              "correctAnswer": 1,
-              "explanation": "There are occupations where people make something, repair, teach, heal, organize, or work with information."
-            },
-            {
-              "questionId": "8002_04",
-              "type": "practical",
-              "question": "Why is it important to have different occupations?",
-              "options": [
-                "It's not important",
-                "All complement each other and together help the world function",
-                "One would be enough",
-                "Everything is random"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Each occupation has its purpose. All different jobs complement each other and together help the world function."
-            }
-          ]
-        },
-        {
-          "lessonId": 8003,
-          "lessonNumber": 3,
-          "lessonName": "Salary and reward",
-          "questions": [
-            {
-              "questionId": "8003_01",
-              "type": "theoretical",
-              "question": "Does everyone earn the same money for their work?",
+              "question": "Is it good to spend all the money at once?",
               "options": [
                 "Yes, always",
-                "No, salary depends on the type of work, experience, and responsibility",
-                "Never",
-                "Everything is the same"
+                "No, it is better to divide it",
+                "Yes, if it is sweets",
+                "It does not matter"
               ],
               "correctAnswer": 1,
-              "explanation": "The salary amount depends on the type of work, experience, responsibility, and the time a person dedicates to work."
+              "explanation": "Dividing money helps maintain financial security over time."
             },
             {
-              "questionId": "8003_02",
-              "type": "practical",
-              "question": "How often does someone get paid for their work?",
+              "questionId": "3002_02",
+              "type": "theoretical",
+              "question": "Why do we divide our money?",
               "options": [
-                "Every day",
-                "When they ask",
-                "Regularly, usually once a month",
-                "It never adds up"
-              ],
-              "correctAnswer": 2,
-              "explanation": "A person gets paid regularly, usually once a month into their bank account."
-            },
-            {
-              "questionId": "8003_03",
-              "type": "practical",
-              "question": "Chrumko talks to his father about salaries. What does his father say?",
-              "options": [
-                "Money comes every day",
-                "He gets paid once a month and the family pays for everything with that money",
-                "Money is excluded",
-                "Everything is chaotic"
+                "So we have more things",
+                "So we have money for later as well",
+                "So we cannot enjoy life too much",
+                "So we do not have to count it"
               ],
               "correctAnswer": 1,
-              "explanation": "His father explains that he gets paid once a month and the family gradually pays for everything throughout the month from that money."
+              "explanation": "It prevents running out of funds before the next income."
             },
             {
-              "questionId": "8003_04",
-              "type": "practical",
-              "question": "What does Chrumko understand?",
+              "questionId": "3002_03",
+              "type": "theoretical",
+              "question": "What does dividing money teach us?",
               "options": [
-                "Money is free",
-                "Money from work must be wisely divided over a longer period",
-                "It doesn't work",
-                "Everything is pointless"
+                "To buy quickly",
+                "To plan and make decisions",
+                "To spend more",
+                "Not to think about the purchase"
               ],
               "correctAnswer": 1,
-              "explanation": "Chrumko understands that money from work must be wisely divided so it lasts a longer time."
+              "explanation": "It builds the skill of prioritizing needs over wants."
+            },
+            {
+              "questionId": "3002_04",
+              "type": "practical",
+              "question": "Chrumko puts aside 7 euros from 10 euros. Why?",
+              "options": [
+                "So he never uses them",
+                "So he can buy something else later",
+                "Because he cannot spend it",
+                "Because he does not like shopping"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Saving 7 euros creates a budget for a future goal."
+            },
+            {
+              "questionId": "3002_05",
+              "type": "practical",
+              "question": "Chrumko keeps part of the money and later goes for pizza that he had saved for. What does this show?",
+              "options": [
+                "That he was lucky",
+                "That planning helped him",
+                "That the money appeared at the right time",
+                "That the pizza was free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The pizza is the reward for his successful planning and saving."
             }
           ]
         },
         {
-          "lessonId": 8004,
-          "lessonNumber": 4,
-          "lessonName": "Time equals reward",
-          "questions": [
-            {
-              "questionId": "8004_01",
-              "type": "theoretical",
-              "question": "Why is time important in work?",
-              "options": [
-                "It doesn't matter",
-                "A person earns money based on the time they spend working",
-                "Time is pointless",
-                "It never changes"
-              ],
-              "correctAnswer": 1,
-              "explanation": "In many jobs, people are paid based on the time they work - the more hours, the greater the reward."
-            },
-            {
-              "questionId": "8004_02",
-              "type": "practical",
-              "question": "Chrumko sees his older brother working at the neighbors'. What is he doing?",
-              "options": [
-                "Playing",
-                "Helps for the whole morning - rakes leaves, sweeps grass, carries branches",
-                "Sitting at home",
-                "Doesn't do anything"
-              ],
-              "correctAnswer": 1,
-              "explanation": "His brother works over the weekend for the whole morning. They work together and spend time and effort on it."
-            },
-            {
-              "questionId": "8004_03",
-              "type": "practical",
-              "question": "What does his brother get for the work?",
-              "options": [
-                "Nothing",
-                "A small reward",
-                "Can't say",
-                "Everything is free"
-              ],
-              "correctAnswer": 1,
-              "explanation": "After the work, his brother gets a small reward. The neighbor explains that the reward is for the time and help he gave."
-            },
-            {
-              "questionId": "8004_04",
-              "type": "practical",
-              "question": "What does Chrumko realize?",
-              "options": [
-                "Time is pointless",
-                "Time and effort are counted in work",
-                "Money is just numbers",
-                "Work is pointless"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko realizes that time and effort are counted in work. More time or better work means a higher reward."
-            }
-          ]
-        },
-        {
-          "lessonId": 8005,
-          "lessonNumber": 5,
-          "lessonName": "Productivity",
-          "questions": [
-            {
-              "questionId": "8005_01",
-              "type": "theoretical",
-              "question": "What is productivity?",
-              "options": [
-                "Slow work",
-                "How much work a person can do in a certain time",
-                "No work",
-                "Everything is chaotic"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Productivity means how much work a person can do in a certain time. If they work focused, they do more in less time."
-            },
-            {
-              "questionId": "8005_02",
-              "type": "practical",
-              "question": "Chrumko is doing his homework. On the first day, he keeps looking at his phone. What happens?",
-              "options": [
-                "The homework takes a short time",
-                "The homework takes a very long time because he's distracted",
-                "He can't do the homework",
-                "Everything is fast"
-              ],
-              "correctAnswer": 1,
-              "explanation": "The homework takes a very long time because he keeps getting distracted and interrupting his work."
-            },
-            {
-              "questionId": "8005_03",
-              "type": "practical",
-              "question": "On the second day, Chrumko sits differently. What is he doing?",
-              "options": [
-                "He gets distracted again",
-                "He sits without interruptions, prepares everything he needs, and works focused",
-                "He doesn't finish the homework",
-                "Everything is the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko sits without interruptions, prepares everything, and works focused. This time he does better."
-            },
-            {
-              "questionId": "8005_04",
-              "type": "practical",
-              "question": "How long does the homework take him on the second day?",
-              "options": [
-                "The same amount of time",
-                "Faster and without stress",
-                "He never finishes it",
-                "Doesn't matter"
-              ],
-              "correctAnswer": 1,
-              "explanation": "He finishes it faster and without stress. Chrumko realizes that when he works carefully, he accomplishes more in less time."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section": 9,
-      "sectionName": "BUDGET",
-      "lessons": [
-        {
-          "lessonId": 9001,
-          "lessonNumber": 1,
-          "lessonName": "What is a budget",
-          "questions": [
-            {
-              "questionId": "9001_01",
-              "type": "theoretical",
-              "question": "What is a budget?",
-              "options": [
-                "A list with numbers",
-                "A plan that shows how much money we have and what we want to use it for",
-                "Nothing special",
-                "Without meaning"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A budget is a plan that shows how much money we have and what we want to use it for. It helps with money."
-            },
-            {
-              "questionId": "9001_02",
-              "type": "practical",
-              "question": "Chrumko sees his mom writing numbers in a notebook. What is she doing?",
-              "options": [
-                "Unknown calculations",
-                "Planning expenses for the whole month",
-                "Writing a story",
-                "Everything is chaotic"
-              ],
-              "correctAnswer": 1,
-              "explanation": "His mom is planning expenses for the whole month. First she writes the money she will receive, then what needs to be paid."
-            },
-            {
-              "questionId": "9001_03",
-              "type": "practical",
-              "question": "How does his mom make a budget?",
-              "options": [
-                "Without a plan",
-                "Spend everything right away",
-                "Write down money, expenses, then think about what's left",
-                "Everything is random"
-              ],
-              "correctAnswer": 2,
-              "explanation": "His mom writes down the money the family will receive and then the expenses. Only then does she think about what's left."
-            },
-            {
-              "questionId": "9001_04",
-              "type": "practical",
-              "question": "What is the goal of a budget?",
-              "options": [
-                "No purpose",
-                "So people can better divide money and avoid financial problems",
-                "To spend everything",
-                "Everything is planned"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A budget helps you have order in your money and know how much you can afford."
-            }
-          ]
-        },
-        {
-          "lessonId": 9002,
-          "lessonNumber": 2,
-          "lessonName": "Income and expenses",
-          "questions": [
-            {
-              "questionId": "9002_01",
-              "type": "theoretical",
-              "question": "What are income and expenses?",
-              "options": [
-                "The same thing",
-                "Income - money coming in; Expenses - money going out",
-                "There's no difference",
-                "Without meaning"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Income is money coming in. Expenses is money that the household spends."
-            },
-            {
-              "questionId": "9002_02",
-              "type": "practical",
-              "question": "Chrumko thinks that when his parents get paid, they can buy everything. What does his father say?",
-              "options": [
-                "Yes, buy everything",
-                "First you have to subtract housing, food, and other bills",
-                "Nothing is spent",
-                "Everything is free"
-              ],
-              "correctAnswer": 1,
-              "explanation": "His father tells him that first you have to subtract housing, food, and other bills. Only then is there a smaller amount left."
-            },
-            {
-              "questionId": "9002_03",
-              "type": "practical",
-              "question": "What happens if expenses are higher than income?",
-              "options": [
-                "Everything is fine",
-                "Money can run short",
-                "It always suffices",
-                "No problem"
-              ],
-              "correctAnswer": 1,
-              "explanation": "If expenses are higher than income, money can run short and the family will have a problem."
-            },
-            {
-              "questionId": "9002_04",
-              "type": "practical",
-              "question": "What does Chrumko realize?",
-              "options": [
-                "Everything is free",
-                "What's important is not just what comes in, but also what goes out",
-                "Money is without meaning",
-                "Everything is random"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko realizes that what's important is not just what comes in, but also what goes out and what it's spent on."
-            }
-          ]
-        },
-        {
-          "lessonId": 9003,
+          "lessonId": 3003,
           "lessonNumber": 3,
-          "lessonName": "Monthly planning",
+          "lessonName": "Spend now vs later",
           "questions": [
             {
-              "questionId": "9003_01",
+              "questionId": "3003_01",
               "type": "theoretical",
-              "question": "Why don't people spend all the money at the beginning of the month?",
+              "question": "What does the decision “now vs later” mean?",
               "options": [
-                "For no reason",
-                "Because money needs to last the whole month",
-                "It's all spent right away",
-                "Everything is chaotic"
+                "To choose between two shops",
+                "To decide whether to spend the money now or keep it for later",
+                "To buy more things now and fewer things later",
+                "To not spend money at all"
               ],
               "correctAnswer": 1,
-              "explanation": "Money often needs to last the whole month. That's why families plan what they will need now and what later."
+              "explanation": "It is the choice between immediate satisfaction and future benefit."
             },
             {
-              "questionId": "9003_02",
-              "type": "practical",
-              "question": "Chrumko suggests buying a new game right after getting paid. What does his mom say?",
+              "questionId": "3003_02",
+              "type": "theoretical",
+              "question": "What can happen if we keep the money for later?",
               "options": [
-                "Yes, buy it right away",
-                "First we must pay important bills, then we can see what we can afford",
-                "Everything is free",
-                "No discussion"
+                "They will be lost",
+                "We can buy something bigger",
+                "They will double and we will have more money",
+                "We will not be able to use them until old age"
               ],
               "correctAnswer": 1,
-              "explanation": "His mom explains that first they must pay everything important. In a few days, other bills will come."
+              "explanation": "Saving small amounts over time adds up to a larger sum for better items."
             },
             {
-              "questionId": "9003_03",
-              "type": "practical",
-              "question": "What does Chrumko realize?",
+              "questionId": "3003_03",
+              "type": "theoretical",
+              "question": "What does waiting with a purchase teach us?",
               "options": [
-                "Everything is free",
-                "Money needs to be spread over a longer time",
-                "It's all spent right away",
-                "Doesn't matter"
+                "Speed",
+                "Patience and planning",
+                "Spending",
+                "Being happier"
               ],
               "correctAnswer": 1,
-              "explanation": "Chrumko understands that money needs to be spread over a longer time to last the whole month."
+              "explanation": "Patience is a key financial virtue that prevents impulse buying."
             },
             {
-              "questionId": "9003_04",
-              "type": "practical",
-              "question": "Why is planning important?",
+              "questionId": "3003_04",
+              "type": "theoretical",
+              "question": "Is it always good to buy the first thing we see?",
               "options": [
-                "No",
-                "It helps avoid financial problems and know when they can afford what",
-                "Everything is chaotic",
-                "Without meaning"
+                "Yes, always",
+                "No, it is worth thinking about it",
+                "Yes, if it is cheap",
+                "No, never buy anything"
               ],
               "correctAnswer": 1,
-              "explanation": "Planning helps you know in advance what you'll spend money on and avoid unexpected problems."
+              "explanation": "Thinking first helps you decide if you actually need the item."
+            },
+            {
+              "questionId": "3003_05",
+              "type": "practical",
+              "question": "Chrumko does not buy a lollipop even though he wants it, but waits. Why?",
+              "options": [
+                "He does not like sweets",
+                "He wants to buy something bigger later",
+                "Because he wanted it",
+                "He forgot"
+              ],
+              "correctAnswer": 1,
+              "explanation": "He is practicing delayed gratification for a bigger goal."
+            },
+            {
+              "questionId": "3003_06",
+              "type": "practical",
+              "question": "After thinking, Chrumko later buys a colouring book. What does this show?",
+              "options": [
+                "He decided to wait and plan his purchase.",
+                "He had no other option",
+                "He received it for free",
+                "The lollipop disappeared"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Planning allowed him to get a more lasting item than a simple sweet."
             }
           ]
         },
         {
-          "lessonId": 9004,
+          "lessonId": 3004,
           "lessonNumber": 4,
-          "lessonName": "Fixed expenses",
+          "lessonName": "Why is planning worth it?",
           "questions": [
             {
-              "questionId": "9004_01",
+              "questionId": "3004_01",
               "type": "theoretical",
-              "question": "What are fixed expenses?",
+              "question": "Why is it good to plan what we will use our money for?",
               "options": [
-                "Expenses that change",
-                "Payments that repeat regularly with a similar amount",
-                "Completely free",
-                "Doesn't matter"
+                "So we spend it faster",
+                "So we avoid unnecessary purchases",
+                "So we have fewer things",
+                "So we do not have to think"
               ],
               "correctAnswer": 1,
-              "explanation": "Fixed expenses are payments that repeat regularly, like rent, utilities, and insurance. They usually stay the same each month."
+              "explanation": "Planning reduces waste and ensures money goes toward what matters."
             },
             {
-              "questionId": "9004_02",
-              "type": "practical",
-              "question": "What are examples of fixed expenses in a family?",
+              "questionId": "3004_02",
+              "type": "theoretical",
+              "question": "What can happen if we spend money without thinking?",
               "options": [
-                "Only food",
-                "Only entertainment",
-                "Housing, electricity, water, food, and school supplies",
-                "Nothing is fixed"
+                "We will be more responsible",
+                "The money will come back",
+                "We might run out of money later",
+                "Nothing will happen"
               ],
               "correctAnswer": 2,
-              "explanation": "Fixed expenses typically include housing, electricity, water, basic food, and school supplies - things the family needs regularly."
+              "explanation": "Impulse spending often leads to a lack of funds for necessities."
+            },
+            {
+              "questionId": "3004_03",
+              "type": "theoretical",
+              "question": "What does planning help us decide?",
+              "options": [
+                "The colour of things",
+                "How much to spend now and how much to keep",
+                "How much a lollipop costs",
+                "Who to go to the shop with"
+              ],
+              "correctAnswer": 1,
+              "explanation": "It helps balance current needs with future desires."
+            },
+            {
+              "questionId": "3004_04",
+              "type": "practical",
+              "question": "Chrumko wants ice cream and glasses. What should he do?",
+              "options": [
+                "Spend everything right away",
+                "Buy ice cream and put the rest of the money aside for the glasses",
+                "Buy only one thing without thinking",
+                "Buy two scoops of ice cream and then a whole box of other ice cream to take home"
+              ],
+              "correctAnswer": 1,
+              "explanation": "This compromise satisfies a current craving while progressing toward a goal."
+            },
+            {
+              "questionId": "3004_05",
+              "type": "practical",
+              "question": "Chrumko puts aside all his money even though he felt like having ice cream and a week later he could buy glasses. What does this mean?",
+              "options": [
+                "He was lucky",
+                "He did not think about what he would do with his money",
+                "He suppressed his short‑term desire for ice cream so he could save sooner for what he needed",
+                "He made a foolish decision because he ignored his craving for ice cream even though he could have bought it"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Prioritizing needs over immediate wants helps achieve goals faster."
+            }
+          ]
+        },
+        {
+          "lessonId": 3005,
+          "lessonNumber": 5,
+          "lessonName": "Small financial mistakes",
+          "questions": [
+            {
+              "questionId": "3005_01",
+              "type": "theoretical",
+              "question": "Is it normal to make a mistake when spending money?",
+              "options": [
+                "No, never",
+                "Yes, it is common",
+                "Only adults make mistakes",
+                "Only children make mistakes"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Everyone makes mistakes; the important part is learning from them."
+            },
+            {
+              "questionId": "3005_02",
+              "type": "theoretical",
+              "question": "What do financial mistakes help us learn?",
+              "options": [
+                "How to spend more",
+                "How to decide better",
+                "How to avoid money",
+                "How to get rid of money faster"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mistakes show us the consequences of poor planning."
+            },
+            {
+              "questionId": "3005_03",
+              "type": "theoretical",
+              "question": "What should we do after we make a mistake?",
+              "options": [
+                "Forget about it",
+                "Notice it and think about what we can do differently next time",
+                "Ignore it, because if we do not notice it, it did not happen",
+                "Give up and never buy anything again"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Reflection is how we improve our money management skills."
+            },
+            {
+              "questionId": "3005_04",
+              "type": "theoretical",
+              "question": "Why do things we buy without thinking often make us regret later?",
+              "options": [
+                "They break quickly",
+                "They are actually not needed",
+                "Because we do not value them",
+                "Someone steals them"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Regret usually comes from realizing the money could have been used better."
+            },
+            {
+              "questionId": "3005_05",
+              "type": "practical",
+              "question": "Chrumko buys something he later does not use. What does that mean?",
+              "options": [
+                "He made a good decision",
+                "It was a financial mistake",
+                "He had to buy it",
+                "The thing changed"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Buying unused items is a waste of resources."
+            },
+            {
+              "questionId": "3005_06",
+              "type": "practical",
+              "question": "What should Chrumko do next time if he makes a financial mistake?",
+              "options": [
+                "Repeat it again to make sure",
+                "Decide more quickly",
+                "Think more before buying",
+                "Never spend anything again"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Slowing down and thinking prevents repeating the same mistake."
             }
           ]
         }

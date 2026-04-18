@@ -12,54 +12,67 @@
             {
               "questionId": "1001_01",
               "type": "theoretical",
-              "question": "Why does a coin have value?",
+              "question": "Why did people start using money instead of just trading things?",
               "options": [
-                "Because it's a precious metal",
-                "Because people agreed that it would have value and could be exchanged for things",
-                "Because money makes it",
-                "Because everyone wants it"
+                "Because they enjoyed collecting shiny objects.",
+                "To make buying and selling goods easier.",
+                "Because kings back then forbade people from trading.",
+                "Because money can be used better for building houses."
               ],
               "correctAnswer": 1,
-              "explanation": "A coin has value because people agreed that money would have value and could be exchanged for things we need or want."
+              "explanation": "Money was invented as a tool to simplify trade compared to the complex barter system."
             },
             {
               "questionId": "1001_02",
-              "type": "practical",
-              "question": "Chrumko holds a coin in his hand. How can he use it?",
+              "type": "theoretical",
+              "question": "Who agreed that money has value?",
               "options": [
-                "Nothing can be done with it",
-                "He can buy an apple or juice at the store",
-                "He can wear it as jewelry",
-                "He can use it for heating"
+                "Only the shopkeepers in candy stores.",
+                "Scientists who invented a special kind of paper.",
+                "People in society, so they could trade together.",
+                "Children who wanted something colorful in their wallets."
               ],
-              "correctAnswer": 1,
-              "explanation": "The coin has value, so Chrumko can use it in the store to make purchases - for example, to buy an apple or juice at the checkout."
+              "correctAnswer": 2,
+              "explanation": "Money works because society collectively agrees and trusts that it represents value."
             },
             {
               "questionId": "1001_03",
-              "type": "practical",
-              "question": "Which of these options are money?",
+              "type": "theoretical",
+              "question": "In what forms can we find money today?",
               "options": [
-                "Coins, banknotes, and digital money on a card",
-                "Only coins and banknotes",
-                "Only banknotes",
-                "Only digital money"
+                "Only as coins and paper banknotes in a wallet.",
+                "As coins, banknotes, or digital money on a card.",
+                "Only as gold bars kept in a bank.",
+                "As colorful stickers that we swap at school."
               ],
-              "correctAnswer": 0,
-              "explanation": "Today we can pay with coins, banknotes, or money on a payment card. These are all forms of money in different shapes."
+              "correctAnswer": 1,
+              "explanation": "Modern money exists in physical forms (cash) and digital forms (bank accounts/cards)."
             },
             {
               "questionId": "1001_04",
-              "type": "practical",
-              "question": "What can you buy with money?",
+              "type": "theoretical",
+              "question": "What gives an ordinary coin its real value?",
               "options": [
-                "Only food",
-                "Only toys",
-                "Food, clothing, toys, and other things we need or want",
-                "Nothing, money has no value"
+                "The fact that it is made of a very rare type of metal.",
+                "People's agreement that coins serve as a means of payment.",
+                "The fact that it has the year of production stamped on it.",
+                "Its round shape, which prevents it from getting stuck."
               ],
-              "correctAnswer": 2,
-              "explanation": "Money is used to buy things we need or want - for example, food, clothing, or toys."
+              "correctAnswer": 1,
+              "explanation": "A coin's value comes from its social function as an accepted currency, not the metal itself."
+            },
+            {
+              "questionId": "1001_05",
+              "type": "practical",
+              "question": "Chrumko is holding a 2-euro coin. What can he do with it in a shop?",
+              "options": [
+                "He must return it because it is just a worthless piece of metal.",
+                "He can exchange it for goods worth two euros.",
+                "He cannot buy anything at all with a 2-euro coin.",
+                "He must clean it at home first for it to have any price."
+              ],
+              "correctAnswer": 1,
+              "explanation": "The coin is a valid tool for purchasing items up to its face value."
             }
           ]
         },
@@ -71,54 +84,80 @@
             {
               "questionId": "1002_01",
               "type": "theoretical",
-              "question": "Why does money exist?",
+              "question": "What would happen in a shop if money did not exist?",
               "options": [
-                "So people can't negotiate",
-                "To make buying things easier",
-                "So people can't work",
-                "It has no reason to exist"
+                "All things would be free for every person.",
+                "We would have to carry our things and trade them.",
+                "Shops would not exist and we would make everything ourselves.",
+                "Shopkeepers would give us things in exchange for poems."
               ],
               "correctAnswer": 1,
-              "explanation": "Money exists to make buying things easier. Without money, people would have to trade items, which would be very difficult."
+              "explanation": "Without money, we would revert to a barter system where physical items are swapped."
             },
             {
               "questionId": "1002_02",
-              "type": "practical",
-              "question": "Chrumko has an apple for snack but wants a cereal bar. What would be the problem without money?",
+              "type": "theoretical",
+              "question": "Why is direct trading (barter) sometimes very difficult?",
               "options": [
-                "He could easily trade items",
-                "He can't negotiate",
-                "He would need to find someone who wants an apple and has a cereal bar",
-                "There would be no problem"
+                "Because nobody wants any things at all.",
+                "The other person might not want what you are offering.",
+                "Because trading things is forbidden by new laws.",
+                "Because things always break or get ruined during a trade."
               ],
-              "correctAnswer": 2,
-              "explanation": "Without money, people would have to trade items with each other. That would be very difficult because you'd need to find someone who wants exactly what you have."
+              "correctAnswer": 1,
+              "explanation": "Barter requires a 'coincidence of wants'—both parties must want exactly what the other has."
             },
             {
               "questionId": "1002_03",
-              "type": "practical",
-              "question": "How is it easier with money?",
+              "type": "theoretical",
+              "question": "What is the main role of money when buying a snack?",
               "options": [
-                "I have to search longer",
-                "I can buy a cereal bar right away without finding someone who wants exactly an apple",
-                "I have to negotiate with more people",
-                "It's harder with money"
+                "It serves as a tool for a quick and fair exchange.",
+                "It helps us calculate how many calories an apple has.",
+                "It makes our school bag much heavier.",
+                "It ensures that our snack tastes much better."
               ],
-              "correctAnswer": 1,
-              "explanation": "When Chrumko has money, he can buy a cereal bar right away without finding someone who wants exactly an apple. Money makes it simpler."
+              "correctAnswer": 0,
+              "explanation": "Money acts as a medium of exchange that everyone accepts, making transactions fast."
             },
             {
               "questionId": "1002_04",
-              "type": "practical",
-              "question": "Imagine you want to buy bread but money didn't exist. What would you have to do?",
+              "type": "theoretical",
+              "question": "What does it mean that money is 'universal'?",
               "options": [
-                "You could get bread without anything",
-                "You would have to offer the baker something in exchange that the baker would want",
-                "The baker would give you bread for free",
-                "You couldn't buy bread at all"
+                "That it can be used throughout the whole galaxy.",
+                "That everyone will accept it in exchange for goods.",
+                "That it can be washed in a washing machine without being ruined.",
+                "That it always has exactly the same color."
               ],
               "correctAnswer": 1,
-              "explanation": "Without money, you would have to trade bread for something the baker likes and would accept. That's harder than simply paying with money."
+              "explanation": "Universal means it is widely accepted by everyone in a society as payment."
+            },
+            {
+              "questionId": "1002_05",
+              "type": "practical",
+              "question": "Chrumko has an apple but wants a snack bar. His friend has a bar but doesn't want the apple. How to solve this?",
+              "options": [
+                "Chrumko must convince his friend to take the apple anyway.",
+                "Chrumko can buy the bar with money, which everyone wants.",
+                "Chrumko must eat the apple and stay hungry.",
+                "They must go to the teacher to have her divide the things."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Money solves the problem of mismatched needs in a direct trade."
+            },
+            {
+              "questionId": "1002_06",
+              "type": "practical",
+              "question": "Imagine you want a bike and have 100 kilos of potatoes to trade. Why is it better to have money?",
+              "options": [
+                "Money doesn't take up much space and doesn't rot.",
+                "Nobody wants potatoes.",
+                "Money is nicer to look at than a sack of potatoes.",
+                "The bike seller definitely has an allergy to potatoes."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Money is portable and serves as a 'store of value' unlike perishable goods like potatoes."
             }
           ]
         },
@@ -130,172 +169,289 @@
             {
               "questionId": "1003_01",
               "type": "theoretical",
-              "question": "What was the name of the exchange of items when money didn't exist?",
+              "question": "What is the exchange of things without using money called?",
               "options": [
+                "Inflation",
+                "Investing",
                 "Barter",
-                "Trade",
-                "Purchase",
-                "Sale"
+                "Loan"
               ],
-              "correctAnswer": 0,
-              "explanation": "Before money was created, people used direct exchange called barter - direct exchange of goods for goods."
+              "correctAnswer": 2,
+              "explanation": "Barter is the historical method of exchanging goods directly for other goods."
             },
             {
               "questionId": "1003_02",
-              "type": "practical",
-              "question": "Chrumko wants bread from the baker and the baker asks for two eggs. What must Chrumko do?",
+              "type": "theoretical",
+              "question": "What did people use for payment before coins existed?",
               "options": [
-                "Nothing, because the baker is willing to buy",
-                "Pay with money",
-                "First get two eggs",
-                "He can buy bread right away"
+                "Paper banknotes",
+                "Things like salt, shells, or metal",
+                "Only digital money",
+                "Exclusively gold bars"
               ],
-              "correctAnswer": 2,
-              "explanation": "If Chrumko doesn't have eggs, he has to get them first. That's why payments were more complicated in the past."
+              "correctAnswer": 1,
+              "explanation": "Before standardized coins, people used 'commodity money'—useful items like salt or rare shells."
             },
             {
               "questionId": "1003_03",
-              "type": "practical",
-              "question": "What items did ancient cultures use as money?",
+              "type": "theoretical",
+              "question": "Why was paying in the past more complicated than today?",
               "options": [
-                "Only metals",
-                "Only salt",
-                "Salt, shells, or metal - things that had value for many people",
-                "There is no evidence"
+                "Because people did not have any shops",
+                "Because there was no food available",
+                "They had to find things to trade that the other person wanted",
+                "Because everything cost way too much"
               ],
               "correctAnswer": 2,
-              "explanation": "Later, people paid with things that had value for many, such as salt, shells, or metal. Only then did the first coins appear."
+              "explanation": "Direct exchange required finding a specific person who wanted your specific item."
             },
             {
               "questionId": "1003_04",
-              "type": "practical",
-              "question": "Why was payment with salt easier than direct barter?",
+              "type": "theoretical",
+              "question": "What was created only after the period of barter and paying with objects?",
               "options": [
-                "Because salt was free",
-                "Because everyone wanted salt and could use it to buy various things",
-                "Because salt was very expensive",
-                "Because no one wanted salt"
+                "The first coins",
+                "Credit cards",
+                "Internet banking",
+                "Paper money"
               ],
-              "correctAnswer": 1,
-              "explanation": "People needed salt, so everyone accepted it as payment. That was easier than direct barter because salt had value for many people."
+              "correctAnswer": 0,
+              "explanation": "Standardized metal coins were the first major step away from barter."
+            },
+            {
+              "questionId": "1003_05",
+              "type": "practical",
+              "question": "Chrumko wants bread, but he doesn't have the eggs that the baker wants. What must he do?",
+              "options": [
+                "Wait until the baker changes his mind",
+                "Find someone who will give him bread for free",
+                "Find eggs first so he can trade them",
+                "Go to a different city"
+              ],
+              "correctAnswer": 2,
+              "explanation": "In a barter system, if you don't have what the seller wants, you cannot complete the trade."
+            },
+            {
+              "questionId": "1003_06",
+              "type": "practical",
+              "question": "Why did people stop using barter as the main way of paying?",
+              "options": [
+                "Because barter trade was too simple and inefficient for society back then.",
+                "Because most objects at that time suddenly lost their value.",
+                "Because it was hard to find someone who wanted your goods and offered what you needed.",
+                "Because trading was officially banned by new royal decrees."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Barter is inefficient because it is rare for two people to perfectly match their supply and demand."
             }
           ]
         },
         {
           "lessonId": 1004,
           "lessonNumber": 4,
-          "lessonName": "Coins, banknotes, digital money",
+          "lessonName": "Mince, bankovky, digitálne peniaze",
           "questions": [
             {
               "questionId": "1004_01",
               "type": "theoretical",
-              "question": "How many forms do money have?",
+              "question": "What do coins, banknotes, and money on a card have in common?",
               "options": [
-                "One - only coins",
-                "Two - coins and banknotes",
-                "Three - coins, banknotes, and digital money",
-                "Only paper money"
+                "They are different forms of the same money we use to pay.",
+                "We have to print all these forms of money at home before shopping.",
+                "They are made of the same material so they always weigh the same.",
+                "They only work if we show them all at once to the shopkeeper."
               ],
-              "correctAnswer": 2,
-              "explanation": "Money can have different forms: we hold coins and banknotes in our hand, digital money is stored in an account and we pay with a card or mobile phone."
+              "correctAnswer": 0,
+              "explanation": "Regardless of appearance, they all represent the same value used for transactions."
             },
             {
               "questionId": "1004_02",
-              "type": "practical",
-              "question": "How does cash work?",
+              "type": "theoretical",
+              "question": "What does it mean to pay in cash?",
               "options": [
-                "We pay electronically via mobile",
-                "We pay with banknotes and coins that we hold in our hand",
-                "We use only a credit card for this",
-                "Cash doesn't exist"
+                "Paying by card over the internet",
+                "Paying with coins or banknotes",
+                "Sending money through a mobile app",
+                "Paying only with very large banknotes"
               ],
               "correctAnswer": 1,
-              "explanation": "If we pay with banknotes and coins, we use cash - money that we keep in our hand or wallet."
+              "explanation": "Cash refers specifically to physical currency like coins and paper bills."
             },
             {
               "questionId": "1004_03",
-              "type": "practical",
-              "question": "Chrumko wants to buy bread. The sales assistant offers him two options. Which is card payment?",
+              "type": "theoretical",
+              "question": "Where is digital money located?",
               "options": [
-                "Paying with coins and banknotes",
-                "Sending money from the account",
-                "Both are completely different",
-                "Neither is a purchase"
+                "In a wallet",
+                "In the bank as gold bars",
+                "In a bank account",
+                "In the shop at the cash register"
               ],
-              "correctAnswer": 1,
-              "explanation": "When he pays with a card, money is sent digitally from the account. If he pays with banknotes and coins, he uses cash. Both mean paying with money, just differently."
+              "correctAnswer": 2,
+              "explanation": "Digital money is a record of value stored electronically in a bank's system."
             },
             {
               "questionId": "1004_04",
-              "type": "practical",
-              "question": "What is digital money?",
+              "type": "theoretical",
+              "question": "What happens when you pay with a card in a shop?",
               "options": [
-                "Coins on the internet",
-                "Banknotes that you can download",
-                "Money stored in an account that we pay with by card or mobile phone",
-                "It doesn't exist"
+                "Money physically moves from the wallet to the cash register",
+                "Money is sent digitally from the account",
+                "Your payment card is completely erased right after paying.",
+                "The bank sends new coins to your home by mail for every payment."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Card payments trigger an electronic transfer between the buyer's and seller's bank accounts."
+            },
+            {
+              "questionId": "1004_05",
+              "type": "practical",
+              "question": "Chrumko paid for a tie with banknotes and coins. What payment method did he use?",
+              "options": [
+                "Digital payment",
+                "Installment plan",
+                "Cash",
+                "Exchange (barter)"
               ],
               "correctAnswer": 2,
-              "explanation": "Digital money is stored in an account and we pay with it using a card or mobile phone. It's not physical, but it has real value."
+              "explanation": "Physical money (coins and notes) is always categorized as cash."
+            },
+            {
+              "questionId": "1004_06",
+              "type": "practical",
+              "question": "Chrumko wants to pay for the tie in cash. What must he do?",
+              "options": [
+                "He must hand physical banknotes or metal coins to the shopkeeper.",
+                "He must tap his mobile phone on the payment terminal.",
+                "It is enough if he promises the shopkeeper to bring the money later.",
+                "He must leave his payment card in the shop as a guarantee."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Cash payments require the physical transfer of currency."
+            },
+            {
+              "questionId": "1004_07",
+              "type": "practical",
+              "question": "Chrumko pays for his purchase with a mobile phone. What does this mean?",
+              "options": [
+                "He used digital money from his account",
+                "He paid in cash through the phone",
+                "He will pay the money only later",
+                "He exchanged goods for other goods"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Mobile payments are a way to access and send digital money."
+            },
+            {
+              "questionId": "1004_08",
+              "type": "practical",
+              "question": "The shopkeeper asked Chrumko if he wants to pay by card or in cash. Why did she give him a choice?",
+              "options": [
+                "Because the tie will cost much more money if he pays by card.",
+                "Because both options are correct ways to pay for goods.",
+                "Because cash can only be used to buy things that are blue.",
+                "Because if he pays in cash, the shopkeeper can keep the money."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Modern shops usually accept both physical and digital payments as they have the same value."
             }
           ]
         },
         {
           "lessonId": 1005,
           "lessonNumber": 5,
-          "lessonName": "Value of money",
+          "lessonName": "The value of money",
           "questions": [
             {
               "questionId": "1005_01",
               "type": "theoretical",
-              "question": "Does a coin with the number 50 have the same value as a banknote with the number 50?",
+              "question": "Why can you buy more for 10 euros than for 1 euro?",
               "options": [
-                "Yes, both have the number 50",
-                "No, a coin with 50 has less value because 50 cents is less than 50 euros",
-                "A coin is always more expensive",
-                "Numbers have nothing to do with it"
+                "Because 10 euros has a higher value than 1 euro",
+                "Because 1 euro is older",
+                "Because 10 euros is prettier",
+                "Because 1 euro cannot be used in a shop"
               ],
-              "correctAnswer": 1,
-              "explanation": "Not all money has the same value. A coin with the number 50 has less value than a banknote with the number 50 because 50 cents is less than 50 euros."
+              "correctAnswer": 0,
+              "explanation": "Higher numbers on currency represent greater purchasing power."
             },
             {
               "questionId": "1005_02",
-              "type": "practical",
-              "question": "Chrumko has one euro in his wallet. Juice costs 90 cents and a biscuit costs 50 cents. What can he buy?",
+              "type": "theoretical",
+              "question": "Do all coins and banknotes have the same value?",
               "options": [
-                "He can buy both things",
-                "He can't buy anything",
-                "He can buy only one - either juice or a biscuit",
-                "He can buy three things"
+                "Yes, every coin in the shop works exactly the same regardless of the number.",
+                "No, each coin and banknote represents a different amount of money.",
+                "It depends on whether it is nice outside or raining; then the value changes.",
+                "Only if they are the same size and have the same silver color."
               ],
-              "correctAnswer": 2,
-              "explanation": "Juice (90 cents) + biscuit (50 cents) = 140 cents = 1.40 euros. That's more than 1 euro, so Chrumko can't buy both. He has to choose."
+              "correctAnswer": 1,
+              "explanation": "Currency is denominated into different amounts to allow for precise payments."
             },
             {
               "questionId": "1005_03",
-              "type": "practical",
-              "question": "How do you know how much money you have if you have several coins and banknotes?",
+              "type": "theoretical",
+              "question": "Which of the following has a greater value?",
               "options": [
-                "Write down all the numbers",
-                "Know the value of each coin and banknote and add them up",
-                "Each banknote is always ten coins",
-                "It's impossible to know"
+                "50 cents",
+                "1 euro",
+                "20 cents",
+                "150 cents"
               ],
-              "correctAnswer": 1,
-              "explanation": "When we know the value of coins and banknotes, we can count how much money we have and what we can buy with it."
+              "correctAnswer": 3,
+              "explanation": "150 cents is equal to 1.50 euros, which is more than the other options."
             },
             {
               "questionId": "1005_04",
-              "type": "practical",
-              "question": "If Chrumko had more money, what could he do?",
+              "type": "theoretical",
+              "question": "Chrumko sees the number 50 on a coin and also on a banknote. What is true?",
               "options": [
-                "He can't buy anything",
-                "He can buy everything in the whole store",
-                "He could buy both things - juice and a biscuit - at once",
-                "The money gets lost"
+                "Both have the same value because the same number is written on them.",
+                "The coin has a higher value because it is made of metal and is heavier.",
+                "The banknote has a much higher value because 50 euros is more than 50 cents.",
+                "Neither thing has any value until Chrumko puts sugar on it."
               ],
               "correctAnswer": 2,
-              "explanation": "If Chrumko had more money, say 1.50 euros, he could buy everything he wanted - both juice and a biscuit."
+              "explanation": "You must look at the unit (cents vs euros); 50 euros is 100 times more than 50 cents."
+            },
+            {
+              "questionId": "1005_05",
+              "type": "practical",
+              "question": "Chrumko has 1 euro. Juice costs 90 cents and a cookie costs 50 cents. What is true?",
+              "options": [
+                "He can buy both things",
+                "He cannot buy either thing",
+                "He can buy only one of them",
+                "He can buy both things and still have money left"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Total cost (1.40) is more than 1 euro, so he can only afford one item."
+            },
+            {
+              "questionId": "1005_06",
+              "type": "practical",
+              "question": "Chrumko has 2 euros. Juice costs 90 cents and a cookie costs 50 cents. How much will he have left?",
+              "options": [
+                "60 cents",
+                "40 cents",
+                "1 euro",
+                "10 cents"
+              ],
+              "correctAnswer": 0,
+              "explanation": "2.00 - (0.90 + 0.50) = 0.60 cents."
+            },
+            {
+              "questionId": "1005_07",
+              "type": "practical",
+              "question": "What must Chrumko do if he wants to buy both juice and a cookie but doesn't have enough money?",
+              "options": [
+                "He must choose only one thing or save up more money.",
+                "He should take the things and leave the shop without paying.",
+                "He should wait until the prices in the shop disappear on their own.",
+                "He must break the cookie in half so that it costs less money."
+              ],
+              "correctAnswer": 0,
+              "explanation": "When money is limited, you must prioritize or save for the future."
             }
           ]
         },
@@ -307,54 +463,80 @@
             {
               "questionId": "1006_01",
               "type": "theoretical",
-              "question": "What happens when you spend all your money at once?",
+              "question": "What happens when you spend all your money?",
               "options": [
-                "You automatically get new money",
-                "You can't buy anything else with it",
-                "The money comes back",
-                "Nothing happens"
+                "The money will reappear in your wallet on its own by morning.",
+                "You won't be able to buy anything else until you get new money.",
+                "The shop must give you everything for free since you bought a lot already.",
+                "Your wallet will start glowing to warn you that you should go shopping."
               ],
               "correctAnswer": 1,
-              "explanation": "When we spend money, we can't buy anything else with it. That's why it's important to think about what we use it for."
+              "explanation": "Money is a finite resource; once used, it is gone from your possession."
             },
             {
               "questionId": "1006_02",
-              "type": "practical",
-              "question": "Chrumko gets 5 euros and buys candy for 5 euros. What happens?",
+              "type": "theoretical",
+              "question": "Why is it important to think about what we spend money on?",
               "options": [
-                "He still has 5 euros",
-                "He gets another 5 euros",
-                "He spent all the money, so he can't buy a new toy",
-                "He has unlimited money"
+                "Because money is infinite",
+                "So that we have money for other things later",
+                "Because spending is forbidden",
+                "To have the heaviest wallet possible"
               ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko buys candy for 5 euros and then can't buy a new toy. He spent all his money at once, so nothing is left."
+              "correctAnswer": 1,
+              "explanation": "Budgeting ensures you can afford essentials and save for future goals."
             },
             {
               "questionId": "1006_03",
-              "type": "practical",
-              "question": "What should Chrumko do next time?",
+              "type": "theoretical",
+              "question": "What does it mean that money is not infinite?",
               "options": [
-                "Spend everything at once like last time",
-                "Not buy anything",
-                "Set aside part of the money so he has money for other things he will want later",
-                "Ask others for money"
+                "That we always have enough of it",
+                "That we can never spend it all",
+                "That we only have a limited amount",
+                "That it only exists in a bank"
               ],
               "correctAnswer": 2,
-              "explanation": "Next time, Chrumko should set aside part of the money so he has money for other things he will want later. That's a smart approach."
+              "explanation": "Everyone has a budget limit based on what they earn or receive."
             },
             {
               "questionId": "1006_04",
-              "type": "practical",
-              "question": "Why is it important to think about how we use money?",
+              "type": "theoretical",
+              "question": "What should Chrumko do next time he gets money?",
               "options": [
-                "Because money has no value",
-                "Because everyone has unlimited money",
-                "Because we have only a certain amount of money and when we spend it, we can't buy anything else",
-                "It's not important"
+                "Spend it all at once",
+                "Hide it and never use it",
+                "Spend part of it and save part of it",
+                "Give it all to his friends"
               ],
               "correctAnswer": 2,
-              "explanation": "Everyone has only a certain amount of money. When we spend it, we can't buy anything else. That's why it's important to think about what we use it for."
+              "explanation": "Balancing spending and saving is the key to healthy money management."
+            },
+            {
+              "questionId": "1006_05",
+              "type": "practical",
+              "question": "Chrumko has 5 euros and spends them on sweets. What is true?",
+              "options": [
+                "He still has money for a toy",
+                "He no longer has money for another thing",
+                "He can buy even more sweets",
+                "The money will come back to him"
+              ],
+              "correctAnswer": 1,
+              "explanation": "By spending his entire budget on one category, he has nothing left for others."
+            },
+            {
+              "questionId": "1006_06",
+              "type": "practical",
+              "question": "Chrumko saves 2 euros out of 5 euros. How much does he have left to spend?",
+              "options": [
+                "5 euros",
+                "3 euros",
+                "2 euros",
+                "7 euros"
+              ],
+              "correctAnswer": 1,
+              "explanation": "5 (total) - 2 (saved) = 3 (available to spend)."
             }
           ]
         },
@@ -368,176 +550,78 @@
               "type": "theoretical",
               "question": "How do people most often get money?",
               "options": [
-                "They find it on the street",
-                "They get it for free",
-                "They get it for work - salary or wage",
-                "People never have money"
+                "They find it randomly on the street",
+                "For the work they perform",
+                "By printing it at home",
+                "By trading it for toys"
               ],
-              "correctAnswer": 2,
-              "explanation": "People most often get money for work. When an adult works, they get a reward for their work called salary or wage."
+              "correctAnswer": 1,
+              "explanation": "Work is the primary source of income for most adults."
             },
             {
               "questionId": "1007_02",
-              "type": "practical",
-              "question": "How does money get into a family these days?",
+              "type": "theoretical",
+              "question": "What is the reward for work called?",
               "options": [
-                "In cash in a suitcase",
-                "It comes electronically to a bank account",
-                "At the post office",
-                "Never comes"
+                "Gift",
+                "Prize",
+                "Salary or wage",
+                "Fine"
               ],
-              "correctAnswer": 1,
-              "explanation": "Money these days often doesn't come in cash, but is deposited into a bank account."
+              "correctAnswer": 2,
+              "explanation": "A salary or wage is the official term for money earned through employment."
             },
             {
               "questionId": "1007_03",
-              "type": "practical",
-              "question": "What is the money used for that the family gets for work?",
+              "type": "theoretical",
+              "question": "What does it depend on how much money a person earns?",
               "options": [
-                "Only for toys",
-                "For housing, food, clothing, transportation, and other things",
-                "Depending on mood",
-                "They have no use"
+                "On the color of their clothes",
+                "On the weather",
+                "On the job, time, and experience",
+                "On how many friends they have"
               ],
-              "correctAnswer": 1,
-              "explanation": "From this money, the family pays for housing, food, clothing, transportation, and other things needed for the household to function."
+              "correctAnswer": 2,
+              "explanation": "Income levels are usually determined by skills, hours worked, and the type of role."
             },
             {
               "questionId": "1007_04",
+              "type": "theoretical",
+              "question": "Where does money for work most often arrive today?",
+              "options": [
+                "In cash from hand to hand",
+                "To a bank account",
+                "To school",
+                "To the shop"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Most modern employers pay employees via digital bank transfers."
+            },
+            {
+              "questionId": "1007_05",
+              "type": "practical",
+              "question": "Chrumko's mom goes to work and gets money in her account. What will the family use it for?",
+              "options": [
+                "Only for toys",
+                "For housing, food, and other necessary things",
+                "Only for sweets",
+                "They won't use it at all"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Earned income is primarily used to cover living expenses (needs) before wants."
+            },
+            {
+              "questionId": "1007_06",
               "type": "practical",
               "question": "How do children most often get money?",
               "options": [
-                "They work like adults",
-                "They get pocket money or money as a gift, for example on birthdays",
-                "They never have money",
-                "Depending on what adults think"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Children usually don't get money from work like adults. They might get pocket money or money as a gift, for example on their birthday."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section": 2,
-      "sectionName": "NEEDS VS WANTS",
-      "lessons": [
-        {
-          "lessonId": 2001,
-          "lessonNumber": 1,
-          "lessonName": "What I need to live",
-          "questions": [
-            {
-              "questionId": "2001_01",
-              "type": "theoretical",
-              "question": "What are needs?",
-              "options": [
-                "Everything we enjoy",
-                "Things without which our body and daily life would not function properly",
-                "Only toys",
-                "Something we don't need"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Needs are things without which our body and daily life would not function properly - food, water, clothing, and a safe place to live."
-            },
-            {
-              "questionId": "2001_02",
-              "type": "practical",
-              "question": "Why do we need food and water?",
-              "options": [
-                "We don't need them",
-                "They give us energy and help our body stay healthy",
-                "Only because we like them",
-                "No one knows"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Food and water give us energy and help our body stay healthy. These are basic needs that we need regularly."
-            },
-            {
-              "questionId": "2001_03",
-              "type": "practical",
-              "question": "After school, Chrumko goes to the store. What does he most likely buy first?",
-              "options": [
-                "Chocolate",
-                "A toy",
-                "A snack (food) because he knows he needs food",
-                "Nothing, everything is unnecessary"
+                "By daily work in a job",
+                "By earning it through business",
+                "As an allowance or as a gift",
+                "From their parents' bank account without permission"
               ],
               "correctAnswer": 2,
-              "explanation": "Chrumko goes to buy a snack first because he knows he needs food. Only then does he think about whether he has money left for chocolate."
-            },
-            {
-              "questionId": "2001_04",
-              "type": "practical",
-              "question": "How does clothing protect us?",
-              "options": [
-                "It provides no protection",
-                "It protects us from cold, heat, or rain",
-                "It's only for beauty",
-                "Clothing is not important"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Clothing protects us from cold, heat, or rain. Housing gives us security and a place to rest."
-            }
-          ]
-        },
-        {
-          "lessonId": 2002,
-          "lessonNumber": 2,
-          "lessonName": "What I just want",
-          "questions": [
-            {
-              "questionId": "2002_01",
-              "type": "theoretical",
-              "question": "What are wants?",
-              "options": [
-                "The same as needs",
-                "Things we want but are not necessary for life",
-                "Nothing worth money",
-                "Everything we see"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Wants are things we want but are not necessary for life. We can live without them, but they make us happy or entertained."
-            },
-            {
-              "questionId": "2002_02",
-              "type": "practical",
-              "question": "Chrumko comes home hungry. Does he play video games first or eat?",
-              "options": [
-                "He plays first",
-                "He eats because he knows his body needs food",
-                "He plays all day",
-                "He doesn't do anything"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko eats first because he knows his body needs food. After eating, he can enjoy his games."
-            },
-            {
-              "questionId": "2002_03",
-              "type": "practical",
-              "question": "What does Chrumko understand about needs?",
-              "options": [
-                "They are not important",
-                "Everything is equal",
-                "Needs must be satisfied first, then we can think about wants",
-                "Everything is random"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko understands that needs must be satisfied first. Only when we have food, clothing, and shelter can we think about other things."
-            },
-            {
-              "questionId": "2002_04",
-              "type": "practical",
-              "question": "Is it bad to have wants?",
-              "options": [
-                "Yes, always",
-                "No, it's natural, but we have to prioritize needs first",
-                "Yes, we should never want anything",
-                "Everything is the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "It's not bad to have wants. It's natural to want things. But we must first make sure we have everything we need."
+              "explanation": "Children usually receive money through gifts or allowances from their guardians."
             }
           ]
         }

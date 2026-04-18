@@ -1,517 +1,405 @@
 {
   "quizzes": [
     {
-      "section": 8,
-      "sectionName": "PRÁCA A PRÍJEM",
+      "section": 3,
+      "sectionName": "PRVÉ HOSPODÁRENIE S PENIAZMI",
       "lessons": [
         {
-          "lessonId": 8001,
+          "lessonId": 3001,
           "lessonNumber": 1,
-          "lessonName": "Prečo ľudia pracujú",
+          "lessonName": "Vreckové",
           "questions": [
             {
-              "questionId": "8001_01",
+              "questionId": "3001_01",
               "type": "theoretical",
-              "question": "Prečo ľudia pracujú?",
+              "question": "Čo je vreckové?",
               "options": [
-                "Bez dôvodu",
-                "Aby si zarobili peniaze na denný život a aby splnili svoje povinnosti",
-                "Práca je zlá",
-                "Nikdy to nemá zmysel"
+                "Peniaze, ktoré človek dostáva od rodičov",
+                "Peniaze, ktoré človek musí hneď minúť",
+                "Peniaze, ktoré dieťa dostáva od banky na detský účet",
+                "Peniaze, ktoré patria kamarátom"
               ],
-              "correctAnswer": 1,
-              "explanation": "Ľudia pracujú, aby si zarobili peniaze na svoj denný život - jedlo, bývanie, oblečenie a ďalšie potreby."
+              "correctAnswer": 0,
+              "explanation": "Vreckové sú peniaze, ktoré deti dostávajú od rodičov na vlastné výdavky."
             },
             {
-              "questionId": "8001_02",
-              "type": "practical",
-              "question": "Chrumko si všimne, ako sa mamička ráno pripravuje na prácu. Prečo ide pracovať aj keď prší?",
+              "questionId": "3001_02",
+              "type": "theoretical",
+              "question": "Prečo deti dostávajú vreckové?",
               "options": [
-                "Je si nudná",
-                "Nemá inú voľbu",
-                "Aby si zarábala peniaze z práce, ktorými rodina platí za bývanie, jedlo a školské pomôcky",
-                "Všetko je chaotické"
+                "Aby mali viac hračiek",
+                "Aby sa míňali peniaze na ich túžby",
+                "Aby sa naučili hospodáriť s peniazmi",
+                "Aby mali vždy viac ako ostatní"
               ],
               "correctAnswer": 2,
-              "explanation": "Mamička musí ísť pracovať, pretože si zarobí peniaze z práce, ktorými rodina platí za všetko, čo potrebuje."
+              "explanation": "Vreckové slúži ako tréning na to, aby sa dieťa naučilo samostatne narábať s obmedzeným množstvom peňazí."
             },
             {
-              "questionId": "8001_03",
-              "type": "practical",
-              "question": "Akú hodnotu majú ľudské povolania v spoločnosti?",
+              "questionId": "3001_03",
+              "type": "theoretical",
+              "question": "Čo sa môže stať, keď dieťa minie všetko vreckové hneď?",
               "options": [
-                "Žiadnu",
-                "Pomáhajú ostatným - učia, liečia, opravujú, vyrábajú, poskytujú služby",
-                "Všetko sú to tie isté",
-                "Práca je zbytočná"
+                "Dostane nové peniaze",
+                "Nebude mať peniaze na neskôr",
+                "Peniaze sa vrátia",
+                "Môže si ísť vyzdvihnúť ďalšie peniaze od banky"
               ],
               "correctAnswer": 1,
-              "explanation": "Veľa ľudí pomáha ostatným cez svoju prácu. Každá práca má svojú hodnotu, pretože prispieva k fungovaniu spoločnosti."
+              "explanation": "Peniaze sú obmedzené, takže ak sa minú rýchlo, nezostane nič na ďalšie dni."
             },
             {
-              "questionId": "8001_04",
-              "type": "practical",
-              "question": "Čo si Chrumko uvedomí?",
+              "questionId": "3001_04",
+              "type": "theoretical",
+              "question": "Ako je najlepšie narábať s vreckovým ktoré dieťa dostane?",
               "options": [
-                "Mamička je lenivá",
-                "Práca je zbytočná",
-                "Práca pomáha zabezpečiť veľo vecí, ktoré majú doma a považujú za samozrejmé",
-                "Všetko je magické"
+                "Minúť všetko naraz",
+                "Nekupovať nič",
+                "Rozdeliť si peniaze na teraz a neskôr",
+                "Kupovať len sladkosti"
               ],
               "correctAnswer": 2,
-              "explanation": "Chrumko si uvedomí, že práca pomáha zabezpečiť veľo vecí, ktoré majú doma a považujú za samozrejmé."
+              "explanation": "Rozdelenie peňazí zabezpečí, že dieťa má na malé nákupy aj na dôležitejšie veci neskôr."
+            },
+            {
+              "questionId": "3001_05",
+              "type": "practical",
+              "question": "Chrumko má 10 eur a vie, že ide do kina o pár dní. Čo by mal urobiť?",
+              "options": [
+                "Minúť všetko pre zábavu",
+                "Odložiť si časť peňazí",
+                "Kúpiť si hračku",
+                "Kúpiť kamarátom lístky"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Odložením peňazí si zabezpečí, že bude mať na lístok do kina, keď príde čas."
+            },
+            {
+              "questionId": "3001_06",
+              "type": "practical",
+              "question": "Chrumko si kúpi malú vec a zvyšok si nechá. Prečo?",
+              "options": [
+                "Lebo nemal inú možnosť",
+                "Aby mal peniaze aj na neskôr",
+                "Lebo nechcel nič kúpiť",
+                "Aby minul menej času v obchode"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Zvyšok peňazí si necháva ako rezervu pre budúce potreby."
             }
           ]
         },
         {
-          "lessonId": 8002,
+          "lessonId": 3002,
           "lessonNumber": 2,
-          "lessonName": "Typy povolání",
+          "lessonName": "Ako si rozdeliť peniaze",
           "questions": [
             {
-              "questionId": "8002_01",
+              "questionId": "3002_01",
               "type": "theoretical",
-              "question": "Robia všetci dospelí rovnakú prácu?",
-              "options": [
-                "Áno, všetci robia to isté",
-                "Nie, ľudia majú rôzne povolania na základe svojich zručností a schopností",
-                "Práca je zbytočná",
-                "Nikdy niet rozdielov"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Ľudia majú rôzne povolania na základe toho, čo vedia, čo ich baví a čo spoločnosť potrebuje."
-            },
-            {
-              "questionId": "8002_02",
-              "type": "practical",
-              "question": "Chrumko ide ráno do školy. Koľko rôznych druhov práce vidí?",
-              "options": [
-                "Len jeden",
-                "Autobusák, učiteľ, stavbyári a ďalší v obchode a pošte",
-                "Žiadny",
-                "Všetko sú to tie isté"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko vidí, koľko rôznych ľudí pracuje - vodiči, učitelia, pracovníci, predajcovia, poštári a ďalší."
-            },
-            {
-              "questionId": "8002_03",
-              "type": "theoretical",
-              "question": "Aké sú typy povolania?",
-              "options": [
-                "Len jedno",
-                "Práce s ľuďmi, technológiou, zvieratami, budovami alebo informáciami",
-                "Nikdy niet rozdielov",
-                "Všetko je jedno"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Existujú povolania, kde ľudia niečo robia, opravujú, učia, liečia, organizujú alebo pracujú s informáciami."
-            },
-            {
-              "questionId": "8002_04",
-              "type": "practical",
-              "question": "Prečo je dôležité mať rôzne povolania?",
-              "options": [
-                "Nie je to dôležité",
-                "Všetky sa navzájom dopĺňajú a spolu pomáhajú svetu fungovať",
-                "Jedno by stačilo",
-                "Všetko je náhodné"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Každé povolanie má svoj účel. Všetky rôzne práce sa navzájom dopĺňajú a spolu pomáhajú svetu fungovať."
-            }
-          ]
-        },
-        {
-          "lessonId": 8003,
-          "lessonNumber": 3,
-          "lessonName": "Plat a odmeňovanie",
-          "questions": [
-            {
-              "questionId": "8003_01",
-              "type": "theoretical",
-              "question": "Zarábajú všetci rovnaké peniaze za svoju prácu?",
+              "question": "Je dobré minúť všetky peniaze naraz?",
               "options": [
                 "Áno, vždy",
-                "Nie, plat závisí od typu práce, skúseností a zodpovednosti",
-                "Nikdy",
-                "Všetko sú to tie isté"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Výška platu závisí od typu práce, skúseností, zodpovednosti a času, ktorý človek venuje práci."
-            },
-            {
-              "questionId": "8003_02",
-              "type": "practical",
-              "question": "Ako často dostane niekto zaplatení za svoju prácu?",
-              "options": [
-                "Každý deň",
-                "Keď si o to požiada",
-                "Pravidelne, zvyčajne raz mesiac",
-                "Nikdy sa to nekončí"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Človek dostane zaplatení pravidelne, zvyčajne raz mesiac na svoj bankový účet."
-            },
-            {
-              "questionId": "8003_03",
-              "type": "practical",
-              "question": "Chrumko sa porozpráva s otcom o platoch. Čo mu otec povie?",
-              "options": [
-                "Peniaze prichádzajú každý deň",
-                "Dostane zaplatení raz mesiac a rodina z tých peňazí postupne platí za všetko",
-                "Peniaze sú vylúčené",
-                "Všetko je chaotické"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Otec mu vysvetlí, že dostane zaplatení raz mesiac a rodina z tých peňazí postupne platí za všetko cez mesiac."
-            },
-            {
-              "questionId": "8003_04",
-              "type": "practical",
-              "question": "Čo pochopí Chrumko?",
-              "options": [
-                "Peniaze sú zadarmo",
-                "Peniaze z práce musia byť múdro rozdelené na dlhšiu dobu",
-                "Nefunguje to",
-                "Všetko je zbytočné"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko pochopí, že peniaze z práce musia byť múdro rozdelené, aby vydržali dlhšiu dobu."
-            }
-          ]
-        },
-        {
-          "lessonId": 8004,
-          "lessonNumber": 4,
-          "lessonName": "Čas sa rovná odmeňovaniu",
-          "questions": [
-            {
-              "questionId": "8004_01",
-              "type": "theoretical",
-              "question": "Prečo je čas dôležitý pri práci?",
-              "options": [
-                "Nezáleží na tom",
-                "Človek zarába peniaze na základe času, ktorý venuje práci",
-                "Čas je zbytočný",
-                "Nikdy sa to nemení"
-              ],
-              "correctAnswer": 1,
-              "explanation": "V mnohých pracách ľudia dostávajú zaplatení na základe času, ktorý pracujú - čím viac hodín, tým väčšia odmena."
-            },
-            {
-              "questionId": "8004_02",
-              "type": "practical",
-              "question": "Chrumko vidí svojho staršieho brata pracovať u susedov. Čo robí?",
-              "options": [
-                "Hrá sa",
-                "Pomáha celé ráno - grabie listy, zmeta trávnik, nosí vetvy",
-                "Sedí doma",
-                "Nič nerobí"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Bratr pracuje cez víkend celé ráno. Pracujú spolu a vložili do toho čas a úsilie."
-            },
-            {
-              "questionId": "8004_03",
-              "type": "practical",
-              "question": "Čo dostane bratr za prácu?",
-              "options": [
-                "Nič",
-                "Malú odmenu",
-                "Nedá sa povedať",
-                "Všetko je zadarmo"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Po práci dostane bratr malú odmenu. Sused mu vysvetlí, že odmena je za čas a pomoc, ktorú dal."
-            },
-            {
-              "questionId": "8004_04",
-              "type": "practical",
-              "question": "Čo si Chrumko uvedomí?",
-              "options": [
-                "Čas je zbytočný",
-                "Čas a úsilie sa počítajú pri práci",
-                "Peniaze sú len čísla",
-                "Práca je zbytočná"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko si uvedomí, že čas a úsilie sa počítajú pri práci. Viac času alebo lepšia práca znamená vyššia odmena."
-            }
-          ]
-        },
-        {
-          "lessonId": 8005,
-          "lessonNumber": 5,
-          "lessonName": "Produktivita",
-          "questions": [
-            {
-              "questionId": "8005_01",
-              "type": "theoretical",
-              "question": "Čo je produktivita?",
-              "options": [
-                "Pomalá práca",
-                "Koľko práce môže človek urobiť v určitom čase",
-                "Žiadna práca",
-                "Všetko je chaotické"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Produktivita znamená, koľko práce môže človek urobiť v určitom čase. Ak pracuje sústredene, urobia viac za menej času."
-            },
-            {
-              "questionId": "8005_02",
-              "type": "practical",
-              "question": "Chrumko robí domácu úlohu. Na prvý deň sa neustále pozerá na telefón. Čo sa stane?",
-              "options": [
-                "Domáca úloha trvá krátko",
-                "Domáca úloha trvá veľmi dlho, pretože je rozptýlený",
-                "Nemôže robiť domácu úlohu",
-                "Všetko je rýchle"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Domáca úloha trvá veľmi dlho, pretože sa neustále rozptýľuje a prerušuje prácu."
-            },
-            {
-              "questionId": "8005_03",
-              "type": "practical",
-              "question": "Na druhý deň sa Chrumko sedá inak. Čo robí?",
-              "options": [
-                "Rozptýľuje sa zase",
-                "Sedí bez prerušení, pripraví si všetko, čo potrebuje, a pracuje sústredene",
-                "Nedokončí domácu úlohu",
-                "Všetko sú to tie isté"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chromko sa sedá bez prerušení, pripraví si všetko a pracuje sústredene. Tentoraz sa mu darí lepšie."
-            },
-            {
-              "questionId": "8005_04",
-              "type": "practical",
-              "question": "Ako dlho trvá domáca úloha na druhý deň?",
-              "options": [
-                "Rovnakú dobu",
-                "Rýchlejšie a bez stresu",
-                "Nikdy ju nedokončí",
+                "Nie, je lepšie si ich rozdeliť",
+                "Áno, ak ide o sladkosti",
                 "Nezáleží na tom"
               ],
               "correctAnswer": 1,
-              "explanation": "Dokončí ju rýchlejšie a bez stresu. Chrumko si uvedomí, že keď pracuje zodpovedne, dosiahne viac za kratší čas."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section": 9,
-      "sectionName": "ROZPOČET",
-      "lessons": [
-        {
-          "lessonId": 9001,
-          "lessonNumber": 1,
-          "lessonName": "Čo je rozpočet",
-          "questions": [
+              "explanation": "Rozdelenie peňazí je základom rozumného hospodárenia."
+            },
             {
-              "questionId": "9001_01",
+              "questionId": "3002_02",
               "type": "theoretical",
-              "question": "Čo je rozpočet?",
+              "question": "Prečo si rozdeľujeme peniaze?",
               "options": [
-                "Zoznam s číslami",
-                "Plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme minúť",
-                "Nič špeciálne",
-                "Bez zmyslu"
+                "Aby sme mali viac vecí",
+                "Aby sme mali peniaze aj na neskôr",
+                "Aby sme si nemohli príliš užiť život",
+                "Aby sme ich nemuseli počítať"
               ],
               "correctAnswer": 1,
-              "explanation": "Rozpočet je plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme minúť. Pomáha s peniazmi."
+              "explanation": "Odkladanie časti peňazí nám dáva istotu do budúcnosti."
             },
             {
-              "questionId": "9001_02",
-              "type": "practical",
-              "question": "Chrumko vidí, ako mamička píše čísla v zošite. Čo robí?",
+              "questionId": "3002_03",
+              "type": "theoretical",
+              "question": "Čo nás učí rozdelenie peňazí?",
               "options": [
-                "Neznáme výpočty",
-                "Plánuje výdavky na celý mesiac",
-                "Píše príbeh",
-                "Všetko je chaotické"
+                "Nakupovať rýchlo",
+                "Plánovať a rozhodovať sa",
+                "Míňať viac",
+                "Nepremýšľať nad nákupom"
               ],
               "correctAnswer": 1,
-              "explanation": "Mamička plánuje výdavky na celý mesiac. Najprv napíše peniaze, ktoré dostane, potom, čo sa musí platiť."
+              "explanation": "Tento proces rozvíja schopnosť predvídať svoje potreby a rozhodovať sa medzi nimi."
             },
             {
-              "questionId": "9001_03",
+              "questionId": "3002_04",
               "type": "practical",
-              "question": "Ako mamička robí rozpočet?",
+              "question": "Chrumko si odloží 7 eur z 10 eur. Prečo?",
               "options": [
-                "Bez plánu",
-                "Minie všetko hneď",
-                "Napíše peniaze, výdavky, potom si pomyslí, čo zostane",
-                "Všetko je náhodné"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Mamička napíše peniaze, ktoré rodina dostane, a potom výdavky. Až potom si pomyslí, čo zostane."
-            },
-            {
-              "questionId": "9001_04",
-              "type": "practical",
-              "question": "Aký je cieľ rozpočtu?",
-              "options": [
-                "Bez cieľu",
-                "Aby ľudia mohli múdro rozdeliť peniaze a vyhnúť sa finančným problémom",
-                "Minúť všetko",
-                "Všetko je plánované"
+                "Aby ich nikdy nepoužil",
+                "Aby si mohol kúpiť niečo iné neskôr",
+                "Lebo nemôže míňať",
+                "Lebo nemá rád nakupovanie"
               ],
               "correctAnswer": 1,
-              "explanation": "Rozpočet ti pomáha mať poriadok v peniazoch a vedieť, koľko si môžeš dovoliť."
+              "explanation": "Peniaze si odkladá na konkrétny cieľ, ktorý chce dosiahnuť neskôr."
+            },
+            {
+              "questionId": "3002_05",
+              "type": "practical",
+              "question": "Chrumko si nechá časť peňazí a neskôr ide na pizzu na ktorú mal kvôli tomu našetrené. Čo to ukazuje?",
+              "options": [
+                "Že mal šťastie",
+                "Že plánovanie mu pomohlo",
+                "Že peniaze sa objavili v správny čas",
+                "Že pizza bola zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Cieľavedomé plánovanie umožňuje dovoliť si veci, na ktoré by inak peniaze neostali."
             }
           ]
         },
         {
-          "lessonId": 9002,
-          "lessonNumber": 2,
-          "lessonName": "Príjem a výdavky",
-          "questions": [
-            {
-              "questionId": "9002_01",
-              "type": "theoretical",
-              "question": "Čo sú príjem a výdavky?",
-              "options": [
-                "To isté",
-                "Príjem - peniaze prichádzajúce; Výdavky - peniaze, ktoré domácnosť minie",
-                "Niet rozdielu",
-                "Bez zmyslu"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Príjem sú peniaze prichádzajúce. Výdavky sú peniaze, ktoré domácnosť minie."
-            },
-            {
-              "questionId": "9002_02",
-              "type": "practical",
-              "question": "Chrumko myslí, že keď sa rodiče dostanú zaplatení, môžu si kúpiť všetko. Čo mu povie otec?",
-              "options": [
-                "Áno, kúp si všetko",
-                "Najprv musíš odpočítať bývanie, jedlo a ďalšie faktúry",
-                "Nič sa neminie",
-                "Všetko je zadarmo"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Otec mu povie, že najprv musíš odpočítať bývanie, jedlo a ďalšie faktúry. Až potom je tam menšia suma."
-            },
-            {
-              "questionId": "9002_03",
-              "type": "practical",
-              "question": "Čo sa stane, ak sú výdavky vyššie ako príjem?",
-              "options": [
-                "Všetko je v poriadku",
-                "Peniaze môžu chýbať",
-                "Vždy stačia",
-                "Bez problému"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Ak sú výdavky vyššie ako príjem, peniaze môžu chýbať a rodina bude mať problém."
-            },
-            {
-              "questionId": "9002_04",
-              "type": "practical",
-              "question": "Čo si Chrumko uvedomí?",
-              "options": [
-                "Všetko je zadarmo",
-                "Dôležité je nie len to, čo prichádza, ale aj čo ide von a na čo sa minú",
-                "Peniaze sú bez zmyslu",
-                "Všetko je náhodné"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko si uvedomí, že dôležité je nie len to, čo prichádza, ale aj to, čo ide von a na čo sa minú."
-            }
-          ]
-        },
-        {
-          "lessonId": 9003,
+          "lessonId": 3003,
           "lessonNumber": 3,
-          "lessonName": "Mesačné plánovanie",
+          "lessonName": "Minúť teraz vs neskôr",
           "questions": [
             {
-              "questionId": "9003_01",
+              "questionId": "3003_01",
               "type": "theoretical",
-              "question": "Prečo ľudia neminia všetky peniaze na začiatku mesiaca?",
+              "question": "Čo znamená rozhodovanie „teraz vs neskôr“?",
               "options": [
-                "Bez dôvodu",
-                "Pretože peniaze musia stačiť na celý mesiac",
-                "Všetko sa minie hneď",
-                "Všetko je chaotické"
+                "Vybrať si medzi dvoma obchodmi",
+                "Rozhodnúť sa, či peniaze miniem hneď alebo si ich nechám",
+                "Kúpiť si viac vecí teraz a málo vecí neskôr",
+                "Nemíňať peniaze vôbec"
               ],
               "correctAnswer": 1,
-              "explanation": "Peniaze musia často stačiť na celý mesiac. Preto rodiny plánujú, čo budú potrebovať teraz a čo neskôr."
+              "explanation": "Ide o voľbu medzi okamžitým uspokojením túžby a budúcim úžitkom."
             },
             {
-              "questionId": "9003_02",
-              "type": "practical",
-              "question": "Chrumko navrhne kúpiť si novú hru hneď po dostane zaplatení. Čo mu povie mamička?",
+              "questionId": "3003_02",
+              "type": "theoretical",
+              "question": "Čo sa môže stať, keď si peniaze necháme na neskôr?",
               "options": [
-                "Áno, kúpi si to hneď",
-                "Najprv musíme platiť dôležité faktúry, potom vidíme, čo si môžeme dovoliť",
-                "Všetko je zadarmo",
-                "Bez diskusie"
+                "Stratia sa",
+                "Môžeme si kúpiť niečo väčšie",
+                "Duplikujú sa a budeme mať viac peňazí",
+                "Už ich nebudeme môcť použiť až do staroby"
               ],
               "correctAnswer": 1,
-              "explanation": "Mamička mu vysvetlí, že najprv musia platiť všetko dôležité. Za pár dní prídu ďalšie faktúry."
+              "explanation": "Šetrenie menších súm umožňuje kúpu drahších a hodnotnejších vecí."
             },
             {
-              "questionId": "9003_03",
-              "type": "practical",
-              "question": "Čo si Chrumko uvedomí?",
+              "questionId": "3003_03",
+              "type": "theoretical",
+              "question": "Čo nás učí čakanie s nákupom?",
               "options": [
-                "Všetko je zadarmo",
-                "Peniaze musia byť rozdelené na dlhšiu dobu",
-                "Všetko sa minie hneď",
-                "Nezáleží na tom"
+                "Rýchlosť",
+                "Trpezlivosť a plánovanie",
+                "Míňanie",
+                "byť šťastnejší"
               ],
               "correctAnswer": 1,
-              "explanation": "Chrumko pochopí, že peniaze musia byť rozdelené na dlhšiu dobu, aby vydržali celý mesiac."
+              "explanation": "Čakanie posilňuje sebaovládanie a trpezlivosť pri dosahovaní cieľov."
             },
             {
-              "questionId": "9003_04",
-              "type": "practical",
-              "question": "Prečo je plánovanie dôležité?",
+              "questionId": "3003_04",
+              "type": "theoretical",
+              "question": "Je vždy dobré kúpiť prvú vec, ktorú uvidíme?",
               "options": [
-                "Nie",
-                "Pomáha vyhnúť sa finančným problémom a vedieť, kedy si čo môžu dovoliť",
-                "Všetko je chaotické",
-                "Bez zmyslu"
+                "Áno, vždy",
+                "Nie, oplatí sa premýšľať",
+                "Áno, ak je lacná",
+                "Nie, nikdy nekupovať nič"
               ],
               "correctAnswer": 1,
-              "explanation": "Plánovanie ti pomáha vedieť dopredu, na čo minú peniaze, a vyhnúť sa neočakaným problémom."
+              "explanation": "Premyslený nákup je zvyčajne lepší než unáhlené rozhodnutie pod vplyvom emócií."
+            },
+            {
+              "questionId": "3003_05",
+              "type": "practical",
+              "question": "Chrumko si nekúpi lízanku aj keď ju chce, ale počká. Prečo?",
+              "options": [
+                "Nemá rád sladkosti",
+                "Chce si kúpiť niečo väčšie neskôr",
+                "Pretože ju chcel",
+                "Zabudol"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko uprednostnil dôležitejší cieľ pred okamžitou chuťou na sladké."
+            },
+            {
+              "questionId": "3003_06",
+              "type": "practical",
+              "question": "Chrumko si po premyslení kúpi neskôr omaľovánku. Čo to ukazuje?",
+              "options": [
+                "Že sa rozhodol počkať a naplánovať si nákup.",
+                "Že nemal inú možnosť",
+                "Že ju dostal zadarmo",
+                "Že lízanka zmizla"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Ukazuje to, že jeho rozhodnutie bolo cieľavedomé a premyslené dopredu."
             }
           ]
         },
         {
-          "lessonId": 9004,
+          "lessonId": 3004,
           "lessonNumber": 4,
-          "lessonName": "Pevné výdavky",
+          "lessonName": "Prečo sa oplatí plánovať",
           "questions": [
             {
-              "questionId": "9004_01",
+              "questionId": "3004_01",
               "type": "theoretical",
-              "question": "Čo sú pevné výdavky?",
+              "question": "Prečo je dobré plánovať na čo použijeme peniaze?",
               "options": [
-                "Výdavky, ktoré sa menia",
-                "Platby, ktoré sa opakujú pravidelne s podobnou sumou",
-                "Úplne zadarmo",
-                "Nezáleží na tom"
+                "Aby sme ich minuli rýchlejšie",
+                "Aby sme sa vyhli zbytočným nákupom",
+                "Aby sme mali menej vecí",
+                "Aby sme nemuseli rozmýšľať"
               ],
               "correctAnswer": 1,
-              "explanation": "Pevné výdavky sú platby, ktoré sa opakujú pravidelne, ako nájom, energie a poistenie. Zvyčajne zostávajú rovnaké každý mesiac."
+              "explanation": "Plánovanie chráni naše peniaze pred impulzívnym míňaním na nepotrebné veci."
             },
             {
-              "questionId": "9004_02",
-              "type": "practical",
-              "question": "Aké sú príklady pevných výdavkov v rodine?",
+              "questionId": "3004_02",
+              "type": "theoretical",
+              "question": "Čo sa môže stať, keď minieme peniaze bez premýšľania?",
               "options": [
-                "Len jedlo",
-                "Len zábava",
-                "Bývanie, elektrika, voda, jedlo a školské pomôcky",
-                "Nič nie je pevné"
+                "Budeme zodpovednejší",
+                "Peniaze sa vrátia",
+                "Neskôr nám môžu peniaze chýbať",
+                "Nič sa nestane"
               ],
               "correctAnswer": 2,
-              "explanation": "Pevné výdavky zvyčajne zahŕňajú bývanie, elektriku, vodu, základné jedlo a školské pomôcky - veci, ktoré rodina potrebuje pravidelne."
+              "explanation": "Nekontrolované míňanie vedie k nedostatku peňazí v čase, keď ich budeme skutočne potrebovať."
+            },
+            {
+              "questionId": "3004_03",
+              "type": "theoretical",
+              "question": "Čo nám plánovanie pomáha určiť?",
+              "options": [
+                "Farbu vecí",
+                "Koľko minúť teraz a koľko si nechať",
+                "Koľko stojí lízanka",
+                "S kým ísť do obchodu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pomáha nám rozdeliť zdroje tak, aby sme pokryli súčasné aj budúce potreby."
+            },
+            {
+              "questionId": "3004_04",
+              "type": "practical",
+              "question": "Chrumko chce zmrzlinu aj okuliare. Čo by mal urobiť?",
+              "options": [
+                "Minúť všetko hneď",
+                "Kúpiť si zmrzlinu a zvyšok peňazí si odložiť na okuliare",
+                "Kúpiť len jednu vec bez premýšľania",
+                "Kúpiť si dva kopčeky zmrzliny a potom celý box inej zmrzlini na doma"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Tento postup mu umožní užiť si malú radosť teraz a zároveň šetriť na väčšiu potrebu."
+            },
+            {
+              "questionId": "3004_05",
+              "type": "practical",
+              "question": "Chrumko si odloží všetky peniaze aj keď mal chuť na zmrzlinu a o týždeň si mohol kúpiť okuliare. Čo to znamená?",
+              "options": [
+                "Mal šťastie",
+                "nerozmýšľal nad tým čo spraví s peniazmi",
+                "Potlačil krátkodobú túžbu dať si zmrzlinu aby si skôr našetril na to čo potreboval",
+                "Urobil hlúpe rozhodnutie, pretože zanedbal svoju túžbu po zmrzline aj keď si ju mohol kúpiť"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Ukazuje to disciplínu pri uprednostnení dlhodobého cieľa pred krátkodobým potešením."
+            }
+          ]
+        },
+        {
+          "lessonId": 3005,
+          "lessonNumber": 5,
+          "lessonName": "Malé finančné chyby",
+          "questions": [
+            {
+              "questionId": "3005_01",
+              "type": "theoretical",
+              "question": "Je normálne urobiť chybu pri míňaní peňazí?",
+              "options": [
+                "Nie, nikdy",
+                "Áno, je to bežné",
+                "Len dospelí robia chyby",
+                "Len deti robia chyby"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chyby sú prirodzenou súčasťou učenia sa, najmä pri narábaní s peniazmi."
+            },
+            {
+              "questionId": "3005_02",
+              "type": "theoretical",
+              "question": "Čo nám finančné chyby pomáhajú naučiť sa?",
+              "options": [
+                "Ako míňať viac",
+                "Ako sa lepšie rozhodovať",
+                "Ako sa vyhnúť peniazom",
+                "Ako sa zbaviť peňazí rýchlejšie"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Analýzou vlastných chýb zisťujeme, ako nabudúce naložiť s peniazmi lepšie."
+            },
+            {
+              "questionId": "3005_03",
+              "type": "theoretical",
+              "question": "Čo by sme mali urobiť po tom čo spravíme chybu?",
+              "options": [
+                "Zabudnúť na ňu",
+                "Uvedomiť si ju a premyslieť, čo urobiť nabudúce inak",
+                "Nevšímať si ju, pretože ak si ju nevšimnem tak sa nestala",
+                "Vzdať sa a už nikdy nenakupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Aktívne poučenie sa z chyby je najlepší spôsob, ako rásť vo finančnej gramotnosti."
+            },
+            {
+              "questionId": "3005_04",
+              "type": "theoretical",
+              "question": "Prečo nás veci čo si kúpime bez premyslenia často omrzia?",
+              "options": [
+                "Rýchlo sa pokazia",
+                "V skutočnosti nie sú potrebné",
+                "Pretože si ich nevážime",
+                "Niekto nám ich ukradne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulzívne nákupy často riešia chvíľkovú emóciu, nie skutočnú potrebu, preto ich hodnota v našich očiach rýchlo klesá."
+            },
+            {
+              "questionId": "3005_05",
+              "type": "practical",
+              "question": "Chrumko si kúpi vec, ktorú neskôr nepoužíva. Čo to znamená?",
+              "options": [
+                "Urobil dobré rozhodnutie",
+                "Bola to finančná chyba",
+                "Musel ju kúpiť",
+                "Vec sa zmenila"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Míňanie peňazí na veci, ktoré nám neprinášajú úžitok, sa považuje za chybu v plánovaní."
+            },
+            {
+              "questionId": "3005_06",
+              "type": "practical",
+              "question": "Čo by mal Chrumko urobiť nabudúce ak spraví finančnú chybu?",
+              "options": [
+                "Spraviť ju znova aby sa uistil",
+                "Rozhodnúť sa rýchlejšie",
+                "Viac premýšľať pred nákupom",
+                "Neminúť nikdy nič"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Získaná skúsenosť mu pomôže nabudúce spomaliť a lepšie vyhodnotiť dôležitosť nákupu."
             }
           ]
         }

@@ -10,11 +10,13 @@ import '../../models/game_state.dart';
 class LessonQuizScreen extends StatefulWidget {
   final int lessonId;
   final String lessonTitle;
+  final VoidCallback? onQuizCompleted; // Callback to refresh parent when quiz is done
 
   const LessonQuizScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
+    this.onQuizCompleted,
   });
 
   @override
@@ -107,8 +109,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
 
       if (!isAlreadyRewarded && mounted) {
         // Award coins
-        const coinsPerQuestion = 10; // Configure as needed
+        const coinsPerQuestion = 2; // Changed from 10 to 2
         context.read<GameState>().awardQuizQuestionCoins(coinsPerQuestion);
+        print('✓ Awarded $coinsPerQuestion coins for question');
         
         // Mark as rewarded
         await QuizProgressDatabaseService.markQuestionAsRewarded(
@@ -221,6 +224,8 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   context.read<GameState>().setCurrentStreak(newStreak);
                 }
               }
+              // Notify parent that quiz is complete so it can refresh
+              widget.onQuizCompleted?.call();
               Navigator.of(context).pop(); // Close dialog
               // Wait a moment then close the quiz screen
               Future.delayed(const Duration(milliseconds: 100), () {

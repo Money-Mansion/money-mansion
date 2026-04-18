@@ -62,6 +62,14 @@ void main() async {
 
     await QuizProgressDatabaseService.initializeDatabase();
     print('✓ QuizProgressDatabaseService ready');
+    
+    // Ensure quiz progress table exists
+    try {
+      final allProgress = await QuizProgressDatabaseService.getAllProgress();
+      print('✓ Quiz progress table verified - ${allProgress.length} records found');
+    } catch (e) {
+      print('⚠ Quiz progress table check failed: $e');
+    }
 
     // Initialize music service
     final musicService = MusicService();
