@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/lesson_quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
+import '../../services/quiz_service.dart' hide QuizQuestion;
 import '../../services/streak_service.dart';
 import '../../services/app_localizations_provider.dart';
 import '../../services/app_localizations.dart';
 import '../../models/game_state.dart';
+import '../../models/quiz_progress.dart';
 
 class LessonQuizScreen extends StatefulWidget {
   final int lessonId;
@@ -33,6 +35,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   int? selectedAnswer;
   LessonQuizInfo? quizInfo;
   bool _initialized = false;
+  bool _isQuizLocked = false; // Track if quiz is locked in progression
 
   @override
   void initState() {
@@ -65,6 +68,17 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
         widget.lessonId,
         language: language,
       );
+      
+      // Determine if this quiz is locked (not yet unlocked in sequence)
+      if (quizInfo != null) {
+        _isQuizLocked = await _checkIfQuizLocked(
+          quizInfo!.sectionId,
+          widget.lessonId.toString(),
+          language,
+        );
+        print('✓ Quiz locked status: $_isQuizLocked for quiz ${widget.lessonId}');
+      }
+      
       final loadedQuestions = await const LessonQuizService().getRandomQuestionsForLesson(
         widget.lessonId,
         count: 5, // Random 5 questions
@@ -81,6 +95,61 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     } catch (e) {
       print('Error loading questions: $e');
       return [];
+    }
+  }
+
+  /// Determine if this quiz is locked (not yet unlocked in the progression sequence)
+  /// Returns true if quiz should not award coins yet
+  Future<bool> _checkIfQuizLocked(
+    String sectionId,
+    String quizId,
+    String language,
+  ) async {
+    try {
+      // Get all sections to find this quiz's position
+      final sections = await const QuizService().getAllSections(language: language);
+      final section = sections.firstWhere(
+        (s) => s.id == sectionId,
+        orElse: () => throw Exception('Section not found: $sectionId'),
+      );
+
+      // Find quiz index in section
+      final quizIndex = section.lessons.indexWhere((q) => q.id == quizId);
+      if (quizIndex == -1) {
+        print('⚠ Quiz not found in section: $quizId');
+        return true; // Assume locked if not found
+      }
+
+      // If it's the first quiz in section, always unlocked
+      if (quizIndex == 0) {
+        return false;
+      }
+
+      // Get progress to check if all previous quizzes are completed
+      final allProgress = await QuizProgressDatabaseService.getAllProgress();
+
+      // Check if all quizzes before this one are completed
+      for (int i = 0; i < quizIndex; i++) {
+        final prevQuizId = section.lessons[i].id;
+        QuizProgress? prevProgress;
+        try {
+          prevProgress = allProgress.firstWhere(
+            (p) => p.quizId == prevQuizId && p.sectionId == sectionId,
+          );
+        } catch (e) {
+          prevProgress = null;
+        }
+
+        // If previous quiz not completed, current quiz is locked
+        if (prevProgress == null || prevProgress.getStatus() == QuizStatus.notDone) {
+          return true; // Quiz is locked
+        }
+      }
+
+      return false; // Quiz is unlocked (all previous completed)
+    } catch (e) {
+      print('Error checking if quiz is locked: $e');
+      return true; // Assume locked on error
     }
   }
 
@@ -107,11 +176,14 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
         question.id,
       );
 
-      if (!isAlreadyRewarded && mounted) {
+      // Only award coins if:
+      // 1. Question hasn't been rewarded yet
+      // 2. Quiz is NOT locked (quiz is in the unlocked progression sequence)
+      if (!isAlreadyRewarded && !_isQuizLocked && mounted) {
         // Award coins
-        const coinsPerQuestion = 2; // Changed from 10 to 2
+        const coinsPerQuestion = 2;
         context.read<GameState>().awardQuizQuestionCoins(coinsPerQuestion);
-        print('✓ Awarded $coinsPerQuestion coins for question');
+        print('✓ Awarded $coinsPerQuestion coins for question (quiz unlocked)');
         
         // Mark as rewarded
         await QuizProgressDatabaseService.markQuestionAsRewarded(
@@ -205,13 +277,60 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
+            // Show note if quiz is locked (coins not earned)
+            if (_isQuizLocked)
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.orange.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.orange),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.lock, color: Colors.orange, size: 18),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.orange[800],
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.info, color: Colors.orange, size: 16),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Progres sa neuloží kým neodblokuješ tento kvíz',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.orange[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () async {
-              // Save progress
-              if (quizInfo != null) {
+              // Save progress ONLY if quiz is not locked
+              if (quizInfo != null && !_isQuizLocked) {
                 await QuizProgressDatabaseService.updateScore(
                   quizInfo!.sectionId,
                   widget.lessonId.toString(),
@@ -223,6 +342,8 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                 if (mounted) {
                   context.read<GameState>().setCurrentStreak(newStreak);
                 }
+              } else if (_isQuizLocked) {
+                print('⚠ Quiz is locked - progress NOT saved');
               }
               // Notify parent that quiz is complete so it can refresh
               widget.onQuizCompleted?.call();
