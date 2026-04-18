@@ -2672,6 +2672,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   @override
   void dispose() {
+    _animController.stop();
     _animController.dispose();
     super.dispose();
   }
@@ -2679,6 +2680,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
   void _goNext() {
     HapticFeedback.lightImpact();
     if (_currentSlide < slides.length - 1) {
+      if (!mounted) return;
       _animController.reset();
       setState(() => _currentSlide++);
       _animController.forward();
@@ -2689,6 +2691,7 @@ class _LessonContentScreenState extends State<LessonContentScreen>
 
   void _goPrev() {
     if (_currentSlide > 0) {
+      if (!mounted) return;
       _animController.reset();
       setState(() => _currentSlide--);
       _animController.forward();
@@ -2696,6 +2699,11 @@ class _LessonContentScreenState extends State<LessonContentScreen>
   }
 
   void _finishLesson() {
+    if (!mounted) return;
+    
+    // Stop animation to prevent issues during navigation
+    _animController.stop();
+    
     if (widget.lesson.quizLessonId != null) {
       Navigator.pushReplacement(
         context,
@@ -2708,11 +2716,16 @@ class _LessonContentScreenState extends State<LessonContentScreen>
       );
     } else {
       Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(_isSk ? 'Lekcia dokončená! 🎉' : 'Lesson complete! 🎉'),
-        ),
-      );
+      // Show snackbar after navigation pop completes
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(_isSk ? 'Lekcia dokončená! 🎉' : 'Lesson complete! 🎉'),
+            ),
+          );
+        }
+      });
     }
   }
 
