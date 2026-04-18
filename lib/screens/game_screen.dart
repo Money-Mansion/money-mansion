@@ -4,6 +4,7 @@ import '../models/game_state.dart';
 import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_database_service.dart';
+import '../services/quiz_progress_database_service.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/room_component_database_service.dart';
 import '../services/streak_service.dart';
@@ -420,6 +421,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 await GoalDatabaseService.clearAllGoals();
                 await RoomLayoutDatabaseService.clearAllRoomLayouts();
                 await RoomComponentDatabaseService.clearAllOwnedComponents();
+                await QuizProgressDatabaseService.clearAllProgress();
                 await tutorialProvider.restartTutorial();
                 await OnboardingService.resetOnboarding();
                 gameState.clearOwnedItems();
@@ -430,7 +432,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('DEBUG: Cleared all user progress'),
+                      content: Text('DEBUG: Cleared all user progress + quiz data'),
                       duration: Duration(seconds: 1),
                     ),
                   );

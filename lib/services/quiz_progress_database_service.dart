@@ -6,7 +6,7 @@ import '../models/quiz_progress.dart';
 class QuizProgressDatabaseService {
   static const String _tableName = 'quiz_progress';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 4; // Incremented for rewardedQuestionIds column
+  static const int _dbVersion = 10; // Bumped high to force table recreation
 
   static Database? _database;
   static bool _initialized = false;
@@ -44,6 +44,9 @@ class QuizProgressDatabaseService {
   }
 
   static Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // Ensure table exists (in case it was missing)
+    await _createTable(db, newVersion);
+    
     // Migrate from older versions
     if (oldVersion < 4) {
       try {
@@ -75,8 +78,30 @@ class QuizProgressDatabaseService {
           PRIMARY KEY (quizId, sectionId)
         )
       ''');
+      print('✓ Quiz progress table created/verified');
     } catch (e) {
       print('Error creating table: $e');
+      rethrow; // Re-throw so we know initialization failed
+    }
+  }
+
+  /// Ensure table exists (defensive check)
+  static Future<void> _ensureTableExists() async {
+    try {
+      final db = await database;
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS $_tableName (
+          quizId TEXT NOT NULL,
+          sectionId TEXT NOT NULL,
+          score INTEGER NOT NULL DEFAULT 0,
+          isCompleted INTEGER NOT NULL DEFAULT 0,
+          completedDate INTEGER,
+          rewardedQuestionIds TEXT DEFAULT "",
+          PRIMARY KEY (quizId, sectionId)
+        )
+      ''');
+    } catch (e) {
+      print('Error ensuring table exists: $e');
     }
   }
 
@@ -86,6 +111,7 @@ class QuizProgressDatabaseService {
     String quizId,
   ) async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       final result = await db.query(
         _tableName,
@@ -109,6 +135,7 @@ class QuizProgressDatabaseService {
     String sectionId,
   ) async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       final result = await db.query(
         _tableName,
@@ -126,6 +153,7 @@ class QuizProgressDatabaseService {
   /// Save or update quiz progress
   static Future<void> saveProgress(QuizProgress progress) async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       await db.insert(
         _tableName,
@@ -144,6 +172,7 @@ class QuizProgressDatabaseService {
     int score,
   ) async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       
       // Get existing progress to preserve rewarded questions
@@ -164,6 +193,7 @@ class QuizProgressDatabaseService {
         newProgress.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      print('✓ Quiz progress saved: $quizId section $sectionId score $score');
     } catch (e) {
       print('Error updating quiz score: $e');
     }
@@ -176,6 +206,7 @@ class QuizProgressDatabaseService {
     String questionId,
   ) async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
 
       // Get existing progress
@@ -199,6 +230,7 @@ class QuizProgressDatabaseService {
         updatedProgress.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      print('✓ Question $questionId marked as rewarded');
     } catch (e) {
       print('Error marking question as rewarded: $e');
     }
@@ -222,6 +254,7 @@ class QuizProgressDatabaseService {
   /// Get all progress
   static Future<List<QuizProgress>> getAllProgress() async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       final result = await db.query(_tableName);
       return result.map((map) => QuizProgress.fromMap(map)).toList();
@@ -234,8 +267,10 @@ class QuizProgressDatabaseService {
   /// Clear all progress (for testing)
   static Future<void> clearAllProgress() async {
     try {
+      await _ensureTableExists(); // Defensive check
       final db = await database;
       await db.delete(_tableName);
+      print('✓ All quiz progress cleared');
     } catch (e) {
       print('Error clearing progress: $e');
     }

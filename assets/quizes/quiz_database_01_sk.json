@@ -12,54 +12,67 @@
             {
               "questionId": "1001_01",
               "type": "theoretical",
-              "question": "Prečo má minca hodnotu?",
+              "question": "Prečo ľudia začali používať peniaze namiesto toho, aby si veci len vymieňali?",
               "options": [
-                "Pretože je to vzácny kov",
-                "Pretože sa ľudia dohodli, že bude mať hodnotu a bude sa dať vymieňať za veci",
-                "Pretože to robia peniaze",
-                "Pretože všetci ju chcú"
+                "Lebo ich bavilo zbierať lesklé predmety.",
+                "Aby bolo nakupovanie a predaj tovaru jednoduchší.",
+                "Pretože vtedajší králi to ľuďom zakázali.",
+                "Lebo peniaze sa dajú lepšie využiť pri stavaní domov."
               ],
               "correctAnswer": 1,
-              "explanation": "Minca má hodnotu, pretože sa ľudia dohodli, že peniaze budú mať hodnotu a budú sa dať vymieňať za veci, ktoré potrebujeme alebo chceme."
+              "explanation": "Peniaze boli zavedené ako univerzálny prostriedok, ktorý zjednodušuje obchodovanie."
             },
             {
               "questionId": "1001_02",
-              "type": "practical",
-              "question": "Chrumko drží v ruke mincu. Ako ju môže použiť?",
+              "type": "theoretical",
+              "question": "Kto sa dohodol na tom, že peniaze majú nejakú hodnotu?",
               "options": [
-                "Nič sa s ňou nedá robiť",
-                "Môže si v obchode kúpiť jablko alebo šťavu",
-                "Môže ju nosiť ako šperky",
-                "Môže ju použiť na kúrenie"
+                "Iba predavači v obchodoch so sladkosťami.",
+                "Vedci, ktorí vymysleli špeciálny druh papiera.",
+                "Ľudia v spoločnosti, aby mohli spolu obchodovať.",
+                "Deti, ktoré chceli mať v peňaženkách niečo farebné."
               ],
-              "correctAnswer": 1,
-              "explanation": "Minca má hodnotu, takže si s ňou Chrumko v obchode kúpi veci - napríklad si kúpi jablko alebo šťavu na pokladni."
+              "correctAnswer": 2,
+              "explanation": "Hodnota peňazí stojí na spoločenskej dohode a dôvere všetkých zúčastnených."
             },
             {
               "questionId": "1001_03",
-              "type": "practical",
-              "question": "Ktoré z týchto možností sú peniaze?",
+              "type": "theoretical",
+              "question": "V akej podobe môžeme dnes nájsť peniaze?",
               "options": [
-                "Mince, bankovky a digitálne peniaze na karte",
-                "Len mince a bankovky",
-                "Len bankovky",
-                "Len digitálne peniaze"
+                "Len ako mince a papierové bankovky v peňaženke.",
+                "Ako mince, bankovky alebo digitálne peniaze na karte.",
+                "Iba ako zlaté tehly v banke.",
+                "Ako farebné nálepky, ktoré si vymieňame v škole."
               ],
-              "correctAnswer": 0,
-              "explanation": "Dnes môžeme platiť mincami, bankovkami alebo peniazmi na platobnej karte. Všetko to sú formy peňazí v rôznych podobách."
+              "correctAnswer": 1,
+              "explanation": "Dnes využívame hotovosť (mince/bankovky) aj elektronické formy platby."
             },
             {
               "questionId": "1001_04",
-              "type": "practical",
-              "question": "Čo si môžeš kúpiť za peniaze?",
+              "type": "theoretical",
+              "question": "Čo dodáva obyčajnej minci jej skutočnú hodnotu?",
               "options": [
-                "Len jedlo",
-                "Len hračky",
-                "Jedlo, oblečenie, hračky a ďalšie veci, ktoré potrebujeme alebo chceme",
-                "Nič, peniaze nemajú hodnotu"
+                "To, že je vyrobená z veľmi vzácneho druhu kovu.",
+                "Dohoda ľudí o tom, že mince slúžia ako platidlo.",
+                "Skutočnosť, že má na sebe vyrazený rok výroby.",
+                "Jej okrúhly tvar, vďaka ktorému sa nikde nezasekne."
               ],
-              "correctAnswer": 2,
-              "explanation": "Peniaze sa používajú na nákup vecí, ktoré potrebujeme alebo chceme - napríklad jedlo, oblečenie alebo hračky."
+              "correctAnswer": 1,
+              "explanation": "Materiál mince má malú cenu, dôležitý je jej význam ako uznaného platidla."
+            },
+            {
+              "questionId": "1001_05",
+              "type": "practical",
+              "question": "Chrumko drží v ruke 2-eurovú mincu. Čo s ňou môže v obchode urobiť?",
+              "options": [
+                "Musí ju vrátiť, lebo je to len bezcenný kúsok kovu.",
+                "Môže ju vymeniť za tovar v hodnote dvoch eur.",
+                "Za 2-eurovú mincu si nič nemôže kúpiť.",
+                "Musí ju najprv doma vyčistiť, aby mala nejakú cenu."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Peniaze slúžia ako výmenný prostriedok za tovar v danej hodnote."
             }
           ]
         },
@@ -71,113 +84,165 @@
             {
               "questionId": "1002_01",
               "type": "theoretical",
-              "question": "Prečo peniaze existujú?",
+              "question": "Čo by sa dialo v obchode, keby neexistovali peniaze?",
               "options": [
-                "Aby sa ľudia nemohli dohodovať",
-                "Aby sa nákup vecí uľahčil",
-                "Aby ľudia nemohli pracovať",
-                "Nemajú dôvod na existenciu"
+                "Všetky veci by boli zadarmo pre každého človeka.",
+                "Museli by sme nosiť svoje veci a vymieňať ich.",
+                "Obchody by neexistovali a všetko by sme si vyrábali.",
+                "Predavači by nám veci dávali za básničky."
               ],
               "correctAnswer": 1,
-              "explanation": "Peniaze existujú, aby sa nákup vecí uľahčil. Bez peňazí by ľudia museli vymieňať veci, čo by bolo veľmi ťažké."
+              "explanation": "Bez peňazí by sme sa museli vrátiť k priamej výmene tovaru za tovar."
             },
             {
               "questionId": "1002_02",
-              "type": "practical",
-              "question": "Chrumko má jablko na občerstvenie, ale chce majonézovú tyčinku. Čo by bolo problém bez peňazí?",
+              "type": "theoretical",
+              "question": "Prečo je priama výmena vecí (barter) niekedy veľmi ťažká?",
               "options": [
-                "Mohol by ľahko vymieňať veci",
-                "Nemôže sa dohadovať",
-                "Musel by nájsť niekoho, kto chce jablko a má majonézovú tyčinku",
-                "Nebol by problém"
+                "Lebo veci nikto nechce.",
+                "Druhá osoba nemusí chcieť to, čo jej práve ponúkaš.",
+                "Pretože výmena vecí je podľa nových zákonov zakázaná.",
+                "Lebo pri výmene sa veci vždy pokazia alebo rozbijú."
               ],
-              "correctAnswer": 2,
-              "explanation": "Bez peňazí by ľudia museli vymieňať veci navzájom. To by bolo veľmi ťažké, pretože by si musel nájsť niekoho, kto chce presne to, čo máš."
+              "correctAnswer": 1,
+              "explanation": "Barter vyžaduje obojstrannú zhodu v potrebách, čo je v praxi zložité."
             },
             {
               "questionId": "1002_03",
-              "type": "practical",
-              "question": "Ako je to jednoduchšie s peniazmi?",
+              "type": "theoretical",
+              "question": "Akú hlavnú úlohu plnia peniaze pri nákupe desiaty?",
               "options": [
-                "Musím hľadať dlhšie",
-                "Môžem si hneď kúpiť majonézovú tyčinku bez hľadania niekoho, kto by chcel jablko",
-                "Musím sa dohadovať s viac ľuďmi",
-                "S peniazmi je to ťažšie"
+                "Slúžia ako prostriedok na rýchlu a férovú výmenu.",
+                "Pomáhajú nám vypočítať, koľko kalórií má jablko.",
+                "Robia našu školskú tašku ťažšou.",
+                "Zabezpečujú, aby nám desiata lepšie chutila."
               ],
-              "correctAnswer": 1,
-              "explanation": "Keď má Chrumko peniaze, môže si hneď kúpiť majonézovú tyčinku bez hľadania niekoho, kto by chcel jablko. Peniaze to zjednodušujú."
+              "correctAnswer": 0,
+              "explanation": "Peniaze umožňujú okamžitú transakciu bez hľadania výmenného tovaru."
             },
             {
               "questionId": "1002_04",
-              "type": "practical",
-              "question": "Predstav si, že chceš kúpiť chlieb, ale peniaze by neexistovali. Čo by si musel robiť?",
+              "type": "theoretical",
+              "question": "Čo znamená, že peniaze sú „univerzálne“?",
               "options": [
-                "Mohol by si dostať chlieb bez ničoho",
-                "Musel by si pekárovi ponúknuť niečo výmenou, čo by pekár chcel",
-                "Pekár by ti dal chlieb zadarmo",
-                "Vôbec by si si nemohol kúpiť chlieb"
+                "Že sa dajú použiť v celej galaxii.",
+                "Že ich prijme každý výmenou za tovar.",
+                "Že sa dajú prať v práčke bez toho, aby sa zničili.",
+                "Že majú vždy rovnakú farbu."
               ],
               "correctAnswer": 1,
-              "explanation": "Bez peňazí by si musel pekárovi ponúknuť niečo výmenou, čo by pekár chcel a aby prijal. To je ťažšie ako jednoducho platiť peniazmi."
+              "explanation": "Univerzálnosť znamená, že sú široko akceptované všetkými obchodníkmi."
+            },
+            {
+              "questionId": "1002_05",
+              "type": "practical",
+              "question": "Chrumko má jablko, ale chce tyčinku. Kamarátka má tyčinku, ale jablko nechce. Ako to vyriešiť?",
+              "options": [
+                "Chrumko musí kamarátku prehovoriť, aby si jablko vzala aj keď ho nechce.",
+                "Chrumko si tyčinku môže kúpiť za peniaze, ktoré chce každý.",
+                "Chrumko musí jablko zjesť a zostať hladný.",
+                "Musia ísť za pani učiteľkou, aby im veci rozdelila."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Peniaze riešia problém 'dvojitej zhody potrieb' pri výmennom obchode."
+            },
+            {
+              "questionId": "1002_06",
+              "type": "practical",
+              "question": "Predstav si, že chceš bicykel a máš na výmenu 100 kíl zemiakov. Prečo je lepšie mať peniaze?",
+              "options": [
+                "Peniaze nezaberajú toľko miesta a nepokazia sa.",
+                "Zemiaky nikto nechce.",
+                "Peniaze sú krajšie na pohľad ako vrece zemiakov.",
+                "Predajca bicyklov má určite alergiu na zemiaky."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Peniaze sú oveľa ľahšie na prenos a skladovanie než objemný tovar."
             }
           ]
         },
         {
           "lessonId": 1003,
           "lessonNumber": 3,
-          "lessonName": "Ako sa ľudia platili v minulosti",
+          "lessonName": "Ako ľudia platili kedysi",
           "questions": [
             {
               "questionId": "1003_01",
               "type": "theoretical",
-              "question": "Ako sa nazýval výmena vecí, keď peniaze neexistovali?",
+              "question": "Ako sa nazýva výmena vecí bez použitia peňazí?",
               "options": [
+                "Inflácia",
+                "Investovanie",
                 "Barter",
-                "Obchod",
-                "Nákup",
-                "Predaj"
+                "Úver"
               ],
-              "correctAnswer": 0,
-              "explanation": "Pred vytvorením peňazí ľudia používali priamu výmenu zvanú barter - priama výmena tovaru za tovar."
+              "correctAnswer": 2,
+              "explanation": "Barter je odborný názov pre výmenný obchod tovaru za tovar."
             },
             {
               "questionId": "1003_02",
-              "type": "practical",
-              "question": "Chrumko chce chlieb od pekára a pekár si chce 2 vajcia. Čo musí Chrumko robiť?",
+              "type": "theoretical",
+              "question": "Čím ľudia platili ešte pred vznikom mincí?",
               "options": [
-                "Nič, pretože pekár je ochotný kupovať",
-                "Platiť peniazmi",
-                "Najprv si obstať 2 vajcia",
-                "Môže si kúpiť chlieb hneď"
+                "Papierovými bankovkami",
+                "Vecami ako soľ, mušle alebo kov",
+                "Iba digitálnymi peniazmi",
+                "Výlučne zlatými tehlami"
               ],
-              "correctAnswer": 2,
-              "explanation": "Ak Chrumko vajcia nemá, musí si ich najprv obstať. Až potom ich môže vymeniť za chlieb. Preto bola platba v minulosti zložitejšia."
+              "correctAnswer": 1,
+              "explanation": "Pred mincami sa používali komodity, ktoré mali pre ľudí vysokú hodnotu."
             },
             {
               "questionId": "1003_03",
-              "type": "practical",
-              "question": "Aké veci starovekajúce kultúry používali ako peniaze?",
+              "type": "theoretical",
+              "question": "Prečo bolo platenie v minulosti zložitejšie ako dnes?",
               "options": [
-                "Len kovy",
-                "Len soľ",
-                "Soľ, mušle alebo kov - veci, ktoré mali hodnotu pre mnohých ľudí",
-                "Niet dôkazov"
+                "Lebo ľudia nemali obchody",
+                "Pretože neexistovali žiadne potraviny",
+                "Museli najprv zohnať veci na výmenu, ktoré druhý chcel",
+                "Lebo všetko stálo príliš veľa"
               ],
               "correctAnswer": 2,
-              "explanation": "Neskôr ľudia platili vecami, ktoré mali hodnotu pre mnohých, ako soľ, mušle alebo kov. Až potom sa objavili prvé mince."
+              "explanation": "Nájsť správny tovar na výmenu bolo časovo aj logisticky náročné."
             },
             {
               "questionId": "1003_04",
-              "type": "practical",
-              "question": "Prečo bola platba soľou jednoduchšia ako priama barter?",
+              "type": "theoretical",
+              "question": "Čo vzniklo až po období barteru a platenia rôznymi predmetmi?",
               "options": [
-                "Pretože soľ bola zadarmo",
-                "Pretože všetci chceli soľ a mohli ju použiť na nákup rôznych vecí",
-                "Pretože soľ bola veľmi drahá",
-                "Pretože nikto nemal soľ rád"
+                "Prvé mince",
+                "Kreditné karty",
+                "Internetové bankovníctvo",
+                "Papierové peniaze"
               ],
-              "correctAnswer": 1,
-              "explanation": "Ľudia potrebovali soľ, takže všetci ju akceptovali ako platidlo. Bolo to jednoduchšie ako priama barter, pretože soľ mala hodnotu pre mnohých ľudí."
+              "correctAnswer": 0,
+              "explanation": "Mince boli ďalším evolučným krokom k zjednodušeniu platenia po barterovom období."
+            },
+            {
+              "questionId": "1003_05",
+              "type": "practical",
+              "question": "Chrumko chce chlieb, ale nemá vajcia, ktoré chce pekár. Čo musí urobiť?",
+              "options": [
+                "Počkať, kým pekár zmení názor",
+                "Nájsť niekoho, kto mu dá chlieb zadarmo",
+                "Najprv zohnať vajcia, aby ich mohol vymeniť",
+                "Ísť do iného mesta"
+              ],
+              "correctAnswer": 2,
+              "explanation": "V barterovom systéme musíte presne trafiť požiadavku protistrany."
+            },
+            {
+              "questionId": "1003_06",
+              "type": "theoretical",
+              "question": "Prečo ľudia prestali používať barter ako hlavný spôsob platenia?",
+              "options": [
+                "Pretože barterový obchod bol pre vtedajšiu spoločnosť až príliš jednoduchý a neefektívny",
+                "Kvôli tomu, že väčšina predmetov v tej dobe náhle stratila svoju hodnotu",
+                "Lebo bolo náročné nájsť niekoho, kto chce práve váš tovar a zároveň ponúka to, čo potrebujete.",
+                "Pretože výmenný obchod bol podľa nových kráľovských nariadení oficiálne zakázaný zákonom."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Náročnosť nájsť vhodného partnera na výmenu viedla k vzniku peňazí."
             }
           ]
         },
@@ -189,54 +254,106 @@
             {
               "questionId": "1004_01",
               "type": "theoretical",
-              "question": "Koľko foriem majú peniaze?",
+              "question": "Čo majú spoločné mince, bankovky a peniaze na platobnej karte?",
               "options": [
-                "Jedna - len mince",
-                "Dve - mince a bankovky",
-                "Tri - mince, bankovky a digitálne peniaze",
-                "Len papierové peniaze"
+                "Sú to rôzne podoby tých istých peňazí, ktorými môžeme platiť.",
+                "Všetky tieto formy peňazí si musíme pred nákupom vytlačiť doma.",
+                "Sú vyrobené z rovnakého materiálu, aby mali vždy rovnakú váhu.",
+                "Fungujú len vtedy, ak ich naraz ukážeme pani predavačke v obchode."
               ],
-              "correctAnswer": 2,
-              "explanation": "Peniaze môžu mať rôzne formy: mince a bankovky drží v ruke, digitálne peniaze sú uložené na účte a platiť si ich karte alebo mobilom."
+              "correctAnswer": 0,
+              "explanation": "Hoci vyzerajú inak, ich kúpna sila a hodnota sú rovnaké."
             },
             {
               "questionId": "1004_02",
-              "type": "practical",
-              "question": "Ako fungujú hotovostné peniaze?",
+              "type": "theoretical",
+              "question": "Čo znamená platiť v hotovosti?",
               "options": [
-                "Platíme elektronicky cez mobil",
-                "Platíme bankovkami a mincami, ktoré držíme v ruke",
-                "Používame len kreditnú kartu",
-                "Hotovosť neexistuje"
+                "Platiť kartou cez internet",
+                "Platiť mincami alebo bankovkami",
+                "Posielať peniaze cez mobilnú aplikáciu",
+                "Platiť len veľkými bankovkami"
               ],
               "correctAnswer": 1,
-              "explanation": "Ak platíme bankovkami a mincami, používame hotovosť - peniaze, ktoré máme v ruke alebo peňaženke."
+              "explanation": "Hotovosť sú fyzické peniaze, ktoré držíme v ruke."
             },
             {
               "questionId": "1004_03",
-              "type": "practical",
-              "question": "Chrumko si chce kúpiť chlieb. Predávajúci mu ponúka dve možnosti. Ktorá je platba kartou?",
+              "type": "theoretical",
+              "question": "Kde sa nachádzajú digitálne peniaze?",
               "options": [
-                "Platba mincami a bankovkami",
-                "Zaslanie peňazí z účtu",
-                "Obe sú úplne iné",
-                "Žiadna nie je nákupom"
+                "V peňaženke",
+                "V banke ako zlaté tehly",
+                "Na účte v banke",
+                "V obchode pri pokladni"
               ],
-              "correctAnswer": 1,
-              "explanation": "Keď platí kartou, peniaze sa pošlú digitálne z účtu. Ak platí bankovkami a mincami, používa hotovosť. Oboje znamená platbu peniazmi, len inak."
+              "correctAnswer": 2,
+              "explanation": "Digitálne peniaze sú len záznamy v počítačových systémoch bánk."
             },
             {
               "questionId": "1004_04",
-              "type": "practical",
-              "question": "Čo sú digitálne peniaze?",
+              "type": "theoretical",
+              "question": "Čo sa stane, keď zaplatíš kartou v obchode?",
               "options": [
-                "Mince na internete",
-                "Bankovky, ktoré si môžeš stiahnuť",
-                "Peniaze uložené na účte, ktorými sa platí kartou alebo mobilom",
-                "Neexistujú"
+                "Peniaze sa fyzicky presunú z peňaženky do pokladne",
+                "Peniaze sa pošlú digitálne z účtu",
+                "Tvoja platobná karta sa v obchode hneď po zaplatení celá vymaže.",
+                "Banka ti za každú takúto platbu pošle poštou domov nové mince."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Platba kartou vyvolá elektronický príkaz na presun sumy medzi účtami."
+            },
+            {
+              "questionId": "1004_05",
+              "type": "practical",
+              "question": "Chrumko zaplatil za kravatu bankovkami a mincami. Aký spôsob platby použil?",
+              "options": [
+                "Digitálnu platbu",
+                "Platbu na splátky",
+                "Hotovosť",
+                "Výmenu (barter)"
               ],
               "correctAnswer": 2,
-              "explanation": "Digitálne peniaze sú uložené na účte a platiť si ich karte alebo mobilom. Nie sú fyzické, ale majú skutočnú hodnotu."
+              "explanation": "Použitie fyzických peňazí definujeme ako platbu v hotovosti."
+            },
+            {
+              "questionId": "1004_06",
+              "type": "practical",
+              "question": "Chrumko chce za kravatu zaplatiť v hotovosti. Čo musí urobiť?",
+              "options": [
+                "Musí predavačke podať fyzické bankovky alebo kovové mince.",
+                "Musí priložiť svoj mobilný telefón k platobnému terminálu.",
+                "Stačí, ak predavačke sľúbi, že jej peniaze prinesie neskôr.",
+                "Musí v obchode nechať svoju platobnú kartu ako záruku."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Hotovostná platba vyžaduje fyzické odovzdanie platidla."
+            },
+            {
+              "questionId": "1004_07",
+              "type": "practical",
+              "question": "Chrumko zaplatí za nákup mobilom. Čo to znamená?",
+              "options": [
+                "Použil digitálne peniaze zo svojho účtu",
+                "Zaplatil v hotovosti cez mobil",
+                "Peniaze ešte len neskôr zaplatí",
+                "Vymenil tovar za iný tovar"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Mobilná platba je moderná forma prístupu k digitálnym peniazom na účte."
+            },
+            {
+              "questionId": "1004_08",
+              "type": "practical",
+              "question": "Predavačka sa Chrumka opýtala, či chce platiť kartou alebo v hotovosti. Prečo mu dala na výber?",
+              "options": [
+                "Pretože pri platbe kartou bude kravata stáť oveľa viac peňazí.",
+                "Lebo obe možnosti sú správne spôsoby, ako zaplatiť za tovar.",
+                "Pretože v hotovosti sa dajú kupovať len veci, ktoré sú modré.",
+                "Lebo ak zaplatí v hotovosti, predavačka si peniaze môže nechať."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchodníci bežne akceptujú viaceré formy platidiel."
             }
           ]
         },
@@ -248,54 +365,93 @@
             {
               "questionId": "1005_01",
               "type": "theoretical",
-              "question": "Má minca s číslom 50 rovnakú hodnotu ako bankovka s číslom 50?",
+              "question": "Prečo si za 10 eur kúpiš viac ako za 1 euro?",
               "options": [
-                "Áno, obe majú číslo 50",
-                "Nie, minca s 50 má menšiu hodnotu, pretože 50 centov je menej ako 50 eur",
-                "Minca je vždy drahšia",
-                "Čísla s tým nemajú nič spoločné"
+                "Lebo 10 eur má vyššiu hodnotu ako 1 euro",
+                "Lebo 1 euro je staršie",
+                "Lebo 10 eur je krajšie",
+                "Lebo 1 euro sa nedá použiť v obchode"
               ],
-              "correctAnswer": 1,
-              "explanation": "Nie všetky peniaze majú rovnakú hodnotu. Minca s číslom 50 má menšiu hodnotu ako bankovka s číslom 50, pretože 50 centov je menej ako 50 eur."
+              "correctAnswer": 0,
+              "explanation": "Vyššie číslo na platidle (nominálna hodnota) znamená väčšiu kúpnu silu."
             },
             {
               "questionId": "1005_02",
-              "type": "practical",
-              "question": "Chrumko má v peňaženke 1 euro. Šťava stojí 90 centov a keksík stojí 50 centov. Čo si môže kúpiť?",
+              "type": "theoretical",
+              "question": "Majú všetky mince a bankovky rovnakú hodnotu?",
               "options": [
-                "Mohol by si kúpiť obe veci",
-                "Nemôže si nič kúpiť",
-                "Môže si kúpiť len jednu vec - buď šťavu alebo keksík",
-                "Môže si kúpiť tri veci"
+                "Áno, každá minca v obchode platí úplne rovnako bez ohľadu na číslo.",
+                "Nie, každá minca a bankovka predstavuje inú sumu peňazí.",
+                "Záleží to na tom, či je vonku pekne alebo prší, vtedy sa hodnota mení.",
+                "Iba vtedy, ak sú rovnako veľké a majú rovnakú striebornú farbu."
               ],
-              "correctAnswer": 2,
-              "explanation": "Šťava (90 centov) + keksík (50 centov) = 140 centov = 1,40 eur. To je viac ako 1 euro, takže si Chrumko nemôže kúpiť obe. Musí si vybrať jednu."
+              "correctAnswer": 1,
+              "explanation": "Každé platidlo má svoju určenú hodnotu, ktorú rozoznáme podľa čísla."
             },
             {
               "questionId": "1005_03",
-              "type": "practical",
-              "question": "Ako vieš, koľko peňazí máš, ak máš niekoľko mincí a bankoviek?",
+              "type": "theoretical",
+              "question": "Ktoré z nasledujúcich má väčšiu hodnotu?",
               "options": [
-                "Napíš všetky čísla",
-                "Poznaj hodnotu každej mince a bankovky a spočítaj ich",
-                "Každá bankovka je vždy desať mincí",
-                "Je to nemožné vedieť"
+                "50 centov",
+                "1 euro",
+                "20 centov",
+                "150 centov"
               ],
-              "correctAnswer": 1,
-              "explanation": "Keď poznáme hodnotu mincí a bankoviek, môžeme spočítať, koľko peňazí máme a čo si za nich môžeme kúpiť."
+              "correctAnswer": 3,
+              "explanation": "150 centov je v prepočte 1,50 eura, čo je viac ako 1 euro."
             },
             {
               "questionId": "1005_04",
               "type": "practical",
-              "question": "Ak by mal Chrumko viac peňazí, čo by mohol robiť?",
+              "question": "Chrumko vidí na minci číslo 50 a na bankovke tiež číslo 50. Čo je pravda?",
               "options": [
-                "Nemôže si nič kúpiť",
-                "Môže si kúpiť všetko v celom obchode",
-                "Mohol by si kúpiť obe veci - šťavu a keksík - naraz",
-                "Peniaze sa stratia"
+                "Obe majú rovnakú hodnotu, pretože je na nich napísané to isté číslo.",
+                "Minca má vyššiu hodnotu, lebo je vyrobená z kovu a je ťažšia.",
+                "Bankovka má oveľa vyššiu hodnotu, pretože 50 eur je viac ako 50 centov.",
+                "Ani jedna vec nemá žiadnu hodnotu, kým ju Chrumko neocukruje"
               ],
               "correctAnswer": 2,
-              "explanation": "Ak by mal Chrumko viac peňazí, napríklad 1,50 eur, mohol by si kúpiť všetky veci, ktoré chcel - šťavu aj keksík."
+              "explanation": "Mena (euro vs. cent) určuje skutočnú hodnotu čísla na platidle."
+            },
+            {
+              "questionId": "1005_05",
+              "type": "practical",
+              "question": "Chrumko má 1 euro. Džús stojí 90 centov a keksík 50 centov. Čo je pravda?",
+              "options": [
+                "Môže si kúpiť obidve veci",
+                "Nemôže si kúpiť ani jednu vec",
+                "Môže si kúpiť len jednu z nich",
+                "Môže si kúpiť obidve veci a ešte mu zostane"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Súčet (140 centov) prevyšuje Chrumkov rozpočet (100 centov)."
+            },
+            {
+              "questionId": "1005_06",
+              "type": "practical",
+              "question": "Chrumko má 2 eurá. Džús stojí 90 centov a keksík 50 centov. Koľko mu zostane?",
+              "options": [
+                "60 centov",
+                "40 centov",
+                "1 euro",
+                "10 centov"
+              ],
+              "correctAnswer": 0,
+              "explanation": "200 centov mínus 140 centov sa rovná 60 centov."
+            },
+            {
+              "questionId": "1005_07",
+              "type": "practical",
+              "question": "Čo musí Chrumko urobiť, ak si chce kúpiť džús aj keksík, ale nemá dosť peňazí?",
+              "options": [
+                "Musí sa rozhodnúť len pre jednu vec alebo si našetriť viac peňazí.",
+                "Má si tie veci vziať a odísť z obchodu bez platenia.",
+                "Mal by počkať, kým ceny v obchode samé od seba zmiznú.",
+                "Musí rozbiť keksík na polovicu, aby stál menej peňazí."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Obmedzené zdroje si vyžadujú rozhodovanie a prioritizáciu potrieb."
             }
           ]
         },
@@ -307,237 +463,165 @@
             {
               "questionId": "1006_01",
               "type": "theoretical",
-              "question": "Čo sa stane, keď všetky peniaze utratíš naraz?",
+              "question": "Čo sa stane, keď minieš všetky peniaze?",
               "options": [
-                "Automaticky dostaneš nové peniaze",
-                "Nemôžeš si nič ďalšieho kúpiť",
-                "Peniaze sa vrátia",
-                "Nič sa nestane"
+                "Peniaze sa ti v peňaženke do rána samé od seba znova objavia.",
+                "Už si nebudeš môcť kúpiť nič ďalšie, kým nezískaš nové peniaze.",
+                "Obchod ti musí dať všetko zadarmo, lebo si už u nich veľa nakúpil.",
+                "Tvoja peňaženka začne svietiť, aby ťa upozornila, že máš ísť nakupovať."
               ],
               "correctAnswer": 1,
-              "explanation": "Keď utratíme peniaze, nemôžeme si za nimi nič ďalšieho kúpiť. Preto je dôležité premýšľať, na čo ich použijeme."
+              "explanation": "Peniaze sú vyčerpateľný zdroj, ich množstvo je obmedzené."
             },
             {
               "questionId": "1006_02",
-              "type": "practical",
-              "question": "Chrumko dostane 5 eur a kúpi si cukríky za 5 eur. Čo sa stane?",
+              "type": "theoretical",
+              "question": "Prečo je dôležité premýšľať, na čo míňame peniaze?",
               "options": [
-                "Má ešte 5 eur",
-                "Dostane ďalších 5 eur",
-                "Utratil všetky peniaze, takže si nemôže kúpiť novú hračku",
-                "Má nekonečné peniaze"
+                "Lebo peniaze sú nekonečné",
+                "Aby sme mali peniaze aj na iné veci neskôr",
+                "Lebo míňanie je zakázané",
+                "Aby sme mali čo najťažšiu peňaženku"
               ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko kúpi cukríky za 5 eur a potom si nemôže kúpiť novú hračku. Utratil všetky peniaze naraz, takže mu nič nezostalo."
+              "correctAnswer": 1,
+              "explanation": "Plánovanie výdavkov zaručuje, že budeme mať prostriedky na dôležité potreby."
             },
             {
               "questionId": "1006_03",
-              "type": "practical",
-              "question": "Čo by mal Chrumko robiť nabudúce?",
+              "type": "theoretical",
+              "question": "Čo znamená, že peniaze nie sú nekonečné?",
               "options": [
-                "Utratí všetko naraz, ako minule",
-                "Nie si nič nekúpi",
-                "Odloží si časť peňazí, aby mal peniaze na ďalšie veci, ktoré bude chcieť neskôr",
-                "Požiada si od iných peniaze"
+                "Že ich máme vždy dosť",
+                "Že ich nemôžeme nikdy minúť",
+                "Že máme len obmedzené množstvo",
+                "Že existujú len v banke"
               ],
               "correctAnswer": 2,
-              "explanation": "Nabudúce by mal Chrumko odložiť si časť peňazí, aby mal peniaze na ďalšie veci, ktoré bude chcieť neskôr. To je smart prístup."
+              "explanation": "Každý človek pracuje s rozpočtom, ktorý má svoje hranice."
             },
             {
               "questionId": "1006_04",
               "type": "practical",
-              "question": "Prečo je dôležité premýšľať, ako používame peniaze?",
+              "question": "Čo by mal Chrumko urobiť nabudúce, keď dostane peniaze?",
               "options": [
-                "Pretože peniaze nemajú hodnotu",
-                "Pretože všetci majú nekonečné peniaze",
-                "Pretože máme len určitý počet peňazí a keď ich utratíme, nemôžeme si nič ďalšieho kúpiť",
-                "Nie je to dôležité"
+                "Minúť ich všetky naraz",
+                "Schovať ich a nikdy nepoužiť",
+                "Časť minúť a časť si odložiť",
+                "Dať ich všetky kamarátom"
               ],
               "correctAnswer": 2,
-              "explanation": "Každý má len určitý počet peňazí. Keď ich utratíme, nemôžeme si nič ďalšieho kúpiť. Preto je dôležité premýšľať, na čo ich použijeme."
+              "explanation": "Správne hospodárenie zahŕňa rovnováhu medzi spotrebou a úsporami."
+            },
+            {
+              "questionId": "1006_05",
+              "type": "practical",
+              "question": "Chrumko má 5 eur a minie ich na sladkosti. Čo platí?",
+              "options": [
+                "Stále má peniaze na hračku",
+                "Nemá už peniaze na inú vec",
+                "Môže si kúpiť ešte viac sladkostí",
+                "Peniaze sa mu vrátia"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak použijeme peniaze na jednu vec, už ich nemáme na druhú."
+            },
+            {
+              "questionId": "1006_06",
+              "type": "practical",
+              "question": "Chrumko si odloží 2 eurá z 5 eur. Koľko mu zostane na míňanie?",
+              "options": [
+                "5 eur",
+                "3 eurá",
+                "2 eurá",
+                "7 eur"
+              ],
+              "correctAnswer": 1,
+              "explanation": "5 (celok) - 2 (úspory) = 3 eurá k dispozícii."
             }
           ]
         },
         {
           "lessonId": 1007,
           "lessonNumber": 7,
-          "lessonName": "Odkiaľ pochádzajú peniaze",
+          "lessonName": "Odkiaľ peniaze prichádzajú",
           "questions": [
             {
               "questionId": "1007_01",
               "type": "theoretical",
-              "question": "Ako ľudia najčastejšie dostávajú peniaze?",
+              "question": "Ako ľudia najčastejšie získavajú peniaze?",
               "options": [
-                "Nájdu ich na ulici",
-                "Dostávajú ich zadarmo",
-                "Dostávajú ich za prácu - plat alebo mzda",
-                "Ľudia nikdy nemajú peniaze"
+                "Náhodne ich nájdu na ulici",
+                "Za prácu, ktorú vykonávajú",
+                "Tým, že si ich vytlačia doma",
+                "Výmenou za hračky"
               ],
-              "correctAnswer": 2,
-              "explanation": "Ľudia najčastejšie dostávajú peniaze za prácu. Keď dospelý pracuje, dostane odmeňu za svoju prácu nazývanú plat alebo mzda."
+              "correctAnswer": 1,
+              "explanation": "Hlavným zdrojom príjmu vo väčšine domácností je zamestnanie."
             },
             {
               "questionId": "1007_02",
-              "type": "practical",
-              "question": "Ako sa v súčasnosti dostávajú peniaze do rodiny?",
+              "type": "theoretical",
+              "question": "Ako sa nazýva odmena za prácu?",
               "options": [
-                "V hotovosti v kufri",
-                "Prichádzajú elektronicky na bankový účet",
-                "Na pošte",
-                "Nikdy neprídu"
+                "Darček",
+                "Výhra",
+                "Plat alebo mzda",
+                "Pokuta"
               ],
-              "correctAnswer": 1,
-              "explanation": "Peniaze sa v súčasnosti často nedostávajú v hotovosti, ale sa vkladajú na bankový účet."
+              "correctAnswer": 2,
+              "explanation": "Plat je dohodnutá finančná odmena za odvedenú pracovnú činnosť."
             },
             {
               "questionId": "1007_03",
-              "type": "practical",
-              "question": "Na čo sa používajú peniaze, ktoré rodina dostane za prácu?",
+              "type": "theoretical",
+              "question": "Od čoho závisí, koľko peňazí človek zarobí?",
               "options": [
-                "Len na hračky",
-                "Na bývanie, jedlo, oblečenie, dopravu a ďalšie veci",
-                "Podľa nálady",
-                "Nemajú žiadny účel"
+                "Od farby oblečenia",
+                "Od počasia",
+                "Od práce, času a skúseností",
+                "Od toho, koľko má kamarátov"
               ],
-              "correctAnswer": 1,
-              "explanation": "Z týchto peňazí rodina platí za bývanie, jedlo, oblečenie, dopravu a ďalšie veci potrebné na fungovanie domácnosti."
+              "correctAnswer": 2,
+              "explanation": "Zárobok ovplyvňuje odbornosť, náročnosť práce a časový rozsah."
             },
             {
               "questionId": "1007_04",
-              "type": "practical",
-              "question": "Ako deti najčastejšie dostávajú peniaze?",
-              "options": [
-                "Pracujú ako dospelí",
-                "Dostávajú vreckové alebo peniaze ako dar, napríklad na narodeniny",
-                "Nikdy nemajú peniaze",
-                "Podľa toho, čo si myslia dospelí"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Deti zvyčajne nedostávajú peniaze z práce ako dospelí. Môžu dostať vreckové alebo peniaze ako dar, napríklad na svoje narodeniny."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section": 2,
-      "sectionName": "POTREBY VS CHCENIA",
-      "lessons": [
-        {
-          "lessonId": 2001,
-          "lessonNumber": 1,
-          "lessonName": "Čo potrebujem na život",
-          "questions": [
-            {
-              "questionId": "2001_01",
               "type": "theoretical",
-              "question": "Čo sú potreby?",
+              "question": "Kam dnes najčastejšie prichádzajú peniaze za prácu?",
               "options": [
-                "Všetko, čo nás teší",
-                "Veci, bez ktorých by naše telo a denný život nefungovali správne",
-                "Len hračky",
-                "Niečo, čo nepotrebujeme"
+                "V hotovosti z ruky do ruky",
+                "Na bankový účet",
+                "Do školy",
+                "Do obchodu"
               ],
               "correctAnswer": 1,
-              "explanation": "Potreby sú veci, bez ktorých by naše telo a denný život nefungovali správne - jedlo, voda, oblečenie a bezpečné miesto na bývanie."
+              "explanation": "Väčšina výplat sa posiela elektronicky priamo na osobný účet."
             },
             {
-              "questionId": "2001_02",
+              "questionId": "1007_05",
               "type": "practical",
-              "question": "Prečo potrebujeme jedlo a vodu?",
+              "question": "Mama Chrumka chodí do práce a dostane peniaze na účet. Na čo ich rodina použije?",
               "options": [
-                "Nepotrebujeme ich",
-                "Dávajú nám energiu a pomáhajú nášmu telu zostať zdrave",
-                "Len pretože sa nám páčia",
-                "Nikto nevie"
+                "Len na hračky",
+                "Na bývanie, jedlo a ďalšie potrebné veci",
+                "Len na sladkosti",
+                "Nepoužijú ich vôbec"
               ],
               "correctAnswer": 1,
-              "explanation": "Jedlo a voda nám dávajú energiu a pomáhajú nášmu telu zostať zdrave. Sú to základné potreby, ktoré potrebujeme pravidelne."
+              "explanation": "Príjmy slúžia primárne na pokrytie základných životných nákladov rodiny."
             },
             {
-              "questionId": "2001_03",
+              "questionId": "1007_06",
               "type": "practical",
-              "question": "Po škole ide Chrumko do obchodu. Čo si pravdepodobne kúpi ako prvé?",
+              "question": "Ako deti najčastejšie získavajú peniaze?",
               "options": [
-                "Čokoládu",
-                "Hračku",
-                "Občerstvenie (jedlo), pretože vie, že potrebuje jedlo",
-                "Nič, všetko je zbytočné"
+                "Každodennou prácou v zamestnaní",
+                "Tým, že si ich zarobia podnikaním",
+                "Vreckovým alebo ako darček",
+                "Z bankového účtu rodičov bez dovolenia"
               ],
               "correctAnswer": 2,
-              "explanation": "Chrumko ide kúpiť si občerstvenie najprv, pretože vie, že potrebuje jedlo. Až potom si myslí, či má peniaze na čokoládu."
-            },
-            {
-              "questionId": "2001_04",
-              "type": "practical",
-              "question": "Ako nás chráni oblečenie?",
-              "options": [
-                "Neposkytuje žiadnu ochranu",
-                "Chráni nás pred chladom, teplom alebo dažďom",
-                "Len na krásu",
-                "Oblečenie nie je dôležité"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Oblečenie nás chráni pred chladom, teplom alebo dažďom. Bývanie nám dáva bezpečnosť a miesto na odpočinok."
-            }
-          ]
-        },
-        {
-          "lessonId": 2002,
-          "lessonNumber": 2,
-          "lessonName": "Čo iba chcem",
-          "questions": [
-            {
-              "questionId": "2002_01",
-              "type": "theoretical",
-              "question": "Čo sú chcenia?",
-              "options": [
-                "To isté ako potreby",
-                "Veci, ktoré chceme, ale nie sú potrebné na život",
-                "Nič, čo nie je peniazmi",
-                "Všetko, čo vidíme"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chcenia sú veci, ktoré chceme, ale nie sú potrebné na život. Bez nich sa dá žiť, ale robia nás šťastnými alebo zabavujú nás."
-            },
-            {
-              "questionId": "2002_02",
-              "type": "practical",
-              "question": "Chrumko príde domov hladný. Hrá si na videohry najpriamo alebo si prvý niekto?",
-              "options": [
-                "Hrá si najprv",
-                "Jedi, pretože vie, že jeho telo potrebuje jedlo",
-                "Hrá si celý deň",
-                "Nerobí nič"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko si jedi, pretože vie, že jeho telo potrebuje jedlo. Po jedle si už môže užívať svoje hry."
-            },
-            {
-              "questionId": "2002_03",
-              "type": "practical",
-              "question": "Čo Chrumko pochopil o potrebách?",
-              "options": [
-                "Nie sú dôležité",
-                "Všetko je rovnaké",
-                "Potreby sa musia uspokojić najprv, potom si môžeme myslieť na chcenia",
-                "Všetko je náhodné"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko pochopil, že potreby sa musia uspokojić najprv. Len keď máme jedlo, oblečenie a domov, môžeme si myslieť na ďalšie veci."
-            },
-            {
-              "questionId": "2002_04",
-              "type": "practical",
-              "question": "Je zlé mať chcenia?",
-              "options": [
-                "Áno, vždy",
-                "Nie, je to prirodzené, ale musíme si uprednostniť potreby najprv",
-                "Áno, nikdy by sme nič nechceli",
-                "Všetko je rovnaké"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Nie je zlé mať chcenia. Je to prirodzené niečo chcieť. Ale musíme si najprv ubezpečiť, že máme všetko, čo potrebujeme."
+              "explanation": "Deti zvyčajne dostávajú menšie sumy od rodičov na učenie sa narábať s peniazmi."
             }
           ]
         }

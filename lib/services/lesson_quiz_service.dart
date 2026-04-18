@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 class LessonQuizService {
   /// Get list of quiz files based on language
+  /// Only loads the NEW improved versions (1 file per section)
   static List<String> _getQuizFiles(String language) {
     final suffix = language == 'sk' ? '_sk' : '_en';
     return [

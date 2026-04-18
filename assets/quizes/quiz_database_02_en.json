@@ -1,543 +1,444 @@
 {
   "quizzes": [
     {
-      "section": 5,
-      "sectionName": "PRICE AND VALUE",
+      "section": 2,
+      "sectionName": "NEEDS VS WANTS",
       "lessons": [
         {
-          "lessonId": 5001,
+          "lessonId": 2001,
           "lessonNumber": 1,
-          "lessonName": "Price vs quality",
+          "lessonName": "What I need to live",
           "questions": [
             {
-              "questionId": "5001_01",
+              "questionId": "2001_01",
               "type": "theoretical",
-              "question": "Does higher price always mean better quality?",
+              "question": "What belongs among a person’s basic needs?",
+              "options": [
+                "Toys and sweets",
+                "Food, water, clothes and housing",
+                "Phone and computer",
+                "New clothes every week"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Basic needs are essential things required for survival, like nourishment, protection, and clothing."
+            },
+            {
+              "questionId": "2001_02",
+              "type": "theoretical",
+              "question": "Why do we need food and water?",
+              "options": [
+                "So that we have more things at home",
+                "So that we are popular",
+                "So that the body functions properly and has energy",
+                "So that we can sleep more"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Food and water provide the fuel and hydration necessary for our bodies to work and stay healthy."
+            },
+            {
+              "questionId": "2001_03",
+              "type": "theoretical",
+              "question": "What does the word “needs” mean?",
+              "options": [
+                "Things we want to have for fun",
+                "Things without which we are still able to function",
+                "Things that we need to live",
+                "Things that we buy once a year"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Needs are necessities that are vital for our existence and well-being."
+            },
+            {
+              "questionId": "2001_04",
+              "type": "theoretical",
+              "question": "Why is housing important?",
+              "options": [
+                "So that we have a place to store toys",
+                "It gives us safety and a place to rest",
+                "Housing is nice, and people need it because they like it",
+                "Because everyone else wants it"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A home provides shelter from the elements, security, and a space for recovery."
+            },
+            {
+              "questionId": "2001_05",
+              "type": "practical",
+              "question": "Chrumko goes to the shop and has little money. What should he buy first?",
+              "options": [
+                "Chocolate",
+                "A toy",
+                "Food",
+                "Decoration"
+              ],
+              "correctAnswer": 2,
+              "explanation": "When money is limited, you should always prioritize needs (food) over wants (chocolate or toys)."
+            },
+            {
+              "questionId": "2001_06",
+              "type": "practical",
+              "question": "Chrumko only buys sweets and no longer has money for food. What does that mean?",
+              "options": [
+                "He made a good decision",
+                "He chose a want over a need",
+                "He had no other choice",
+                "He used the money correctly"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Sweets are a luxury (want), while food is a necessity (need). Chrumko prioritized the wrong thing."
+            }
+          ]
+        },
+        {
+          "lessonId": 2002,
+          "lessonNumber": 2,
+          "lessonName": "Just something I want",
+          "questions": [
+            {
+              "questionId": "2002_01",
+              "type": "theoretical",
+              "question": "Which kind of thing is a want?",
+              "options": [
+                "Something without which we cannot live",
+                "Something we want but do not need",
+                "Something we must have every day",
+                "Something we get for free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A want is something that makes life more pleasant but isn't required for survival."
+            },
+            {
+              "questionId": "2002_02",
+              "type": "theoretical",
+              "question": "Which of the following is a want?",
+              "options": [
+                "Water",
+                "Food",
+                "A stuffed toy",
+                "Housing"
+              ],
+              "correctAnswer": 2,
+              "explanation": "A stuffed toy is for entertainment, unlike water, food, and housing which are essential."
+            },
+            {
+              "questionId": "2002_03",
+              "type": "theoretical",
+              "question": "How are needs and wants different?",
+              "options": [
+                "Needs are less important",
+                "Wants are more important than needs",
+                "Needs are necessary, wants are not",
+                "There is no difference between them"
+              ],
+              "correctAnswer": 2,
+              "explanation": "The main difference is necessity; you must have needs to survive, but you can live without wants."
+            },
+            {
+              "questionId": "2002_04",
+              "type": "theoretical",
+              "question": "Is it okay to have wants?",
+              "options": [
+                "No, wants are always bad",
+                "Yes, but we should know that needs are more important",
+                "No, we should only buy needs",
+                "Yes, and we should always fulfil them immediately"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Wants are fine to have, as long as your basic needs are met first."
+            },
+            {
+              "questionId": "2002_05",
+              "type": "practical",
+              "question": "Chrumko wants a new toy, but he already has a similar one at home. What does that mean?",
+              "options": [
+                "It is a need",
+                "It is a want",
+                "He must buy it",
+                "He has no choice"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Since he already has a toy that works, the new one is definitely a desire, not a necessity."
+            },
+            {
+              "questionId": "2002_06",
+              "type": "practical",
+              "question": "Chrumko has money only for one thing. What should he do?",
+              "options": [
+                "Always buy a want",
+                "Always buy the most expensive thing",
+                "First consider what he really needs",
+                "Do not spend the money at all"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Responsible money management means checking if your needs are covered before spending on anything else."
+            }
+          ]
+        },
+        {
+          "lessonId": 2003,
+          "lessonNumber": 3,
+          "lessonName": "Why we want things we do not need",
+          "questions": [
+            {
+              "questionId": "2003_01",
+              "type": "theoretical",
+              "question": "Why do we want some things immediately when we see them?",
+              "options": [
+                "Because we always need them",
+                "Because the brain associates them with a feeling of joy",
+                "Because they are free",
+                "Because we must have them"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Our brains often react to cool or shiny things by promising us a feeling of happiness if we get them."
+            },
+            {
+              "questionId": "2003_02",
+              "type": "theoretical",
+              "question": "What can influence our desire for something?",
+              "options": [
+                "Ads or friends",
+                "Only parents",
+                "The weather",
+                "The color of the sky"
+              ],
+              "correctAnswer": 0,
+              "explanation": "We often want things because we see them in commercials or because our friends have them."
+            },
+            {
+              "questionId": "2003_03",
+              "type": "theoretical",
+              "question": "If we want something, does that mean we also need it?",
               "options": [
                 "Yes, always",
-                "No, higher price is not a guarantee of better quality",
-                "Never",
-                "Sometimes quality doesn't exist"
+                "No",
+                "No, if it is water",
+                "Yes, if it is new"
               ],
               "correctAnswer": 1,
-              "explanation": "Higher price is not a guarantee of better quality. Sometimes higher price is related to the brand, packaging, or advertising rather than the product itself."
+              "explanation": "Wanting something and needing something are two different feelings."
             },
             {
-              "questionId": "5001_02",
-              "type": "practical",
-              "question": "Chrumko is choosing a pencil at the stationery store for school. The more expensive one has colorful packaging, the cheaper one is simple. What should he try?",
-              "options": [
-                "Buy only the more expensive one",
-                "Buy nothing",
-                "Try both pencils on paper",
-                "Go by price"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko should try both pencils. Often you find that both write equally well and the difference is only in the packaging or brand."
-            },
-            {
-              "questionId": "5001_03",
-              "type": "practical",
-              "question": "When is it worth buying a more expensive item?",
-              "options": [
-                "Never",
-                "When it is visibly better quality or lasts longer",
-                "Always",
-                "Sometimes"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Sometimes the more expensive product is really made from better materials or lasts longer. Then the higher price is worth it."
-            },
-            {
-              "questionId": "5001_04",
-              "type": "practical",
-              "question": "What does Chrumko realize about the pencil?",
-              "options": [
-                "More expensive is always better",
-                "Cheaper is always better",
-                "It's not always true that more expensive things are automatically better",
-                "Everything is the same"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko realizes that it's not always true that more expensive things are automatically better. Sometimes the difference is only in packaging or brand."
-            }
-          ]
-        },
-        {
-          "lessonId": 5002,
-          "lessonNumber": 2,
-          "lessonName": "Cheap vs expensive",
-          "questions": [
-            {
-              "questionId": "5002_01",
+              "questionId": "2003_04",
               "type": "theoretical",
-              "question": "Why can two similar things cost different amounts of money?",
+              "question": "What is good to do before buying something?",
               "options": [
-                "They never do",
-                "Price is affected by material, production, brand, packaging size, and where the product is sold",
-                "They always cost the same",
-                "There is no reason"
+                "Make sure it is in fashion",
+                "Ask a friend",
+                "Wait and think about it",
+                "Watch the ad again"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Taking a 'cooling off' period helps you decide if you really want the item or if it was just a quick impulse."
+            },
+            {
+              "questionId": "2003_05",
+              "type": "practical",
+              "question": "Chrumko wants a new pencil case, but his old one still works. What is true?",
+              "options": [
+                "He needs a new one",
+                "It is a want",
+                "He must buy it",
+                "Chrumko should throw the old pencil case away"
               ],
               "correctAnswer": 1,
-              "explanation": "Price is affected by material, production method, brand, package size, and where the product is sold."
+              "explanation": "If the current item still performs its function, a new one is a want."
             },
             {
-              "questionId": "5002_02",
+              "questionId": "2003_06",
               "type": "practical",
-              "question": "Chrumko needs a new notebook for school. Where should he look?",
+              "question": "Chrumko wants a new pencil case, but his old one still works. He thinks about it and does not buy the pencil case. Why?",
               "options": [
-                "Only in the first store",
-                "In one store",
-                "In several stores and compare prices",
-                "Nowhere"
+                "He forgot about it",
+                "He realized that he does not need it",
+                "He had no time",
+                "The pencil case disappeared from the shop"
               ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko should look in several stores and compare prices. The same notebook can cost different amounts in different stores."
-            },
-            {
-              "questionId": "5002_03",
-              "type": "practical",
-              "question": "In the first store, he sees a notebook with nice packaging for a higher price. In another store, he finds a similar one cheaper. What's the difference?",
-              "options": [
-                "The first is better",
-                "The second is worse",
-                "The difference is only in the packaging and brand, they have the same number of pages",
-                "There is no difference"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Both notebooks have the same number of pages and work equally. The difference is only in packaging and brand."
-            },
-            {
-              "questionId": "5002_04",
-              "type": "practical",
-              "question": "What does Chrumko discover?",
-              "options": [
-                "He has to buy the first",
-                "He shouldn't shop",
-                "Sometimes it pays to look in multiple places to find a better price",
-                "Everything is expensive"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko discovers that sometimes it pays to look in multiple places to find a better price for the same or similar product."
+              "correctAnswer": 1,
+              "explanation": "By thinking it over, Chrumko practiced good financial discipline by identifying it as an unnecessary want."
             }
           ]
         },
         {
-          "lessonId": 5003,
-          "lessonNumber": 3,
-          "lessonName": "What is a good purchase",
-          "questions": [
-            {
-              "questionId": "5003_01",
-              "type": "theoretical",
-              "question": "What is a good purchase?",
-              "options": [
-                "Always a low price",
-                "The product works well, lasts, and its price matches what it offers",
-                "Only large purchases",
-                "Everything is random"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A good purchase doesn't mean only low price. What's important is that the product works well, lasts, and its price matches what it offers."
-            },
-            {
-              "questionId": "5003_02",
-              "type": "practical",
-              "question": "Chrumko wants to buy a new water bottle. He sees a very cheap plastic one, but it's thin and fragile. Next to it is a stronger one for more money. What should he do?",
-              "options": [
-                "Buy the cheap one because it's cheaper",
-                "Buy nothing",
-                "Choose the stronger one because he'll use it every day",
-                "Ask for the most expensive one"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Chrumko should choose the stronger bottle because he'll use it every day and it will serve him longer."
-            },
-            {
-              "questionId": "5003_03",
-              "type": "practical",
-              "question": "Is a cheap bottle a good purchase if it breaks quickly?",
-              "options": [
-                "Yes, it's always cheaper",
-                "No, it's not a good purchase if it breaks",
-                "Maybe",
-                "Everything is the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A cheap item that breaks quickly is not a good purchase. On the other hand, an item we use frequently and for a long time might be a good purchase even if it costs more."
-            },
-            {
-              "questionId": "5003_04",
-              "type": "practical",
-              "question": "After a few weeks, is Chrumko happy with his bottle choice?",
-              "options": [
-                "Because it's cheaper",
-                "Because it hasn't broken and still works well",
-                "Because it's pretty",
-                "Everything is unnecessary"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko is happy because the bottle hasn't broken and still works well. That was a good investment."
-            }
-          ]
-        },
-        {
-          "lessonId": 5004,
+          "lessonId": 2004,
           "lessonNumber": 4,
-          "lessonName": "Comparing prices",
+          "lessonName": "Advertising and its influence",
           "questions": [
             {
-              "questionId": "5004_01",
+              "questionId": "2004_01",
               "type": "theoretical",
-              "question": "Why is it worth comparing prices?",
+              "question": "Why does advertising exist?",
               "options": [
-                "It never pays off",
-                "It helps you decide more wisely and often save money",
-                "It's necessary",
-                "Everything is the same"
+                "To entertain us",
+                "So that people want to buy the product",
+                "To give us more free time",
+                "So that the person who buys the product earns money"
               ],
               "correctAnswer": 1,
-              "explanation": "Comparing prices helps you decide more wisely and often save money. Even small savings add up over multiple purchases."
+              "explanation": "The primary goal of advertising is to persuade people to spend money on a specific product."
             },
             {
-              "questionId": "5004_02",
-              "type": "practical",
-              "question": "Chrumko wants to buy pastel colors in the stationery store. He finds a set he likes. What should he do?",
+              "questionId": "2004_02",
+              "type": "theoretical",
+              "question": "How does advertising make things more attractive?",
               "options": [
-                "Buy it right away",
-                "Look in other stores too",
-                "Buy nothing",
-                "Ask for help"
+                "It uses colors, music, and pictures",
+                "It lowers their price",
+                "It makes them smaller",
+                "It does not; it only shows them to people"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Ads use sensory tricks to make products look and sound better than they might actually be."
+            },
+            {
+              "questionId": "2004_03",
+              "type": "theoretical",
+              "question": "Are things in ads always the same as in reality?",
+              "options": [
+                "Yes, the product being advertised does not exist",
+                "No, they can look worse than in reality",
+                "Yes, they never contain any true information about the product",
+                "No, but they are usually exaggerated or misleading"
+              ],
+              "correctAnswer": 3,
+              "explanation": "Advertisers often show the 'perfect' version of a product, which can be different from what you actually get."
+            },
+            {
+              "questionId": "2004_04",
+              "type": "theoretical",
+              "question": "What should we look at when choosing a product?",
+              "options": [
+                "Mainly its appearance",
+                "Mainly what it contains and whether we need it",
+                "Mainly the ad",
+                "Only the price"
               ],
               "correctAnswer": 1,
-              "explanation": "Chrumko should look in other stores too. The same pastels can be cheaper elsewhere."
+              "explanation": "Smart shoppers look at the quality and the necessity of the item rather than the flashy packaging."
             },
             {
-              "questionId": "5004_03",
+              "questionId": "2004_05",
               "type": "practical",
-              "question": "In another store, Chrumko finds the same pastels cheaper. What should he do?",
+              "question": "Chrumko sees a big chocolate bar in an ad, but in the shop it is smaller. Why?",
               "options": [
-                "Buy them in the first store",
-                "Buy nothing",
-                "Buy the pastels at the better price",
-                "Everything is the same"
+                "The ad made it look more attractive",
+                "The chocolate has become smaller",
+                "There was a mistake when they put it into the shop",
+                "Chrumko made a mistake"
+              ],
+              "correctAnswer": 0,
+              "explanation": "This is a common advertising tactic to make the product seem like a better deal than it is."
+            },
+            {
+              "questionId": "2004_06",
+              "type": "practical",
+              "question": "Chrumko wants to buy something just because he saw it in an ad. What should he do?",
+              "options": [
+                "Immediately find it and buy it",
+                "Ignore it because ads always lie",
+                "Think about whether he really needs it",
+                "Buy two"
               ],
               "correctAnswer": 2,
-              "explanation": "Chrumko decides to buy the pastels at the better price. That way he'll have money left for other school supplies."
-            },
-            {
-              "questionId": "5004_04",
-              "type": "practical",
-              "question": "What is the benefit of comparing prices?",
-              "options": [
-                "None",
-                "You can save money and have more money for other things",
-                "It's pointless",
-                "Everything costs the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "By comparing prices, you can save money and have more money for other things you need or want."
+              "explanation": "You should always check if the desire comes from an actual need or just the influence of a clever ad."
             }
           ]
         },
         {
-          "lessonId": 5005,
+          "lessonId": 2005,
           "lessonNumber": 5,
-          "lessonName": "Unit price",
+          "lessonName": "Emotional shopping",
           "questions": [
             {
-              "questionId": "5005_01",
+              "questionId": "2005_01",
               "type": "theoretical",
-              "question": "What is unit price?",
+              "question": "When do people often buy things without thinking?",
               "options": [
-                "Only total price",
-                "How much one piece, one liter, or one gram costs",
-                "Nothing is important",
-                "Everything is the same"
+                "When they are calm",
+                "When they are tired or angry",
+                "When they are calm and relaxed",
+                "When they have made a shopping list of needed items"
               ],
               "correctAnswer": 1,
-              "explanation": "Unit price shows how much one piece, one liter, or one gram costs. This helps compare different package sizes."
+              "explanation": "Strong emotions can cloud our judgment and make us make impulsive purchases."
             },
             {
-              "questionId": "5005_02",
-              "type": "practical",
-              "question": "Is a larger package always more expensive?",
+              "questionId": "2005_02",
+              "type": "theoretical",
+              "question": "Why do we sometimes buy things when we are sad?",
               "options": [
-                "Yes, always",
-                "No, a larger package might be better value",
-                "Never",
-                "Everything is the same"
+                "Because we need them to survive",
+                "Because they can bring short‑term joy",
+                "Because we must",
+                "Because they are cheap"
               ],
               "correctAnswer": 1,
-              "explanation": "Sometimes a larger package costs more money upfront, but works out better value when you look at the unit price."
+              "explanation": "Buying something new releases chemicals in the brain that make us feel better for a little while."
             },
             {
-              "questionId": "5005_03",
-              "type": "practical",
-              "question": "Chrumko wants to buy water before a trip. He sees two small bottles and one large one. At first he thinks two small ones are better. What does he realize?",
+              "questionId": "2005_03",
+              "type": "theoretical",
+              "question": "What is good to do before shopping, if we feel sad, angry, tired, or very excited?",
               "options": [
-                "Two small ones are always better",
-                "Two small ones together cost more than one large one",
-                "Large is always better",
-                "Everything is the same"
+                "Buy more things",
+                "Wait and calm down",
+                "Call a friend",
+                "Leave the shop forever"
               ],
               "correctAnswer": 1,
-              "explanation": "When he looks more carefully, Chrumko realizes that two small bottles together cost more than one large bottle."
+              "explanation": "Waiting until you are in a neutral mood helps you make more logical financial choices."
             },
             {
-              "questionId": "5005_04",
-              "type": "practical",
-              "question": "How does Chrumko realize which is better value?",
+              "questionId": "2005_04",
+              "type": "theoretical",
+              "question": "Does emotional shopping always mean a good decision?",
               "options": [
-                "By the price on the label",
-                "By the size",
-                "His mom shows him that the large bottle has more water for a better price",
-                "Everything is confusing"
+                "Only when it is something we would not want without strong emotions",
+                "No, it often involves things we do not need",
+                "Yes, if we are sad",
+                "No, only when we are happy"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Decisions based purely on feelings often lead to regret once the emotion fades."
+            },
+            {
+              "questionId": "2005_05",
+              "type": "practical",
+              "question": "Chrumko is angry and wants to buy a sweet. What should he do?",
+              "options": [
+                "Buy it immediately",
+                "Wait and think about it",
+                "Buy two sweets",
+                "Spend all his money"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko should wait until he isn't angry anymore to see if he actually wants the sweet."
+            },
+            {
+              "questionId": "2005_06",
+              "type": "practical",
+              "question": "Chrumko is sad and very thirsty and wants to buy water. What should he do?",
+              "options": [
+                "Buy it immediately",
+                "Wait and think about it when he is no longer sad",
+                "Not buy anything to save money",
+                "Spend all his money on food"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Even if he is sad, thirst is a biological need. He should buy the water because it is a necessity."
+            },
+            {
+              "questionId": "2005_07",
+              "type": "practical",
+              "question": "Chrumko realizes he is not hungry and does not buy anything. Why?",
+              "options": [
+                "He had no money",
+                "He forgot",
+                "He did not need food or anything else",
+                "The shop was closed"
               ],
               "correctAnswer": 2,
-              "explanation": "His mom shows him that the large bottle has more water for a better price. Chrumko understands that sometimes it's worth looking at the amount too."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section": 6,
-      "sectionName": "SHOPPING AND DECISION MAKING",
-      "lessons": [
-        {
-          "lessonId": 6001,
-          "lessonNumber": 1,
-          "lessonName": "How a store works",
-          "questions": [
-            {
-              "questionId": "6001_01",
-              "type": "theoretical",
-              "question": "What is a store?",
-              "options": [
-                "A place where music is only played",
-                "A place where buying and selling of items comes together",
-                "It has no meaning",
-                "Only for entertainment"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A store is a place where buying and selling come together. The store buys products and then offers them to customers."
-            },
-            {
-              "questionId": "6001_02",
-              "type": "practical",
-              "question": "What is included in the price of a product in a store?",
-              "options": [
-                "Only the product itself",
-                "The item itself, transportation, storage, workers, and store operations",
-                "Nothing special",
-                "Everything is free"
-              ],
-              "correctAnswer": 1,
-              "explanation": "The price includes costs for transportation, storage, store staff, and running the store."
-            },
-            {
-              "questionId": "6001_03",
-              "type": "practical",
-              "question": "Why might the same product not cost the same everywhere?",
-              "options": [
-                "It always costs the same",
-                "Because different stores have different costs and prices",
-                "It never changes",
-                "There is no reason"
-              ],
-              "correctAnswer": 1,
-              "explanation": "The same product might not cost the same everywhere because different stores have different costs for transportation, storage, and operations."
-            },
-            {
-              "questionId": "6001_04",
-              "type": "practical",
-              "question": "How does payment work in a store?",
-              "options": [
-                "Everything is free",
-                "At the checkout, products are scanned, each is added to the total price, and you pay",
-                "Money is returned",
-                "You don't have to pay"
-              ],
-              "correctAnswer": 1,
-              "explanation": "At the checkout, products are scanned and the total appears on the screen. This is how the store exchanges money for goods."
-            }
-          ]
-        },
-        {
-          "lessonId": 6002,
-          "lessonNumber": 2,
-          "lessonName": "Discounts",
-          "questions": [
-            {
-              "questionId": "6002_01",
-              "type": "theoretical",
-              "question": "What is a discount?",
-              "options": [
-                "A price increase",
-                "A price reduction from the original amount",
-                "Completely free",
-                "A more expensive item"
-              ],
-              "correctAnswer": 1,
-              "explanation": "A discount means that a product costs less than before. Stores use them to attract customers."
-            },
-            {
-              "questionId": "6002_02",
-              "type": "practical",
-              "question": "Does a discount mean you have to buy something?",
-              "options": [
-                "Yes, always",
-                "No, a lower price doesn't mean you need the item",
-                "You have to buy it",
-                "Everything is necessary"
-              ],
-              "correctAnswer": 1,
-              "explanation": "If someone buys something just because it's on sale, they might spend money on something they wouldn't have chosen otherwise."
-            },
-            {
-              "questionId": "6002_03",
-              "type": "practical",
-              "question": "Chrumko goes to the store to buy a snack. He sees a discount on chocolate. What should he do?",
-              "options": [
-                "Buy it right away",
-                "Think about whether he really needs it and wants it",
-                "Buy everything",
-                "Never buy anything"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko realizes he didn't plan to buy candy and he has other sweets at home. He decides not to spend the money."
-            },
-            {
-              "questionId": "6002_04",
-              "type": "practical",
-              "question": "Is this a good discount for Chrumko?",
-              "options": [
-                "Yes, it's a good deal",
-                "No, it's not a good deal because Chrumko doesn't need it",
-                "Always a good deal",
-                "Maybe"
-              ],
-              "correctAnswer": 1,
-              "explanation": "For Chrumko it's not a good deal because he doesn't need the candy. A good discount is only on something you really want and need."
-            }
-          ]
-        },
-        {
-          "lessonId": 6003,
-          "lessonNumber": 3,
-          "lessonName": "Sales and marketing tricks",
-          "questions": [
-            {
-              "questionId": "6003_01",
-              "type": "theoretical",
-              "question": "Why do stores use colorful signs and large letters?",
-              "options": [
-                "Without reason",
-                "To make products look more interesting and catch our attention",
-                "For decoration",
-                "It's not important"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Stores use colorful signs and large letters to make products look more interesting and catch our attention."
-            },
-            {
-              "questionId": "6003_02",
-              "type": "practical",
-              "question": "Chrumko notices a large yellow sign in the store saying 'best value package at the best price'. What should he do?",
-              "options": [
-                "Buy it right away",
-                "Look at the actual price and compare with other products",
-                "Buy everything",
-                "Never buy anything"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko should look at the actual price and compare it with other products. A large sign doesn't automatically mean the best purchase."
-            },
-            {
-              "questionId": "6003_03",
-              "type": "practical",
-              "question": "What does Chrumko discover about this product?",
-              "options": [
-                "It's really the best purchase",
-                "The difference is very small or there's another similar product even cheaper",
-                "It's the only option",
-                "Everything is confusing"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Looking more carefully, Chrumko discovers that the difference is very small or there's another similar product at an even better price."
-            },
-            {
-              "questionId": "6003_04",
-              "type": "practical",
-              "question": "What does Chrumko learn?",
-              "options": [
-                "Believe all slogans",
-                "A large sign doesn't automatically mean the best purchase",
-                "Always buy the first thing",
-                "It's not important"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko understands that a large sign doesn't automatically mean the best purchase. You need to properly compare prices."
-            }
-          ]
-        },
-        {
-          "lessonId": 6004,
-          "lessonNumber": 4,
-          "lessonName": "Impulse buying",
-          "questions": [
-            {
-              "questionId": "6004_01",
-              "type": "theoretical",
-              "question": "What is an impulse purchase?",
-              "options": [
-                "A planned purchase",
-                "A quick purchase without planning and thinking",
-                "The best purchase",
-                "It never happens"
-              ],
-              "correctAnswer": 1,
-              "explanation": "An impulse purchase is buying something quickly without planning and thinking about whether you really need it."
-            },
-            {
-              "questionId": "6004_02",
-              "type": "practical",
-              "question": "Chrumko goes with his mom to the store to buy milk. At the entrance, he sees a cool video game. He immediately wants to buy it. What is this?",
-              "options": [
-                "A planned purchase",
-                "An impulse purchase - he didn't plan to buy it",
-                "A necessary purchase",
-                "A useful purchase"
-              ],
-              "correctAnswer": 1,
-              "explanation": "This is an impulse purchase because Chrumko didn't plan to buy a video game, he suddenly wanted it when he saw it."
-            },
-            {
-              "questionId": "6004_03",
-              "type": "practical",
-              "question": "What does his mom tell him?",
-              "options": [
-                "Buy it right away",
-                "First remember why you came to the store and what you budgeted for",
-                "Spend all the money",
-                "Everything is the same"
-              ],
-              "correctAnswer": 1,
-              "explanation": "His mom reminds him that he came for milk and this water bottle is not in the budget. They should first finish their planned shopping."
-            },
-            {
-              "questionId": "6004_04",
-              "type": "practical",
-              "question": "What does Chrumko learn?",
-              "options": [
-                "Always buy everything you see",
-                "It's smart to plan what you're going to buy before entering the store",
-                "Everything is free",
-                "Everything is random"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko learns that it's smart to make a list of what you need before going to the store so you don't spend money on unplanned things."
+              "explanation": "Chrumko realized that since he wasn't hungry, buying food wasn't a current need."
             }
           ]
         }

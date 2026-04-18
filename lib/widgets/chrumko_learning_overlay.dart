@@ -256,7 +256,8 @@ class _QuizzesTab extends StatefulWidget {
   State<_QuizzesTab> createState() => _QuizzesTabState();
 }
 
-class _QuizzesTabState extends State<_QuizzesTab> {
+class _QuizzesTabState extends State<_QuizzesTab>
+    with WidgetsBindingObserver {
   late Future<List<QuizSection>> sectionsFuture;
   late Future<List<QuizProgress>> allProgressFuture;
   String _lastLanguage = 'en';
@@ -276,9 +277,33 @@ class _QuizzesTabState extends State<_QuizzesTab> {
   @override
   void initState() {
     super.initState();
+    // Add lifecycle observer to refresh progress when app resumes
+    WidgetsBinding.instance.addObserver(this);
     // Initialize with English by default
     sectionsFuture = const QuizService().getAllSections(language: 'en');
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Refresh progress when app resumes (user might have completed a quiz)
+    if (state == AppLifecycleState.resumed) {
+      print('✓ Quiz tab resumed - refreshing progress data');
+      _refreshProgressData();
+    }
+  }
+
+  void _refreshProgressData() {
+    // Force reload of progress data
+    setState(() {
+      allProgressFuture = QuizProgressDatabaseService.getAllProgress();
+    });
   }
 
   void _loadSectionsIfLanguageChanged(String currentLanguage) {
@@ -329,12 +354,40 @@ class _QuizzesTabState extends State<_QuizzesTab> {
     return 0;
   }
 
+  /// Check if all quizzes in a section are completed
+  bool _isSectionCompleted(List<Quiz> quizzes, List<QuizProgress> progressList) {
+    if (quizzes.isEmpty) return false;
+    for (final quiz in quizzes) {
+      final status = _getStatusForQuiz(progressList, quiz.id);
+      if (status == QuizStatus.notDone) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// Determine which section the user should currently be on
+  /// Returns section index (0, 1, 2, etc.)
+  int _getCurrentSectionIndex(List<QuizSection> sections, List<QuizProgress> progressList) {
+    for (int i = 0; i < sections.length; i++) {
+      if (!_isSectionCompleted(sections[i].lessons, progressList)) {
+        return i; // User is on this section (not yet completed)
+      }
+    }
+    // All sections completed, stay on the last one
+    return sections.length - 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
     
     // Update sections if language changed
     _loadSectionsIfLanguageChanged(l10n.currentLanguage);
+    
+    // Refresh progress data on every build to show latest quiz completion
+    // This ensures UI updates immediately when returning from a quiz
+    allProgressFuture = QuizProgressDatabaseService.getAllProgress();
     
     return Container(
       color: Colors.white,
@@ -363,15 +416,20 @@ class _QuizzesTabState extends State<_QuizzesTab> {
             future: allProgressFuture,
             builder: (context, progressSnapshot) {
               final progressList = progressSnapshot.data ?? [];
+              
+              // Determine current section user should be on
+              final currentSectionIndex = _getCurrentSectionIndex(sections, progressList);
+              final currentSection = sections[currentSectionIndex];
+              final currentSectionColor = sectionColors[currentSectionIndex % sectionColors.length];
+              final unlockedIndex = _getUnlockedQuizIndex(currentSection.lessons, progressList);
 
               return ListView.separated(
                 padding: const EdgeInsets.all(16),
-                itemCount: sections.length,
+                itemCount: 1, // Only show current section
                 separatorBuilder: (_, __) => const SizedBox(height: 24),
-                itemBuilder: (context, sectionIndex) {
-                  final section = sections[sectionIndex];
-                  final sectionColor = sectionColors[sectionIndex % sectionColors.length];
-                  final unlockedIndex = _getUnlockedQuizIndex(section.lessons, progressList);
+                itemBuilder: (context, _) {
+                  final section = currentSection;
+                  final sectionColor = currentSectionColor;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,8 +446,26 @@ class _QuizzesTabState extends State<_QuizzesTab> {
                           ),
                         ),
                       ),
-                      // Column with quiz circles in zigzag pattern
-                      Column(
+                      // Show "Coming soon" if no quizzes available
+                      if (section.lessons.isEmpty)
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.grey[300]!),
+                          ),
+                          child: const Text(
+                            '🚧 Quizzes coming soon...',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        )
+                      else
+                        // Column with quiz circles in zigzag pattern
+                        Column(
                         children: List.generate(
                           section.lessons.length,
                           (quizIndex) {
@@ -433,6 +509,7 @@ class _QuizzesTabState extends State<_QuizzesTab> {
                                           builder: (context) => LessonQuizScreen(
                                             lessonId: lessonId,
                                             lessonTitle: quiz.name,
+                                            onQuizCompleted: _refreshProgressData,
                                           ),
                                         ),
                                       );
