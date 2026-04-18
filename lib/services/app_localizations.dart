@@ -350,6 +350,7 @@ class AppLocalizations {
 
       // Quiz screens
       'quizResults': 'Quiz Results',
+      'quizQuestion': 'Question',
       'quizScore': 'Score: ',
       'quizCorrect': 'Correct',
       'quizOut': 'out of',
@@ -759,6 +760,7 @@ class AppLocalizations {
 
       // Quiz screens
       'quizResults': 'Výsledky kvízu',
+      'quizQuestion': 'Otázka',
       'quizScore': 'Skóre: ',
       'quizCorrect': 'Správne',
       'quizOut': 'z',

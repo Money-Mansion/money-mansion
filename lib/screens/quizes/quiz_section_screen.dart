@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../services/quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
+import '../../services/app_localizations_provider.dart';
 import '../../models/quiz_progress.dart';
 import '../../widgets/quiz_progress_circle.dart';
 import '../lessons/lesson_quiz_screen.dart';
@@ -21,6 +23,35 @@ class _QuizSectionScreenState extends State<QuizSectionScreen> {
   void initState() {
     super.initState();
     progressFuture = QuizProgressDatabaseService.getSectionProgress(widget.section.id);
+    
+    // Listen for language changes
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.addListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available
+    }
+  }
+
+  void _onLanguageChanged() {
+    if (mounted) {
+      setState(() {
+        // Rebuild to show quiz names in new language
+        progressFuture = QuizProgressDatabaseService.getSectionProgress(widget.section.id);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // Remove language change listener
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.removeListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available
+    }
+    super.dispose();
   }
 
   QuizStatus _getStatusForQuiz(

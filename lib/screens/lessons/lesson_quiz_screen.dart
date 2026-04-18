@@ -42,6 +42,21 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     super.initState();
     // Initialize immediately
     _initializeAsync();
+    
+    // Listen for language changes
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.addListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available
+    }
+  }
+
+  void _onLanguageChanged() {
+    if (mounted) {
+      // Reload questions with new language
+      _initializeAsync();
+    }
   }
 
   Future<void> _initializeAsync() async {
@@ -56,6 +71,18 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       questionsFuture = _loadQuestionsAsync();
       _initialized = true;
     });
+  }
+
+  @override
+  void dispose() {
+    // Remove language change listener
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.removeListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available
+    }
+    super.dispose();
   }
 
   Future<List<QuizQuestion>> _loadQuestionsAsync() async {
@@ -438,11 +465,11 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Otázka ${currentQuestionIndex + 1}/${questions.length}',
+                      '${l10nProvider.translate('quizQuestion')} ${currentQuestionIndex + 1}/${questions.length}',
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      'Správne: $correctAnswers',
+                      '${l10nProvider.translate('quizCorrect')}: $correctAnswers',
                       style: const TextStyle(
                         color: Color(0xFF4CAF50),
                         fontWeight: FontWeight.w600,

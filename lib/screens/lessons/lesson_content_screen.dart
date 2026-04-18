@@ -2668,10 +2668,33 @@ class _LessonContentScreenState extends State<LessonContentScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _animController, curve: Curves.easeOut));
     _animController.forward();
+    
+    // Listen for language changes
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.addListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available in testing
+    }
+  }
+
+  void _onLanguageChanged() {
+    if (mounted) {
+      setState(() {
+        // Rebuilding will use the new language via _isSk getter
+      });
+    }
   }
 
   @override
   void dispose() {
+    // Remove language change listener
+    try {
+      final l10n = context.read<AppLocalizationsProvider>();
+      l10n.removeListener(_onLanguageChanged);
+    } catch (_) {
+      // Provider not available
+    }
     _animController.stop();
     _animController.dispose();
     super.dispose();
