@@ -54,11 +54,15 @@ class MyFlutterApp {
   static const Widget shop = ImageWidget(assetImage: "assets/images/stats178.png");
   static const Widget chrumka = ImageWidget(assetImage: "assets/images/chrumka 32.png");
   static const Widget kojn = ImageWidget(assetImage: "assets/images/coinik150.png");
-  static const Widget payment = ImageWidget(assetImage: "assets/images/platby.png", width: 500, height: 500,);
-  static const Widget chrumko_coin = ImageWidget(assetImage: "assets/images/chrumko_coin.png", width: 500, height: 500,);
-  static const Widget cereal = ImageWidget(assetImage: "assets/images/cereal_bar.png", width: 500, height: 500,);
-  static const Widget barter = ImageWidget(assetImage: "assets/images/egg_bread.png", width: 500, height: 500,);
-  static const Widget tie = ImageWidget(assetImage: "assets/images/tie.png", width: 500, height: 500,);
+  static const Widget payment = ImageWidget(assetImage: "assets/images/platby.png");
+  static const Widget chrumko_coin = ImageWidget(assetImage: "assets/images/chrumko_coin.png");
+  static const Widget cereal = ImageWidget(assetImage: "assets/images/cereal_bar.png");
+  static const Widget barter = ImageWidget(assetImage: "assets/images/egg_bread.png");
+  static const Widget tie = ImageWidget(assetImage: "assets/images/tie.png");
+  static const Widget juice = ImageWidget(assetImage: "assets/images/dzus_keks.png");
+  static const Widget look = ImageWidget(assetImage: "assets/images/look.png");
+  static const Widget idea = ImageWidget(assetImage: "assets/images/idea.png");
+  static const Widget saving = ImageWidget(assetImage: "assets/images/sporenie.png");
 }
 
 class ImageWidget extends StatelessWidget {
