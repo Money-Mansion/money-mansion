@@ -12,6 +12,8 @@ import '../services/app_localizations_provider.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
 
+enum ChartPeriod { days30, days90, days180 }
+
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
   final VoidCallback onBack;
@@ -35,6 +37,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   final List<Goal> _goals = [];
   bool _isLoading = true;
   late DateTime _selectedMonth;
+  ChartPeriod _selectedChartPeriod = ChartPeriod.days180;
 
   @override
   void initState() {
@@ -694,14 +697,21 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   Widget _buildMonthlyLineChart(AppLocalizationsProvider l10n) {
-    // Get daily data for last 6 months
+    // Get daily data for selected period
     final dailyData = _getDailyData();
     if (dailyData.isEmpty) {
-      return Center(
-        child: Text(
-          l10n.translate('noDataForMonth'),
-          style: TextStyle(color: Colors.grey[600]),
-        ),
+      return Column(
+        children: [
+          _buildChartPeriodSelector(l10n),
+          Expanded(
+            child: Center(
+              child: Text(
+                l10n.translate('noDataForMonth'),
+                style: TextStyle(color: Colors.grey[600]),
+              ),
+            ),
+          ),
+        ],
       );
     }
 
@@ -711,85 +721,116 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       spots.add(FlSpot(i.toDouble(), dailyData[i]));
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: LineChart(
-        LineChartData(
-          gridData: FlGridData(show: true),
-          titlesData: FlTitlesData(
-            topTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            rightTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) {
-                  final index = value.toInt();
-                  if (index < 0 ||
-                      index >= dailyData.length ||
-                      index % 15 != 0) {
-                    return const SizedBox.shrink();
-                  }
-                  final now = DateTime.now();
-                  final sixMonthsAgo = DateTime(now.year, now.month - 6, 1);
-                  final date = sixMonthsAgo.add(Duration(days: index));
-                  return Text(
-                    '${date.day}.${date.month}',
-                    style: const TextStyle(fontSize: 10),
-                  );
-                },
-                reservedSize: 30,
-              ),
-            ),
-            leftTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) {
-                  return Text(
-                    _formatAmount(value),
-                    style: const TextStyle(fontSize: 10),
-                  );
-                },
-                reservedSize: 50,
+    final now = DateTime.now();
+    final startDate = _getChartStartDate();
+    final labelStep = _getLabelStep(dailyData.length);
+
+    return Column(
+      children: [
+        _buildChartPeriodSelector(l10n),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: LineChart(
+              LineChartData(
+                gridData: FlGridData(show: true),
+                titlesData: FlTitlesData(
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        final index = value.toInt();
+                        if (index < 0 ||
+                            index >= dailyData.length ||
+                            index % labelStep != 0) {
+                          return const SizedBox.shrink();
+                        }
+                        final date = startDate.add(Duration(days: index));
+                        return Text(
+                          '${date.day}.${date.month}',
+                          style: const TextStyle(fontSize: 10),
+                        );
+                      },
+                      reservedSize: 30,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          _formatAmount(value),
+                          style: const TextStyle(fontSize: 10),
+                        );
+                      },
+                      reservedSize: 50,
+                    ),
+                  ),
+                ),
+                borderData: FlBorderData(show: true),
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: spots,
+                    isCurved: false,
+                    color: Colors.blue,
+                    barWidth: 2,
+                    dotData: FlDotData(show: true),
+                    belowBarData: BarAreaData(
+                      show: true,
+                      color: Colors.blue.withOpacity(0.1),
+                    ),
+                  ),
+                ],
+                minY: dailyData.reduce((a, b) => a < b ? a : b) * 0.9,
+                maxY: dailyData.reduce((a, b) => a > b ? a : b) * 1.1,
               ),
             ),
           ),
-          borderData: FlBorderData(show: true),
-          lineBarsData: [
-            LineChartBarData(
-              spots: spots,
-              isCurved: false,
-              color: Colors.blue,
-              barWidth: 2,
-              dotData: FlDotData(show: true),
-              belowBarData: BarAreaData(
-                show: true,
-                color: Colors.blue.withOpacity(0.1),
-              ),
-            ),
-          ],
-          minY: dailyData.reduce((a, b) => a < b ? a : b) * 0.9,
-          maxY: dailyData.reduce((a, b) => a > b ? a : b) * 1.1,
         ),
-      ),
+      ],
     );
+  }
+
+  DateTime _getChartStartDate() {
+    final now = DateTime.now();
+    switch (_selectedChartPeriod) {
+      case ChartPeriod.days30:
+        return now.subtract(const Duration(days: 30));
+      case ChartPeriod.days90:
+        return now.subtract(const Duration(days: 90));
+      case ChartPeriod.days180:
+        return now.subtract(const Duration(days: 180));
+    }
+  }
+
+  int _getLabelStep(int totalDays) {
+    if (totalDays <= 40) {
+      return 5;
+    } else if (totalDays <= 100) {
+      return 10;
+    } else {
+      return 20;
+    }
   }
 
   List<double> _getDailyData() {
     final now = DateTime.now();
-    final sixMonthsAgo = DateTime(now.year, now.month - 6, 1);
+    final startDate = _getChartStartDate();
 
-    // Calculate days between 6 months ago and now
-    final daysDifference = now.difference(sixMonthsAgo).inDays;
+    // Calculate days between start date and now
+    final daysDifference = now.difference(startDate).inDays;
     final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
 
     // Populate daily totals
     for (final t in _transactions) {
-      if (t.date.isAfter(sixMonthsAgo) && t.date.isBefore(now)) {
-        final dayIndex = t.date.difference(sixMonthsAgo).inDays;
+      if (t.date.isAfter(startDate) && t.date.isBefore(now)) {
+        final dayIndex = t.date.difference(startDate).inDays;
         if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
           final amount = t.type == '+' ? t.amount : -t.amount;
           dailyTotals[dayIndex] += amount;
@@ -882,5 +923,52 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
           t.date.isAfter(monthStart) &&
           t.date.isBefore(monthEnd);
     }).toList();
+  }
+
+  Widget _buildChartPeriodSelector(AppLocalizationsProvider l10n) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildPeriodButton(
+            label: '30 dní',
+            period: ChartPeriod.days30,
+            l10n: l10n,
+          ),
+          _buildPeriodButton(
+            label: 'Štvrťrok',
+            period: ChartPeriod.days90,
+            l10n: l10n,
+          ),
+          _buildPeriodButton(
+            label: 'Polrok',
+            period: ChartPeriod.days180,
+            l10n: l10n,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPeriodButton({
+    required String label,
+    required ChartPeriod period,
+    required AppLocalizationsProvider l10n,
+  }) {
+    final isSelected = _selectedChartPeriod == period;
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isSelected ? Colors.blue : Colors.grey[300],
+        foregroundColor: isSelected ? Colors.white : Colors.black,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+      onPressed: () {
+        setState(() {
+          _selectedChartPeriod = period;
+        });
+      },
+      child: Text(label),
+    );
   }
 }
