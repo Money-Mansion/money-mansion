@@ -64,7 +64,7 @@ const List<LessonCategory> LESSON_CATEGORIES = [
     lessons: [
       Lesson(id: 'ako_funguje_obchod', title: 'Ako funguje obchod', quizLessonId: 6001),
       Lesson(id: 'zlavy', title: 'Zľavy', quizLessonId: 6002),
-      Lesson(id: 'marketingove_triky', title: 'Akcie a marketingové triky', quizLessonId: 6003),
+      Lesson(id: 'akcie_a_marketingove_triky', title: 'Akcie a marketingové triky', quizLessonId: 6003),
       Lesson(id: 'impulzivne_nakupy', title: 'Impulzívne nákupy', quizLessonId: 6004),
       Lesson(id: 'ako_nenaletiet_na_reklamu', title: 'Ako nenaletieť na reklamu', quizLessonId: 6005),
     ],
@@ -110,7 +110,7 @@ const List<LessonCategory> LESSON_CATEGORIES = [
       Lesson(id: 'bankovy_ucet', title: 'Bankový účet', quizLessonId: 10002),
       Lesson(id: 'platobna_karta', title: 'Platobná karta', quizLessonId: 10003),
       Lesson(id: 'pin', title: 'PIN', quizLessonId: 10004),
-      Lesson(id: 'prevod_peniazi', title: 'Prevod peňazí', quizLessonId: 10005),
+      Lesson(id: 'prevod_penazi', title: 'Prevod peňazí', quizLessonId: 10005),
     ],
   ),
   LessonCategory(
