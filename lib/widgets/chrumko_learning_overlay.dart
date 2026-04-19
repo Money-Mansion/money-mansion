@@ -30,8 +30,7 @@ class ChrumkoLearningOverlay extends StatefulWidget {
   });
 
   @override
-  State<ChrumkoLearningOverlay> createState() =>
-      _ChrumkoLearningOverlayState();
+  State<ChrumkoLearningOverlay> createState() => _ChrumkoLearningOverlayState();
 }
 
 class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
@@ -159,7 +158,10 @@ class _LessonsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = const LessonService().getCategories();
+    final l10n = context.watch<AppLocalizationsProvider>();
+    final categories =
+        const LessonService().getCategories(language: l10n.currentLanguage);
+    final isSk = l10n.currentLanguage == 'sk';
 
     return Container(
       color: Colors.white,
@@ -169,7 +171,11 @@ class _LessonsTab extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(height: 10),
         itemBuilder: (context, index) {
           final category = categories[index];
-          return _LessonCategoryCard(category: category, onClose: onClose);
+          return _LessonCategoryCard(
+            category: category,
+            isSk: isSk,
+            onClose: onClose,
+          );
         },
       ),
     );
@@ -178,10 +184,12 @@ class _LessonsTab extends StatelessWidget {
 
 class _LessonCategoryCard extends StatelessWidget {
   final LessonCategory category;
+  final bool isSk;
   final VoidCallback onClose;
 
   const _LessonCategoryCard({
     required this.category,
+    required this.isSk,
     required this.onClose,
   });
 
@@ -229,7 +237,7 @@ class _LessonCategoryCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${category.lessons.length} lekcií',
+                      '${category.lessons.length} ${isSk ? 'lekcií' : 'lessons'}',
                       style: TextStyle(
                         color: Colors.grey[700],
                         fontSize: 12,
@@ -256,8 +264,7 @@ class _QuizzesTab extends StatefulWidget {
   State<_QuizzesTab> createState() => _QuizzesTabState();
 }
 
-class _QuizzesTabState extends State<_QuizzesTab>
-    with WidgetsBindingObserver {
+class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   late Future<List<QuizSection>> sectionsFuture;
   late Future<List<QuizProgress>> allProgressFuture;
   String _lastLanguage = 'en';
@@ -309,7 +316,8 @@ class _QuizzesTabState extends State<_QuizzesTab>
   void _loadSectionsIfLanguageChanged(String currentLanguage) {
     if (_lastLanguage != currentLanguage) {
       _lastLanguage = currentLanguage;
-      sectionsFuture = const QuizService().getAllSections(language: currentLanguage);
+      sectionsFuture =
+          const QuizService().getAllSections(language: currentLanguage);
     }
   }
 
@@ -343,7 +351,8 @@ class _QuizzesTabState extends State<_QuizzesTab>
 
   /// Determine which quiz index should be unlocked in a section
   /// Returns the index of the first notDone quiz, or 0 if all are complete
-  int _getUnlockedQuizIndex(List<Quiz> quizzes, List<QuizProgress> progressList) {
+  int _getUnlockedQuizIndex(
+      List<Quiz> quizzes, List<QuizProgress> progressList) {
     for (int i = 0; i < quizzes.length; i++) {
       final status = _getStatusForQuiz(progressList, quizzes[i].id);
       if (status == QuizStatus.notDone) {
@@ -355,7 +364,8 @@ class _QuizzesTabState extends State<_QuizzesTab>
   }
 
   /// Check if all quizzes in a section are completed
-  bool _isSectionCompleted(List<Quiz> quizzes, List<QuizProgress> progressList) {
+  bool _isSectionCompleted(
+      List<Quiz> quizzes, List<QuizProgress> progressList) {
     if (quizzes.isEmpty) return false;
     for (final quiz in quizzes) {
       final status = _getStatusForQuiz(progressList, quiz.id);
@@ -368,7 +378,8 @@ class _QuizzesTabState extends State<_QuizzesTab>
 
   /// Determine which section the user should currently be on
   /// Returns section index (0, 1, 2, etc.)
-  int _getCurrentSectionIndex(List<QuizSection> sections, List<QuizProgress> progressList) {
+  int _getCurrentSectionIndex(
+      List<QuizSection> sections, List<QuizProgress> progressList) {
     for (int i = 0; i < sections.length; i++) {
       if (!_isSectionCompleted(sections[i].lessons, progressList)) {
         return i; // User is on this section (not yet completed)
@@ -381,14 +392,14 @@ class _QuizzesTabState extends State<_QuizzesTab>
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-    
+
     // Update sections if language changed
     _loadSectionsIfLanguageChanged(l10n.currentLanguage);
-    
+
     // Refresh progress data on every build to show latest quiz completion
     // This ensures UI updates immediately when returning from a quiz
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
-    
+
     return Container(
       color: Colors.white,
       child: FutureBuilder<List<QuizSection>>(
@@ -400,7 +411,8 @@ class _QuizzesTabState extends State<_QuizzesTab>
 
           if (sectionsSnapshot.hasError) {
             return Center(
-              child: Text('Chyba pri načítaní kvízov: ${sectionsSnapshot.error}'),
+              child:
+                  Text('Chyba pri načítaní kvízov: ${sectionsSnapshot.error}'),
             );
           }
 
@@ -416,12 +428,15 @@ class _QuizzesTabState extends State<_QuizzesTab>
             future: allProgressFuture,
             builder: (context, progressSnapshot) {
               final progressList = progressSnapshot.data ?? [];
-              
+
               // Determine current section user should be on
-              final currentSectionIndex = _getCurrentSectionIndex(sections, progressList);
+              final currentSectionIndex =
+                  _getCurrentSectionIndex(sections, progressList);
               final currentSection = sections[currentSectionIndex];
-              final currentSectionColor = sectionColors[currentSectionIndex % sectionColors.length];
-              final unlockedIndex = _getUnlockedQuizIndex(currentSection.lessons, progressList);
+              final currentSectionColor =
+                  sectionColors[currentSectionIndex % sectionColors.length];
+              final unlockedIndex =
+                  _getUnlockedQuizIndex(currentSection.lessons, progressList);
 
               return ListView.separated(
                 padding: const EdgeInsets.all(16),
@@ -466,68 +481,89 @@ class _QuizzesTabState extends State<_QuizzesTab>
                       else
                         // Column with quiz circles in zigzag pattern
                         Column(
-                        children: List.generate(
-                          section.lessons.length,
-                          (quizIndex) {
-                            final quiz = section.lessons[quizIndex];
-                            final status = _getStatusForQuiz(progressList, quiz.id);
-                            final score = _getScoreForQuiz(progressList, quiz.id);
-                            final isLocked = quizIndex > unlockedIndex;
-                            
-                            // Create randomized zigzag effect with multiple positions
-                            final offsets = [-50.0, -30.0, -10.0, 10.0, 30.0, 50.0];
-                            final horizontalOffset = offsets[(quiz.id.hashCode + quizIndex).abs() % offsets.length];
-                            
-                            // Calculate previous offset only if not first item
-                            final prevHorizontalOffset = quizIndex > 0
-                              ? offsets[(section.lessons[quizIndex - 1].id.hashCode + quizIndex - 1).abs() % offsets.length]
-                              : 0.0;
+                          children: List.generate(
+                            section.lessons.length,
+                            (quizIndex) {
+                              final quiz = section.lessons[quizIndex];
+                              final status =
+                                  _getStatusForQuiz(progressList, quiz.id);
+                              final score =
+                                  _getScoreForQuiz(progressList, quiz.id);
+                              final isLocked = quizIndex > unlockedIndex;
 
-                            return Column(
-                              children: [
-                                // Draw connecting line between circles (except for first item)
-                                if (quizIndex > 0)
-                                  SizedBox(
-                                    height: 40,
-                                    child: CustomPaint(
-                                      painter: _PathPainter(
-                                        prevOffset: prevHorizontalOffset,
-                                        currOffset: horizontalOffset,
-                                        color: sectionColor,
-                                      ),
-                                      size: const Size(double.infinity, 40),
-                                    ),
-                                  ),
-                                Transform.translate(
-                                  offset: Offset(horizontalOffset, 0),
-                                  child: GestureDetector(
-                                    onTap: isLocked ? null : () {
-                                      final lessonId = int.tryParse(quiz.id) ?? 1001;
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => LessonQuizScreen(
-                                            lessonId: lessonId,
-                                            lessonTitle: quiz.name,
-                                            onQuizCompleted: _refreshProgressData,
-                                          ),
+                              // Create randomized zigzag effect with multiple positions
+                              final offsets = [
+                                -50.0,
+                                -30.0,
+                                -10.0,
+                                10.0,
+                                30.0,
+                                50.0
+                              ];
+                              final horizontalOffset = offsets[
+                                  (quiz.id.hashCode + quizIndex).abs() %
+                                      offsets.length];
+
+                              // Calculate previous offset only if not first item
+                              final prevHorizontalOffset = quizIndex > 0
+                                  ? offsets[(section.lessons[quizIndex - 1].id
+                                                  .hashCode +
+                                              quizIndex -
+                                              1)
+                                          .abs() %
+                                      offsets.length]
+                                  : 0.0;
+
+                              return Column(
+                                children: [
+                                  // Draw connecting line between circles (except for first item)
+                                  if (quizIndex > 0)
+                                    SizedBox(
+                                      height: 40,
+                                      child: CustomPaint(
+                                        painter: _PathPainter(
+                                          prevOffset: prevHorizontalOffset,
+                                          currOffset: horizontalOffset,
+                                          color: sectionColor,
                                         ),
-                                      );
-                                    },
-                                    child: QuizProgressCircle(
-                                      title: quiz.name,
-                                      status: status,
-                                      score: score,
-                                      locked: isLocked,
-                                      sectionColor: sectionColor,
+                                        size: const Size(double.infinity, 40),
+                                      ),
+                                    ),
+                                  Transform.translate(
+                                    offset: Offset(horizontalOffset, 0),
+                                    child: GestureDetector(
+                                      onTap: isLocked
+                                          ? null
+                                          : () {
+                                              final lessonId =
+                                                  int.tryParse(quiz.id) ?? 1001;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LessonQuizScreen(
+                                                    lessonId: lessonId,
+                                                    lessonTitle: quiz.name,
+                                                    onQuizCompleted:
+                                                        _refreshProgressData,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                      child: QuizProgressCircle(
+                                        title: quiz.name,
+                                        status: status,
+                                        score: score,
+                                        locked: isLocked,
+                                        sectionColor: sectionColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
                     ],
                   );
                 },
@@ -576,8 +612,7 @@ class _QuizSectionCard extends StatelessWidget {
                   color: const Color(0xFFFFE0B2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.quiz_rounded,
-                    color: Color(0xFFFF9800)),
+                child: const Icon(Icons.quiz_rounded, color: Color(0xFFFF9800)),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -678,7 +713,7 @@ class _PathPainter extends CustomPainter {
     final path = Path();
     // Start from center bottom of previous circle
     path.moveTo(size.width / 2 + prevOffset, 0);
-    
+
     // Curve smoothly to center top of current circle
     path.cubicTo(
       size.width / 2 + prevOffset, // first control point x
@@ -688,7 +723,7 @@ class _PathPainter extends CustomPainter {
       size.width / 2 + currOffset, // end x
       size.height, // end y
     );
-    
+
     canvas.drawPath(path, paint);
   }
 
