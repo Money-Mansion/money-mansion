@@ -10,9 +10,8 @@ class LessonsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = const LessonService().getCategories();
     final l10n = context.watch<AppLocalizationsProvider>();
-    final categories =
-        const LessonService().getCategories(language: l10n.currentLanguage);
     final isSk = l10n.currentLanguage == 'sk';
 
     return Scaffold(
@@ -142,8 +141,7 @@ class _UnitSection extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.menu_book_rounded,
-                    color: Colors.white, size: 24),
+                child: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 24),
               ),
             ],
           ),
@@ -205,8 +203,7 @@ class _LessonPath extends StatelessWidget {
             final toY = (i + 1) * rowHeight + nodeSize / 2 + 10;
 
             return CustomPaint(
-              size: Size(MediaQuery.of(context).size.width,
-                  rowHeight * lessons.length + 20),
+              size: Size(MediaQuery.of(context).size.width, rowHeight * lessons.length + 20),
               painter: _DottedLinePainter(
                 fromX: MediaQuery.of(context).size.width * fromX,
                 fromY: fromY,
@@ -226,8 +223,7 @@ class _LessonPath extends StatelessWidget {
 
             return Positioned(
               top: i * rowHeight + 10,
-              left:
-                  MediaQuery.of(context).size.width * xFraction - nodeSize / 2,
+              left: MediaQuery.of(context).size.width * xFraction - nodeSize / 2,
               child: _LessonNode(
                 lesson: lesson,
                 categoryTitle: categoryTitle,
@@ -268,22 +264,22 @@ class _DottedLinePainter extends CustomPainter {
 
     const dashLength = 6.0;
     const gapLength = 5.0;
-    final total =
-        ((toX - fromX) * (toX - fromX) + (toY - fromY) * (toY - fromY));
+    final total = ((toX - fromX) * (toX - fromX) + (toY - fromY) * (toY - fromY));
     final dist = total > 0 ? total / (total == 0 ? 1 : total) : 0;
     final dx = toX - fromX;
     final dy = toY - fromY;
     final len = (dx * dx + dy * dy) > 0
-        ? (dx * dx + dy * dy) /
-            ((dx * dx + dy * dy) > 0 ? (dx * dx + dy * dy) : 1)
+        ? (dx * dx + dy * dy) / ((dx * dx + dy * dy) > 0 ? (dx * dx + dy * dy) : 1)
         : 1.0;
-    final length =
-        (dx * dx + dy * dy > 0) ? (dx * dx + dy * dy).toDouble() : 1.0;
+    final length = (dx * dx + dy * dy > 0)
+        ? (dx * dx + dy * dy).toDouble()
+        : 1.0;
     final realLen = length > 0 ? length.toDouble() : 1.0;
-
+    
     // Simple dashed line implementation
-    final totalLen =
-        (dx * dx + dy * dy > 0) ? ((dx * dx + dy * dy) as num).toDouble() : 1.0;
+    final totalLen = (dx * dx + dy * dy > 0)
+        ? ((dx * dx + dy * dy) as num).toDouble()
+        : 1.0;
     final magnitude = totalLen > 0 ? totalLen : 1.0;
     // Use sqrt approximation
     double sqrtLen = 1.0;
