@@ -63,6 +63,15 @@ class MyFlutterApp {
   static const Widget look = ImageWidget(assetImage: "assets/images/look.png");
   static const Widget idea = ImageWidget(assetImage: "assets/images/idea.png");
   static const Widget saving = ImageWidget(assetImage: "assets/images/sporenie.png");
+  static const Widget bookling = ImageWidget(assetImage: "assets/images/sprt.png");
+  static const Widget envelope = ImageWidget(assetImage: "assets/images/envelope.png");
+  static const Widget pencil = ImageWidget(assetImage: "assets/images/pencil.png");
+  static const Widget bottle = ImageWidget(assetImage: "assets/images/bottle.png");
+  static const Widget pastelky = ImageWidget(assetImage: "assets/images/pastelky.png");
+  static const Widget choco = ImageWidget(assetImage: "assets/images/choco.png");
+  static const Widget flower = ImageWidget(assetImage: "assets/images/flower.png");
+  static const Widget book_mobile = ImageWidget(assetImage: "assets/images/vs.png");
+  static const Widget gamer = ImageWidget(assetImage: "assets/images/gamer.png");
 }
 
 class ImageWidget extends StatelessWidget {

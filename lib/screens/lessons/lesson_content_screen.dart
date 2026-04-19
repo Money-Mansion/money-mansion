@@ -162,8 +162,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     // ── EXAMPLE: icon slide using MyFlutterApp.coins ──
     LessonSlide.icon(
       iconWidget: MyFlutterApp.payment,
-      iconSize: 300,
-      iconContainerSize: 320,
+      iconSize: 500,
+      iconContainerSize: 520,
       title: '3 Forms of Money',
       titleSk: '3 formy peňazí',
       body: 'Coins, banknotes, and digital money are the three main forms used today.',
@@ -1096,7 +1096,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko s knihou
+      iconWidget: MyFlutterApp.bookling,
+      iconContainerSize: 320,
+      iconSize: 300,
       emoji: '📚',
       storyTitle: 'The Book Chrumko Wanted',
       storyTitleSk: 'Kniha, ktorú Chrumko chcel',
@@ -1175,9 +1177,10 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       bodySk: 'Je dobré mať odložené peniaze aj bez konkrétneho plánu?',
       accentColor: Color(0xFF00838F),
     ),
-    LessonSlide(
-      type: LessonSlideType.info,
-      // photo chrumko s obalkou
+    LessonSlide.icon(
+      iconWidget: MyFlutterApp.envelope,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '📦',
       title: 'Chrumko\'s Envelope',
       titleSk: 'Chrumkova obálka',
@@ -1265,7 +1268,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a ceruzka
+      iconWidget: MyFlutterApp.pencil,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '✏️',
       storyTitle: 'Two Pencils',
       storyTitleSk: 'Dve ceruzky',
@@ -1355,7 +1360,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko s flasou
+      iconWidget: MyFlutterApp.bottle,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '💧',
       storyTitle: 'Chrumko\'s Water Bottle',
       storyTitleSk: 'Chrumkova fľaša na vodu',
@@ -1396,7 +1403,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a pastelky
+      iconWidget: MyFlutterApp.pastelky,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🖍️',
       storyTitle: 'Chrumko\'s Coloured Pencils',
       storyTitleSk: 'Chrumkove pastelky',
@@ -1438,7 +1447,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       emoji: '💧',
-      // photo chrumko a flasa
+      iconWidget: MyFlutterApp.bottle,
+      iconSize: 300,
+      iconContainerSize: 320,
       storyTitle: 'Water Before the Trip',
       storyTitleSk: 'Voda pred cestou',
       storyBody: 'Chrumko wants to buy water before a journey. He sees two small bottles and one large one. At first the two small ones seem better since each costs less. But when he looks closer, two small bottles together cost more than one large bottle. His mum shows him there\'s more water in the big bottle for a lower price. Chrumko understands: sometimes it pays to look at the quantity, not just the price!',
@@ -1522,7 +1533,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a cokolada
+      iconWidget: MyFlutterApp.choco,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🍫',
       storyTitle: 'The Discounted Chocolate',
       storyTitleSk: 'Zlacnená čokoláda',
@@ -1661,7 +1674,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a pero
+      iconWidget: MyFlutterApp.pencil,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🖊️',
       storyTitle: 'Chrumko and the Fancy Pen',
       storyTitleSk: 'Chrumko a farebné pero',
@@ -2037,7 +2052,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a kvet
+      iconWidget: MyFlutterApp.flower,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🌿',
       storyTitle: 'Chrumko\'s Brother in the Garden',
       storyTitleSk: 'Chrumkov brat v záhrade',
@@ -2078,7 +2095,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko s mobilom a knihou
+      iconWidget: MyFlutterApp.book_mobile,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '📖',
       storyTitle: 'Homework: Distracted vs Focused',
       storyTitleSk: 'Domáca úloha: rozptýlený vs sústredený',
@@ -2213,6 +2232,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.story,
       // photo chrumko a playstation
+      iconWidget: MyFlutterApp.gamer,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🎮',
       storyTitle: 'Not Right After Pay Day',
       storyTitleSk: 'Nie hneď po výplate',
