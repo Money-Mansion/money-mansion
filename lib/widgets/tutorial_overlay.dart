@@ -319,6 +319,7 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                   tapToContinueLabel: l10n.translate('tutorialTapToContinue'),
                   tapToFinishLabel: l10n.translate('tutorialTapToFinish'),
                   speakerName: l10n.translate('tutorialSpeakerName'),
+                  showSpeakerName: step.id != 'home_intro',
                 ),
               ),
             ],
@@ -344,6 +345,7 @@ class _ChrumkoDialogue extends StatelessWidget {
   final String tapToContinueLabel;
   final String tapToFinishLabel;
   final String speakerName;
+  final bool showSpeakerName;
 
   const _ChrumkoDialogue({
     required this.imagePath,
@@ -358,6 +360,7 @@ class _ChrumkoDialogue extends StatelessWidget {
     required this.tapToContinueLabel,
     required this.tapToFinishLabel,
     required this.speakerName,
+    required this.showSpeakerName,
   });
 
   @override
@@ -415,49 +418,52 @@ class _ChrumkoDialogue extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // Speaker name
-                          Row(
-                            children: [
-                              Container(
-                                width: 6,
-                                height: 6,
-                                decoration: const BoxDecoration(
-                                  color: Colors.deepOrange,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                speakerName,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  color: Colors.deepOrange,
-                                ),
-                              ),
-                              const Spacer(),
-                              // Tap-to-continue hint on passive steps
-                              if (canTapToContinue && !isFinish)
-                                Text(
-                                  tapToContinueLabel,
-                                  style: const TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey,
-                                    fontStyle: FontStyle.italic,
+                          if (showSpeakerName || canTapToContinue || isFinish)
+                            Row(
+                              children: [
+                                if (showSpeakerName) ...[
+                                  Container(
+                                    width: 6,
+                                    height: 6,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.deepOrange,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                              if (isFinish)
-                                Text(
-                                  tapToFinishLabel,
-                                  style: const TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.deepOrange,
-                                    fontStyle: FontStyle.italic,
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    speakerName,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                      color: Colors.deepOrange,
+                                    ),
                                   ),
-                                ),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
+                                ],
+                                const Spacer(),
+                                // Tap-to-continue hint on passive steps
+                                if (canTapToContinue && !isFinish)
+                                  Text(
+                                    tapToContinueLabel,
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.grey,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                if (isFinish)
+                                  Text(
+                                    tapToFinishLabel,
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.deepOrange,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          if (showSpeakerName || canTapToContinue || isFinish)
+                            const SizedBox(height: 6),
 
                           // Message
                           Text(

@@ -67,7 +67,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'tap to finish 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'At the top you can see your Coins 🪙, Money 💶 and Chrumky 🐾, {name}. Coins are earned in-game; money tracks your real finances!',
+          'Coins are earned in-game, money tracks your real finances, and your Streak 🔥 grows when you complete a quiz every day, {name}.',
       'tutorialFinancialIntro':
           'Welcome to my favourite tab, {name} — Finances! Here I track every euro that comes in or goes out. The chart shows your balance over time.',
       'tutorialFinancialTabs':
@@ -87,7 +87,7 @@ class AppLocalizations {
       'tutorialSettingsInfo':
           'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile, {name}. Feel free to explore everything!',
       'tutorialHomeWelcome':
-          'Hey there, {name}! I\'m Chrumko, your financial guide. Welcome to your very own mansion — let me show you around!',
+          'At the top you can see your Coins 🪙, Money 💶 and Streak 🔥, {name}. You build your streak by completing a quiz every day.',
       'tutorialHomeBalance':
           'Up here you can see your coins and money, {name}. These are your most important resources — spend them wisely!',
       'tutorialFinancialNav':
@@ -451,7 +451,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialTopBar':
-          'Hore vidíš Mince 🪙, Peniaze 💶 a Chrumky 🐾, {name}. Mince zarábam v hre; peniaze sledujú moje skutočné financie!',
+          'Mince získavaš v hre, peniaze sledujú tvoje skutočné financie a tvoj Streak 🔥 rastie, keď každý deň dokončíš kvíz, {name}.',
       'tutorialFinancialIntro':
           'Vitaj na mojej obľúbenej karte, {name} — Financie! Tu sledujem každé euro, ktoré príde alebo odíde. Graf ukazuje zostatok v čase.',
       'tutorialFinancialTabs':
@@ -471,7 +471,7 @@ class AppLocalizations {
       'tutorialSettingsInfo':
           'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil, {name}. Pokojne si všetko prezri!',
       'tutorialHomeWelcome':
-          'Ahoj, {name}! Som Chrumko, tvoj finančný sprievodca. Vitaj vo svojom sídle — ukážem ti, ako tu všetko funguje!',
+          'Hore vidíš svoje Mince 🪙, Peniaze 💶 a Streak 🔥, {name}. Streak si buduješ tým, že každý deň dokončíš kvíz.',
       'tutorialHomeBalance':
           'Hore vidíš svoje mince a peniaze, {name}. To sú tvoje najdôležitejšie zdroje — narábaj s nimi múdro!',
       'tutorialShop':
