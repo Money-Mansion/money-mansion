@@ -10,7 +10,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_basic.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_aura',
@@ -20,7 +20,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_aura.png',
     cost: 150,
     hitboxId: null,
-    scale: 0.09,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_cyberpunk',
@@ -30,7 +30,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_cyberpunk.png',
     cost: 250,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.11,
   ),
   Item(
     id: 'stol_delta',
@@ -40,7 +40,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_delta.png',
     cost: 150,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.08,
   ),
   Item(
     id: 'stol_dievcensky',
@@ -50,7 +50,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_dievcensky.png',
     cost: 250,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.105,
   ),
   Item(
     id: 'stol_drak',
@@ -60,7 +60,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_drak.png',
     cost: 250,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_lavica',
@@ -70,7 +70,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_lavica.png',
     cost: 170,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.098,
   ),
   Item(
     id: 'stol_modry',
@@ -80,7 +80,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_modry.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_flaky',
@@ -90,7 +90,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_flaky.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_plaz',
@@ -100,7 +100,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_plaz.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_oblacik',
@@ -110,7 +110,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_oblacik.png',
     cost: 160,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_mramor',
@@ -120,7 +120,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_mramor.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_ruzovy_oblacik',
@@ -130,7 +130,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_ruzovy_oblacik.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_salvador_dali',
@@ -140,7 +140,7 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_salvador_dali.png',
     cost: 160,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
   Item(
     id: 'stol_smajlik',
@@ -150,6 +150,6 @@ final List<Item> tableItems = [
     texture: 'assets/images/items/stol_smajlik.png',
     cost: 150,
     hitboxId: 'stol',
-    scale: 0.15,
+    scale: 0.095,
   ),
 ];
