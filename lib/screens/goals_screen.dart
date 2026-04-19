@@ -552,7 +552,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       goalId: goal.id,
                     );
 
-                    // Reassign funds without showing in transaction lists
+                    // Create both transactions for proper accounting
                     await FinancialDatabaseService.insert(debitTx);
                     await FinancialDatabaseService.insert(creditTx);
                     await _recalculateMoneyAndAllocations();

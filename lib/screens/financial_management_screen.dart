@@ -544,7 +544,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   List<Widget> _buildTransactionList(
       List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
-    return transactions.map((t) {
+    // Filter out internal goal allocation transactions (those with goalId)
+    final displayTransactions = transactions.where((t) => t.goalId == null).toList();
+    
+    return displayTransactions.map((t) {
       final goalTitle = _goalTitle(t.goalId);
       final subtitleParts = [_formatDate(t.date)];
       if (goalTitle != null) {
@@ -635,7 +638,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
       // Calculate and display total for this month
       final monthTransactions = groupedByMonth[monthKey] ?? [];
-      final monthTotal = monthTransactions.fold<double>(0, (sum, t) {
+      // Filter out internal goal allocation transactions for total calculation
+      final displayTransactions = monthTransactions.where((t) => t.goalId == null).toList();
+      final monthTotal = displayTransactions.fold<double>(0, (sum, t) {
         final amount = t.type == '+' ? t.amount : -t.amount;
         return sum + amount;
       });
@@ -721,8 +726,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       spots.add(FlSpot(i.toDouble(), dailyData[i]));
     }
 
-    final now = DateTime.now();
     final startDate = _getChartStartDate();
+    // Normalize start date to midnight
+    final startDateNormalized = DateTime(startDate.year, startDate.month, startDate.day);
     final labelStep = _getLabelStep(dailyData.length);
 
     return Column(
@@ -751,7 +757,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                             index % labelStep != 0) {
                           return const SizedBox.shrink();
                         }
-                        final date = startDate.add(Duration(days: index));
+                        final date = startDateNormalized.add(Duration(days: index));
                         return Text(
                           '${date.day}.${date.month}',
                           style: const TextStyle(fontSize: 10),
@@ -823,17 +829,26 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     final now = DateTime.now();
     final startDate = _getChartStartDate();
 
+    // Normalize dates to midnight to avoid time-based precision issues
+    final startDateNormalized = DateTime(startDate.year, startDate.month, startDate.day);
+    final nowNormalized = DateTime(now.year, now.month, now.day);
+
     // Calculate days between start date and now
-    final daysDifference = now.difference(startDate).inDays;
+    final daysDifference = nowNormalized.difference(startDateNormalized).inDays;
     final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
 
-    // Populate daily totals
+    // Populate daily totals - only transactions without goal allocation
     for (final t in _transactions) {
-      if (t.date.isAfter(startDate) && t.date.isBefore(now)) {
-        final dayIndex = t.date.difference(startDate).inDays;
-        if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
-          final amount = t.type == '+' ? t.amount : -t.amount;
-          dailyTotals[dayIndex] += amount;
+      if (t.goalId != null) continue; // Skip internal goal allocation transactions
+      
+      final tDateNormalized = DateTime(t.date.year, t.date.month, t.date.day);
+      if (tDateNormalized.isAfter(startDateNormalized) || tDateNormalized.isAtSameMomentAs(startDateNormalized)) {
+        if (tDateNormalized.isBefore(nowNormalized) || tDateNormalized.isAtSameMomentAs(nowNormalized)) {
+          final dayIndex = tDateNormalized.difference(startDateNormalized).inDays;
+          if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
+            final amount = t.type == '+' ? t.amount : -t.amount;
+            dailyTotals[dayIndex] += amount;
+          }
         }
       }
     }
@@ -852,6 +867,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
       double monthTotal = 0;
       for (final t in _transactions) {
+        if (t.goalId != null) continue; // Skip internal goal allocation transactions
+        
         if (t.date.isAfter(monthStart) && t.date.isBefore(monthEnd)) {
           final amount = t.type == '+' ? t.amount : -t.amount;
           monthTotal += amount;
@@ -920,6 +937,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     return _transactions.where((t) {
       return t.type == type &&
+          t.goalId == null &&
           t.date.isAfter(monthStart) &&
           t.date.isBefore(monthEnd);
     }).toList();
@@ -932,17 +950,17 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildPeriodButton(
-            label: '30 dní',
+            label: l10n.translate('chart30Days'),
             period: ChartPeriod.days30,
             l10n: l10n,
           ),
           _buildPeriodButton(
-            label: 'Štvrťrok',
+            label: l10n.translate('chartQuarter'),
             period: ChartPeriod.days90,
             l10n: l10n,
           ),
           _buildPeriodButton(
-            label: 'Polrok',
+            label: l10n.translate('chartHalfYear'),
             period: ChartPeriod.days180,
             l10n: l10n,
           ),

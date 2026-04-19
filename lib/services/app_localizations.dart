@@ -311,6 +311,11 @@ class AppLocalizations {
       'noTransactionsYet': 'No transactions yet. Tap + to add one!',
       'noDataForMonth': 'No data yet',
 
+      // Chart period buttons
+      'chart30Days': '30 days',
+      'chartQuarter': 'Quarter',
+      'chartHalfYear': 'Half year',
+
       // Additional missing texts
       'pickDate': 'Pick Date',
       'enterGoalTitle': 'Please enter a goal title',
@@ -699,6 +704,10 @@ class AppLocalizations {
       'createdAt': 'Vytvorené',
       'noTransactionsYet': 'Zatiaľ žiadne transakcie. Klepni + a pridaj jednu!',
       'noDataForMonth': 'Zatiaľ žiadne dáta',
+      // Chart period buttons
+      'chart30Days': '30 dní',
+      'chartQuarter': 'Štvrťrok',
+      'chartHalfYear': 'Polrok',
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
