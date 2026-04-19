@@ -375,20 +375,20 @@ class AppLocalizations {
       'chrumkoTip1': 'Chrumko advises: think first, then buy. 🛍️',
       'chrumkoTip2':
           'I track my expenses. That way I know where my money goes! 📊',
-      'chrumkoTip3': 'Even small savings grow into something big over time. 📈',
-      'chrumkoTip4': 'When I plan my purchases, I save more money. 📝',
+      'chrumkoTip3': 'even small savings grow into something big over time. 📈',
+      'chrumkoTip4': 'when I plan my purchases, I save more money. 📝',
       'chrumkoTip5': 'I always keep a reserve for unexpected things! 🎁',
-      'chrumkoTip6': 'A budget helps me stay in control of my money! 📋',
+      'chrumkoTip6': 'a budget helps me stay in control of my money! 📋',
       'chrumkoTip7':
           'I don\'t have to buy everything right away. Sometimes it pays to wait! ⏳',
-      'chrumkoTip8': 'Every saved euro is a step towards my goals! 🎯',
-      'chrumkoTip9': 'Thoughtful decisions make money a great helper! 🤝',
+      'chrumkoTip8': 'every saved euro is a step towards my goals! 🎯',
+      'chrumkoTip9': 'thoughtful decisions make money a great helper! 🤝',
       'chrumkoTip10': 'I save up for things that are truly important to me! 🌟',
-      'chrumkoTip11': 'When I save regularly, my savings grow faster! 📈',
+      'chrumkoTip11': 'when I save regularly, my savings grow faster! 📈',
       'chrumkoTip12':
           'Before buying, I always ask myself: do I really need this? 🛒',
-      'chrumkoTip13': 'Financial discipline helps me fulfil my dreams! 💭',
-      'chrumkoTip14': 'Remember: money is a tool, not a goal! 🌍',
+      'chrumkoTip13': 'financial discipline helps me fulfil my dreams! 💭',
+      'chrumkoTip14': 'remember: money is a tool, not a goal! 🌍',
     },
     'sk': {
       // Main app
