@@ -13,20 +13,24 @@ import 'package:money_mansion_skeleton/main.dart';
 void main() {
   testWidgets('Money Mansion app loads correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MoneyMansionApp(isFirstLaunch: false));
+    await tester.pumpWidget(
+      const MoneyMansionApp(isFirstLaunch: false, hasPrivacyConsent: true),
+    );
 
     // Verify that the app displays game resources
     expect(find.text('111'), findsOneWidget); // Coins
     expect(find.text('780'), findsOneWidget); // Emeralds
     expect(find.text('7.7'), findsOneWidget); // Date
-    
+
     // Verify that the calendar header is present
     expect(find.text('JUL'), findsOneWidget);
   });
 
   testWidgets('Navigation between screens works', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MoneyMansionApp(isFirstLaunch: false));
+    await tester.pumpWidget(
+      const MoneyMansionApp(isFirstLaunch: false, hasPrivacyConsent: true),
+    );
 
     // Initially on home screen (room viewer)
     await tester.pumpAndSettle();

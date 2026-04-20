@@ -249,8 +249,18 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   Widget _buildCalendarIcon() {
     final now = DateTime.now();
     final monthNames = [
-      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC'
     ];
 
     return Container(
@@ -402,7 +412,9 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
           if (selectedNavIndex == -1 && _overlayOpen)
             ChrumkoLearningOverlay(
               onClose: () {
-                context.read<TutorialProvider>().registerAction('close_lessons');
+                context
+                    .read<TutorialProvider>()
+                    .registerAction('close_lessons');
                 setState(() {
                   _overlayOpen = false;
                 });
@@ -424,6 +436,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 await QuizProgressDatabaseService.clearAllProgress();
                 await tutorialProvider.restartTutorial();
                 await OnboardingService.resetOnboarding();
+                await OnboardingService.resetPrivacyConsent();
                 gameState.clearOwnedItems();
                 gameState.setCoins(0);
                 gameState.setMoney(0.0);
@@ -432,7 +445,9 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('DEBUG: Cleared all user progress + quiz data'),
+                      content: Text(
+                        'DEBUG: Cleared all user progress + quiz data + privacy consent',
+                      ),
                       duration: Duration(seconds: 1),
                     ),
                   );

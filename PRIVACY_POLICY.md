@@ -1,6 +1,6 @@
 # Privacy Policy — Money Mansion
 
-**Last updated:** April 9, 2026
+**Last updated:** April 20, 2026
 
 ---
 
@@ -48,8 +48,11 @@ When you create or evaluate a **savings goal**, the following information is sen
 - Goal description
 - Target amount (numeric value only)
 - Target due date (date only)
+- Child age (from onboarding, if provided)
+- Monthly income and monthly expenses (from onboarding, if provided)
+- Financial experience level, main goal, and income type (from onboarding)
 
-**No personally identifiable information** (such as name, email address, location, or device identifiers) is included in these requests.
+**No direct identifiers** (such as name, email address, location, or device identifiers) are included in these requests.
 
 ---
 
@@ -58,7 +61,7 @@ When you create or evaluate a **savings goal**, the following information is sen
 | Data | Purpose | Stored where |
 |------|---------|--------------|
 | Transactions, goals, game state | Core app functionality | Locally on device |
-| Goal title, description, amount, date | AI difficulty classification | Sent to Groq API (see Section 4) |
+| Goal title, description, amount, date, plus onboarding profile context (age, income, expenses, experience, main goal, income type) | AI difficulty classification | Sent to Groq API (see Section 4) |
 
 We do **not** use your data for advertising, profiling, or any purpose beyond operating the app.
 
@@ -91,7 +94,7 @@ As the app is developed in the European Union (Slovakia), users in the EU have a
 - We do **not** collect any personally identifiable information from children, such as name, email address, phone number, location, or photos.
 - We do **not** require account registration or login.
 - All financial and game data entered in the app is stored **only on the device** and is under the control of the device owner (parent or guardian).
-- The only external data transmission is non-personal goal content sent to the Groq AI service for difficulty classification (see Section 4).
+- The only external data transmission is savings-goal content and onboarding profile context sent to the Groq AI service for difficulty classification (see Section 4).
 - We do **not** display behavioral advertising.
 - We do **not** sell children's data to any third party.
 

@@ -5,7 +5,8 @@ import 'onboarding_service.dart';
 
 /// Calls Groq Llama 3.1-8B to classify a child's savings goal into Easy, Medium, Hard, or request more info.
 class GoalAiService {
-  static const _apiKey = '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';
+  static const _apiKey =
+      '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';
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
   static const _model = 'llama-3.3-70b-versatile';
 
@@ -20,7 +21,7 @@ class GoalAiService {
     required String description,
     double? targetMoney,
     DateTime? dueDate,
-    String language = 'en',ww
+    String language = 'en',
   }) async {
     final userProfile = await OnboardingService.getUserProfile();
     final monthlyIncomeForHeuristic =
@@ -90,7 +91,8 @@ class GoalAiService {
       final normalized = text.toUpperCase();
       final parsedReason = _truncate(text);
 
-      if (normalized.contains('MORE INFO') || normalized.contains('MORE_INFO')) {
+      if (normalized.contains('MORE INFO') ||
+          normalized.contains('MORE_INFO')) {
         return GoalAiResult.needsMoreInfo(reason: parsedReason);
       } else if (normalized.contains('EASY')) {
         return GoalAiResult.difficulty('Easy', reason: parsedReason);
@@ -132,8 +134,9 @@ class GoalAiService {
     final due = dueDate != null
         ? '${dueDate.year}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}'
         : 'not provided';
-    final target =
-    targetMoney != null && targetMoney > 0 ? targetMoney.toStringAsFixed(2) : 'not provided';
+    final target = targetMoney != null && targetMoney > 0
+        ? targetMoney.toStringAsFixed(2)
+        : 'not provided';
     final profileSnippet = _profileSnippet(userProfile);
 
     return '''
@@ -173,7 +176,8 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
   }
 
   static bool _isVague(String text) {
-    final words = text.trim().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+    final words =
+        text.trim().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
     return words < 4;
   }
 
@@ -184,8 +188,7 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
     required double monthlyIncome,
     String? reason,
   }) {
-    final amountDifficulty =
-        _difficultyFromAmount(targetMoney, monthlyIncome);
+    final amountDifficulty = _difficultyFromAmount(targetMoney, monthlyIncome);
     if (amountDifficulty != null) {
       return GoalAiResult.difficulty(amountDifficulty, reason: reason);
     }
@@ -270,7 +273,8 @@ class GoalAiResult {
   });
 
   factory GoalAiResult.difficulty(String difficulty, {String? reason}) =>
-      GoalAiResult._(difficulty: difficulty, needsMoreInfo: false, reason: reason);
+      GoalAiResult._(
+          difficulty: difficulty, needsMoreInfo: false, reason: reason);
 
   factory GoalAiResult.needsMoreInfo({String? reason}) =>
       GoalAiResult._(difficulty: null, needsMoreInfo: true, reason: reason);

@@ -16,6 +16,7 @@ import 'services/tutorial_provider.dart';
 import 'models/game_state.dart';
 import 'models/room.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/privacy_consent_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,11 +63,12 @@ void main() async {
 
     await QuizProgressDatabaseService.initializeDatabase();
     print('✓ QuizProgressDatabaseService ready');
-    
+
     // Ensure quiz progress table exists
     try {
       final allProgress = await QuizProgressDatabaseService.getAllProgress();
-      print('✓ Quiz progress table verified - ${allProgress.length} records found');
+      print(
+          '✓ Quiz progress table verified - ${allProgress.length} records found');
     } catch (e) {
       print('⚠ Quiz progress table check failed: $e');
     }
@@ -92,6 +94,7 @@ void main() async {
   final musicEnabled = await FinancialDatabaseService.getMusicEnabled();
   final musicVolume = await FinancialDatabaseService.getMusicVolume();
   final isFirstLaunch = await OnboardingService.isFirstLaunch();
+  final hasPrivacyConsent = await OnboardingService.hasPrivacyConsent();
 
   runApp(
     MultiProvider(
@@ -109,15 +112,42 @@ void main() async {
         ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
         ChangeNotifierProvider(create: (_) => TutorialProvider()),
       ],
-      child: MoneyMansionApp(isFirstLaunch: isFirstLaunch),
+      child: MoneyMansionApp(
+        isFirstLaunch: isFirstLaunch,
+        hasPrivacyConsent: hasPrivacyConsent,
+      ),
     ),
   );
 }
 
-class MoneyMansionApp extends StatelessWidget {
+class MoneyMansionApp extends StatefulWidget {
   final bool isFirstLaunch;
+  final bool hasPrivacyConsent;
 
-  const MoneyMansionApp({super.key, required this.isFirstLaunch});
+  const MoneyMansionApp({
+    super.key,
+    required this.isFirstLaunch,
+    required this.hasPrivacyConsent,
+  });
+
+  @override
+  State<MoneyMansionApp> createState() => _MoneyMansionAppState();
+}
+
+class _MoneyMansionAppState extends State<MoneyMansionApp> {
+  late bool _hasPrivacyConsent;
+
+  @override
+  void initState() {
+    super.initState();
+    _hasPrivacyConsent = widget.hasPrivacyConsent;
+  }
+
+  void _onPrivacyAccepted() {
+    setState(() {
+      _hasPrivacyConsent = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +161,11 @@ class MoneyMansionApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
       ),
-      home: isFirstLaunch ? const OnboardingScreen() : const GameScreen(),
+      home: _hasPrivacyConsent
+          ? (widget.isFirstLaunch
+              ? const OnboardingScreen()
+              : const GameScreen())
+          : PrivacyConsentScreen(onAccepted: _onPrivacyAccepted),
     );
   }
 }

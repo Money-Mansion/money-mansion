@@ -48,6 +48,7 @@ class UserProfile {
 
 class OnboardingService {
   static const _firstLaunchKey = 'isFirstLaunch';
+  static const _privacyConsentKey = 'privacy_policy_consent';
   static const _usernameKey = 'user_name';
   static const _ageKey = 'user_age';
   static const _monthlyIncomeKey = 'user_monthly_income';
@@ -68,6 +69,21 @@ class OnboardingService {
   static Future<bool> isFirstLaunch() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_firstLaunchKey) ?? true;
+  }
+
+  static Future<bool> hasPrivacyConsent() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_privacyConsentKey) ?? false;
+  }
+
+  static Future<void> setPrivacyConsentGiven() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_privacyConsentKey, true);
+  }
+
+  static Future<void> resetPrivacyConsent() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_privacyConsentKey);
   }
 
   static Future<void> saveUserProfile({
