@@ -27,13 +27,21 @@ By using Money Mansion, you agree to the practices described in this policy.
 
 Money Mansion stores the following data **locally on your device only** using a local database (SQLite). This data never leaves your device unless explicitly stated otherwise:
 
+- **User Profile Information:**
+  - Username
+  - Age
+  - Monthly income
+  - Monthly expenses (optional)
+  - Financial experience level (beginner/intermediate)
+  - Main financial goal (saving/learning/tracking)
+  - Income type (student/part-time/full-time)
 - Financial transactions you enter (income, expenses, amounts, dates, notes)
 - Savings goals (title, description, target amount, due date)
 - Game progress (coins, level, room items, decorations)
 - Quiz and lesson progress
 - App settings (language, music preferences)
 
-This data is stored solely to provide the app's functionality and is not transmitted to our servers.
+This data is stored solely to provide the app's functionality and is not transmitted to our servers, except where explicitly noted in Section 2.2.
 
 ### 2.2 Information Sent to Third-Party AI Service
 
