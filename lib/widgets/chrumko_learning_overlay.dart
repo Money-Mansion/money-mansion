@@ -71,70 +71,72 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
           ),
           // Overlay panel with tabs at bottom
           Positioned.fill(
-            child: Column(
-              children: [
-                // Empty content area (TabBarView)
-                Expanded(
-                  child: AbsorbPointer(
-                    absorbing: lockLearningContent,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        // Quizes tab
-                        _buildTabContent(l10n, 'quizes'),
-                        // Lessons tab
-                        _buildTabContent(l10n, 'lessons'),
-                      ],
+            child: SafeArea(
+              child: Column(
+                children: [
+                  // Empty content area (TabBarView)
+                  Expanded(
+                    child: AbsorbPointer(
+                      absorbing: lockLearningContent,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          // Quizes tab
+                          _buildTabContent(l10n, 'quizes'),
+                          // Lessons tab
+                          _buildTabContent(l10n, 'lessons'),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                // Bottom bar with TabBar and back button
-                Container(
-                  color: Colors.white,
-                  child: SafeArea(
-                    top: false,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 48,
-                          child: TutorialTarget(
-                            id: 'close_lessons',
-                            child: IconButton(
-                              icon: const Icon(Icons.arrow_back),
-                              onPressed: widget.onClose,
-                              tooltip: l10n.translate('back'),
+                  // Bottom bar with TabBar and back button
+                  Container(
+                    color: Colors.white,
+                    child: SafeArea(
+                      top: false,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 48,
+                            child: TutorialTarget(
+                              id: 'close_lessons',
+                              child: IconButton(
+                                icon: const Icon(Icons.arrow_back),
+                                onPressed: widget.onClose,
+                                tooltip: l10n.translate('back'),
+                              ),
                             ),
                           ),
-                        ),
-                        // TabBar (centered, flexible)
-                        Expanded(
-                          child: TabBar(
-                            controller: _tabController,
-                            labelColor: Colors.deepPurple,
-                            unselectedLabelColor: Colors.grey[600],
-                            indicatorColor: Colors.deepPurple,
-                            indicatorWeight: 3,
-                            tabs: _tabKeys.map((key) {
-                              final targetId = key == 'quizes'
-                                  ? 'tab_quizes'
-                                  : 'tab_lessons';
-                              return TutorialTarget(
-                                id: targetId,
-                                child: Tab(
-                                  text: l10n.translate(key),
-                                ),
-                              );
-                            }).toList(),
+                          // TabBar (centered, flexible)
+                          Expanded(
+                            child: TabBar(
+                              controller: _tabController,
+                              labelColor: Colors.deepPurple,
+                              unselectedLabelColor: Colors.grey[600],
+                              indicatorColor: Colors.deepPurple,
+                              indicatorWeight: 3,
+                              tabs: _tabKeys.map((key) {
+                                final targetId = key == 'quizes'
+                                    ? 'tab_quizes'
+                                    : 'tab_lessons';
+                                return TutorialTarget(
+                                  id: targetId,
+                                  child: Tab(
+                                    text: l10n.translate(key),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 48,
-                        ),
-                      ],
+                          SizedBox(
+                            width: 48,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

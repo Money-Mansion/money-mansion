@@ -126,6 +126,7 @@ class _ResourceDisplay extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: 28,
@@ -141,15 +142,33 @@ class _ResourceDisplay extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 18,
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              fontSize: _calculateFontSize(value),
               fontWeight: FontWeight.bold,
-              color: Color(0xFF6B5B8C),
+              color: const Color(0xFF6B5B8C),
             ),
           ),
         ],
       ),
     );
+  }
+
+  /// Calculate responsive font size based on value length
+  double _calculateFontSize(String value) {
+    final length = value.length;
+    if (length <= 3) {
+      return 18;
+    } else if (length <= 5) {
+      return 16;
+    } else if (length <= 7) {
+      return 14;
+    } else if (length <= 9) {
+      return 12;
+    } else {
+      return 10;
+    }
   }
 }
 
