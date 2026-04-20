@@ -853,6 +853,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       }
     }
 
+    // Convert daily totals to cumulative balance
+    for (int i = 1; i < dailyTotals.length; i++) {
+      dailyTotals[i] += dailyTotals[i - 1];
+    }
+
     return dailyTotals;
   }
 
@@ -875,6 +880,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         }
       }
       monthlyTotals.add(monthTotal);
+    }
+
+    // Convert monthly totals to cumulative balance
+    for (int i = 1; i < monthlyTotals.length; i++) {
+      monthlyTotals[i] += monthlyTotals[i - 1];
     }
 
     return monthlyTotals;

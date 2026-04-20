@@ -105,7 +105,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     final coins =
         _DEBUG_MODE ? 100000 : await FinancialDatabaseService.getCoins();
     final money = await FinancialDatabaseService.getMoney();
-    final streak = await StreakService.getCurrentStreak();
+    final streak = await StreakService.getAndValidateStreak();
 
     if (mounted) {
       gameState.setCoins(coins);

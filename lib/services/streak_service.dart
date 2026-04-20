@@ -93,6 +93,41 @@ class StreakService {
     }
   }
 
+  /// Validates and returns the current streak, resetting if more than 1 day has passed
+  /// Call this on app startup to ensure streak is properly maintained
+  static Future<int> getAndValidateStreak() async {
+    int currentStreak = await getCurrentStreak();
+    
+    if (currentStreak == 0) {
+      return 0; // No active streak to validate
+    }
+
+    final lastQuizDate = await _getLastQuizDate();
+    if (lastQuizDate == null) {
+      return 0; // No last quiz date, reset streak
+    }
+
+    final lastDate = DateTime.fromMillisecondsSinceEpoch(lastQuizDate);
+    final today = DateTime.now();
+    
+    // Normalize dates to compare just the date part
+    final lastDateNormalized = DateTime(lastDate.year, lastDate.month, lastDate.day);
+    final todayNormalized = DateTime(today.year, today.month, today.day);
+    
+    // Calculate days difference
+    final difference = todayNormalized.difference(lastDateNormalized).inDays;
+    
+    if (difference > 1) {
+      // More than 1 day gap - reset streak to 0
+      await _saveCurrentStreak(0);
+      print('✓ Streak reset: ${difference} days passed since last quiz');
+      return 0;
+    }
+    
+    // Streak is still active
+    return currentStreak;
+  }
+
   /// Get max streak (personal best)
   static Future<int> getMaxStreak() async {
     final db = await FinancialDatabaseService.database;
