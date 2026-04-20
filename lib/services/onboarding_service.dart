@@ -49,6 +49,12 @@ class UserProfile {
 class OnboardingService {
   static const _firstLaunchKey = 'isFirstLaunch';
   static const _privacyConsentKey = 'privacy_policy_consent';
+  static const _privacyPolicyVersionKey = 'privacy_policy_version';
+  
+  // ⚠️ INCREMENT THIS when the privacy policy is updated
+  // Users will need to re-accept the policy on next app launch
+  static const int _currentPrivacyPolicyVersion = 1;
+  
   static const _usernameKey = 'user_name';
   static const _ageKey = 'user_age';
   static const _monthlyIncomeKey = 'user_monthly_income';
@@ -73,17 +79,38 @@ class OnboardingService {
 
   static Future<bool> hasPrivacyConsent() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_privacyConsentKey) ?? false;
+    final hasConsent = prefs.getBool(_privacyConsentKey) ?? false;
+    
+    if (!hasConsent) {
+      return false;
+    }
+    
+    // Check if policy version has been updated
+    final acceptedVersion = prefs.getInt(_privacyPolicyVersionKey) ?? 0;
+    return acceptedVersion >= _currentPrivacyPolicyVersion;
   }
 
   static Future<void> setPrivacyConsentGiven() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_privacyConsentKey, true);
+    await prefs.setInt(_privacyPolicyVersionKey, _currentPrivacyPolicyVersion);
   }
 
   static Future<void> resetPrivacyConsent() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_privacyConsentKey);
+    await prefs.remove(_privacyPolicyVersionKey);
+  }
+
+  /// Get the current privacy policy version
+  static int getCurrentPrivacyPolicyVersion() {
+    return _currentPrivacyPolicyVersion;
+  }
+
+  /// Get the last accepted privacy policy version
+  static Future<int> getAcceptedPrivacyPolicyVersion() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_privacyPolicyVersionKey) ?? 0;
   }
 
   static Future<void> saveUserProfile({

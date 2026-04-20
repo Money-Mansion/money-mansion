@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/game_state.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
@@ -129,6 +130,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
+  }
+
+  Future<void> _openPrivacyPolicy() async {
+    const privacyPolicyUrl = 'https://docs.google.com/document/d/1GGN1zc9PyD62BLHKO86DUAkBv_THPzauoy9kx1GcUKU/edit?tab=t.0';
+    try {
+      final Uri url = Uri.parse(privacyPolicyUrl);
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        _showSnack('Could not open privacy policy');
+      }
+    } catch (e) {
+      _showSnack('Error: $e');
+    }
   }
 
   @override
@@ -383,6 +398,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 32),
+                  // Privacy Policy Link
+                  Center(
+                    child: GestureDetector(
+                      onTap: _openPrivacyPolicy,
+                      child: Text(
+                        'Privacy Policy',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
