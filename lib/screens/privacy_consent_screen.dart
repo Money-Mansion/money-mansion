@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/services.dart' show SystemNavigator, rootBundle;
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter/services.dart' show SystemNavigator;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../services/onboarding_service.dart';
 
@@ -15,39 +15,41 @@ class PrivacyConsentScreen extends StatefulWidget {
 }
 
 class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
-  late final Future<_PrivacyPolicyContent> _privacyPolicyFuture;
+  bool _agreeChecked = false;
   bool _isSubmitting = false;
+  
+  // Privacy policy URL (public Google Doc)
+  static const String _privacyPolicyUrl = 'https://docs.google.com/document/d/1GGN1zc9PyD62BLHKO86DUAkBv_THPzauoy9kx1GcUKU/edit?tab=t.0';
 
-  @override
-  void initState() {
-    super.initState();
-    _privacyPolicyFuture = _loadPrivacyPolicyContent();
-  }
-
-  Future<_PrivacyPolicyContent> _loadPrivacyPolicyContent() async {
-    final text = await rootBundle.loadString('PRIVACY_POLICY.md');
-    final fontFamily = _extractFontFamilyFromMarkdown(text) ?? 'serif';
-    return _PrivacyPolicyContent(text: text, fontFamily: fontFamily);
-  }
-
-  String? _extractFontFamilyFromMarkdown(String markdown) {
-    final fontFamilyRegex = RegExp(r'''font-family\s*:\s*["']?([^;"']+)''');
-    final fontRegex = RegExp(r'''font\s*:\s*[^;]*["']([^"']+)["']''');
-
-    final familyMatch = fontFamilyRegex.firstMatch(markdown);
-    if (familyMatch != null && familyMatch.groupCount >= 1) {
-      return familyMatch.group(1)?.trim();
+  Future<void> _openPrivacyPolicy() async {
+    try {
+      final Uri url = Uri.parse(_privacyPolicyUrl);
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Could not open privacy policy')),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     }
-
-    final fontMatch = fontRegex.firstMatch(markdown);
-    if (fontMatch != null && fontMatch.groupCount >= 1) {
-      return fontMatch.group(1)?.trim();
-    }
-
-    return null;
   }
 
   Future<void> _acceptPolicy() async {
+    if (!_agreeChecked) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please agree to the privacy policy')),
+      );
+      return;
+    }
+
     if (_isSubmitting) {
       return;
     }
@@ -77,63 +79,138 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
-      appBar: AppBar(title: const Text('Privacy Policy Consent')),
+      appBar: AppBar(
+        title: const Text('Privacy Policy'),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
-              child: FutureBuilder<_PrivacyPolicyContent>(
-                future: _privacyPolicyFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
-                  if (snapshot.hasError) {
-                    return const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        'Failed to load PRIVACY_POLICY.md. Please try again.',
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome to Money Mansion',
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  }
-
-                  return Markdown(
-                    data: snapshot.data?.text ?? '',
-                    padding: const EdgeInsets.all(16),
-                    selectable: true,
-                    styleSheet: MarkdownStyleSheet.fromTheme(
-                      Theme.of(context),
-                    ).copyWith(
-                      p: TextStyle(
-                        fontFamily: snapshot.data?.fontFamily,
-                        height: 1.45,
-                      ),
-                      h1: TextStyle(fontFamily: snapshot.data?.fontFamily),
-                      h2: TextStyle(fontFamily: snapshot.data?.fontFamily),
-                      h3: TextStyle(fontFamily: snapshot.data?.fontFamily),
                     ),
-                  );
-                },
+                    const SizedBox(height: 16),
+                    Text(
+                      'Before you continue, please review our privacy policy.',
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(height: 24),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surface,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: theme.colorScheme.outline.withOpacity(0.2),
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Privacy Policy Overview',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Money Mansion is committed to protecting your privacy. '
+                            'All your financial data is stored locally on your device and never shared.',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: theme.colorScheme.primary,
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              'Tap the link below to read our full privacy policy',
+                              style: theme.textTheme.bodySmall,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Center(
+                      child: GestureDetector(
+                        onTap: _openPrivacyPolicy,
+                        child: Text(
+                          'Read Full Privacy Policy',
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: theme.colorScheme.primary,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-              child: Row(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: _isSubmitting ? null : _declinePolicy,
-                      child: const Text('Decline'),
+                  CheckboxListTile(
+                    value: _agreeChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _agreeChecked = value ?? false;
+                      });
+                    },
+                    title: Text(
+                      'I agree with the privacy policy',
+                      style: theme.textTheme.bodyMedium,
                     ),
+                    contentPadding: EdgeInsets.zero,
+                    controlAffinity: ListTileControlAffinity.leading,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: _isSubmitting ? null : _acceptPolicy,
-                      child: Text(_isSubmitting ? 'Saving...' : 'I Agree'),
-                    ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: _isSubmitting ? null : _declinePolicy,
+                          child: const Text('Decline'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FilledButton(
+                          onPressed: _isSubmitting ? null : _acceptPolicy,
+                          child: Text(_isSubmitting ? 'Saving...' : 'Accept'),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -143,11 +220,4 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
       ),
     );
   }
-}
-
-class _PrivacyPolicyContent {
-  final String text;
-  final String? fontFamily;
-
-  const _PrivacyPolicyContent({required this.text, required this.fontFamily});
 }
