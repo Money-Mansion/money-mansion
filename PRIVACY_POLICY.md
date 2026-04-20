@@ -8,17 +8,12 @@
 
 Money Mansion ("we", "our", or "the app") is an educational finance game designed to help children learn about saving money, setting goals, and managing personal finances in a fun and interactive way.
 
-This application was developed as part of **Lab IT Creativity 5** — a collaborative educational project between secondary schools, universities, and industry partners in Slovakia.
-
-**Project team:**
-
-- **Gymnázium Šrobárova** (secondary school)
-  Mentor: Marek Coronič
-  Developers: Šimon, Denisa, Dorian
-- **Cassoviam Code** (industry partner)
-  Mentor: Dominika Petrová
-- **Technická Univerzita Košice** (university students)
-  Mentors: Dominik Forgáč, Richard Sokol, René Šoltés
+**Development team:**
+- Denisa Tóthová
+- Šimon Škombár
+- Šimon Sobek
+- Ema Kubalová
+- Dorián Lovič
 
 We are committed to protecting the privacy of our users, especially children. This Privacy Policy explains what information is collected, how it is used, and your rights regarding that information.
 
