@@ -33,7 +33,7 @@ class RoomComponentDatabaseService {
           cost INTEGER NOT NULL
         )
       ''');
-      print('✓ Created/verified owned_room_components table');
+      print('Created/verified owned_room_components table');
 
       // Create room_selected_components table
       await db.execute('''
@@ -43,7 +43,7 @@ class RoomComponentDatabaseService {
           FOREIGN KEY(selected_component_id) REFERENCES $_ownedComponentsTable(id)
         )
       ''');
-      print('✓ Created/verified room_selected_components table');
+      print('Created/verified room_selected_components table');
 
       // Initialize default selections if they don't exist
       await _ensureDefaultSelections(db);
@@ -60,7 +60,7 @@ class RoomComponentDatabaseService {
         'SELECT COUNT(*) as count FROM $_selectedComponentsTable WHERE role = ?',
         ['wall'],
       );
-      
+
       if ((wallCount[0]['count'] as int) == 0) {
         // No default wall selected, insert placeholder
         await db.insert(
@@ -74,7 +74,7 @@ class RoomComponentDatabaseService {
         'SELECT COUNT(*) as count FROM $_selectedComponentsTable WHERE role = ?',
         ['floor'],
       );
-      
+
       if ((floorCount[0]['count'] as int) == 0) {
         // No default floor selected, insert placeholder
         await db.insert(
@@ -173,7 +173,7 @@ class RoomComponentDatabaseService {
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      print('✓ Added owned room component: ${component.id}');
+      print('Added owned room component: ${component.id}');
       return true;
     } catch (e) {
       print('Error adding owned room component: $e');
@@ -191,7 +191,7 @@ class RoomComponentDatabaseService {
         where: 'id = ?',
         whereArgs: [componentId],
       );
-      print('✓ Removed owned room component: $componentId');
+      print('Removed owned room component: $componentId');
       return true;
     } catch (e) {
       print('Error removing owned room component: $e');
@@ -210,7 +210,7 @@ class RoomComponentDatabaseService {
         whereArgs: [role],
         limit: 1,
       );
-      
+
       if (result.isNotEmpty) {
         final componentId = result[0]['selected_component_id'] as String;
         // Return null if it's the placeholder
@@ -231,15 +231,15 @@ class RoomComponentDatabaseService {
     try {
       final db = await database;
       await ensureTablesExist();
-      
+
       await db.update(
         _selectedComponentsTable,
         {'selected_component_id': componentId},
         where: 'role = ?',
         whereArgs: [role],
       );
-      
-      print('✓ Set selected component for role $role: $componentId');
+
+      print('Set selected component for role $role: $componentId');
       return true;
     } catch (e) {
       print('Error setting selected component for role $role: $e');
@@ -261,36 +261,45 @@ class RoomComponentDatabaseService {
     }
   }
 
-  /// Ensure default components (wall_basic, floor_ruined1) are always owned
-  /// Call this when the app starts to guarantee defaults exist
+  /// Ensure starter components are always owned for a fresh install.
+  /// Call this when the app starts to guarantee defaults exist.
   static Future<bool> ensureDefaultComponentsOwned() async {
     try {
       final db = await database;
       await ensureTablesExist();
 
-      // Import default components config
-      const defaultWall = 'wall_basic';
+      // Starter room should open with the brick wall on first launch.
+      const defaultWall = 'wall_bricks';
       const defaultFloor = 'floor_ruined1';
 
-      // Check if wall_basic exists, if not add it
       final wallExists = await db.rawQuery(
         'SELECT COUNT(*) as count FROM $_ownedComponentsTable WHERE id = ?',
         [defaultWall],
       );
 
       if ((wallExists[0]['count'] as int) == 0) {
+        RoomComponent? configWall;
+        try {
+          configWall = ROOM_COMPONENTS
+              .firstWhere((component) => component.id == defaultWall);
+        } catch (_) {
+          configWall = null;
+        }
+
         await db.insert(
           _ownedComponentsTable,
           {
             'id': defaultWall,
-            'name': 'Basic Wall',
+            'name': configWall?.name ?? 'Brick Wall',
             'type': 'wall',
-            'texture': 'room/basic_right_wall.png',
-            'cost': 0,
+            'texture': (configWall?.texture.isNotEmpty ?? false)
+                ? configWall!.texture
+                : 'assets/images/room/wall_bricks.png',
+            'cost': configWall?.cost ?? 0,
           },
           conflictAlgorithm: ConflictAlgorithm.ignore,
         );
-        print('✓ Added default wall_basic to owned components');
+        print('Added starter wall_bricks to owned components');
       }
 
       // Check if floor_ruined1 exists, if not add it (prefer config values)
@@ -302,8 +311,9 @@ class RoomComponentDatabaseService {
       if ((floorExists[0]['count'] as int) == 0) {
         RoomComponent? configFloor;
         try {
-          configFloor =
-              ROOM_COMPONENTS.firstWhere((component) => component.id == defaultFloor);
+          configFloor = ROOM_COMPONENTS.firstWhere(
+            (component) => component.id == defaultFloor,
+          );
         } catch (_) {
           configFloor = null;
         }
@@ -314,7 +324,6 @@ class RoomComponentDatabaseService {
             'id': defaultFloor,
             'name': configFloor?.name ?? 'Ruined Floor',
             'type': 'floor',
-            // Config textures include the assets/images prefix; fall back to room/ path
             'texture': (configFloor?.texture.isNotEmpty ?? false)
                 ? configFloor!.texture
                 : 'room/floor_ruined1.png',
@@ -322,20 +331,22 @@ class RoomComponentDatabaseService {
           },
           conflictAlgorithm: ConflictAlgorithm.ignore,
         );
-        print('✓ Added default floor_ruined1 to owned components');
+        print('Added default floor_ruined1 to owned components');
       }
 
-      // Ensure default selections are set
       final wallSelection = await getSelectedComponentForRole('wall');
-      if (wallSelection == null || wallSelection == 'none') {
+      // Equip brick wall for new installs and migrate old default wall selection.
+      if (wallSelection == null ||
+          wallSelection == 'none' ||
+          wallSelection == 'wall_basic') {
         await setSelectedComponentForRole('wall', defaultWall);
-        print('✓ Set default wall selection to wall_basic');
+        print('Set default wall selection to wall_bricks');
       }
 
       final floorSelection = await getSelectedComponentForRole('floor');
       if (floorSelection == null || floorSelection == 'none') {
         await setSelectedComponentForRole('floor', defaultFloor);
-        print('✓ Set default floor selection to floor_ruined1');
+        print('Set default floor selection to floor_ruined1');
       }
 
       return true;
@@ -345,7 +356,7 @@ class RoomComponentDatabaseService {
     }
   }
 
-  /// [floor_ruined1] / [floor_ruined2] — zničená podlaha — granted like starter furniture.
+  /// [floor_ruined1] / [floor_ruined2] starter floors granted like starter furniture.
   static const List<String> _starterRuinedFloorIds = [
     'floor_ruined1',
     'floor_ruined2',
@@ -384,4 +395,3 @@ class RoomComponentDatabaseService {
     );
   }
 }
-
