@@ -103,7 +103,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_zámok.png',
     cost: 250,
     hitboxId: null,
-    scale: 0.16,
+    scale: 0.14,
   ),
   Item(
     id: 'gauc_zeleny',
@@ -183,7 +183,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/posteľ_dievčenská.png',
     cost: 200,
     hitboxId: null,
-    scale: 0.16,
+    scale: 0.15,
   ),
   Item(
     id: 'skriňa_šatník',
@@ -248,7 +248,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_chlapcenska1.png',
     cost: 200,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -259,7 +259,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_chlapcenska2.png',
     cost: 200,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.13,
   ),
 
   Item(
@@ -270,7 +270,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_dieta.png',
     cost: 200,
     hitboxId: 'postel_obluky',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -281,7 +281,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_jemna.png',
     cost: 180,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -292,7 +292,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_ponik1.png',
     cost: 200,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -303,7 +303,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_ponik2.png',
     cost: 200,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -314,7 +314,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_ponik3.png',
     cost: 200,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -325,7 +325,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_ponik4.png',
     cost: 200,
     hitboxId: 'postel_obluky',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -336,7 +336,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_portal.png',
     cost: 250,
     hitboxId: null,
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -347,7 +347,7 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_velka_modra.png',
     cost: 180,
     hitboxId: 'postel_velka_opierka',
-    scale: 0.16,
+    scale: 0.14,
   ),
 
   Item(
@@ -358,6 +358,6 @@ final List<Item> furnitureItems = [
     texture: 'assets/images/items/postel_zamok_tmava.png',
     cost: 250,
     hitboxId: 'posteľ_zámok',
-    scale: 0.16,
+    scale: 0.14,
   ),
 ];
