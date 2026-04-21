@@ -97,7 +97,7 @@ class ImageWidget extends StatelessWidget {
       return Icon(this.iconData);
     }
     else {
-      return Icon(IconData(0xf0555, fontFamily: 'MaterialIcons'));
+      return const Icon(IconData(0xf0555, fontFamily: 'MaterialIcons'));
     }
 
   }
