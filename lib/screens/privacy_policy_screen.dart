@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../services/privacy_service.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
@@ -10,12 +10,57 @@ class PrivacyPolicyScreen extends StatefulWidget {
 }
 
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
-  late Future<String> _privacyPolicyFuture;
+  late WebViewController _webViewController;
+  late Future<void> _loadFuture;
 
   @override
   void initState() {
     super.initState();
-    _privacyPolicyFuture = PrivacyService.getPrivacyPolicy();
+    _initializeWebView();
+    _loadFuture = _loadPrivacyPolicy();
+  }
+
+  void _initializeWebView() {
+    _webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            print('Privacy policy loaded');
+          },
+          onWebResourceError: (WebResourceError error) {
+            print('WebView error: ${error.description}');
+            _retryLoad();
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            // Prevent navigation to external links
+            if (!request.url.startsWith('about:')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      );
+  }
+
+  Future<void> _loadPrivacyPolicy() async {
+    try {
+      final htmlContent = await PrivacyService.getPrivacyPolicyHtml();
+      if (mounted) {
+        _webViewController.loadHtmlString(htmlContent);
+      }
+    } catch (e) {
+      print('Error loading privacy policy: $e');
+      if (mounted) {
+        _retryLoad();
+      }
+    }
+  }
+
+  void _retryLoad() {
+    setState(() {
+      _loadFuture = _loadPrivacyPolicy();
+    });
   }
 
   @override
@@ -25,8 +70,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         title: const Text('Privacy Policy'),
         elevation: 0,
       ),
-      body: FutureBuilder<String>(
-        future: _privacyPolicyFuture,
+      body: FutureBuilder<void>(
+        future: _loadFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -34,46 +79,31 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             );
           }
 
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Error loading Privacy Policy',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      snapshot.error.toString(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
+          return Stack(
+            children: [
+              WebViewWidget(
+                controller: _webViewController,
               ),
-            );
-          }
-
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text('No Privacy Policy available'),
-            );
-          }
-
-          return Markdown(
-            data: snapshot.data!,
-            selectable: true,
-            onTapLink: (text, href, title) {
-              // Tu môžeš pridať otváranie linkov ak chceš
-              if (href != null) {
-                print('Link tapped: $href');
-              }
-            },
+              if (snapshot.hasError)
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Error loading Privacy Policy',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _retryLoad,
+                        child: const Text('Retry'),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
           );
         },
       ),
