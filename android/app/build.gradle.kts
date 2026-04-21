@@ -1,6 +1,3 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -9,10 +6,10 @@ plugins {
 }
 
 // Load signing configuration from key.properties
-val keystoreProperties = Properties()
+val keystoreProperties = java.util.Properties()
 val keystoreFile = rootProject.file("key.properties")
 if (keystoreFile.exists()) {
-    keystoreProperties.load(FileInputStream(keystoreFile))
+    keystoreProperties.load(java.io.FileInputStream(keystoreFile))
 }
 
 android {
@@ -42,22 +39,18 @@ android {
 
     // Configure signing for release builds
     signingConfigs {
-        if (keystoreProperties.getProperty("storeFile") != null) {
-            create("release") {
-                keyAlias = keystoreProperties.getProperty("keyAlias")
-                keyPassword = keystoreProperties.getProperty("keyPassword")
-                storeFile = file(keystoreProperties.getProperty("storeFile"))
-                storePassword = keystoreProperties.getProperty("storePassword")
-            }
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
 
     buildTypes {
         release {
-            // Use the release signing config if it exists
-            if (signingConfigs.findByName("release") != null) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+            // Use the release signing config
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
