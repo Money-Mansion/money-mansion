@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_mansion_skeleton/models/room_component.dart';
 import 'package:money_mansion_skeleton/screens/category.dart';
-import 'package:money_mansion_skeleton/services/shop_service.dart';
+import 'package:money_mansion_skeleton/services/room_component_service.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
@@ -56,7 +56,7 @@ class _InventoryScreenState extends State<InventoryScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: _categories.length, vsync: this);
-    _loadPlacedItems();
+    _loadInventoryData();
   }
 
   @override
@@ -65,12 +65,20 @@ class _InventoryScreenState extends State<InventoryScreen>
     super.dispose();
   }
 
-  Future<void> _loadPlacedItems() async {
-    final placements = await RoomLayoutDatabaseService.getRoomLayout(
-      RoomLayoutDatabaseService.defaultRoomId,
-    );
+  Future<void> _loadInventoryData() async {
+    final results = await Future.wait<dynamic>([
+      RoomLayoutDatabaseService.getRoomLayout(
+        RoomLayoutDatabaseService.defaultRoomId,
+      ),
+      RoomComponentService.getOwnedComponents(),
+    ]);
+
+    final placements = results[0] as List;
+    final ownedComponents = results[1] as List<RoomComponent>;
+
     setState(() {
       _placedItemIds = {for (final p in placements) p.itemId};
+      _inventoryRoomComponents = ownedComponents;
       _isLoading = false;
     });
   }
@@ -116,7 +124,7 @@ class _InventoryScreenState extends State<InventoryScreen>
     }
 
     if (category.labelKey == 'all') {
-      return ownedItems;
+      return [...ownedItems, ..._inventoryRoomComponents];
     }
 
     if (category.itemSubtype != null) {
@@ -271,6 +279,9 @@ class _InventoryScreenState extends State<InventoryScreen>
               controller: _tabController,
               children: _categories.map((cat) {
                 final items = _itemsForCategory(cat);
+                if (cat.labelKey == 'all') {
+                  return _buildMixedGrid(items, l10n);
+                }
                 return cat.isRoomComponent
                     ? _buildRoomComponentGrid(
                         items as List<RoomComponent>, l10n)
@@ -310,6 +321,47 @@ class _InventoryScreenState extends State<InventoryScreen>
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
+          final isPlaced = _placedItemIds.contains(item.id);
+          return _buildItemCard(item, isPlaced);
+        },
+      ),
+    );
+  }
+
+  Widget _buildMixedGrid(List<dynamic> items, AppLocalizationsProvider l10n) {
+    if (items.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.shopping_bag, size: 48, color: Colors.grey[400]),
+            const SizedBox(height: 12),
+            Text(
+              l10n.translate('noItemsYet'),
+              style: const TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.85,
+        ),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final entry = items[index];
+          if (entry is RoomComponent) {
+            return _buildRoomComponentCard(entry);
+          }
+          final item = entry as Item;
           final isPlaced = _placedItemIds.contains(item.id);
           return _buildItemCard(item, isPlaced);
         },

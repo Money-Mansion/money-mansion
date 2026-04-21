@@ -33,8 +33,8 @@ class _ShopScreenState extends State<ShopScreen>
   // ---------------------------------------------------------------------------
   // Categories
   // ---------------------------------------------------------------------------
-  // "All" tab shows only items (no walls/floors).
-  // Walls and floors come right after "All".
+  // "All" tab shows both items and room components.
+  // Walls and floors also have dedicated tabs.
   static const List<Category> _categories = [
     // ── All & Room-component categories ──────────────────────────────
     Category(labelKey: 'all'),
@@ -126,9 +126,9 @@ class _ShopScreenState extends State<ShopScreen>
           .toList();
     }
 
-    // "All" tab — only items (no room components)
+    // "All" tab — includes both items and room components
     if (category.labelKey == 'all') {
-      return _shopItems;
+      return [..._shopItems, ..._shopRoomComponents];
     }
 
     // Subtype filter
@@ -217,6 +217,9 @@ class _ShopScreenState extends State<ShopScreen>
               controller: _tabController,
               children: _categories.map((cat) {
                 final items = _itemsForCategory(cat);
+                if (cat.labelKey == 'all') {
+                  return _buildMixedGrid(items, l10n, language);
+                }
                 return cat.isRoomComponent
                     ? _buildRoomComponentGrid(
                         items as List<RoomComponent>, l10n, language)
@@ -270,6 +273,47 @@ class _ShopScreenState extends State<ShopScreen>
       itemCount: items.length,
       itemBuilder: (context, index) =>
           _buildItemCard(items[index], l10n, language),
+    );
+  }
+
+  Widget _buildMixedGrid(
+      List<dynamic> items, AppLocalizationsProvider l10n, String language) {
+    if (items.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.shopping_bag, size: 64, color: Colors.grey[400]),
+            const SizedBox(height: 16),
+            Text(
+              l10n.translate('noItemsYet'),
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final crossAxisCount =
+        (MediaQuery.of(context).size.width / 130).floor().clamp(2, 6);
+
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 6,
+        mainAxisSpacing: 6,
+        childAspectRatio: 0.68,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final entry = items[index];
+        if (entry is RoomComponent) {
+          return _buildRoomComponentCard(entry, l10n, language);
+        }
+        return _buildItemCard(entry as Item, l10n, language);
+      },
     );
   }
 
