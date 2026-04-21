@@ -1,4 +1,4 @@
-package com.example.money_mansion_skeleton
+package com.moneymansion.app
 
 import io.flutter.embedding.android.FlutterActivity
 

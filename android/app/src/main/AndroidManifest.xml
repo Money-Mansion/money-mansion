@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="money_mansion_skeleton"
+        android:label="Money Mansion"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
