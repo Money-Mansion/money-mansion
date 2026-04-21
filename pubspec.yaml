@@ -22,6 +22,7 @@ dependencies:
   http: ^1.2.1
   flutter_markdown: ^0.7.3+1
   url_launcher: ^6.3.0
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,7 @@ flutter:
   
   # Vlastné ikony a obrázky
   assets:
+    - assets/PRIVACY_POLICY.md
     - assets/icons/
     - assets/images/
     - assets/images/room/
