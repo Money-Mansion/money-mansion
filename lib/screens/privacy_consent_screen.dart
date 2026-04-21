@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart' show SystemNavigator;
-import 'package:url_launcher/url_launcher.dart';
 
 import '../services/onboarding_service.dart';
+import 'privacy_policy_screen.dart';
 
 class PrivacyConsentScreen extends StatefulWidget {
   final VoidCallback onAccepted;
@@ -17,29 +17,14 @@ class PrivacyConsentScreen extends StatefulWidget {
 class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
   bool _agreeChecked = false;
   bool _isSubmitting = false;
-  
-  // Privacy policy URL (public Google Doc)
-  static const String _privacyPolicyUrl = 'https://docs.google.com/document/d/1GGN1zc9PyD62BLHKO86DUAkBv_THPzauoy9kx1GcUKU/edit?tab=t.0';
 
   Future<void> _openPrivacyPolicy() async {
-    try {
-      final Uri url = Uri.parse(_privacyPolicyUrl);
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url, mode: LaunchMode.externalApplication);
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Could not open privacy policy')),
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
-      }
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PrivacyPolicyScreen(),
+      ),
+    );
   }
 
   Future<void> _acceptPolicy() async {

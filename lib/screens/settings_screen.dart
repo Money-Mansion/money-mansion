@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../models/game_state.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
@@ -8,6 +7,7 @@ import '../services/streak_service.dart';
 import '../services/onboarding_service.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
+import 'privacy_policy_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final GameState gameState;
@@ -133,17 +133,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _openPrivacyPolicy() async {
-    const privacyPolicyUrl = 'https://docs.google.com/document/d/1GGN1zc9PyD62BLHKO86DUAkBv_THPzauoy9kx1GcUKU/edit?tab=t.0';
-    try {
-      final Uri url = Uri.parse(privacyPolicyUrl);
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url, mode: LaunchMode.externalApplication);
-      } else {
-        _showSnack('Could not open privacy policy');
-      }
-    } catch (e) {
-      _showSnack('Error: $e');
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PrivacyPolicyScreen(),
+      ),
+    );
   }
 
   @override
