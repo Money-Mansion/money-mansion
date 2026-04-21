@@ -18,11 +18,9 @@ class PrivacyService {
 
       if (response.statusCode == 200 && response.body.isNotEmpty) {
         print('✓ Privacy policy downloaded');
-        // Clean up Google Docs HTML
-        String cleanedHtml = _cleanGoogleDocsHtml(response.body);
         // Cache it
-        await _saveToCacheFile(cleanedHtml);
-        return cleanedHtml;
+        await _saveToCacheFile(response.body);
+        return response.body;
       }
     } catch (e) {
       print('✗ Failed to download privacy policy: $e');
@@ -38,73 +36,6 @@ class PrivacyService {
     // Fallback to markdown from assets
     print('Loading from assets fallback...');
     return await _loadMarkdownAsHtml();
-  }
-
-  // Clean up Google Docs exported HTML
-  static String _cleanGoogleDocsHtml(String html) {
-    // Remove Google Docs styles that might mess up layout
-    html = html.replaceAll(RegExp(r'style="[^"]*max-width[^"]*"', multiLine: true), '');
-    html = html.replaceAll(RegExp(r'style="[^"]*margin:[^"]*auto[^"]*"', multiLine: true), '');
-    html = html.replaceAll(RegExp(r'<style[^>]*>.*?<\/style>', dotAll: true), '');
-    
-    // Format current date
-    final now = DateTime.now();
-    final dateStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-    
-    // Wrap in proper mobile HTML with last updated date
-    return '''
-<!DOCTYPE html>
-<html style="width: 100%; height: 100%;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            width: 100%;
-            height: 100%;
-            background: #fff;
-        }
-        body {
-            width: 100% !important;
-            max-width: 100% !important;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
-            padding: 16px !important;
-            margin: 0 !important;
-            color: #212121;
-            background: #fff;
-            overflow-x: hidden;
-        }
-        .last-updated {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        * { max-width: 100% !important; }
-        h1, h2, h3, h4, h5, h6 { margin: 16px 0 8px 0; }
-        p { 
-            margin: 12px 0; 
-            word-wrap: break-word; 
-            overflow-wrap: break-word;
-            white-space: normal;
-        }
-        a { color: #1f4788; }
-    </style>
-</head>
-<body>
-<div class="last-updated">Last Updated: $dateStr</div>
-$html
-</body>
-</html>
-''';
   }
 
   // Save to cache
@@ -176,67 +107,34 @@ $html
     html = html.replaceAll(RegExp(r'\n\n+'), '</p><p>');
     html = '<p>$html</p>';
     
-    // Format current date
-    final now = DateTime.now();
-    final dateStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-    
-    // Basic HTML structure with better mobile support and last updated date
+    // Basic HTML structure
     return '''
 <!DOCTYPE html>
-<html style="width: 100%; height: 100%;">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            width: 100%;
-            height: 100%;
-            background: #fff;
-        }
         body {
-            width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
-            padding: 16px;
-            color: #212121;
-            background: #fff;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .last-updated {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        h1 { font-size: 1.8em; font-weight: 600; margin: 24px 0 12px 0; }
-        h2 { font-size: 1.4em; font-weight: 600; margin: 20px 0 10px 0; }
-        h3 { font-size: 1.1em; font-weight: 600; margin: 16px 0 8px 0; }
-        p { 
-            margin: 12px 0; 
-            word-wrap: break-word; 
-            overflow-wrap: break-word;
-            white-space: normal;
-        }
-        ul { margin: 12px 0 12px 20px; }
-        li { margin: 6px 0; }
+        h1, h2, h3 { margin-top: 20px; margin-bottom: 10px; }
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; }
+        h3 { font-size: 1.2em; }
+        p { margin-bottom: 15px; }
+        ul, li { margin-left: 20px; margin-bottom: 10px; }
         strong { font-weight: 600; }
-        a { 
-            color: #1f4788; 
-            text-decoration: none; 
-            word-break: break-word;
-        }
+        a { color: #1f4788; text-decoration: none; }
         a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<div class="last-updated">Last Updated: $dateStr</div>
 $html
 </body>
 </html>

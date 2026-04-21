@@ -40,8 +40,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             return NavigationDecision.navigate;
           },
         ),
-      )
-      ..setUserAgent('Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36');
+      );
   }
 
   Future<void> _loadPrivacyPolicy() async {
@@ -81,7 +80,6 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           }
 
           return Stack(
-            fit: StackFit.expand,
             children: [
               WebViewWidget(
                 controller: _webViewController,
