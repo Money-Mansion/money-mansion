@@ -174,10 +174,10 @@ class FinancialDatabaseService {
           }
         }
       }
-      return 0;
+      return 100;
     } catch (e) {
       print('Error loading coins: $e');
-      return 0;
+      return 100;
     }
   }
 

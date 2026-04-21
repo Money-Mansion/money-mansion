@@ -43,7 +43,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   bool _overlayOpen = false;
   bool _wasMusicPlayingBeforePause = false;
 
-  static const bool _DEBUG_MODE = true;
+  static const bool _DEBUG_MODE = false;
 
   @override
   void initState() {
