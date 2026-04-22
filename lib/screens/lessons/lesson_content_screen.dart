@@ -2231,8 +2231,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a playstation
-      iconWidget: MyFlutterApp.gamer,
+      iconWidget: MyFlutterApp.controller,
       iconSize: 300,
       iconContainerSize: 320,
       emoji: '🎮',
@@ -2315,7 +2314,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a nakupny kosik
+      iconWidget: MyFlutterApp.cart,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '🛒',
       storyTitle: 'The Changing Shopping Bill',
       storyTitleSk: 'Meniaci sa nákupný účet',
@@ -2409,7 +2410,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     ),
     LessonSlide(
       type: LessonSlideType.story,
-      // photo chrumko a mobil
+      iconWidget: MyFlutterApp.mobile,
+      iconSize: 300,
+      iconContainerSize: 320,
       emoji: '📱',
       storyTitle: 'Checking the Balance',
       storyTitleSk: 'Kontrola zostatku',
