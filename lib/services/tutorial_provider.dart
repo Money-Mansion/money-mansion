@@ -15,6 +15,14 @@ class TutorialProvider extends ChangeNotifier {
   SharedPreferences? _prefs;
 
   final List<TutorialStep> _steps = const [
+    // ── Chrumko Intro ───────────────────────────────────────────────────
+    TutorialStep(
+      id: 'chrumko_intro',
+      screenId: 'home',
+      messageKey: 'tutorialChrumkoIntro',
+      targetAlignment: Alignment.topCenter,
+    ),
+
     // ── Home ─────────────────────────────────────────────────────────────
     TutorialStep(
       id: 'home_intro',
