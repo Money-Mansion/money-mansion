@@ -41,7 +41,7 @@ flutter:
   
   # Vlastné ikony a obrázky
   assets:
-    - assets/PRIVACY_POLICY.md
+    - assets/privacy_policy.md
     - assets/icons/
     - assets/images/
     - assets/images/room/
