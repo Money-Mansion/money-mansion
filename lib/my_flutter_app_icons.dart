@@ -71,7 +71,9 @@ class MyFlutterApp {
   static const Widget choco = ImageWidget(assetImage: "assets/images/choco.png");
   static const Widget flower = ImageWidget(assetImage: "assets/images/flower.png");
   static const Widget book_mobile = ImageWidget(assetImage: "assets/images/vs.png");
-  static const Widget gamer = ImageWidget(assetImage: "assets/images/gamer.png");
+  static const Widget controller = ImageWidget(assetImage: "assets/images/controller.png");
+  static const Widget cart = ImageWidget(assetImage: "assets/images/cart.png");
+  static const Widget mobile = ImageWidget(assetImage: "assets/images/phone.png");
 }
 
 class ImageWidget extends StatelessWidget {
