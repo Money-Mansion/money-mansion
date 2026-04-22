@@ -140,7 +140,7 @@ class AppLocalizations {
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
-      'selectLanguage': 'Select Language',
+      'selectLanguage': 'Select language',
       'unsavedChanges': 'Unsaved changes',
       'saveChanges': 'Save changes',
       'discardChanges': 'Discard changes',
@@ -253,6 +253,10 @@ class AppLocalizations {
       'itemTypeDecoration': 'Decoration',
       'roomComponentWall': 'Wall',
       'roomComponentFloor': 'Floor',
+
+      // Inventory states
+      'placed': 'Placed',
+      'selected': 'Selected',
 
       // Calendar
       'month': 'Month',
@@ -379,6 +383,17 @@ class AppLocalizations {
       'quizLoading': 'Loading questions...',
       'quizNoQuestions': 'No questions available for this lesson',
       'quizError': 'Error: ',
+      'locked': 'Locked',
+      'quizCoinReward': '+{coins} coins!',
+      'quizQuestion': 'Question {current}/{total}',
+      'quizCorrectCount': 'Correct: {count}',
+      'quizAnswerCorrect': '✓ Correct!',
+      'quizAnswerWrong': '✗ Incorrect.',
+      'quizExplanation': 'Explanation: {text}',
+      'quizFinish': 'Finish Quiz',
+      'quizNextQuestion': 'Next Question',
+      'quizLockedNoCoins': 'Quiz is still locked - no coins yet',
+      'quizLockedNoProgress': 'Progress won\'t be saved until you unlock this quiz',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -650,7 +665,7 @@ class AppLocalizations {
       'sell': 'Predať',
       'owned': 'Vlastní',
 
-      // Typy položiek
+      // Item Types
       'itemTypeDoor': 'Dvere',
       'itemTypeWindow': 'Okno',
       'itemTypeFurniture': 'Nábytok',
@@ -659,6 +674,10 @@ class AppLocalizations {
       'itemTypeDecoration': 'Dekorácia',
       'roomComponentWall': 'Stena',
       'roomComponentFloor': 'Podlaha',
+
+      // Inventory states
+      'placed': 'Umiestnené',
+      'selected': 'Vybrané',
 
       // Calendar
       'month': 'Mesiac',
@@ -804,6 +823,17 @@ class AppLocalizations {
       'quizLoading': 'Načítavajú sa otázky...',
       'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
       'quizError': 'Chyba: ',
+      'locked': 'Zamknuté',
+      'quizCoinReward': '+{coins} mincí!',
+      'quizQuestion': 'Otázka {current}/{total}',
+      'quizCorrectCount': 'Správne: {count}',
+      'quizAnswerCorrect': '✓ Správne!',
+      'quizAnswerWrong': '✗ Nesprávne.',
+      'quizExplanation': 'Vysvetlenie: {text}',
+      'quizFinish': 'Ukončiť kvíz',
+      'quizNextQuestion': 'Ďalšia otázka',
+      'quizLockedNoCoins': 'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
+      'quizLockedNoProgress': 'Progres sa neuloží kým neodblokuješ tento kvíz',
     },
   };
 

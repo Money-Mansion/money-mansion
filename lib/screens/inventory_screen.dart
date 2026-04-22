@@ -299,7 +299,6 @@ class _InventoryScreenState extends State<InventoryScreen>
           }).toList(),
         ),
       ),
-      // Always show the TabBarView — each tab handles its own empty state
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : TabBarView(
@@ -510,9 +509,9 @@ class _InventoryScreenState extends State<InventoryScreen>
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
-                    'Placed',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.translate('placed'),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

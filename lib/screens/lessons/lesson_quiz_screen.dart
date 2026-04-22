@@ -199,6 +199,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   }
 
   void _showCoinRewardNotification(int coins) {
+    final l10nProvider = context.read<AppLocalizationsProvider>();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(milliseconds: 1200),
@@ -211,7 +212,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             const Icon(Icons.monetization_on, color: Color(0xFFFFD700), size: 20),
             const SizedBox(width: 8),
             Text(
-              '+$coins mincí!',
+              l10nProvider.translate('quizCoinReward', replacements: {'coins': '$coins'}),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -296,7 +297,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
+                            l10nProvider.translate('quizLockedNoCoins'),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.orange[800],
@@ -313,7 +314,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Progres sa neuloží kým neodblokuješ tento kvíz',
+                            l10nProvider.translate('quizLockedNoProgress'),
                             style: TextStyle(
                               fontSize: 11,
                               color: Colors.orange[700],
@@ -439,11 +440,16 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Otázka ${currentQuestionIndex + 1}/${questions.length}',
+                      l10nProvider.translate('quizQuestion', replacements: {
+                        'current': '${currentQuestionIndex + 1}',
+                        'total': '${questions.length}',
+                      }),
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      'Správne: $correctAnswers',
+                      l10nProvider.translate('quizCorrectCount', replacements: {
+                        'count': '$correctAnswers',
+                      }),
                       style: const TextStyle(
                         color: Color(0xFF4CAF50),
                         fontWeight: FontWeight.w600,
@@ -543,7 +549,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          isCorrect! ? '✓ Správne!' : '✗ Nesprávne.',
+                          isCorrect!
+                              ? l10nProvider.translate('quizAnswerCorrect')
+                              : l10nProvider.translate('quizAnswerWrong'),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -554,7 +562,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Vysvetlenie: ${question.explanation}',
+                          l10nProvider.translate('quizExplanation', replacements: {
+                            'text': question.explanation,
+                          }),
                           style: const TextStyle(fontSize: 14),
                         ),
                       ],
@@ -563,9 +573,11 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: _nextQuestion,
-                    child: Text(currentQuestionIndex == questions.length - 1
-                        ? 'Ukončiť kvíz'
-                        : 'Ďalšia otázka'),
+                    child: Text(
+                      currentQuestionIndex == questions.length - 1
+                          ? l10nProvider.translate('quizFinish')
+                          : l10nProvider.translate('quizNextQuestion'),
+                    ),
                   ),
                 ],
               ],
