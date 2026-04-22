@@ -66,6 +66,8 @@ class AppLocalizations {
       'tutorialTapToContinue': 'tap to continue →',
       'tutorialTapToFinish': 'tap to finish 🎉',
       'tutorialSpeakerName': 'Chrumko',
+      'tutorialChrumkoIntro':
+          'Hey {name}! 👋 I\'m Chrumko, your personal guide through the world of money and finances! Let me help you take control of your finances, learn smart money habits, and build your dream mansion. Ready to get started?',
       'tutorialTopBar':
           'Coins are earned in-game, money tracks your real finances, and your Streak 🔥 grows when you complete a quiz every day, {name}.',
       'tutorialFinancialIntro':
@@ -241,6 +243,16 @@ class AppLocalizations {
       'buy': 'Buy',
       'sell': 'Sell',
       'owned': 'Owned',
+
+      // Item Types
+      'itemTypeDoor': 'Door',
+      'itemTypeWindow': 'Window',
+      'itemTypeFurniture': 'Furniture',
+      'itemTypeFlooring': 'Flooring',
+      'itemTypeWallpaper': 'Wallpaper',
+      'itemTypeDecoration': 'Decoration',
+      'roomComponentWall': 'Wall',
+      'roomComponentFloor': 'Floor',
 
       // Calendar
       'month': 'Month',
@@ -450,6 +462,8 @@ class AppLocalizations {
       'tutorialTapToContinue': 'klepni pre pokračovanie →',
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
+      'tutorialChrumkoIntro':
+          'Ahoj {name}! 👋 Som Chrumko, tvoj osobný sprievodca svetom peňazí a financií! Dovoľ mi, aby som ti pomohol prevziať kontrolu nad svojimi financiami, naučiť sa múdrym finančným návykom a vybudovať svoj vysnívané sídlo. Si pripravený začať?',
       'tutorialTopBar':
           'Mince získavaš v hre, peniaze sledujú tvoje skutočné financie a tvoj Streak 🔥 rastie, keď každý deň dokončíš kvíz, {name}.',
       'tutorialFinancialIntro':
@@ -635,6 +649,16 @@ class AppLocalizations {
       'buy': 'Kúpiť',
       'sell': 'Predať',
       'owned': 'Vlastní',
+
+      // Typy položiek
+      'itemTypeDoor': 'Dvere',
+      'itemTypeWindow': 'Okno',
+      'itemTypeFurniture': 'Nábytok',
+      'itemTypeFlooring': 'Podlaha',
+      'itemTypeWallpaper': 'Tapeta',
+      'itemTypeDecoration': 'Dekorácia',
+      'roomComponentWall': 'Stena',
+      'roomComponentFloor': 'Podlaha',
 
       // Calendar
       'month': 'Mesiac',

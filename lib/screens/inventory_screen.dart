@@ -83,6 +83,33 @@ class _InventoryScreenState extends State<InventoryScreen>
     });
   }
 
+  String _getItemTypeLabel(ItemType type, AppLocalizationsProvider l10n) {
+    switch (type) {
+      case ItemType.door:
+        return l10n.translate('itemTypeDoor');
+      case ItemType.window:
+        return l10n.translate('itemTypeWindow');
+      case ItemType.furniture:
+        return l10n.translate('itemTypeFurniture');
+      case ItemType.flooring:
+        return l10n.translate('itemTypeFlooring');
+      case ItemType.wallpaper:
+        return l10n.translate('itemTypeWallpaper');
+      case ItemType.decoration:
+        return l10n.translate('itemTypeDecoration');
+    }
+  }
+
+  String _getRoomComponentTypeLabel(
+      RoomComponentType type, AppLocalizationsProvider l10n) {
+    switch (type) {
+      case RoomComponentType.wall:
+        return l10n.translate('roomComponentWall');
+      case RoomComponentType.floor:
+        return l10n.translate('roomComponentFloor');
+    }
+  }
+
   bool _matchesSubtype(Item item, ItemSubtype subtype) {
     final id = item.id;
     switch (subtype) {
@@ -322,7 +349,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         itemBuilder: (context, index) {
           final item = items[index];
           final isPlaced = _placedItemIds.contains(item.id);
-          return _buildItemCard(item, isPlaced);
+          return _buildItemCard(item, isPlaced, l10n);
         },
       ),
     );
@@ -359,11 +386,11 @@ class _InventoryScreenState extends State<InventoryScreen>
         itemBuilder: (context, index) {
           final entry = items[index];
           if (entry is RoomComponent) {
-            return _buildRoomComponentCard(entry);
+            return _buildRoomComponentCard(entry, l10n);
           }
           final item = entry as Item;
           final isPlaced = _placedItemIds.contains(item.id);
-          return _buildItemCard(item, isPlaced);
+          return _buildItemCard(item, isPlaced, l10n);
         },
       ),
     );
@@ -398,13 +425,15 @@ class _InventoryScreenState extends State<InventoryScreen>
           childAspectRatio: 0.85,
         ),
         itemCount: components.length,
-        itemBuilder: (context, index) =>
-            _buildRoomComponentCard(components[index]),
+        itemBuilder: (context, index) => _buildRoomComponentCard(
+              components[index],
+              context.watch<AppLocalizationsProvider>(),
+            ),
       ),
     );
   }
 
-  Widget _buildItemCard(Item item, bool isPlaced) {
+  Widget _buildItemCard(Item item, bool isPlaced, AppLocalizationsProvider l10n) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -460,7 +489,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    item.type.toDisplayString(),
+                    _getItemTypeLabel(item.type, l10n),
                     style: TextStyle(
                       fontSize: 12,
                       color: isPlaced ? Colors.grey[700] : Colors.blue[900],
@@ -497,7 +526,7 @@ class _InventoryScreenState extends State<InventoryScreen>
     );
   }
 
-  Widget _buildRoomComponentCard(RoomComponent component) {
+  Widget _buildRoomComponentCard(RoomComponent component, AppLocalizationsProvider l10n) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -548,7 +577,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                component.type.toDisplayString(),
+                _getRoomComponentTypeLabel(component.type, l10n),
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.amber[900],
