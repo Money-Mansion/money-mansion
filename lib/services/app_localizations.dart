@@ -140,7 +140,7 @@ class AppLocalizations {
       // Settings
       'languageEnglish': 'English',
       'languageSlovak': 'Slovenčina',
-      'selectLanguage': 'Select Language',
+      'selectLanguage': 'Select language',
       'unsavedChanges': 'Unsaved changes',
       'saveChanges': 'Save changes',
       'discardChanges': 'Discard changes',
