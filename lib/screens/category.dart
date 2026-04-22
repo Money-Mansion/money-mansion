@@ -1,6 +1,6 @@
 
-import 'package:money_mansion_skeleton/models/item.dart';
-import 'package:money_mansion_skeleton/models/room_component.dart';
+import 'package:money_mansion/models/item.dart';
+import 'package:money_mansion/models/room_component.dart';
 
 // ---------------------------------------------------------------------------
 // Data types

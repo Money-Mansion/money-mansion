@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:money_mansion_skeleton/main.dart';
+import 'package:money_mansion/main.dart';
 
 void main() {
   testWidgets('Money Mansion app loads correctly', (WidgetTester tester) async {

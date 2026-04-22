@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money_mansion_skeleton/models/room_component.dart';
-import 'package:money_mansion_skeleton/screens/category.dart';
-import 'package:money_mansion_skeleton/services/room_component_service.dart';
+import 'package:money_mansion/models/room_component.dart';
+import 'package:money_mansion/screens/category.dart';
+import 'package:money_mansion/services/room_component_service.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';

@@ -1,6 +1,6 @@
 {
-    "name": "money_mansion_skeleton",
-    "short_name": "money_mansion_skeleton",
+    "name": "money_mansion",
+    "short_name": "money_mansion",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

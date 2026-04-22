@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:money_mansion_skeleton/my_flutter_app_icons.dart';
+import 'package:money_mansion/my_flutter_app_icons.dart';
 import 'package:provider/provider.dart';
 import '../../models/lesson.dart';
 import '../../services/app_localizations_provider.dart';
