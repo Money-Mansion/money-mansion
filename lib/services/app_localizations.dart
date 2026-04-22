@@ -379,6 +379,8 @@ class AppLocalizations {
       'quizLoading': 'Loading questions...',
       'quizNoQuestions': 'No questions available for this lesson',
       'quizError': 'Error: ',
+      'locked': 'Locked',
+      
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -804,6 +806,7 @@ class AppLocalizations {
       'quizLoading': 'Načítavajú sa otázky...',
       'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
       'quizError': 'Chyba: ',
+      'locked': 'Zamknuté',
     },
   };
 

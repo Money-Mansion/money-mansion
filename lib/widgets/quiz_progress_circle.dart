@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/quiz_progress.dart';
+import '../services/app_localizations_provider.dart';
 
 class QuizProgressCircle extends StatelessWidget {
   final String title;
@@ -40,9 +42,12 @@ class QuizProgressCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = Provider.of<AppLocalizationsProvider>(context, listen: false);
+    final lockedLabel = loc.translate('locked');
+
     return Tooltip(
       message: locked 
-        ? '$title - Zamknuté' 
+        ? '$title - $lockedLabel' 
         : '$title${status != QuizStatus.notDone ? ' - ${score}%' : ''}',
       child: Column(
         mainAxisSize: MainAxisSize.min,
