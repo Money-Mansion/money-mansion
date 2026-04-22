@@ -254,6 +254,10 @@ class AppLocalizations {
       'roomComponentWall': 'Wall',
       'roomComponentFloor': 'Floor',
 
+      // Inventory states
+      'placed': 'Placed',
+      'selected': 'Selected',
+
       // Calendar
       'month': 'Month',
       'year': 'Year',
@@ -390,7 +394,6 @@ class AppLocalizations {
       'quizNextQuestion': 'Next Question',
       'quizLockedNoCoins': 'Quiz is still locked - no coins yet',
       'quizLockedNoProgress': 'Progress won\'t be saved until you unlock this quiz',
-      
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -662,7 +665,7 @@ class AppLocalizations {
       'sell': 'Predať',
       'owned': 'Vlastní',
 
-      // Typy položiek
+      // Item Types
       'itemTypeDoor': 'Dvere',
       'itemTypeWindow': 'Okno',
       'itemTypeFurniture': 'Nábytok',
@@ -671,6 +674,10 @@ class AppLocalizations {
       'itemTypeDecoration': 'Dekorácia',
       'roomComponentWall': 'Stena',
       'roomComponentFloor': 'Podlaha',
+
+      // Inventory states
+      'placed': 'Umiestnené',
+      'selected': 'Vybrané',
 
       // Calendar
       'month': 'Mesiac',
