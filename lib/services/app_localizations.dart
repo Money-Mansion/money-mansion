@@ -380,6 +380,16 @@ class AppLocalizations {
       'quizNoQuestions': 'No questions available for this lesson',
       'quizError': 'Error: ',
       'locked': 'Locked',
+      'quizCoinReward': '+{coins} coins!',
+      'quizQuestion': 'Question {current}/{total}',
+      'quizCorrectCount': 'Correct: {count}',
+      'quizAnswerCorrect': '✓ Correct!',
+      'quizAnswerWrong': '✗ Incorrect.',
+      'quizExplanation': 'Explanation: {text}',
+      'quizFinish': 'Finish Quiz',
+      'quizNextQuestion': 'Next Question',
+      'quizLockedNoCoins': 'Quiz is still locked - no coins yet',
+      'quizLockedNoProgress': 'Progress won\'t be saved until you unlock this quiz',
       
 
       // Chrumko tips bubble
@@ -807,6 +817,16 @@ class AppLocalizations {
       'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
       'quizError': 'Chyba: ',
       'locked': 'Zamknuté',
+      'quizCoinReward': '+{coins} mincí!',
+      'quizQuestion': 'Otázka {current}/{total}',
+      'quizCorrectCount': 'Správne: {count}',
+      'quizAnswerCorrect': '✓ Správne!',
+      'quizAnswerWrong': '✗ Nesprávne.',
+      'quizExplanation': 'Vysvetlenie: {text}',
+      'quizFinish': 'Ukončiť kvíz',
+      'quizNextQuestion': 'Ďalšia otázka',
+      'quizLockedNoCoins': 'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
+      'quizLockedNoProgress': 'Progres sa neuloží kým neodblokuješ tento kvíz',
     },
   };
 
