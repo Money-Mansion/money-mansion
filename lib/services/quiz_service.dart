@@ -11,11 +11,13 @@ class QuizService {
       'assets/quizes/quiz_database_01_sk.json',
       'assets/quizes/quiz_database_02_sk.json',
       'assets/quizes/quiz_database_03_sk.json',
+      'assets/quizes/quiz_database_04_sk.json',
     ],
     'en': [
       'assets/quizes/quiz_database_01_en.json',
       'assets/quizes/quiz_database_02_en.json',
       'assets/quizes/quiz_database_03_en.json',
+      'assets/quizes/quiz_database_04_en.json',
     ],
   };
 

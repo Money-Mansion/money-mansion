@@ -1,0 +1,370 @@
+{
+  "quizzes": [
+    {
+      "section": 4,
+      "sectionName": "SAVING",
+      "lessons": [
+        {
+          "lessonId": 4001,
+          "lessonNumber": 1,
+          "lessonName": "What is saving",
+          "questions": [
+            {
+              "questionId": "4001_01",
+              "type": "theoretical",
+              "question": "What is the core principle of saving?",
+              "options": [
+                "Deciding to set aside a portion of your money for later",
+                "Waiting for someone to give you money for getting good grades",
+                "Buying as many items as possible on sale to technically \"save\"",
+                "Exchanging small coins for paper banknotes at a local bank"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Saving is fundamentally about making a conscious decision to set aside money for future use rather than spending it immediately."
+            },
+            {
+              "questionId": "4001_02",
+              "type": "theoretical",
+              "question": "Where is it appropriate to keep your saved money?",
+              "options": [
+                "Only with parents, because children are not allowed to have their own money",
+                "Money should not be kept anywhere; it must always stay in circulation",
+                "At home in a piggy bank or in a bank account",
+                "In a commercial bank, as saving at home is not safe or trustworthy"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Saved money can be kept safely in a piggy bank at home for everyday savings or in a bank account for larger amounts."
+            },
+            {
+              "questionId": "4001_03",
+              "type": "theoretical",
+              "question": "Do small amounts matter when saving?",
+              "options": [
+                "They only matter if you deposit them in a bank to earn interest",
+                "Yes, with regular saving, they gradually add up",
+                "No, small coins have too little value to ever change anything",
+                "Yes, but only if you save them once a year in one large sum"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Regular saving of small amounts is very effective because they accumulate over time into a significant sum."
+            },
+            {
+              "questionId": "4001_04",
+              "type": "practical",
+              "question": "Every week, Chrumko puts one coin into his piggy bank. What will he notice over time?",
+              "options": [
+                "That the coins in the piggy bank multiplied all by themselves",
+                "That thanks to consistency, he has enough for something more expensive",
+                "That the piggy bank is still as light as it was at the beginning",
+                "That the money in the piggy bank has expired and is no longer valid"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Through consistent weekly saving, even small amounts accumulate to create enough money for more expensive purchases."
+            },
+            {
+              "questionId": "4001_05",
+              "type": "practical",
+              "question": "Chrumko's toy broke, and he immediately buys a new one using his savings. Why?",
+              "options": [
+                "He was lucky and found money on the street in front of the shop",
+                "He had created a reserve for unexpected expenses",
+                "The toy store gave him a new toy for free as a special gift",
+                "His parents were legally required to pay the remaining balance"
+              ],
+              "correctAnswer": 1,
+              "explanation": "By maintaining savings, Chrumko had a financial cushion available for unexpected situations like replacing a broken toy."
+            }
+          ]
+        },
+        {
+          "lessonId": 4002,
+          "lessonNumber": 2,
+          "lessonName": "Why set money aside",
+          "questions": [
+            {
+              "questionId": "4002_01",
+              "type": "theoretical",
+              "question": "What is the main advantage of having saved money?",
+              "options": [
+                "More space in your wallet for photos and loyalty cards",
+                "The certainty that prices in shops will never rise again",
+                "The ability to brag to friends about having a high balance",
+                "Greater freedom in your future decision-making"
+              ],
+              "correctAnswer": 3,
+              "explanation": "Savings give you the flexibility to make future purchases and decisions without being dependent on others or immediate income."
+            },
+            {
+              "questionId": "4002_02",
+              "type": "theoretical",
+              "question": "What happens if we spend all our money as soon as we get it?",
+              "options": [
+                "Shops will automatically send us bonus money for spending",
+                "Later, we will lack money for more important things",
+                "We will have twice as much money in the near future",
+                "Parents are required by law to give us extra pocket money"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Spending all money immediately means we won't have resources available when we face more important or urgent needs later."
+            },
+            {
+              "questionId": "4002_03",
+              "type": "theoretical",
+              "question": "Why is it better to have savings than to always ask others for money?",
+              "options": [
+                "Because asking others for money is strictly forbidden by law",
+                "Savings give us independence to buy what we want",
+                "If we save by ourselves, the coins in the piggy bank shine brighter",
+                "Asking for money takes longer than taking it from a piggy bank"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Having savings provides independence and allows us to make our own choices without relying on others for financial help."
+            },
+            {
+              "questionId": "4002_04",
+              "type": "practical",
+              "question": "Chrumko sees a book in the bookstore that costs more than his weekly allowance. What does he do?",
+              "options": [
+                "He borrows money from a stranger standing in line",
+                "He uses his previous savings",
+                "He has to wait until the shop declares the book as trash",
+                "He simply can never afford to buy the book"
+              ],
+              "correctAnswer": 1,
+              "explanation": "By having accumulated savings, Chrumko can purchase items that cost more than his regular weekly allowance."
+            },
+            {
+              "questionId": "4002_05",
+              "type": "practical",
+              "question": "Why doesn't Chrumko have to wait \"a very long time\" to buy a more expensive item?",
+              "options": [
+                "Because he ran to the shop faster than all the other customers",
+                "Because he was building up savings over time",
+                "Because the bank canceled half the price from his account",
+                "Because he only buys things that are damaged and cheap"
+              ],
+              "correctAnswer": 1,
+              "explanation": "By consistently building up savings over time, Chrumko can afford expensive items much sooner than if he had no savings."
+            }
+          ]
+        },
+        {
+          "lessonId": 4003,
+          "lessonNumber": 3,
+          "lessonName": "Short-term goal vs. Long-term goal",
+          "questions": [
+            {
+              "questionId": "4003_01",
+              "type": "theoretical",
+              "question": "What is the main difference between a short-term and a long-term goal?",
+              "options": [
+                "A long-term goal requires more time and patience",
+                "A short-term goal always costs more than a thousand euros",
+                "A short-term goal can only be purchased during weekends",
+                "In practice, there is no real difference between these goals"
+              ],
+              "correctAnswer": 0,
+              "explanation": "Long-term goals require extended periods of saving and sustained effort, while short-term goals can be achieved quickly."
+            },
+            {
+              "questionId": "4003_02",
+              "type": "theoretical",
+              "question": "What is needed to achieve a long-term goal?",
+              "options": [
+                "To completely stop spending on food and school supplies",
+                "Patience and regular saving",
+                "Lots of luck in finding lost coins on the ground",
+                "Spending all savings on random things every Monday"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Long-term goals require consistent saving habits and patience to maintain regular contributions over an extended period."
+            },
+            {
+              "questionId": "4003_03",
+              "type": "practical",
+              "question": "Chrumko wants to buy stickers (cheap) and a building set (expensive). How does he solve this?",
+              "options": [
+                "He saves for both goals at the same time",
+                "He buys the stickers and decides to steal the building set instead",
+                "He buys the building set immediately, even though he lacks the money",
+                "He decides not to save and throws his money away right now"
+              ],
+              "correctAnswer": 0,
+              "explanation": "By saving for multiple goals simultaneously, Chrumko can work towards both the short-term goal (stickers) and long-term goal (building set)."
+            },
+            {
+              "questionId": "4003_04",
+              "type": "practical",
+              "question": "Chrumko has been saving for a building set for 10 weeks. What category does this goal fall into?",
+              "options": [
+                "An immediate purchase without any waiting",
+                "A short-term goal (lasting only one day)",
+                "An unreachable goal for any child",
+                "A long-term goal (requires more time)"
+              ],
+              "correctAnswer": 3,
+              "explanation": "A goal that takes 10 weeks of consistent saving is considered a long-term goal because it requires sustained effort over an extended period."
+            },
+            {
+              "questionId": "4003_05",
+              "type": "practical",
+              "question": "Chrumko found out that the building set (long-term goal) is on sale. What does he do if he has only saved half?",
+              "options": [
+                "He buys half of the building set and leaves the rest in the shop",
+                "He must continue saving until he has the full amount",
+                "He cries in the middle of the shop so they give it to him for free",
+                "He spends the money on 100 stickers instead so nothing is left"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Even with a sale, Chrumko needs to continue saving to afford the complete building set, as his current savings only cover half."
+            }
+          ]
+        },
+        {
+          "lessonId": 4004,
+          "lessonNumber": 4,
+          "lessonName": "How to create a reserve",
+          "questions": [
+            {
+              "questionId": "4004_01",
+              "type": "theoretical",
+              "question": "What is a \"financial reserve\"?",
+              "options": [
+                "Money set aside specifically for a birthday party",
+                "A list of toys that Chrumko plans to buy in the summer",
+                "Money for unexpected needs",
+                "Money we accidentally forgot in the pocket of old pants"
+              ],
+              "correctAnswer": 2,
+              "explanation": "A financial reserve is a pool of money set aside to handle unforeseen expenses and emergencies."
+            },
+            {
+              "questionId": "4004_02",
+              "type": "theoretical",
+              "question": "Does a reserve always have to have a pre-determined purpose (e.g., for a new phone)?",
+              "options": [
+                "Yes, because money without a label spoils quickly in a wallet",
+                "No, the reserve serves for unexpected expenses",
+                "Yes, because without an intention, we easily spend it on useless things",
+                "A reserve is only created when we have an excess of coins"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A reserve is specifically meant to be flexible and available for any unexpected need, not tied to a specific purchase."
+            },
+            {
+              "questionId": "4004_03",
+              "type": "practical",
+              "question": "Chrumko has a reserve in an envelope. At school, he finds out he needs materials for a project. What does he do?",
+              "options": [
+                "He must borrow money from a teacher or the principal",
+                "He uses his reserve and buys the materials",
+                "He doesn't submit the project and automatically gets a failing grade",
+                "He goes to the bank to apply for a student loan"
+              ],
+              "correctAnswer": 1,
+              "explanation": "This is exactly what a reserve is for—using it to handle unexpected expenses like the school project materials."
+            },
+            {
+              "questionId": "4004_04",
+              "type": "practical",
+              "question": "What does the fact that he has a reserve bring to Chrumko?",
+              "options": [
+                "Fear that someone will swap his envelope money at night",
+                "A sense of security in everyday life",
+                "Sadness because he can never actually use that money",
+                "Boredom, because you can't have any fun with a reserve"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Having a financial reserve provides peace of mind and security, knowing that resources are available for unexpected situations."
+            },
+            {
+              "questionId": "4004_05",
+              "type": "practical",
+              "question": "Can Chrumko use his reserve for ice cream when he passes a stand?",
+              "options": [
+                "Yes, if he feels like having ice cream and doesn't need the money",
+                "He can, but it wouldn't be very wise",
+                "No, the reserve technically cannot be taken out of the envelope",
+                "Only if he buys ice cream for all of his classmates as well"
+              ],
+              "correctAnswer": 1,
+              "explanation": "While technically he could use the reserve for ice cream, it would defeat the purpose of having an emergency fund available for real needs."
+            }
+          ]
+        },
+        {
+          "lessonId": 4005,
+          "lessonNumber": 5,
+          "lessonName": "Regular small amounts",
+          "questions": [
+            {
+              "questionId": "4005_01",
+              "type": "theoretical",
+              "question": "What is key when saving from small amounts?",
+              "options": [
+                "Finding the largest possible piggy bank so the coins get lost inside",
+                "Setting aside a huge sum of money only once every ten years",
+                "Doing it repeatedly and regularly",
+                "Only saving coins that we believe bring us good luck"
+              ],
+              "correctAnswer": 2,
+              "explanation": "The key to successful saving is consistency and regularity, not the size of each individual amount."
+            },
+            {
+              "questionId": "4005_02",
+              "type": "theoretical",
+              "question": "What happens to small coins after a long period of saving?",
+              "options": [
+                "There will still be as few of them as on the first day",
+                "They turn into a larger sum",
+                "The coins in the piggy bank fade over time and lose their value",
+                "They will take up too much space, so it's not worth storing them"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Through consistent accumulation, small coins combine to form a significantly larger amount over time."
+            },
+            {
+              "questionId": "4005_03",
+              "type": "practical",
+              "question": "Chrumko saves 50 cents a week and it seems like very little to him. What would you advise him?",
+              "options": [
+                "To stop, because 50 cents doesn't mean anything",
+                "To give the money to the first person he sees on the street",
+                "To keep going, he will see the result later",
+                "To ask older classmates for money instead"
+              ],
+              "correctAnswer": 2,
+              "explanation": "50 cents per week adds up to €26 per year—a substantial amount that demonstrates the power of consistent small savings."
+            },
+            {
+              "questionId": "4005_04",
+              "type": "practical",
+              "question": "Chrumko bought an item that one small portion of money wouldn't cover. How is this possible?",
+              "options": [
+                "The shopkeeper made a mistake in his favor at the checkout",
+                "Regular saving added up the small amounts",
+                "He found the remaining money hidden under a pillow in his room",
+                "The money in the piggy bank miraculously doubled overnight"
+              ],
+              "correctAnswer": 1,
+              "explanation": "By saving regularly, even small amounts accumulate to sufficient funds to purchase items that individual small payments couldn't cover."
+            },
+            {
+              "questionId": "4005_05",
+              "type": "practical",
+              "question": "What would happen if Chrumko only saved 50 cents when he was in a \"good mood\"?",
+              "options": [
+                "He would save much more because a good mood attracts money",
+                "The amount would grow unpredictably and take much longer",
+                "The bank would cancel all his savings due to inconsistency",
+                "The coins in the piggy bank would start to smell because they were alone for so long"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Without consistency, savings become irregular and unpredictable, taking much longer to accumulate to meaningful amounts."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 
