@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_mansion/widgets/scrollable_tab_bar_wrapper.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
@@ -167,9 +168,8 @@ class _ShopScreenState extends State<ShopScreen>
             onPressed: widget.onBack,
           ),
         ),
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
+        bottom: ScrollableTabBarWrapper(
+          tabController: _tabController,
           labelColor: Colors.deepPurple,
           unselectedLabelColor: Colors.grey[600],
           indicatorColor: Colors.deepPurple,

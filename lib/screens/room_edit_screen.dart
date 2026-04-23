@@ -13,6 +13,7 @@ import '../widgets/room_components_sheet.dart';
 import '../widgets/tutorial_overlay.dart';
 import '../widgets/tutorial_target.dart';
 import '../widgets/zoom_slider.dart';
+import '../widgets/scrollable_tab_bar_wrapper.dart';
 import '../games/room_world.dart';
 
 // App colour constants
@@ -479,50 +480,18 @@ class _InventorySheetState extends State<_InventorySheet>
                 ),
               ),
 
-              // ── Tab bar ────────────────────────────────────────────
-              TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                labelColor: _purple,
-                unselectedLabelColor: Colors.grey[500],
-                indicatorColor: _purple,
-                indicatorWeight: 2,
-                dividerColor: _purpleLight,
-                tabs: _categories.map((cat) {
-                  final count = _itemsForCategory(cat).length;
-                  return Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(_categoryIcon(cat.labelKey), size: 14),
-                        const SizedBox(width: 4),
-                        Text(
-                          _categoryLabel(cat.labelKey),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        if (count > 0) ...[
-                          const SizedBox(width: 4),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 1),
-                            decoration: BoxDecoration(
-                              color: _purple.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              '$count',
-                              style: const TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: _purple,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  );
-                }).toList(),
+              // ── Tab bar with scroll arrows ─────────────────────────
+              // The sheet background is _cream; pass it so the gradient
+              // fade blends correctly with the sheet colour.
+              _SheetTabBar(
+                tabController: _tabController,
+                categories: _categories,
+                itemsForCategory: _itemsForCategory,
+                categoryIcon: _categoryIcon,
+                categoryLabel: _categoryLabel,
+                sheetColor: _cream,
+                accentColor: _purple,
+                accentLight: _purpleLight,
               ),
 
               const Divider(color: _purpleLight, height: 1),
@@ -684,6 +653,239 @@ class _InventorySheetState extends State<_InventorySheet>
                 ),
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Sheet tab bar with scroll arrows ─────────────────────────────────────────
+//
+// Unlike AppBar.bottom (which uses PreferredSizeWidget), a bottom sheet needs
+// a plain widget. This StatefulWidget mirrors the scroll-arrow logic from
+// ScrollableTabBarWrapper but is sized by its content, not by preferredSize.
+
+class _SheetTabBar extends StatefulWidget {
+  const _SheetTabBar({
+    required this.tabController,
+    required this.categories,
+    required this.itemsForCategory,
+    required this.categoryIcon,
+    required this.categoryLabel,
+    required this.sheetColor,
+    required this.accentColor,
+    required this.accentLight,
+  });
+
+  final TabController tabController;
+  final List<Category> categories;
+  final List<Item> Function(Category) itemsForCategory;
+  final IconData Function(String) categoryIcon;
+  final String Function(String) categoryLabel;
+  final Color sheetColor;
+  final Color accentColor;
+  final Color accentLight;
+
+  @override
+  State<_SheetTabBar> createState() => _SheetTabBarState();
+}
+
+class _SheetTabBarState extends State<_SheetTabBar> {
+  late final ScrollController _sc;
+  bool _canScrollLeft = false;
+  bool _canScrollRight = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _sc = ScrollController();
+    _sc.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 150), () {
+        if (mounted) _onScroll();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _sc.removeListener(_onScroll);
+    _sc.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_sc.hasClients) return;
+    final pos = _sc.position;
+    final left = pos.pixels > 2;
+    final right = pos.pixels < pos.maxScrollExtent - 2;
+    if (left != _canScrollLeft || right != _canScrollRight) {
+      if (mounted) {
+        setState(() {
+          _canScrollLeft = left;
+          _canScrollRight = right;
+        });
+      }
+    }
+  }
+
+  void _scroll(double delta) {
+    if (!_sc.hasClients) return;
+    _sc.animateTo(
+      (_sc.offset + delta).clamp(
+        _sc.position.minScrollExtent,
+        _sc.position.maxScrollExtent,
+      ),
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 46,
+      child: Stack(
+        children: [
+          PrimaryScrollController(
+            controller: _sc,
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (n) {
+                if (n is ScrollUpdateNotification ||
+                    n is ScrollEndNotification) {
+                  final m = n.metrics;
+                  final left = m.pixels > 2;
+                  final right = m.pixels < m.maxScrollExtent - 2;
+                  if (left != _canScrollLeft || right != _canScrollRight) {
+                    if (mounted) {
+                      setState(() {
+                        _canScrollLeft = left;
+                        _canScrollRight = right;
+                      });
+                    }
+                  }
+                }
+                return false;
+              },
+              child: TabBar(
+                controller: widget.tabController,
+                isScrollable: true,
+                labelColor: widget.accentColor,
+                unselectedLabelColor: Colors.grey[500],
+                indicatorColor: widget.accentColor,
+                indicatorWeight: 2,
+                dividerColor: widget.accentLight,
+                tabs: widget.categories.map((cat) {
+                  final count = widget.itemsForCategory(cat).length;
+                  return Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(widget.categoryIcon(cat.labelKey), size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          widget.categoryLabel(cat.labelKey),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        if (count > 0) ...[
+                          const SizedBox(width: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: widget.accentColor.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '$count',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: widget.accentColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+
+          // Left arrow
+          AnimatedOpacity(
+            opacity: _canScrollLeft ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 180),
+            child: IgnorePointer(
+              ignoring: !_canScrollLeft,
+              child: _SheetEdgeButton(
+                isLeft: true,
+                bg: widget.sheetColor,
+                color: widget.accentColor,
+                onTap: () => _scroll(-160),
+              ),
+            ),
+          ),
+
+          // Right arrow
+          AnimatedOpacity(
+            opacity: _canScrollRight ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 180),
+            child: IgnorePointer(
+              ignoring: !_canScrollRight,
+              child: _SheetEdgeButton(
+                isLeft: false,
+                bg: widget.sheetColor,
+                color: widget.accentColor,
+                onTap: () => _scroll(160),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SheetEdgeButton extends StatelessWidget {
+  const _SheetEdgeButton({
+    required this.isLeft,
+    required this.bg,
+    required this.color,
+    required this.onTap,
+  });
+
+  final bool isLeft;
+  final Color bg;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          width: 32,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+              end: isLeft ? Alignment.centerRight : Alignment.centerLeft,
+              colors: [bg, bg.withOpacity(0.0)],
+              stops: const [0.55, 1.0],
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Icon(
+            isLeft ? Icons.chevron_left : Icons.chevron_right,
+            size: 18,
+            color: color,
+          ),
         ),
       ),
     );
