@@ -10,6 +10,12 @@ import '../services/room_layout_database_service.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
 
+// App colour constants — same as room_edit_screen.dart
+const _purple = Color(0xFF6B5B8C);
+const _purpleLight = Color(0xFFB8A8D8);
+const _purpleBg = Color(0xFFE8D4F0);
+const _cream = Color(0xFFFFFBF5);
+
 class InventoryScreen extends StatefulWidget {
   final GameState gameState;
   final VoidCallback onBack;
@@ -26,7 +32,7 @@ class InventoryScreen extends StatefulWidget {
 
 class _InventoryScreenState extends State<InventoryScreen>
     with SingleTickerProviderStateMixin {
-  Set<String> _placedItemIds = {};
+  Map<String, int> _placedItemCounts = {};
   late TabController _tabController;
   bool _isLoading = true;
   List<RoomComponent> _inventoryRoomComponents = [];
@@ -76,28 +82,20 @@ class _InventoryScreenState extends State<InventoryScreen>
     final placements = results[0] as List;
     final ownedComponents = results[1] as List<RoomComponent>;
 
+    final placedCounts = <String, int>{};
+    for (final placement in placements) {
+      placedCounts.update(
+        placement.itemId as String,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
+    }
+
     setState(() {
-      _placedItemIds = {for (final p in placements) p.itemId};
+      _placedItemCounts = placedCounts;
       _inventoryRoomComponents = ownedComponents;
       _isLoading = false;
     });
-  }
-
-  String _getItemTypeLabel(ItemType type, AppLocalizationsProvider l10n) {
-    switch (type) {
-      case ItemType.door:
-        return l10n.translate('itemTypeDoor');
-      case ItemType.window:
-        return l10n.translate('itemTypeWindow');
-      case ItemType.furniture:
-        return l10n.translate('itemTypeFurniture');
-      case ItemType.flooring:
-        return l10n.translate('itemTypeFlooring');
-      case ItemType.wallpaper:
-        return l10n.translate('itemTypeWallpaper');
-      case ItemType.decoration:
-        return l10n.translate('itemTypeDecoration');
-    }
   }
 
   String _getRoomComponentTypeLabel(
@@ -242,13 +240,16 @@ class _InventoryScreenState extends State<InventoryScreen>
     final l10n = context.watch<AppLocalizationsProvider>();
 
     return Scaffold(
+      backgroundColor: _cream,
       appBar: AppBar(
+        backgroundColor: _cream,
+        elevation: 0,
         title: Text(l10n.translate('inventory')),
         leading: TutorialTarget(
           id: 'nav_back',
           child: IconButton(
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: _purple,
             onPressed: () {
               context.read<TutorialProvider>().registerAction('go_back');
               widget.onBack();
@@ -258,10 +259,11 @@ class _InventoryScreenState extends State<InventoryScreen>
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          labelColor: Colors.deepPurple,
-          unselectedLabelColor: Colors.grey[600],
-          indicatorColor: Colors.deepPurple,
+          labelColor: _purple,
+          unselectedLabelColor: Colors.grey[500],
+          indicatorColor: _purple,
           indicatorWeight: 3,
+          dividerColor: _purpleLight,
           tabs: _categories.map((cat) {
             final count = _isLoading ? null : _itemsForCategory(cat).length;
             final icon = cat.isRoomComponent
@@ -280,7 +282,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 1),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple.withOpacity(0.15),
+                        color: _purple.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
@@ -288,7 +290,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
+                          color: _purple,
                         ),
                       ),
                     ),
@@ -300,7 +302,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         ),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: _purple))
           : TabBarView(
               controller: _tabController,
               children: _categories.map((cat) {
@@ -323,34 +325,34 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.shopping_bag, size: 48, color: Colors.grey[400]),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, color: Colors.grey[500]),
             ),
           ],
         ),
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.85,
-        ),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          final isPlaced = _placedItemIds.contains(item.id);
-          return _buildItemCard(item, isPlaced, l10n);
-        },
+    final crossAxisCount =
+        (MediaQuery.of(context).size.width / 130).floor().clamp(3, 6);
+
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 0.78,
       ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        final placedCount = _placedItemCounts[item.id] ?? 0;
+        return _buildItemCard(item, placedCount, l10n);
+      },
     );
   }
 
@@ -360,38 +362,38 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.shopping_bag, size: 48, color: Colors.grey[400]),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, color: Colors.grey[500]),
             ),
           ],
         ),
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.85,
-        ),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final entry = items[index];
-          if (entry is RoomComponent) {
-            return _buildRoomComponentCard(entry, l10n);
-          }
-          final item = entry as Item;
-          final isPlaced = _placedItemIds.contains(item.id);
-          return _buildItemCard(item, isPlaced, l10n);
-        },
+    final crossAxisCount =
+        (MediaQuery.of(context).size.width / 130).floor().clamp(3, 6);
+
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 0.78,
       ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final entry = items[index];
+        if (entry is RoomComponent) {
+          return _buildRoomComponentCard(entry, l10n);
+        }
+        final item = entry as Item;
+        final placedCount = _placedItemCounts[item.id] ?? 0;
+        return _buildItemCard(item, placedCount, l10n);
+      },
     );
   }
 
@@ -402,53 +404,70 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.home, size: 48, color: Colors.grey[400]),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, color: Colors.grey[500]),
             ),
           ],
         ),
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.85,
-        ),
-        itemCount: components.length,
-        itemBuilder: (context, index) => _buildRoomComponentCard(
-              components[index],
-              context.watch<AppLocalizationsProvider>(),
-            ),
+    final crossAxisCount =
+        (MediaQuery.of(context).size.width / 130).floor().clamp(3, 6);
+
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 0.78,
+      ),
+      itemCount: components.length,
+      itemBuilder: (context, index) => _buildRoomComponentCard(
+        components[index],
+        context.watch<AppLocalizationsProvider>(),
       ),
     );
   }
 
-  Widget _buildItemCard(Item item, bool isPlaced, AppLocalizationsProvider l10n) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
+  Widget _buildItemCard(
+      Item item, int placedCount, AppLocalizationsProvider l10n) {
+    final maxCount = item.quantity > 0 ? item.quantity : 1;
+    final shownPlacedCount = placedCount > maxCount ? maxCount : placedCount;
+    final isFullyPlaced = shownPlacedCount >= maxCount;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: isFullyPlaced ? Colors.grey[200] : Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isFullyPlaced ? Colors.grey.shade300 : _purpleLight,
+          width: 1.5,
+        ),
+        boxShadow: isFullyPlaced
+            ? []
+            : [
+                BoxShadow(
+                  color: _purpleLight.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
-      color: isPlaced ? Colors.grey[300] : Colors.white,
       child: Stack(
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
                   child: Opacity(
-                    opacity: isPlaced ? 0.5 : 1.0,
+                    opacity: isFullyPlaced ? 0.5 : 1.0,
                     child: item.texture.isNotEmpty
                         ? Image.asset(
                             item.texture,
@@ -456,65 +475,101 @@ class _InventoryScreenState extends State<InventoryScreen>
                           )
                         : Icon(
                             Icons.image_not_supported,
-                            size: 48,
+                            size: 28,
                             color: Colors.grey[400],
                           ),
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 2),
                 child: Text(
-                  item.name,
+                  item.localizedName(l10n.currentLanguage),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 9,
                     fontWeight: FontWeight.bold,
-                    color: isPlaced ? Colors.grey[600] : Colors.black,
+                    color: isFullyPlaced ? Colors.grey[500] : _purple,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const SizedBox(height: 4),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
-                    color: isPlaced ? Colors.grey[400] : Colors.blue[100],
-                    borderRadius: BorderRadius.circular(8),
+                    color: isFullyPlaced ? Colors.grey[300] : _purpleBg,
+                    borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    _getItemTypeLabel(item.type, l10n),
+                    item.type.toDisplayString(),
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
-                      color: isPlaced ? Colors.grey[700] : Colors.blue[900],
+                      fontSize: 8,
+                      color: isFullyPlaced ? Colors.grey[600] : _purple,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                child: Text(
+                  '${l10n.translate('placed')}: $shownPlacedCount/$maxCount',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w600,
+                    color: isFullyPlaced ? Colors.grey[600] : _purple,
+                  ),
+                ),
+              ),
             ],
           ),
-          if (isPlaced)
+          Positioned(
+            top: 4,
+            right: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: isFullyPlaced ? Colors.grey[500] : _purple,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                'x$maxCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          if (isFullyPlaced)
             Positioned.fill(
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    l10n.translate('placed'),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: _purple.withOpacity(0.85),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      l10n.translate('placed'),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -525,66 +580,99 @@ class _InventoryScreenState extends State<InventoryScreen>
     );
   }
 
-  Widget _buildRoomComponentCard(RoomComponent component, AppLocalizationsProvider l10n) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
+  Widget _buildRoomComponentCard(
+      RoomComponent component, AppLocalizationsProvider l10n) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: _purpleLight,
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: _purpleLight.withOpacity(0.2),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: component.texture.isNotEmpty
-                  ? Image.asset(
-                      component.texture,
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(
-                      Icons.image_not_supported,
-                      size: 48,
-                      color: Colors.grey[400],
-                    ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              component.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: component.texture.isNotEmpty
+                      ? Image.asset(
+                          component.texture,
+                          fit: BoxFit.contain,
+                        )
+                      : Icon(
+                          Icons.image_not_supported,
+                          size: 28,
+                          color: Colors.grey[400],
+                        ),
+                ),
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 2),
+                child: Text(
+                  component.localizedName(l10n.currentLanguage),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                    color: _purple,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: _purpleBg,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    _getRoomComponentTypeLabel(component.type, l10n),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: _purple,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          Positioned(
+            top: 4,
+            right: 4,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.amber[100],
-                borderRadius: BorderRadius.circular(8),
+                color: _purple,
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                _getRoomComponentTypeLabel(component.type, l10n),
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.amber[900],
+                'x1',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 8),
         ],
       ),
     );

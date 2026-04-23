@@ -8,7 +8,8 @@ class ItemDatabaseService {
   static const String _ownedItemsTable = 'owned_items';
   static const String _dbName = 'money_mansion.db';
   static const int _dbVersion = 4;
-  /// IDs of all “zničené” (broken) furniture from [configItems] — kept in sync when new items are added.
+
+  /// IDs of broken furniture from [configItems] (znicene), kept in sync when new items are added.
   static List<String> _zniceneItemIdsFromConfig(List<Item> configItems) {
     final ids = <String>[];
     for (final item in configItems) {
@@ -33,7 +34,7 @@ class ItemDatabaseService {
   // Initialize the database factory (required for Windows/Desktop)
   static Future<void> initializeDatabase() async {
     if (_initialized) {
-      print('✓ ItemDatabaseService already initialized');
+      print('ItemDatabaseService already initialized');
       return;
     }
 
@@ -41,31 +42,31 @@ class ItemDatabaseService {
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
-      print('✓ FFI initialized for desktop');
+      print('FFI initialized for desktop');
     } else {
-      print('ℹ Mobile platform - FFI not needed');
+      print('INFO: Mobile platform - FFI not needed');
     }
     _initialized = true;
-    print('✓ ItemDatabaseService initialized');
+    print('ItemDatabaseService initialized');
   }
 
   // Initialize database
   static Future<Database> get database async {
     await initializeDatabase();
     if (_database != null) {
-      print('ℹ Reusing existing database connection');
+      print('INFO: Reusing existing database connection');
       return _database!;
     }
-    print('→ Opening database...');
+    print('Opening database...');
     _database = await _initDatabase();
-    print('✓ Database opened successfully');
+    print('Database opened successfully');
     return _database!;
   }
 
   static Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _dbName);
-    print('ℹ Database path: $path');
+    print('INFO: Database path: $path');
     return openDatabase(
       path,
       version: _dbVersion,
@@ -81,20 +82,21 @@ class ItemDatabaseService {
                 name TEXT NOT NULL,
                 type TEXT NOT NULL,
                 texture TEXT NOT NULL,
-                cost INTEGER NOT NULL
+                cost INTEGER NOT NULL,
+                quantity INTEGER NOT NULL DEFAULT 1
               )
             ''');
-            
+
             // Try to migrate data from old items table if it has owned=1
             try {
               await db.execute('''
-                INSERT OR IGNORE INTO $_ownedItemsTable (id, name, type, texture, cost)
-                SELECT id, name, type, texture, cost FROM items WHERE owned = 1
+                INSERT OR IGNORE INTO $_ownedItemsTable (id, name, type, texture, cost, quantity)
+                SELECT id, name, type, texture, cost, 1 FROM items WHERE owned = 1
               ''');
             } catch (e) {
               // Old table might not exist, ignore
             }
-            
+
             // Drop old items table
             try {
               await db.execute('DROP TABLE IF EXISTS items');
@@ -105,7 +107,7 @@ class ItemDatabaseService {
             print('Migration error: $e');
           }
         }
-        
+
         // Migrate to v4: add room component tables
         if (oldVersion < 4) {
           try {
@@ -118,7 +120,7 @@ class ItemDatabaseService {
                 cost INTEGER NOT NULL
               )
             ''');
-            
+
             await db.execute('''
               CREATE TABLE IF NOT EXISTS room_selected_components (
                 role TEXT PRIMARY KEY,
@@ -126,7 +128,7 @@ class ItemDatabaseService {
                 FOREIGN KEY(selected_component_id) REFERENCES owned_room_components(id)
               )
             ''');
-            
+
             // Initialize default selections
             await db.insert(
               'room_selected_components',
@@ -138,22 +140,22 @@ class ItemDatabaseService {
               {'role': 'floor', 'selected_component_id': 'none'},
               conflictAlgorithm: ConflictAlgorithm.ignore,
             );
-            
-            print('✓ Room component tables created during migration');
+
+            print('Room component tables created during migration');
           } catch (e) {
             print('Room component migration error: $e');
           }
         }
-        
+
         // Ensure goals table exists
         await _createGoalsTable(db);
       },
       onOpen: (db) async {
-        print('→ Database onOpen callback triggered');
+        print('Database onOpen callback triggered');
         try {
           // Ensure tables exist on every app start
           await _createTables(db);
-          print('✓ onOpen: Tables verified');
+          print('onOpen: Tables verified');
         } catch (e) {
           print('ERROR in onOpen callback: $e');
           rethrow;
@@ -163,10 +165,10 @@ class ItemDatabaseService {
   }
 
   static Future<void> _createTable(Database db, int version) async {
-    print('→ Database onCreate triggered (v$version)');
+    print('Database onCreate triggered (v$version)');
     try {
       await _createTables(db);
-      print('✓ onCreate: Tables created successfully');
+      print('onCreate: Tables created successfully');
     } catch (e) {
       print('ERROR in onCreate: $e');
       rethrow;
@@ -176,9 +178,9 @@ class ItemDatabaseService {
   // Ensures all required tables exist - called before any operation
   static Future<void> ensureTablesExist(Database db) async {
     try {
-      print('→ Ensuring tables exist...');
+      print('Ensuring tables exist...');
       await _createTables(db);
-      print('✓ Tables verified');
+      print('Tables verified');
     } catch (e) {
       print('ERROR ensuring tables: $e');
       rethrow;
@@ -194,11 +196,13 @@ class ItemDatabaseService {
           name TEXT NOT NULL,
           type TEXT NOT NULL,
           texture TEXT NOT NULL,
-          cost INTEGER NOT NULL
+          cost INTEGER NOT NULL,
+          quantity INTEGER NOT NULL DEFAULT 1
         )
       ''');
-      print('✓ Created/verified owned_items table');
-      
+      await _ensureOwnedItemsQuantityColumn(db);
+      print('Created/verified owned_items table');
+
       // Create room component tables (v4 schema)
       await db.execute('''
         CREATE TABLE IF NOT EXISTS owned_room_components (
@@ -209,16 +213,16 @@ class ItemDatabaseService {
           cost INTEGER NOT NULL
         )
       ''');
-      print('✓ Created/verified owned_room_components table');
-      
+      print('Created/verified owned_room_components table');
+
       await db.execute('''
         CREATE TABLE IF NOT EXISTS room_selected_components (
           role TEXT PRIMARY KEY,
           selected_component_id TEXT NOT NULL
         )
       ''');
-      print('✓ Created/verified room_selected_components table');
-      
+      print('Created/verified room_selected_components table');
+
       // Initialize default selections if they don't exist
       try {
         await db.insert(
@@ -229,7 +233,7 @@ class ItemDatabaseService {
       } catch (e) {
         // Already exists, ignore
       }
-      
+
       try {
         await db.insert(
           'room_selected_components',
@@ -239,12 +243,23 @@ class ItemDatabaseService {
       } catch (e) {
         // Already exists, ignore
       }
-      
+
       await _createGoalsTable(db);
-      print('✓ Created/verified goals table');
+      print('Created/verified goals table');
     } catch (e) {
       print('ERROR in _createTables: $e');
       rethrow;
+    }
+  }
+
+  static Future<void> _ensureOwnedItemsQuantityColumn(Database db) async {
+    final columns = await db.rawQuery('PRAGMA table_info($_ownedItemsTable)');
+    final hasQuantity = columns.any((c) => c['name'] == 'quantity');
+    if (!hasQuantity) {
+      await db.execute(
+        'ALTER TABLE $_ownedItemsTable ADD COLUMN quantity INTEGER NOT NULL DEFAULT 1',
+      );
+      print('Added quantity column to owned_items table');
     }
   }
 
@@ -306,15 +321,22 @@ class ItemDatabaseService {
       final configMap = {for (var item in GAME_ITEMS) item.id: item};
 
       return List.generate(maps.length, (i) {
-        final id = maps[i]['id'] as String;
+        final map = maps[i];
+        final id = map['id'] as String;
         final configItem = configMap[id];
-        
+
+        final quantityValue = map['quantity'];
+        final quantity = quantityValue is int
+            ? quantityValue
+            : (quantityValue as num?)?.toInt() ?? 1;
+
         return Item(
           id: id,
-          name: maps[i]['name'] as String,
-          type: _stringToItemType(maps[i]['type'] as String),
-          texture: maps[i]['texture'] as String,
-          cost: maps[i]['cost'] as int,
+          name: map['name'] as String,
+          type: _stringToItemType(map['type'] as String),
+          texture: map['texture'] as String,
+          cost: map['cost'] as int,
+          quantity: quantity,
           // Merge scale and hitboxId from config if available
           hitboxId: configItem?.hitboxId,
           scale: configItem?.scale ?? 1.0,
@@ -326,7 +348,7 @@ class ItemDatabaseService {
     }
   }
 
-  // Check if item is owned
+  // Check if item is owned by ID
   static Future<bool> isItemOwned(String itemId) async {
     try {
       final db = await database;
@@ -349,17 +371,37 @@ class ItemDatabaseService {
     try {
       final db = await database;
       await ensureTablesExist(db);
-      await db.insert(
+      final existing = await db.query(
         _ownedItemsTable,
-        {
-          'id': item.id,
-          'name': item.name,
-          'type': _itemTypeToString(item.type),
-          'texture': item.texture,
-          'cost': item.cost,
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
+        columns: ['quantity'],
+        where: 'id = ?',
+        whereArgs: [item.id],
+        limit: 1,
       );
+
+      if (existing.isNotEmpty) {
+        final currentQuantity =
+            (existing.first['quantity'] as num?)?.toInt() ?? 1;
+        await db.update(
+          _ownedItemsTable,
+          {'quantity': currentQuantity + 1},
+          where: 'id = ?',
+          whereArgs: [item.id],
+        );
+      } else {
+        await db.insert(
+          _ownedItemsTable,
+          {
+            'id': item.id,
+            'name': item.name,
+            'type': _itemTypeToString(item.type),
+            'texture': item.texture,
+            'cost': item.cost,
+            'quantity': 1,
+          },
+          conflictAlgorithm: ConflictAlgorithm.abort,
+        );
+      }
       return true;
     } catch (e) {
       print('Error adding owned item: $e');
@@ -412,20 +454,20 @@ class ItemDatabaseService {
     try {
       final db = await database;
       await ensureTablesExist(db);
-      
+
       // Create a map of config items by ID for quick lookup
       final configMap = {for (var item in configItems) item.id: item};
-      
+
       // Get all owned items from database
       final ownedItems = await getOwnedItems();
-      
+
       int syncedCount = 0;
-      
+
       // Update each owned item with latest config values
       for (final ownedItem in ownedItems) {
         if (configMap.containsKey(ownedItem.id)) {
           final configItem = configMap[ownedItem.id]!;
-          
+
           // Update the owned item with new values from config
           await db.update(
             _ownedItemsTable,
@@ -438,16 +480,16 @@ class ItemDatabaseService {
             where: 'id = ?',
             whereArgs: [ownedItem.id],
           );
-          
+
           syncedCount++;
-          print('✓ Synced owned item: ${ownedItem.id}');
+          print('Synced owned item: ${ownedItem.id}');
         }
       }
-      
+
       if (syncedCount > 0) {
-        print('✓ Synced $syncedCount owned items with config');
+        print('Synced $syncedCount owned items with config');
       }
-      
+
       return syncedCount;
     } catch (e) {
       print('Error syncing owned items: $e');
@@ -455,9 +497,10 @@ class ItemDatabaseService {
     }
   }
 
-  /// Ensure every zničený / zničená item from config is owned (startup and after sync).
+  /// Ensure every broken item from config is owned (startup and after sync).
   /// Safe to call on every startup.
-  static Future<void> ensureStarterBrokenItemsOwned(List<Item> configItems) async {
+  static Future<void> ensureStarterBrokenItemsOwned(
+      List<Item> configItems) async {
     try {
       final db = await database;
       await ensureTablesExist(db);
@@ -484,11 +527,12 @@ class ItemDatabaseService {
             'type': _itemTypeToString(configItem.type),
             'texture': configItem.texture,
             'cost': configItem.cost,
+            'quantity': 1,
           },
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
 
-        print('✓ Starter zničené item granted: $id');
+        print('Starter znicene item granted: $id');
       }
     } catch (e) {
       print('Error ensuring starter broken items: $e');
@@ -496,7 +540,8 @@ class ItemDatabaseService {
   }
 
   /// Ensure a few decoration items are owned for early room customisation / tutorial.
-  static Future<void> ensureStarterDecorItemsOwned(List<Item> configItems) async {
+  static Future<void> ensureStarterDecorItemsOwned(
+      List<Item> configItems) async {
     try {
       final db = await database;
       await ensureTablesExist(db);
@@ -520,6 +565,7 @@ class ItemDatabaseService {
             'type': _itemTypeToString(configItem.type),
             'texture': configItem.texture,
             'cost': configItem.cost,
+            'quantity': 1,
           },
           conflictAlgorithm: ConflictAlgorithm.replace,
         );

@@ -118,10 +118,16 @@ class GameState extends ChangeNotifier {
   }
 
   void addOwnedItem(Item item) {
-    if (!ownedItems.any((i) => i.id == item.id)) {
+    final index = ownedItems.indexWhere((i) => i.id == item.id);
+    if (index == -1) {
       ownedItems.add(item);
-      notifyListeners();
+    } else {
+      final existing = ownedItems[index];
+      ownedItems[index] = existing.copyWith(
+        quantity: existing.quantity + item.quantity,
+      );
     }
+    notifyListeners();
   }
 
   void removeOwnedItem(String itemId) {

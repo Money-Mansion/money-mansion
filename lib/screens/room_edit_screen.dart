@@ -16,10 +16,10 @@ import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
 
 // App colour constants
-const _purple      = Color(0xFF6B5B8C);
+const _purple = Color(0xFF6B5B8C);
 const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg    = Color(0xFFE8D4F0);
-const _cream       = Color(0xFFFFFBF5);
+const _purpleBg = Color(0xFFE8D4F0);
+const _cream = Color(0xFFFFFBF5);
 
 class RoomEditScreen extends StatefulWidget {
   final Room? room;
@@ -180,7 +180,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
                     heroTag: null,
                     backgroundColor: Colors.orange[400],
                     onPressed: _onMoveToBack,
-                    child: const Icon(Icons.arrow_downward, color: Colors.white),
+                    child:
+                        const Icon(Icons.arrow_downward, color: Colors.white),
                     tooltip: 'Move to back',
                   ),
                   const SizedBox(height: 10),
@@ -260,11 +261,10 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
 
   void _showInventorySheet(
       BuildContext context, AppLocalizationsProvider l10n) {
-    context
-        .read<TutorialProvider>()
-        .registerAction('room_edit_open_inventory');
+    context.read<TutorialProvider>().registerAction('room_edit_open_inventory');
 
-    final placedItemIds = roomWorld?.getPlacedItemIds() ?? {};
+    final placedItemCounts =
+        roomWorld?.getPlacedItemCounts() ?? <String, int>{};
     final items = widget.gameState?.ownedItems ?? [];
 
     showModalBottomSheet(
@@ -273,7 +273,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
       backgroundColor: Colors.transparent,
       builder: (context) => _InventorySheet(
         items: items,
-        placedItemIds: placedItemIds,
+        placedItemCounts: placedItemCounts,
         l10n: l10n,
         onItemTap: (Item item) {
           if (roomWorld != null) {
@@ -293,13 +293,13 @@ class _RoomEditScreenState extends State<RoomEditScreen> {
 
 class _InventorySheet extends StatefulWidget {
   final List<Item> items;
-  final Set<String> placedItemIds;
+  final Map<String, int> placedItemCounts;
   final AppLocalizationsProvider l10n;
   final void Function(Item) onItemTap;
 
   const _InventorySheet({
     required this.items,
-    required this.placedItemIds,
+    required this.placedItemCounts,
     required this.l10n,
     required this.onItemTap,
   });
@@ -385,34 +385,56 @@ class _InventorySheetState extends State<_InventorySheet>
 
   IconData _categoryIcon(String labelKey) {
     switch (labelKey) {
-      case 'all':       return Icons.grid_view;
-      case 'beds':      return Icons.bed;
-      case 'seating':   return Icons.chair;
-      case 'tables':    return Icons.table_restaurant;
-      case 'storage':   return Icons.shelves;
-      case 'carpets':   return Icons.square_foot;
-      case 'wallDecor': return Icons.image;
-      case 'plants':    return Icons.local_florist;
-      case 'lighting':  return Icons.lightbulb_outline;
-      case 'doors':     return Icons.door_front_door;
-      default:          return Icons.grid_view;
+      case 'all':
+        return Icons.grid_view;
+      case 'beds':
+        return Icons.bed;
+      case 'seating':
+        return Icons.chair;
+      case 'tables':
+        return Icons.table_restaurant;
+      case 'storage':
+        return Icons.shelves;
+      case 'carpets':
+        return Icons.square_foot;
+      case 'wallDecor':
+        return Icons.image;
+      case 'plants':
+        return Icons.local_florist;
+      case 'lighting':
+        return Icons.lightbulb_outline;
+      case 'doors':
+        return Icons.door_front_door;
+      default:
+        return Icons.grid_view;
     }
   }
 
   String _categoryLabel(String key) {
     final isSk = widget.l10n.currentLanguage == 'sk';
     switch (key) {
-      case 'all':       return isSk ? 'Všetko'          : 'All';
-      case 'beds':      return isSk ? 'Postele'         : 'Beds';
-      case 'seating':   return isSk ? 'Posedenie'       : 'Seating';
-      case 'tables':    return isSk ? 'Stoly'           : 'Tables';
-      case 'storage':   return isSk ? 'Úložný priestor' : 'Storage';
-      case 'carpets':   return isSk ? 'Koberce'         : 'Carpets';
-      case 'wallDecor': return isSk ? 'Steny'           : 'Wall Decor';
-      case 'plants':    return isSk ? 'Rastliny'        : 'Plants';
-      case 'lighting':  return isSk ? 'Svetlá'          : 'Lighting';
-      case 'doors':     return isSk ? 'Dvere'           : 'Doors';
-      default:          return key;
+      case 'all':
+        return isSk ? 'Všetko' : 'All';
+      case 'beds':
+        return isSk ? 'Postele' : 'Beds';
+      case 'seating':
+        return isSk ? 'Posedenie' : 'Seating';
+      case 'tables':
+        return isSk ? 'Stoly' : 'Tables';
+      case 'storage':
+        return isSk ? 'Úložný priestor' : 'Storage';
+      case 'carpets':
+        return isSk ? 'Koberce' : 'Carpets';
+      case 'wallDecor':
+        return isSk ? 'Steny' : 'Wall Decor';
+      case 'plants':
+        return isSk ? 'Rastliny' : 'Plants';
+      case 'lighting':
+        return isSk ? 'Svetlá' : 'Lighting';
+      case 'doors':
+        return isSk ? 'Dvere' : 'Doors';
+      default:
+        return key;
     }
   }
 
@@ -542,9 +564,7 @@ class _InventorySheetState extends State<_InventorySheet>
                                 size: 40, color: _purpleLight),
                             const SizedBox(height: 10),
                             Text(
-                              sk
-                                  ? 'Zatiaľ žiadne predmety'
-                                  : 'No items yet',
+                              sk ? 'Zatiaľ žiadne predmety' : 'No items yet',
                               style: TextStyle(
                                   fontSize: 14, color: Colors.grey[500]),
                             ),
@@ -565,9 +585,9 @@ class _InventorySheetState extends State<_InventorySheet>
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         final item = items[index];
-                        final isPlaced =
-                            widget.placedItemIds.contains(item.id);
-                        return _buildItemCard(item, isPlaced);
+                        final placedCount =
+                            widget.placedItemCounts[item.id] ?? 0;
+                        return _buildItemCard(item, placedCount);
                       },
                     );
                   }).toList(),
@@ -580,20 +600,23 @@ class _InventorySheetState extends State<_InventorySheet>
     );
   }
 
-  Widget _buildItemCard(Item item, bool isPlaced) {
+  Widget _buildItemCard(Item item, int placedCount) {
     final sk = widget.l10n.currentLanguage == 'sk';
+    final maxCount = item.quantity > 0 ? item.quantity : 1;
+    final shownPlacedCount = placedCount > maxCount ? maxCount : placedCount;
+    final isFullyPlaced = shownPlacedCount >= maxCount;
 
     return GestureDetector(
-      onTap: isPlaced ? null : () => widget.onItemTap(item),
+      onTap: isFullyPlaced ? null : () => widget.onItemTap(item),
       child: Container(
         decoration: BoxDecoration(
-          color: isPlaced ? Colors.grey[200] : Colors.white,
+          color: isFullyPlaced ? Colors.grey[200] : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isPlaced ? Colors.grey.shade300 : _purpleLight,
+            color: isFullyPlaced ? Colors.grey.shade300 : _purpleLight,
             width: 1.5,
           ),
-          boxShadow: isPlaced
+          boxShadow: isFullyPlaced
               ? []
               : [
                   BoxShadow(
@@ -612,7 +635,7 @@ class _InventorySheetState extends State<_InventorySheet>
                   child: Padding(
                     padding: const EdgeInsets.all(6),
                     child: Opacity(
-                      opacity: isPlaced ? 0.45 : 1.0,
+                      opacity: isFullyPlaced ? 0.45 : 1.0,
                       child: item.texture.isNotEmpty
                           ? Image.asset(item.texture, fit: BoxFit.contain)
                           : Icon(Icons.image_not_supported,
@@ -628,7 +651,7 @@ class _InventorySheetState extends State<_InventorySheet>
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
-                      color: isPlaced ? Colors.grey[500] : _purple,
+                      color: isFullyPlaced ? Colors.grey[500] : _purple,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -637,10 +660,10 @@ class _InventorySheetState extends State<_InventorySheet>
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 4, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: isPlaced ? Colors.grey[300] : _purpleBg,
+                      color: isFullyPlaced ? Colors.grey[300] : _purpleBg,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
@@ -648,15 +671,46 @@ class _InventorySheetState extends State<_InventorySheet>
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 8,
-                        color: isPlaced ? Colors.grey[600] : _purple,
+                        color: isFullyPlaced ? Colors.grey[600] : _purple,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                  child: Text(
+                    '${widget.l10n.translate('placed')}: $shownPlacedCount/$maxCount',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 8,
+                      fontWeight: FontWeight.w600,
+                      color: isFullyPlaced ? Colors.grey[600] : _purple,
+                    ),
+                  ),
+                ),
               ],
             ),
-            if (isPlaced)
+            Positioned(
+              top: 4,
+              right: 4,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: isFullyPlaced ? Colors.grey[500] : _purple,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'x$maxCount',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            if (isFullyPlaced)
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(

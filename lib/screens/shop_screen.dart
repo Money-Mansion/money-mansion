@@ -6,6 +6,7 @@ import '../models/room_component.dart';
 import '../services/shop_service.dart';
 import '../services/room_component_service.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/room_layout_database_service.dart';
 import '../widgets/tutorial_target.dart';
 import 'category.dart';
 
@@ -27,6 +28,7 @@ class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
   List<Item> _shopItems = [];
   List<RoomComponent> _shopRoomComponents = [];
+  Map<String, int> _placedItemCounts = {};
   bool _isLoading = true;
   late TabController _tabController;
 
@@ -38,18 +40,24 @@ class _ShopScreenState extends State<ShopScreen>
   static const List<Category> _categories = [
     // ── All & Room-component categories ──────────────────────────────
     Category(labelKey: 'all'),
-    Category(labelKey: 'floors', isRoomComponent: true, componentType: RoomComponentType.floor),
-    Category(labelKey: 'walls',  isRoomComponent: true, componentType: RoomComponentType.wall),
+    Category(
+        labelKey: 'floors',
+        isRoomComponent: true,
+        componentType: RoomComponentType.floor),
+    Category(
+        labelKey: 'walls',
+        isRoomComponent: true,
+        componentType: RoomComponentType.wall),
     // ── Item categories ──────────────────────────────────────────────
-    Category(labelKey: 'beds',      itemSubtype: ItemSubtype.beds),
-    Category(labelKey: 'seating',     itemSubtype: ItemSubtype.seating),
-    Category(labelKey: 'tables',    itemSubtype: ItemSubtype.tables),
-    Category(labelKey: 'storage',   itemSubtype: ItemSubtype.storage),
-    Category(labelKey: 'carpets',      itemSubtype: ItemSubtype.carpets),
+    Category(labelKey: 'beds', itemSubtype: ItemSubtype.beds),
+    Category(labelKey: 'seating', itemSubtype: ItemSubtype.seating),
+    Category(labelKey: 'tables', itemSubtype: ItemSubtype.tables),
+    Category(labelKey: 'storage', itemSubtype: ItemSubtype.storage),
+    Category(labelKey: 'carpets', itemSubtype: ItemSubtype.carpets),
     Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
-    Category(labelKey: 'plants',    itemSubtype: ItemSubtype.plants),
-    Category(labelKey: 'lighting',  itemSubtype: ItemSubtype.lighting),
-    Category(labelKey: 'doors',     itemType: ItemType.door),
+    Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
+    Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'doors', itemType: ItemType.door),
   ];
 
   @override
@@ -58,6 +66,7 @@ class _ShopScreenState extends State<ShopScreen>
     _tabController = TabController(length: _categories.length, vsync: this);
     _loadShopItems();
     _loadShopRoomComponents();
+    _loadPlacedItemCounts();
   }
 
   @override
@@ -79,6 +88,39 @@ class _ShopScreenState extends State<ShopScreen>
     setState(() {
       _shopRoomComponents = components;
     });
+  }
+
+  Future<void> _loadPlacedItemCounts() async {
+    final placements = await RoomLayoutDatabaseService.getRoomLayout(
+      RoomLayoutDatabaseService.defaultRoomId,
+    );
+
+    final counts = <String, int>{};
+    for (final placement in placements) {
+      counts.update(
+        placement.itemId,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _placedItemCounts = counts;
+    });
+  }
+
+  int _ownedCountForItem(String itemId) {
+    for (final item in widget.gameState.ownedItems) {
+      if (item.id == itemId) {
+        return item.quantity;
+      }
+    }
+    return 0;
+  }
+
+  int _placedCountForItem(String itemId) {
+    return _placedItemCounts[itemId] ?? 0;
   }
 
   // ---------------------------------------------------------------------------
@@ -244,8 +286,7 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -287,8 +328,7 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -320,87 +360,121 @@ class _ShopScreenState extends State<ShopScreen>
   Widget _buildItemCard(
       Item item, AppLocalizationsProvider l10n, String language) {
     final canAfford = widget.gameState.coins >= item.cost;
+    final ownedCount = _ownedCountForItem(item.id);
+    final placedCount = _placedCountForItem(item.id);
+    final shownPlacedCount =
+        (placedCount > ownedCount) ? ownedCount : placedCount;
 
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Stack(
         children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Container(
-                color: Colors.grey[100],
-                padding: const EdgeInsets.all(12),
-                child: Image.asset(
-                  item.texture,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => Icon(
-                    Icons.image_not_supported,
-                    color: Colors.grey[400],
-                    size: 40,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(12)),
+                  child: Container(
+                    color: Colors.grey[100],
+                    padding: const EdgeInsets.all(12),
+                    child: Image.asset(
+                      item.texture,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => Icon(
+                        Icons.image_not_supported,
+                        color: Colors.grey[400],
+                        size: 40,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(4, 3, 4, 4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.localizedName(language),
-                  style: const TextStyle(
-                      fontSize: 9, fontWeight: FontWeight.bold),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Row(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 3, 4, 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.monetization_on,
-                        size: 9, color: Colors.orange),
-                    const SizedBox(width: 2),
                     Text(
-                      '${item.cost}',
+                      item.localizedName(language),
+                      style: const TextStyle(
+                          fontSize: 9, fontWeight: FontWeight.bold),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Row(
+                      children: [
+                        const Icon(Icons.monetization_on,
+                            size: 9, color: Colors.orange),
+                        const SizedBox(width: 2),
+                        Text(
+                          '${item.cost}',
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: canAfford
+                                ? Colors.orange[700]
+                                : Colors.red[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${l10n.translate('placed')}: $shownPlacedCount/$ownedCount',
                       style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        color: canAfford
-                            ? Colors.orange[700]
-                            : Colors.red[400],
+                        fontSize: 8,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.deepPurple[700],
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: canAfford ? () => _buyItem(item) : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              canAfford ? Colors.orange[400] : Colors.grey[300],
+                          foregroundColor:
+                              canAfford ? Colors.white : Colors.grey[500],
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(0, 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        child: Text(
+                          l10n.translate('buy'),
+                          style: const TextStyle(fontSize: 9),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 3),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: canAfford ? () => _buyItem(item) : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: canAfford
-                          ? Colors.orange[400]
-                          : Colors.grey[300],
-                      foregroundColor: canAfford
-                          ? Colors.white
-                          : Colors.grey[500],
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(0, 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(
-                      l10n.translate('buy'),
-                      style: const TextStyle(fontSize: 9),
-                    ),
-                  ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 4,
+            right: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.deepPurple,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                'x$ownedCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
             ),
           ),
         ],
@@ -419,8 +493,7 @@ class _ShopScreenState extends State<ShopScreen>
             const SizedBox(height: 16),
             Text(
               l10n.translate('noItemsYet'),
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -451,8 +524,8 @@ class _ShopScreenState extends State<ShopScreen>
     );
   }
 
-  Widget _buildRoomComponentCard(RoomComponent component,
-      AppLocalizationsProvider l10n, String language) {
+  Widget _buildRoomComponentCard(
+      RoomComponent component, AppLocalizationsProvider l10n, String language) {
     final canAfford = widget.gameState.coins >= component.cost;
 
     return Card(
@@ -487,8 +560,8 @@ class _ShopScreenState extends State<ShopScreen>
               children: [
                 Text(
                   component.localizedName(language),
-                  style: const TextStyle(
-                      fontSize: 9, fontWeight: FontWeight.bold),
+                  style:
+                      const TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -503,9 +576,7 @@ class _ShopScreenState extends State<ShopScreen>
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
-                        color: canAfford
-                            ? Colors.orange[700]
-                            : Colors.red[400],
+                        color: canAfford ? Colors.orange[700] : Colors.red[400],
                       ),
                     ),
                   ],
@@ -517,12 +588,10 @@ class _ShopScreenState extends State<ShopScreen>
                     onPressed:
                         canAfford ? () => _buyRoomComponent(component) : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: canAfford
-                          ? Colors.orange[400]
-                          : Colors.grey[300],
-                      foregroundColor: canAfford
-                          ? Colors.white
-                          : Colors.grey[500],
+                      backgroundColor:
+                          canAfford ? Colors.orange[400] : Colors.grey[300],
+                      foregroundColor:
+                          canAfford ? Colors.white : Colors.grey[500],
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(0, 20),
                       shape: RoundedRectangleBorder(
@@ -550,17 +619,21 @@ class _ShopScreenState extends State<ShopScreen>
   void _buyItem(Item item) async {
     final l10n = context.read<AppLocalizationsProvider>();
     if (widget.gameState.coins >= item.cost) {
-      widget.gameState.spendCoins(item.cost);
-      widget.gameState.addOwnedItem(item);
-      await ShopService.buyItem(item.id);
-      await _loadShopItems();
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.translate('itemPurchasedSuccessfully')),
-            duration: const Duration(seconds: 2),
-          ),
-        );
+      final purchased = await ShopService.buyItem(item.id);
+      if (purchased) {
+        widget.gameState.spendCoins(item.cost);
+        widget.gameState.addOwnedItem(item);
+        await _loadShopItems();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.translate('itemPurchasedSuccessfully')),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      } else {
+        print('Failed to purchase item: ${item.id}');
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -604,44 +677,71 @@ class _ShopScreenState extends State<ShopScreen>
 
   IconData _categoryIcon(String labelKey) {
     switch (labelKey) {
-      case 'all':       return Icons.grid_view;
-      case 'beds':      return Icons.bed;
-      case 'seating':     return Icons.chair;
-      case 'tables':    return Icons.table_restaurant;
-      case 'storage':   return Icons.shelves;
-      case 'carpets':   return Icons.square_foot;
-      case 'wallDecor': return Icons.image;
-      case 'plants':    return Icons.local_florist;
-      case 'lighting':  return Icons.lightbulb_outline;
-      case 'doors':     return Icons.door_front_door;
-      default:          return Icons.grid_view;
+      case 'all':
+        return Icons.grid_view;
+      case 'beds':
+        return Icons.bed;
+      case 'seating':
+        return Icons.chair;
+      case 'tables':
+        return Icons.table_restaurant;
+      case 'storage':
+        return Icons.shelves;
+      case 'carpets':
+        return Icons.square_foot;
+      case 'wallDecor':
+        return Icons.image;
+      case 'plants':
+        return Icons.local_florist;
+      case 'lighting':
+        return Icons.lightbulb_outline;
+      case 'doors':
+        return Icons.door_front_door;
+      default:
+        return Icons.grid_view;
     }
   }
 
   IconData _roomComponentIcon(RoomComponentType? type) {
     switch (type) {
-      case RoomComponentType.wall:  return Icons.wallpaper;
-      case RoomComponentType.floor: return Icons.square_foot;
-      default:                      return Icons.home;
+      case RoomComponentType.wall:
+        return Icons.wallpaper;
+      case RoomComponentType.floor:
+        return Icons.square_foot;
+      default:
+        return Icons.home;
     }
   }
 
   String _categoryLabel(String key, AppLocalizationsProvider l10n) {
     final isSk = l10n.currentLanguage == 'sk';
     switch (key) {
-      case 'all':       return isSk ? 'Všetko'   : 'All';
-      case 'beds':      return isSk ? 'Postele'  : 'Beds';
-      case 'seating':   return isSk ? 'Posedenie': 'Seating';
-      case 'tables':    return isSk ? 'Stoly'    : 'Tables';
-      case 'storage':   return isSk ? 'Úložný priestor'   : 'Storage';
-      case 'carpets':   return isSk ? 'Koberce'  : 'Carpets';
-      case 'wallDecor': return isSk ? 'Steny'    : 'Wall Decor';
-      case 'plants':    return isSk ? 'Rastliny' : 'Plants';
-      case 'lighting':  return isSk ? 'Svetlá'   : 'Lighting';
-      case 'doors':     return isSk ? 'Dvere'    : 'Doors';
-      case 'walls':     return isSk ? 'Tapety'   : 'Walls';
-      case 'floors':    return isSk ? 'Podlahy'  : 'Floors';
-      default:          return key;
+      case 'all':
+        return isSk ? 'Všetko' : 'All';
+      case 'beds':
+        return isSk ? 'Postele' : 'Beds';
+      case 'seating':
+        return isSk ? 'Posedenie' : 'Seating';
+      case 'tables':
+        return isSk ? 'Stoly' : 'Tables';
+      case 'storage':
+        return isSk ? 'Úložný priestor' : 'Storage';
+      case 'carpets':
+        return isSk ? 'Koberce' : 'Carpets';
+      case 'wallDecor':
+        return isSk ? 'Steny' : 'Wall Decor';
+      case 'plants':
+        return isSk ? 'Rastliny' : 'Plants';
+      case 'lighting':
+        return isSk ? 'Svetlá' : 'Lighting';
+      case 'doors':
+        return isSk ? 'Dvere' : 'Doors';
+      case 'walls':
+        return isSk ? 'Tapety' : 'Walls';
+      case 'floors':
+        return isSk ? 'Podlahy' : 'Floors';
+      default:
+        return key;
     }
   }
 }
