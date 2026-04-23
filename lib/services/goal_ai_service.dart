@@ -27,12 +27,6 @@ class GoalAiService {
     final monthlyIncomeForHeuristic =
         userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
 
-    if (_isVague(description)) {
-      return GoalAiResult.needsMoreInfo(
-        reason: 'Please add a clear description for this goal.',
-      );
-    }
-
     final prompt = _buildPrompt(
       title: title,
       description: description,
@@ -88,12 +82,21 @@ class GoalAiService {
 
       print('GoalAiService answer: $text');
 
+      final structuredResult = _parseStructuredResult(text);
+      if (structuredResult != null) {
+        return structuredResult;
+      }
+
       final normalized = text.toUpperCase();
       final parsedReason = _truncate(text);
+      final inferredField = _inferInvalidFieldFromText(text);
 
       if (normalized.contains('MORE INFO') ||
           normalized.contains('MORE_INFO')) {
-        return GoalAiResult.needsMoreInfo(reason: parsedReason);
+        return GoalAiResult.needsMoreInfo(
+          reason: parsedReason,
+          invalidField: inferredField,
+        );
       } else if (normalized.contains('EASY')) {
         return GoalAiResult.difficulty('Easy', reason: parsedReason);
       } else if (normalized.contains('MEDIUM')) {
@@ -142,28 +145,33 @@ class GoalAiService {
     return '''
 You are helping a kids finance app. Respond in language code: $language.
 
-Your job is to decide how difficult a savings goal is for a child with very low income. Use both the title and description.
+Your job is to decide how difficult a savings goal is for a child with very low income. Use title, description, and target amount.
 Assume the child is around 10 years old. Consider what the goal would feel like to them.
 Assume the child has no savings yet, so the target amount is from zero.
 Assume the child's monthly income is about $assumedMonthlyIncome EUR (allowance/chores) unless the profile below says otherwise.
-RULES:
-
-1. If the goal is unclear, too short, or missing details -> return MORE_INFO.
-2. If the target amount is missing -> return MORE_INFO.
-3. Otherwise, classify difficulty based on what the goal would feel like to a child:
+Rules:
+1. If title is missing or unclear -> status MORE_INFO and field title.
+2. If description is missing or completely unclear -> status MORE_INFO and field description.
+   Short descriptions are acceptable if they are specific.
+3. If target amount is missing, zero, or invalid -> status MORE_INFO and field amount.
+4. Otherwise, classify difficulty based on what the goal would feel like to a child:
    - EASY = very small or trivial goals; quick to achieve.
    - MEDIUM = typical goals for most kids; most goals fall here.
    - HARD = big, long-term, or significant goals; use more often for larger or ambitious goals; can be common if the description suggests effort or time.
+5. Message must be user-facing and actionable.
 
-OUTPUT FORMAT:
+Output:
+Return JSON only. No markdown, no extra text.
+{
+  "status": "EASY|MEDIUM|HARD|MORE_INFO",
+  "field": "none|title|description|amount",
+  "message": "short explanation"
+}
 
-Start your answer with one of:
-EASY
-MEDIUM
-HARD
-MORE_INFO
-
-Then add a short explanation.
+Constraints:
+- If status is MORE_INFO, field must be title, description, or amount.
+- If status is EASY/MEDIUM/HARD, field must be none.
+- Keep message to max 12 words.
 
 GOAL:
 Title: $title
@@ -171,14 +179,7 @@ Description: $description
 Target amount: $target
 Due date: $due
 User context: $profileSnippet
-respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the kids finance like 20/month, 10 years old
 ''';
-  }
-
-  static bool _isVague(String text) {
-    final words =
-        text.trim().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
-    return words < 4;
   }
 
   static GoalAiResult _fallbackWithHeuristic({
@@ -192,7 +193,97 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
     if (amountDifficulty != null) {
       return GoalAiResult.difficulty(amountDifficulty, reason: reason);
     }
-    return GoalAiResult.needsMoreInfo(reason: reason);
+    return GoalAiResult.needsMoreInfo(
+      reason: reason,
+      invalidField: (targetMoney == null || targetMoney <= 0)
+          ? GoalAiInvalidField.amount
+          : GoalAiInvalidField.description,
+    );
+  }
+
+  static GoalAiResult? _parseStructuredResult(String text) {
+    final parsed = _extractStructuredPayload(text);
+    if (parsed == null) return null;
+
+    final status = (parsed['status'] ?? '').toString().toUpperCase().trim();
+    if (status.isEmpty) return null;
+
+    final message = _truncate(
+      (parsed['message'] ?? parsed['reason'] ?? text).toString().trim(),
+    );
+    final field = _parseInvalidField(parsed['field']?.toString());
+
+    switch (status) {
+      case 'MORE_INFO':
+      case 'MORE INFO':
+        return GoalAiResult.needsMoreInfo(
+          reason: message,
+          invalidField: field ?? GoalAiInvalidField.description,
+        );
+      case 'EASY':
+        return GoalAiResult.difficulty('Easy', reason: message);
+      case 'MEDIUM':
+        return GoalAiResult.difficulty('Medium', reason: message);
+      case 'HARD':
+        return GoalAiResult.difficulty('Hard', reason: message);
+      default:
+        return null;
+    }
+  }
+
+  static Map<String, dynamic>? _extractStructuredPayload(String text) {
+    Map<String, dynamic>? parseJson(String input) {
+      final decoded = jsonDecode(input);
+      if (decoded is Map<String, dynamic>) return decoded;
+      if (decoded is Map) {
+        return decoded.map((k, v) => MapEntry(k.toString(), v));
+      }
+      return null;
+    }
+
+    try {
+      return parseJson(text.trim());
+    } catch (_) {}
+
+    final start = text.indexOf('{');
+    final end = text.lastIndexOf('}');
+    if (start == -1 || end == -1 || end <= start) return null;
+
+    final candidate = text.substring(start, end + 1).trim();
+    try {
+      return parseJson(candidate);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static GoalAiInvalidField? _parseInvalidField(String? rawField) {
+    if (rawField == null || rawField.trim().isEmpty) return null;
+    final normalized = rawField.trim().toLowerCase();
+    if (normalized.contains('title')) return GoalAiInvalidField.title;
+    if (normalized.contains('description') || normalized.contains('detail')) {
+      return GoalAiInvalidField.description;
+    }
+    if (normalized.contains('amount') ||
+        normalized.contains('target') ||
+        normalized.contains('money')) {
+      return GoalAiInvalidField.amount;
+    }
+    return null;
+  }
+
+  static GoalAiInvalidField? _inferInvalidFieldFromText(String text) {
+    final normalized = text.toLowerCase();
+    if (normalized.contains('title')) return GoalAiInvalidField.title;
+    if (normalized.contains('description') || normalized.contains('detail')) {
+      return GoalAiInvalidField.description;
+    }
+    if (normalized.contains('amount') ||
+        normalized.contains('target') ||
+        normalized.contains('money')) {
+      return GoalAiInvalidField.amount;
+    }
+    return null;
   }
 
   static String? _extractText(Map<String, dynamic> data) {
@@ -225,7 +316,6 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
         case MainGoal.tracking:
           return 'goal: tracking spending';
         case MainGoal.saving:
-        default:
           return 'goal: saving';
       }
     }();
@@ -237,7 +327,6 @@ respond in max 1-2 sentences max 15 words, be concise. dont say the facts of the
         case IncomeType.fullTime:
           return 'income type: full-time';
         case IncomeType.student:
-        default:
           return 'income type: student';
       }
     }();
@@ -265,20 +354,39 @@ class GoalAiResult {
   final String? difficulty;
   final String? reason;
   final bool needsMoreInfo;
+  final GoalAiInvalidField? invalidField;
 
   GoalAiResult._({
     required this.difficulty,
     required this.needsMoreInfo,
     this.reason,
+    this.invalidField,
   });
 
   factory GoalAiResult.difficulty(String difficulty, {String? reason}) =>
       GoalAiResult._(
-          difficulty: difficulty, needsMoreInfo: false, reason: reason);
+          difficulty: difficulty,
+          needsMoreInfo: false,
+          reason: reason,
+          invalidField: null);
 
-  factory GoalAiResult.needsMoreInfo({String? reason}) =>
-      GoalAiResult._(difficulty: null, needsMoreInfo: true, reason: reason);
+  factory GoalAiResult.needsMoreInfo({
+    String? reason,
+    GoalAiInvalidField? invalidField,
+  }) =>
+      GoalAiResult._(
+        difficulty: null,
+        needsMoreInfo: true,
+        reason: reason,
+        invalidField: invalidField,
+      );
 
-  factory GoalAiResult.fallback({String? reason}) =>
-      GoalAiResult._(difficulty: 'Easy', needsMoreInfo: false, reason: reason);
+  factory GoalAiResult.fallback({String? reason}) => GoalAiResult._(
+        difficulty: 'Easy',
+        needsMoreInfo: false,
+        reason: reason,
+        invalidField: null,
+      );
 }
+
+enum GoalAiInvalidField { title, description, amount }
