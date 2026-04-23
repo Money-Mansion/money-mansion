@@ -108,10 +108,14 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     try {
       // Get all sections to find this quiz's position
       final sections = await const QuizService().getAllSections(language: language);
-      final section = sections.firstWhere(
-        (s) => s.id == sectionId,
-        orElse: () => throw Exception('Section not found: $sectionId'),
-      );
+      final sectionIndex = sections.indexWhere((s) => s.id == sectionId);
+      
+      if (sectionIndex == -1) {
+        print('⚠ Section not found: $sectionId');
+        return true; // Assume locked if section not found
+      }
+
+      final section = sections[sectionIndex];
 
       // Find quiz index in section
       final quizIndex = section.lessons.indexWhere((q) => q.id == quizId);
@@ -120,15 +124,38 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
         return true; // Assume locked if not found
       }
 
-      // If it's the first quiz in section, always unlocked
-      if (quizIndex == 0) {
-        return false;
-      }
-
-      // Get progress to check if all previous quizzes are completed
+      // Get progress to check if quizzes are completed
       final allProgress = await QuizProgressDatabaseService.getAllProgress();
 
-      // Check if all quizzes before this one are completed
+      // If it's the first quiz in section
+      if (quizIndex == 0) {
+        // First quiz of first section is always unlocked
+        if (sectionIndex == 0) {
+          return false;
+        }
+
+        // For first quiz of other sections: check if ALL quizzes in PREVIOUS section are completed
+        final previousSection = sections[sectionIndex - 1];
+        for (final prevSectionQuiz in previousSection.lessons) {
+          QuizProgress? prevProgress;
+          try {
+            prevProgress = allProgress.firstWhere(
+              (p) => p.quizId == prevSectionQuiz.id && p.sectionId == previousSection.id,
+            );
+          } catch (e) {
+            prevProgress = null;
+          }
+
+          // If any quiz in previous section is not completed, this quiz is locked
+          if (prevProgress == null || prevProgress.getStatus() == QuizStatus.notDone) {
+            return true; // Quiz is locked - previous section not completed
+          }
+        }
+
+        return false; // All quizzes in previous section are completed
+      }
+
+      // For non-first quizzes: check if all previous quizzes in THIS section are completed
       for (int i = 0; i < quizIndex; i++) {
         final prevQuizId = section.lessons[i].id;
         QuizProgress? prevProgress;
