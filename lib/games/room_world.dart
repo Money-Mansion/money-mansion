@@ -23,9 +23,10 @@ class RoomWorld extends FlameGame {
 
   // Camera control fields (edit mode only)
   late double _defaultZoom;
-  final double _minZoom = 0.5;   // Can zoom out to 50%
-  final double _maxZoom = 3.0;   // Can zoom in to 300%
-  bool _hasInitializedCamera = false;  // Prevent re-centering on resize in edit mode
+  final double _minZoom = 0.5; // Can zoom out to 50%
+  final double _maxZoom = 3.0; // Can zoom in to 300%
+  bool _hasInitializedCamera =
+      false; // Prevent re-centering on resize in edit mode
   bool _isPinching = false;
 
   final Completer<void> _loadCompleter = Completer<void>();
@@ -71,7 +72,7 @@ class RoomWorld extends FlameGame {
     }
 
     _updateCameraAndRoomPosition();
-    _hasInitializedCamera = true;  // Mark camera as initialized
+    _hasInitializedCamera = true; // Mark camera as initialized
   }
 
   @override
@@ -133,7 +134,7 @@ class RoomWorld extends FlameGame {
   double get maxZoom => _maxZoom;
   double get currentZoom => camera.viewfinder.zoom;
   bool get isPinching => _isPinching;
-  
+
   /// Set zoom to a specific value (clamped to min/max)
   void setZoom(double newZoom) {
     final clampedZoom = newZoom.clamp(_minZoom, _maxZoom);
@@ -152,7 +153,8 @@ class RoomWorld extends FlameGame {
   /// Remove the currently selected item from the room
   void removeSelectedItem() {
     if (_selectedItem != null) {
-      world.remove(_selectedItem!); // ← was: remove(_selectedItem!) — wrong parent
+      world.remove(
+          _selectedItem!); // ← was: remove(_selectedItem!) — wrong parent
       _selectedItem = null;
       onSelectionChanged?.call();
     }
@@ -161,7 +163,7 @@ class RoomWorld extends FlameGame {
   /// Move the currently selected item up by one layer (gradually)
   void moveSelectedItemToFront() {
     if (_selectedItem == null) return;
-    
+
     // Get all items in the world
     final items = <ItemComponent>[];
     for (final component in world.children) {
@@ -169,18 +171,18 @@ class RoomWorld extends FlameGame {
         items.add(component);
       }
     }
-    
+
     // Find the index of the selected item
     final selectedIndex = items.indexOf(_selectedItem!);
     if (selectedIndex < 0 || selectedIndex == items.length - 1) {
       return; // Already at the top or not found
     }
-    
+
     // Swap with the next item (move up by one position)
     final temp = items[selectedIndex];
     items[selectedIndex] = items[selectedIndex + 1];
     items[selectedIndex + 1] = temp;
-    
+
     // Remove all items and re-add in new order
     for (final item in items) {
       world.remove(item);
@@ -193,7 +195,7 @@ class RoomWorld extends FlameGame {
   /// Move the currently selected item down by one layer (gradually)
   void moveSelectedItemToBack() {
     if (_selectedItem == null) return;
-    
+
     // Get all items in the world
     final items = <ItemComponent>[];
     for (final component in world.children) {
@@ -201,18 +203,18 @@ class RoomWorld extends FlameGame {
         items.add(component);
       }
     }
-    
+
     // Find the index of the selected item
     final selectedIndex = items.indexOf(_selectedItem!);
     if (selectedIndex <= 0) {
       return; // Already at the bottom or not found
     }
-    
+
     // Swap with the previous item (move down by one position)
     final temp = items[selectedIndex];
     items[selectedIndex] = items[selectedIndex - 1];
     items[selectedIndex - 1] = temp;
-    
+
     // Remove all items and re-add in new order
     for (final item in items) {
       world.remove(item);
@@ -266,20 +268,30 @@ class RoomWorld extends FlameGame {
     return placements;
   }
 
-  /// Get set of item IDs currently placed in the room
-  Set<String> getPlacedItemIds() {
-    final placedIds = <String>{};
+  /// Get counts of placed items keyed by item ID.
+  Map<String, int> getPlacedItemCounts() {
+    final placedCounts = <String, int>{};
     for (final component in world.children) {
       if (component is ItemComponent) {
-        placedIds.add(component.item.id);
+        placedCounts.update(
+          component.item.id,
+          (count) => count + 1,
+          ifAbsent: () => 1,
+        );
       }
     }
-    return placedIds;
+    return placedCounts;
+  }
+
+  /// Get set of item IDs currently placed in the room
+  Set<String> getPlacedItemIds() {
+    return getPlacedItemCounts().keys.toSet();
   }
 
   /// Clear all item and room components from the world
   void clearComponents() {
-    world.removeWhere( // ← was also correct but addComponent was adding to game root, now consistent
+    world.removeWhere(
+      // ← was also correct but addComponent was adding to game root, now consistent
       (component) => component is ItemComponent || component is RoomComponent,
     );
     _selectedItem = null;
@@ -289,16 +301,16 @@ class RoomWorld extends FlameGame {
   void reloadComponents() {
     // Get all items to maintain their z-order and state
     final items = world.children.whereType<ItemComponent>().toList();
-    
+
     // Remove the current room component if it exists
     if (room != null) {
       world.remove(room!);
     }
-    
+
     // Create a new room component which will load the latest from database
     room = RoomComponent(game: this);
     world.add(room!);
-    
+
     // Re-add all items to ensure they render on top of the new room
     for (final item in items) {
       world.add(item);
@@ -308,7 +320,6 @@ class RoomWorld extends FlameGame {
   /// Public method to pan the camera
   void panCamera(Vector2 delta) {
     // Move camera opposite to drag direction (dragging left pans right)
-    final oldPos = camera.viewfinder.position.clone();
     final scaledDelta = -delta / camera.viewfinder.zoom;
     // Directly set position components (add() doesn't persist on getter/setter properties)
     camera.viewfinder.position = camera.viewfinder.position + scaledDelta;
@@ -317,9 +328,9 @@ class RoomWorld extends FlameGame {
 
   /// Public method to zoom by a fixed amount
   void zoomByAmount(double zoomDelta) {
-    final newZoom = (camera.viewfinder.zoom + zoomDelta)
-        .clamp(_minZoom, _maxZoom);
-    
+    final newZoom =
+        (camera.viewfinder.zoom + zoomDelta).clamp(_minZoom, _maxZoom);
+
     camera.viewfinder.zoom = newZoom;
     _clampCameraPosition();
   }
@@ -327,24 +338,25 @@ class RoomWorld extends FlameGame {
   /// Clamp camera position to keep the room mostly visible
   void _clampCameraPosition() {
     if (room == null) return;
-    
+
     final roomPos = room!.position;
     final roomWidth = RoomComponent.roomWidth;
     final roomHeight = RoomComponent.roomHeight;
-    
+
     // Allow panning but keep at least 40% of room visible
     final maxOffsetX = (roomWidth * 0.3) / camera.viewfinder.zoom;
     final maxOffsetY = (roomHeight * 0.3) / camera.viewfinder.zoom;
-    
+
     final oldX = camera.viewfinder.position.x;
     final oldY = camera.viewfinder.position.y;
-    
+
     camera.viewfinder.position.x = camera.viewfinder.position.x
         .clamp(roomPos.x - maxOffsetX, roomPos.x + maxOffsetX);
     camera.viewfinder.position.y = camera.viewfinder.position.y
         .clamp(roomPos.y - maxOffsetY, roomPos.y + maxOffsetY);
-    
-    if (oldX != camera.viewfinder.position.x || oldY != camera.viewfinder.position.y) {
+
+    if (oldX != camera.viewfinder.position.x ||
+        oldY != camera.viewfinder.position.y) {
       // Camera was clamped (normal during panning)
     }
   }
