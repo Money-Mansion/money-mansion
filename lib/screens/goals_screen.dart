@@ -252,227 +252,401 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   void _showCreateGoalDialog(AppLocalizationsProvider l10n) {
     DateTime selectedDate = _selectedDate;
+    final titleFieldKey = GlobalKey();
+    final descriptionFieldKey = GlobalKey();
+    final amountFieldKey = GlobalKey();
+    final titleFocusNode = FocusNode();
+    final descriptionFocusNode = FocusNode();
+    final amountFocusNode = FocusNode();
+    final dialogScrollController = ScrollController();
+
+    String? titleError;
+    String? descriptionError;
+    String? amountError;
+    String? generalWarning;
+
+    Future<void> scrollToField({
+      required GlobalKey fieldKey,
+      FocusNode? focusNode,
+    }) async {
+      focusNode?.requestFocus();
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final fieldContext = fieldKey.currentContext;
+      if (fieldContext == null) return;
+      await Scrollable.ensureVisible(
+        fieldContext,
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeOutCubic,
+        alignment: 0.2,
+      );
+    }
+
+    Future<void> scrollToInvalidField(GoalAiInvalidField field) async {
+      switch (field) {
+        case GoalAiInvalidField.title:
+          await scrollToField(
+            fieldKey: titleFieldKey,
+            focusNode: titleFocusNode,
+          );
+          break;
+        case GoalAiInvalidField.description:
+          await scrollToField(
+            fieldKey: descriptionFieldKey,
+            focusNode: descriptionFocusNode,
+          );
+          break;
+        case GoalAiInvalidField.amount:
+          await scrollToField(
+            fieldKey: amountFieldKey,
+            focusNode: amountFocusNode,
+          );
+          break;
+      }
+    }
 
     showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
-        builder: (context, dialogSetState) => AlertDialog(
-          title: Text(l10n.translate('createNewGoal')),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalTitle'),
-                    hintText: l10n.translate('enterGoalTitleHint'),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalDescription'),
-                    hintText: l10n.translate('enterGoalDescription'),
-                    border: const OutlineInputBorder(),
-                  ),
-                  maxLines: 3,
-                ),
-                const SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${l10n.translate('difficulty')}: ${l10n.translate('difficultyChosenByAi')}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    l10n.translate('rewardAiInfo'),
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _targetMoneyController,
-                  decoration: InputDecoration(
-                    labelText: l10n.translate('goalAmount'),
-                    hintText: l10n.translate('enterMoneyTarget'),
-                    border: const OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${l10n.translate('dueDate')}: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: selectedDate,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(
-                            const Duration(days: 365),
+        builder: (context, dialogSetState) {
+          final keyboardInset = MediaQuery.of(context).viewInsets.bottom;
+          final maxDialogHeight = MediaQuery.of(context).size.height * 0.72;
+
+          return AlertDialog(
+            title: Text(l10n.translate('createNewGoal')),
+            content: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: maxDialogHeight),
+              child: SingleChildScrollView(
+                controller: dialogScrollController,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: keyboardInset),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        key: titleFieldKey,
+                        child: TextField(
+                          controller: _titleController,
+                          focusNode: titleFocusNode,
+                          scrollPadding: const EdgeInsets.only(bottom: 220),
+                          onChanged: (_) {
+                            if (titleError != null || generalWarning != null) {
+                              dialogSetState(() {
+                                titleError = null;
+                                generalWarning = null;
+                              });
+                            }
+                          },
+                          decoration: InputDecoration(
+                            labelText: l10n.translate('goalTitle'),
+                            hintText: l10n.translate('enterGoalTitleHint'),
+                            border: const OutlineInputBorder(),
+                            errorText: titleError,
                           ),
-                        );
-                        if (picked != null) {
-                          dialogSetState(() {
-                            selectedDate = picked;
-                          });
-                        }
-                      },
-                      child: Text(l10n.translate('pickDate')),
-                    ),
-                  ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        key: descriptionFieldKey,
+                        child: TextField(
+                          controller: _descriptionController,
+                          focusNode: descriptionFocusNode,
+                          scrollPadding: const EdgeInsets.only(bottom: 220),
+                          onChanged: (_) {
+                            if (descriptionError != null ||
+                                generalWarning != null) {
+                              dialogSetState(() {
+                                descriptionError = null;
+                                generalWarning = null;
+                              });
+                            }
+                          },
+                          decoration: InputDecoration(
+                            labelText: l10n.translate('goalDescription'),
+                            hintText: l10n.translate('enterGoalDescription'),
+                            border: const OutlineInputBorder(),
+                            errorText: descriptionError,
+                          ),
+                          maxLines: 3,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${l10n.translate('difficulty')}: ${l10n.translate('difficultyChosenByAi')}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          l10n.translate('rewardAiInfo'),
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        key: amountFieldKey,
+                        child: TextField(
+                          controller: _targetMoneyController,
+                          focusNode: amountFocusNode,
+                          scrollPadding: const EdgeInsets.only(bottom: 220),
+                          decoration: InputDecoration(
+                            labelText: l10n.translate('goalAmount'),
+                            hintText: l10n.translate('enterMoneyTarget'),
+                            border: const OutlineInputBorder(),
+                            errorText: amountError,
+                          ),
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                          ),
+                          onChanged: (_) {
+                            if (amountError != null || generalWarning != null) {
+                              dialogSetState(() {
+                                amountError = null;
+                                generalWarning = null;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                      if (generalWarning != null) ...[
+                        const SizedBox(height: 12),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.red.shade300),
+                          ),
+                          child: Text(
+                            generalWarning!,
+                            style: TextStyle(
+                              color: Colors.red.shade900,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '${l10n.translate('dueDate')}: ${selectedDate.day}.${selectedDate.month}.${selectedDate.year}',
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              final picked = await showDatePicker(
+                                context: context,
+                                initialDate: selectedDate,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime.now().add(
+                                  const Duration(days: 365),
+                                ),
+                              );
+                              if (picked != null) {
+                                dialogSetState(() {
+                                  selectedDate = picked;
+                                });
+                              }
+                            },
+                            child: Text(l10n.translate('pickDate')),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(l10n.translate('cancel')),
-            ),
-            ElevatedButton(
-              onPressed: _isSyncing
-                  ? null
-                  : () async {
-                      if (_titleController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(l10n.translate('enterGoalTitle'))),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(l10n.translate('cancel')),
+              ),
+              ElevatedButton(
+                onPressed: _isSyncing
+                    ? null
+                    : () async {
+                        final trimmedTitle = _titleController.text.trim();
+                        final rawTargetText =
+                            _targetMoneyController.text.trim();
+                        final parsedTarget = double.tryParse(rawTargetText);
+
+                        if (trimmedTitle.isEmpty) {
+                          dialogSetState(() {
+                            titleError = l10n.translate('enterGoalTitle');
+                            descriptionError = null;
+                            amountError = null;
+                            generalWarning = null;
+                          });
+                          await scrollToInvalidField(GoalAiInvalidField.title);
+                          return;
+                        }
+
+                        if (rawTargetText.isNotEmpty &&
+                            rawTargetText != '0' &&
+                            (parsedTarget == null || parsedTarget <= 0)) {
+                          dialogSetState(() {
+                            titleError = null;
+                            descriptionError = null;
+                            amountError = l10n.translate('enterMoneyTarget');
+                            generalWarning = null;
+                          });
+                          await scrollToInvalidField(GoalAiInvalidField.amount);
+                          return;
+                        }
+
+                        final targetMoney =
+                            parsedTarget != null && parsedTarget > 0
+                                ? parsedTarget
+                                : null;
+
+                        dialogSetState(() {
+                          titleError = null;
+                          descriptionError = null;
+                          amountError = null;
+                          generalWarning = null;
+                        });
+                        setState(() {
+                          _isSyncing = true;
+                        });
+
+                        final aiResult = await GoalAiService.classifyGoal(
+                          title: _titleController.text,
+                          description: _descriptionController.text,
+                          targetMoney: targetMoney,
+                          dueDate: selectedDate,
+                          language: l10n.currentLanguage,
                         );
-                        return;
-                      }
 
-                      final parsedTarget =
-                          double.tryParse(_targetMoneyController.text.trim());
-                      final targetMoney =
-                          parsedTarget != null && parsedTarget > 0
-                              ? parsedTarget
-                              : null;
+                        if (!mounted) return;
 
-                      setState(() {
-                        _isSyncing = true;
-                      });
+                        if (aiResult.needsMoreInfo) {
+                          setState(() {
+                            _isSyncing = false;
+                          });
 
-                      final aiResult = await GoalAiService.classifyGoal(
-                        title: _titleController.text,
-                        description: _descriptionController.text,
-                        targetMoney: targetMoney,
-                        dueDate: selectedDate,
-                        language: l10n.currentLanguage,
-                      );
+                          final warningText = aiResult.reason ??
+                              l10n.translate('needMoreGoalDetails');
+                          final invalidField = aiResult.invalidField ??
+                              GoalAiInvalidField.description;
 
-                      if (!mounted) return;
+                          dialogSetState(() {
+                            titleError =
+                                invalidField == GoalAiInvalidField.title
+                                    ? warningText
+                                    : null;
+                            descriptionError =
+                                invalidField == GoalAiInvalidField.description
+                                    ? warningText
+                                    : null;
+                            amountError =
+                                invalidField == GoalAiInvalidField.amount
+                                    ? warningText
+                                    : null;
+                            generalWarning = aiResult.invalidField == null
+                                ? warningText
+                                : null;
+                          });
 
-                      if (aiResult.needsMoreInfo) {
+                          await scrollToInvalidField(invalidField);
+                          return;
+                        }
+
+                        var resolvedDifficulty =
+                            aiResult.difficulty ?? Goal.easyDifficulty;
+                        if (!_difficultyRewards
+                            .containsKey(resolvedDifficulty)) {
+                          resolvedDifficulty = Goal.easyDifficulty;
+                        }
+
+                        final newGoal = Goal(
+                          id: const Uuid().v4(),
+                          title: _titleController.text,
+                          description: _descriptionController.text,
+                          difficulty: resolvedDifficulty,
+                          rewardCoins:
+                              _difficultyRewards[resolvedDifficulty] ?? 50,
+                          targetMoney: targetMoney ?? 0.0,
+                          dueDate: selectedDate,
+                        );
+
+                        final success =
+                            await GoalDatabaseService.createGoal(newGoal);
+
                         setState(() {
                           _isSyncing = false;
                         });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              aiResult.reason ??
-                                  l10n.translate('needMoreGoalDetails'),
-                            ),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                        return;
-                      }
 
-                      var resolvedDifficulty =
-                          aiResult.difficulty ?? Goal.easyDifficulty;
-                      if (!_difficultyRewards.containsKey(resolvedDifficulty)) {
-                        resolvedDifficulty = Goal.easyDifficulty;
-                      }
+                        if (success) {
+                          widget.gameState.addGoal(newGoal);
+                          _titleController.clear();
+                          _descriptionController.clear();
+                          _targetMoneyController.text = '0';
+                          _selectedDate = DateTime.now();
 
-                      final newGoal = Goal(
-                        id: const Uuid().v4(),
-                        title: _titleController.text,
-                        description: _descriptionController.text,
-                        difficulty: resolvedDifficulty,
-                        rewardCoins:
-                            _difficultyRewards[resolvedDifficulty] ?? 50,
-                        targetMoney: targetMoney ?? 0.0,
-                        dueDate: selectedDate,
-                      );
-
-                      final success =
-                          await GoalDatabaseService.createGoal(newGoal);
-
-                      setState(() {
-                        _isSyncing = false;
-                      });
-
-                      if (success) {
-                        widget.gameState.addGoal(newGoal);
-                        _titleController.clear();
-                        _descriptionController.clear();
-                        _targetMoneyController.text = '0';
-                        _selectedDate = DateTime.now();
-
-                        if (mounted) {
-                          Navigator.pop(context);
-                          setState(() {});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  l10n.translate('goalCreatedSuccessfully')),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
-                          if (aiResult.reason != null) {
+                          if (mounted) {
+                            Navigator.pop(context);
+                            setState(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  l10n
-                                      .translate('aiSetDifficulty')
-                                      .replaceFirst(
-                                          '{difficulty}', resolvedDifficulty)
-                                      .replaceFirst(
-                                          '{reason}', aiResult.reason!),
+                                    l10n.translate('goalCreatedSuccessfully')),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                            if (aiResult.reason != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    l10n
+                                        .translate('aiSetDifficulty')
+                                        .replaceFirst(
+                                            '{difficulty}', resolvedDifficulty)
+                                        .replaceFirst(
+                                            '{reason}', aiResult.reason!),
+                                  ),
+                                  duration: const Duration(seconds: 2),
                                 ),
+                              );
+                            }
+                          }
+                        } else {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text(l10n.translate('failedToCreateGoal')),
                                 duration: const Duration(seconds: 2),
                               ),
                             );
                           }
                         }
-                      } else {
-                        if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text(l10n.translate('failedToCreateGoal')),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                      }
-                    },
-              child: Text(l10n.translate('createGoal')),
-            ),
-          ],
-        ),
+                      },
+                child: Text(l10n.translate('createGoal')),
+              ),
+            ],
+          );
+        },
       ),
-    );
+    ).whenComplete(() {
+      titleFocusNode.dispose();
+      descriptionFocusNode.dispose();
+      amountFocusNode.dispose();
+      dialogScrollController.dispose();
+    });
   }
 
   Future<void> _showAllocateMoneyDialog(Goal goal) async {
@@ -964,7 +1138,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   icon: const Icon(Icons.delete),
                   iconSize: 20,
                   color: Colors.red[400],
-                ),  
+                ),
               ],
             ),
           ],
