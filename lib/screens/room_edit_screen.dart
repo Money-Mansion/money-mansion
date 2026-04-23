@@ -644,7 +644,7 @@ class _InventorySheetState extends State<_InventorySheet>
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
-                      item.type.toDisplayString(),
+                      item.type.toLocalizedDisplayString(widget.l10n.currentLanguage),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 8,
