@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_mansion/models/room_component.dart';
 import 'package:money_mansion/screens/category.dart';
 import 'package:money_mansion/services/room_component_service.dart';
+import 'package:money_mansion/widgets/scrollable_tab_bar_wrapper.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
@@ -256,14 +257,12 @@ class _InventoryScreenState extends State<InventoryScreen>
             },
           ),
         ),
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
+        bottom: ScrollableTabBarWrapper(
+          tabController: _tabController,
           labelColor: _purple,
           unselectedLabelColor: Colors.grey[500],
           indicatorColor: _purple,
           indicatorWeight: 3,
-          dividerColor: _purpleLight,
           tabs: _categories.map((cat) {
             final count = _isLoading ? null : _itemsForCategory(cat).length;
             final icon = cat.isRoomComponent

@@ -12,7 +12,7 @@ class Item {
   Item({
     required this.id,
     required this.name,
-    String? nameEn, // optional — falls back to name if not provided
+    String? nameEn, // optional - falls back to name if not provided
     required this.type,
     required this.texture,
     required this.cost,
@@ -61,5 +61,23 @@ enum ItemType {
 extension ItemTypeString on ItemType {
   String toDisplayString() {
     return toString().split('.').last;
+  }
+
+  String toLocalizedDisplayString(String language) {
+    if (language != 'sk') return toDisplayString();
+    switch (this) {
+      case ItemType.door:
+        return 'dvere';
+      case ItemType.window:
+        return 'okno';
+      case ItemType.furniture:
+        return 'nabytok';
+      case ItemType.flooring:
+        return 'podlaha';
+      case ItemType.wallpaper:
+        return 'tapeta';
+      case ItemType.decoration:
+        return 'dekoracia';
+    }
   }
 }
