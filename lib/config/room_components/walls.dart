@@ -1,7 +1,7 @@
 import '../../models/room_component.dart';
 
 /// Wall components available for purchase in the shop.
-/// 
+///
 /// Each wall has:
 /// - id: unique identifier (e.g., 'wall_basic')
 /// - name: Slovak display name
@@ -19,7 +19,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_sky.png',
     cost: 100, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_leafs',
     name: 'stena lístie',
@@ -28,7 +27,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_leafs.png',
     cost: 100, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_rainbow',
     name: 'stena s poníkmi',
@@ -37,7 +35,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_rainbow.png',
     cost: 110, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_bricks',
     name: 'tehlová stena',
@@ -46,7 +43,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_bricks.png',
     cost: 110, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_salvador_dali',
     name: 'stena Salvador Dali',
@@ -55,7 +51,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_salvador_dali.png',
     cost: 120, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_bricks_3d',
     name: 'tehlový múr',
@@ -64,7 +59,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_bricks_3d.png',
     cost: 110, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_donuts',
     name: 'stena s donutmi',
@@ -73,7 +67,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_donuts.png',
     cost: 100, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_waterfall',
     name: 'stena s vodopádom',
@@ -82,7 +75,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_waterfall.png',
     cost: 120, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_sky_animals',
     name: 'stena so zvieratkami',
@@ -91,7 +83,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_sky_animals.png',
     cost: 110, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_greenish_wallpaper',
     name: 'stena so zelenou tapetou',
@@ -100,14 +91,13 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_greenish_wallpaper.png',
     cost: 110, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_basic',
     name: 'klasická stena',
     nameEn: 'basic Wall',
     type: RoomComponentType.wall,
     texture: 'assets/images/room/basic_right_wall.png',
-    cost: 0, // Starting wall is free (default)
+    cost: 5, // Starting wall is free (default)
   ),
   RoomComponent(
     id: 'wall_triangles',
@@ -117,7 +107,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_triangles.png',
     cost: 100, // Starting wall is free (default)
   ),
-
   RoomComponent(
     id: 'wall_ancient',
     name: 'starožitná stena',
@@ -126,7 +115,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_ancient.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_city',
     name: 'stena mesto',
@@ -135,7 +123,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_city.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_eep',
     name: 'detská stena',
@@ -144,7 +131,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_eep.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_gaming',
     name: 'gamer stena',
@@ -153,7 +139,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_gaming.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_kawai_adventure',
     name: 'roztomilá stena',
@@ -162,7 +147,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_kawai_adventure.png',
     cost: 120,
   ),
-
   RoomComponent(
     id: 'wall_pacman',
     name: 'Pacman stena',
@@ -171,7 +155,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_pacman.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_rhombus',
     name: 'stena z kosoštvorcov',
@@ -180,7 +163,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_rhombus.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_shapes',
     name: 'stena s geometrickými tvarmi',
@@ -189,7 +171,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_shapes.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_strips',
     name: 'pruhovaná stena',
@@ -198,7 +179,6 @@ final List<RoomComponent> wallComponents = [
     texture: 'assets/images/room/wall_strips.png',
     cost: 110,
   ),
-
   RoomComponent(
     id: 'wall_vibes',
     name: 'vibes stena',

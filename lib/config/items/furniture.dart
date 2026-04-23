@@ -8,33 +8,30 @@ final List<Item> furnitureItems = [
     nameEn: 'ruined Sofa 2',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny2.png',
-    cost: 0,
+    cost: 5,
     hitboxId: null, //OPRAVIŤ
     scale: 0.14,
   ),
-
   Item(
     id: 'gauc_zniceny1',
     name: 'zničená pohovka 1',
     nameEn: 'ruined Sofa 1',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny1.png',
-    cost: 0,
+    cost: 5,
     hitboxId: null, //OPRAVIŤ
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_znicena',
     name: 'zničená posteľ',
     nameEn: 'ruined Bed',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_znicena.png',
-    cost: 0,
+    cost: 5,
     hitboxId: null,
     scale: 0.13,
   ),
-
   Item(
     id: 'polica_kniznica_cierna',
     name: 'čierny regál',
@@ -195,7 +192,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.2,
   ),
-
   Item(
     id: 'police_mile',
     name: 'roztomilá polička',
@@ -206,7 +202,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.09,
   ),
-
   Item(
     id: 'skrina_rohove_boxy',
     name: 'rohová polica 2',
@@ -217,7 +212,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.15,
   ),
-
   Item(
     id: 'skrina_rohove_policky',
     name: 'rohová polica 3',
@@ -228,7 +222,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.12,
   ),
-
   Item(
     id: 'skrina_rohove_policky_macko',
     name: 'rohová polica 4',
@@ -239,7 +232,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.15,
   ),
-
   Item(
     id: 'postel_chlapcenska1',
     name: 'modrá posteľ 1',
@@ -250,7 +242,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_chlapcenska2',
     name: 'raketová posteľ',
@@ -261,7 +252,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.13,
   ),
-
   Item(
     id: 'postel_dieta',
     name: 'detská posteľ',
@@ -272,7 +262,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_obluky',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_jemna',
     name: 'jednoduchá posteľ',
@@ -283,7 +272,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_ponik1',
     name: 'poníková posteľ 1',
@@ -294,7 +282,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_ponik2',
     name: 'poníková posteľ 2',
@@ -305,7 +292,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_ponik3',
     name: 'poníková posteľ 3',
@@ -316,7 +302,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_ponik4',
     name: 'poníková posteľ 4',
@@ -327,7 +312,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_obluky',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_portal',
     name: 'posteľ z iného sveta',
@@ -338,7 +322,6 @@ final List<Item> furnitureItems = [
     hitboxId: null,
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_velka_modra',
     name: 'modrá posteľ 2',
@@ -349,7 +332,6 @@ final List<Item> furnitureItems = [
     hitboxId: 'postel_velka_opierka',
     scale: 0.14,
   ),
-
   Item(
     id: 'postel_zamok_tmava',
     name: 'rozprávková posteľ 2',
