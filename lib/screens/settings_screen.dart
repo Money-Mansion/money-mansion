@@ -396,13 +396,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 32),
                   // Privacy Policy Link
                   Center(
-                    child: GestureDetector(
-                      onTap: _openPrivacyPolicy,
-                      child: Text(
-                        'Privacy Policy',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          decoration: TextDecoration.underline,
+                    child: SizedBox(
+                      width: 260,
+                      child: ElevatedButton.icon(
+                        onPressed: _openPrivacyPolicy,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        icon: const Icon(Icons.privacy_tip_outlined),
+                        label: const Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
