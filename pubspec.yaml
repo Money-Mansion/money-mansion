@@ -1,6 +1,6 @@
 name: money_mansion
 description: A starter Flutter project structure for Money Mansion.
-version: 1.0.1+3
+version: 1.0.2+4
 publish_to: 'none'
 
 environment:
