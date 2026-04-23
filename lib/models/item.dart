@@ -59,4 +59,17 @@ extension ItemTypeString on ItemType {
   String toDisplayString() {
     return toString().split('.').last;
   }
+
+  String toLocalizedDisplayString(String language) {
+    if (language != 'sk') return toDisplayString();
+    switch (this) {
+      case ItemType.door:        return 'dvere';
+      case ItemType.window:      return 'okno';
+      case ItemType.furniture:   return 'nábytok';
+      case ItemType.flooring:    return 'podlaha';
+      case ItemType.wallpaper:   return 'tapeta';
+      case ItemType.decoration:  return 'dekorácia';
+    }
+  }
 }
+
