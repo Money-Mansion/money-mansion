@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// Wraps a scrollable [TabBar] with left/right arrow buttons that fade in/out
-/// based on whether there is more content to scroll in that direction.
+/// A scrollable tab bar strip where the left/right arrow buttons scroll the
+/// visible area WITHOUT changing the selected tab. Tapping a tab still
+/// selects it via [tabController].
 ///
-/// **Drop-in usage** — replaces your plain `TabBar` inside `AppBar.bottom`:
-///
-/// ```dart
-/// AppBar(
-///   title: Text('Inventory'),
-///   bottom: ScrollableTabBarWrapper(
-///     tabController: _tabController,
-///     tabs: _categories.map((cat) => Tab(child: ...)).toList(),
-///     indicatorColor: Colors.deepPurple,
-///     labelColor: Colors.deepPurple,
-///     unselectedLabelColor: Colors.grey[600],
-///   ),
-/// )
-/// ```
+/// Because Flutter's built-in [TabBar] never exposes its internal
+/// [ScrollController], this widget renders the tab strip manually inside a
+/// [SingleChildScrollView] that we own — so arrow taps reliably move it.
 ///
 /// Implements [PreferredSizeWidget] so it fits [AppBar.bottom] directly.
 class ScrollableTabBarWrapper extends StatefulWidget
@@ -40,7 +30,7 @@ class ScrollableTabBarWrapper extends StatefulWidget
   final Color? unselectedLabelColor;
   final double indicatorWeight;
 
-  /// Height reserved for [preferredSize]; must match [TabBar] height.
+  /// Height of the widget; pass a larger value if your tabs are taller.
   final double tabBarHeight;
 
   @override
@@ -52,52 +42,55 @@ class ScrollableTabBarWrapper extends StatefulWidget
 }
 
 class _ScrollableTabBarWrapperState extends State<ScrollableTabBarWrapper> {
+  late final ScrollController _sc;
   bool _canScrollLeft = false;
   bool _canScrollRight = false;
-
-  /// We grab the TabBar's internal scroll position via NotificationListener.
-  /// But we also need a way to programmatically scroll it. The trick: we
-  /// attach our own ScrollController via [ScrollConfiguration] override,
-  /// which Flutter's scrollable TabBar will pick up.
-  late final ScrollController _sc;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _sc = ScrollController();
-    _sc.addListener(_onScroll);
-    // After first frame, check whether right arrow is needed
+    _sc.addListener(_updateArrows);
+    _selectedIndex = widget.tabController.index;
+    widget.tabController.addListener(_onTabControllerChange);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Small delay to let TabBar lay out
-      Future.delayed(const Duration(milliseconds: 150), () {
-        if (mounted) _onScroll();
-      });
+      Future.delayed(const Duration(milliseconds: 200), _updateArrows);
     });
   }
 
   @override
   void dispose() {
-    _sc.removeListener(_onScroll);
+    _sc.removeListener(_updateArrows);
     _sc.dispose();
+    widget.tabController.removeListener(_onTabControllerChange);
     super.dispose();
   }
 
-  void _onScroll() {
+  void _onTabControllerChange() {
+    if (widget.tabController.indexIsChanging ||
+        widget.tabController.index != _selectedIndex) {
+      if (mounted) {
+        setState(() => _selectedIndex = widget.tabController.index);
+      }
+    }
+  }
+
+  void _updateArrows() {
     if (!_sc.hasClients) return;
     final pos = _sc.position;
     final left = pos.pixels > 2;
     final right = pos.pixels < pos.maxScrollExtent - 2;
     if (left != _canScrollLeft || right != _canScrollRight) {
-      if (mounted) {
-        setState(() {
-          _canScrollLeft = left;
-          _canScrollRight = right;
-        });
-      }
+      if (mounted) setState(() {
+        _canScrollLeft = left;
+        _canScrollRight = right;
+      });
     }
   }
 
-  void _scroll(double delta) {
+  void _scrollBy(double delta) {
     if (!_sc.hasClients) return;
     _sc.animateTo(
       (_sc.offset + delta).clamp(
@@ -109,9 +102,21 @@ class _ScrollableTabBarWrapperState extends State<ScrollableTabBarWrapper> {
     );
   }
 
+  void _selectTab(int index) {
+    widget.tabController.animateTo(index);
+    setState(() => _selectedIndex = index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Match the AppBar background for gradient fade
+    final indicatorColor =
+        widget.indicatorColor ?? Theme.of(context).colorScheme.primary;
+    final labelColor =
+        widget.labelColor ?? Theme.of(context).colorScheme.primary;
+    final unselectedColor =
+        widget.unselectedLabelColor ?? Colors.grey[500]!;
+
+    // Try to get the app bar background for the gradient fade.
     final bg = Theme.of(context).appBarTheme.backgroundColor ??
         Theme.of(context).colorScheme.surface;
 
@@ -119,74 +124,48 @@ class _ScrollableTabBarWrapperState extends State<ScrollableTabBarWrapper> {
       height: widget.tabBarHeight,
       child: Stack(
         children: [
-          // Inject our ScrollController into TabBar's internal Scrollable
-          // by overriding the PrimaryScrollController for this subtree.
-          PrimaryScrollController(
+          // ── Custom tab strip ──────────────────────────────────────
+          SingleChildScrollView(
             controller: _sc,
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (n) {
-                // Belt-and-suspenders: also update via notifications
-                // for cases where our SC didn't attach.
-                if (n is ScrollUpdateNotification ||
-                    n is ScrollEndNotification) {
-                  final metrics = n.metrics;
-                  final left = metrics.pixels > 2;
-                  final right =
-                      metrics.pixels < metrics.maxScrollExtent - 2;
-                  if (left != _canScrollLeft ||
-                      right != _canScrollRight) {
-                    if (mounted) {
-                      setState(() {
-                        _canScrollLeft = left;
-                        _canScrollRight = right;
-                      });
-                    }
-                  }
-                }
-                return false;
-              },
-              child: TabBar(
-                controller: widget.tabController,
-                isScrollable: true,
-                // DO NOT pass a scrollController here — let Flutter pick up
-                // _sc from PrimaryScrollController above.
-                indicatorColor: widget.indicatorColor,
-                labelColor: widget.labelColor,
-                unselectedLabelColor: widget.unselectedLabelColor,
-                indicatorWeight: widget.indicatorWeight,
-                tabs: widget.tabs,
+            scrollDirection: Axis.horizontal,
+            physics: const ClampingScrollPhysics(),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: List.generate(widget.tabs.length, (i) {
+                  final isSelected = i == _selectedIndex;
+                  return _TabItem(
+                    child: widget.tabs[i],
+                    isSelected: isSelected,
+                    labelColor: labelColor,
+                    unselectedColor: unselectedColor,
+                    indicatorColor: indicatorColor,
+                    indicatorWeight: widget.indicatorWeight,
+                    onTap: () => _selectTab(i),
+                  );
+                }),
               ),
             ),
           ),
 
-          // Left fade + arrow
-          AnimatedOpacity(
-            opacity: _canScrollLeft ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollLeft,
-              child: _EdgeButton(
-                side: AxisDirection.left,
-                bg: bg,
-                arrowColor: widget.indicatorColor ?? Colors.deepPurple,
-                onTap: () => _scroll(-160),
-              ),
-            ),
+          // ── Left arrow ────────────────────────────────────────────
+          _EdgeButton(
+            isLeft: true,
+            bg: bg,
+            arrowColor: _canScrollLeft
+                ? indicatorColor
+                : indicatorColor.withOpacity(0.25),
+            onTap: () => _scrollBy(-160),
           ),
 
-          // Right fade + arrow
-          AnimatedOpacity(
-            opacity: _canScrollRight ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollRight,
-              child: _EdgeButton(
-                side: AxisDirection.right,
-                bg: bg,
-                arrowColor: widget.indicatorColor ?? Colors.deepPurple,
-                onTap: () => _scroll(160),
-              ),
-            ),
+          // ── Right arrow ───────────────────────────────────────────
+          _EdgeButton(
+            isLeft: false,
+            bg: bg,
+            arrowColor: _canScrollRight
+                ? indicatorColor
+                : indicatorColor.withOpacity(0.25),
+            onTap: () => _scrollBy(160),
           ),
         ],
       ),
@@ -196,24 +175,77 @@ class _ScrollableTabBarWrapperState extends State<ScrollableTabBarWrapper> {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-/// Gradient fade + chevron overlay on one side of the tab bar.
+class _TabItem extends StatelessWidget {
+  const _TabItem({
+    required this.child,
+    required this.isSelected,
+    required this.labelColor,
+    required this.unselectedColor,
+    required this.indicatorColor,
+    required this.indicatorWeight,
+    required this.onTap,
+  });
+
+  final Widget child;
+  final bool isSelected;
+  final Color labelColor;
+  final Color unselectedColor;
+  final Color indicatorColor;
+  final double indicatorWeight;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: isSelected ? indicatorColor : Colors.transparent,
+              width: indicatorWeight,
+            ),
+          ),
+        ),
+        child: Center(
+          child: DefaultTextStyle.merge(
+            style: TextStyle(
+              color: isSelected ? labelColor : unselectedColor,
+              fontWeight:
+                  isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+            child: IconTheme.merge(
+              data: IconThemeData(
+                color: isSelected ? labelColor : unselectedColor,
+              ),
+              child: child,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 class _EdgeButton extends StatelessWidget {
   const _EdgeButton({
-    required this.side,
+    required this.isLeft,
     required this.bg,
     required this.arrowColor,
     required this.onTap,
   });
 
-  final AxisDirection side;
+  final bool isLeft;
   final Color bg;
   final Color arrowColor;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final isLeft = side == AxisDirection.left;
-
     return Align(
       alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
       child: GestureDetector(
@@ -224,7 +256,8 @@ class _EdgeButton extends StatelessWidget {
           height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+              begin:
+                  isLeft ? Alignment.centerLeft : Alignment.centerRight,
               end: isLeft ? Alignment.centerRight : Alignment.centerLeft,
               colors: [bg, bg.withOpacity(0.0)],
               stops: const [0.55, 1.0],

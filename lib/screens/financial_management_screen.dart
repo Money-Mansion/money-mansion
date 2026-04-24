@@ -759,7 +759,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         }
                         final date = startDateNormalized.add(Duration(days: index));
                         return Text(
-                          '${date.day}.${date.month}',
+                          '${date.day}.${date.month}.',
                           style: const TextStyle(fontSize: 10),
                         );
                       },

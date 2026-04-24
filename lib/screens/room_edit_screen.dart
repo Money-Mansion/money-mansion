@@ -502,8 +502,6 @@ class _InventorySheetState extends State<_InventorySheet>
               ),
 
               // ── Tab bar with scroll arrows ─────────────────────────
-              // The sheet background is _cream; pass it so the gradient
-              // fade blends correctly with the sheet colour.
               _SheetTabBar(
                 tabController: _tabController,
                 categories: _categories,
@@ -713,10 +711,6 @@ class _InventorySheetState extends State<_InventorySheet>
 }
 
 // ── Sheet tab bar with scroll arrows ─────────────────────────────────────────
-//
-// Unlike AppBar.bottom (which uses PreferredSizeWidget), a bottom sheet needs
-// a plain widget. This StatefulWidget mirrors the scroll-arrow logic from
-// ScrollableTabBarWrapper but is sized by its content, not by preferredSize.
 
 class _SheetTabBar extends StatefulWidget {
   const _SheetTabBar({
@@ -867,34 +861,24 @@ class _SheetTabBarState extends State<_SheetTabBar> {
             ),
           ),
 
-          // Left arrow
-          AnimatedOpacity(
-            opacity: _canScrollLeft ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollLeft,
-              child: _SheetEdgeButton(
-                isLeft: true,
-                bg: widget.sheetColor,
-                color: widget.accentColor,
-                onTap: () => _scroll(-160),
-              ),
-            ),
+          // Left arrow — always visible, dims when at the start
+          _SheetEdgeButton(
+            isLeft: true,
+            bg: widget.sheetColor,
+            color: _canScrollLeft
+                ? widget.accentColor
+                : widget.accentColor.withOpacity(0.25),
+            onTap: () => _scroll(-160),
           ),
 
-          // Right arrow
-          AnimatedOpacity(
-            opacity: _canScrollRight ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollRight,
-              child: _SheetEdgeButton(
-                isLeft: false,
-                bg: widget.sheetColor,
-                color: widget.accentColor,
-                onTap: () => _scroll(160),
-              ),
-            ),
+          // Right arrow — always visible, dims when at the end
+          _SheetEdgeButton(
+            isLeft: false,
+            bg: widget.sheetColor,
+            color: _canScrollRight
+                ? widget.accentColor
+                : widget.accentColor.withOpacity(0.25),
+            onTap: () => _scroll(160),
           ),
         ],
       ),
