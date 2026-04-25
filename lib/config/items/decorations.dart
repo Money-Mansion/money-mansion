@@ -16,7 +16,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'macka_cierna',
     name: 'čierna mačka',
-    nameEn: 'black Cat',
+    nameEn: 'black cat',
     type: ItemType.decoration,
     texture: 'assets/images/items/macka_cierna.png',
     cost: 120,
@@ -108,7 +108,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'okno_modre',
     name: 'modré okno',
-    nameEn: 'blue Window',
+    nameEn: 'blue window',
     type: ItemType.decoration,
     texture: 'assets/images/items/okno_modre.png',
     cost: 80,
@@ -118,7 +118,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'okno_duhove',
     name: 'dúhové okno',
-    nameEn: 'rainbow Window',
+    nameEn: 'rainbow window',
     type: ItemType.decoration,
     texture: 'assets/images/items/okno_duhove.png',
     cost: 100,
@@ -128,7 +128,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'okno_cierne',
     name: 'čierne okno',
-    nameEn: 'black Window',
+    nameEn: 'black window',
     type: ItemType.decoration,
     texture: 'assets/images/items/okno_cierne.png',
     cost: 80,
@@ -170,7 +170,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_skibidi',
     name: 'šialený obraz',
-    nameEn: 'crazy Painting',
+    nameEn: 'crazy painting',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_skibidi.png',
     cost: 70,
@@ -180,7 +180,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_salvador_dali',
     name: 'obraz Salvador Dali',
-    nameEn: 'Salvador Dalí Painting',
+    nameEn: 'Salvador Dalí painting',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_salvador_dali.png',
     cost: 90,
@@ -190,7 +190,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_nastenka',
     name: 'nástenka',
-    nameEn: 'notice Board',
+    nameEn: 'notice board',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_nastenka.png',
     cost: 50,
@@ -200,7 +200,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_drak',
     name: 'obraz draka',
-    nameEn: 'dragon Painting',
+    nameEn: 'dragon painting',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_drak.png',
     cost: 70,
@@ -210,7 +210,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_aliens',
     name: 'obraz s mimozemšťanom',
-    nameEn: 'alien Painting',
+    nameEn: 'alien painting',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_aliens.png',
     cost: 70,
@@ -220,7 +220,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'obraz_poník',
     name: 'obraz s poníkom',
-    nameEn: 'pony Painting',
+    nameEn: 'pony painting',
     type: ItemType.decoration,
     texture: 'assets/images/items/obraz_poník.png',
     cost: 70,
@@ -252,7 +252,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'kvietok_alien',
     name: 'mimozemský kvietok',
-    nameEn: 'alien Flower',
+    nameEn: 'alien flower',
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_alien.png',
     cost: 50,
@@ -272,7 +272,7 @@ final List<Item> decorationItems = [
   Item(
     id: 'kvietok_ruzovy',
     name: 'ružový kvietok',
-    nameEn: 'pink Flower',
+    nameEn: 'pink flower',
     type: ItemType.decoration,
     texture: 'assets/images/items/kvietok_ruzovy.png',
     cost: 50,

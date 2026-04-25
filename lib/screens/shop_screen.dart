@@ -159,7 +159,11 @@ class _ShopScreenState extends State<ShopScreen>
         // No items yet — placeholder for future lamps, etc.
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
       case ItemSubtype.pets:
-        return id.startsWith('zviera_') || id.startsWith('mazlicek_');
+        return id == 'hoblub' ||
+            id == 'morca' ||
+            id == 'zajacik' ||
+            id.startsWith('macka_') ||
+            id.startsWith('psik_');
     }
   }
 

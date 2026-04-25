@@ -138,7 +138,11 @@ class _InventoryScreenState extends State<InventoryScreen>
       case ItemSubtype.lighting:
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
       case ItemSubtype.pets:
-        return id.startsWith('zviera_') || id.startsWith('mazlicek_');
+        return id == 'hoblub' ||
+            id == 'morca' ||
+            id == 'zajacik' ||
+            id.startsWith('macka_') ||
+            id.startsWith('psik_');
     }
   }
 
