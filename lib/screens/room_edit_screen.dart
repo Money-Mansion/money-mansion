@@ -427,7 +427,7 @@ class _InventorySheetState extends State<_InventorySheet>
       case 'carpets':
         return isSk ? 'Koberce' : 'Carpets';
       case 'wallDecor':
-        return isSk ? 'Steny' : 'Wall Decor';
+        return isSk ? 'Nástenné dekorácie' : 'Wall Decor';
       case 'plants':
         return isSk ? 'Rastliny' : 'Plants';
       case 'lighting':
