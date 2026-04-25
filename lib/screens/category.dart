@@ -18,6 +18,7 @@ enum ItemSubtype {
   wallDecor,
   plants,
   lighting,
+  pets,
 }
 
 

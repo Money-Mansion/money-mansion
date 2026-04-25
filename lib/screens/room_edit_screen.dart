@@ -323,6 +323,7 @@ class _InventorySheetState extends State<_InventorySheet>
     Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
     Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
     Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'pets', itemSubtype: ItemSubtype.pets),
     Category(labelKey: 'doors', itemType: ItemType.door),
   ];
 
@@ -365,6 +366,8 @@ class _InventorySheetState extends State<_InventorySheet>
         return id.startsWith('kvietok_');
       case ItemSubtype.lighting:
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
+      case ItemSubtype.pets:
+        return id.startsWith('zviera_') || id.startsWith('mazlicek_');
     }
   }
 
@@ -406,6 +409,8 @@ class _InventorySheetState extends State<_InventorySheet>
         return Icons.lightbulb_outline;
       case 'doors':
         return Icons.door_front_door;
+      case 'pets':
+        return Icons.pets;
       default:
         return Icons.grid_view;
     }
@@ -434,6 +439,8 @@ class _InventorySheetState extends State<_InventorySheet>
         return isSk ? 'Svetlá' : 'Lighting';
       case 'doors':
         return isSk ? 'Dvere' : 'Doors';
+      case 'pets':
+        return isSk ? 'Zvieratá' : 'Pets';
       default:
         return key;
     }
