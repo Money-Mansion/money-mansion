@@ -824,7 +824,7 @@ class AppLocalizations {
       'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
       'quizError': 'Chyba: ',
       'locked': 'Zamknuté',
-      'quizCoinReward': '+{coins} mincí!',
+      'quizCoinReward': '+{coins} mince!',
       'quizQuestion': 'Otázka {current}/{total}',
       'quizCorrectCount': 'Správne: {count}',
       'quizAnswerCorrect': '✓ Správne!',
