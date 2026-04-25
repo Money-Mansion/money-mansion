@@ -5,7 +5,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'gauc_zniceny2',
     name: 'zničená pohovka 2',
-    nameEn: 'ruined Sofa 2',
+    nameEn: 'ruined sofa 2',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny2.png',
     cost: 5,
@@ -15,7 +15,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'gauc_zniceny1',
     name: 'zničená pohovka 1',
-    nameEn: 'ruined Sofa 1',
+    nameEn: 'ruined sofa 1',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zniceny1.png',
     cost: 5,
@@ -25,7 +25,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_znicena',
     name: 'zničená posteľ',
-    nameEn: 'ruined Bed',
+    nameEn: 'ruined bed',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_znicena.png',
     cost: 5,
@@ -35,7 +35,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'polica_kniznica_cierna',
     name: 'čierny regál',
-    nameEn: 'black Shelf',
+    nameEn: 'black shelf',
     type: ItemType.decoration,
     texture: 'assets/images/items/polica_kniznica_cierna.png',
     cost: 200,
@@ -45,7 +45,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'polica',
     name: 'klasická polica',
-    nameEn: 'basic Shelf',
+    nameEn: 'basic shelf',
     type: ItemType.decoration,
     texture: 'assets/images/items/polica.png',
     cost: 50,
@@ -55,7 +55,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'polica_dizajnová',
     name: 'dizajnová polica',
-    nameEn: 'designer Shelf',
+    nameEn: 'designer shelf',
     type: ItemType.decoration,
     texture: 'assets/images/items/polica_dizajnová.png',
     cost: 70,
@@ -75,7 +75,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'skriňa_poličky',
     name: 'regál s poličkami',
-    nameEn: 'Shelved Cabinet',
+    nameEn: 'shelved cabinet',
     type: ItemType.decoration,
     texture: 'assets/images/items/skriňa_poličky.png',
     cost: 100,
@@ -105,7 +105,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'gauc_zeleny',
     name: 'zelená pohovka',
-    nameEn: 'green Sofa',
+    nameEn: 'green sofa',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_zeleny.png',
     cost: 150,
@@ -115,7 +115,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'gauc_ruzovy',
     name: 'ružová pohovka',
-    nameEn: 'pink Sofa',
+    nameEn: 'pink sofa',
     type: ItemType.furniture,
     texture: 'assets/images/items/gauc_ruzovy.png',
     cost: 150,
@@ -235,7 +235,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_chlapcenska1',
     name: 'modrá posteľ 1',
-    nameEn: 'blue Bed 1',
+    nameEn: 'blue bed 1',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_chlapcenska1.png',
     cost: 200,
@@ -255,7 +255,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_dieta',
     name: 'detská posteľ',
-    nameEn: 'child Bed',
+    nameEn: 'child bed',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_dieta.png',
     cost: 200,
@@ -265,7 +265,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_jemna',
     name: 'jednoduchá posteľ',
-    nameEn: 'simple Bed',
+    nameEn: 'simple bed',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_jemna.png',
     cost: 180,
@@ -275,7 +275,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_ponik1',
     name: 'poníková posteľ 1',
-    nameEn: 'pony Bed 1',
+    nameEn: 'pony bed 1',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_ponik1.png',
     cost: 200,
@@ -285,7 +285,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_ponik2',
     name: 'poníková posteľ 2',
-    nameEn: 'pony Bed 2',
+    nameEn: 'pony bed 2',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_ponik2.png',
     cost: 200,
@@ -295,7 +295,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_ponik3',
     name: 'poníková posteľ 3',
-    nameEn: 'pony Bed 3',
+    nameEn: 'pony bed 3',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_ponik3.png',
     cost: 200,
@@ -305,7 +305,7 @@ final List<Item> furnitureItems = [
   Item(
     id: 'postel_ponik4',
     name: 'poníková posteľ 4',
-    nameEn: 'pony Bed 4',
+    nameEn: 'pony bed 4',
     type: ItemType.furniture,
     texture: 'assets/images/items/postel_ponik4.png',
     cost: 200,

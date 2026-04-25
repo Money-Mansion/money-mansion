@@ -231,7 +231,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       SnackBar(
         duration: const Duration(milliseconds: 1200),
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+        margin: const EdgeInsets.only(bottom: 160, left: 16, right: 16),
         backgroundColor: const Color(0xFF4CAF50),
         content: Row(
           mainAxisSize: MainAxisSize.min,

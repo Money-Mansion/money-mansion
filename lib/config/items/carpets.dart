@@ -15,7 +15,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_real',
     name: 'magický koberec',
-    nameEn: 'magic Rug',
+    nameEn: 'magic rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_real.png',
     cost: 70,
@@ -35,7 +35,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_modry',
     name: 'modrý koberec',
-    nameEn: 'blue Rug',
+    nameEn: 'blue rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_modry.png',
     cost: 70,
@@ -45,7 +45,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_magia',
     name: 'magický koberec 2',
-    nameEn: 'magic Rug 2',
+    nameEn: 'magic rug 2',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_magia.png',
     cost: 80,
@@ -55,7 +55,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_macka',
     name: 'mačací koberec',
-    nameEn: 'cat Rug',
+    nameEn: 'cat rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_macka.png',
     cost: 70,
@@ -65,7 +65,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_macka_siva',
     name: 'sivý mačací koberec',
-    nameEn: 'grey Cat Rug',
+    nameEn: 'grey cat rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_macka_siva.png',
     cost: 70,
@@ -75,7 +75,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_hnedy_ciary',
     name: 'dizajnový koberec',
-    nameEn: 'designer Rug',
+    nameEn: 'designer rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_hnedy_ciary.png',
     cost: 70,
@@ -85,7 +85,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_duha',
     name: 'dúhový koberec',
-    nameEn: 'rainbow Rug',
+    nameEn: 'rainbow rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_duha.png',
     cost: 70,
@@ -95,7 +95,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_cute',
     name: 'roztomilý koberec',
-    nameEn: 'cute Rug',
+    nameEn: 'cute rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_cute.png',
     cost: 60,
@@ -105,7 +105,7 @@ final List<Item> carpetItems = [
   Item(
     id: 'koberec_babka',
     name: 'starožitný koberec',
-    nameEn: 'Antique Rug',
+    nameEn: 'antique rug',
     type: ItemType.decoration,
     texture: 'assets/images/items/koberec_babka.png',
     cost: 70,

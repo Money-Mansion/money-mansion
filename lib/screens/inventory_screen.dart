@@ -56,6 +56,7 @@ class _InventoryScreenState extends State<InventoryScreen>
     Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
     Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
     Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'pets', itemSubtype: ItemSubtype.pets),
     Category(labelKey: 'doors', itemType: ItemType.door),
   ];
 
@@ -136,6 +137,12 @@ class _InventoryScreenState extends State<InventoryScreen>
         return id.startsWith('kvietok_');
       case ItemSubtype.lighting:
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
+      case ItemSubtype.pets:
+        return id == 'hoblub' ||
+            id == 'morca' ||
+            id == 'zajacik' ||
+            id.startsWith('macka_') ||
+            id.startsWith('psik_');
     }
   }
 
@@ -188,6 +195,8 @@ class _InventoryScreenState extends State<InventoryScreen>
         return Icons.lightbulb_outline;
       case 'doors':
         return Icons.door_front_door;
+      case 'pets':
+        return Icons.pets;
       default:
         return Icons.grid_view;
     }
@@ -220,7 +229,7 @@ class _InventoryScreenState extends State<InventoryScreen>
       case 'carpets':
         return isSk ? 'Koberce' : 'Carpets';
       case 'wallDecor':
-        return isSk ? 'Steny' : 'Wall Decor';
+        return isSk ? 'Nástenné dekorácie' : 'Wall Decor';
       case 'plants':
         return isSk ? 'Rastliny' : 'Plants';
       case 'lighting':
@@ -231,6 +240,8 @@ class _InventoryScreenState extends State<InventoryScreen>
         return isSk ? 'Tapety' : 'Walls';
       case 'floors':
         return isSk ? 'Podlahy' : 'Floors';
+      case 'pets':
+        return isSk ? 'Zvieratá' : 'Pets';
       default:
         return key;
     }

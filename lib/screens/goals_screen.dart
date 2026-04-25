@@ -1095,9 +1095,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    if (goal.isCompleted) {
-                      return;
-                    }
                     final success =
                         await GoalDatabaseService.deleteGoal(goal.id);
 
