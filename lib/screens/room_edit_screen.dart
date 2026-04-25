@@ -14,6 +14,7 @@ import '../widgets/tutorial_overlay.dart';
 import '../widgets/tutorial_target.dart';
 import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
+import '../widgets/scrollable_tab_bar_wrapper.dart';
 
 // App colour constants
 const _purple = Color(0xFF6B5B8C);
@@ -502,15 +503,46 @@ class _InventorySheetState extends State<_InventorySheet>
               ),
 
               // ── Tab bar with scroll arrows ─────────────────────────
-              _SheetTabBar(
+              ScrollableTabBarWrapper(
                 tabController: _tabController,
-                categories: _categories,
-                itemsForCategory: _itemsForCategory,
-                categoryIcon: _categoryIcon,
-                categoryLabel: _categoryLabel,
-                sheetColor: _cream,
-                accentColor: _purple,
-                accentLight: _purpleLight,
+                labelColor: _purple,
+                unselectedLabelColor: Colors.grey[500]!,
+                indicatorColor: _purple,
+                indicatorWeight: 2,
+                tabs: _categories.map((cat) {
+                  final count = _itemsForCategory(cat).length;
+                  return Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(_categoryIcon(cat.labelKey), size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          _categoryLabel(cat.labelKey),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        if (count > 0) ...[
+                          const SizedBox(width: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: _purple.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '$count',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: _purple,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }).toList(),
               ),
 
               const Divider(color: _purpleLight, height: 1),
