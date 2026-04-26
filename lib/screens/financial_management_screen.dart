@@ -345,11 +345,14 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
+                    maxLength: 10,
                     decoration:
                         InputDecoration(labelText: l10n.translate('amount')),
                   ),
                   TextField(
                     controller: noteController,
+                    maxLength: 150,
+                    maxLines: 2,
                     decoration:
                         InputDecoration(labelText: l10n.translate('note')),
                   ),
