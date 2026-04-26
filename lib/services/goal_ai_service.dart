@@ -8,13 +8,13 @@ class GoalAiService {
   static const _apiKey =
       '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';
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
-  static const _model = 'llama-3.3-70b-versatile';
+  static const _model = 'openai/gpt-oss-120b';
 
   static const double _defaultMonthlyIncome = 20;
   static const int _minChallengeScore = 1;
   static const int _maxChallengeScore = 100;
   static const int _minRewardCoins = 10;
-  static const int _maxRewardCoins = 500;
+  static const int _maxRewardCoins = 5000;
   static const int _rewardStep = 5;
 
   static Future<GoalAiResult> classifyGoal({
@@ -48,7 +48,7 @@ class GoalAiService {
         },
         body: jsonEncode({
           'model': _model,
-          'temperature': 0.03,
+          'temperature': 0.1,
           'max_tokens': 220,
           'messages': [
             {
@@ -163,7 +163,7 @@ Rules:
 4. If valid -> status READY and field none.
 5. For READY:
    - challengeScore must be integer 1..100.
-   - rewardCoins must be integer 10..500.
+   - rewardCoins must be integer {_minRewardCoins}..{_maxRewardCoins}.
    - rewardCoins must scale with challengeScore, target amount, due date pressure, and affordability.
 6. Message must be user-facing and actionable.
 
