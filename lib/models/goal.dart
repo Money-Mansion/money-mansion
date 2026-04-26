@@ -1,5 +1,5 @@
 class Goal {
-  static const int milestoneScoreThreshold = 70;
+  static const int milestoneScoreThreshold = 50;
   static const int milestoneStepCount = 5;
 
   final String id;
