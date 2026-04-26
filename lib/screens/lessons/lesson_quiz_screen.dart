@@ -385,9 +385,25 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             child: Text(l10nProvider.translate('quizClose')),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              // Save progress FIRST (same as Close), then restart quiz
+              if (quizInfo != null && !_isQuizLocked) {
+                await QuizProgressDatabaseService.updateScore(
+                  quizInfo!.sectionId,
+                  widget.lessonId.toString(),
+                  score,
+                );
+                // Update streak when quiz is completed
+                final newStreak = await StreakService.onQuizCompleted();
+                // Update GameState so TopBar shows the new streak
+                if (mounted) {
+                  context.read<GameState>().setCurrentStreak(newStreak);
+                }
+              }
+              // Notify parent that quiz is complete
+              widget.onQuizCompleted?.call();
               Navigator.pop(dialogContext); // Close dialog only
-              _resetQuiz(); // Reset and restart
+              _resetQuiz(); // Reset and restart quiz
             },
             child: Text(l10nProvider.translate('quizRetry')),
           ),
