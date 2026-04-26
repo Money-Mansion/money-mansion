@@ -3,18 +3,19 @@ import 'package:http/http.dart' as http;
 
 import 'onboarding_service.dart';
 
-/// Calls Groq Llama 3.1-8B to classify a child's savings goal into Easy, Medium, Hard, or request more info.
+/// Validates goal inputs and generates numeric score + reward from AI.
 class GoalAiService {
   static const _apiKey =
       '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';
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
   static const _model = 'llama-3.3-70b-versatile';
 
-  // Heuristic thresholds relative to a low child income (defaults to 20 EUR/month)
-  static const double _defaultMonthlyIncome = 20; // typical allowance
-  static const double _easyMultiplier = 3; // ~3 months of saving
-  static const double _mediumMultiplier = 8; // ~8 months of saving
-  // Hard is extremely rare
+  static const double _defaultMonthlyIncome = 20;
+  static const int _minChallengeScore = 1;
+  static const int _maxChallengeScore = 100;
+  static const int _minRewardCoins = 10;
+  static const int _maxRewardCoins = 500;
+  static const int _rewardStep = 5;
 
   static Future<GoalAiResult> classifyGoal({
     required String title,
@@ -24,8 +25,8 @@ class GoalAiService {
     String language = 'en',
   }) async {
     final userProfile = await OnboardingService.getUserProfile();
-    final monthlyIncomeForHeuristic =
-        userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
+    final monthlyIncome = userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
+    final monthlyExpenses = userProfile?.monthlyExpenses;
 
     final prompt = _buildPrompt(
       title: title,
@@ -34,7 +35,8 @@ class GoalAiService {
       dueDate: dueDate,
       language: language,
       userProfile: userProfile,
-      assumedMonthlyIncome: monthlyIncomeForHeuristic,
+      assumedMonthlyIncome: monthlyIncome,
+      assumedMonthlyExpenses: monthlyExpenses,
     );
 
     try {
@@ -46,8 +48,8 @@ class GoalAiService {
         },
         body: jsonEncode({
           'model': _model,
-          'temperature': 0.2,
-          'max_tokens': 200,
+          'temperature': 0.03,
+          'max_tokens': 220,
           'messages': [
             {
               'role': 'user',
@@ -60,10 +62,10 @@ class GoalAiService {
       if (response.statusCode != 200) {
         print('GoalAiService HTTP ${response.statusCode}: ${response.body}');
         return _fallbackWithHeuristic(
-          title: title,
-          description: description,
           targetMoney: targetMoney,
-          monthlyIncome: monthlyIncomeForHeuristic,
+          dueDate: dueDate,
+          monthlyIncome: monthlyIncome,
+          monthlyExpenses: monthlyExpenses,
           reason: 'AI unavailable (${response.statusCode})',
         );
       }
@@ -72,54 +74,50 @@ class GoalAiService {
       final text = _extractText(data);
       if (text == null) {
         return _fallbackWithHeuristic(
-          title: title,
-          description: description,
           targetMoney: targetMoney,
-          monthlyIncome: monthlyIncomeForHeuristic,
+          dueDate: dueDate,
+          monthlyIncome: monthlyIncome,
+          monthlyExpenses: monthlyExpenses,
           reason: 'Empty AI response',
         );
       }
 
       print('GoalAiService answer: $text');
 
-      final structuredResult = _parseStructuredResult(text);
+      final structuredResult = _parseStructuredResult(
+        text,
+        targetMoney: targetMoney,
+        dueDate: dueDate,
+        monthlyIncome: monthlyIncome,
+        monthlyExpenses: monthlyExpenses,
+      );
       if (structuredResult != null) {
         return structuredResult;
       }
 
       final normalized = text.toUpperCase();
-      final parsedReason = _truncate(text);
-      final inferredField = _inferInvalidFieldFromText(text);
-
       if (normalized.contains('MORE INFO') ||
           normalized.contains('MORE_INFO')) {
         return GoalAiResult.needsMoreInfo(
-          reason: parsedReason,
-          invalidField: inferredField,
+          reason: _truncate(text),
+          invalidField: _inferInvalidFieldFromText(text),
         );
-      } else if (normalized.contains('EASY')) {
-        return GoalAiResult.difficulty('Easy', reason: parsedReason);
-      } else if (normalized.contains('MEDIUM')) {
-        return GoalAiResult.difficulty('Medium', reason: parsedReason);
-      } else if (normalized.contains('HARD')) {
-        return GoalAiResult.difficulty('Hard', reason: parsedReason);
       }
 
-      // fallback based on amount
-      final amountDifficulty =
-          _difficultyFromAmount(targetMoney, monthlyIncomeForHeuristic);
-      if (amountDifficulty != null) {
-        return GoalAiResult.difficulty(amountDifficulty, reason: parsedReason);
-      }
-
-      return GoalAiResult.fallback(reason: parsedReason);
+      return _fallbackWithHeuristic(
+        targetMoney: targetMoney,
+        dueDate: dueDate,
+        monthlyIncome: monthlyIncome,
+        monthlyExpenses: monthlyExpenses,
+        reason: _truncate(text),
+      );
     } catch (e) {
       print('GoalAiService error: $e');
       return _fallbackWithHeuristic(
-        title: title,
-        description: description,
         targetMoney: targetMoney,
-        monthlyIncome: monthlyIncomeForHeuristic,
+        dueDate: dueDate,
+        monthlyIncome: monthlyIncome,
+        monthlyExpenses: monthlyExpenses,
         reason: 'Local fallback after exception',
       );
     }
@@ -133,6 +131,7 @@ class GoalAiService {
     required String language,
     UserProfile? userProfile,
     required double assumedMonthlyIncome,
+    double? assumedMonthlyExpenses,
   }) {
     final due = dueDate != null
         ? '${dueDate.year}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}'
@@ -140,68 +139,106 @@ class GoalAiService {
     final target = targetMoney != null && targetMoney > 0
         ? targetMoney.toStringAsFixed(2)
         : 'not provided';
+
     final profileSnippet = _profileSnippet(userProfile);
+    final financialContextSnippet = _financialContextSnippet(
+      targetMoney: targetMoney,
+      dueDate: dueDate,
+      monthlyIncome: assumedMonthlyIncome,
+      monthlyExpenses: assumedMonthlyExpenses,
+    );
 
     return '''
 You are helping a kids finance app. Respond in language code: $language.
 
-Your job is to decide how difficult a savings goal is for a child with very low income. Use title, description, and target amount.
-Assume the child is around 10 years old. Consider what the goal would feel like to them.
-Assume the child has no savings yet, so the target amount is from zero.
-Assume the child's monthly income is about $assumedMonthlyIncome EUR (allowance/chores) unless the profile below says otherwise.
+Your task:
+- Validate goal input quality.
+- If valid, assign numeric values from user profile and financial context.
+- Use only numbers, no category labels.
+
 Rules:
 1. If title is missing or unclear -> status MORE_INFO and field title.
-2. If description is missing or completely unclear -> status MORE_INFO and field description.
-   Short descriptions are acceptable if they are specific.
+2. If description is missing or unclear -> status MORE_INFO and field description.
 3. If target amount is missing, zero, or invalid -> status MORE_INFO and field amount.
-4. Otherwise, classify difficulty based on what the goal would feel like to a child:
-   - EASY = very small or trivial goals; quick to achieve.
-   - MEDIUM = typical goals for most kids; most goals fall here.
-   - HARD = big, long-term, or significant goals; use more often for larger or ambitious goals; can be common if the description suggests effort or time.
-5. Message must be user-facing and actionable.
+4. If valid -> status READY and field none.
+5. For READY:
+   - challengeScore must be integer 1..100.
+   - rewardCoins must be integer 10..500.
+   - rewardCoins must scale with challengeScore, target amount, due date pressure, and affordability.
+6. Message must be user-facing and actionable.
 
 Output:
 Return JSON only. No markdown, no extra text.
 {
-  "status": "EASY|MEDIUM|HARD|MORE_INFO",
+  "status": "READY|MORE_INFO",
   "field": "none|title|description|amount",
+  "challengeScore": 0,
+  "rewardCoins": 0,
   "message": "short explanation"
 }
 
 Constraints:
-- If status is MORE_INFO, field must be title, description, or amount.
-- If status is EASY/MEDIUM/HARD, field must be none.
-- Keep message to max 12 words.
+- MORE_INFO => field must be title|description|amount, challengeScore 0, rewardCoins 0.
+- READY => field must be none, challengeScore 1..100, rewardCoins 10..500.
+- Keep message max 12 x.
 
 GOAL:
 Title: $title
 Description: $description
 Target amount: $target
 Due date: $due
-User context: $profileSnippet
+
+PERSONAL PROFILE:
+$profileSnippet
+
+FINANCIAL CONTEXT:
+$financialContextSnippet
 ''';
   }
 
   static GoalAiResult _fallbackWithHeuristic({
-    required String title,
-    required String description,
     required double? targetMoney,
+    DateTime? dueDate,
     required double monthlyIncome,
+    double? monthlyExpenses,
     String? reason,
   }) {
-    final amountDifficulty = _difficultyFromAmount(targetMoney, monthlyIncome);
-    if (amountDifficulty != null) {
-      return GoalAiResult.difficulty(amountDifficulty, reason: reason);
+    if (targetMoney == null || targetMoney <= 0) {
+      return GoalAiResult.needsMoreInfo(
+        reason: reason,
+        invalidField: GoalAiInvalidField.amount,
+      );
     }
-    return GoalAiResult.needsMoreInfo(
+
+    final challengeScore = estimateChallengeScore(
+      targetMoney: targetMoney,
+      monthlyIncome: monthlyIncome,
+      monthlyExpenses: monthlyExpenses,
+      dueDate: dueDate,
+    );
+
+    final rewardCoins = estimateRewardCoins(
+      challengeScore: challengeScore,
+      targetMoney: targetMoney,
+      monthlyIncome: monthlyIncome,
+      monthlyExpenses: monthlyExpenses,
+      dueDate: dueDate,
+    );
+
+    return GoalAiResult.ready(
+      challengeScore: challengeScore,
+      rewardCoins: rewardCoins,
       reason: reason,
-      invalidField: (targetMoney == null || targetMoney <= 0)
-          ? GoalAiInvalidField.amount
-          : GoalAiInvalidField.description,
     );
   }
 
-  static GoalAiResult? _parseStructuredResult(String text) {
+  static GoalAiResult? _parseStructuredResult(
+    String text, {
+    required double? targetMoney,
+    DateTime? dueDate,
+    required double monthlyIncome,
+    double? monthlyExpenses,
+  }) {
     final parsed = _extractStructuredPayload(text);
     if (parsed == null) return null;
 
@@ -213,22 +250,166 @@ User context: $profileSnippet
     );
     final field = _parseInvalidField(parsed['field']?.toString());
 
-    switch (status) {
-      case 'MORE_INFO':
-      case 'MORE INFO':
-        return GoalAiResult.needsMoreInfo(
-          reason: message,
-          invalidField: field ?? GoalAiInvalidField.description,
-        );
-      case 'EASY':
-        return GoalAiResult.difficulty('Easy', reason: message);
-      case 'MEDIUM':
-        return GoalAiResult.difficulty('Medium', reason: message);
-      case 'HARD':
-        return GoalAiResult.difficulty('Hard', reason: message);
-      default:
-        return null;
+    if (status == 'MORE_INFO' || status == 'MORE INFO') {
+      return GoalAiResult.needsMoreInfo(
+        reason: message,
+        invalidField: field ?? GoalAiInvalidField.description,
+      );
     }
+
+    if (status != 'READY' && status != 'VALID' && status != 'OK') {
+      return null;
+    }
+
+    final challengeScore = _parseChallengeScore(parsed) ??
+        estimateChallengeScore(
+          targetMoney: targetMoney,
+          monthlyIncome: monthlyIncome,
+          monthlyExpenses: monthlyExpenses,
+          dueDate: dueDate,
+        );
+
+    final rewardCoins = _parseRewardCoins(parsed) ??
+        estimateRewardCoins(
+          challengeScore: challengeScore,
+          targetMoney: targetMoney,
+          monthlyIncome: monthlyIncome,
+          monthlyExpenses: monthlyExpenses,
+          dueDate: dueDate,
+        );
+
+    return GoalAiResult.ready(
+      challengeScore: challengeScore,
+      rewardCoins: rewardCoins,
+      reason: message,
+    );
+  }
+
+  static int estimateChallengeScore({
+    required double? targetMoney,
+    double? monthlyIncome,
+    double? monthlyExpenses,
+    DateTime? dueDate,
+  }) {
+    if (targetMoney == null || targetMoney <= 0) return 0;
+
+    final income = (monthlyIncome != null && monthlyIncome > 0)
+        ? monthlyIncome
+        : _defaultMonthlyIncome;
+    final disposableIncome = _estimatedDisposableIncome(income, monthlyExpenses);
+
+    final effortMonths = targetMoney / disposableIncome;
+    final effortScore = _clampDouble(effortMonths * 11.0, 6.0, 85.0);
+
+    var timePressure = 0.0;
+    if (dueDate != null) {
+      final daysLeft = dueDate.difference(DateTime.now()).inDays;
+      if (daysLeft <= 0) {
+        timePressure = 15.0;
+      } else {
+        final monthsLeft = daysLeft / 30.0;
+        timePressure =
+            _clampDouble((effortMonths - monthsLeft) * 8.0, 0.0, 15.0);
+      }
+    }
+
+    return _clampInt(
+      (effortScore + timePressure).round(),
+      _minChallengeScore,
+      _maxChallengeScore,
+    );
+  }
+
+  static int estimateRewardCoins({
+    required int challengeScore,
+    double? targetMoney,
+    double? monthlyIncome,
+    double? monthlyExpenses,
+    DateTime? dueDate,
+  }) {
+    final income = (monthlyIncome != null && monthlyIncome > 0)
+        ? monthlyIncome
+        : _defaultMonthlyIncome;
+    final disposableIncome = _estimatedDisposableIncome(income, monthlyExpenses);
+
+    final score = _clampInt(
+      challengeScore,
+      _minChallengeScore,
+      _maxChallengeScore,
+    );
+
+    final amountForReward =
+        (targetMoney != null && targetMoney > 0) ? targetMoney : disposableIncome;
+    final savingsRatio =
+        _clampDouble(amountForReward / disposableIncome, 0.25, 25.0);
+
+    var dueDateBonus = 0.0;
+    if (dueDate != null) {
+      final daysLeft = dueDate.difference(DateTime.now()).inDays;
+      if (daysLeft > 0 && daysLeft < 45) {
+        dueDateBonus = _clampDouble((45 - daysLeft) * 0.35, 0.0, 12.0);
+      }
+    }
+
+    final rawReward = 10 + (score * 2.6) + (savingsRatio * 4.2) + dueDateBonus;
+    return _normalizeRewardCoins(rawReward.round());
+  }
+
+  static double _estimatedDisposableIncome(double income, double? expenses) {
+    final normalizedIncome = income > 0 ? income : _defaultMonthlyIncome;
+    if (expenses == null || expenses < 0) return normalizedIncome;
+
+    final disposable = normalizedIncome - expenses;
+    if (disposable > 0) return disposable;
+
+    // Keep non-zero saving capacity for robust fallback math.
+    return normalizedIncome * 0.35;
+  }
+
+  static int _normalizeRewardCoins(int rewardCoins) {
+    final clamped = _clampInt(rewardCoins, _minRewardCoins, _maxRewardCoins);
+    final stepped = ((clamped / _rewardStep).round() * _rewardStep);
+    return _clampInt(stepped, _minRewardCoins, _maxRewardCoins);
+  }
+
+  static int? _parseRewardCoins(Map<String, dynamic> parsed) {
+    final rewardRaw = parsed['rewardCoins'] ??
+        parsed['reward_coins'] ??
+        parsed['reward'] ??
+        parsed['coins'];
+
+    final parsedInt = _parseIntLike(rewardRaw);
+    if (parsedInt == null) return null;
+    return _normalizeRewardCoins(parsedInt);
+  }
+
+  static int? _parseChallengeScore(Map<String, dynamic> parsed) {
+    final scoreRaw = parsed['challengeScore'] ??
+        parsed['challenge_score'] ??
+        parsed['goalScore'] ??
+        parsed['score'];
+
+    final parsedInt = _parseIntLike(scoreRaw);
+    if (parsedInt == null) return null;
+    return _clampInt(parsedInt, _minChallengeScore, _maxChallengeScore);
+  }
+
+  static int? _parseIntLike(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.round();
+    if (value is String) {
+      final normalized = value.replaceAll(',', '.');
+      final direct = double.tryParse(normalized);
+      if (direct != null) return direct.round();
+
+      final match = RegExp(r'-?\d+(\.\d+)?').firstMatch(normalized);
+      if (match != null) {
+        final extracted = double.tryParse(match.group(0)!);
+        if (extracted != null) return extracted.round();
+      }
+    }
+    return null;
   }
 
   static Map<String, dynamic>? _extractStructuredPayload(String text) {
@@ -297,95 +478,131 @@ User context: $profileSnippet
 
   static String _truncate(String text, {int max = 120}) {
     if (text.length <= max) return text;
-    return text.substring(0, max) + '...';
+    return '${text.substring(0, max)}...';
   }
 
   static String _profileSnippet(UserProfile? profile) {
     if (profile == null) {
-      return 'age not set; income ~20; beginner by default; goal: saving; income type: student.';
+      return 'age not set; monthly income about 20; monthly expenses unknown; beginner profile; primary goal saving; income type student.';
     }
 
     final experience = profile.experience == FinancialExperience.intermediate
         ? 'intermediate experience'
         : 'beginner experience';
 
-    final goal = () {
+    final mainGoal = () {
       switch (profile.mainGoal) {
         case MainGoal.learning:
-          return 'goal: learning';
+          return 'primary goal learning';
         case MainGoal.tracking:
-          return 'goal: tracking spending';
+          return 'primary goal expense tracking';
         case MainGoal.saving:
-          return 'goal: saving';
+          return 'primary goal saving';
       }
     }();
 
     final incomeType = () {
       switch (profile.incomeType) {
         case IncomeType.partTime:
-          return 'income type: part-time';
+          return 'income type part-time';
         case IncomeType.fullTime:
-          return 'income type: full-time';
+          return 'income type full-time';
         case IncomeType.student:
-          return 'income type: student';
+          return 'income type student';
       }
     }();
 
     final expenses = profile.monthlyExpenses != null
-        ? 'monthly expenses: ${profile.monthlyExpenses!.toStringAsFixed(2)}'
-        : 'monthly expenses not provided (assume low)';
+        ? profile.monthlyExpenses!.toStringAsFixed(2)
+        : 'not provided';
 
-    return 'age ${profile.age}; monthly income ${profile.monthlyIncome.toStringAsFixed(2)}; $expenses; $experience; $goal; $incomeType';
+    return 'age ${profile.age}; monthly income ${profile.monthlyIncome.toStringAsFixed(2)}; monthly expenses $expenses; $experience; $mainGoal; $incomeType';
   }
 
-  static String? _difficultyFromAmount(double? amount, double monthlyIncome) {
-    if (amount == null || amount <= 0) return null;
+  static String _financialContextSnippet({
+    required double? targetMoney,
+    DateTime? dueDate,
+    required double monthlyIncome,
+    double? monthlyExpenses,
+  }) {
+    final income = monthlyIncome > 0 ? monthlyIncome : _defaultMonthlyIncome;
+    final disposable = _estimatedDisposableIncome(income, monthlyExpenses);
 
-    final easyMax = monthlyIncome * _easyMultiplier;
-    final mediumMax = monthlyIncome * _mediumMultiplier;
+    final targetText = (targetMoney != null && targetMoney > 0)
+        ? targetMoney.toStringAsFixed(2)
+        : 'not provided';
+    final ratioText = (targetMoney != null && targetMoney > 0)
+        ? (targetMoney / disposable).toStringAsFixed(2)
+        : 'n/a';
+    final effortMonthsText = (targetMoney != null && targetMoney > 0)
+        ? (targetMoney / disposable).toStringAsFixed(1)
+        : 'n/a';
 
-    if (amount <= easyMax) return 'Easy';
-    if (amount <= mediumMax) return 'Medium';
-    return 'Hard';
+    final dueText = dueDate != null
+        ? '${dueDate.year}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}'
+        : 'not provided';
+    final daysLeftText = dueDate != null
+        ? dueDate.difference(DateTime.now()).inDays.toString()
+        : 'n/a';
+
+    final expensesText = monthlyExpenses != null
+        ? monthlyExpenses.toStringAsFixed(2)
+        : 'not provided';
+
+    return 'monthly income $income EUR; monthly expenses $expensesText EUR; estimated disposable income ${disposable.toStringAsFixed(2)} EUR; target amount $targetText EUR; target/disposable ratio $ratioText; estimated saving effort months $effortMonthsText; due date $dueText; days until due $daysLeftText';
+  }
+
+  static int _clampInt(int value, int min, int max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
+  static double _clampDouble(double value, double min, double max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
   }
 }
 
 class GoalAiResult {
-  final String? difficulty;
+  final int? challengeScore;
+  final int? rewardCoins;
   final String? reason;
   final bool needsMoreInfo;
   final GoalAiInvalidField? invalidField;
 
   GoalAiResult._({
-    required this.difficulty,
+    required this.challengeScore,
+    required this.rewardCoins,
     required this.needsMoreInfo,
     this.reason,
     this.invalidField,
   });
 
-  factory GoalAiResult.difficulty(String difficulty, {String? reason}) =>
+  factory GoalAiResult.ready({
+    required int challengeScore,
+    required int rewardCoins,
+    String? reason,
+  }) =>
       GoalAiResult._(
-          difficulty: difficulty,
-          needsMoreInfo: false,
-          reason: reason,
-          invalidField: null);
+        challengeScore: challengeScore,
+        rewardCoins: rewardCoins,
+        needsMoreInfo: false,
+        reason: reason,
+        invalidField: null,
+      );
 
   factory GoalAiResult.needsMoreInfo({
     String? reason,
     GoalAiInvalidField? invalidField,
   }) =>
       GoalAiResult._(
-        difficulty: null,
+        challengeScore: null,
+        rewardCoins: null,
         needsMoreInfo: true,
         reason: reason,
         invalidField: invalidField,
-      );
-
-  factory GoalAiResult.fallback({String? reason}) => GoalAiResult._(
-        difficulty: 'Easy',
-        needsMoreInfo: false,
-        reason: reason,
-        invalidField: null,
       );
 }
 

@@ -96,8 +96,8 @@ class GameState extends ChangeNotifier {
 
       goals[index] = completedGoal;
 
-      // Hard goals are rewarded by milestones during progress.
-      if (completedGoal.difficulty != Goal.hardDifficulty) {
+      // High-score goals are rewarded by milestones during progress.
+      if (!completedGoal.supportsMilestones) {
         coins += completedGoal.rewardCoins;
       }
 

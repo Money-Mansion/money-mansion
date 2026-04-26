@@ -34,12 +34,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
   bool _isLoading = true;
   bool _isSyncing = false;
 
-  static const Map<String, int> _difficultyRewards = {
-    Goal.easyDifficulty: 50,
-    Goal.mediumDifficulty: 100,
-    Goal.hardDifficulty: 200,
-  };
-
   Future<void> _showReassignFundsDialog() async {
     String? fromGoalId;
     String? toGoalId;
@@ -373,17 +367,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '${l10n.translate('difficulty')}: ${l10n.translate('difficultyChosenByAi')}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
                           l10n.translate('rewardAiInfo'),
                           style: TextStyle(
                             fontSize: 13,
@@ -565,20 +548,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           return;
                         }
 
-                        var resolvedDifficulty =
-                            aiResult.difficulty ?? Goal.easyDifficulty;
-                        if (!_difficultyRewards
-                            .containsKey(resolvedDifficulty)) {
-                          resolvedDifficulty = Goal.easyDifficulty;
-                        }
+                        final resolvedScore = aiResult.challengeScore ??
+                            GoalAiService.estimateChallengeScore(
+                              targetMoney: targetMoney,
+                              dueDate: selectedDate,
+                            );
+                        final resolvedReward = aiResult.rewardCoins ??
+                            GoalAiService.estimateRewardCoins(
+                              challengeScore: resolvedScore,
+                              targetMoney: targetMoney,
+                              dueDate: selectedDate,
+                            );
 
                         final newGoal = Goal(
                           id: const Uuid().v4(),
                           title: _titleController.text,
                           description: _descriptionController.text,
-                          difficulty: resolvedDifficulty,
-                          rewardCoins:
-                              _difficultyRewards[resolvedDifficulty] ?? 50,
+                          challengeScore: resolvedScore,
+                          rewardCoins: resolvedReward,
                           targetMoney: targetMoney ?? 0.0,
                           dueDate: selectedDate,
                         );
@@ -607,21 +594,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                 duration: const Duration(seconds: 2),
                               ),
                             );
-                            if (aiResult.reason != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    l10n
-                                        .translate('aiSetDifficulty')
-                                        .replaceFirst(
-                                            '{difficulty}', resolvedDifficulty)
-                                        .replaceFirst(
-                                            '{reason}', aiResult.reason!),
-                                  ),
-                                  duration: const Duration(seconds: 2),
-                                ),
-                              );
-                            }
                           }
                         } else {
                           if (mounted) {
@@ -907,10 +879,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
     final double progress =
         hasTarget ? (goal.allocatedMoney / goal.targetMoney).clamp(0, 1) : 0;
     final bool canComplete = !hasTarget || progress >= 1;
+    final bool isMilestoneGoal = goal.supportsMilestones;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
+      color: isMilestoneGoal ? Colors.orange[50] : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: isMilestoneGoal
+            ? BorderSide(
+                color: Colors.orange.shade300,
+                width: 1.25,
+              )
+            : BorderSide.none,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -922,20 +905,58 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        goal.title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          decoration: goal.isCompleted
-                              ? TextDecoration.lineThrough
-                              : null,
-                          color: goal.isCompleted
-                              ? Colors.grey[400]
-                              : Colors.black,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              goal.title,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                decoration: goal.isCompleted
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                                color: goal.isCompleted
+                                    ? Colors.grey[400]
+                                    : Colors.black,
+                              ),
+                            ),
+                          ),
+                          if (isMilestoneGoal) ...[
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.shade100,
+                                borderRadius: BorderRadius.circular(999),
+                                border: Border.all(
+                                  color: Colors.orange.shade300,
+                                ),
+                              ),
+                              child: Text(
+                                l10n.translate('milestoneGoalLabel'),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.orange.shade900,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                       const SizedBox(height: 4),
+                      Text(
+                        l10n.translate('goalRewardLabel').replaceFirst(
+                            '{coins}', goal.rewardCoins.toString()),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                       Text(
                         goal.description,
                         style: TextStyle(
@@ -944,14 +965,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${goal.difficulty} · ${l10n.translate('goalRewardLabel').replaceFirst('{coins}', goal.rewardCoins.toString())}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
                       ),
                     ],
                   ),
@@ -1027,6 +1040,26 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              if (isMilestoneGoal) ...[
+                const SizedBox(height: 6),
+                Text(
+                  l10n
+                      .translate('milestoneProgressLabel')
+                      .replaceFirst(
+                        '{current}',
+                        goal.milestonesAwarded.toString(),
+                      )
+                      .replaceFirst(
+                        '{total}',
+                        Goal.milestoneStepCount.toString(),
+                      ),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.orange.shade800,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
               const SizedBox(height: 6),
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
@@ -1105,11 +1138,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       // Refund allocated money back to balance
                       if (goal.allocatedMoney > 0) {
                         widget.gameState.addMoney(goal.allocatedMoney);
-                      }
-                      // Remove previously awarded coins for this goal
-                      if (goal.isCompleted &&
-                          goal.difficulty != Goal.hardDifficulty) {
-                        widget.gameState.spendCoins(goal.rewardCoins);
                       }
                       widget.gameState.removeGoal(goal.id);
                       setState(() {});

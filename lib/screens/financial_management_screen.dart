@@ -31,7 +31,6 @@ class FinancialManagementScreen extends StatefulWidget {
 
 class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     with SingleTickerProviderStateMixin {
-  static const int _hardGoalMilestoneCount = 5;
   late TabController _tabController;
   final List<TransactionModel> _transactions = [];
   final List<Goal> _goals = [];
@@ -105,9 +104,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return goal?.isCompleted ?? false;
   }
 
-  int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
-    final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
-    return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
+  int _rewardForMilestones(Goal goal, int milestoneCount) {
+    final clamped = milestoneCount.clamp(0, Goal.milestoneStepCount);
+    return (goal.rewardCoins * clamped) ~/ Goal.milestoneStepCount;
   }
 
   Future<void> _recalculateMoneyAndAllocations() async {
@@ -474,7 +473,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     final incomeTransactions = _getTransactionsForMonth('+');
-    final totalIncome = incomeTransactions.fold<double>(0, (sum, t) => sum + t.amount);
+    final totalIncome =
+        incomeTransactions.fold<double>(0, (sum, t) => sum + t.amount);
 
     return Column(
       children: [
@@ -512,7 +512,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     final expenseTransactions = _getTransactionsForMonth('-');
-    final totalExpense = expenseTransactions.fold<double>(0, (sum, t) => sum + t.amount);
+    final totalExpense =
+        expenseTransactions.fold<double>(0, (sum, t) => sum + t.amount);
 
     return Column(
       children: [
@@ -545,8 +546,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   List<Widget> _buildTransactionList(
       List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
     // Filter out internal goal allocation transactions (those with goalId)
-    final displayTransactions = transactions.where((t) => t.goalId == null).toList();
-    
+    final displayTransactions =
+        transactions.where((t) => t.goalId == null).toList();
+
     return displayTransactions.map((t) {
       final goalTitle = _goalTitle(t.goalId);
       final subtitleParts = [_formatDate(t.date)];
@@ -639,12 +641,13 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       // Calculate and display total for this month
       final monthTransactions = groupedByMonth[monthKey] ?? [];
       // Filter out internal goal allocation transactions for total calculation
-      final displayTransactions = monthTransactions.where((t) => t.goalId == null).toList();
+      final displayTransactions =
+          monthTransactions.where((t) => t.goalId == null).toList();
       final monthTotal = displayTransactions.fold<double>(0, (sum, t) {
         final amount = t.type == '+' ? t.amount : -t.amount;
         return sum + amount;
       });
-      
+
       widgets.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
@@ -728,7 +731,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     final startDate = _getChartStartDate();
     // Normalize start date to midnight
-    final startDateNormalized = DateTime(startDate.year, startDate.month, startDate.day);
+    final startDateNormalized =
+        DateTime(startDate.year, startDate.month, startDate.day);
     final labelStep = _getLabelStep(dailyData.length);
 
     return Column(
@@ -757,7 +761,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                             index % labelStep != 0) {
                           return const SizedBox.shrink();
                         }
-                        final date = startDateNormalized.add(Duration(days: index));
+                        final date =
+                            startDateNormalized.add(Duration(days: index));
                         return Text(
                           '${date.day}.${date.month}',
                           style: const TextStyle(fontSize: 10),
@@ -830,7 +835,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     final startDate = _getChartStartDate();
 
     // Normalize dates to midnight to avoid time-based precision issues
-    final startDateNormalized = DateTime(startDate.year, startDate.month, startDate.day);
+    final startDateNormalized =
+        DateTime(startDate.year, startDate.month, startDate.day);
     final nowNormalized = DateTime(now.year, now.month, now.day);
 
     // Calculate days between start date and now
@@ -839,12 +845,16 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     // Populate daily totals - only transactions without goal allocation
     for (final t in _transactions) {
-      if (t.goalId != null) continue; // Skip internal goal allocation transactions
-      
+      if (t.goalId != null)
+        continue; // Skip internal goal allocation transactions
+
       final tDateNormalized = DateTime(t.date.year, t.date.month, t.date.day);
-      if (tDateNormalized.isAfter(startDateNormalized) || tDateNormalized.isAtSameMomentAs(startDateNormalized)) {
-        if (tDateNormalized.isBefore(nowNormalized) || tDateNormalized.isAtSameMomentAs(nowNormalized)) {
-          final dayIndex = tDateNormalized.difference(startDateNormalized).inDays;
+      if (tDateNormalized.isAfter(startDateNormalized) ||
+          tDateNormalized.isAtSameMomentAs(startDateNormalized)) {
+        if (tDateNormalized.isBefore(nowNormalized) ||
+            tDateNormalized.isAtSameMomentAs(nowNormalized)) {
+          final dayIndex =
+              tDateNormalized.difference(startDateNormalized).inDays;
           if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
             final amount = t.type == '+' ? t.amount : -t.amount;
             dailyTotals[dayIndex] += amount;
@@ -872,8 +882,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
       double monthTotal = 0;
       for (final t in _transactions) {
-        if (t.goalId != null) continue; // Skip internal goal allocation transactions
-        
+        if (t.goalId != null)
+          continue; // Skip internal goal allocation transactions
+
         if (t.date.isAfter(monthStart) && t.date.isBefore(monthEnd)) {
           final amount = t.type == '+' ? t.amount : -t.amount;
           monthTotal += amount;
