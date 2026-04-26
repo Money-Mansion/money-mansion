@@ -5,7 +5,6 @@ import '../../services/quiz_progress_database_service.dart';
 import '../../services/quiz_service.dart' hide QuizQuestion;
 import '../../services/streak_service.dart';
 import '../../services/app_localizations_provider.dart';
-import '../../services/app_localizations.dart';
 import '../../models/game_state.dart';
 import '../../models/quiz_progress.dart';
 
@@ -36,6 +35,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   LessonQuizInfo? quizInfo;
   bool _initialized = false;
   bool _isQuizLocked = false; // Track if quiz is locked in progression
+  bool _quizFinished = false; // Track if quiz is finished to show 100% progress
 
   @override
   void initState() {
@@ -269,6 +269,11 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     final score = ((correctAnswers / questions.length) * 100).toInt();
     final l10nProvider = context.read<AppLocalizationsProvider>();
 
+    // Mark quiz as finished to show 100% progress
+    setState(() {
+      _quizFinished = true;
+    });
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -419,6 +424,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       showFeedback = false;
       isCorrect = null;
       selectedAnswer = null;
+      _quizFinished = false; // Reset quiz finished flag
       questionsFuture = _loadQuestionsAsync();
     });
   }
@@ -502,7 +508,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                 ),
                 const SizedBox(height: 12),
                 LinearProgressIndicator(
-                  value: (currentQuestionIndex + 1) / questions.length,
+                  value: _quizFinished ? 1.0 : currentQuestionIndex / questions.length,
                   minHeight: 6,
                 ),
                 const SizedBox(height: 24),
