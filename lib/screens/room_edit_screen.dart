@@ -14,6 +14,7 @@ import '../widgets/tutorial_overlay.dart';
 import '../widgets/tutorial_target.dart';
 import '../widgets/zoom_slider.dart';
 import '../games/room_world.dart';
+import '../widgets/scrollable_tab_bar_wrapper.dart';
 
 // App colour constants
 const _purple = Color(0xFF6B5B8C);
@@ -322,6 +323,7 @@ class _InventorySheetState extends State<_InventorySheet>
     Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
     Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
     Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'pets', itemSubtype: ItemSubtype.pets),
     Category(labelKey: 'doors', itemType: ItemType.door),
   ];
 
@@ -364,6 +366,12 @@ class _InventorySheetState extends State<_InventorySheet>
         return id.startsWith('kvietok_');
       case ItemSubtype.lighting:
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
+      case ItemSubtype.pets:
+        return id == 'hoblub' ||
+            id == 'morca' ||
+            id == 'zajacik' ||
+            id.startsWith('macka_') ||
+            id.startsWith('psik_');
     }
   }
 
@@ -405,6 +413,8 @@ class _InventorySheetState extends State<_InventorySheet>
         return Icons.lightbulb_outline;
       case 'doors':
         return Icons.door_front_door;
+      case 'pets':
+        return Icons.pets;
       default:
         return Icons.grid_view;
     }
@@ -426,13 +436,15 @@ class _InventorySheetState extends State<_InventorySheet>
       case 'carpets':
         return isSk ? 'Koberce' : 'Carpets';
       case 'wallDecor':
-        return isSk ? 'Steny' : 'Wall Decor';
+        return isSk ? 'Nástenné dekorácie' : 'Wall Decor';
       case 'plants':
         return isSk ? 'Rastliny' : 'Plants';
       case 'lighting':
         return isSk ? 'Svetlá' : 'Lighting';
       case 'doors':
         return isSk ? 'Dvere' : 'Doors';
+      case 'pets':
+        return isSk ? 'Zvieratá' : 'Pets';
       default:
         return key;
     }
@@ -502,17 +514,46 @@ class _InventorySheetState extends State<_InventorySheet>
               ),
 
               // ── Tab bar with scroll arrows ─────────────────────────
-              // The sheet background is _cream; pass it so the gradient
-              // fade blends correctly with the sheet colour.
-              _SheetTabBar(
+              ScrollableTabBarWrapper(
                 tabController: _tabController,
-                categories: _categories,
-                itemsForCategory: _itemsForCategory,
-                categoryIcon: _categoryIcon,
-                categoryLabel: _categoryLabel,
-                sheetColor: _cream,
-                accentColor: _purple,
-                accentLight: _purpleLight,
+                labelColor: _purple,
+                unselectedLabelColor: Colors.grey[500]!,
+                indicatorColor: _purple,
+                indicatorWeight: 2,
+                tabs: _categories.map((cat) {
+                  final count = _itemsForCategory(cat).length;
+                  return Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(_categoryIcon(cat.labelKey), size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          _categoryLabel(cat.labelKey),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        if (count > 0) ...[
+                          const SizedBox(width: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: _purple.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '$count',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: _purple,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }).toList(),
               ),
 
               const Divider(color: _purpleLight, height: 1),
@@ -713,10 +754,6 @@ class _InventorySheetState extends State<_InventorySheet>
 }
 
 // ── Sheet tab bar with scroll arrows ─────────────────────────────────────────
-//
-// Unlike AppBar.bottom (which uses PreferredSizeWidget), a bottom sheet needs
-// a plain widget. This StatefulWidget mirrors the scroll-arrow logic from
-// ScrollableTabBarWrapper but is sized by its content, not by preferredSize.
 
 class _SheetTabBar extends StatefulWidget {
   const _SheetTabBar({
@@ -867,34 +904,24 @@ class _SheetTabBarState extends State<_SheetTabBar> {
             ),
           ),
 
-          // Left arrow
-          AnimatedOpacity(
-            opacity: _canScrollLeft ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollLeft,
-              child: _SheetEdgeButton(
-                isLeft: true,
-                bg: widget.sheetColor,
-                color: widget.accentColor,
-                onTap: () => _scroll(-160),
-              ),
-            ),
+          // Left arrow — always visible, dims when at the start
+          _SheetEdgeButton(
+            isLeft: true,
+            bg: widget.sheetColor,
+            color: _canScrollLeft
+                ? widget.accentColor
+                : widget.accentColor.withOpacity(0.25),
+            onTap: () => _scroll(-160),
           ),
 
-          // Right arrow
-          AnimatedOpacity(
-            opacity: _canScrollRight ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 180),
-            child: IgnorePointer(
-              ignoring: !_canScrollRight,
-              child: _SheetEdgeButton(
-                isLeft: false,
-                bg: widget.sheetColor,
-                color: widget.accentColor,
-                onTap: () => _scroll(160),
-              ),
-            ),
+          // Right arrow — always visible, dims when at the end
+          _SheetEdgeButton(
+            isLeft: false,
+            bg: widget.sheetColor,
+            color: _canScrollRight
+                ? widget.accentColor
+                : widget.accentColor.withOpacity(0.25),
+            onTap: () => _scroll(160),
           ),
         ],
       ),

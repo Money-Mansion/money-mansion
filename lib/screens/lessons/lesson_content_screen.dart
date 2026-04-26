@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money_mansion/models/quiz_progress.dart';
 import 'package:money_mansion/my_flutter_app_icons.dart';
+import 'package:money_mansion/services/lesson_quiz_service.dart';
 import 'package:provider/provider.dart';
 import '../../models/lesson.dart';
 import '../../services/app_localizations_provider.dart';
 import 'lesson_quiz_screen.dart';
+import '../../services/quiz_progress_database_service.dart';
+import '../../services/quiz_service.dart' hide QuizQuestion;
 
 // ─────────────────────────────────────────────
 // DATA MODEL
@@ -2723,36 +2727,120 @@ class _LessonContentScreenState extends State<LessonContentScreen>
     }
   }
 
-  void _finishLesson() {
-    if (!mounted) return;
-    
-    // Stop animation to prevent issues during navigation
-    _animController.stop();
-    
-    if (widget.lesson.quizLessonId != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => LessonQuizScreen(
-            lessonId: widget.lesson.quizLessonId!,
-            lessonTitle: widget.lesson.title,
+  void _finishLesson() async {
+  if (!mounted) return;
+  _animController.stop();
+
+  if (widget.lesson.quizLessonId == null) {
+    Navigator.pop(context);
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(_isSk ? 'Lekcia dokončená! 🎉' : 'Lesson complete! 🎉'),
           ),
-        ),
-      );
-    } else {
-      Navigator.pop(context);
-      // Show snackbar after navigation pop completes
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(_isSk ? 'Lekcia dokončená! 🎉' : 'Lesson complete! 🎉'),
-            ),
-          );
-        }
-      });
-    }
+        );
+      }
+    });
+    return;
   }
+
+  // Check if quiz is locked before navigating
+  final quizInfo = await const LessonQuizService().getLessonInfo(
+    widget.lesson.quizLessonId!,
+    language: _isSk ? 'sk' : 'en',
+  );
+
+  if (!mounted) return;
+
+  bool isLocked = false;
+  if (quizInfo != null) {
+    isLocked = await _checkIfQuizLocked(quizInfo.sectionId, widget.lesson.quizLessonId!);
+  }
+
+  if (!mounted) return;
+
+  if (isLocked) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            const Icon(Icons.lock_rounded, color: Colors.orange),
+            const SizedBox(width: 10),
+            Text(_isSk ? 'Kvíz zamknutý' : 'Quiz Locked'),
+          ],
+        ),
+        content: Text(
+          _isSk
+              ? 'Tento kvíz ešte nie je odomknutý. Najprv dokonči predchádzajúce kvízy.'
+              : 'This quiz is not unlocked yet. Complete the previous quizzes first.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(_isSk ? 'Rozumiem' : 'Got it'),
+          ),
+        ],
+      ),
+    );
+    return;
+  }
+
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (_) => LessonQuizScreen(
+        lessonId: widget.lesson.quizLessonId!,
+        lessonTitle: widget.lesson.title,
+      ),
+    ),
+  );
+}
+
+Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
+  try {
+    final language = _isSk ? 'sk' : 'en';
+    final quizId = lessonId.toString();
+    final sections = await const QuizService().getAllSections(language: language);
+    final sectionIndex = sections.indexWhere((s) => s.id == sectionId);
+    if (sectionIndex == -1) return true;
+
+    final section = sections[sectionIndex];
+    final quizIndex = section.lessons.indexWhere((q) => q.id == quizId);
+    if (quizIndex == -1) return true;
+
+    final allProgress = await QuizProgressDatabaseService.getAllProgress();
+
+    if (quizIndex == 0) {
+      if (sectionIndex == 0) return false;
+      final previousSection = sections[sectionIndex - 1];
+      for (final prevQuiz in previousSection.lessons) {
+        final progress = allProgress.where(
+          (p) => p.quizId == prevQuiz.id && p.sectionId == previousSection.id,
+        ).firstOrNull;
+        if (progress == null || progress.getStatus() == QuizStatus.notDone) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    for (int i = 0; i < quizIndex; i++) {
+      final prevQuizId = section.lessons[i].id;
+      final progress = allProgress.where(
+        (p) => p.quizId == prevQuizId && p.sectionId == sectionId,
+      ).firstOrNull;
+      if (progress == null || progress.getStatus() == QuizStatus.notDone) {
+        return true;
+      }
+    }
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
 
   @override
   Widget build(BuildContext context) {

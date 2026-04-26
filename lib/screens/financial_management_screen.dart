@@ -344,11 +344,14 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                   TextField(
                     controller: amountController,
                     keyboardType: TextInputType.number,
+                    maxLength: 10,
                     decoration:
                         InputDecoration(labelText: l10n.translate('amount')),
                   ),
                   TextField(
                     controller: noteController,
+                    maxLength: 150,
+                    maxLines: 2,
                     decoration:
                         InputDecoration(labelText: l10n.translate('note')),
                   ),
@@ -764,7 +767,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         final date =
                             startDateNormalized.add(Duration(days: index));
                         return Text(
-                          '${date.day}.${date.month}',
+                          '${date.day}.${date.month}.',
                           style: const TextStyle(fontSize: 10),
                         );
                       },

@@ -283,6 +283,12 @@ class AppLocalizations {
       'furniture': 'Furniture',
       'realEstate': 'Real Estate',
       'comingSoon': 'Coming soon...',
+      'filter': 'Filter',
+      'noFilter': 'No Filter',
+      'sortByPriceLow': 'Sort by Price ↑',
+      'sortByPriceHigh': 'Sort by Price ↓',
+      'sortByNameAZ': 'Sort by Name (A-Z)',
+      'sortByNameZA': 'Sort by Name (Z-A)',
 
       // Calendar months
       'january': 'January',
@@ -477,7 +483,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialChrumkoIntro':
-          'Ahoj {name}! 👋 Som Chrumko, tvoj osobný sprievodca svetom peňazí a financií! Dovoľ mi, aby som ti pomohol prevziať kontrolu nad svojimi financiami, naučiť sa múdrym finančným návykom a vybudovať svoj vysnívané sídlo. Si pripravený začať?',
+          'Ahoj {name}! 👋 Som Chrumko, tvoj osobný sprievodca svetom peňazí a financií! Dovoľ mi, aby som ti pomohol prevziať kontrolu nad svojimi financiami, naučiť sa múdrym finančným návykom a vybudovať svoje vysnívané sídlo. Si pripravený začať?',
       'tutorialTopBar':
           'Mince získavaš v hre, peniaze sledujú tvoje skutočné financie a tvoj Streak 🔥 rastie, keď každý deň dokončíš kvíz, {name}.',
       'tutorialFinancialIntro':
@@ -485,7 +491,7 @@ class AppLocalizations {
       'tutorialFinancialTabs':
           'Použi karty hore, {name}: Spolu ukazuje všetko, Príjem ukazuje zisky a Výdaj ukazuje nákupy. Ja si vždy prezerám všetky tri!',
       'tutorialShopCategories':
-          'Milujem prezeranie kategórií, {name} — Nábytok, Dekor, Dvere, Steny, Podlahy. Každá má iné predmety na vylepšenie sídla!',
+          'Milujem prezeranie kategórií, {name} — Tapety, Posedenie, Úložný priestor, Postele, Podlahy. Každá má iné predmety na vylepšenie sídla!',
       'tutorialGoalsIntro':
           'Tu su tvoje ciele sporenia, {name}! Kazdy ciel ma cielovu sumu, termin a AI urcenu odmenu. Sikovne, nie?',
       'tutorialGoalsAssign':
@@ -495,11 +501,11 @@ class AppLocalizations {
       'tutorialGoalsComplete':
           'Ked ciel dosiahne 100 %, zaskrtni policko a dokonci ho, {name}. Za splneny ciel dostanes AI urcenu odmenu v minciach.',
       'tutorialRoomExplain':
-          'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartových predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
+          'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartovných predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
-          'V Nastaveniach môžeš zmeniť jazyk, zapnúť/vypnúť hudbu na pozadí, nastaviť hlasitosť a aktualizovať svoj profil, {name}. Pokojne si všetko prezri!',
+          'V nastaveniach môžeš zmeniť jazyk, zapnúť hudbu, aktualizovať svoj profil a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady, {name}!',
       'tutorialHomeWelcome':
-          'Hore vidíš svoje Mince 🪙, Peniaze 💶 a Streak 🔥, {name}. Streak si buduješ tým, že každý deň dokončíš kvíz.',
+          'Hore vidíš svoje Mince 🪙, Peniaze 💵 a Streak 🔥, {name}.',
       'tutorialHomeBalance':
           'Hore vidíš svoje mince a peniaze, {name}. To sú tvoje najdôležitejšie zdroje — narábaj s nimi múdro!',
       'tutorialShop':
@@ -515,15 +521,13 @@ class AppLocalizations {
       'tutorialGoalsAction':
           'Klepni na + a vytvor cieľ, {name}. Ja odporúčam začať niečím dosiahnuteľným — malé víťazstvá budujú skvelé návyky!',
       'tutorialGoalsNav':
-          'Ďalej, {name} — karta Ciele! Zbožňujem stanovovať si ciele sporenia. Ukážem ti kde ich nájdeš.',
+          'Ďalej, {name} — karta Ciele! Zbožňujem stanovovať si ciele sporenia. Ukážem ti, kde ich nájdeš.',
       'tutorialInventory':
           'V inventári mám prehľad o všetkom, čo vlastním, {name}. Prehľad je základ!',
       'tutorialInventoryNav':
           'Pozrime sa do Inventára, {name}! Tam sú uložené všetky predmety, ktoré vlastníš.',
       'tutorialInventoryAction':
           'Tu sú tvoje vlastnené predmety, {name}. Ja si vždy sledujem, čo mám — vedomosti sú sila!',
-      'tutorialSettings':
-          'V nastaveniach môžeš zmeniť jazyk, zapnúť hudbu a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady, {name}!',
       'tutorialDoAction': 'Vykonaj túto akciu, {name}, aby si pokračoval.',
       'tutorialAddTransaction':
           'Klepni na + a pridaj transakciu, {name}. Ja si zaznamenávam každú — je to základ!',
@@ -539,7 +543,7 @@ class AppLocalizations {
       'tutorialRoomEdit':
           'Tu si môžeš prispôsobiť svoje sídlo, {name}! Verím, že dobré prostredie motivuje k lepším finančným rozhodnutiam.',
       'tutorialRoomEditIntro':
-          'Vitaj v režime úprav, {name}! Potiahnutím jedným prstom posunieš pohľad, priblíženie spravíš štipnutím dvoma prstami, a keď budeš pripravený, klepni na fialové tlačidlo inventára.',
+          'Vitaj v režime úprav, {name}! Potiahnutím jedným prstom posunieš pohľad a priblíženie spravíš štipnutím dvoma prstami.',
       'tutorialRoomEditInventory':
           'Klepni na inventár — uvidíš všetko, čo vlastníš, {name}. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
       'tutorialRoomEditPlace':
@@ -553,7 +557,7 @@ class AppLocalizations {
       'tutorialShopNav':
           'Poďme sa pozrieť do Obchodu, {name}! Ja vždy prehliadam pred nákupom — múdre nakupovanie začína poznaním možností.',
       'tutorialShopAction':
-          'Prezri si tovar a kúp, čo sa ti páči, {name}. Len pamätaj — míňaj len to, čo si môžeš dovoliť! Ja sa vždy riadim týmto pravidlom. 😄',
+          'Prezri si tovar a kúp, čo sa ti páči, {name}. Len pamätaj — míňaj len to, čo si môžeš dovoliť! Ja sa vždy riadim týmto pravidlom.',
       'tutorialSettingsAction':
           'Otvor nastavenia a uprav jazyk alebo hudbu, {name}.',
 
@@ -703,6 +707,12 @@ class AppLocalizations {
       'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
       'comingSoon': 'Čoskoro...',
+      'filter': 'Filter',
+      'noFilter': 'Bez filtra',
+      'sortByPriceLow': 'Zoradiť podľa ceny ↑',
+      'sortByPriceHigh': 'Zoradiť podľa ceny ↓',
+      'sortByNameAZ': 'Zoradiť podľa názvu (A-Z)',
+      'sortByNameZA': 'Zoradiť podľa názvu (Z-A)',
 
       // Calendar months
       'january': 'Január',
@@ -821,7 +831,7 @@ class AppLocalizations {
       'quizNoQuestions': 'Žiadne otázky pre túto lekciu',
       'quizError': 'Chyba: ',
       'locked': 'Zamknuté',
-      'quizCoinReward': '+{coins} mincí!',
+      'quizCoinReward': '+{coins} mince!',
       'quizQuestion': 'Otázka {current}/{total}',
       'quizCorrectCount': 'Správne: {count}',
       'quizAnswerCorrect': '✓ Správne!',

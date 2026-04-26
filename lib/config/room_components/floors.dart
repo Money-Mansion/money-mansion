@@ -46,7 +46,7 @@ final List<RoomComponent> floorComponents = [
   RoomComponent(
     id: 'floor_basic',
     name: 'klasická podlaha',
-    nameEn: 'basic Floor',
+    nameEn: 'basic floor',
     type: RoomComponentType.floor,
     texture: 'assets/images/room/basic_floor.png',
     cost: 70, // Starting floor is free (default)
@@ -54,7 +54,7 @@ final List<RoomComponent> floorComponents = [
   RoomComponent(
     id: 'floor_wood_squares',
     name: 'drevené dlaždice',
-    nameEn: 'wooden Squares',
+    nameEn: 'wooden squares',
     type: RoomComponentType.floor,
     texture: 'assets/images/room/floor_wood_squares.png',
     cost: 70, // Starting floor is free (default)
@@ -86,7 +86,7 @@ final List<RoomComponent> floorComponents = [
   RoomComponent(
     id: 'floor_ruined1',
     name: 'zničená podlaha 1',
-    nameEn: 'ruined Floor 1',
+    nameEn: 'ruined floor 1',
     type: RoomComponentType.floor,
     texture: 'assets/images/room/floor_ruined1.png',
     cost: 5,
@@ -94,7 +94,7 @@ final List<RoomComponent> floorComponents = [
   RoomComponent(
     id: 'floor_ruined2',
     name: 'zničená podlaha 2',
-    nameEn: 'ruined Floor 2',
+    nameEn: 'ruined floor 2',
     type: RoomComponentType.floor,
     texture: 'assets/images/room/floor_ruined2.png',
     cost: 5,

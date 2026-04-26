@@ -25,6 +25,8 @@ class ShopScreen extends StatefulWidget {
   State<ShopScreen> createState() => _ShopScreenState();
 }
 
+enum _SortBy { none, priceLow, priceHigh, nameAZ, nameZA }
+
 class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
   List<Item> _shopItems = [];
@@ -32,6 +34,7 @@ class _ShopScreenState extends State<ShopScreen>
   Map<String, int> _placedItemCounts = {};
   bool _isLoading = true;
   late TabController _tabController;
+  _SortBy _sortBy = _SortBy.none;
 
   // ---------------------------------------------------------------------------
   // Categories
@@ -58,6 +61,7 @@ class _ShopScreenState extends State<ShopScreen>
     Category(labelKey: 'wallDecor', itemSubtype: ItemSubtype.wallDecor),
     Category(labelKey: 'plants', itemSubtype: ItemSubtype.plants),
     Category(labelKey: 'lighting', itemSubtype: ItemSubtype.lighting),
+    Category(labelKey: 'pets', itemSubtype: ItemSubtype.pets),
     Category(labelKey: 'doors', itemType: ItemType.door),
   ];
 
@@ -157,6 +161,12 @@ class _ShopScreenState extends State<ShopScreen>
       case ItemSubtype.lighting:
         // No items yet — placeholder for future lamps, etc.
         return id.startsWith('lampa_') || id.startsWith('svetlo_');
+      case ItemSubtype.pets:
+        return id == 'hoblub' ||
+            id == 'morca' ||
+            id == 'zajacik' ||
+            id.startsWith('macka_') ||
+            id.startsWith('psik_');
     }
   }
 
@@ -189,9 +199,122 @@ class _ShopScreenState extends State<ShopScreen>
     return [];
   }
 
-  // ---------------------------------------------------------------------------
-  // Build
-  // ---------------------------------------------------------------------------
+  List<dynamic> _applySorting(
+      List<dynamic> items, String language) {
+    final itemsToSort = List<dynamic>.from(items);
+
+    switch (_sortBy) {
+      case _SortBy.priceLow:
+        itemsToSort.sort((a, b) {
+          final aCost = a is Item ? a.cost : (a as RoomComponent).cost;
+          final bCost = b is Item ? b.cost : (b as RoomComponent).cost;
+          return aCost.compareTo(bCost);
+        });
+        break;
+      case _SortBy.priceHigh:
+        itemsToSort.sort((a, b) {
+          final aCost = a is Item ? a.cost : (a as RoomComponent).cost;
+          final bCost = b is Item ? b.cost : (b as RoomComponent).cost;
+          return bCost.compareTo(aCost);
+        });
+        break;
+      case _SortBy.nameAZ:
+        itemsToSort.sort((a, b) {
+          final aName = a is Item
+              ? a.localizedName(language)
+              : (a as RoomComponent).localizedName(language);
+          final bName = b is Item
+              ? b.localizedName(language)
+              : (b as RoomComponent).localizedName(language);
+          return aName.compareTo(bName);
+        });
+        break;
+      case _SortBy.nameZA:
+        itemsToSort.sort((a, b) {
+          final aName = a is Item
+              ? a.localizedName(language)
+              : (a as RoomComponent).localizedName(language);
+          final bName = b is Item
+              ? b.localizedName(language)
+              : (b as RoomComponent).localizedName(language);
+          return bName.compareTo(aName);
+        });
+        break;
+      case _SortBy.none:
+        break;
+    }
+
+    return itemsToSort;
+  }
+
+  void _showFilterDialog(AppLocalizationsProvider l10n) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(l10n.translate('filter')),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile<_SortBy>(
+              title: Text(l10n.translate('noFilter') ?? 'No Filter'),
+              value: _SortBy.none,
+              groupValue: _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value ?? _SortBy.none;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<_SortBy>(
+              title: Text(l10n.translate('sortByPriceLow') ?? 'Sort by Price (Low to High)'),
+              value: _SortBy.priceLow,
+              groupValue: _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value ?? _SortBy.priceLow;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<_SortBy>(
+              title: Text(l10n.translate('sortByPriceHigh') ?? 'Sort by Price (High to Low)'),
+              value: _SortBy.priceHigh,
+              groupValue: _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value ?? _SortBy.priceHigh;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<_SortBy>(
+              title: Text(l10n.translate('sortByNameAZ') ?? 'Sort by Name (A-Z)'),
+              value: _SortBy.nameAZ,
+              groupValue: _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value ?? _SortBy.nameAZ;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<_SortBy>(
+              title: Text(l10n.translate('sortByNameZA') ?? 'Sort by Name (Z-A)'),
+              value: _SortBy.nameZA,
+              groupValue: _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  _sortBy = value ?? _SortBy.nameZA;
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,18 +378,37 @@ class _ShopScreenState extends State<ShopScreen>
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : TabBarView(
-              controller: _tabController,
-              children: _categories.map((cat) {
-                final items = _itemsForCategory(cat);
-                if (cat.labelKey == 'all') {
-                  return _buildMixedGrid(items, l10n, language);
-                }
-                return cat.isRoomComponent
-                    ? _buildRoomComponentGrid(
-                        items as List<RoomComponent>, l10n, language)
-                    : _buildItemGrid(items as List<Item>, l10n, language);
-              }).toList(),
+          : Stack(
+              children: [
+                TabBarView(
+                  controller: _tabController,
+                  children: _categories.map((cat) {
+                    final items = _itemsForCategory(cat);
+                    final sortedItems = _applySorting(items, language);
+                    if (cat.labelKey == 'all') {
+                      return _buildMixedGrid(sortedItems, l10n, language);
+                    }
+                    return cat.isRoomComponent
+                        ? _buildRoomComponentGrid(
+                            sortedItems.cast<RoomComponent>(), l10n, language)
+                        : _buildItemGrid(sortedItems.cast<Item>(), l10n, language);
+                  }).toList(),
+                ),
+                Positioned(
+                  bottom: 16,
+                  right: 16,
+                  child: FloatingActionButton(
+                    mini: true,
+                    onPressed: () => _showFilterDialog(l10n),
+                    backgroundColor: Colors.deepPurple,
+                    tooltip: l10n.translate('filter') ?? 'Filter',
+                    child: Icon(
+                      _sortBy == _SortBy.none ? Icons.filter_list : Icons.filter_list_alt,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
     );
   }
@@ -697,6 +839,8 @@ class _ShopScreenState extends State<ShopScreen>
         return Icons.lightbulb_outline;
       case 'doors':
         return Icons.door_front_door;
+      case 'pets':
+        return Icons.pets;
       default:
         return Icons.grid_view;
     }
@@ -729,7 +873,7 @@ class _ShopScreenState extends State<ShopScreen>
       case 'carpets':
         return isSk ? 'Koberce' : 'Carpets';
       case 'wallDecor':
-        return isSk ? 'Steny' : 'Wall Decor';
+        return isSk ? 'Nástenné dekorácie' : 'Wall Decor';
       case 'plants':
         return isSk ? 'Rastliny' : 'Plants';
       case 'lighting':
@@ -740,6 +884,8 @@ class _ShopScreenState extends State<ShopScreen>
         return isSk ? 'Tapety' : 'Walls';
       case 'floors':
         return isSk ? 'Podlahy' : 'Floors';
+      case 'pets':
+        return isSk ? 'Zvieratá' : 'Pets';
       default:
         return key;
     }

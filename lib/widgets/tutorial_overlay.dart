@@ -294,10 +294,6 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                 ),
 
               // ── Chrumko dialogue ─────────────────────────────────────────
-              // Positioned at top or bottom, sized to wrap content only.
-              // The gradient backdrop is IgnorePointer so taps pass through it.
-              // Only the white bubble and skip button capture touches.
-              // Respects SafeArea padding on all sides.
               Positioned(
                 left: safeAreaPadding.left,
                 right: safeAreaPadding.right,
@@ -319,7 +315,7 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
                   tapToContinueLabel: l10n.translate('tutorialTapToContinue'),
                   tapToFinishLabel: l10n.translate('tutorialTapToFinish'),
                   speakerName: l10n.translate('tutorialSpeakerName'),
-                  showSpeakerName: step.id != 'home_intro',
+                  showSpeakerName: step.id != 'chrumko_intro',
                 ),
               ),
             ],
@@ -370,7 +366,6 @@ class _ChrumkoDialogue extends StatelessWidget {
           dialogueAtTop ? CrossAxisAlignment.start : CrossAxisAlignment.end,
       children: [
         // ── Chrumko character image ─────────────────────────────────────
-        // IgnorePointer so touches pass through to the app beneath.
         IgnorePointer(
           child: SizedBox(
             width: 100,
@@ -386,7 +381,7 @@ class _ChrumkoDialogue extends StatelessWidget {
         ),
         const SizedBox(width: 8),
 
-        // ── Speech bubble (the only tappable area) ──────────────────────
+        // ── Speech bubble ──────────────────────────────────────────────
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(
@@ -404,9 +399,8 @@ class _ChrumkoDialogue extends StatelessWidget {
                     painter: _BubbleTailPainter(pointUp: false),
                   ),
 
-                // White bubble — tappable to continue on passive steps
                 GestureDetector(
-                  onTap: canTapToContinue ? onContinue : null,
+                  onTap: null,
                   child: Material(
                     color: Colors.white,
                     elevation: 8,
@@ -441,14 +435,24 @@ class _ChrumkoDialogue extends StatelessWidget {
                                   ),
                                 ],
                                 const Spacer(),
-                                // Tap-to-continue hint on passive steps
-                                if (canTapToContinue && !isFinish)
-                                  Text(
-                                    tapToContinueLabel,
-                                    style: const TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic,
+                                // Tappable skip button in the header — very subtle
+                                if (!isFinish)
+                                  TextButton(
+                                    onPressed: onSkip,
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.grey[400],
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4, vertical: 2),
+                                      minimumSize: Size.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    child: Text(
+                                      skipLabel,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
                                   ),
                                 if (isFinish)
@@ -488,26 +492,41 @@ class _ChrumkoDialogue extends StatelessWidget {
                             ),
                           ],
 
-                          // Skip button — only non-finish steps
-                          if (!isFinish) ...[
+                          // Continue button only — skip is now in the header
+                          if (!isFinish && canTapToContinue) ...[
                             const SizedBox(height: 8),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: onSkip,
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.grey[500],
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 4),
-                                  minimumSize: Size.zero,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.deepOrange.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Colors.deepOrange,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: TextButton(
+                                    onPressed: onContinue,
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.deepOrange,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 6),
+                                      minimumSize: Size.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    child: Text(
+                                      tapToContinueLabel,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                child: Text(
-                                  skipLabel,
-                                  style: const TextStyle(fontSize: 12),
-                                ),
-                              ),
+                              ],
                             ),
                           ],
                         ],

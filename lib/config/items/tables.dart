@@ -135,7 +135,7 @@ final List<Item> tableItems = [
   Item(
     id: 'stol_salvador_dali',
     name: 'stôl Salvador Dali',
-    nameEn: 'Salvador Dali Table',
+    nameEn: 'Salvador Dali table',
     type: ItemType.furniture,
     texture: 'assets/images/items/stol_salvador_dali.png',
     cost: 160,

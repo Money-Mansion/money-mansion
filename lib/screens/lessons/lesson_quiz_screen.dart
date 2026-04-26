@@ -5,7 +5,6 @@ import '../../services/quiz_progress_database_service.dart';
 import '../../services/quiz_service.dart' hide QuizQuestion;
 import '../../services/streak_service.dart';
 import '../../services/app_localizations_provider.dart';
-import '../../services/app_localizations.dart';
 import '../../models/game_state.dart';
 import '../../models/quiz_progress.dart';
 
@@ -36,6 +35,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   LessonQuizInfo? quizInfo;
   bool _initialized = false;
   bool _isQuizLocked = false; // Track if quiz is locked in progression
+  bool _quizFinished = false; // Track if quiz is finished to show 100% progress
 
   @override
   void initState() {
@@ -231,7 +231,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       SnackBar(
         duration: const Duration(milliseconds: 1200),
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 100, left: 16, right: 16),
+        margin: const EdgeInsets.only(bottom: 160, left: 16, right: 16),
         backgroundColor: const Color(0xFF4CAF50),
         content: Row(
           mainAxisSize: MainAxisSize.min,
@@ -268,6 +268,11 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   void _showResults() {
     final score = ((correctAnswers / questions.length) * 100).toInt();
     final l10nProvider = context.read<AppLocalizationsProvider>();
+
+    // Mark quiz as finished to show 100% progress
+    setState(() {
+      _quizFinished = true;
+    });
 
     showDialog(
       context: context,
@@ -385,9 +390,25 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             child: Text(l10nProvider.translate('quizClose')),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              // Save progress FIRST (same as Close), then restart quiz
+              if (quizInfo != null && !_isQuizLocked) {
+                await QuizProgressDatabaseService.updateScore(
+                  quizInfo!.sectionId,
+                  widget.lessonId.toString(),
+                  score,
+                );
+                // Update streak when quiz is completed
+                final newStreak = await StreakService.onQuizCompleted();
+                // Update GameState so TopBar shows the new streak
+                if (mounted) {
+                  context.read<GameState>().setCurrentStreak(newStreak);
+                }
+              }
+              // Notify parent that quiz is complete
+              widget.onQuizCompleted?.call();
               Navigator.pop(dialogContext); // Close dialog only
-              _resetQuiz(); // Reset and restart
+              _resetQuiz(); // Reset and restart quiz
             },
             child: Text(l10nProvider.translate('quizRetry')),
           ),
@@ -403,6 +424,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       showFeedback = false;
       isCorrect = null;
       selectedAnswer = null;
+      _quizFinished = false; // Reset quiz finished flag
       questionsFuture = _loadQuestionsAsync();
     });
   }
@@ -486,7 +508,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                 ),
                 const SizedBox(height: 12),
                 LinearProgressIndicator(
-                  value: (currentQuestionIndex + 1) / questions.length,
+                  value: _quizFinished ? 1.0 : currentQuestionIndex / questions.length,
                   minHeight: 6,
                 ),
                 const SizedBox(height: 24),
