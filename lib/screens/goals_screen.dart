@@ -327,6 +327,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         child: TextField(
                           controller: _titleController,
                           focusNode: titleFocusNode,
+                          maxLength: 80,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           onChanged: (_) {
                             if (titleError != null || generalWarning != null) {
@@ -350,6 +351,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         child: TextField(
                           controller: _descriptionController,
                           focusNode: descriptionFocusNode,
+                          maxLength: 400,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           onChanged: (_) {
                             if (descriptionError != null ||
@@ -397,6 +399,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         child: TextField(
                           controller: _targetMoneyController,
                           focusNode: amountFocusNode,
+                          maxLength: 50,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           decoration: InputDecoration(
                             labelText: l10n.translate('goalAmount'),

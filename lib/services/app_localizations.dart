@@ -285,6 +285,12 @@ class AppLocalizations {
       'furniture': 'Furniture',
       'realEstate': 'Real Estate',
       'comingSoon': 'Coming soon...',
+      'filter': 'Filter',
+      'noFilter': 'No Filter',
+      'sortByPriceLow': 'Sort by Price ↑',
+      'sortByPriceHigh': 'Sort by Price ↓',
+      'sortByNameAZ': 'Sort by Name (A-Z)',
+      'sortByNameZA': 'Sort by Name (Z-A)',
 
       // Calendar months
       'january': 'January',
@@ -704,6 +710,12 @@ class AppLocalizations {
       'furniture': 'Nábytok',
       'realEstate': 'Nehnuteľnosti',
       'comingSoon': 'Čoskoro...',
+      'filter': 'Filter',
+      'noFilter': 'Bez filtra',
+      'sortByPriceLow': 'Zoradiť podľa ceny ↑',
+      'sortByPriceHigh': 'Zoradiť podľa ceny ↓',
+      'sortByNameAZ': 'Zoradiť podľa názvu (A-Z)',
+      'sortByNameZA': 'Zoradiť podľa názvu (Z-A)',
 
       // Calendar months
       'january': 'Január',

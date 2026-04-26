@@ -435,21 +435,24 @@ class _ChrumkoDialogue extends StatelessWidget {
                                   ),
                                 ],
                                 const Spacer(),
-                                // Tappable skip button in the header
+                                // Tappable skip button in the header — very subtle
                                 if (!isFinish)
                                   TextButton(
                                     onPressed: onSkip,
                                     style: TextButton.styleFrom(
-                                      foregroundColor: Colors.grey[500],
+                                      foregroundColor: Colors.grey[400],
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 4),
+                                          horizontal: 4, vertical: 2),
                                       minimumSize: Size.zero,
                                       tapTargetSize:
                                           MaterialTapTargetSize.shrinkWrap,
                                     ),
                                     child: Text(
                                       skipLabel,
-                                      style: const TextStyle(fontSize: 12),
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
                                   ),
                                 if (isFinish)
@@ -495,19 +498,32 @@ class _ChrumkoDialogue extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                TextButton(
-                                  onPressed: onContinue,
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Colors.grey[500],
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 6, vertical: 4),
-                                    minimumSize: Size.zero,
-                                    tapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.deepOrange.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Colors.deepOrange,
+                                      width: 1.5,
+                                    ),
                                   ),
-                                  child: Text(
-                                    tapToContinueLabel,
-                                    style: const TextStyle(fontSize: 12),
+                                  child: TextButton(
+                                    onPressed: onContinue,
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.deepOrange,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 6),
+                                      minimumSize: Size.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    child: Text(
+                                      tapToContinueLabel,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
