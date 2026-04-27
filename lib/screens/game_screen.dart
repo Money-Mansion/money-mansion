@@ -214,6 +214,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
       case 4:
         return SettingsScreen(
           gameState: gameState,
+          onBack: () => setState(() => selectedNavIndex = -1),
         );
       default:
         return Padding(
@@ -335,14 +336,23 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
       );
     }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SafeArea(
-            child: Column(
-              children: [
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+        // If a sub-screen is open in GameScreen body, close it
+        if (selectedNavIndex != -1) {
+          setState(() => selectedNavIndex = -1);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            SafeArea(
+              child: Column(
+                children: [
                 TopBar(gameState: gameState),
                 Expanded(child: _getCurrentScreen(localizationsProvider)),
                 BottomNavigation(
@@ -455,7 +465,6 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
               },
               child: const Icon(Icons.delete, color: Colors.white),
             )
-          : null,
-    );
+          : null,      ),    );
   }
 }

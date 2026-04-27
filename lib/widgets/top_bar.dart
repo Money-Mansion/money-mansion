@@ -57,8 +57,10 @@ class _TopBarState extends State<TopBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            SettingsScreen(gameState: widget.gameState),
+                        builder: (context) => SettingsScreen(
+                          gameState: widget.gameState,
+                          onBack: () => Navigator.pop(context),
+                        ),
                       ),
                     );
                   },

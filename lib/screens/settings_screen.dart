@@ -11,10 +11,12 @@ import 'privacy_policy_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final GameState gameState;
+  final VoidCallback onBack;
 
   const SettingsScreen({
     super.key,
     required this.gameState,
+    required this.onBack,
   });
 
   @override
