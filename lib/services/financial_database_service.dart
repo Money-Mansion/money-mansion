@@ -3,12 +3,14 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'dart:io' show Platform, File;
 import '../models/transaction.dart';
+import '../models/goal_allocation.dart';
 
 class FinancialDatabaseService {
   static const _dbName = 'money_mansion.db';
   static const _transactionsTable = 'transactions';
+  static const _allocationsTable = 'goal_allocations';
   static const _gameStateTable = 'game_state';
-  static const _dbVersion = 4;
+  static const _dbVersion = 5;
 
   static Database? _database;
   static bool _initialized = false;
@@ -47,21 +49,24 @@ class FinancialDatabaseService {
       onUpgrade: (db, oldVersion, newVersion) async {
         // Ensure all tables exist for any upgrade
         await _ensureTransactionsTable(db);
+        await _ensureAllocationsTable(db);
         await _ensureGameStateTable(db);
-        await _ensureGoalIdColumn(db);
+        await _migrateLegacyGoalIdData(db);
       },
       onOpen: (db) async {
         await _ensureTransactionsTable(db);
+        await _ensureAllocationsTable(db);
         await _ensureGameStateTable(db);
-        await _ensureGoalIdColumn(db);
+        await _migrateLegacyGoalIdData(db);
       },
     );
   }
 
   static Future<void> _ensureAllTables(Database db) async {
     await _ensureTransactionsTable(db);
+    await _ensureAllocationsTable(db);
     await _ensureGameStateTable(db);
-    await _ensureGoalIdColumn(db);
+    await _migrateLegacyGoalIdData(db);
   }
 
   static Future<void> clearAndReinitialize() async {
@@ -93,8 +98,16 @@ class FinancialDatabaseService {
         type TEXT NOT NULL,
         amount REAL NOT NULL,
         note TEXT,
-        date INTEGER NOT NULL,
-        goalId TEXT
+        date INTEGER NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS $_allocationsTable (
+        id TEXT PRIMARY KEY,
+        goalId TEXT NOT NULL,
+        amount REAL NOT NULL,
+        dateAllocated INTEGER NOT NULL
       )
     ''');
 
@@ -118,8 +131,7 @@ class FinancialDatabaseService {
         type TEXT NOT NULL,
         amount REAL NOT NULL,
         note TEXT,
-        date INTEGER NOT NULL,
-        goalId TEXT
+        date INTEGER NOT NULL
       )
     ''');
   }
@@ -133,13 +145,66 @@ class FinancialDatabaseService {
     ''');
   }
 
-  static Future<void> _ensureGoalIdColumn(Database db) async {
-    final columns = await db.rawQuery('PRAGMA table_info($_transactionsTable)');
-    final columnNames = columns.map((c) => c['name'] as String).toSet();
-    if (!columnNames.contains('goalId')) {
-      await db.execute(
-        'ALTER TABLE $_transactionsTable ADD COLUMN goalId TEXT',
+  static Future<void> _ensureAllocationsTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS $_allocationsTable (
+        id TEXT PRIMARY KEY,
+        goalId TEXT NOT NULL,
+        amount REAL NOT NULL,
+        dateAllocated INTEGER NOT NULL
+      )
+    ''');
+  }
+
+  /// Migrates legacy goalId data from transactions table to allocations table
+  static Future<void> _migrateLegacyGoalIdData(Database db) async {
+    try {
+      // Check if old goalId column exists
+      final columns = await db.rawQuery('PRAGMA table_info($_transactionsTable)');
+      final hasGoalId = columns.any((c) => c['name'] == 'goalId');
+      
+      if (!hasGoalId) return; // Already migrated or never had goalId
+      
+      // Check if any data with goalId exists
+      final result = await db.query(
+        _transactionsTable,
+        where: 'goalId IS NOT NULL',
+        limit: 1,
       );
+      
+      if (result.isEmpty) {
+        // No legacy data to migrate, safe to remove goalId column
+        return;
+      }
+      
+      // Migrate: create allocations for each transaction with goalId
+      final legacyTransactions = await db.query(
+        _transactionsTable,
+        where: 'goalId IS NOT NULL',
+      );
+      
+      for (var txn in legacyTransactions) {
+        final goalId = txn['goalId'] as String;
+        final amount = txn['amount'] as num;
+        final date = txn['date'] as int;
+        final txnId = txn['id'] as String;
+        
+        // Create allocation entry
+        await db.insert(
+          _allocationsTable,
+          {
+            'id': '${txnId}_allocation',
+            'goalId': goalId,
+            'amount': amount,
+            'dateAllocated': date,
+          },
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      }
+      
+      print('Migrated legacy goalId data to allocations table');
+    } catch (e) {
+      print('Error migrating legacy goalId data: $e');
     }
   }
 
@@ -289,7 +354,6 @@ class FinancialDatabaseService {
       amount: (m['amount'] as num).toDouble(),
       note: m['note'] as String? ?? '',
       date: DateTime.fromMillisecondsSinceEpoch(m['date'] as int),
-      goalId: m['goalId'] as String?,
     )).toList();
   }
 
@@ -317,10 +381,65 @@ class FinancialDatabaseService {
     await db.delete(_transactionsTable, where: 'id = ?', whereArgs: [id]);
   }
 
-  // DEBUG: Clear all financial data (coins, money, and transactions)
+  // ===== GOAL ALLOCATIONS =====
+
+  static Future<List<GoalAllocation>> getAllAllocations() async {
+    final db = await database;
+    final maps = await db.query(_allocationsTable);
+    return maps.map((m) => GoalAllocation(
+      id: m['id'] as String,
+      goalId: m['goalId'] as String,
+      amount: (m['amount'] as num).toDouble(),
+      dateAllocated: DateTime.fromMillisecondsSinceEpoch(m['dateAllocated'] as int),
+    )).toList();
+  }
+
+  static Future<List<GoalAllocation>> getAllocationsForGoal(String goalId) async {
+    final db = await database;
+    final maps = await db.query(
+      _allocationsTable,
+      where: 'goalId = ?',
+      whereArgs: [goalId],
+    );
+    return maps.map((m) => GoalAllocation(
+      id: m['id'] as String,
+      goalId: m['goalId'] as String,
+      amount: (m['amount'] as num).toDouble(),
+      dateAllocated: DateTime.fromMillisecondsSinceEpoch(m['dateAllocated'] as int),
+    )).toList();
+  }
+
+  static Future<void> insertAllocation(GoalAllocation allocation) async {
+    final db = await database;
+    await db.insert(_allocationsTable, allocation.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  static Future<void> updateAllocation(GoalAllocation allocation) async {
+    final db = await database;
+    await db.update(
+      _allocationsTable,
+      allocation.toMap(),
+      where: 'id = ?',
+      whereArgs: [allocation.id],
+    );
+  }
+
+  static Future<void> deleteAllocation(String id) async {
+    final db = await database;
+    await db.delete(_allocationsTable, where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<void> deleteAllocationsForGoal(String goalId) async {
+    final db = await database;
+    await db.delete(_allocationsTable, where: 'goalId = ?', whereArgs: [goalId]);
+  }
+
+  // DEBUG: Clear all financial data (coins, money, transactions, and allocations)
   static Future<void> clearAllFinancialData() async {
     final db = await database;
     await db.delete(_transactionsTable);
+    await db.delete(_allocationsTable);
     await db.delete(_gameStateTable);
     print('Cleared all financial data from database');
   }

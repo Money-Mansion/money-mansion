@@ -6,7 +6,7 @@ import '../models/goal.dart';
 class GoalDatabaseService {
   static const String _tableName = 'goals';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 3;
+  static const int _dbVersion = 5;  // MUST match FinancialDatabaseService version
 
   static Database? _database;
   static bool _initialized = false;
@@ -60,10 +60,9 @@ class GoalDatabaseService {
         challengeScore INTEGER NOT NULL DEFAULT 50,
         rewardCoins INTEGER NOT NULL,
         targetMoney REAL NOT NULL DEFAULT 0,
-        allocatedMoney REAL NOT NULL DEFAULT 0,
         milestonesAwarded INTEGER NOT NULL DEFAULT 0,
         dueDate INTEGER NOT NULL,
-        isCompleted INTEGER NOT NULL DEFAULT 0
+        dateCompleted INTEGER
       )
     ''');
 
@@ -84,14 +83,10 @@ class GoalDatabaseService {
     final columns = await db.rawQuery('PRAGMA table_info($_tableName)');
     final columnNames = columns.map((c) => c['name'] as String).toSet();
 
+    // Add new columns if they don't exist
     if (!columnNames.contains('targetMoney')) {
       await db.execute(
         'ALTER TABLE $_tableName ADD COLUMN targetMoney REAL NOT NULL DEFAULT 0',
-      );
-    }
-    if (!columnNames.contains('allocatedMoney')) {
-      await db.execute(
-        'ALTER TABLE $_tableName ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
       );
     }
     if (!columnNames.contains('challengeScore')) {
@@ -104,6 +99,15 @@ class GoalDatabaseService {
         'ALTER TABLE $_tableName ADD COLUMN milestonesAwarded INTEGER NOT NULL DEFAULT 0',
       );
     }
+    if (!columnNames.contains('dateCompleted')) {
+      await db.execute(
+        'ALTER TABLE $_tableName ADD COLUMN dateCompleted INTEGER',
+      );
+    }
+
+    // Remove obsolete columns (SQLite doesn't support DROP COLUMN easily for older versions)
+    // allocatedMoney and isCompleted are no longer used
+    // They will be ignored during Goal instantiation
   }
 
   // Get all goals
@@ -116,6 +120,7 @@ class GoalDatabaseService {
       return List.generate(maps.length, (i) {
         final map = maps[i];
         final challengeScore = _deriveChallengeScoreFromRow(map);
+        final dateCompletedMs = map['dateCompleted'] as int?;
         return Goal(
           id: map['id'] as String,
           title: map['title'] as String,
@@ -123,13 +128,13 @@ class GoalDatabaseService {
           challengeScore: challengeScore,
           rewardCoins: map['rewardCoins'] as int,
           targetMoney: (map['targetMoney'] as num?)?.toDouble() ?? 0.0,
-          allocatedMoney:
-              (map['allocatedMoney'] as num?)?.toDouble() ?? 0.0,
           milestonesAwarded:
               (map['milestonesAwarded'] as num?)?.toInt() ?? 0,
           dueDate:
               DateTime.fromMillisecondsSinceEpoch(map['dueDate'] as int),
-          isCompleted: (map['isCompleted'] as int) == 1,
+          dateCompleted: dateCompletedMs != null 
+              ? DateTime.fromMillisecondsSinceEpoch(dateCompletedMs)
+              : null,
         );
       });
     } catch (e) {
@@ -152,10 +157,9 @@ class GoalDatabaseService {
           'challengeScore': goal.challengeScore,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
-          'allocatedMoney': goal.allocatedMoney,
           'milestonesAwarded': goal.milestonesAwarded,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
-          'isCompleted': goal.isCompleted ? 1 : 0,
+          'dateCompleted': goal.dateCompleted?.millisecondsSinceEpoch,
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
@@ -180,10 +184,9 @@ class GoalDatabaseService {
           'challengeScore': goal.challengeScore,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
-          'allocatedMoney': goal.allocatedMoney,
           'milestonesAwarded': goal.milestonesAwarded,
           'dueDate': goal.dueDate.millisecondsSinceEpoch,
-          'isCompleted': goal.isCompleted ? 1 : 0,
+          'dateCompleted': goal.dateCompleted?.millisecondsSinceEpoch,
         },
         where: 'id = ?',
         whereArgs: [goal.id],
@@ -202,7 +205,7 @@ class GoalDatabaseService {
       await _ensureGoalColumns(db);
       await db.update(
         _tableName,
-        {'isCompleted': 1},
+        {'dateCompleted': DateTime.now().millisecondsSinceEpoch},
         where: 'id = ?',
         whereArgs: [goalId],
       );

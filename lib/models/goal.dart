@@ -8,13 +8,15 @@ class Goal {
   final int challengeScore;
   final int rewardCoins;
   final double targetMoney;
-  final double allocatedMoney;
   final int milestonesAwarded;
   final DateTime dueDate;
-  bool isCompleted;
+  final DateTime? dateCompleted;
+  final double allocatedMoney; // Transient: calculated from allocations table
 
   bool get supportsMilestones =>
       targetMoney > 0 && challengeScore >= milestoneScoreThreshold;
+
+  bool get isCompleted => dateCompleted != null;
 
   Goal({
     required this.id,
@@ -23,10 +25,10 @@ class Goal {
     required this.challengeScore,
     required this.rewardCoins,
     this.targetMoney = 0.0,
-    this.allocatedMoney = 0.0,
     this.milestonesAwarded = 0,
     required this.dueDate,
-    this.isCompleted = false,
+    this.dateCompleted,
+    this.allocatedMoney = 0.0,
   });
 
   Goal copyWith({
@@ -36,10 +38,10 @@ class Goal {
     int? challengeScore,
     int? rewardCoins,
     double? targetMoney,
-    double? allocatedMoney,
     int? milestonesAwarded,
     DateTime? dueDate,
-    bool? isCompleted,
+    DateTime? dateCompleted,
+    double? allocatedMoney,
   }) {
     return Goal(
       id: id ?? this.id,
@@ -48,10 +50,10 @@ class Goal {
       challengeScore: challengeScore ?? this.challengeScore,
       rewardCoins: rewardCoins ?? this.rewardCoins,
       targetMoney: targetMoney ?? this.targetMoney,
-      allocatedMoney: allocatedMoney ?? this.allocatedMoney,
       milestonesAwarded: milestonesAwarded ?? this.milestonesAwarded,
       dueDate: dueDate ?? this.dueDate,
-      isCompleted: isCompleted ?? this.isCompleted,
+      dateCompleted: dateCompleted ?? this.dateCompleted,
+      allocatedMoney: allocatedMoney ?? this.allocatedMoney,
     );
   }
 }
