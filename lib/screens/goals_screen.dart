@@ -7,7 +7,6 @@ import '../services/app_localizations_provider.dart';
 import '../services/goal_ai_service.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_allocation_service.dart';
-import '../models/transaction.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
 import 'package:uuid/uuid.dart';
@@ -30,6 +29,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _targetMoneyController;
+  late FocusNode _titleFocusNode;
+  late FocusNode _descriptionFocusNode;
+  late FocusNode _amountFocusNode;
+  late ScrollController _dialogScrollController;
   DateTime _selectedDate = DateTime.now();
   bool _isLoading = true;
   bool _isSyncing = false;
@@ -119,9 +122,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     final amount = double.tryParse(amountController.text) ?? 0;
                     if (amount <= 0) return;
 
-                    final fromGoal = widget.gameState.goals
-                        .firstWhere((g) => g.id == fromGoalId);
-                    if (amount > fromGoal.allocatedMoney) {
+                    // Get the allocations for the source goal
+                    final allocations = await FinancialDatabaseService
+                        .getAllocationsForGoal(fromGoalId!);
+                    final totalAllocated =
+                        allocations.fold<double>(0, (sum, alloc) => sum + alloc.amount);
+
+                    if (amount > totalAllocated + 0.0001) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content:
@@ -132,28 +139,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       return;
                     }
 
-                    final toGoal = widget.gameState.goals
-                        .firstWhere((g) => g.id == toGoalId);
-
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: l10n.translate('reassignedToAnother'),
-                      date: DateTime.now(),
-                      goalId: fromGoalId,
+                    // Use new transfer method instead of transactions
+                    await GoalAllocationService.transferBetweenGoals(
+                      fromGoalId!,
+                      toGoalId!,
+                      amount,
                     );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: l10n.translate('reassignedFromAnother'),
-                      date: DateTime.now(),
-                      goalId: toGoalId,
-                    );
-
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
                     await _recalculateMoneyAndAllocations();
 
                     if (mounted) {
@@ -190,6 +181,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
     _targetMoneyController = TextEditingController(text: '0');
+    _titleFocusNode = FocusNode();
+    _descriptionFocusNode = FocusNode();
+    _amountFocusNode = FocusNode();
+    _dialogScrollController = ScrollController();
     _loadGoalsFromBackend();
   }
 
@@ -198,6 +193,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _titleController.dispose();
     _descriptionController.dispose();
     _targetMoneyController.dispose();
+    _titleFocusNode.dispose();
+    _descriptionFocusNode.dispose();
+    _amountFocusNode.dispose();
+    _dialogScrollController.dispose();
     super.dispose();
   }
 
@@ -215,6 +214,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
       setState(() {
         widget.gameState.goals.clear();
         widget.gameState.goals.addAll(goals);
+      });
+
+      // Recalculate allocations to populate allocatedMoney fields
+      await GoalAllocationService.recalculate(widget.gameState);
+
+      if (!mounted) return;
+      setState(() {
         _isLoading = false;
       });
     } catch (e) {
@@ -249,10 +255,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
     final titleFieldKey = GlobalKey();
     final descriptionFieldKey = GlobalKey();
     final amountFieldKey = GlobalKey();
-    final titleFocusNode = FocusNode();
-    final descriptionFocusNode = FocusNode();
-    final amountFocusNode = FocusNode();
-    final dialogScrollController = ScrollController();
 
     String? titleError;
     String? descriptionError;
@@ -280,19 +282,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
         case GoalAiInvalidField.title:
           await scrollToField(
             fieldKey: titleFieldKey,
-            focusNode: titleFocusNode,
+            focusNode: _titleFocusNode,
           );
           break;
         case GoalAiInvalidField.description:
           await scrollToField(
             fieldKey: descriptionFieldKey,
-            focusNode: descriptionFocusNode,
+            focusNode: _descriptionFocusNode,
           );
           break;
         case GoalAiInvalidField.amount:
           await scrollToField(
             fieldKey: amountFieldKey,
-            focusNode: amountFocusNode,
+            focusNode: _amountFocusNode,
           );
           break;
       }
@@ -310,7 +312,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             content: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: maxDialogHeight),
               child: SingleChildScrollView(
-                controller: dialogScrollController,
+                controller: _dialogScrollController,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: keyboardInset),
                   child: Column(
@@ -320,7 +322,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         key: titleFieldKey,
                         child: TextField(
                           controller: _titleController,
-                          focusNode: titleFocusNode,
+                          focusNode: _titleFocusNode,
                           maxLength: 80,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           onChanged: (_) {
@@ -344,7 +346,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         key: descriptionFieldKey,
                         child: TextField(
                           controller: _descriptionController,
-                          focusNode: descriptionFocusNode,
+                          focusNode: _descriptionFocusNode,
                           maxLength: 400,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           onChanged: (_) {
@@ -381,7 +383,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         key: amountFieldKey,
                         child: TextField(
                           controller: _targetMoneyController,
-                          focusNode: amountFocusNode,
+                          focusNode: _amountFocusNode,
                           maxLength: 50,
                           scrollPadding: const EdgeInsets.only(bottom: 220),
                           decoration: InputDecoration(
@@ -616,17 +618,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
           );
         },
       ),
-    ).whenComplete(() {
-      titleFocusNode.dispose();
-      descriptionFocusNode.dispose();
-      amountFocusNode.dispose();
-      dialogScrollController.dispose();
-    });
+    );
   }
 
   Future<void> _showAllocateMoneyDialog(Goal goal) async {
     final l10n = context.read<AppLocalizationsProvider>();
     final amountController = TextEditingController();
+
+    // Calculate allocated total across all goals
+    final allocatedTotal = widget.gameState.goals
+        .fold<double>(0, (sum, g) {
+          return sum + g.allocatedMoney;
+        });
+    
+    final spendableBalance =
+        widget.gameState.money - allocatedTotal;
 
     await showDialog(
       context: context,
@@ -656,7 +662,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         double.tryParse(amountController.text.trim()) ?? 0.0;
                     if (amount <= 0) return;
 
-                    if (amount > widget.gameState.money + 0.0001) {
+                    if (amount > spendableBalance + 0.0001) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(l10n.translate('amountExceedsBalance')),
@@ -681,29 +687,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
                     setState(() => _isSyncing = true);
 
-                    final note = l10n
-                        .translate('assignMoneyToGoal')
-                        .replaceFirst('{goal}', goal.title);
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: note,
-                      date: DateTime.now(),
-                      goalId: null,
-                    );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: note,
-                      date: DateTime.now(),
-                      goalId: goal.id,
-                    );
-
-                    // Create both transactions for proper accounting
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
+                    // Use new allocation system instead of transactions
+                    await GoalAllocationService.allocateToGoal(goal.id, amount);
                     await _recalculateMoneyAndAllocations();
 
                     if (mounted) {
@@ -718,6 +703,83 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     }
                   },
             child: Text(l10n.translate('assignMoney')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showWithdrawMoneyDialog(Goal goal) async {
+    final l10n = context.read<AppLocalizationsProvider>();
+    final amountController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          l10n
+              .translate('withdrawMoneyFromGoal')
+              .replaceFirst('{goal}', goal.title),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${l10n.translate('currentlyAssigned')}: €${goal.allocatedMoney.toStringAsFixed(2)}',
+              style: const TextStyle(fontSize: 14),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: l10n.translate('withdrawAmount'),
+                hintText: '0.00',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.translate('cancel')),
+          ),
+          ElevatedButton(
+            onPressed: _isSyncing
+                ? null
+                : () async {
+                    final amount =
+                        double.tryParse(amountController.text.trim()) ?? 0.0;
+                    if (amount <= 0) return;
+
+                    if (amount > goal.allocatedMoney + 0.0001) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text(l10n.translate('amountExceedsAllocated')),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+
+                    setState(() => _isSyncing = true);
+
+                    await GoalAllocationService.removeFromGoal(goal.id, amount);
+                    await _recalculateMoneyAndAllocations();
+
+                    if (mounted) {
+                      setState(() => _isSyncing = false);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(l10n.translate('moneyWithdrawnSuccess')),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+            child: Text(l10n.translate('withdraw')),
           ),
         ],
       ),
@@ -989,15 +1051,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         }
                         return;
                       }
-                      final success =
-                          await GoalDatabaseService.completeGoal(goal.id);
+                      
+                      setState(() => _isSyncing = true);
 
-                      if (success) {
-                        // Awards coins inside GameState
-                        widget.gameState.completeGoal(goal.id);
-                        setState(() {});
+                      try {
+                        // Use completeGoalManually to create the transaction
+                        await GoalAllocationService.completeGoalManually(
+                          widget.gameState,
+                          goal.id,
+                          goal.title,
+                          goal.allocatedMoney,
+                          goal.rewardCoins,
+                        );
 
                         if (mounted) {
+                          setState(() => _isSyncing = false);
                           final completionText = l10n
                               .translate('goalCompleted')
                               .replaceFirst(
@@ -1008,9 +1076,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               duration: const Duration(seconds: 2),
                             ),
                           );
+                          setState(() {});
                         }
-                      } else {
+                      } catch (e) {
                         if (mounted) {
+                          setState(() => _isSyncing = false);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content:
@@ -1082,12 +1152,22 @@ class _GoalsScreenState extends State<GoalsScreen> {
             if (!goal.isCompleted)
               Align(
                 alignment: Alignment.centerLeft,
-                child: TextButton.icon(
-                  onPressed: widget.gameState.money > 0
-                      ? () => _showAllocateMoneyDialog(goal)
-                      : null,
-                  icon: const Icon(Icons.account_balance_wallet_outlined),
-                  label: Text(l10n.translate('assignMoney')),
+                child: Row(
+                  children: [
+                    TextButton.icon(
+                      onPressed: widget.gameState.money > 0
+                          ? () => _showAllocateMoneyDialog(goal)
+                          : null,
+                      icon: const Icon(Icons.account_balance_wallet_outlined),
+                      label: Text(l10n.translate('assignMoney')),
+                    ),
+                    if (goal.allocatedMoney > 0)
+                      TextButton.icon(
+                        onPressed: () => _showWithdrawMoneyDialog(goal),
+                        icon: const Icon(Icons.remove_circle_outline),
+                        label: Text(l10n.translate('withdraw')),
+                      ),
+                  ],
                 ),
               ),
             if (!goal.isCompleted) const SizedBox(height: 12),

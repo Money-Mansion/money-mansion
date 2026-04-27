@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../models/game_state.dart';
-import '../models/goal.dart';
 import '../models/transaction.dart';
 import '../services/financial_database_service.dart';
 import '../services/goal_allocation_service.dart';
@@ -33,7 +32,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<TransactionModel> _transactions = [];
-  final List<Goal> _goals = [];
   bool _isLoading = true;
   late DateTime _selectedMonth;
   ChartPeriod _selectedChartPeriod = ChartPeriod.days180;
@@ -56,9 +54,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
       _transactions
         ..clear()
         ..addAll(transactions);
-      _goals
-        ..clear()
-        ..addAll(goals);
       widget.gameState.goals
         ..clear()
         ..addAll(goals);
@@ -87,28 +82,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
         : "${rounded.toStringAsFixed(2)} €";
   }
 
-  String? _goalTitle(String? goalId) {
-    if (goalId == null) return null;
-    final match = _goals.where((g) => g.id == goalId);
-    return match.isEmpty ? null : match.first.title;
-  }
-
-  Goal? _findGoal(String? goalId) {
-    if (goalId == null) return null;
-    final match = _goals.where((g) => g.id == goalId);
-    return match.isEmpty ? null : match.first;
-  }
-
-  bool _isGoalCompleted(String? goalId) {
-    final goal = _findGoal(goalId);
-    return goal?.isCompleted ?? false;
-  }
-
-  int _rewardForMilestones(Goal goal, int milestoneCount) {
-    final clamped = milestoneCount.clamp(0, Goal.milestoneStepCount);
-    return (goal.rewardCoins * clamped) ~/ Goal.milestoneStepCount;
-  }
-
   Future<void> _recalculateMoneyAndAllocations() async {
     await GoalAllocationService.recalculate(widget.gameState);
     setState(() {});
@@ -117,24 +90,32 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   // ===== MONEY LOGIC =====
 
   void _applyTransaction(TransactionModel t) {
+    // All transactions now directly affect balance (no goalId)
     final double amount = t.amount;
-    if (t.goalId == null) {
-      t.type == '+'
-          ? widget.gameState.addMoney(amount)
-          : widget.gameState.spendMoney(amount);
-    }
+    t.type == '+' ? widget.gameState.addMoney(amount) : widget.gameState.spendMoney(amount);
   }
 
   void _revertTransaction(TransactionModel t) {
+    // All transactions now directly affect balance (no goalId)
     final double amount = t.amount;
-    if (t.goalId == null) {
-      t.type == '+'
-          ? widget.gameState.spendMoney(amount)
-          : widget.gameState.addMoney(amount);
-    }
+    t.type == '+'
+        ? widget.gameState.spendMoney(amount)
+        : widget.gameState.addMoney(amount);
   }
 
   Future<void> _removeTransaction(TransactionModel t) async {
+    // Prevent deletion of goal-completion transactions
+    if (t.note.startsWith('Completed goal:')) {
+      final l10n = context.read<AppLocalizationsProvider>();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.translate('cannotDeleteGoalTransaction')),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
     _revertTransaction(t);
     await FinancialDatabaseService.delete(t.id);
     setState(() => _transactions.remove(t));
@@ -148,159 +129,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   void _editTransaction(TransactionModel t) {
     _showTransactionDialog(transaction: t);
-  }
-
-  Future<void> _showReassignFundsDialog() async {
-    String? fromGoalId;
-    String? toGoalId;
-    final amountController = TextEditingController();
-
-    await showDialog(
-      context: context,
-      builder: (context) {
-        final l10n = Provider.of<AppLocalizationsProvider>(context);
-        return StatefulBuilder(
-          builder: (context, dialogSetState) {
-            final sourceGoals = _goals
-                .where((g) => !g.isCompleted && g.allocatedMoney > 0)
-                .toList();
-            final destinationGoals = _goals
-                .where((g) => !g.isCompleted && g.id != fromGoalId)
-                .toList();
-
-            return AlertDialog(
-              title: const Text('Reassign Funds'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownButtonFormField<String>(
-                    value: fromGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'From goal',
-                    ),
-                    items: sourceGoals
-                        .map(
-                          (goal) => DropdownMenuItem<String>(
-                            value: goal.id,
-                            child: Text(
-                              '${goal.title} (${_formatAmount(goal.allocatedMoney)})',
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      dialogSetState(() {
-                        fromGoalId = value;
-                        if (toGoalId == fromGoalId) {
-                          toGoalId = null;
-                        }
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  DropdownButtonFormField<String>(
-                    value: toGoalId,
-                    decoration: const InputDecoration(
-                      labelText: 'To goal',
-                    ),
-                    items: destinationGoals
-                        .map(
-                          (goal) => DropdownMenuItem<String>(
-                            value: goal.id,
-                            child: Text(goal.title),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) =>
-                        dialogSetState(() => toGoalId = value),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: amountController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Amount'),
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (fromGoalId == null || toGoalId == null) return;
-                    final amount = double.tryParse(amountController.text) ?? 0;
-                    if (amount <= 0) return;
-                    if (_isGoalCompleted(toGoalId)) {
-                      if (mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              l10n.translate('completedGoalsCannotAccept'),
-                            ),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      }
-                      return;
-                    }
-
-                    final fromGoal = _findGoal(fromGoalId);
-                    if (fromGoal == null || amount > fromGoal.allocatedMoney) {
-                      if (mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text(l10n.translate('amountExceedsGoalFunds')),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      }
-                      return;
-                    }
-
-                    final debitTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '-',
-                      amount: amount,
-                      note: l10n.translate('reassignedToAnother'),
-                      date: DateTime.now(),
-                      goalId: fromGoalId,
-                    );
-                    final creditTx = TransactionModel(
-                      id: const Uuid().v4(),
-                      type: '+',
-                      amount: amount,
-                      note: l10n.translate('reassignedFromAnother'),
-                      date: DateTime.now(),
-                      goalId: toGoalId,
-                    );
-
-                    // Do not surface reassign transactions in the list; just persist and recalc
-                    await FinancialDatabaseService.insert(debitTx);
-                    await FinancialDatabaseService.insert(creditTx);
-                    await _recalculateMoneyAndAllocations();
-
-                    if (mounted) {
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text(l10n.translate('fundsReassignedSuccess')),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  },
-                  child: Text(l10n.translate('reassignMove')),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
   }
 
   void _showTransactionDialog({TransactionModel? transaction}) {
@@ -368,6 +196,24 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                         double.tryParse(amountController.text) ?? 0;
                     if (amount <= 0) return;
 
+                    // Calculate free balance (balance - allocated amounts)
+                    final totalAllocated = widget.gameState.goals
+                        .fold<double>(0, (sum, g) => sum + g.allocatedMoney);
+                    final freeBalance = widget.gameState.money - totalAllocated;
+
+                    // For expenses, check if user has enough free balance
+                    if (type == '-' && freeBalance < amount) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(l10n.translate('notEnoughMoney')),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
                     // 🔥 revert old transaction if editing
                     if (transaction != null) {
                       _revertTransaction(transaction);
@@ -379,7 +225,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       amount: amount,
                       note: noteController.text,
                       date: DateTime.now(),
-                      goalId: null,
                     );
 
                     // 🔥 apply new transaction
@@ -548,17 +393,10 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
   List<Widget> _buildTransactionList(
       List<TransactionModel> transactions, AppLocalizationsProvider l10n) {
-    // Filter out internal goal allocation transactions (those with goalId)
-    final displayTransactions =
-        transactions.where((t) => t.goalId == null).toList();
-
-    return displayTransactions.map((t) {
-      final goalTitle = _goalTitle(t.goalId);
-      final subtitleParts = [_formatDate(t.date)];
-      if (goalTitle != null) {
-        subtitleParts.add('Goal: $goalTitle');
-      }
-      final subtitleText = subtitleParts.join(' · ');
+    // All transactions are now simple income/expenses (no goal allocations)
+    return transactions.map((t) {
+      final subtitleText = _formatDate(t.date);
+      final isGoalTransaction = t.note.startsWith('Completed goal:');
 
       return Card(
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -568,10 +406,16 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
             t.type == '+' ? Icons.add : Icons.remove,
             color: t.type == '+' ? Colors.green : Colors.red,
           ),
-          trailing: IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () => _removeTransaction(t),
-          ),
+          trailing: isGoalTransaction
+              ? Icon(
+                  Icons.lock,
+                  color: Colors.grey[500],
+                  size: 20,
+                )
+              : IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => _removeTransaction(t),
+                ),
           title: Text(
             "${_formatAmount(t.amount)}   ${t.note}",
             style: const TextStyle(
@@ -643,10 +487,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
       // Calculate and display total for this month
       final monthTransactions = groupedByMonth[monthKey] ?? [];
-      // Filter out internal goal allocation transactions for total calculation
-      final displayTransactions =
-          monthTransactions.where((t) => t.goalId == null).toList();
-      final monthTotal = displayTransactions.fold<double>(0, (sum, t) {
+      // All transactions are now simple income/expenses (no goal allocations)
+      final monthTotal = monthTransactions.fold<double>(0, (sum, t) {
         final amount = t.type == '+' ? t.amount : -t.amount;
         return sum + amount;
       });
@@ -846,11 +688,8 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     final daysDifference = nowNormalized.difference(startDateNormalized).inDays;
     final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
 
-    // Populate daily totals - only transactions without goal allocation
+    // Populate daily totals - all transactions are simple income/expenses
     for (final t in _transactions) {
-      if (t.goalId != null)
-        continue; // Skip internal goal allocation transactions
-
       final tDateNormalized = DateTime(t.date.year, t.date.month, t.date.day);
       if (tDateNormalized.isAfter(startDateNormalized) ||
           tDateNormalized.isAtSameMomentAs(startDateNormalized)) {
@@ -872,36 +711,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     }
 
     return dailyTotals;
-  }
-
-  List<double> _getMonthlyData() {
-    final now = DateTime.now();
-    final monthlyTotals = <double>[];
-
-    for (int i = 11; i >= 0; i--) {
-      final date = DateTime(now.year, now.month - i, 1);
-      final monthStart = DateTime(date.year, date.month, 1);
-      final monthEnd = DateTime(date.year, date.month + 1, 0, 23, 59, 59);
-
-      double monthTotal = 0;
-      for (final t in _transactions) {
-        if (t.goalId != null)
-          continue; // Skip internal goal allocation transactions
-
-        if (t.date.isAfter(monthStart) && t.date.isBefore(monthEnd)) {
-          final amount = t.type == '+' ? t.amount : -t.amount;
-          monthTotal += amount;
-        }
-      }
-      monthlyTotals.add(monthTotal);
-    }
-
-    // Convert monthly totals to cumulative balance
-    for (int i = 1; i < monthlyTotals.length; i++) {
-      monthlyTotals[i] += monthlyTotals[i - 1];
-    }
-
-    return monthlyTotals;
   }
 
   Widget _buildMonthSelector(AppLocalizationsProvider l10n) {
@@ -961,7 +770,6 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
 
     return _transactions.where((t) {
       return t.type == type &&
-          t.goalId == null &&
           t.date.isAfter(monthStart) &&
           t.date.isBefore(monthEnd);
     }).toList();

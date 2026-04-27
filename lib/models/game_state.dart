@@ -92,7 +92,8 @@ class GameState extends ChangeNotifier {
   void completeGoal(String goalId) {
     final index = goals.indexWhere((g) => g.id == goalId);
     if (index != -1 && !goals[index].isCompleted) {
-      final completedGoal = goals[index].copyWith(isCompleted: true);
+      final completedGoal =
+          goals[index].copyWith(dateCompleted: DateTime.now());
 
       goals[index] = completedGoal;
 
