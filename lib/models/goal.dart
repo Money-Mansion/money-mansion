@@ -1,12 +1,11 @@
 class Goal {
-  static const String easyDifficulty = 'Easy';
-  static const String mediumDifficulty = 'Medium';
-  static const String hardDifficulty = 'Hard';
+  static const int milestoneScoreThreshold = 35;
+  static const int milestoneStepCount = 5;
 
   final String id;
   final String title;
   final String description;
-  final String difficulty;
+  final int challengeScore;
   final int rewardCoins;
   final double targetMoney;
   final double allocatedMoney;
@@ -14,11 +13,14 @@ class Goal {
   final DateTime dueDate;
   bool isCompleted;
 
+  bool get supportsMilestones =>
+      targetMoney > 0 && challengeScore >= milestoneScoreThreshold;
+
   Goal({
     required this.id,
     required this.title,
     required this.description,
-    required this.difficulty,
+    required this.challengeScore,
     required this.rewardCoins,
     this.targetMoney = 0.0,
     this.allocatedMoney = 0.0,
@@ -31,7 +33,7 @@ class Goal {
     String? id,
     String? title,
     String? description,
-    String? difficulty,
+    int? challengeScore,
     int? rewardCoins,
     double? targetMoney,
     double? allocatedMoney,
@@ -43,7 +45,7 @@ class Goal {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      difficulty: difficulty ?? this.difficulty,
+      challengeScore: challengeScore ?? this.challengeScore,
       rewardCoins: rewardCoins ?? this.rewardCoins,
       targetMoney: targetMoney ?? this.targetMoney,
       allocatedMoney: allocatedMoney ?? this.allocatedMoney,

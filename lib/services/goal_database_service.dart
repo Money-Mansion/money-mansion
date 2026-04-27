@@ -57,7 +57,7 @@ class GoalDatabaseService {
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         description TEXT,
-        difficulty TEXT NOT NULL DEFAULT 'Easy',
+        challengeScore INTEGER NOT NULL DEFAULT 50,
         rewardCoins INTEGER NOT NULL,
         targetMoney REAL NOT NULL DEFAULT 0,
         allocatedMoney REAL NOT NULL DEFAULT 0,
@@ -94,9 +94,9 @@ class GoalDatabaseService {
         'ALTER TABLE $_tableName ADD COLUMN allocatedMoney REAL NOT NULL DEFAULT 0',
       );
     }
-    if (!columnNames.contains('difficulty')) {
+    if (!columnNames.contains('challengeScore')) {
       await db.execute(
-        "ALTER TABLE $_tableName ADD COLUMN difficulty TEXT NOT NULL DEFAULT 'Easy'",
+        'ALTER TABLE $_tableName ADD COLUMN challengeScore INTEGER NOT NULL DEFAULT 50',
       );
     }
     if (!columnNames.contains('milestonesAwarded')) {
@@ -114,20 +114,22 @@ class GoalDatabaseService {
       final maps = await db.query(_tableName);
 
       return List.generate(maps.length, (i) {
+        final map = maps[i];
+        final challengeScore = _deriveChallengeScoreFromRow(map);
         return Goal(
-          id: maps[i]['id'] as String,
-          title: maps[i]['title'] as String,
-          description: maps[i]['description'] as String,
-          difficulty: maps[i]['difficulty'] as String? ?? Goal.easyDifficulty,
-          rewardCoins: maps[i]['rewardCoins'] as int,
-          targetMoney: (maps[i]['targetMoney'] as num?)?.toDouble() ?? 0.0,
+          id: map['id'] as String,
+          title: map['title'] as String,
+          description: map['description'] as String,
+          challengeScore: challengeScore,
+          rewardCoins: map['rewardCoins'] as int,
+          targetMoney: (map['targetMoney'] as num?)?.toDouble() ?? 0.0,
           allocatedMoney:
-              (maps[i]['allocatedMoney'] as num?)?.toDouble() ?? 0.0,
+              (map['allocatedMoney'] as num?)?.toDouble() ?? 0.0,
           milestonesAwarded:
-              (maps[i]['milestonesAwarded'] as num?)?.toInt() ?? 0,
+              (map['milestonesAwarded'] as num?)?.toInt() ?? 0,
           dueDate:
-              DateTime.fromMillisecondsSinceEpoch(maps[i]['dueDate'] as int),
-          isCompleted: (maps[i]['isCompleted'] as int) == 1,
+              DateTime.fromMillisecondsSinceEpoch(map['dueDate'] as int),
+          isCompleted: (map['isCompleted'] as int) == 1,
         );
       });
     } catch (e) {
@@ -147,7 +149,7 @@ class GoalDatabaseService {
           'id': goal.id,
           'title': goal.title,
           'description': goal.description,
-          'difficulty': goal.difficulty,
+          'challengeScore': goal.challengeScore,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
           'allocatedMoney': goal.allocatedMoney,
@@ -175,7 +177,7 @@ class GoalDatabaseService {
           'id': goal.id,
           'title': goal.title,
           'description': goal.description,
-          'difficulty': goal.difficulty,
+          'challengeScore': goal.challengeScore,
           'rewardCoins': goal.rewardCoins,
           'targetMoney': goal.targetMoney,
           'allocatedMoney': goal.allocatedMoney,
@@ -239,5 +241,33 @@ class GoalDatabaseService {
     final db = await database;
     await db.delete(_tableName);
     print('Cleared all goals from database');
+  }
+
+  static int _deriveChallengeScoreFromRow(Map<String, Object?> map) {
+    final directValue = map['challengeScore'];
+    if (directValue is num) {
+      return _clampScore(directValue.toInt());
+    }
+    if (directValue is String) {
+      final parsed = int.tryParse(directValue);
+      if (parsed != null) return _clampScore(parsed);
+    }
+
+    final rewardRaw = map['rewardCoins'];
+    var reward = 50;
+    if (rewardRaw is num) {
+      reward = rewardRaw.toInt();
+    } else if (rewardRaw is String) {
+      reward = int.tryParse(rewardRaw) ?? 50;
+    }
+
+    final estimated = ((reward - 10) / 2.6).round();
+    return _clampScore(estimated);
+  }
+
+  static int _clampScore(int score) {
+    if (score < 1) return 1;
+    if (score > 100) return 100;
+    return score;
   }
 }

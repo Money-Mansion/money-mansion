@@ -6,8 +6,6 @@ import 'financial_database_service.dart';
 
 /// Recalculates balance, goal allocations, milestones, and completion from transactions.
 class GoalAllocationService {
-  static const int _hardGoalMilestoneCount = 5;
-
   static Future<void> recalculate(GameState gameState) async {
     final transactions = await FinancialDatabaseService.getAll();
     final goals = await GoalDatabaseService.getAllGoals();
@@ -36,19 +34,15 @@ class GoalAllocationService {
         updatedGoal = updatedGoal.copyWith(allocatedMoney: allocated);
       }
 
-      if (updatedGoal.difficulty == Goal.hardDifficulty &&
-          updatedGoal.targetMoney > 0) {
+      if (updatedGoal.supportsMilestones) {
         final progress =
             (allocated / updatedGoal.targetMoney).clamp(0.0, 1.0).toDouble();
-        final reachedMilestones =
-            (progress * _hardGoalMilestoneCount).floor();
+        final reachedMilestones = (progress * Goal.milestoneStepCount).floor();
         final prevMilestones = updatedGoal.milestonesAwarded;
 
         if (reachedMilestones != prevMilestones) {
-          final prevAward =
-              _hardGoalRewardForMilestones(updatedGoal, prevMilestones);
-          final newAward =
-              _hardGoalRewardForMilestones(updatedGoal, reachedMilestones);
+          final prevAward = _rewardForMilestones(updatedGoal, prevMilestones);
+          final newAward = _rewardForMilestones(updatedGoal, reachedMilestones);
           final delta = newAward - prevAward;
           if (delta > 0) {
             gameState.addCoins(delta);
@@ -89,8 +83,8 @@ class GoalAllocationService {
       ..addAll(goals);
   }
 
-  static int _hardGoalRewardForMilestones(Goal goal, int milestoneCount) {
-    final clamped = milestoneCount.clamp(0, _hardGoalMilestoneCount);
-    return (goal.rewardCoins * clamped) ~/ _hardGoalMilestoneCount;
+  static int _rewardForMilestones(Goal goal, int milestoneCount) {
+    final clamped = milestoneCount.clamp(0, Goal.milestoneStepCount);
+    return (goal.rewardCoins * clamped) ~/ Goal.milestoneStepCount;
   }
 }
