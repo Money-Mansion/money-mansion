@@ -515,7 +515,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    item.type.toDisplayString(),
+                    item.type.toLocalizedDisplayString(l10n.currentLanguage),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 8,
