@@ -5,6 +5,7 @@ import '../services/tutorial_provider.dart';
 import '../services/lesson_service.dart';
 import '../services/quiz_service.dart';
 import '../services/quiz_progress_database_service.dart';
+import '../services/lesson_progress_database_service.dart';
 import '../models/lesson.dart';
 import '../models/quiz_progress.dart';
 import '../screens/lessons/lesson_category_screen.dart';
@@ -37,7 +38,7 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  static const List<String> _tabKeys = ['quizes', 'lessons'];
+  static const List<String> _tabKeys = ['lessons', 'quizes'];
 
   @override
   void initState() {
@@ -81,10 +82,10 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          // Quizes tab
-                          _buildTabContent(l10n, 'quizes'),
                           // Lessons tab
                           _buildTabContent(l10n, 'lessons'),
+                          // Quizes tab
+                          _buildTabContent(l10n, 'quizes'),
                         ],
                       ),
                     ),
@@ -269,6 +270,7 @@ class _QuizzesTab extends StatefulWidget {
 class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   late Future<List<QuizSection>> sectionsFuture;
   late Future<List<QuizProgress>> allProgressFuture;
+  late Future<Set<int>> openedLessonsFuture;
   String _lastLanguage = 'en';
 
   // Section colors - each section gets a unique color
@@ -286,11 +288,10 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // Add lifecycle observer to refresh progress when app resumes
     WidgetsBinding.instance.addObserver(this);
-    // Initialize with English by default
     sectionsFuture = const QuizService().getAllSections(language: 'en');
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
+    openedLessonsFuture = LessonProgressDatabaseService.getAllOpenedLessonIds();
   }
 
   @override
@@ -301,17 +302,17 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Refresh progress when app resumes (user might have completed a quiz)
     if (state == AppLifecycleState.resumed) {
       print('✓ Quiz tab resumed - refreshing progress data');
-      _refreshProgressData();
+      _refreshData();
     }
   }
 
-  void _refreshProgressData() {
-    // Force reload of progress data
+  void _refreshData() {
     setState(() {
       allProgressFuture = QuizProgressDatabaseService.getAllProgress();
+      openedLessonsFuture =
+          LessonProgressDatabaseService.getAllOpenedLessonIds();
     });
   }
 
@@ -351,18 +352,38 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
     }
   }
 
-  /// Determine which quiz index should be unlocked in a section
-  /// Returns the index of the first notDone quiz, or 0 if all are complete
+  /// Determine which quiz index should be unlocked in a section.
+  ///
+  /// A quiz at [quizIndex] is unlocked only when BOTH conditions are true:
+  ///   1. All previous quizzes are completed (existing sequential rule).
+  ///   2. The lesson whose id matches the quiz has been opened at least once.
+  ///
+  /// Returns the index of the first quiz that fails either condition,
+  /// or the last index when everything is done.
   int _getUnlockedQuizIndex(
-      List<Quiz> quizzes, List<QuizProgress> progressList) {
+    List<Quiz> quizzes,
+    List<QuizProgress> progressList,
+    Set<int> openedLessonIds,
+  ) {
     for (int i = 0; i < quizzes.length; i++) {
-      final status = _getStatusForQuiz(progressList, quizzes[i].id);
-      if (status == QuizStatus.notDone) {
-        return i;
+      final quiz = quizzes[i];
+      final lessonQuizId = int.tryParse(quiz.id) ?? -1;
+
+      // Gate 1: lesson must have been opened
+      final lessonOpened = openedLessonIds.contains(lessonQuizId);
+
+      // Gate 2: quiz must not already be done (sequential unlock)
+      final status = _getStatusForQuiz(progressList, quiz.id);
+      final quizDone = status != QuizStatus.notDone;
+
+      if (!lessonOpened || !quizDone) {
+        // This is the first quiz that isn't fully cleared — unlock it only if
+        // the lesson has been opened; otherwise lock it too.
+        return lessonOpened ? i : i - 1 < 0 ? -1 : i - 1;
       }
     }
-    // All done, return 0 (user can still access first one)
-    return 0;
+    // All quizzes done and lessons opened — stay on last one
+    return quizzes.length - 1;
   }
 
   /// Check if all quizzes in a section are completed
@@ -379,15 +400,13 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   }
 
   /// Determine which section the user should currently be on
-  /// Returns section index (0, 1, 2, etc.)
   int _getCurrentSectionIndex(
       List<QuizSection> sections, List<QuizProgress> progressList) {
     for (int i = 0; i < sections.length; i++) {
       if (!_isSectionCompleted(sections[i].lessons, progressList)) {
-        return i; // User is on this section (not yet completed)
+        return i;
       }
     }
-    // All sections completed, stay on the last one
     return sections.length - 1;
   }
 
@@ -395,12 +414,12 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
 
-    // Update sections if language changed
     _loadSectionsIfLanguageChanged(l10n.currentLanguage);
 
-    // Refresh progress data on every build to show latest quiz completion
-    // This ensures UI updates immediately when returning from a quiz
+    // Refresh on every build to reflect latest completions immediately
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
+    openedLessonsFuture =
+        LessonProgressDatabaseService.getAllOpenedLessonIds();
 
     return Container(
       color: Colors.white,
@@ -431,142 +450,152 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
             builder: (context, progressSnapshot) {
               final progressList = progressSnapshot.data ?? [];
 
-              // Determine current section user should be on
-              final currentSectionIndex =
-                  _getCurrentSectionIndex(sections, progressList);
-              final currentSection = sections[currentSectionIndex];
-              final currentSectionColor =
-                  sectionColors[currentSectionIndex % sectionColors.length];
-              final unlockedIndex =
-                  _getUnlockedQuizIndex(currentSection.lessons, progressList);
+              return FutureBuilder<Set<int>>(
+                future: openedLessonsFuture,
+                builder: (context, openedSnapshot) {
+                  final openedLessonIds = openedSnapshot.data ?? {};
 
-              return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: 1, // Only show current section
-                separatorBuilder: (_, __) => const SizedBox(height: 24),
-                itemBuilder: (context, _) {
-                  final section = currentSection;
-                  final sectionColor = currentSectionColor;
+                  final currentSectionIndex =
+                      _getCurrentSectionIndex(sections, progressList);
+                  final currentSection = sections[currentSectionIndex];
+                  final currentSectionColor = sectionColors[
+                      currentSectionIndex % sectionColors.length];
+                  final unlockedIndex = _getUnlockedQuizIndex(
+                    currentSection.lessons,
+                    progressList,
+                    openedLessonIds,
+                  );
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Section header
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8, bottom: 12),
-                        child: Text(
-                          section.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF333333),
-                          ),
-                        ),
-                      ),
-                      // Show "Coming soon" if no quizzes available
-                      if (section.lessons.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.grey[300]!),
-                          ),
-                          child: const Text(
-                            '🚧 Quizzes coming soon...',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontStyle: FontStyle.italic,
+                  return ListView.separated(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: 1,
+                    separatorBuilder: (_, __) => const SizedBox(height: 24),
+                    itemBuilder: (context, _) {
+                      final section = currentSection;
+                      final sectionColor = currentSectionColor;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8, bottom: 12),
+                            child: Text(
+                              section.name,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF333333),
+                              ),
                             ),
                           ),
-                        )
-                      else
-                        // Column with quiz circles in zigzag pattern
-                        Column(
-                          children: List.generate(
-                            section.lessons.length,
-                            (quizIndex) {
-                              final quiz = section.lessons[quizIndex];
-                              final status =
-                                  _getStatusForQuiz(progressList, quiz.id);
-                              final score =
-                                  _getScoreForQuiz(progressList, quiz.id);
-                              final isLocked = quizIndex > unlockedIndex;
+                          if (section.lessons.isEmpty)
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey[300]!),
+                              ),
+                              child: const Text(
+                                '🚧 Quizzes coming soon...',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            )
+                          else
+                            Column(
+                              children: List.generate(
+                                section.lessons.length,
+                                (quizIndex) {
+                                  final quiz = section.lessons[quizIndex];
+                                  final status = _getStatusForQuiz(
+                                      progressList, quiz.id);
+                                  final score =
+                                      _getScoreForQuiz(progressList, quiz.id);
+                                  // A quiz is locked if its index exceeds the
+                                  // unlocked index (which already accounts for
+                                  // whether the lesson has been opened).
+                                  final isLocked = quizIndex > unlockedIndex;
 
-                              // Create randomized zigzag effect with multiple positions
-                              final offsets = [
-                                -50.0,
-                                -30.0,
-                                -10.0,
-                                10.0,
-                                30.0,
-                                50.0
-                              ];
-                              final horizontalOffset = offsets[
-                                  (quiz.id.hashCode + quizIndex).abs() %
-                                      offsets.length];
+                                  final offsets = [
+                                    -50.0,
+                                    -30.0,
+                                    -10.0,
+                                    10.0,
+                                    30.0,
+                                    50.0
+                                  ];
+                                  final horizontalOffset = offsets[
+                                      (quiz.id.hashCode + quizIndex).abs() %
+                                          offsets.length];
 
-                              // Calculate previous offset only if not first item
-                              final prevHorizontalOffset = quizIndex > 0
-                                  ? offsets[(section.lessons[quizIndex - 1].id
-                                                  .hashCode +
-                                              quizIndex -
-                                              1)
-                                          .abs() %
-                                      offsets.length]
-                                  : 0.0;
+                                  final prevHorizontalOffset = quizIndex > 0
+                                      ? offsets[(section
+                                                      .lessons[quizIndex - 1]
+                                                      .id
+                                                      .hashCode +
+                                                  quizIndex -
+                                                  1)
+                                              .abs() %
+                                          offsets.length]
+                                      : 0.0;
 
-                              return Column(
-                                children: [
-                                  // Draw connecting line between circles (except for first item)
-                                  if (quizIndex > 0)
-                                    SizedBox(
-                                      height: 40,
-                                      child: CustomPaint(
-                                        painter: _PathPainter(
-                                          prevOffset: prevHorizontalOffset,
-                                          currOffset: horizontalOffset,
-                                          color: sectionColor,
+                                  return Column(
+                                    children: [
+                                      if (quizIndex > 0)
+                                        SizedBox(
+                                          height: 40,
+                                          child: CustomPaint(
+                                            painter: _PathPainter(
+                                              prevOffset: prevHorizontalOffset,
+                                              currOffset: horizontalOffset,
+                                              color: sectionColor,
+                                            ),
+                                            size:
+                                                const Size(double.infinity, 40),
+                                          ),
                                         ),
-                                        size: const Size(double.infinity, 40),
+                                      Transform.translate(
+                                        offset: Offset(horizontalOffset, 0),
+                                        child: GestureDetector(
+                                          onTap: isLocked
+                                              ? null
+                                              : () {
+                                                  final lessonId =
+                                                      int.tryParse(quiz.id) ??
+                                                          1001;
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          LessonQuizScreen(
+                                                        lessonId: lessonId,
+                                                        lessonTitle: quiz.name,
+                                                        onQuizCompleted:
+                                                            _refreshData,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                          child: QuizProgressCircle(
+                                            title: quiz.name,
+                                            status: status,
+                                            score: score,
+                                            locked: isLocked,
+                                            sectionColor: sectionColor,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  Transform.translate(
-                                    offset: Offset(horizontalOffset, 0),
-                                    child: GestureDetector(
-                                      onTap: isLocked
-                                          ? null
-                                          : () {
-                                              final lessonId =
-                                                  int.tryParse(quiz.id) ?? 1001;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LessonQuizScreen(
-                                                    lessonId: lessonId,
-                                                    lessonTitle: quiz.name,
-                                                    onQuizCompleted:
-                                                        _refreshProgressData,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                      child: QuizProgressCircle(
-                                        title: quiz.name,
-                                        status: status,
-                                        score: score,
-                                        locked: isLocked,
-                                        sectionColor: sectionColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                    ],
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      );
+                    },
                   );
                 },
               );
@@ -711,19 +740,15 @@ class _PathPainter extends CustomPainter {
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
 
-    // Draw curved connector line from previous circle to current circle
     final path = Path();
-    // Start from center bottom of previous circle
     path.moveTo(size.width / 2 + prevOffset, 0);
-
-    // Curve smoothly to center top of current circle
     path.cubicTo(
-      size.width / 2 + prevOffset, // first control point x
-      size.height / 3, // first control point y
-      size.width / 2 + currOffset, // second control point x
-      size.height * 2 / 3, // second control point y
-      size.width / 2 + currOffset, // end x
-      size.height, // end y
+      size.width / 2 + prevOffset,
+      size.height / 3,
+      size.width / 2 + currOffset,
+      size.height * 2 / 3,
+      size.width / 2 + currOffset,
+      size.height,
     );
 
     canvas.drawPath(path, paint);

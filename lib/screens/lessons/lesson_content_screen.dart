@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money_mansion/models/quiz_progress.dart';
 import 'package:money_mansion/my_flutter_app_icons.dart';
+import 'package:money_mansion/services/lesson_progress_database_service.dart';
 import 'package:money_mansion/services/lesson_quiz_service.dart';
 import 'package:provider/provider.dart';
 import '../../models/lesson.dart';
@@ -2687,6 +2688,9 @@ class _LessonContentScreenState extends State<LessonContentScreen>
   @override
   void initState() {
     super.initState();
+    if (widget.lesson.quizLessonId != null) {
+      LessonProgressDatabaseService.markLessonOpened(widget.lesson.quizLessonId!);
+    }
     _animController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 350),

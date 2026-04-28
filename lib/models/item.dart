@@ -1,7 +1,7 @@
 class Item {
   final String id;
-  final String name; // Slovak name
-  final String nameEn; // English name
+  final String name;
+  final String nameEn;
   final ItemType type;
   final String texture;
   final int cost;
@@ -12,7 +12,7 @@ class Item {
   Item({
     required this.id,
     required this.name,
-    String? nameEn, // optional - falls back to name if not provided
+    String? nameEn,
     required this.type,
     required this.texture,
     required this.cost,
@@ -21,7 +21,6 @@ class Item {
     this.scale = 1.0,
   }) : nameEn = nameEn ?? name;
 
-  /// Returns the localised name for the given language code.
   String localizedName(String language) => language == 'en' ? nameEn : name;
 
   Item copyWith({
@@ -64,20 +63,19 @@ extension ItemTypeString on ItemType {
   }
 
   String toLocalizedDisplayString(String language) {
-    if (language != 'sk') return toDisplayString();
     switch (this) {
       case ItemType.door:
-        return 'dvere';
+        return language == 'sk' ? 'Dvere' : 'Door';
       case ItemType.window:
-        return 'okno';
+        return language == 'sk' ? 'Okno' : 'Window';
       case ItemType.furniture:
-        return 'nabytok';
+        return language == 'sk' ? 'Nábytok' : 'Furniture';
       case ItemType.flooring:
-        return 'podlaha';
+        return language == 'sk' ? 'Podlaha' : 'Flooring';
       case ItemType.wallpaper:
-        return 'tapeta';
+        return language == 'sk' ? 'Tapeta' : 'Wallpaper';
       case ItemType.decoration:
-        return 'dekoracia';
+        return language == 'sk' ? 'Dekorácia' : 'Decoration';
     }
   }
 }
