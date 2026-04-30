@@ -14,14 +14,10 @@ import '../screens/quizes/quiz_section_screen.dart';
 import 'quiz_progress_circle.dart';
 import 'tutorial_target.dart';
 
-/// ChrumkoLearningOverlay displays a modal overlay with Quizes and Lessons tabs.
-///
-/// Features:
-/// - Bottom-tabbed interface (TabBar at bottom)
-/// - Frosted/cloudy background (semi-transparent grey)
-/// - Empty placeholder tabs ready for content
-/// - Back button (bottom-left) to close overlay
-/// - Localization-ready tab labels
+const _purple = Color(0xFF6B5B8C);
+const _purpleLight = Color(0xFFB8A8D8);
+const _purpleBg = Color(0xFFE8D4F0);
+
 class ChrumkoLearningOverlay extends StatefulWidget {
   final VoidCallback onClose;
 
@@ -63,34 +59,26 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
       color: Colors.transparent,
       child: Stack(
         children: [
-          // Frosted background (click to close)
           GestureDetector(
             onTap: widget.onClose,
-            child: Container(
-              color: Colors.grey.withOpacity(0.6),
-            ),
+            child: Container(color: Colors.grey.withOpacity(0.6)),
           ),
-          // Overlay panel with tabs at bottom
           Positioned.fill(
             child: SafeArea(
               child: Column(
                 children: [
-                  // Empty content area (TabBarView)
                   Expanded(
                     child: AbsorbPointer(
                       absorbing: lockLearningContent,
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          // Lessons tab
-                          _buildTabContent(l10n, 'lessons'),
-                          // Quizes tab
-                          _buildTabContent(l10n, 'quizes'),
+                          _LessonsTab(onClose: widget.onClose),
+                          _QuizzesTab(onClose: widget.onClose),
                         ],
                       ),
                     ),
                   ),
-                  // Bottom bar with TabBar and back button
                   Container(
                     color: Colors.white,
                     child: SafeArea(
@@ -108,13 +96,12 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                               ),
                             ),
                           ),
-                          // TabBar (centered, flexible)
                           Expanded(
                             child: TabBar(
                               controller: _tabController,
-                              labelColor: Colors.deepPurple,
+                              labelColor: _purple,
                               unselectedLabelColor: Colors.grey[600],
-                              indicatorColor: Colors.deepPurple,
+                              indicatorColor: _purple,
                               indicatorWeight: 3,
                               tabs: _tabKeys.map((key) {
                                 final targetId = key == 'quizes'
@@ -122,16 +109,12 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                                     : 'tab_lessons';
                                 return TutorialTarget(
                                   id: targetId,
-                                  child: Tab(
-                                    text: l10n.translate(key),
-                                  ),
+                                  child: Tab(text: l10n.translate(key)),
                                 );
                               }).toList(),
                             ),
                           ),
-                          SizedBox(
-                            width: 48,
-                          ),
+                          const SizedBox(width: 48),
                         ],
                       ),
                     ),
@@ -144,20 +127,44 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
       ),
     );
   }
-
-  /// Builds a placeholder content widget for a tab.
-  Widget _buildTabContent(AppLocalizationsProvider l10n, String tabKey) {
-    if (tabKey == 'lessons') {
-      return _LessonsTab(onClose: widget.onClose);
-    }
-    return _QuizzesTab(onClose: widget.onClose);
-  }
 }
 
-class _LessonsTab extends StatelessWidget {
-  final VoidCallback onClose;
+// ── LESSONS TAB ───────────────────────────────────────────────────────────────
 
+class _LessonsTab extends StatefulWidget {
+  final VoidCallback onClose;
   const _LessonsTab({required this.onClose});
+
+  @override
+  State<_LessonsTab> createState() => _LessonsTabState();
+}
+
+class _LessonsTabState extends State<_LessonsTab> {
+  Set<int> _openedIds = {};
+  bool _progressLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    final ids = await LessonProgressDatabaseService.getAllOpenedLessonIds();
+    if (mounted) {
+      setState(() {
+        _openedIds = ids;
+        _progressLoaded = true;
+      });
+    }
+  }
+
+  int _completedCount(LessonCategory category) {
+    return category.lessons
+        .where((l) =>
+            l.quizLessonId != null && _openedIds.contains(l.quizLessonId))
+        .length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,96 +174,159 @@ class _LessonsTab extends StatelessWidget {
     final isSk = l10n.currentLanguage == 'sk';
 
     return Container(
-      color: Colors.white,
+      color: const Color(0xFFF5F0E8),
       child: ListView.separated(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
         itemCount: categories.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 10),
+        separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           final category = categories[index];
-          return _LessonCategoryCard(
-            category: category,
-            isSk: isSk,
-            onClose: onClose,
-          );
-        },
-      ),
-    );
-  }
-}
+          final completed = _completedCount(category);
+          final total = category.lessons.length;
+          final fraction =
+              _progressLoaded && total > 0 ? completed / total : 0.0;
+          final percent = (fraction * 100).round();
+          final isComplete = completed == total && total > 0;
 
-class _LessonCategoryCard extends StatelessWidget {
-  final LessonCategory category;
-  final bool isSk;
-  final VoidCallback onClose;
-
-  const _LessonCategoryCard({
-    required this.category,
-    required this.isSk,
-    required this.onClose,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1,
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => LessonCategoryScreen(category: category),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF3E8FF),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.menu_book_rounded,
-                    color: Color(0xFF7E57C2)),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          return Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            elevation: 1,
+            shadowColor: _purple.withOpacity(0.08),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        LessonCategoryScreen(category: category),
+                  ),
+                );
+                _loadProgress();
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 14, vertical: 12),
+                child: Row(
                   children: [
-                    Text(
-                      category.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
+                    // Purple icon box
+                    Container(
+                      width: 46,
+                      height: 46,
+                      decoration: BoxDecoration(
+                        color: _purpleBg,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: isComplete
+                          ? const Icon(Icons.check_circle_rounded,
+                              color: _purple, size: 26)
+                          : const Icon(Icons.menu_book_rounded,
+                              color: _purple, size: 24),
+                    ),
+                    const SizedBox(width: 14),
+
+                    // Title + progress
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            category.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              color: Color(0xFF1A1A1A),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                '$total ${isSk ? 'lekcií' : 'lessons'}',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.grey[500]),
+                              ),
+                              if (_progressLoaded && completed > 0) ...[
+                                const SizedBox(width: 6),
+                                Text('·',
+                                    style: TextStyle(
+                                        color: Colors.grey[400])),
+                                const SizedBox(width: 6),
+                                Text(
+                                  isComplete
+                                      ? (isSk ? 'Hotovo ✓' : 'Done ✓')
+                                      : '$percent%',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: isComplete
+                                        ? const Color(0xFF4CAF50)
+                                        : _purple,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                          if (_progressLoaded && completed > 0) ...[
+                            const SizedBox(height: 6),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: LinearProgressIndicator(
+                                value: fraction,
+                                minHeight: 4,
+                                backgroundColor: _purpleBg,
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(
+                                  isComplete
+                                      ? const Color(0xFF4CAF50)
+                                      : _purple,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${category.lessons.length} ${isSk ? 'lekcií' : 'lessons'}',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 12,
-                      ),
-                    ),
+                    const SizedBox(width: 8),
+
+                    // Right badge or arrow
+                    if (_progressLoaded && completed > 0)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: isComplete
+                              ? const Color(0xFF4CAF50).withOpacity(0.1)
+                              : _purpleBg,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '$completed/$total',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            color: isComplete
+                                ? const Color(0xFF4CAF50)
+                                : _purple,
+                          ),
+                        ),
+                      )
+                    else
+                      Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: Colors.grey[400]),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded, color: Colors.black54),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 }
+
+// ── QUIZZES TAB ───────────────────────────────────────────────────────────────
 
 class _QuizzesTab extends StatefulWidget {
   final VoidCallback onClose;
@@ -273,16 +343,15 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   late Future<Set<int>> openedLessonsFuture;
   String _lastLanguage = 'en';
 
-  // Section colors - each section gets a unique color
   static const List<Color> sectionColors = [
-    Color(0xFF7E57C2), // Purple
-    Color(0xFF26A69A), // Teal
-    Color(0xFFEC407A), // Pink
-    Color(0xFFFFA726), // Orange
-    Color(0xFF5C6BC0), // Indigo
-    Color(0xFF66BB6A), // Green
-    Color(0xFFAB47BC), // Deep Purple
-    Color(0xFF29B6F6), // Light Blue
+    Color(0xFF7E57C2),
+    Color(0xFF26A69A),
+    Color(0xFFEC407A),
+    Color(0xFFFFA726),
+    Color(0xFF5C6BC0),
+    Color(0xFF66BB6A),
+    Color(0xFFAB47BC),
+    Color(0xFF29B6F6),
   ];
 
   @override
@@ -303,7 +372,6 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      print('✓ Quiz tab resumed - refreshing progress data');
       _refreshData();
     }
   }
@@ -324,42 +392,22 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
     }
   }
 
-  QuizStatus _getStatusForQuiz(
-    List<QuizProgress> progressList,
-    String quizId,
-  ) {
+  QuizStatus _getStatusForQuiz(List<QuizProgress> progressList, String quizId) {
     try {
-      final progress = progressList.firstWhere(
-        (p) => p.quizId == quizId,
-      );
-      return progress.getStatus();
+      return progressList.firstWhere((p) => p.quizId == quizId).getStatus();
     } catch (e) {
       return QuizStatus.notDone;
     }
   }
 
-  int _getScoreForQuiz(
-    List<QuizProgress> progressList,
-    String quizId,
-  ) {
+  int _getScoreForQuiz(List<QuizProgress> progressList, String quizId) {
     try {
-      final progress = progressList.firstWhere(
-        (p) => p.quizId == quizId,
-      );
-      return progress.score;
+      return progressList.firstWhere((p) => p.quizId == quizId).score;
     } catch (e) {
       return 0;
     }
   }
 
-  /// Determine which quiz index should be unlocked in a section.
-  ///
-  /// A quiz at [quizIndex] is unlocked only when BOTH conditions are true:
-  ///   1. All previous quizzes are completed (existing sequential rule).
-  ///   2. The lesson whose id matches the quiz has been opened at least once.
-  ///
-  /// Returns the index of the first quiz that fails either condition,
-  /// or the last index when everything is done.
   int _getUnlockedQuizIndex(
     List<Quiz> quizzes,
     List<QuizProgress> progressList,
@@ -368,44 +416,31 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
     for (int i = 0; i < quizzes.length; i++) {
       final quiz = quizzes[i];
       final lessonQuizId = int.tryParse(quiz.id) ?? -1;
-
-      // Gate 1: lesson must have been opened
       final lessonOpened = openedLessonIds.contains(lessonQuizId);
-
-      // Gate 2: quiz must not already be done (sequential unlock)
       final status = _getStatusForQuiz(progressList, quiz.id);
       final quizDone = status != QuizStatus.notDone;
-
       if (!lessonOpened || !quizDone) {
-        // This is the first quiz that isn't fully cleared — unlock it only if
-        // the lesson has been opened; otherwise lock it too.
         return lessonOpened ? i : i - 1 < 0 ? -1 : i - 1;
       }
     }
-    // All quizzes done and lessons opened — stay on last one
     return quizzes.length - 1;
   }
 
-  /// Check if all quizzes in a section are completed
   bool _isSectionCompleted(
       List<Quiz> quizzes, List<QuizProgress> progressList) {
     if (quizzes.isEmpty) return false;
     for (final quiz in quizzes) {
-      final status = _getStatusForQuiz(progressList, quiz.id);
-      if (status == QuizStatus.notDone) {
+      if (_getStatusForQuiz(progressList, quiz.id) == QuizStatus.notDone) {
         return false;
       }
     }
     return true;
   }
 
-  /// Determine which section the user should currently be on
   int _getCurrentSectionIndex(
       List<QuizSection> sections, List<QuizProgress> progressList) {
     for (int i = 0; i < sections.length; i++) {
-      if (!_isSectionCompleted(sections[i].lessons, progressList)) {
-        return i;
-      }
+      if (!_isSectionCompleted(sections[i].lessons, progressList)) return i;
     }
     return sections.length - 1;
   }
@@ -413,13 +448,9 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
-
     _loadSectionsIfLanguageChanged(l10n.currentLanguage);
-
-    // Refresh on every build to reflect latest completions immediately
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
-    openedLessonsFuture =
-        LessonProgressDatabaseService.getAllOpenedLessonIds();
+    openedLessonsFuture = LessonProgressDatabaseService.getAllOpenedLessonIds();
 
     return Container(
       color: Colors.white,
@@ -429,37 +460,29 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
           if (sectionsSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (sectionsSnapshot.hasError) {
             return Center(
-              child:
-                  Text('Chyba pri načítaní kvízov: ${sectionsSnapshot.error}'),
-            );
+                child: Text(
+                    'Chyba pri načítaní kvízov: ${sectionsSnapshot.error}'));
           }
-
           final sections = sectionsSnapshot.data ?? [];
-
           if (sections.isEmpty) {
-            return const Center(
-              child: Text('Žiadne kvízy k dispozícii'),
-            );
+            return const Center(child: Text('Žiadne kvízy k dispozícii'));
           }
 
           return FutureBuilder<List<QuizProgress>>(
             future: allProgressFuture,
             builder: (context, progressSnapshot) {
               final progressList = progressSnapshot.data ?? [];
-
               return FutureBuilder<Set<int>>(
                 future: openedLessonsFuture,
                 builder: (context, openedSnapshot) {
                   final openedLessonIds = openedSnapshot.data ?? {};
-
                   final currentSectionIndex =
                       _getCurrentSectionIndex(sections, progressList);
                   final currentSection = sections[currentSectionIndex];
-                  final currentSectionColor = sectionColors[
-                      currentSectionIndex % sectionColors.length];
+                  final currentSectionColor =
+                      sectionColors[currentSectionIndex % sectionColors.length];
                   final unlockedIndex = _getUnlockedQuizIndex(
                     currentSection.lessons,
                     progressList,
@@ -471,16 +494,14 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                     itemCount: 1,
                     separatorBuilder: (_, __) => const SizedBox(height: 24),
                     itemBuilder: (context, _) {
-                      final section = currentSection;
-                      final sectionColor = currentSectionColor;
-
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 8, bottom: 12),
+                            padding:
+                                const EdgeInsets.only(left: 8, bottom: 12),
                             child: Text(
-                              section.name,
+                              currentSection.name,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -488,51 +509,43 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                               ),
                             ),
                           ),
-                          if (section.lessons.isEmpty)
+                          if (currentSection.lessons.isEmpty)
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.grey[300]!),
+                                border:
+                                    Border.all(color: Colors.grey[300]!),
                               ),
                               child: const Text(
                                 '🚧 Quizzes coming soon...',
                                 style: TextStyle(
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                ),
+                                    color: Colors.grey,
+                                    fontStyle: FontStyle.italic),
                               ),
                             )
                           else
                             Column(
                               children: List.generate(
-                                section.lessons.length,
+                                currentSection.lessons.length,
                                 (quizIndex) {
-                                  final quiz = section.lessons[quizIndex];
+                                  final quiz =
+                                      currentSection.lessons[quizIndex];
                                   final status = _getStatusForQuiz(
                                       progressList, quiz.id);
-                                  final score =
-                                      _getScoreForQuiz(progressList, quiz.id);
-                                  // A quiz is locked if its index exceeds the
-                                  // unlocked index (which already accounts for
-                                  // whether the lesson has been opened).
-                                  final isLocked = quizIndex > unlockedIndex;
-
+                                  final score = _getScoreForQuiz(
+                                      progressList, quiz.id);
+                                  final isLocked =
+                                      quizIndex > unlockedIndex;
                                   final offsets = [
-                                    -50.0,
-                                    -30.0,
-                                    -10.0,
-                                    10.0,
-                                    30.0,
-                                    50.0
+                                    -50.0, -30.0, -10.0, 10.0, 30.0, 50.0
                                   ];
                                   final horizontalOffset = offsets[
                                       (quiz.id.hashCode + quizIndex).abs() %
                                           offsets.length];
-
                                   final prevHorizontalOffset = quizIndex > 0
-                                      ? offsets[(section
+                                      ? offsets[(currentSection
                                                       .lessons[quizIndex - 1]
                                                       .id
                                                       .hashCode +
@@ -549,12 +562,13 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                                           height: 40,
                                           child: CustomPaint(
                                             painter: _PathPainter(
-                                              prevOffset: prevHorizontalOffset,
+                                              prevOffset:
+                                                  prevHorizontalOffset,
                                               currOffset: horizontalOffset,
-                                              color: sectionColor,
+                                              color: currentSectionColor,
                                             ),
-                                            size:
-                                                const Size(double.infinity, 40),
+                                            size: const Size(
+                                                double.infinity, 40),
                                           ),
                                         ),
                                       Transform.translate(
@@ -564,7 +578,8 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                                               ? null
                                               : () {
                                                   final lessonId =
-                                                      int.tryParse(quiz.id) ??
+                                                      int.tryParse(
+                                                              quiz.id) ??
                                                           1001;
                                                   Navigator.push(
                                                     context,
@@ -572,7 +587,8 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                                                       builder: (context) =>
                                                           LessonQuizScreen(
                                                         lessonId: lessonId,
-                                                        lessonTitle: quiz.name,
+                                                        lessonTitle:
+                                                            quiz.name,
                                                         onQuizCompleted:
                                                             _refreshData,
                                                       ),
@@ -584,7 +600,8 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                                             status: status,
                                             score: score,
                                             locked: isLocked,
-                                            sectionColor: sectionColor,
+                                            sectionColor:
+                                                currentSectionColor,
                                           ),
                                         ),
                                       ),
@@ -602,121 +619,6 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class _QuizSectionCard extends StatelessWidget {
-  final QuizSection section;
-  final VoidCallback onClose;
-
-  const _QuizSectionCard({
-    required this.section,
-    required this.onClose,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1,
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => QuizSectionScreen(section: section),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFE0B2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.quiz_rounded, color: Color(0xFFFF9800)),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      section.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${section.lessons.length} kvízov',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(Icons.chevron_right_rounded, color: Colors.black54),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PlaceholderTab extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-
-  const _PlaceholderTab({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 48,
-            color: Colors.deepPurple.withOpacity(0.5),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[400],
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -750,7 +652,6 @@ class _PathPainter extends CustomPainter {
       size.width / 2 + currOffset,
       size.height,
     );
-
     canvas.drawPath(path, paint);
   }
 
