@@ -97,9 +97,12 @@ class RoomComponentDatabaseService {
       final maps = await db.query(_ownedComponentsTable);
 
       return List.generate(maps.length, (i) {
+        final id = maps[i]['id'] as String;
+        final config = _configById(id);
         return RoomComponent(
-          id: maps[i]['id'] as String,
+          id: id,
           name: maps[i]['name'] as String,
+          nameEn: config?.nameEn,
           type: _stringToComponentType(maps[i]['type'] as String),
           texture: maps[i]['texture'] as String,
           cost: maps[i]['cost'] as int,
@@ -125,9 +128,12 @@ class RoomComponentDatabaseService {
       );
 
       return List.generate(maps.length, (i) {
+        final id = maps[i]['id'] as String;
+        final config = _configById(id);
         return RoomComponent(
-          id: maps[i]['id'] as String,
+          id: id,
           name: maps[i]['name'] as String,
+          nameEn: config?.nameEn,
           type: type,
           texture: maps[i]['texture'] as String,
           cost: maps[i]['cost'] as int,
@@ -393,5 +399,14 @@ class RoomComponentDatabaseService {
       (type) => type.toString().split('.').last == typeString,
       orElse: () => RoomComponentType.wall,
     );
+  }
+
+  /// Look up a component's full config entry by id for name enrichment.
+  static RoomComponent? _configById(String id) {
+    try {
+      return ROOM_COMPONENTS.firstWhere((c) => c.id == id);
+    } catch (_) {
+      return null;
+    }
   }
 }
