@@ -194,33 +194,40 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       if (correct) correctAnswers++;
     });
 
-    // If correct, check if we should award coins
-    if (correct && quizInfo != null) {
-      final question = questions[currentQuestionIndex];
-      final isAlreadyRewarded = await QuizProgressDatabaseService.isQuestionRewarded(
-        quizInfo!.sectionId,
-        widget.lessonId.toString(),
-        question.id,
-      );
-
-      // Only award coins if:
-      // 1. Question hasn't been rewarded yet
-      // 2. Quiz is NOT locked (quiz is in the unlocked progression sequence)
-      if (!isAlreadyRewarded && !_isQuizLocked && mounted) {
-        // Award coins
-        const coinsPerQuestion = 2;
-        context.read<GameState>().awardQuizQuestionCoins(coinsPerQuestion);
-        print('✓ Awarded $coinsPerQuestion coins for question (quiz unlocked)');
-        
-        // Mark as rewarded
-        await QuizProgressDatabaseService.markQuestionAsRewarded(
+    // Coin rewards/penalties
+    if (quizInfo != null && !_isQuizLocked && mounted) {
+      if (correct) {
+        // Correct answer: award coins (one-time per question)
+        final question = questions[currentQuestionIndex];
+        final isAlreadyRewarded = await QuizProgressDatabaseService.isQuestionRewarded(
           quizInfo!.sectionId,
           widget.lessonId.toString(),
           question.id,
         );
 
-        // Show reward animation/notification
-        _showCoinRewardNotification(coinsPerQuestion);
+        if (!isAlreadyRewarded) {
+          const coinsPerCorrectAnswer = 4;
+          context.read<GameState>().awardQuizQuestionCoins(coinsPerCorrectAnswer);
+          print('✓ Awarded $coinsPerCorrectAnswer coins for correct answer');
+          
+          // Mark as rewarded
+          await QuizProgressDatabaseService.markQuestionAsRewarded(
+            quizInfo!.sectionId,
+            widget.lessonId.toString(),
+            question.id,
+          );
+
+          // Show reward animation/notification
+          _showCoinRewardNotification(coinsPerCorrectAnswer);
+        }
+      } else {
+        // Wrong answer: deduct coins (every wrong attempt)
+        const coinsPerWrongAnswer = 2;
+        context.read<GameState>().spendCoins(coinsPerWrongAnswer);
+        print('✗ Deducted $coinsPerWrongAnswer coins for wrong answer');
+        
+        // Show penalty notification
+        _showCoinPenaltyNotification(coinsPerWrongAnswer);
       }
     }
   }
@@ -240,6 +247,32 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             const SizedBox(width: 8),
             Text(
               l10nProvider.translate('quizCoinReward', replacements: {'coins': '$coins'}),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showCoinPenaltyNotification(int coins) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(milliseconds: 1000),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(bottom: 160, left: 16, right: 16),
+        backgroundColor: const Color(0xFFE53935),
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.remove_circle, color: Color(0xFFFFCDD2), size: 20),
+            const SizedBox(width: 8),
+            Text(
+              '-$coins coins',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
