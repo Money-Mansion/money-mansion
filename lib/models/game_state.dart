@@ -38,10 +38,9 @@ class GameState extends ChangeNotifier {
 
   void spendCoins(int amount) {
     if (amount <= 0) return;
-    if (coins >= amount) {
-      coins -= amount;
-      notifyListeners();
-    }
+    // Allow coins to go negative to represent debt
+    coins -= amount;
+    notifyListeners();
   }
 
   void addMoney(double amount) {

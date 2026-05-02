@@ -83,11 +83,8 @@ class GoalAllocationService {
             gameState.addCoins(delta);
           } else if (delta < 0) {
             final remove = -delta;
-            if (gameState.coins >= remove) {
-              gameState.spendCoins(remove);
-            } else {
-              gameState.setCoins(0);
-            }
+            // Allow coins to go negative (debt) when withdrawing from milestone goals
+            gameState.spendCoins(remove);
           }
           updatedGoal =
               updatedGoal.copyWith(milestonesAwarded: reachedMilestones);
