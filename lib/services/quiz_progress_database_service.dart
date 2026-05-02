@@ -165,7 +165,7 @@ class QuizProgressDatabaseService {
     }
   }
 
-  /// Update score for a quiz
+  /// Update score for a quiz - keeps the BEST score (never downgrades)
   static Future<void> updateScore(
     String sectionId,
     String quizId,
@@ -179,10 +179,15 @@ class QuizProgressDatabaseService {
       var existingProgress = await getProgress(sectionId, quizId);
       final rewardedIds = existingProgress?.rewardedQuestionIds ?? {};
       
+      // Keep the BEST score - once unlocked at 100%, stays unlocked
+      final bestScore = existingProgress != null 
+          ? (score > existingProgress.score ? score : existingProgress.score)
+          : score;
+      
       final newProgress = QuizProgress(
         quizId: quizId,
         sectionId: sectionId,
-        score: score,
+        score: bestScore,
         isCompleted: true,
         completedDate: DateTime.now(),
         rewardedQuestionIds: rewardedIds,
@@ -193,7 +198,12 @@ class QuizProgressDatabaseService {
         newProgress.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      print('✓ Quiz progress saved: $quizId section $sectionId score $score');
+      
+      if (bestScore > (existingProgress?.score ?? 0)) {
+        print('✓ Quiz progress improved: $quizId section $sectionId score $score → $bestScore');
+      } else {
+        print('✓ Quiz progress saved: $quizId section $sectionId (best: $bestScore, current attempt: $score)');
+      }
     } catch (e) {
       print('Error updating quiz score: $e');
     }
