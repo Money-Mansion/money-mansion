@@ -417,9 +417,9 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
       final quiz = quizzes[i];
       final lessonQuizId = int.tryParse(quiz.id) ?? -1;
       final lessonOpened = openedLessonIds.contains(lessonQuizId);
-      final status = _getStatusForQuiz(progressList, quiz.id);
-      final quizDone = status != QuizStatus.notDone;
-      if (!lessonOpened || !quizDone) {
+      final score = _getScoreForQuiz(progressList, quiz.id);
+      final quizCompletedPerfectly = score == 100; // Require 100% to unlock next
+      if (!lessonOpened || !quizCompletedPerfectly) {
         return lessonOpened ? i : i - 1 < 0 ? -1 : i - 1;
       }
     }

@@ -134,7 +134,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
           return false;
         }
 
-        // For first quiz of other sections: check if ALL quizzes in PREVIOUS section are completed
+        // For first quiz of other sections: check if ALL quizzes in PREVIOUS section are completed with 100%
         final previousSection = sections[sectionIndex - 1];
         for (final prevSectionQuiz in previousSection.lessons) {
           QuizProgress? prevProgress;
@@ -146,16 +146,16 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             prevProgress = null;
           }
 
-          // If any quiz in previous section is not completed, this quiz is locked
-          if (prevProgress == null || prevProgress.getStatus() == QuizStatus.notDone) {
-            return true; // Quiz is locked - previous section not completed
+          // If any quiz in previous section is not completed with 100%, this quiz is locked
+          if (prevProgress == null || prevProgress.score != 100) {
+            return true; // Quiz is locked - previous section not completed with 100%
           }
         }
 
-        return false; // All quizzes in previous section are completed
+        return false; // All quizzes in previous section completed with 100%
       }
 
-      // For non-first quizzes: check if all previous quizzes in THIS section are completed
+      // For non-first quizzes: check if all previous quizzes in THIS section are completed with 100%
       for (int i = 0; i < quizIndex; i++) {
         final prevQuizId = section.lessons[i].id;
         QuizProgress? prevProgress;
@@ -167,9 +167,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
           prevProgress = null;
         }
 
-        // If previous quiz not completed, current quiz is locked
-        if (prevProgress == null || prevProgress.getStatus() == QuizStatus.notDone) {
-          return true; // Quiz is locked
+        // If previous quiz not completed with 100%, current quiz is locked
+        if (prevProgress == null || prevProgress.score != 100) {
+          return true; // Quiz is locked - requires 100%
         }
       }
 

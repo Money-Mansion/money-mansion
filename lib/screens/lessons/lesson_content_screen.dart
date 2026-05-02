@@ -2824,7 +2824,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
         final progress = allProgress.where(
           (p) => p.quizId == prevQuiz.id && p.sectionId == previousSection.id,
         ).firstOrNull;
-        if (progress == null || progress.getStatus() == QuizStatus.notDone) {
+        if (progress == null || progress.score != 100) {
           return true;
         }
       }
@@ -2836,7 +2836,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
       final progress = allProgress.where(
         (p) => p.quizId == prevQuizId && p.sectionId == sectionId,
       ).firstOrNull;
-      if (progress == null || progress.getStatus() == QuizStatus.notDone) {
+      if (progress == null || progress.score != 100) {
         return true;
       }
     }
