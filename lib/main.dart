@@ -90,6 +90,14 @@ void main() async {
     rethrow;
   }
 
+  // Detect and handle fresh installs (app uninstalled/reinstalled)
+  // This resets SharedPreferences if databases were cleared but prefs were backed up
+  final isFreshInstall = await OnboardingService.detectFreshInstall();
+  if (isFreshInstall) {
+    await OnboardingService.resetAllOnboardingAndTutorialData();
+    print('✓ Fresh install detected and cleaned');
+  }
+
   // Load music preferences from database
   final musicEnabled = await FinancialDatabaseService.getMusicEnabled();
   final musicVolume = await FinancialDatabaseService.getMusicVolume();

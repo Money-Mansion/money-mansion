@@ -177,6 +177,55 @@ class OnboardingService {
     await prefs.setBool(_firstLaunchKey, true);
   }
 
+  /// Reset all onboarding and tutorial data in SharedPreferences
+  /// Used when a fresh install is detected (databases cleared but SharedPreferences backed up)
+  static Future<void> resetAllOnboardingAndTutorialData() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Reset onboarding keys
+    await prefs.remove(_firstLaunchKey);
+    await prefs.remove(_usernameKey);
+    await prefs.remove(_ageKey);
+    await prefs.remove(_monthlyIncomeKey);
+    await prefs.remove(_monthlyExpensesKey);
+    await prefs.remove(_experienceKey);
+    await prefs.remove(_goalKey);
+    await prefs.remove(_incomeTypeKey);
+    
+    // Reset privacy consent keys
+    await prefs.remove(_privacyConsentKey);
+    await prefs.remove(_privacyPolicyVersionKey);
+    
+    // Reset tutorial keys (from TutorialProvider)
+    await prefs.remove('tutorial_completed');
+    await prefs.remove('tutorial_step_index');
+    
+    print('✓ All onboarding and tutorial data reset');
+  }
+
+  /// Detect if this is a fresh install by checking if databases are empty
+  /// but SharedPreferences has old data (from backup after uninstall/reinstall)
+  static Future<bool> detectFreshInstall() async {
+    final profile = await getUserProfile();
+    final prefs = await SharedPreferences.getInstance();
+    
+    // If no user profile exists in DB, it's a fresh/clean install
+    if (profile == null) {
+      // Check if there's old SharedPreferences data
+      final hasOldPrivacyData = prefs.containsKey(_privacyConsentKey);
+      final hasOldTutorialData = prefs.containsKey('tutorial_completed');
+      
+      // If we have old SharedPreferences data but no database profile, 
+      // it's a fresh install with backed-up SharedPreferences
+      if (hasOldPrivacyData || hasOldTutorialData) {
+        print('⚠ Fresh install detected with old SharedPreferences data - will reset');
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
   static FinancialExperience _experienceFromString(String? value) {
     switch (value) {
       case _experienceIntermediate:
