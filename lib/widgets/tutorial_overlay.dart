@@ -400,7 +400,7 @@ class _ChrumkoDialogue extends StatelessWidget {
                   ),
 
                 GestureDetector(
-                  onTap: null,
+                  onTap: canTapToContinue ? onContinue : null,
                   child: Material(
                     color: Colors.white,
                     elevation: 8,
