@@ -491,7 +491,7 @@ class AppLocalizations {
       'tutorialTapToFinish': 'klepni pre ukončenie 🎉',
       'tutorialSpeakerName': 'Chrumko',
       'tutorialChrumkoIntro':
-          'Ahoj {name}! 👋 Som Chrumko, tvoj osobný sprievodca svetom peňazí a financií! Dovoľ mi, aby som ti pomohol prevziať kontrolu nad svojimi financiami, naučiť sa múdrym finančným návykom a vybudovať svoje vysnívané sídlo. Si pripravený začať?',
+          'Ahoj {name}! 👋 Som Chrumko, tvoj osobný sprievodca svetom peňazí a financií! Dovoľ mi, aby som ti pomohol prevziať kontrolu nad svojimi financiami, naučiť sa múdrym finančným návykom a vybudovať svoje vysnívané sídlo. Si pripravený/á začať?',
       'tutorialTopBar':
           'Mince získavaš v hre, peniaze sledujú tvoje skutočné financie a tvoj Streak 🔥 rastie, keď každý deň dokončíš kvíz, {name}.',
       'tutorialFinancialIntro':
@@ -501,13 +501,13 @@ class AppLocalizations {
       'tutorialShopCategories':
           'Milujem prezeranie kategórií, {name} — Tapety, Posedenie, Úložný priestor, Postele, Podlahy. Každá má iné predmety na vylepšenie sídla!',
       'tutorialGoalsIntro':
-          'Tu su tvoje ciele sporenia, {name}! Kazdy ciel ma cielovu sumu, termin a AI urcenu odmenu. Sikovne, nie?',
+          'Tu sú tvoje ciele sporenia, {name}! Každý cieľ má cieľovú sumu, termín a AI určenú odmenu. Šikovne, nie?',
       'tutorialGoalsAssign':
           'Klepni na kartu ľubovoľného cieľa a priraď mu peniaze zo zostatku, {name}. Ja si vždy odložím trochu každý týždeň — malé kroky, veľké výsledky! 💪',
       'tutorialGoalsReassign':
           'Vidíš tlačidlo ⇄ vpravo hore, {name}? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
       'tutorialGoalsComplete':
-          'Ked ciel dosiahne 100 %, zaskrtni policko a dokonci ho, {name}. Za splneny ciel dostanes AI urcenu odmenu v minciach.',
+          'Keď cieľ dosiahne 100 %, zaškrtni políčko a dokonči ho, {name}. Za splnený cieľ dostaneš AI určenú odmenu v minciach.',
       'tutorialRoomExplain':
           'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartovných predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
@@ -536,6 +536,8 @@ class AppLocalizations {
           'Pozrime sa do Inventára, {name}! Tam sú uložené všetky predmety, ktoré vlastníš.',
       'tutorialInventoryAction':
           'Tu sú tvoje vlastnené predmety, {name}. Ja si vždy sledujem, čo mám — vedomosti sú sila!',
+      'tutorialSettings':
+          'V Nastaveniach si môžeš zmeniť jazyk, zapnúť hudbu a dokonca reštartovať tento návod, ak si chceš zopakovať moje rady, {name}!',
       'tutorialDoAction': 'Vykonaj túto akciu, {name}, aby si pokračoval.',
       'tutorialAddTransaction':
           'Klepni na + a pridaj transakciu, {name}. Ja si zaznamenávam každú — je to základ!',
@@ -555,13 +557,13 @@ class AppLocalizations {
       'tutorialRoomEditInventory':
           'Klepni na inventár — uvidíš všetko, čo vlastníš, {name}. Vyber predmet, ktorý ešte nie je v miestnosti, a klepni naň, aby si ho pridal do izby.',
       'tutorialRoomEditPlace':
-          'Super, {name}! Predmet potiahni, aby si ho presunul, alebo klepni na prázdne miesto, aby si zrušil výber. Keď budeš spokojný s rozložením, uložíme ho.',
+          'Super, {name}! Predmet potiahni, aby si ho presunul/a, alebo klepni na prázdne miesto, aby si zrušil/a výber. Keď budeš spokojný/á s rozložením, uložíme ho.',
       'tutorialRoomEditSave':
           'Klepni na fajku a ulož rozloženie a vráť sa domov, {name}. K úpravám sa môžeš kedykoľvek vrátiť!',
       'tutorialBack':
           'Výborne, {name}! Teraz klepni na tlačidlo späť a pokračujme v prehliadke.',
       'tutorialFinish':
-          'Zvládol si to, {name}! Som na teba hrdý. Teraz si pripravený prevziať kontrolu nad svojimi financiami. Pamätaj — vždy som tu pre teba! 💪',
+          'Zvládol/a si to, {name}! Som na teba hrdý/á. Teraz si pripravený/á prevziať kontrolu nad svojimi financiami. Pamätaj — vždy som tu pre teba! 💪',
       'tutorialShopNav':
           'Poďme sa pozrieť do Obchodu, {name}! Ja vždy prehliadam pred nákupom — múdre nakupovanie začína poznaním možností.',
       'tutorialShopAction':
