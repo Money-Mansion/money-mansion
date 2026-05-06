@@ -75,62 +75,62 @@ class AppLocalizations {
       'tutorialFinancialTabs':
           'Use the tabs at the top, {name}: Total shows everything, Income shows gains, and Expense shows purchases. I always review all three!',
       'tutorialShopCategories':
-          'I love browsing the categories, {name} — Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
+          'I love browsing the categories, {name}, Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
       'tutorialGoalsIntro':
           'Here are your saving goals, {name}! Each goal has a target amount, a deadline and an AI-chosen reward. Pretty smart, right?',
       'tutorialGoalsAssign':
-          'Tap any goal card to assign money from your balance to it, {name}. I always put a little aside each week — small steps, big results! 💪',
+          'Tap any goal card to assign money from your balance to it, {name}. I always put a little aside each week, small steps, big results! 💪',
       'tutorialGoalsReassign':
           'See the ⇄ button in the top right, {name}? That lets me move money between goals if my priorities change. Very handy!',
       'tutorialGoalsComplete':
           'Once a goal reaches 100%, tick the checkbox to complete it, {name}. Each completed goal gives an AI-chosen coin reward.',
       'tutorialRoomExplain':
-          'This is your mansion, {name}! You already have a few starter pieces in your inventory — we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
+          'This is your mansion, {name}! You already have a few starter pieces in your inventory, we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
           'In Settings you can change the language, toggle background music, adjust the volume, and update your personal profile, {name}. Feel free to explore everything!',
       'tutorialHomeWelcome':
           'At the top you can see your Coins 🪙, Money 💶 and Streak 🔥, {name}. You build your streak by completing a quiz every day.',
       'tutorialHomeBalance':
-          'Up here you can see your coins and money, {name}. These are your most important resources — spend them wisely!',
+          'Up here you can see your coins and money, {name}. These are your most important resources, spend them wisely!',
       'tutorialFinancialNav':
-          'First things first, {name} — let me show you the Financial tab. That\'s where I keep track of all income and expenses!',
+          'First things first, {name}, let me show you the Financial tab. That\'s where I keep track of all income and expenses!',
       'tutorialFinancialAction':
-          'Great job, {name}! Now tap the + button to add your first transaction. I always log everything — it\'s the key to good finances!',
+          'Great job, {name}! Now tap the + button to add your first transaction. I always log everything, it\'s the key to good finances!',
       'tutorialGoalsNav':
-          'Next up, {name} — the Goals tab! I love setting saving targets. Let me show you where to find them.',
+          'Next up, {name}, the Goals tab! I love setting saving targets. Let me show you where to find them.',
       'tutorialGoalsAction':
-          'Tap + to create a goal, {name}. I recommend starting with something achievable — small wins build great habits!',
+          'Tap + to create a goal, {name}. I recommend starting with something achievable, small wins build great habits!',
       'tutorialInventoryNav':
           'Let\'s check out your Inventory, {name}! That\'s where all the items you own are stored.',
       'tutorialInventoryAction':
-          'Here are all your owned items, {name}. I always keep track of what I have — knowledge is power!',
+          'Here are all your owned items, {name}. I always keep track of what I have, knowledge is power!',
       'tutorialSettings':
           'In Settings you can change the language, toggle music, and even restart this tutorial if you want a refresher from me, {name}!',
       'tutorialDoAction': 'Do this action to continue, {name}.',
       'tutorialAddGoal':
-          'Tap + to create a goal, {name}. I always set a target amount — it keeps me motivated!',
+          'Tap + to create a goal, {name}. I always set a target amount, it keeps me motivated!',
       'tutorialCalendar':
           'This is the Calendar, {name}! I use it to plan ahead and never miss important financial dates.',
       'tutorialLessons':
-          'And here\'s my favourite spot, {name} — the Learning section! Here you can study lessons and complete quizzes. Every finished quiz raises your streak.',
+          'And here\'s my favourite spot, {name}, the Learning section! Here you can study lessons and complete quizzes. Every finished quiz raises your streak.',
       'tutorialLessonsReturn':
-          'You can switch between lessons and quizzes here, {name}. Finishing a quiz increases your streak. When you\'re ready, tap the back button in the bottom-left corner to close this — then we\'ll continue!',
+          'You can switch between lessons and quizzes here, {name}. Finishing a quiz increases your streak. When you\'re ready, tap the back button in the bottom-left corner to close this, then we\'ll continue!',
       'tutorialRoomEdit':
           'You can customise your mansion right here, {name}! I believe a good environment motivates better financial decisions.',
       'tutorialRoomEditIntro':
           'Welcome to edit mode, {name}! Drag with one finger to move the view, pinch with two fingers to zoom, and tap the purple inventory button when you\'re ready to pull items into the room.',
       'tutorialRoomEditInventory':
-          'Tap the inventory button — you\'ll see everything you own, {name}. Pick any item that isn\'t already placed and tap it to drop it into your room.',
+          'Tap the inventory button, you\'ll see everything you own, {name}. Pick any item that isn\'t already placed and tap it to drop it into your room.',
       'tutorialRoomEditPlace':
           'Nice, {name}! Drag the item to move it, or tap empty space to deselect. When you\'re happy with the layout, we\'ll save it next.',
       'tutorialRoomEditSave':
           'Tap the checkmark to save your layout and return home, {name}. You can always come back to edit again later!',
       'tutorialFinish':
-          'You made it, {name}! I\'m proud of you. You\'re all set to take control of your finances. Remember — I\'m always here to help! 💪',
+          'You made it, {name}! I\'m proud of you. You\'re all set to take control of your finances. Remember, I\'m always here to help! 💪',
       'tutorialShopNav':
-          'Now let\'s visit the Shop, {name}! I always browse before buying — smart shopping starts with knowing your options.',
+          'Now let\'s visit the Shop, {name}! I always browse before buying, smart shopping starts with knowing your options.',
       'tutorialShopAction':
-          'Browse the items and buy what you like, {name}. Just remember — only spend what you can afford! I always do. 😄',
+          'Browse the items and buy what you like, {name}. Just remember, only spend what you can afford! I always do. 😄',
       'tutorialCalendarAction': 'Tap the calendar to see dates, {name}.',
       'tutorialSettingsAction':
           'Open settings to adjust language and music, {name}.',
