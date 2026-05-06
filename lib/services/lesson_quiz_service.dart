@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import '../models/quiz_question_types.dart';
 
 class LessonQuizService {
-  /// Get list of quiz files based on language
-  /// Only loads the NEW improved versions (1 file per section)
   static List<String> _getQuizFiles(String language) {
     final suffix = language == 'sk' ? '_sk' : '_en';
     return [
@@ -16,14 +15,12 @@ class LessonQuizService {
 
   const LessonQuizService();
 
-  /// Load all questions for a specific lesson by lessonId
-  /// Returns list of questions from quiz databases
   Future<List<QuizQuestion>> getQuestionsForLesson(
     int lessonId, {
     String language = 'en',
   }) async {
     final quizFiles = _getQuizFiles(language);
-    
+
     for (final file in quizFiles) {
       try {
         final jsonString = await rootBundle.loadString(file);
@@ -48,30 +45,25 @@ class LessonQuizService {
     return [];
   }
 
-  /// Get random N questions from all available questions for lesson
   Future<List<QuizQuestion>> getRandomQuestionsForLesson(
     int lessonId, {
     int count = 5,
     String language = 'en',
   }) async {
-    final allQuestions = await getQuestionsForLesson(lessonId, language: language);
-    if (allQuestions.isEmpty) {
-      return [];
-    }
+    final allQuestions =
+        await getQuestionsForLesson(lessonId, language: language);
+    if (allQuestions.isEmpty) return [];
 
-    final random = DateTime.now().millisecond;
     allQuestions.shuffle();
-
     return allQuestions.take(count.clamp(1, allQuestions.length)).toList();
   }
 
-  /// Get lesson info (name, number) by lessonId
   Future<LessonQuizInfo?> getLessonInfo(
     int lessonId, {
     String language = 'en',
   }) async {
     final quizFiles = _getQuizFiles(language);
-    
+
     for (final file in quizFiles) {
       try {
         final jsonString = await rootBundle.loadString(file);
@@ -98,38 +90,6 @@ class LessonQuizService {
     }
     return null;
   }
-}
-
-class QuizQuestion {
-  final String id;
-  final String question;
-  final List<String> options;
-  final int correctAnswer;
-  final String explanation;
-
-  const QuizQuestion({
-    required this.id,
-    required this.question,
-    required this.options,
-    required this.correctAnswer,
-    required this.explanation,
-  });
-
-  factory QuizQuestion.fromJson(Map<String, dynamic> json) => QuizQuestion(
-        id: json['questionId'] as String,
-        question: json['question'] as String,
-        options: List<String>.from(json['options'] as List<dynamic>),
-        correctAnswer: json['correctAnswer'] as int,
-        explanation: json['explanation'] as String,
-      );
-
-  Map<String, dynamic> toJson() => {
-        'questionId': id,
-        'question': question,
-        'options': options,
-        'correctAnswer': correctAnswer,
-        'explanation': explanation,
-      };
 }
 
 class LessonQuizInfo {
