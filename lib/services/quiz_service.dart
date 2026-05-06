@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import '../models/quiz_question_types.dart';
 
 class QuizService {
-  /// Loading the NEW improved quiz files (1 file per section)
-  /// All legacy files are disconnected and kept on disk as backup only:
-  /// - quiz_database_1.json, 2.json, 3.json (old plain versions)
-  /// - quiz_database_*_sk01.json, quiz_database_*_en01.json (old renamed versions)
   static const Map<String, List<String>> _quizFilesByLanguage = {
     'sk': [
       'assets/quizes/quiz_database_01_sk.json',
@@ -23,38 +20,34 @@ class QuizService {
 
   const QuizService();
 
-  /// Load all quiz sections for a specific language
-  /// Defaults to 'en' if language is not supported
   Future<List<QuizSection>> getAllSections({String language = 'en'}) async {
     final sections = <QuizSection>[];
-    
-    // Use provided language if available, otherwise fall back to 'en'
-    final quizFiles = _quizFilesByLanguage[language] ?? _quizFilesByLanguage['en']!;
-    
+    final quizFiles =
+        _quizFilesByLanguage[language] ?? _quizFilesByLanguage['en']!;
+
     for (final file in quizFiles) {
       try {
         final jsonString = await rootBundle.loadString(file);
         final jsonData = jsonDecode(jsonString) as Map<String, dynamic>;
         final quizzes = jsonData['quizzes'] as List<dynamic>;
-        
+
         for (final quiz in quizzes) {
-          final section = QuizSection(
+          sections.add(QuizSection(
             id: quiz['section'].toString(),
             name: quiz['sectionName'] as String,
             lessons: _parseQuizzes(quiz['lessons'] as List<dynamic>),
-          );
-          sections.add(section);
+          ));
         }
       } catch (e) {
         print('Error loading quiz file $file: $e');
       }
     }
-    
+
     return sections;
   }
 
-  /// Get section by ID for a specific language
-  Future<QuizSection?> getSection(String sectionId, {String language = 'en'}) async {
+  Future<QuizSection?> getSection(String sectionId,
+      {String language = 'en'}) async {
     final sections = await getAllSections(language: language);
     try {
       return sections.firstWhere((s) => s.id == sectionId);
@@ -69,21 +62,15 @@ class QuizService {
               id: lesson['lessonId'].toString(),
               number: lesson['lessonNumber'] as int,
               name: lesson['lessonName'] as String,
-              questions: _parseQuestions(lesson['questions'] as List<dynamic>),
+              questions:
+                  _parseQuestions(lesson['questions'] as List<dynamic>),
             ))
         .toList();
   }
 
   List<QuizQuestion> _parseQuestions(List<dynamic> questionsData) {
     return questionsData
-        .map((question) => QuizQuestion(
-              id: question['questionId'] as String,
-              question: question['question'] as String,
-              options:
-                  List<String>.from(question['options'] as List<dynamic>),
-              correctAnswer: question['correctAnswer'] as int,
-              explanation: question['explanation'] as String,
-            ))
+        .map((q) => QuizQuestion.fromJson(q as Map<String, dynamic>))
         .toList();
   }
 }
@@ -111,21 +98,5 @@ class Quiz {
     required this.number,
     required this.name,
     required this.questions,
-  });
-}
-
-class QuizQuestion {
-  final String id;
-  final String question;
-  final List<String> options;
-  final int correctAnswer;
-  final String explanation;
-
-  const QuizQuestion({
-    required this.id,
-    required this.question,
-    required this.options,
-    required this.correctAnswer,
-    required this.explanation,
   });
 }

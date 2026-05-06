@@ -1,17 +1,24 @@
+// ============================================================
+// UPDATED: lib/screens/lessons/lesson_quiz_screen.dart
+// ============================================================
+
 import 'package:flutter/material.dart';
+// Single import for QuizQuestion — lives only in quiz_question_types.dart
+import 'package:money_mansion/models/quiz_question_types.dart';
 import 'package:provider/provider.dart';
 import '../../services/lesson_quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
-import '../../services/quiz_service.dart' hide QuizQuestion;
+import '../../services/quiz_service.dart';
 import '../../services/streak_service.dart';
 import '../../services/app_localizations_provider.dart';
 import '../../models/game_state.dart';
 import '../../models/quiz_progress.dart';
+import '../../widgets/quiz_question_widgets.dart' hide QuizQuestion, QuestionType;
 
 class LessonQuizScreen extends StatefulWidget {
   final int lessonId;
   final String lessonTitle;
-  final VoidCallback? onQuizCompleted; // Callback to refresh parent when quiz is done
+  final VoidCallback? onQuizCompleted;
 
   const LessonQuizScreen({
     super.key,
@@ -31,27 +38,20 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   int correctAnswers = 0;
   bool showFeedback = false;
   bool? isCorrect;
-  int? selectedAnswer;
   LessonQuizInfo? quizInfo;
   bool _initialized = false;
-  bool _isQuizLocked = false; // Track if quiz is locked in progression
-  bool _quizFinished = false; // Track if quiz is finished to show 100% progress
+  bool _isQuizLocked = false;
+  bool _quizFinished = false;
 
   @override
   void initState() {
     super.initState();
-    // Initialize immediately
     _initializeAsync();
   }
 
   Future<void> _initializeAsync() async {
-    // Initialize database
     await QuizProgressDatabaseService.initializeDatabase();
-    
-    // Only update if mounted
     if (!mounted) return;
-    
-    // Load questions
     setState(() {
       questionsFuture = _loadQuestionsAsync();
       _initialized = true;
@@ -60,37 +60,36 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
 
   Future<List<QuizQuestion>> _loadQuestionsAsync() async {
     try {
-      // Get current language from context
       final l10nProvider = context.read<AppLocalizationsProvider>();
       final language = l10nProvider.currentLanguage;
-      
+
       quizInfo = await const LessonQuizService().getLessonInfo(
         widget.lessonId,
         language: language,
       );
-      
-      // Determine if this quiz is locked (not yet unlocked in sequence)
+      if (!mounted) return [];
+
       if (quizInfo != null) {
         _isQuizLocked = await _checkIfQuizLocked(
           quizInfo!.sectionId,
           widget.lessonId.toString(),
           language,
         );
-        print('✓ Quiz locked status: $_isQuizLocked for quiz ${widget.lessonId}');
+        if (!mounted) return [];
       }
-      
-      final loadedQuestions = await const LessonQuizService().getRandomQuestionsForLesson(
+
+      final loadedQuestions =
+          await const LessonQuizService().getRandomQuestionsForLesson(
         widget.lessonId,
-        count: 5, // Random 5 questions
+        count: 5,
         language: language,
       );
-      
       if (!mounted) return [];
-      
-      setState(() {
-        questions = loadedQuestions;
-      });
-      
+
+      // Sync questions list so the rest of the screen can reference it
+      // directly (e.g. _nextQuestion, _answerQuestion) without going
+      // through the FutureBuilder snapshot every time.
+      questions = loadedQuestions;
       return loadedQuestions;
     } catch (e) {
       print('Error loading questions: $e');
@@ -98,135 +97,100 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     }
   }
 
-  /// Determine if this quiz is locked (not yet unlocked in the progression sequence)
-  /// Returns true if quiz should not award coins yet
   Future<bool> _checkIfQuizLocked(
     String sectionId,
     String quizId,
     String language,
   ) async {
     try {
-      // Get all sections to find this quiz's position
-      final sections = await const QuizService().getAllSections(language: language);
-      final sectionIndex = sections.indexWhere((s) => s.id == sectionId);
-      
-      if (sectionIndex == -1) {
-        print('⚠ Section not found: $sectionId');
-        return true; // Assume locked if section not found
-      }
+      final sections =
+          await const QuizService().getAllSections(language: language);
+      final sectionIndex =
+          sections.indexWhere((s) => s.id == sectionId);
+      if (sectionIndex == -1) return true;
 
       final section = sections[sectionIndex];
+      final quizIndex =
+          section.lessons.indexWhere((q) => q.id == quizId);
+      if (quizIndex == -1) return true;
 
-      // Find quiz index in section
-      final quizIndex = section.lessons.indexWhere((q) => q.id == quizId);
-      if (quizIndex == -1) {
-        print('⚠ Quiz not found in section: $quizId');
-        return true; // Assume locked if not found
-      }
+      final allProgress =
+          await QuizProgressDatabaseService.getAllProgress();
 
-      // Get progress to check if quizzes are completed
-      final allProgress = await QuizProgressDatabaseService.getAllProgress();
-
-      // If it's the first quiz in section
       if (quizIndex == 0) {
-        // First quiz of first section is always unlocked
-        if (sectionIndex == 0) {
-          return false;
-        }
-
-        // For first quiz of other sections: check if ALL quizzes in PREVIOUS section are completed with 100%
+        if (sectionIndex == 0) return false;
         final previousSection = sections[sectionIndex - 1];
         for (final prevSectionQuiz in previousSection.lessons) {
           QuizProgress? prevProgress;
           try {
             prevProgress = allProgress.firstWhere(
-              (p) => p.quizId == prevSectionQuiz.id && p.sectionId == previousSection.id,
+              (p) =>
+                  p.quizId == prevSectionQuiz.id &&
+                  p.sectionId == previousSection.id,
             );
           } catch (e) {
             prevProgress = null;
           }
-
-          // If any quiz in previous section is not completed with 100%, this quiz is locked
-          if (prevProgress == null || prevProgress.score != 100) {
-            return true; // Quiz is locked - previous section not completed with 100%
-          }
+          if (prevProgress == null || prevProgress.score != 100)
+            return true;
         }
-
-        return false; // All quizzes in previous section completed with 100%
+        return false;
       }
 
-      // For non-first quizzes: check if all previous quizzes in THIS section are completed with 100%
       for (int i = 0; i < quizIndex; i++) {
         final prevQuizId = section.lessons[i].id;
         QuizProgress? prevProgress;
         try {
           prevProgress = allProgress.firstWhere(
-            (p) => p.quizId == prevQuizId && p.sectionId == sectionId,
+            (p) =>
+                p.quizId == prevQuizId && p.sectionId == sectionId,
           );
         } catch (e) {
           prevProgress = null;
         }
-
-        // If previous quiz not completed with 100%, current quiz is locked
-        if (prevProgress == null || prevProgress.score != 100) {
-          return true; // Quiz is locked - requires 100%
-        }
+        if (prevProgress == null || prevProgress.score != 100)
+          return true;
       }
-
-      return false; // Quiz is unlocked (all previous completed)
+      return false;
     } catch (e) {
-      print('Error checking if quiz is locked: $e');
-      return true; // Assume locked on error
+      return true;
     }
   }
 
-  void _answerQuestion(int selectedIndex) async {
-    if (showFeedback) return; // Prevent multiple answers
-
-    final correctIndex =
-        questions[currentQuestionIndex].correctAnswer;
-    final correct = selectedIndex == correctIndex;
+  // ── Called by QuestionWidgetFactory widgets ──────────────
+  Future<void> _answerQuestion(bool correct) async {
+    if (showFeedback) return;
 
     setState(() {
-      selectedAnswer = selectedIndex;
       isCorrect = correct;
       showFeedback = true;
       if (correct) correctAnswers++;
     });
 
-    // Coin rewards/penalties
     if (quizInfo != null && !_isQuizLocked && mounted) {
       if (correct) {
-        // Correct answer: award coins (one-time per question)
         final question = questions[currentQuestionIndex];
-        final isAlreadyRewarded = await QuizProgressDatabaseService.isQuestionRewarded(
+        final isAlreadyRewarded =
+            await QuizProgressDatabaseService.isQuestionRewarded(
           quizInfo!.sectionId,
           widget.lessonId.toString(),
           question.id,
         );
-
         if (!isAlreadyRewarded) {
           const coinsPerCorrectAnswer = 4;
-          context.read<GameState>().awardQuizQuestionCoins(coinsPerCorrectAnswer);
-          print('✓ Awarded $coinsPerCorrectAnswer coins for correct answer');
-          
-          // Mark as rewarded
+          context
+              .read<GameState>()
+              .awardQuizQuestionCoins(coinsPerCorrectAnswer);
           await QuizProgressDatabaseService.markQuestionAsRewarded(
             quizInfo!.sectionId,
             widget.lessonId.toString(),
             question.id,
           );
-
-          // Show reward animation/notification
           _showCoinRewardNotification(coinsPerCorrectAnswer);
         }
       } else {
-        // Wrong answer: deduct coins (every wrong attempt)
         const coinsPerWrongAnswer = 2;
         context.read<GameState>().spendCoins(coinsPerWrongAnswer);
-        print('✗ Deducted $coinsPerWrongAnswer coins for wrong answer');
-        
-        // Show penalty notification
         _showCoinPenaltyNotification(coinsPerWrongAnswer);
       }
     }
@@ -238,20 +202,22 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       SnackBar(
         duration: const Duration(milliseconds: 1200),
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 160, left: 16, right: 16),
+        margin:
+            const EdgeInsets.only(bottom: 160, left: 16, right: 16),
         backgroundColor: const Color(0xFF4CAF50),
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.monetization_on, color: Color(0xFFFFD700), size: 20),
+            const Icon(Icons.monetization_on,
+                color: Color(0xFFFFD700), size: 20),
             const SizedBox(width: 8),
             Text(
-              l10nProvider.translate('quizCoinReward', replacements: {'coins': '$coins'}),
+              l10nProvider.translate('quizCoinReward',
+                  replacements: {'coins': '$coins'}),
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: Colors.white,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white),
             ),
           ],
         ),
@@ -264,20 +230,21 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       SnackBar(
         duration: const Duration(milliseconds: 1000),
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 160, left: 16, right: 16),
+        margin:
+            const EdgeInsets.only(bottom: 160, left: 16, right: 16),
         backgroundColor: const Color(0xFFE53935),
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.remove_circle, color: Color(0xFFFFCDD2), size: 20),
+            const Icon(Icons.remove_circle,
+                color: Color(0xFFFFCDD2), size: 20),
             const SizedBox(width: 8),
             Text(
               '-$coins coins',
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: Colors.white,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white),
             ),
           ],
         ),
@@ -290,7 +257,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       setState(() {
         currentQuestionIndex++;
         showFeedback = false;
-        selectedAnswer = null;
         isCorrect = null;
       });
     } else {
@@ -299,13 +265,10 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   }
 
   void _showResults() {
-    final score = ((correctAnswers / questions.length) * 100).toInt();
+    final score =
+        ((correctAnswers / questions.length) * 100).toInt();
     final l10nProvider = context.read<AppLocalizationsProvider>();
-
-    // Mark quiz as finished to show 100% progress
-    setState(() {
-      _quizFinished = true;
-    });
+    setState(() => _quizFinished = true);
 
     showDialog(
       context: context,
@@ -318,9 +281,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             Text(
               '$correctAnswers/${questions.length}',
               style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -344,7 +305,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            // Show note if quiz is locked (coins not earned)
             if (_isQuizLocked)
               Container(
                 margin: const EdgeInsets.only(top: 16),
@@ -358,11 +318,13 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.lock, color: Colors.orange, size: 18),
+                        const Icon(Icons.lock,
+                            color: Colors.orange, size: 18),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            l10nProvider.translate('quizLockedNoCoins'),
+                            l10nProvider
+                                .translate('quizLockedNoCoins'),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.orange[800],
@@ -375,15 +337,16 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        const Icon(Icons.info, color: Colors.orange, size: 16),
+                        const Icon(Icons.info,
+                            color: Colors.orange, size: 16),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            l10nProvider.translate('quizLockedNoProgress'),
+                            l10nProvider
+                                .translate('quizLockedNoProgress'),
                             style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.orange[700],
-                            ),
+                                fontSize: 11,
+                                color: Colors.orange[700]),
                           ),
                         ),
                       ],
@@ -396,52 +359,19 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
         actions: [
           TextButton(
             onPressed: () async {
-              // Save progress ONLY if quiz is not locked
-              if (quizInfo != null && !_isQuizLocked) {
-                await QuizProgressDatabaseService.updateScore(
-                  quizInfo!.sectionId,
-                  widget.lessonId.toString(),
-                  score,
-                );
-                // Update streak when quiz is completed
-                final newStreak = await StreakService.onQuizCompleted();
-                // Update GameState so TopBar shows the new streak
-                if (mounted) {
-                  context.read<GameState>().setCurrentStreak(newStreak);
-                }
-              } else if (_isQuizLocked) {
-                print('⚠ Quiz is locked - progress NOT saved');
-              }
-              // Notify parent that quiz is complete so it can refresh
-              widget.onQuizCompleted?.call();
-              Navigator.of(context).pop(); // Close dialog
-              // Wait a moment then close the quiz screen
+              await _saveAndClose();
+              Navigator.of(context).pop();
               Future.delayed(const Duration(milliseconds: 100), () {
-                Navigator.of(context).pop(); // Close quiz screen
+                Navigator.of(context).pop();
               });
             },
             child: Text(l10nProvider.translate('quizClose')),
           ),
           ElevatedButton(
             onPressed: () async {
-              // Save progress FIRST (same as Close), then restart quiz
-              if (quizInfo != null && !_isQuizLocked) {
-                await QuizProgressDatabaseService.updateScore(
-                  quizInfo!.sectionId,
-                  widget.lessonId.toString(),
-                  score,
-                );
-                // Update streak when quiz is completed
-                final newStreak = await StreakService.onQuizCompleted();
-                // Update GameState so TopBar shows the new streak
-                if (mounted) {
-                  context.read<GameState>().setCurrentStreak(newStreak);
-                }
-              }
-              // Notify parent that quiz is complete
-              widget.onQuizCompleted?.call();
-              Navigator.pop(dialogContext); // Close dialog only
-              _resetQuiz(); // Reset and restart quiz
+              await _saveAndClose();
+              Navigator.pop(dialogContext);
+              _resetQuiz();
             },
             child: Text(l10nProvider.translate('quizRetry')),
           ),
@@ -450,49 +380,101 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     );
   }
 
+  /// Shared logic for saving score + streak on close or retry.
+  Future<void> _saveAndClose() async {
+    if (quizInfo != null && !_isQuizLocked) {
+      final score =
+          ((correctAnswers / questions.length) * 100).toInt();
+      await QuizProgressDatabaseService.updateScore(
+        quizInfo!.sectionId,
+        widget.lessonId.toString(),
+        score,
+      );
+      final newStreak = await StreakService.onQuizCompleted();
+      if (mounted) {
+        context.read<GameState>().setCurrentStreak(newStreak);
+      }
+    }
+    widget.onQuizCompleted?.call();
+  }
+
   void _resetQuiz() {
     setState(() {
       currentQuestionIndex = 0;
       correctAnswers = 0;
       showFeedback = false;
       isCorrect = null;
-      selectedAnswer = null;
-      _quizFinished = false; // Reset quiz finished flag
+      _quizFinished = false;
       questionsFuture = _loadQuestionsAsync();
     });
   }
 
   Color _getScoreColor(int score) {
-    if (score >= 90) return const Color(0xFF4CAF50); // Green
-    if (score >= 60) return const Color(0xFFFFC107); // Yellow
-    return const Color(0xFFF44336); // Red
+    if (score >= 90) return const Color(0xFF4CAF50);
+    if (score >= 60) return const Color(0xFFFFC107);
+    return const Color(0xFFF44336);
   }
 
-  String _getScoreMessage(int score, AppLocalizationsProvider l10nProvider) {
+  String _getScoreMessage(
+      int score, AppLocalizationsProvider l10nProvider) {
     if (score >= 90) return l10nProvider.translate('quizExcellent');
     if (score >= 70) return l10nProvider.translate('quizGood');
     if (score >= 60) return l10nProvider.translate('quizOkay');
     return l10nProvider.translate('quizTryAgain');
   }
 
+  // ── Question type badge ───────────────────────────────────
+  Widget _buildTypeBadge(
+      QuizQuestion question, AppLocalizationsProvider l10n) {
+    // Badge labels are localised via the l10n system.
+    // Add these keys to your translation files if not present:
+    //   quizTypeMC, quizTypeTF, quizTypeOrder, quizTypeMatch, quizTypeDrag
+    final (key, color) = switch (question.questionType) {
+      QuestionType.multipleChoice =>
+        ('quizTypeMC',    const Color(0xFF2196F3)),
+      QuestionType.trueFalse =>
+        ('quizTypeTF',    const Color(0xFF9C27B0)),
+      QuestionType.ordering =>
+        ('quizTypeOrder', const Color(0xFFFF9800)),
+      QuestionType.matching =>
+        ('quizTypeMatch', const Color(0xFF009688)),
+      QuestionType.dragDrop =>
+        ('quizTypeDrag',  const Color(0xFFE91E63)),
+    };
+
+    return Container(
+      padding:
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        border: Border.all(color: color.withOpacity(0.4)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        l10n.translate(key),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          color: color,
+          letterSpacing: 0.5,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Ensure questionsFuture is initialized
-    if (!_initialized) {
-      questionsFuture = _loadQuestionsAsync();
-    }
-    
+    if (!_initialized) questionsFuture = _loadQuestionsAsync();
     final l10nProvider = context.watch<AppLocalizationsProvider>();
-    
+    final language = l10nProvider.currentLanguage;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.lessonTitle),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: FutureBuilder<List<QuizQuestion>>(
@@ -501,7 +483,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (snapshot.hasError || questions.isEmpty) {
             return Center(
               child: Text(questions.isEmpty
@@ -517,108 +498,67 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Progress indicator
+                // ── Progress header ──────────────────────
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      l10nProvider.translate('quizQuestion', replacements: {
-                        'current': '${currentQuestionIndex + 1}',
-                        'total': '${questions.length}',
-                      }),
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      l10nProvider.translate('quizQuestion',
+                          replacements: {
+                            'current': '${currentQuestionIndex + 1}',
+                            'total': '${questions.length}',
+                          }),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      l10nProvider.translate('quizCorrectCount', replacements: {
-                        'count': '$correctAnswers',
-                      }),
+                      l10nProvider.translate('quizCorrectCount',
+                          replacements: {
+                            'count': '$correctAnswers'
+                          }),
                       style: const TextStyle(
-                        color: Color(0xFF4CAF50),
-                        fontWeight: FontWeight.w600,
-                      ),
+                          color: Color(0xFF4CAF50),
+                          fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 LinearProgressIndicator(
-                  value: _quizFinished ? 1.0 : currentQuestionIndex / questions.length,
+                  value: _quizFinished
+                      ? 1.0
+                      : currentQuestionIndex / questions.length,
                   minHeight: 6,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Question
+                // ── Question type badge ──────────────────
+                _buildTypeBadge(question, l10nProvider),
+                const SizedBox(height: 10),
+
+                // ── Question text ────────────────────────
                 Text(
                   question.question,
                   style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                      fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 24),
+
+                // ── Question widget (type-specific) ──────
+                // Key forces a full widget rebuild on question change
+                KeyedSubtree(
+                  key: ValueKey(
+                      'q_${currentQuestionIndex}_${question.id}'),
+                  child: QuestionWidgetFactory.build(
+                    question: question,
+                    showFeedback: showFeedback,
+                    onAnswered: _answerQuestion,
+                    language: language, // ← pass language down
                   ),
                 ),
-                const SizedBox(height: 24),
 
-                // Options
-                ...List.generate(
-                  question.options.length,
-                  (index) {
-                    final isSelected = selectedAnswer == index;
-                    final isCorrectAnswer =
-                        index == question.correctAnswer;
-                    final isWrongSelected =
-                        isSelected && isCorrect == false;
-
-                    Color backgroundColor = Colors.white;
-                    Color borderColor = Colors.grey[300]!;
-
-                    if (showFeedback) {
-                      if (isCorrectAnswer) {
-                        backgroundColor = const Color(0xFF4CAF50).withOpacity(0.1);
-                        borderColor = const Color(0xFF4CAF50);
-                      } else if (isWrongSelected) {
-                        backgroundColor = const Color(0xFFF44336).withOpacity(0.1);
-                        borderColor = const Color(0xFFF44336);
-                      }
-                    }
-
-                    return GestureDetector(
-                      onTap: showFeedback ? null : () => _answerQuestion(index),
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: backgroundColor,
-                          border: Border.all(color: borderColor, width: 2),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                question.options[index],
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            if (showFeedback && isCorrectAnswer)
-                              const Icon(
-                                Icons.check_circle,
-                                color: Color(0xFF4CAF50),
-                                size: 24,
-                              )
-                            else if (showFeedback && isWrongSelected)
-                              const Icon(
-                                Icons.cancel,
-                                color: Color(0xFFF44336),
-                                size: 24,
-                              ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-
-                // Feedback message
+                // ── Feedback panel ───────────────────────
                 if (showFeedback) ...[
+                  const SizedBox(height: 20),
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -632,8 +572,10 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                       children: [
                         Text(
                           isCorrect!
-                              ? l10nProvider.translate('quizAnswerCorrect')
-                              : l10nProvider.translate('quizAnswerWrong'),
+                              ? l10nProvider
+                                  .translate('quizAnswerCorrect')
+                              : l10nProvider
+                                  .translate('quizAnswerWrong'),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -644,9 +586,10 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          l10nProvider.translate('quizExplanation', replacements: {
-                            'text': question.explanation,
-                          }),
+                          l10nProvider.translate('quizExplanation',
+                              replacements: {
+                                'text': question.explanation
+                              }),
                           style: const TextStyle(fontSize: 14),
                         ),
                       ],
@@ -658,7 +601,8 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                     child: Text(
                       currentQuestionIndex == questions.length - 1
                           ? l10nProvider.translate('quizFinish')
-                          : l10nProvider.translate('quizNextQuestion'),
+                          : l10nProvider
+                              .translate('quizNextQuestion'),
                     ),
                   ),
                 ],

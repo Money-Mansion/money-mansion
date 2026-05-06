@@ -11,6 +11,7 @@
           "questions": [
             {
               "questionId": "1001_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Why did people start using money instead of just trading things?",
               "options": [
@@ -24,19 +25,16 @@
             },
             {
               "questionId": "1001_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Who agreed that money has value?",
-              "options": [
-                "Only the shopkeepers in candy stores.",
-                "Scientists who invented a special kind of paper.",
-                "People in society, so they could trade together.",
-                "Children who wanted something colorful in their wallets."
-              ],
-              "correctAnswer": 2,
+              "question": "The value of money depends on an agreement between people in society.",
+              "options": [],
+              "correctAnswer": 0,
               "explanation": "Money works because society collectively agrees and trusts that it represents value."
             },
             {
               "questionId": "1001_03",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "In what forms can we find money today?",
               "options": [
@@ -50,19 +48,16 @@
             },
             {
               "questionId": "1001_04",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "What gives an ordinary coin its real value?",
-              "options": [
-                "The fact that it is made of a very rare type of metal.",
-                "People's agreement that coins serve as a means of payment.",
-                "The fact that it has the year of production stamped on it.",
-                "Its round shape, which prevents it from getting stuck."
-              ],
+              "question": "A coin gets its value mainly from the metal it is made of.",
+              "options": [],
               "correctAnswer": 1,
               "explanation": "A coin's value comes from its social function as an accepted currency, not the metal itself."
             },
             {
               "questionId": "1001_05",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "Chrumko is holding a 2-euro coin. What can he do with it in a shop?",
               "options": [
@@ -73,6 +68,27 @@
               ],
               "correctAnswer": 1,
               "explanation": "The coin is a valid tool for purchasing items up to its face value."
+            },
+            {
+              "questionId": "1001_06",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Match each form of money to its description.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Coin", "Banknote", "Digital money"],
+              "matchRight": ["Metal payment token", "Paper payment token", "Money in a bank account"],
+              "explanation": "Each form of money has a different physical (or digital) character, but all serve to pay."
+            },
+            {
+              "questionId": "1001_07",
+              "questionType": "ordering",
+              "type": "theoretical",
+              "question": "Put the evolution of money in order from oldest to newest.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": ["Trading goods for goods", "Paying with salt and shells", "Metal coins", "Paper banknotes", "Digital money"],
+              "explanation": "Money evolved from barter through commodities and coins to digital forms."
             }
           ]
         },
@@ -83,6 +99,7 @@
           "questions": [
             {
               "questionId": "1002_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What would happen in a shop if money did not exist?",
               "options": [
@@ -96,32 +113,16 @@
             },
             {
               "questionId": "1002_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Why is direct trading (barter) sometimes very difficult?",
-              "options": [
-                "Because nobody wants any things at all.",
-                "The other person might not want what you are offering.",
-                "Because trading things is forbidden by new laws.",
-                "Because things always break or get ruined during a trade."
-              ],
+              "question": "Direct trading (barter) is always simple and fast.",
+              "options": [],
               "correctAnswer": 1,
               "explanation": "Barter requires a 'coincidence of wants'—both parties must want exactly what the other has."
             },
             {
               "questionId": "1002_03",
-              "type": "theoretical",
-              "question": "What is the main role of money when buying a snack?",
-              "options": [
-                "It serves as a tool for a quick and fair exchange.",
-                "It helps us calculate how many calories an apple has.",
-                "It makes our school bag much heavier.",
-                "It ensures that our snack tastes much better."
-              ],
-              "correctAnswer": 0,
-              "explanation": "Money acts as a medium of exchange that everyone accepts, making transactions fast."
-            },
-            {
-              "questionId": "1002_04",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What does it mean that money is 'universal'?",
               "options": [
@@ -134,7 +135,17 @@
               "explanation": "Universal means it is widely accepted by everyone in a society as payment."
             },
             {
+              "questionId": "1002_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Money solves the problem when a friend doesn't want what you are offering to trade.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Money solves the problem of mismatched needs in a direct trade."
+            },
+            {
               "questionId": "1002_05",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "Chrumko has an apple but wants a snack bar. His friend has a bar but doesn't want the apple. How to solve this?",
               "options": [
@@ -148,6 +159,22 @@
             },
             {
               "questionId": "1002_06",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Match each property of money to the correct explanation.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Easy to carry", "Everyone accepts it", "Lasts a long time"],
+              "dragTargets": [
+                { "label": "Portability", "correctItem": "Easy to carry" },
+                { "label": "Universality", "correctItem": "Everyone accepts it" },
+                { "label": "Durability", "correctItem": "Lasts a long time" }
+              ],
+              "explanation": "Good money must be portable, universally accepted, and durable."
+            },
+            {
+              "questionId": "1002_07",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "Imagine you want a bike and have 100 kilos of potatoes to trade. Why is it better to have money?",
               "options": [
@@ -168,58 +195,70 @@
           "questions": [
             {
               "questionId": "1003_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What is the exchange of things without using money called?",
-              "options": [
-                "Inflation",
-                "Investing",
-                "Barter",
-                "Loan"
-              ],
+              "options": ["Inflation", "Investing", "Barter", "Loan"],
               "correctAnswer": 2,
               "explanation": "Barter is the historical method of exchanging goods directly for other goods."
             },
             {
               "questionId": "1003_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "What did people use for payment before coins existed?",
-              "options": [
-                "Paper banknotes",
-                "Things like salt, shells, or metal",
-                "Only digital money",
-                "Exclusively gold bars"
-              ],
-              "correctAnswer": 1,
+              "question": "Before coins existed, people paid with things like salt, shells, or metal.",
+              "options": [],
+              "correctAnswer": 0,
               "explanation": "Before standardized coins, people used 'commodity money'—useful items like salt or rare shells."
             },
             {
               "questionId": "1003_03",
+              "questionType": "ordering",
               "type": "theoretical",
-              "question": "Why was paying in the past more complicated than today?",
-              "options": [
-                "Because people did not have any shops",
-                "Because there was no food available",
-                "They had to find things to trade that the other person wanted",
-                "Because everything cost way too much"
+              "question": "Put the steps a trader had to follow in the barter system in the correct order.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Decided what they needed to buy",
+                "Found goods suitable for trading",
+                "Searched for a trader who wanted those goods",
+                "Agreed on the exchange",
+                "Swapped the goods"
               ],
-              "correctAnswer": 2,
-              "explanation": "Direct exchange required finding a specific person who wanted your specific item."
+              "explanation": "Barter required a long process of finding a suitable trading partner."
             },
             {
               "questionId": "1003_04",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What was created only after the period of barter and paying with objects?",
-              "options": [
-                "The first coins",
-                "Credit cards",
-                "Internet banking",
-                "Paper money"
-              ],
+              "options": ["The first coins", "Credit cards", "Internet banking", "Paper money"],
               "correctAnswer": 0,
               "explanation": "Standardized metal coins were the first major step away from barter."
             },
             {
               "questionId": "1003_05",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Match the historical era to its typical payment method.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Prehistoric times", "Ancient Rome", "Middle Ages", "Today"],
+              "matchRight": ["Digital card payment", "Paying with salt and shells", "Gold and silver coins", "Trading goods for goods"],
+              "explanation": "Payment systems evolved alongside civilisation."
+            },
+            {
+              "questionId": "1003_06",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "People stopped using barter because it was hard to find someone who wanted your specific goods.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Barter is inefficient because it is rare for two people to perfectly match their supply and demand."
+            },
+            {
+              "questionId": "1003_07",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "Chrumko wants bread, but he doesn't have the eggs that the baker wants. What must he do?",
               "options": [
@@ -230,19 +269,6 @@
               ],
               "correctAnswer": 2,
               "explanation": "In a barter system, if you don't have what the seller wants, you cannot complete the trade."
-            },
-            {
-              "questionId": "1003_06",
-              "type": "practical",
-              "question": "Why did people stop using barter as the main way of paying?",
-              "options": [
-                "Because barter trade was too simple and inefficient for society back then.",
-                "Because most objects at that time suddenly lost their value.",
-                "Because it was hard to find someone who wanted your goods and offered what you needed.",
-                "Because trading was officially banned by new royal decrees."
-              ],
-              "correctAnswer": 2,
-              "explanation": "Barter is inefficient because it is rare for two people to perfectly match their supply and demand."
             }
           ]
         },
@@ -253,6 +279,7 @@
           "questions": [
             {
               "questionId": "1004_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What do coins, banknotes, and money on a card have in common?",
               "options": [
@@ -266,32 +293,31 @@
             },
             {
               "questionId": "1004_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "What does it mean to pay in cash?",
-              "options": [
-                "Paying by card over the internet",
-                "Paying with coins or banknotes",
-                "Sending money through a mobile app",
-                "Paying only with very large banknotes"
-              ],
-              "correctAnswer": 1,
+              "question": "Paying in cash means paying with physical coins or banknotes.",
+              "options": [],
+              "correctAnswer": 0,
               "explanation": "Cash refers specifically to physical currency like coins and paper bills."
             },
             {
               "questionId": "1004_03",
+              "questionType": "dragDrop",
               "type": "theoretical",
-              "question": "Where is digital money located?",
-              "options": [
-                "In a wallet",
-                "In the bank as gold bars",
-                "In a bank account",
-                "In the shop at the cash register"
+              "question": "Place each payment method into the correct category.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Paying with a €50 note", "Tapping a card on a terminal", "Paying with a phone app"],
+              "dragTargets": [
+                { "label": "Cash", "correctItem": "Paying with a €50 note" },
+                { "label": "Card payment", "correctItem": "Tapping a card on a terminal" },
+                { "label": "Mobile payment", "correctItem": "Paying with a phone app" }
               ],
-              "correctAnswer": 2,
-              "explanation": "Digital money is a record of value stored electronically in a bank's system."
+              "explanation": "There are three main modern payment methods: cash, card, and mobile payment."
             },
             {
               "questionId": "1004_04",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What happens when you pay with a card in a shop?",
               "options": [
@@ -305,45 +331,27 @@
             },
             {
               "questionId": "1004_05",
+              "questionType": "trueFalse",
               "type": "practical",
-              "question": "Chrumko paid for a tie with banknotes and coins. What payment method did he use?",
-              "options": [
-                "Digital payment",
-                "Installment plan",
-                "Cash",
-                "Exchange (barter)"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Physical money (coins and notes) is always categorized as cash."
-            },
-            {
-              "questionId": "1004_06",
-              "type": "practical",
-              "question": "Chrumko wants to pay for the tie in cash. What must he do?",
-              "options": [
-                "He must hand physical banknotes or metal coins to the shopkeeper.",
-                "He must tap his mobile phone on the payment terminal.",
-                "It is enough if he promises the shopkeeper to bring the money later.",
-                "He must leave his payment card in the shop as a guarantee."
-              ],
-              "correctAnswer": 0,
-              "explanation": "Cash payments require the physical transfer of currency."
-            },
-            {
-              "questionId": "1004_07",
-              "type": "practical",
-              "question": "Chrumko pays for his purchase with a mobile phone. What does this mean?",
-              "options": [
-                "He used digital money from his account",
-                "He paid in cash through the phone",
-                "He will pay the money only later",
-                "He exchanged goods for other goods"
-              ],
+              "question": "If Chrumko pays with his mobile phone, he has used digital money from his account.",
+              "options": [],
               "correctAnswer": 0,
               "explanation": "Mobile payments are a way to access and send digital money."
             },
             {
-              "questionId": "1004_08",
+              "questionId": "1004_06",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Match each payment method to its key feature.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Cash", "Payment card", "Mobile payment"],
+              "matchRight": ["Physical coins and banknotes", "Electronic transfer from account", "Payment via smartphone"],
+              "explanation": "Each payment method has its own specific form and processing method."
+            },
+            {
+              "questionId": "1004_07",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "The shopkeeper asked Chrumko if he wants to pay by card or in cash. Why did she give him a choice?",
               "options": [
@@ -364,6 +372,7 @@
           "questions": [
             {
               "questionId": "1005_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Why can you buy more for 10 euros than for 1 euro?",
               "options": [
@@ -377,32 +386,26 @@
             },
             {
               "questionId": "1005_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Do all coins and banknotes have the same value?",
-              "options": [
-                "Yes, every coin in the shop works exactly the same regardless of the number.",
-                "No, each coin and banknote represents a different amount of money.",
-                "It depends on whether it is nice outside or raining; then the value changes.",
-                "Only if they are the same size and have the same silver color."
-              ],
+              "question": "All coins and banknotes have the same value.",
+              "options": [],
               "correctAnswer": 1,
               "explanation": "Currency is denominated into different amounts to allow for precise payments."
             },
             {
               "questionId": "1005_03",
+              "questionType": "ordering",
               "type": "theoretical",
-              "question": "Which of the following has a greater value?",
-              "options": [
-                "50 cents",
-                "1 euro",
-                "20 cents",
-                "150 cents"
-              ],
-              "correctAnswer": 3,
-              "explanation": "150 cents is equal to 1.50 euros, which is more than the other options."
+              "question": "Put these values in order from smallest to largest.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": ["20 cents", "50 cents", "1 euro", "150 cents", "5 euros"],
+              "explanation": "20 cents < 50 cents < 1 euro (100 cents) < 150 cents < 5 euros."
             },
             {
               "questionId": "1005_04",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Chrumko sees the number 50 on a coin and also on a banknote. What is true?",
               "options": [
@@ -416,32 +419,31 @@
             },
             {
               "questionId": "1005_05",
+              "questionType": "dragDrop",
               "type": "practical",
-              "question": "Chrumko has 1 euro. Juice costs 90 cents and a cookie costs 50 cents. What is true?",
-              "options": [
-                "He can buy both things",
-                "He cannot buy either thing",
-                "He can buy only one of them",
-                "He can buy both things and still have money left"
+              "question": "Chrumko has 2 euros. Decide what he can afford.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Yes, he can buy it", "No, not enough money"],
+              "dragTargets": [
+                { "label": "Juice for 90 cents", "correctItem": "Yes, he can buy it" },
+                { "label": "Toy for 3 euros", "correctItem": "No, not enough money" },
+                { "label": "Cookie for 50 cents", "correctItem": "Yes, he can buy it" }
               ],
-              "correctAnswer": 2,
-              "explanation": "Total cost (1.40) is more than 1 euro, so he can only afford one item."
+              "explanation": "Chrumko has 2 euros, so he can afford items up to 2 euros, but not the toy for 3 euros."
             },
             {
               "questionId": "1005_06",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "Chrumko has 2 euros. Juice costs 90 cents and a cookie costs 50 cents. How much will he have left?",
-              "options": [
-                "60 cents",
-                "40 cents",
-                "1 euro",
-                "10 cents"
-              ],
+              "options": ["60 cents", "40 cents", "1 euro", "10 cents"],
               "correctAnswer": 0,
               "explanation": "2.00 - (0.90 + 0.50) = 0.60 cents."
             },
             {
               "questionId": "1005_07",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "What must Chrumko do if he wants to buy both juice and a cookie but doesn't have enough money?",
               "options": [
@@ -462,19 +464,16 @@
           "questions": [
             {
               "questionId": "1006_01",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "What happens when you spend all your money?",
-              "options": [
-                "The money will reappear in your wallet on its own by morning.",
-                "You won't be able to buy anything else until you get new money.",
-                "The shop must give you everything for free since you bought a lot already.",
-                "Your wallet will start glowing to warn you that you should go shopping."
-              ],
+              "question": "When you spend all your money, it will reappear in your wallet on its own by morning.",
+              "options": [],
               "correctAnswer": 1,
               "explanation": "Money is a finite resource; once used, it is gone from your possession."
             },
             {
               "questionId": "1006_02",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Why is it important to think about what we spend money on?",
               "options": [
@@ -488,34 +487,40 @@
             },
             {
               "questionId": "1006_03",
-              "type": "theoretical",
-              "question": "What does it mean that money is not infinite?",
-              "options": [
-                "That we always have enough of it",
-                "That we can never spend it all",
-                "That we only have a limited amount",
-                "That it only exists in a bank"
+              "questionType": "ordering",
+              "type": "practical",
+              "question": "Put the steps of smart money management in the correct order.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Receive money (salary, allowance)",
+                "Think about what you really need",
+                "Set aside part for savings",
+                "Pay for important things",
+                "Use the rest for fun"
               ],
-              "correctAnswer": 2,
-              "explanation": "Everyone has a budget limit based on what they earn or receive."
+              "explanation": "Good money management: savings and needs first, then fun."
             },
             {
               "questionId": "1006_04",
+              "questionType": "dragDrop",
               "type": "theoretical",
-              "question": "What should Chrumko do next time he gets money?",
-              "options": [
-                "Spend it all at once",
-                "Hide it and never use it",
-                "Spend part of it and save part of it",
-                "Give it all to his friends"
+              "question": "Sort these expenses into the correct category.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Rent", "Sweets", "Food"],
+              "dragTargets": [
+                { "label": "Need (must pay)", "correctItem": "Rent" },
+                { "label": "Want (nice but not essential)", "correctItem": "Sweets" },
+                { "label": "Need (must pay)", "correctItem": "Food" }
               ],
-              "correctAnswer": 2,
-              "explanation": "Balancing spending and saving is the key to healthy money management."
+              "explanation": "Rent and food are basic needs; sweets are wants."
             },
             {
               "questionId": "1006_05",
+              "questionType": "multipleChoice",
               "type": "practical",
-              "question": "Chrumko has 5 euros and spends them on sweets. What is true?",
+              "question": "Chrumko has 5 euros and spends them all on sweets. What is true?",
               "options": [
                 "He still has money for a toy",
                 "He no longer has money for another thing",
@@ -527,15 +532,11 @@
             },
             {
               "questionId": "1006_06",
+              "questionType": "trueFalse",
               "type": "practical",
-              "question": "Chrumko saves 2 euros out of 5 euros. How much does he have left to spend?",
-              "options": [
-                "5 euros",
-                "3 euros",
-                "2 euros",
-                "7 euros"
-              ],
-              "correctAnswer": 1,
+              "question": "If Chrumko saves 2 euros from 5 euros, he has 3 euros left to spend.",
+              "options": [],
+              "correctAnswer": 0,
               "explanation": "5 (total) - 2 (saved) = 3 (available to spend)."
             }
           ]
@@ -547,6 +548,7 @@
           "questions": [
             {
               "questionId": "1007_01",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "How do people most often get money?",
               "options": [
@@ -560,32 +562,42 @@
             },
             {
               "questionId": "1007_02",
+              "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "What is the reward for work called?",
-              "options": [
-                "Gift",
-                "Prize",
-                "Salary or wage",
-                "Fine"
-              ],
-              "correctAnswer": 2,
+              "question": "The reward for work is called a salary or wage.",
+              "options": [],
+              "correctAnswer": 0,
               "explanation": "A salary or wage is the official term for money earned through employment."
             },
             {
               "questionId": "1007_03",
+              "questionType": "matching",
               "type": "theoretical",
-              "question": "What does it depend on how much money a person earns?",
-              "options": [
-                "On the color of their clothes",
-                "On the weather",
-                "On the job, time, and experience",
-                "On how many friends they have"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Income levels are usually determined by skills, hours worked, and the type of role."
+              "question": "Match the income source to who typically receives it.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Salary", "Allowance", "Pension"],
+              "matchRight": ["Employed adult", "Child from parents", "Older person after retiring"],
+              "explanation": "Different groups of people receive money in different ways."
             },
             {
               "questionId": "1007_04",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Sort each item into what a family typically uses income for.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Housing and energy", "Food and drink", "Holiday and fun"],
+              "dragTargets": [
+                { "label": "Basic expenses (must pay)", "correctItem": "Housing and energy" },
+                { "label": "Basic expenses (must pay)", "correctItem": "Food and drink" },
+                { "label": "Optional expenses (want, not must)", "correctItem": "Holiday and fun" }
+              ],
+              "explanation": "Earned income is primarily used to cover living expenses (needs) before wants."
+            },
+            {
+              "questionId": "1007_05",
+              "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Where does money for work most often arrive today?",
               "options": [
@@ -598,20 +610,24 @@
               "explanation": "Most modern employers pay employees via digital bank transfers."
             },
             {
-              "questionId": "1007_05",
-              "type": "practical",
-              "question": "Chrumko's mom goes to work and gets money in her account. What will the family use it for?",
-              "options": [
-                "Only for toys",
-                "For housing, food, and other necessary things",
-                "Only for sweets",
-                "They won't use it at all"
+              "questionId": "1007_06",
+              "questionType": "ordering",
+              "type": "theoretical",
+              "question": "Put the steps of how Chrumko's mom earns and uses her pay in order.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Goes to work and does her job",
+                "End of month — employer sends salary",
+                "Money arrives in bank account",
+                "Family pays rent and food",
+                "Remainder goes to savings or fun"
               ],
-              "correctAnswer": 1,
-              "explanation": "Earned income is primarily used to cover living expenses (needs) before wants."
+              "explanation": "This is how the earn-and-spend cycle works in a family."
             },
             {
-              "questionId": "1007_06",
+              "questionId": "1007_07",
+              "questionType": "multipleChoice",
               "type": "practical",
               "question": "How do children most often get money?",
               "options": [

@@ -407,6 +407,11 @@ class AppLocalizations {
       'quizLockedNoCoins': 'Quiz is still locked - no coins yet',
       'quizLockedNoProgress':
           'Progress won\'t be saved until you unlock this quiz',
+          'quizTypeMC':    'Single Answer',
+          'quizTypeTF':    'True / False',
+          'quizTypeOrder': 'Put in Order',
+          'quizTypeMatch': 'Matching',
+          'quizTypeDrag':  'Drag & Drop',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -859,7 +864,12 @@ class AppLocalizations {
       'quizNextQuestion': 'Ďalšia otázka',
       'quizLockedNoCoins': 'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
       'quizLockedNoProgress': 'Progres sa neuloží kým neodblokuješ tento kvíz',
-    },
+      'quizTypeMC':    'Jedna odpoveď',
+      'quizTypeTF':    'Pravda / Nepravda',
+      'quizTypeOrder': 'Zoraď správne',
+      'quizTypeMatch': 'Spáruj',
+      'quizTypeDrag':  'Pretiahni',
+          },
   };
 
   static Future<void> setLanguage(String languageCode) async {
