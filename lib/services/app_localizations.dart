@@ -219,6 +219,8 @@ class AppLocalizations {
       'difficultyChosenByAi': 'Goal settings are chosen automatically by AI.',
       'assignMoney': 'Assign money',
       'assignMoneyToGoal': 'Assign money to {goal}',
+      'goalsAssignableMoney': 'Available to assign: {amount}',
+      'goalsAssignableSummaryTitle': 'Available to assign to goals',
       'enterAmount': 'Enter amount',
       'amountExceedsBalance': 'Amount exceeds current balance.',
       'amountExceedsGoalTarget': 'Amount exceeds goal target.',
@@ -229,8 +231,10 @@ class AppLocalizations {
       'currentlyAssigned': 'Currently assigned',
       'amountExceedsAllocated': 'Amount exceeds allocated amount.',
       'moneyWithdrawnSuccess': 'Money withdrawn from goal.',
-      'cannotDeleteGoalTransaction': 'Cannot delete transactions from completed goals.',
-      'notEnoughMoney': 'Not enough money available, even after withdrawing from goals.',
+      'cannotDeleteGoalTransaction':
+          'Cannot delete transactions from completed goals.',
+      'notEnoughMoney':
+          'Not enough money available, even after withdrawing from goals.',
       'notEnoughBalance': 'Not enough balance to assign.',
       'incomeGoalDisabledHelper':
           'Income goes to balance. Assign it to goals later.',
@@ -407,11 +411,11 @@ class AppLocalizations {
       'quizLockedNoCoins': 'Quiz is still locked - no coins yet',
       'quizLockedNoProgress':
           'Progress won\'t be saved until you unlock this quiz',
-          'quizTypeMC':    'Single Answer',
-          'quizTypeTF':    'True / False',
-          'quizTypeOrder': 'Put in Order',
-          'quizTypeMatch': 'Matching',
-          'quizTypeDrag':  'Drag & Drop',
+      'quizTypeMC': 'Single Answer',
+      'quizTypeTF': 'True / False',
+      'quizTypeOrder': 'Put in Order',
+      'quizTypeMatch': 'Matching',
+      'quizTypeDrag': 'Drag & Drop',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -658,6 +662,8 @@ class AppLocalizations {
       'difficultyChosenByAi': 'Nastavenie ciela vyberie automaticky AI.',
       'assignMoney': 'Priradiť peniaze',
       'assignMoneyToGoal': 'Priradiť peniaze k cieľu {goal}',
+      'goalsAssignableMoney': 'Dostupné na priradenie: {amount}',
+      'goalsAssignableSummaryTitle': 'Dostupné na priradenie k cieľom',
       'enterAmount': 'Zadajte sumu',
       'amountExceedsBalance': 'Suma presahuje aktuálny zostatok.',
       'amountExceedsGoalTarget': 'Suma presahuje cieľovú hodnotu.',
@@ -668,8 +674,10 @@ class AppLocalizations {
       'currentlyAssigned': 'Aktuálne priradené',
       'amountExceedsAllocated': 'Suma presahuje priradenú sumu.',
       'moneyWithdrawnSuccess': 'Peniaze boli stiahnute z cieľa.',
-      'cannotDeleteGoalTransaction': 'Nie je možné odstrániť transakcie z dokončených cieľov.',
-      'notEnoughMoney': 'Nedostatočné peniaze dostupné, dokonca aj po stiahnutí z cieľov.',
+      'cannotDeleteGoalTransaction':
+          'Nie je možné odstrániť transakcie z dokončených cieľov.',
+      'notEnoughMoney':
+          'Nedostatočné peniaze dostupné, dokonca aj po stiahnutí z cieľov.',
       'notEnoughBalance': 'Nedostatočný zostatok na priradenie.',
       'incomeGoalDisabledHelper':
           'Príjem ide do zostatku. Priraďte ho k cieľom neskôr.',
@@ -864,12 +872,12 @@ class AppLocalizations {
       'quizNextQuestion': 'Ďalšia otázka',
       'quizLockedNoCoins': 'Quiz je ešte uzamknutý - žiadne mince zatiaľ',
       'quizLockedNoProgress': 'Progres sa neuloží kým neodblokuješ tento kvíz',
-      'quizTypeMC':    'Jedna odpoveď',
-      'quizTypeTF':    'Pravda / Nepravda',
+      'quizTypeMC': 'Jedna odpoveď',
+      'quizTypeTF': 'Pravda / Nepravda',
       'quizTypeOrder': 'Zoraď správne',
       'quizTypeMatch': 'Spáruj',
-      'quizTypeDrag':  'Pretiahni',
-          },
+      'quizTypeDrag': 'Pretiahni',
+    },
   };
 
   static Future<void> setLanguage(String languageCode) async {

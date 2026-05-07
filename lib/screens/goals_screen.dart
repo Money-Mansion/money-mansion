@@ -123,10 +123,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     if (amount <= 0) return;
 
                     // Get the allocations for the source goal
-                    final allocations = await FinancialDatabaseService
-                        .getAllocationsForGoal(fromGoalId!);
-                    final totalAllocated =
-                        allocations.fold<double>(0, (sum, alloc) => sum + alloc.amount);
+                    final allocations =
+                        await FinancialDatabaseService.getAllocationsForGoal(
+                            fromGoalId!);
+                    final totalAllocated = allocations.fold<double>(
+                        0, (sum, alloc) => sum + alloc.amount);
 
                     if (amount > totalAllocated + 0.0001) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -173,6 +174,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
       return money.toStringAsFixed(0);
     }
     return money.toStringAsFixed(2);
+  }
+
+  double get _allocatedGoalMoney {
+    return widget.gameState.goals.fold<double>(
+      0,
+      (sum, goal) => sum + goal.allocatedMoney,
+    );
+  }
+
+  double get _assignableGoalMoney {
+    final available = widget.gameState.money - _allocatedGoalMoney;
+    return available > 0 ? available : 0.0;
   }
 
   @override
@@ -624,15 +637,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   Future<void> _showAllocateMoneyDialog(Goal goal) async {
     final l10n = context.read<AppLocalizationsProvider>();
     final amountController = TextEditingController();
-
-    // Calculate allocated total across all goals
-    final allocatedTotal = widget.gameState.goals
-        .fold<double>(0, (sum, g) {
-          return sum + g.allocatedMoney;
-        });
-    
-    final spendableBalance =
-        widget.gameState.money - allocatedTotal;
+    final spendableBalance = _assignableGoalMoney;
 
     await showDialog(
       context: context,
@@ -642,12 +647,29 @@ class _GoalsScreenState extends State<GoalsScreen> {
               .translate('assignMoneyToGoal')
               .replaceFirst('{goal}', goal.title),
         ),
-        content: TextField(
-          controller: amountController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: l10n.translate('enterAmount'),
-          ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.translate('goalsAssignableMoney').replaceFirst(
+                    '{amount}',
+                    _formatMoney(spendableBalance),
+                  ),
+              style: TextStyle(
+                color: Colors.deepPurple[700],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: l10n.translate('enterAmount'),
+              ),
+            ),
+          ],
         ),
         actions: [
           TextButton(
@@ -773,7 +795,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(l10n.translate('moneyWithdrawnSuccess')),
+                          content:
+                              Text(l10n.translate('moneyWithdrawnSuccess')),
                           duration: const Duration(seconds: 2),
                         ),
                       );
@@ -888,6 +911,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   : ListView(
                       children: [
                         if (activeGoals.isNotEmpty) ...[
+                          _buildAssignableMoneySummary(l10n),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
@@ -935,6 +959,60 @@ class _GoalsScreenState extends State<GoalsScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildAssignableMoneySummary(AppLocalizationsProvider l10n) {
+    final assignable = _assignableGoalMoney;
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.deepPurple.shade100),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.account_balance_wallet_outlined,
+            color: Colors.deepPurple[400],
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.translate('goalsAssignableSummaryTitle'),
+                  style: TextStyle(
+                    color: Colors.deepPurple[800],
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 112),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerRight,
+              child: Text(
+                _formatMoney(assignable),
+                style: TextStyle(
+                  color: Colors.deepPurple[900],
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -1051,7 +1129,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         }
                         return;
                       }
-                      
+
                       setState(() => _isSyncing = true);
 
                       try {
@@ -1155,7 +1233,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 child: Row(
                   children: [
                     TextButton.icon(
-                      onPressed: widget.gameState.money > 0
+                      onPressed: _assignableGoalMoney > 0
                           ? () => _showAllocateMoneyDialog(goal)
                           : null,
                       icon: const Icon(Icons.account_balance_wallet_outlined),
