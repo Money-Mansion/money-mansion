@@ -621,7 +621,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
                         return Text(
-                          _formatAmount(value),
+                          _formatAmount(value.roundToDouble()),
                           style: const TextStyle(fontSize: 10),
                         );
                       },
