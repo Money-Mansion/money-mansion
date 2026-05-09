@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for one hour without new main commits
-        run: sleep 3600
+        run: sleep 7200
 
   build-main-internal-apk:
     needs: wait-for-main-to-settle
