@@ -129,10 +129,6 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         Rect? toLocalRect(String targetId) {
           final rect = TutorialTargetRegistry.instance.getTarget(targetId);
           if (rect == null || box == null) return null;
-          // Targets are tracked in overlay coordinates when available.
-          if (overlayBox != null && identical(box, overlayBox)) {
-            return rect;
-          }
           final origin = box.localToGlobal(Offset.zero);
           return rect.shift(-origin);
         }

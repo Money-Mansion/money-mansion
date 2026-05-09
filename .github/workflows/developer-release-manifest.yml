@@ -1,0 +1,63 @@
+name: Developer Release Manifest
+
+on:
+  workflow_dispatch:
+    inputs:
+      changelog:
+        description: "Release changelog shown in the hidden developer menu"
+        required: false
+        default: "Developer release metadata"
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build version.json
+        id: manifest
+        shell: bash
+        run: |
+          mkdir -p release
+          VERSION_LINE="$(grep '^version:' pubspec.yaml | awk '{print $2}')"
+          VERSION_NAME="${VERSION_LINE%%+*}"
+          BUILD_NUMBER="${VERSION_LINE##*+}"
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            TAG_NAME="$GITHUB_REF_NAME"
+          else
+            TAG_NAME="v$VERSION_NAME"
+          fi
+          CHANGELOG="${{ github.event.inputs.changelog }}"
+          if [ -z "$CHANGELOG" ]; then CHANGELOG="Developer release $TAG_NAME"; fi
+          VERSION_NAME="$VERSION_NAME" BUILD_NUMBER="$BUILD_NUMBER" CHANGELOG="$CHANGELOG" python3 - <<'PY'
+          import json
+          import os
+
+          manifest = {
+              "version": os.environ["VERSION_NAME"],
+              "build": int(os.environ["BUILD_NUMBER"]),
+              "changelog": os.environ["CHANGELOG"],
+              "play_store_url": "https://play.google.com/store/apps/details?id=com.moneymansion.app",
+              "force_update": False,
+          }
+          with open("release/version.json", "w", encoding="utf-8") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")
+          PY
+          echo "tag=$TAG_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.manifest.outputs.tag }}
+          name: ${{ steps.manifest.outputs.tag }}
+          body: ${{ github.event.inputs.changelog || 'Developer release metadata' }}
+          files: release/version.json

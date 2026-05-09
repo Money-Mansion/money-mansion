@@ -16,6 +16,7 @@ class TutorialTarget extends StatefulWidget {
 class _TutorialTargetState extends State<TutorialTarget> {
   final GlobalKey _key = GlobalKey();
   Rect? _lastRect;
+  bool _tracking = true;
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _TutorialTargetState extends State<TutorialTarget> {
 
   void _startTracking() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
+      if (!mounted || !_tracking) return;
       _updateRect();
       _startTracking();
     });
@@ -43,12 +44,12 @@ class _TutorialTargetState extends State<TutorialTarget> {
     final renderBox = context.findRenderObject() as RenderBox?;
     if (renderBox == null || !renderBox.hasSize) return;
 
-    final overlayBox =
-        Overlay.of(context)?.context.findRenderObject() as RenderBox?;
-    final Matrix4 transform = renderBox.getTransformTo(overlayBox);
-    final Rect rect = MatrixUtils.transformRect(
-      transform,
-      renderBox.paintBounds,
+    // Keep tracking independent from inherited widgets. Calling Overlay.of()
+    // from a recurring post-frame callback can leave inherited dependencies
+    // attached while routes/screens are being deactivated.
+    final Rect rect = Rect.fromPoints(
+      renderBox.localToGlobal(Offset.zero),
+      renderBox.localToGlobal(renderBox.size.bottomRight(Offset.zero)),
     );
 
     if (_lastRect == rect) return;
@@ -58,6 +59,7 @@ class _TutorialTargetState extends State<TutorialTarget> {
 
   @override
   void dispose() {
+    _tracking = false;
     TutorialTargetRegistry.instance.removeTarget(widget.id);
     super.dispose();
   }
