@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:async';
 import 'dart:io' show Platform;
+import 'core/logging/developer_log_service.dart';
+import 'features/developer/developer_config.dart';
+import 'features/updater/presentation/update_startup_listener.dart';
 import 'screens/game_screen.dart';
 import 'services/item_database_service.dart';
 import 'services/financial_database_service.dart';
@@ -18,8 +22,28 @@ import 'models/room.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/privacy_consent_screen.dart';
 
-void main() async {
+Future<void> main() async {
+  await runZonedGuarded<Future<void>>(
+    _bootstrap,
+    (error, stackTrace) {
+      DeveloperLogService.error(
+        'Uncaught app error',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    },
+    zoneSpecification: ZoneSpecification(
+      print: (self, parent, zone, line) {
+        DeveloperLogService.capturePrint(line);
+        parent.print(zone, line);
+      },
+    ),
+  );
+}
+
+Future<void> _bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DeveloperLogService.initialize();
 
   print('=== App Starting ===');
   if (!kIsWeb) {
@@ -159,6 +183,10 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
 
   @override
   Widget build(BuildContext context) {
+    final home = _hasPrivacyConsent
+        ? (widget.isFirstLaunch ? const OnboardingScreen() : const GameScreen())
+        : PrivacyConsentScreen(onAccepted: _onPrivacyAccepted);
+
     return MaterialApp(
       title: 'Money Mansion',
       debugShowCheckedModeBanner: false,
@@ -169,11 +197,9 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
       ),
-      home: _hasPrivacyConsent
-          ? (widget.isFirstLaunch
-              ? const OnboardingScreen()
-              : const GameScreen())
-          : PrivacyConsentScreen(onAccepted: _onPrivacyAccepted),
+      home: DeveloperConfig.dashboardEnabled
+          ? UpdateStartupListener(child: home)
+          : home,
     );
   }
 }

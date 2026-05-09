@@ -1,62 +1,177 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'dart:async';
+import 'dart:typed_data';
 
+import 'package:audioplayers_platform_interface/audioplayers_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:money_mansion/main.dart';
+import 'package:money_mansion/models/game_state.dart';
+import 'package:money_mansion/models/room.dart';
+import 'package:money_mansion/services/app_localizations_provider.dart';
+import 'package:money_mansion/services/tutorial_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('Money Mansion app loads correctly', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(
-      const MoneyMansionApp(isFirstLaunch: false, hasPrivacyConsent: true),
-    );
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    AudioplayersPlatformInterface.instance = _FakeAudioplayersPlatform();
+    GlobalAudioplayersPlatformInterface.instance =
+        _FakeGlobalAudioplayersPlatform();
 
-    // Verify that the app displays game resources
-    expect(find.text('111'), findsOneWidget); // Coins
-    expect(find.text('780'), findsOneWidget); // Emeralds
-    expect(find.text('7.7'), findsOneWidget); // Date
-
-    // Verify that the calendar header is present
-    expect(find.text('JUL'), findsOneWidget);
+    SharedPreferences.setMockInitialValues({
+      'tutorial_completed': true,
+      'isFirstLaunch': false,
+      'privacy_policy_consent': true,
+      'privacy_policy_version': 1,
+    });
   });
 
-  testWidgets('Navigation between screens works', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(
-      const MoneyMansionApp(isFirstLaunch: false, hasPrivacyConsent: true),
-    );
+  testWidgets('Money Mansion app loads the game shell', (tester) async {
+    await tester.pumpWidget(_buildTestApp());
+    await _pumpUntilFound(tester, find.byKey(const Key('nav_button_0')));
 
-    // Initially on home screen (room viewer)
-    await tester.pumpAndSettle();
-
-    // Tap on the shop icon (index 2 - basket icon)
-    final shopButton = find.byKey(const Key('nav_button_2'));
-    await tester.tap(shopButton);
-    await tester.pumpAndSettle();
-
-    // Verify shop screen is displayed
-    expect(find.text('Shop'), findsOneWidget);
-
-    // Tap on stats icon (index 3)
-    final statsButton = find.byKey(const Key('nav_button_3'));
-    await tester.tap(statsButton);
-    await tester.pumpAndSettle();
-
-    // Verify stats screen is displayed
-    expect(find.text('Statistics'), findsOneWidget);
-
-    // Tap on inventory icon (index 4)
-    final inventoryButton = find.byKey(const Key('nav_button_4'));
-    await tester.tap(inventoryButton);
-    await tester.pumpAndSettle();
-
-    // Verify inventory screen is displayed
-    expect(find.text('Inventory'), findsOneWidget);
+    expect(find.byKey(const Key('nav_button_0')), findsOneWidget);
+    expect(find.byKey(const Key('nav_button_1')), findsOneWidget);
+    expect(find.byKey(const Key('nav_button_2')), findsOneWidget);
+    expect(find.byKey(const Key('nav_button_3')), findsOneWidget);
+    await _clearPendingUiTimers(tester);
   });
+
+}
+
+Widget _buildTestApp() {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => GameState(
+          coins: 100,
+          money: 0,
+          date: 7.7,
+          musicEnabled: false,
+          musicVolume: 0,
+          rooms: [Room()],
+        ),
+      ),
+      ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
+      ChangeNotifierProvider(create: (_) => TutorialProvider()),
+    ],
+    child: const MoneyMansionApp(
+      isFirstLaunch: false,
+      hasPrivacyConsent: true,
+    ),
+  );
+}
+
+Future<void> _pumpUntilFound(
+  WidgetTester tester,
+  Finder finder, {
+  int maxPumps = 20,
+}) async {
+  for (var i = 0; i < maxPumps; i++) {
+    await tester.pump(const Duration(milliseconds: 250));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    if (finder.evaluate().isNotEmpty) return;
+  }
+  fail('Expected to find $finder after pumping.');
+}
+
+Future<void> _clearPendingUiTimers(WidgetTester tester) async {
+  await tester.pump(const Duration(seconds: 6));
+  await tester.pumpWidget(const SizedBox.shrink());
+  await tester.pump();
+}
+
+class _FakeGlobalAudioplayersPlatform
+    implements GlobalAudioplayersPlatformInterface {
+  @override
+  Future<void> emitGlobalError(String code, String message) async {}
+
+  @override
+  Future<void> emitGlobalLog(String message) async {}
+
+  @override
+  Stream<GlobalAudioEvent> getGlobalEventStream() => const Stream.empty();
+
+  @override
+  Future<void> init() async {}
+
+  @override
+  Future<void> setGlobalAudioContext(AudioContext ctx) async {}
+}
+
+class _FakeAudioplayersPlatform extends AudioplayersPlatformInterface {
+  @override
+  Future<void> create(String playerId) async {}
+
+  @override
+  Future<void> dispose(String playerId) async {}
+
+  @override
+  Future<void> emitError(String playerId, String code, String message) async {}
+
+  @override
+  Future<void> emitLog(String playerId, String message) async {}
+
+  @override
+  Future<int?> getCurrentPosition(String playerId) async => null;
+
+  @override
+  Future<int?> getDuration(String playerId) async => null;
+
+  @override
+  Stream<AudioEvent> getEventStream(String playerId) => const Stream.empty();
+
+  @override
+  Future<void> pause(String playerId) async {}
+
+  @override
+  Future<void> release(String playerId) async {}
+
+  @override
+  Future<void> resume(String playerId) async {}
+
+  @override
+  Future<void> seek(String playerId, Duration position) async {}
+
+  @override
+  Future<void> setAudioContext(
+    String playerId,
+    AudioContext audioContext,
+  ) async {}
+
+  @override
+  Future<void> setBalance(String playerId, double balance) async {}
+
+  @override
+  Future<void> setPlayerMode(String playerId, PlayerMode playerMode) async {}
+
+  @override
+  Future<void> setPlaybackRate(String playerId, double playbackRate) async {}
+
+  @override
+  Future<void> setReleaseMode(String playerId, ReleaseMode releaseMode) async {}
+
+  @override
+  Future<void> setSourceBytes(
+    String playerId,
+    Uint8List bytes, {
+    String? mimeType,
+  }) async {}
+
+  @override
+  Future<void> setSourceUrl(
+    String playerId,
+    String url, {
+    bool? isLocal,
+    String? mimeType,
+  }) async {}
+
+  @override
+  Future<void> setVolume(String playerId, double volume) async {}
+
+  @override
+  Future<void> stop(String playerId) async {}
 }

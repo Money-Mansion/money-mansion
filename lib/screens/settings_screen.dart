@@ -7,6 +7,10 @@ import '../services/streak_service.dart';
 import '../services/onboarding_service.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
+import '../features/developer/developer_config.dart';
+import '../features/developer/data/developer_settings_service.dart';
+import '../features/developer/presentation/developer_dashboard_screen.dart';
+import '../features/updater/data/github_release_service.dart';
 import 'privacy_policy_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -23,20 +27,23 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-const CARD_BG=Color.fromARGB(255, 215, 203, 235);
-
+const CARD_BG = Color.fromARGB(255, 215, 203, 235);
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
   final _incomeController = TextEditingController();
   final _expensesController = TextEditingController();
+  final _developerTokenController = TextEditingController();
 
   FinancialExperience _experience = FinancialExperience.beginner;
   MainGoal _mainGoal = MainGoal.saving;
   IncomeType _incomeType = IncomeType.student;
   bool _profileLoaded = false;
   bool _savingProfile = false;
+  bool _developerAccessOpen = false;
+  bool _developerDashboardOpen = false;
+  bool _checkingDeveloperToken = false;
 
   @override
   void initState() {
@@ -71,6 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _ageController.dispose();
     _incomeController.dispose();
     _expensesController.dispose();
+    _developerTokenController.dispose();
     super.dispose();
   }
 
@@ -143,291 +151,416 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppLocalizationsProvider>(
-      builder: (context, l10n, _) {
-        final supportedLanguages = l10n.getSupportedLanguages();
+  Future<void> _openDeveloperDashboard() async {
+    if (!DeveloperConfig.dashboardEnabled) return;
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(l10n.translate('settings')),
-            backgroundColor: const Color.fromARGB(255, 149, 117, 205),
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            leading: TutorialTarget(
-              id: 'close_settings',
-              child: IconButton(
-                icon: const Icon(Icons.close),
-                color: Colors.black,
-                onPressed: () => Navigator.pop(context),
+    final savedToken = await DeveloperSettingsService.instance.loadGithubToken();
+    if (!mounted) return;
+    setState(() {
+      _developerTokenController.text = savedToken ?? '';
+      _developerAccessOpen = true;
+      _developerDashboardOpen = false;
+    });
+  }
+
+  Future<void> _unlockDeveloperDashboard() async {
+    final token = _developerTokenController.text.trim();
+    if (token.isEmpty) {
+      _showSnack('GitHub token is required');
+      return;
+    }
+
+    setState(() => _checkingDeveloperToken = true);
+    try {
+      await GitHubReleaseService().verifyRepositoryAccess(token: token);
+      await DeveloperSettingsService.instance.saveGithubToken(token);
+      if (!mounted) return;
+      setState(() {
+        _developerAccessOpen = false;
+        _developerDashboardOpen = true;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      _showSnack('GitHub token could not access the private repo');
+    } finally {
+      if (mounted) {
+        setState(() => _checkingDeveloperToken = false);
+      }
+    }
+  }
+
+  void _closeDeveloperDashboard() {
+    setState(() {
+      _developerDashboardOpen = false;
+      _developerAccessOpen = false;
+    });
+  }
+
+  Widget _buildDeveloperAccessCard() {
+    return Card(
+      elevation: 2,
+      color: CARD_BG,
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Developer access',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _developerTokenController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'GitHub token',
+                helperText: 'Token must have read access to the private repo',
+                border: OutlineInputBorder(),
+              ),
+              onSubmitted: (_) {
+                if (!_checkingDeveloperToken) {
+                  _unlockDeveloperDashboard();
+                }
+              },
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: _checkingDeveloperToken
+                      ? null
+                      : () => setState(() => _developerAccessOpen = false),
+                  child: const Text('Cancel'),
+                ),
+                const Spacer(),
+                FilledButton.icon(
+                  onPressed: _checkingDeveloperToken
+                      ? null
+                      : _unlockDeveloperDashboard,
+                  icon: _checkingDeveloperToken
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.lock_open),
+                  label: const Text('Unlock'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingsContent(AppLocalizationsProvider l10n) {
+    final supportedLanguages = l10n.getSupportedLanguages();
+
+    if (_developerDashboardOpen) {
+      return DeveloperDashboardScreen(
+        gameState: widget.gameState,
+        onClose: _closeDeveloperDashboard,
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: DeveloperConfig.dashboardEnabled
+            ? GestureDetector(
+                onLongPress: _openDeveloperDashboard,
+                child: Text(l10n.translate('settings')),
+              )
+            : Text(l10n.translate('settings')),
+        backgroundColor: const Color.fromARGB(255, 149, 117, 205),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: TutorialTarget(
+          id: 'close_settings',
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (_developerAccessOpen) _buildDeveloperAccessCard(),
+              _buildProfileCard(l10n),
+              const SizedBox(height: 24),
+              _buildTutorialCard(l10n),
+              const SizedBox(height: 24),
+              _buildLanguageCard(l10n, supportedLanguages),
+              const SizedBox(height: 24),
+              _buildGamePreferencesCard(l10n),
+              const SizedBox(height: 24),
+              _buildGameInfoCard(l10n),
+              const SizedBox(height: 32),
+              _buildPrivacyPolicyButton(),
+              const SizedBox(height: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTutorialCard(AppLocalizationsProvider l10n) {
+    return Card(
+      elevation: 2,
+      color: CARD_BG,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.translate('tutorialRestart'),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    await context.read<TutorialProvider>().restartTutorial();
+                    _showSnack(l10n.translate('tutorialRestart'));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text(l10n.translate('tutorialRestart')),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  l10n.translate('tutorialNavigateHint'),
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard(
+    AppLocalizationsProvider l10n,
+    List<String> supportedLanguages,
+  ) {
+    return Card(
+      elevation: 2,
+      color: CARD_BG,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.translate('selectLanguage'),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            Column(
+              children: supportedLanguages.map((languageCode) {
+                final isSelected = languageCode == l10n.currentLanguage;
+                final languageName = l10n.getLanguageName(languageCode);
+
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: isSelected
+                          ? const Color.fromARGB(255, 103, 58, 183)
+                          : Colors.grey[300]!,
+                      width: isSelected ? 2 : 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ListTile(
+                    title: Text(languageName),
+                    leading: Radio<String>(
+                      value: languageCode,
+                      groupValue: l10n.currentLanguage,
+                      onChanged: (value) {
+                        if (value != null) {
+                          l10n.setLanguage(value);
+                        }
+                      },
+                      activeColor: const Color.fromARGB(255, 103, 58, 183),
+                    ),
+                    onTap: () {
+                      l10n.setLanguage(languageCode);
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGamePreferencesCard(AppLocalizationsProvider l10n) {
+    return Card(
+      elevation: 2,
+      color: CARD_BG,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.translate('gamePreferences'),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            AnimatedBuilder(
+              animation: widget.gameState,
+              builder: (context, _) => TutorialTarget(
+                id: 'toggle_music',
+                child: SwitchListTile(
+                  title: Text(
+                    l10n.translate('backgroundMusic'),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  value: widget.gameState.isMusicEnabled(),
+                  onChanged: (value) async {
+                    widget.gameState.setMusicEnabled(value);
+                    await FinancialDatabaseService.saveMusicEnabled(value);
+                    context.read<TutorialProvider>().registerAction(
+                          'toggle_music',
+                        );
+                  },
+                  activeColor: const Color.fromARGB(255, 103, 58, 183),
+                ),
               ),
             ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
+            const SizedBox(height: 16),
+            AnimatedBuilder(
+              animation: widget.gameState,
+              builder: (context, _) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildProfileCard(l10n),
-                  const SizedBox(height: 24),
-                  // Tutorial controls
-                  Card(
-                    elevation: 2,
-                    color: CARD_BG,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.translate('tutorialRestart'),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  await context
-                                      .read<TutorialProvider>()
-                                      .restartTutorial();
-                                  _showSnack(l10n.translate('tutorialRestart'));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color.fromARGB(255, 103, 58, 183),
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: Text(l10n.translate('tutorialRestart')),
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                l10n.translate('tutorialNavigateHint'),
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  Text(
+                    l10n.translate('musicVolume'),
+                    style: const TextStyle(fontSize: 14),
                   ),
-                  const SizedBox(height: 24),
-                  // Language Selection Card
-                  Card(
-                    elevation: 2,
-                    color: CARD_BG,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.translate('selectLanguage'),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 16),
-                          Column(
-                            children: supportedLanguages.map((languageCode) {
-                              final isSelected =
-                                  languageCode == l10n.currentLanguage;
-                              final languageName =
-                                  l10n.getLanguageName(languageCode);
-
-                              return Container(
-                                margin: const EdgeInsets.symmetric(vertical: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: isSelected
-                                        ? const Color.fromARGB(255, 103, 58, 183)
-                                        : Colors.grey[300]!,
-                                    width: isSelected ? 2 : 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: ListTile(
-                                  title: Text(languageName),
-                                  leading: Radio<String>(
-                                    value: languageCode,
-                                    groupValue: l10n.currentLanguage,
-                                    onChanged: (value) {
-                                      if (value != null) {
-                                        l10n.setLanguage(value);
-                                      }
-                                    },
-                                    activeColor: const Color.fromARGB(255, 103, 58, 183),
-                                  ),
-                                  onTap: () {
-                                    l10n.setLanguage(languageCode);
-                                  },
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
+                  Slider(
+                    value: widget.gameState.getMusicVolume(),
+                    min: 0.0,
+                    max: 1.0,
+                    divisions: 10,
+                    label:
+                        '${(widget.gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
+                    activeColor: const Color.fromARGB(255, 103, 58, 183),
+                    inactiveColor: Colors.grey[300],
+                    onChanged: (value) async {
+                      widget.gameState.setMusicVolume(value);
+                      await FinancialDatabaseService.saveMusicVolume(value);
+                    },
                   ),
-                  const SizedBox(height: 24),
-                  // Game Preferences Section
-                  Card(
-                    elevation: 2,
-                    color: CARD_BG,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.translate('gamePreferences'),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 16),
-                          // Background Music Toggle
-                          AnimatedBuilder(
-                            animation: widget.gameState,
-                            builder: (context, _) => TutorialTarget(
-                              id: 'toggle_music',
-                              child: SwitchListTile(
-                                title: Text(
-                                  l10n.translate('backgroundMusic'),
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                value: widget.gameState.isMusicEnabled(),
-                                onChanged: (value) async {
-                                  widget.gameState.setMusicEnabled(value);
-                                  await FinancialDatabaseService
-                                      .saveMusicEnabled(value);
-                                  context
-                                      .read<TutorialProvider>()
-                                      .registerAction('toggle_music');
-                                },
-                                activeColor: const Color.fromARGB(255, 103, 58, 183),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          // Music Volume Slider
-                          AnimatedBuilder(
-                            animation: widget.gameState,
-                            builder: (context, _) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  l10n.translate('musicVolume'),
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                Slider(
-                                  value: widget.gameState.getMusicVolume(),
-                                  min: 0.0,
-                                  max: 1.0,
-                                  divisions: 10,
-                                  label:
-                                      '${(widget.gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
-                                  activeColor: const Color.fromARGB(255, 103, 58, 183),
-                                  inactiveColor: Colors.grey[300],
-                                  onChanged: (value) async {
-                                    widget.gameState.setMusicVolume(value);
-                                    await FinancialDatabaseService
-                                        .saveMusicVolume(value);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  // Game Info Section
-                  Card(
-                    elevation: 2,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    color: CARD_BG,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.translate('gameInfo'),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 16),
-                          // Coins
-                          AnimatedBuilder(
-                            animation: widget.gameState,
-                            builder: (context, _) => Column(
-                              children: [
-                                _InfoRow(
-                                  label: '${l10n.translate('coins')}:',
-                                  value: '${widget.gameState.coins}',
-                                  valueColor: Colors.orange,
-                                ),
-                                const SizedBox(height: 12),
-                                // Money
-                                _InfoRow(
-                                  label: '${l10n.translate('money')}:',
-                                  value:
-                                      '\$${widget.gameState.money.toStringAsFixed(2)}',
-                                  valueColor: Colors.green,
-                                ),
-                                const SizedBox(height: 12),
-                                // Streak
-                                FutureBuilder<int>(
-                                  future: StreakService.getCurrentStreak(),
-                                  builder: (context, snapshot) => _InfoRow(
-                                    label: 'Quiz Streak:',
-                                    value: '${snapshot.data ?? 0}',
-                                    valueColor:
-                                        const Color.fromARGB(255, 149, 117, 205),
-                                    icon: '🔥',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  // Privacy Policy Link
-                  Center(
-                    child: SizedBox(
-                      width: 260,
-                      child: ElevatedButton.icon(
-                        onPressed: _openPrivacyPolicy,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 103, 58, 183),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        icon: const Icon(Icons.privacy_tip_outlined),
-                        label: const Text(
-                          'Privacy Policy',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGameInfoCard(AppLocalizationsProvider l10n) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      color: CARD_BG,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.translate('gameInfo'),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            AnimatedBuilder(
+              animation: widget.gameState,
+              builder: (context, _) => Column(
+                children: [
+                  _InfoRow(
+                    label: '${l10n.translate('coins')}:',
+                    value: '${widget.gameState.coins}',
+                    valueColor: Colors.orange,
+                  ),
+                  const SizedBox(height: 12),
+                  _InfoRow(
+                    label: '${l10n.translate('money')}:',
+                    value: '\$${widget.gameState.money.toStringAsFixed(2)}',
+                    valueColor: Colors.green,
+                  ),
+                  const SizedBox(height: 12),
+                  FutureBuilder<int>(
+                    future: StreakService.getCurrentStreak(),
+                    builder: (context, snapshot) => _InfoRow(
+                      label: 'Quiz Streak:',
+                      value: '${snapshot.data ?? 0}',
+                      valueColor: const Color.fromARGB(255, 149, 117, 205),
+                      icon: 'ðŸ”¥',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPrivacyPolicyButton() {
+    return Center(
+      child: SizedBox(
+        width: 260,
+        child: ElevatedButton.icon(
+          onPressed: _openPrivacyPolicy,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-        );
-      },
+          icon: const Icon(Icons.privacy_tip_outlined),
+          label: const Text(
+            'Privacy Policy',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppLocalizationsProvider>(
+      builder: (context, l10n, _) => _buildSettingsContent(l10n),
     );
   }
 
@@ -550,9 +683,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: FilledButton(
                   onPressed: _savingProfile ? null : () => _saveProfile(l10n),
                   style: FilledButton.styleFrom(
-                                  backgroundColor: const Color.fromARGB(255, 103, 58, 183),
-                                  foregroundColor: Colors.white,
-                                ),
+                    backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                    foregroundColor: Colors.white,
+                  ),
                   child: _savingProfile
                       ? const SizedBox(
                           width: 20,
@@ -594,7 +727,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
+          borderSide:
+              const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
         ),
       ),
     );
@@ -618,7 +752,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
+          borderSide:
+              const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
         ),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),

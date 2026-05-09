@@ -50,4 +50,9 @@ class LessonProgressDatabaseService {
     final result = await db.query(_tableName);
     return result.map((r) => r['lessonQuizId'] as int).toSet();
   }
+
+  static Future<void> clearAllOpenedLessons() async {
+    final db = await _getDb();
+    await db.delete(_tableName);
+  }
 }
