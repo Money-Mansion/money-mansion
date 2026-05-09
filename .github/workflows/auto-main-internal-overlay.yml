@@ -8,8 +8,19 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: auto-main-internal-apk
+  cancel-in-progress: true
+
 jobs:
+  wait-for-main-to-settle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for one hour without new main commits
+        run: sleep 3600
+
   build-main-internal-apk:
+    needs: wait-for-main-to-settle
     uses: Money-Mansion/money-mansion/.github/workflows/internal-overlay-apk.yml@feature/internal-github-apk-updater
     with:
       target_ref: ${{ github.sha }}
