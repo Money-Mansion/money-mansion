@@ -4,7 +4,7 @@ class UpdateManifest {
   final String version;
   final int build;
   final String changelog;
-  final bool forceUpdate;
+  final bool important;
   final String? releaseTag;
   final String? releaseHtmlUrl;
   final String? versionAssetApiUrl;
@@ -14,7 +14,7 @@ class UpdateManifest {
     required this.version,
     required this.build,
     required this.changelog,
-    required this.forceUpdate,
+    required this.important,
     this.releaseTag,
     this.releaseHtmlUrl,
     this.versionAssetApiUrl,
@@ -35,7 +35,7 @@ class UpdateManifest {
       version: version.trim(),
       build: build.toInt(),
       changelog: (json['changelog'] as String?)?.trim() ?? '',
-      forceUpdate: json['force_update'] == true,
+      important: json['important'] == true,
       playStoreUrl: (json['play_store_url'] as String?)?.trim(),
     );
   }
@@ -45,7 +45,7 @@ class UpdateManifest {
       'version': version,
       'build': build,
       'changelog': changelog,
-      'force_update': forceUpdate,
+      'important': important,
       'play_store_url': playStoreUrl,
     };
   }
@@ -60,7 +60,7 @@ class UpdateManifest {
       version: version,
       build: build,
       changelog: changelog,
-      forceUpdate: forceUpdate,
+      important: important,
       releaseTag: releaseTag ?? this.releaseTag,
       releaseHtmlUrl: releaseHtmlUrl ?? this.releaseHtmlUrl,
       versionAssetApiUrl: versionAssetApiUrl ?? this.versionAssetApiUrl,

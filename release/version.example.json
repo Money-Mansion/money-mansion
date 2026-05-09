@@ -3,5 +3,5 @@
   "build": 12,
   "changelog": "Bug fixes and performance improvements",
   "play_store_url": "https://play.google.com/store/apps/details?id=com.moneymansion.app",
-  "force_update": false
+  "important": false
 }

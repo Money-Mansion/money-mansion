@@ -60,7 +60,7 @@ UpdateManifest _manifest({required String version, required int build}) {
     version: version,
     build: build,
     changelog: 'Test',
-    forceUpdate: false,
+    important: false,
     playStoreUrl:
         'https://play.google.com/store/apps/details?id=com.moneymansion.app',
   );

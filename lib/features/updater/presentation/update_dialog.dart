@@ -11,7 +11,7 @@ Future<void> showUpdateDialog({
   final manifest = result.manifest;
   if (manifest == null) return;
 
-  final important = manifest.forceUpdate;
+  final important = manifest.important;
   await showDialog<void>(
     context: context,
     barrierDismissible: true,

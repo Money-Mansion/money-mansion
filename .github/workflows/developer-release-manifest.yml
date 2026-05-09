@@ -46,7 +46,7 @@ jobs:
               "build": int(os.environ["BUILD_NUMBER"]),
               "changelog": os.environ["CHANGELOG"],
               "play_store_url": "https://play.google.com/store/apps/details?id=com.moneymansion.app",
-              "force_update": False,
+              "important": False,
           }
           with open("release/version.json", "w", encoding="utf-8") as f:
               json.dump(manifest, f, indent=2)
