@@ -1,0 +1,21 @@
+name: Auto Main Internal APK
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-main-internal-apk:
+    uses: Money-Mansion/money-mansion/.github/workflows/internal-overlay-apk.yml@feature/internal-github-apk-updater
+    with:
+      target_ref: ${{ github.sha }}
+      updater_ref: feature/internal-github-apk-updater
+      release_channel: main-auto
+      changelog: "Automatic internal build from main"
+      make_latest: true
+      prerelease: false
+    secrets: inherit
