@@ -34,7 +34,7 @@ class DeveloperLogService {
   static bool _initialized = false;
 
   static Future<void> initialize() async {
-    if (_initialized || kIsWeb) return;
+    if (_initialized || kIsWeb || !kDebugMode) return;
     _initialized = true;
     try {
       final dir = await getTemporaryDirectory();
@@ -93,11 +93,13 @@ class DeveloperLogService {
     String message, {
     StackTrace? stackTrace,
   }) {
+    if (!kDebugMode) return;
+    final sanitizedMessage = _sanitize(message);
     final entry = DeveloperLogEntry(
       timestamp: DateTime.now(),
       level: level,
-      message: message,
-      stackTrace: stackTrace?.toString(),
+      message: sanitizedMessage,
+      stackTrace: stackTrace == null ? null : _sanitize(stackTrace.toString()),
     );
     final next = <DeveloperLogEntry>[...entries.value, entry];
     entries.value = next.length > _maxEntries
@@ -112,5 +114,21 @@ class DeveloperLogService {
     try {
       await file.writeAsString('$line\n', mode: FileMode.append);
     } catch (_) {}
+  }
+
+  static String _sanitize(String value) {
+    return value
+        .replaceAll(
+          RegExp(r'Bearer\s+[A-Za-z0-9._~+/=-]+', caseSensitive: false),
+          'Bearer [redacted]',
+        )
+        .replaceAll(
+          RegExp(r'gsk_[A-Za-z0-9]+'),
+          '[redacted-api-key]',
+        )
+        .replaceAll(
+          RegExp(r'gh[pousr]_[A-Za-z0-9_]+'),
+          '[redacted-github-token]',
+        );
   }
 }

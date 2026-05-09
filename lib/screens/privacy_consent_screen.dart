@@ -65,7 +65,7 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Privacy Policy'),
@@ -113,7 +113,8 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
                           const SizedBox(height: 12),
                           Text(
                             'Money Mansion is committed to protecting your privacy. '
-                            'All your financial data is stored locally on your device and never shared.',
+                            'Profile, financial, goal, and game data stay on this device. '
+                            'The app does not use ads, analytics, or external AI services.',
                             style: theme.textTheme.bodyMedium,
                           ),
                         ],
@@ -122,7 +123,8 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
                     const SizedBox(height: 24),
                     Container(
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+                        color:
+                            theme.colorScheme.primaryContainer.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       padding: const EdgeInsets.all(16),
@@ -173,7 +175,7 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
                       });
                     },
                     title: Text(
-                      'I agree with the privacy policy',
+                      'I am a parent/guardian, or I have reviewed this with one, and I agree to the Privacy Policy.',
                       style: theme.textTheme.bodyMedium,
                     ),
                     contentPadding: EdgeInsets.zero,

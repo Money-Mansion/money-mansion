@@ -1,8 +1,8 @@
 # GitHub Secrets
 
-This branch (`feature/developer-dashboard-token-gated`) is the Google Play safe
-developer-dashboard branch. It does not build or install APK updates from
-GitHub, so it does not require Android signing secrets.
+This Google Play branch keeps developer dashboard behavior out of release
+artifacts. It does not build or install APK updates from GitHub automatically,
+so normal Google Play work does not require Android signing secrets.
 
 ## Required for this branch
 
@@ -29,10 +29,11 @@ Minimum token access:
 - Repository permissions: `Contents: Read-only`
 - Repository permissions: `Metadata: Read-only`
 
-## Not required on this branch
+## Optional manual internal APK workflow
 
-These secrets are only needed on the internal APK updater branch that builds and
-ships APK files through GitHub Releases:
+The manual internal APK workflow is not required for Google Play releases. If a
+maintainer runs it for internal testing, it must publish a prerelease and must
+not mark the release as latest. That optional workflow needs:
 
 - `ANDROID_KEYSTORE_BASE64`
 - `ANDROID_KEY_ALIAS`

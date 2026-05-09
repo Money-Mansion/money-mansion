@@ -77,13 +77,13 @@ class AppLocalizations {
       'tutorialShopCategories':
           'I love browsing the categories, {name}, Furniture, Decor, Doors, Walls, Floors. Each one has different items to upgrade your mansion!',
       'tutorialGoalsIntro':
-          'Here are your saving goals, {name}! Each goal has a target amount, a deadline and an AI-chosen reward. Pretty smart, right?',
+          'Here are your saving goals, {name}! Each goal has a target amount, a deadline and an automatic coin reward.',
       'tutorialGoalsAssign':
           'Tap any goal card to assign money from your balance to it, {name}. I always put a little aside each week, small steps, big results! 💪',
       'tutorialGoalsReassign':
           'See the ⇄ button in the top right, {name}? That lets me move money between goals if my priorities change. Very handy!',
       'tutorialGoalsComplete':
-          'Once a goal reaches 100%, tick the checkbox to complete it, {name}. Each completed goal gives an AI-chosen coin reward.',
+          'Once a goal reaches 100%, tick the checkbox to complete it, {name}. Each completed goal gives a calculated coin reward.',
       'tutorialRoomExplain':
           'This is your mansion, {name}! You already have a few starter pieces in your inventory, we\'ll place some in a moment. As you earn coins and buy more, your room keeps growing. The better your finances, the better your home!',
       'tutorialSettingsInfo':
@@ -190,7 +190,7 @@ class AppLocalizations {
       'noGoalsYet': 'No goals yet',
       'createYourFirstGoal': 'Create your first goal to get started',
       'reward': 'Reward',
-      'goalScoreLabel': 'AI profile',
+      'goalScoreLabel': 'Goal profile',
       'goalAmount': 'Goal Amount',
       'enterMoneyTarget': 'Enter money target',
       'coinsLabel': 'coins',
@@ -198,9 +198,10 @@ class AppLocalizations {
       'enterGoalDescription': 'Enter goal description',
       'enterGoalTitleHint': 'Enter goal title',
       'goalLoadFail': 'Failed to load goals.',
-      'rewardAiInfo': 'Reward is chosen automatically by AI for each goal.',
+      'rewardAiInfo':
+          'Reward and difficulty are calculated on this device. Goal details are not sent to an external AI service.',
       'needMoreGoalDetails': 'Please provide more details about the goal.',
-      'aiSetDifficulty': 'AI analysis: {reason}',
+      'aiSetDifficulty': 'Goal calculation: {reason}',
       'refreshGoals': 'Refresh goals',
       'loadingGoals': 'Loading goals...',
       'goalsActive': 'Active Goals',
@@ -216,7 +217,8 @@ class AppLocalizations {
       'failedToDeleteGoal': 'Failed to delete goal',
       'savedProgress': 'Saved {saved} / {target}',
       'amountExceedsGoalFunds': 'Amount exceeds available goal funds.',
-      'difficultyChosenByAi': 'Goal settings are chosen automatically by AI.',
+      'difficultyChosenByAi':
+          'Goal settings are calculated automatically on this device.',
       'assignMoney': 'Assign money',
       'assignMoneyToGoal': 'Assign money to {goal}',
       'goalsAssignableMoney': 'Available to assign: {amount}',
@@ -510,13 +512,13 @@ class AppLocalizations {
       'tutorialShopCategories':
           'Milujem prezeranie kategórií, {name} — Tapety, Posedenie, Úložný priestor, Postele, Podlahy. Každá má iné predmety na vylepšenie sídla!',
       'tutorialGoalsIntro':
-          'Tu sú tvoje ciele sporenia, {name}! Každý cieľ má cieľovú sumu, termín a AI určenú odmenu. Šikovne, nie?',
+          'Tu su tvoje ciele sporenia, {name}! Kazdy ciel ma cielovu sumu, termin a automaticku odmenu.',
       'tutorialGoalsAssign':
           'Klepni na kartu ľubovoľného cieľa a priraď mu peniaze zo zostatku, {name}. Ja si vždy odložím trochu každý týždeň — malé kroky, veľké výsledky! 💪',
       'tutorialGoalsReassign':
           'Vidíš tlačidlo ⇄ vpravo hore, {name}? To mi umožňuje presúvať peniaze medzi cieľmi, keď sa zmenia moje priority. Veľmi užitočné!',
       'tutorialGoalsComplete':
-          'Keď cieľ dosiahne 100 %, zaškrtni políčko a dokonči ho, {name}. Za splnený cieľ dostaneš AI určenú odmenu v minciach.',
+          'Ked ciel dosiahne 100 %, zaskrtni policko a dokonci ho, {name}. Za splneny ciel dostanes vypocitanu odmenu v minciach.',
       'tutorialRoomExplain':
           'Toto je tvoje sídlo, {name}! Už máš v inventári pár štartovných predmetov — o chvíľu ich spolu umiestnime. Keď budeš zarábať mince a nakupovať viac, izba porastie. Čím lepšie sú tvoje financie, tým krajší je domov!',
       'tutorialSettingsInfo':
@@ -633,7 +635,7 @@ class AppLocalizations {
       'noGoalsYet': 'Zatiaľ bez cieľov',
       'createYourFirstGoal': 'Vytvor svoj prvý cieľ a začni',
       'reward': 'Odmena',
-      'goalScoreLabel': 'AI profil',
+      'goalScoreLabel': 'Profil ciela',
       'goalAmount': 'Cieľová suma',
       'enterMoneyTarget': 'Zadaj cieľovú sumu',
       'coinsLabel': 'mincí',
@@ -641,9 +643,10 @@ class AppLocalizations {
       'enterGoalDescription': 'Zadaj popis cieľa',
       'enterGoalTitleHint': 'Zadaj názov cieľa',
       'goalLoadFail': 'Nepodarilo sa načítať ciele.',
-      'rewardAiInfo': 'Odmenu vyberie automaticky AI pre kazdy ciel.',
+      'rewardAiInfo':
+          'Odmena a narocnost sa vypocitaju v tomto zariadeni. Detaily ciela sa neposielaju externej AI sluzbe.',
       'needMoreGoalDetails': 'Prosím, pridajte viac detailov o cieli.',
-      'aiSetDifficulty': 'AI analyza: {reason}',
+      'aiSetDifficulty': 'Vypocet ciela: {reason}',
       'refreshGoals': 'Obnoviť ciele',
       'loadingGoals': 'Načítavam ciele...',
       'goalsActive': 'Aktívne ciele',
@@ -659,7 +662,8 @@ class AppLocalizations {
       'failedToDeleteGoal': 'Cieľ sa nepodarilo odstrániť',
       'savedProgress': 'Ušetrené {saved} / {target}',
       'amountExceedsGoalFunds': 'Suma presahuje dostupné prostriedky cieľa.',
-      'difficultyChosenByAi': 'Nastavenie ciela vyberie automaticky AI.',
+      'difficultyChosenByAi':
+          'Nastavenie ciela sa vypocita automaticky v tomto zariadeni.',
       'assignMoney': 'Priradiť peniaze',
       'assignMoneyToGoal': 'Priradiť peniaze k cieľu {goal}',
       'goalsAssignableMoney': 'Dostupné na priradenie: {amount}',

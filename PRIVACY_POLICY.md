@@ -1,161 +1,80 @@
-# Privacy Policy — Money Mansion
+# Privacy Policy - Money Mansion
 
-**Last updated:** April 20, 2026
-
----
+**Last updated:** May 10, 2026
 
 ## 1. Introduction
 
-Money Mansion ("we", "our", or "the app") is an educational finance game designed to help children learn about saving money, setting goals, and managing personal finances in a fun and interactive way.
+Money Mansion is an educational finance game designed to help children learn about saving, setting goals, tracking spending, and managing game rewards. This policy explains what information the app stores, how it is used, and the choices available to users, parents, and guardians.
 
-**Development team:**
-- Denisa Tóthová
-- Šimon Škombár
-- Šimon Sobek
-- Ema Kubalová
-- Dorián Lovič
+Money Mansion is designed for children and should be reviewed with a parent or guardian.
 
-We are committed to protecting the privacy of our users, especially children. This Privacy Policy explains what information is collected, how it is used, and your rights regarding that information.
+## 2. Information Stored on the Device
 
-By using Money Mansion, you agree to the practices described in this policy.
+Money Mansion stores app data locally on the user's device. The app does not require an account or login.
 
----
+Local data may include:
 
-## 2. Information We Collect
+- Profile details entered during onboarding, such as name or nickname, age, monthly income, optional monthly expenses, financial experience level, main financial goal, and income type.
+- Financial entries created in the app, including income, expenses, amounts, dates, notes, categories, and goal allocations.
+- Savings goals, including title, description, target amount, due date, progress, challenge score, and coin reward.
+- Game progress, including coins, rooms, inventory, purchased items, quiz progress, lesson progress, streaks, language, music settings, tutorial state, and privacy consent status.
 
-### 2.1 Information Stored Locally on Your Device
+This data is used only to provide the app's educational and game features.
 
-Money Mansion stores the following data **locally on your device only** using a local database (SQLite). This data never leaves your device unless explicitly stated otherwise:
+## 3. External Sharing
 
-- **User Profile Information:**
-  - Username
-  - Age
-  - Monthly income
-  - Monthly expenses (optional)
-  - Financial experience level (beginner/intermediate)
-  - Main financial goal (saving/learning/tracking)
-  - Income type (student/part-time/full-time)
-- Financial transactions you enter (income, expenses, amounts, dates, notes)
-- Savings goals (title, description, target amount, due date)
-- Game progress (coins, level, room items, decorations)
-- Quiz and lesson progress
-- App settings (language, music preferences)
+The Google Play release of Money Mansion does not send profile, financial, goal, transaction, quiz, lesson, or game progress data to Money Mansion servers, analytics providers, advertising providers, or external AI services.
 
-This data is stored solely to provide the app's functionality and is not transmitted to our servers, except where explicitly noted in Section 2.2.
+Goal difficulty and coin rewards are calculated locally on the device. Goal titles, descriptions, target amounts, due dates, age, income, expenses, and other profile context are not sent to an external AI service.
 
-### 2.2 Information Sent to Third-Party AI Service
+The app does not use advertising SDKs, analytics SDKs, social media SDKs, crash reporting SDKs, or in-app purchases.
 
-When you create or evaluate a **savings goal**, the following information is sent to a third-party AI service (Groq, Inc.) for the purpose of classifying the goal's difficulty:
+Developer-only update and dashboard features may contact GitHub in debug builds used by the development team. These features are disabled in Google Play release builds and are not part of the public app experience.
 
-- Goal title
-- Goal description
-- Target amount (numeric value only)
-- Target due date (date only)
-- Child age (from onboarding, if provided)
-- Monthly income and monthly expenses (from onboarding, if provided)
-- Financial experience level, main goal, and income type (from onboarding)
+## 4. Permissions
 
-**No direct identifiers** (such as name, email address, location, or device identifiers) are included in these requests.
+The Google Play release is configured without Android Internet or network state permissions. Debug and profile builds used during development may request Internet permission for Flutter tooling and developer-only checks.
 
----
+## 5. Children's Privacy
 
-## 3. How We Use the Information
+Money Mansion does not require children to provide an email address, phone number, precise location, photos, contacts, device identifiers, or account credentials.
 
-| Data | Purpose | Stored where |
-|------|---------|--------------|
-| Transactions, goals, game state | Core app functionality | Locally on device |
-| Goal title, description, amount, date, plus onboarding profile context (age, income, expenses, experience, main goal, income type) | AI difficulty classification | Sent to Groq API (see Section 4) |
-
-We do **not** use your data for advertising, profiling, or any purpose beyond operating the app.
-
----
-
-## 4. Third-Party Services
-
-### Groq, Inc. (AI Processing)
-
-Goal content is processed by Groq's AI API to classify savings goal difficulty (Easy / Medium / Hard). Groq processes this data under their own privacy policy:
-[https://groq.com/privacy-policy](https://groq.com/privacy-policy)
-
-Data sent to Groq:
-- Is transmitted over an encrypted HTTPS connection
-- Is not linked to any user identity
-- Is processed according to Groq's own data retention and privacy practices
-
-We do not make independent guarantees about Groq's data retention. Please refer to [Groq's Privacy Policy](https://groq.com/privacy-policy) for accurate and up-to-date information on how they handle submitted data.
-
-We do not use any advertising SDKs, analytics SDKs, or social media SDKs.
-
----
-
-## 5. Children's Privacy (COPPA & GDPR Compliance)
-
-Money Mansion is designed for use by children. We take children's privacy seriously and comply with the **Children's Online Privacy Protection Act (COPPA)** and the **General Data Protection Regulation (GDPR)**, as well as other applicable international children's privacy laws.
-
-As the app is developed in the European Union (Slovakia), users in the EU have additional rights under GDPR, including the right to access, rectify, and erase personal data. Since we do not collect personally identifiable information, these rights are primarily exercised by managing data locally on your device. For any GDPR-related requests, contact us at the email below.
-
-- We do **not** collect any personally identifiable information from children, such as name, email address, phone number, location, or photos.
-- We do **not** require account registration or login.
-- All financial and game data entered in the app is stored **only on the device** and is under the control of the device owner (parent or guardian).
-- The only external data transmission is savings-goal content and onboarding profile context sent to the Groq AI service for difficulty classification (see Section 4).
-- We do **not** display behavioral advertising.
-- We do **not** sell children's data to any third party.
-
-If you are a parent or guardian and believe your child has provided personal information through this app, please contact us immediately at the email address below and we will take steps to delete such information.
-
----
+Because goal titles, notes, descriptions, or names are free text, users should not enter private personal details that are not needed for the app. Parents and guardians can review and delete local data directly on the device.
 
 ## 6. Data Retention and Deletion
 
-All data stored by Money Mansion remains on your device. You can delete all app data at any time by:
+Data remains on the device until the user deletes it. Users or parents/guardians can delete local data by:
 
-- Uninstalling the app from your device (this permanently removes all locally stored data)
-- Using your device's built-in "Clear App Data" option in system settings
+- Clearing the app's data in Android system settings.
+- Uninstalling the app.
+- Using in-app reset or delete options where available.
 
-We do not retain goal content after receiving the AI response. For information on how Groq handles this data on their end, refer to [Groq's Privacy Policy](https://groq.com/privacy-policy).
+Android cloud/device backup is disabled for the Google Play release to reduce the risk of financial/profile data being restored or copied outside the app install.
 
----
+## 7. Security
 
-## 7. Data Security
+Money Mansion stores data in local app storage, including SQLite and shared preferences. Local data is protected by the device's normal operating system protections. The app does not upload this data to a backend service.
 
-We implement appropriate technical measures to protect your data:
+Users should protect their device with an appropriate passcode, PIN, biometric lock, or other device security setting.
 
-- All communication with external services uses **HTTPS/TLS encryption**
-- No personal data is stored on external servers
-- Local app data is protected by your device's standard security measures
+## 8. Your Rights and Choices
 
----
+Depending on your location, you may have rights to access, correct, delete, or restrict use of personal data. Because Money Mansion stores the reviewed app data locally on the device, most requests can be handled by reviewing the app screens, editing or deleting entries, clearing app data, or uninstalling the app.
 
-## 8. Your Rights
+For questions about privacy practices, contact us using the details below.
 
-Depending on your location, you may have the right to:
+## 9. Changes to This Policy
 
-- **Access** the data stored by the app (visible directly within the app)
-- **Delete** all app data (by clearing app data or uninstalling)
-- **Withdraw consent** at any time by stopping use of the app
-
-Since we do not collect personally identifiable information and all data is stored locally on your device, most privacy rights are exercised directly through your device settings.
-
----
-
-## 9. Changes to This Privacy Policy
-
-We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this document. We encourage you to review this policy periodically.
-
-Continued use of the app after changes are posted constitutes your acceptance of the updated policy.
-
----
+We may update this policy from time to time. When we do, we will update the "Last updated" date. If the policy changes in a meaningful way, the app may ask users to review and accept the updated policy again.
 
 ## 10. Contact Us
 
-If you have any questions, concerns, or requests regarding this Privacy Policy or the data practices of Money Mansion, please contact us at:
+Email: simon.skombar@gmail.com
 
-**Email:** simon.skombar@gmail.com
-**App name:** Money Mansion
-**Platform:** Google Play
-**Project:** Lab IT Creativity 5
-**Organization:** Gymnázium Šrobárova, Cassoviam Code, Technická Univerzita Košice
+App name: Money Mansion
 
----
+Platform: Google Play
 
-*This privacy policy was written for the Money Mansion application published on Google Play.*
+Project: Lab IT Creativity 5
+
+Organization: Gymnazium Srobarova, Cassoviam Code, Technical University of Kosice

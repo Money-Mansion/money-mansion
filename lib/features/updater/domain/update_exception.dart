@@ -5,5 +5,5 @@ class UpdateException implements Exception {
   const UpdateException(this.message, {this.cause});
 
   @override
-  String toString() => cause == null ? message : '$message ($cause)';
+  String toString() => message;
 }

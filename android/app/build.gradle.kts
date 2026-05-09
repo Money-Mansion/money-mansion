@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import org.gradle.api.GradleException
 
 plugins {
     id("com.android.application")
@@ -13,6 +14,14 @@ val keystoreProperties = Properties()
 val keystoreFile = rootProject.file("key.properties")
 if (keystoreFile.exists()) {
     keystoreProperties.load(FileInputStream(keystoreFile))
+}
+
+gradle.taskGraph.whenReady {
+    if (allTasks.any { it.name.contains("Release") } && !keystoreFile.exists()) {
+        throw GradleException(
+            "Release builds require android/key.properties with a valid signing config."
+        )
+    }
 }
 
 android {
