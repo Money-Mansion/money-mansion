@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/game_state.dart';
+import '../services/ai_scoring_preference_service.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/financial_database_service.dart';
 import '../services/streak_service.dart';
@@ -44,11 +45,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _developerAccessOpen = false;
   bool _developerDashboardOpen = false;
   bool _checkingDeveloperToken = false;
+  bool _externalAiScoringEnabled = false;
 
   @override
   void initState() {
     super.initState();
     _loadProfile();
+    _loadExternalAiScoring();
   }
 
   Future<void> _loadProfile() async {
@@ -70,6 +73,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _profileLoaded = true;
       });
     }
+  }
+
+  Future<void> _loadExternalAiScoring() async {
+    final enabled =
+        await AiScoringPreferenceService.isExternalAiScoringEnabled();
+    if (!mounted) return;
+    setState(() {
+      _externalAiScoringEnabled = enabled;
+    });
+  }
+
+  Future<void> _setExternalAiScoring(bool enabled) async {
+    await AiScoringPreferenceService.setExternalAiScoringEnabled(enabled);
+    if (!mounted) return;
+    setState(() {
+      _externalAiScoringEnabled =
+          enabled && AiScoringPreferenceService.hasConfiguredExternalAi;
+    });
   }
 
   @override
@@ -154,7 +175,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _openDeveloperDashboard() async {
     if (!DeveloperConfig.dashboardEnabled) return;
 
-    final savedToken = await DeveloperSettingsService.instance.loadGithubToken();
+    final savedToken =
+        await DeveloperSettingsService.instance.loadGithubToken();
     if (!mounted) return;
     setState(() {
       _developerTokenController.text = savedToken ?? '';
@@ -474,6 +496,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 16),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                l10n.translate('externalAiScoringTitle'),
+                style: const TextStyle(fontSize: 16),
+              ),
+              subtitle: Text(
+                AiScoringPreferenceService.hasConfiguredExternalAi
+                    ? l10n.translate('externalAiScoringSubtitle')
+                    : l10n.translate('externalAiScoringUnavailable'),
+                style: const TextStyle(fontSize: 12),
+              ),
+              value: _externalAiScoringEnabled,
+              onChanged: AiScoringPreferenceService.hasConfiguredExternalAi
+                  ? _setExternalAiScoring
+                  : null,
+              activeThumbColor: const Color.fromARGB(255, 103, 58, 183),
             ),
           ],
         ),

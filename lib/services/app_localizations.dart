@@ -153,6 +153,11 @@ class AppLocalizations {
       'disableBackgroundMusic': 'Disable Background Music',
       'musicVolume': 'Music Volume',
       'volumeControl': 'Volume Control',
+      'externalAiScoringTitle': 'External AI goal scoring',
+      'externalAiScoringSubtitle':
+          'Send goal details and profile context to Groq for reward scoring.',
+      'externalAiScoringUnavailable':
+          'External AI is not configured in this app build. Local scoring is used.',
 
       // Common actions
       'save': 'Save',
@@ -199,7 +204,7 @@ class AppLocalizations {
       'enterGoalTitleHint': 'Enter goal title',
       'goalLoadFail': 'Failed to load goals.',
       'rewardAiInfo':
-          'Reward is chosen automatically. If external AI scoring is enabled, goal details and profile context are sent to Groq; otherwise scoring stays on this device.',
+          'Reward is chosen automatically. If external AI scoring is configured and enabled in Settings, goal details and profile context are sent to Groq; otherwise scoring stays on this device.',
       'needMoreGoalDetails': 'Please provide more details about the goal.',
       'aiSetDifficulty': 'AI analysis: {reason}',
       'refreshGoals': 'Refresh goals',
@@ -484,6 +489,11 @@ class AppLocalizations {
       'experienceBeginner': 'Začiatočník',
       'experienceIntermediate': 'Stredne pokročilý',
       'goalSaving': 'Sporenie',
+      'externalAiScoringTitle': 'Externe AI hodnotenie cielov',
+      'externalAiScoringSubtitle':
+          'Odosiela detaily ciela a profil sluzbe Groq na vypocet odmeny.',
+      'externalAiScoringUnavailable':
+          'Externe AI nie je nakonfigurovane v tejto zostave. Pouzije sa lokalne hodnotenie.',
       'goalLearning': 'Vzdelávanie',
       'goalTracking': 'Sledovanie výdavkov',
       'incomeTypeStudent': 'Študent',
@@ -643,7 +653,7 @@ class AppLocalizations {
       'enterGoalTitleHint': 'Zadaj názov cieľa',
       'goalLoadFail': 'Nepodarilo sa načítať ciele.',
       'rewardAiInfo':
-          'Odmena sa vyberie automaticky. Ak je zapnute externe AI hodnotenie, detaily ciela a profil sa poslu sluzbe Groq; inak hodnotenie zostane v tomto zariadeni.',
+          'Odmena sa vyberie automaticky. Ak je externe AI hodnotenie nakonfigurovane a zapnute v Nastaveniach, detaily ciela a profil sa poslu sluzbe Groq; inak hodnotenie zostane v tomto zariadeni.',
       'needMoreGoalDetails': 'Prosím, pridajte viac detailov o cieli.',
       'aiSetDifficulty': 'AI analyza: {reason}',
       'refreshGoals': 'Obnoviť ciele',

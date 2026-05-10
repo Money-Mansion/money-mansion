@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'ai_scoring_preference_service.dart';
 import 'onboarding_service.dart';
 
 /// Validates goal inputs and generates numeric score + reward from AI.
@@ -27,7 +28,10 @@ class GoalAiService {
     final monthlyIncome = userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
     final monthlyExpenses = userProfile?.monthlyExpenses;
 
-    if (_apiKey.isEmpty) {
+    final externalAiEnabled =
+        await AiScoringPreferenceService.isExternalAiScoringEnabled();
+
+    if (_apiKey.isEmpty || !externalAiEnabled) {
       return _fallbackWithHeuristic(
         targetMoney: targetMoney,
         dueDate: dueDate,

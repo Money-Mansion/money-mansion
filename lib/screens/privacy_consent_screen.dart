@@ -113,7 +113,7 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
                           const SizedBox(height: 12),
                           Text(
                             'Money Mansion is committed to protecting your privacy. '
-                            'Most data stays on this device. If external AI scoring is enabled, '
+                            'Most data stays on this device. If external AI scoring is configured and enabled in Settings, '
                             'goal details and profile context may be sent to Groq for goal reward calculation.',
                             style: theme.textTheme.bodyMedium,
                           ),

@@ -19,7 +19,7 @@ This information is used to run the app and personalize the educational experien
 
 ## External AI Goal Scoring
 
-When external AI scoring is enabled for the app build, Money Mansion sends savings goal details and profile context to Groq, Inc. to classify the goal and calculate a coin reward. This may include:
+When external AI scoring is configured for the app build and you enable it in Settings, Money Mansion sends savings goal details and profile context to Groq, Inc. to classify the goal and calculate a coin reward. This may include:
 
 - Goal title and description
 - Target amount and due date
@@ -29,7 +29,7 @@ When external AI scoring is enabled for the app build, Money Mansion sends savin
 
 Money Mansion does not intentionally add email addresses, phone numbers, precise location, device identifiers, photos, contacts, or account credentials to these requests. Because goal titles and descriptions are free text, users should not enter private personal details in them.
 
-If external AI scoring is not configured or unavailable, the same goal scoring feature falls back to a local calculation on the device.
+If external AI scoring is not configured, not enabled in Settings, or unavailable, the same goal scoring feature falls back to a local calculation on the device.
 
 Groq processes requests under its own privacy policy: https://groq.com/privacy-policy
 
