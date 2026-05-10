@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class DeveloperConfig {
   DeveloperConfig._();
 
@@ -12,7 +10,7 @@ class DeveloperConfig {
     defaultValue: 'com.moneymansion.app',
   );
 
-  // Android Studio installs are debug builds by default. Google Play builds are
-  // release builds, so the dashboard cannot be enabled in the Play artifact.
-  static const dashboardEnabled = kDebugMode;
+  // The dashboard is always compiled and reachable through the token-gated
+  // Settings long-press flow. Play-safe builds must not include updater code.
+  static const dashboardEnabled = true;
 }
