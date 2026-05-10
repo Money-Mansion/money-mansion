@@ -198,7 +198,8 @@ class AppLocalizations {
       'enterGoalDescription': 'Enter goal description',
       'enterGoalTitleHint': 'Enter goal title',
       'goalLoadFail': 'Failed to load goals.',
-      'rewardAiInfo': 'Reward is chosen automatically by AI for each goal.',
+      'rewardAiInfo':
+          'Reward is chosen automatically. If external AI scoring is enabled, goal details and profile context are sent to Groq; otherwise scoring stays on this device.',
       'needMoreGoalDetails': 'Please provide more details about the goal.',
       'aiSetDifficulty': 'AI analysis: {reason}',
       'refreshGoals': 'Refresh goals',
@@ -641,7 +642,8 @@ class AppLocalizations {
       'enterGoalDescription': 'Zadaj popis cieľa',
       'enterGoalTitleHint': 'Zadaj názov cieľa',
       'goalLoadFail': 'Nepodarilo sa načítať ciele.',
-      'rewardAiInfo': 'Odmenu vyberie automaticky AI pre kazdy ciel.',
+      'rewardAiInfo':
+          'Odmena sa vyberie automaticky. Ak je zapnute externe AI hodnotenie, detaily ciela a profil sa poslu sluzbe Groq; inak hodnotenie zostane v tomto zariadeni.',
       'needMoreGoalDetails': 'Prosím, pridajte viac detailov o cieli.',
       'aiSetDifficulty': 'AI analyza: {reason}',
       'refreshGoals': 'Obnoviť ciele',

@@ -5,8 +5,7 @@ import 'onboarding_service.dart';
 
 /// Validates goal inputs and generates numeric score + reward from AI.
 class GoalAiService {
-  static const _apiKey =
-      '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';
+  static const _apiKey = String.fromEnvironment('GROQ_API_KEY');
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
   static const _model = 'openai/gpt-oss-120b';
 
@@ -27,6 +26,16 @@ class GoalAiService {
     final userProfile = await OnboardingService.getUserProfile();
     final monthlyIncome = userProfile?.monthlyIncome ?? _defaultMonthlyIncome;
     final monthlyExpenses = userProfile?.monthlyExpenses;
+
+    if (_apiKey.isEmpty) {
+      return _fallbackWithHeuristic(
+        targetMoney: targetMoney,
+        dueDate: dueDate,
+        monthlyIncome: monthlyIncome,
+        monthlyExpenses: monthlyExpenses,
+        reason: 'Local scoring used',
+      );
+    }
 
     final prompt = _buildPrompt(
       title: title,
@@ -60,7 +69,7 @@ class GoalAiService {
       );
 
       if (response.statusCode != 200) {
-        print('GoalAiService HTTP ${response.statusCode}: ${response.body}');
+        print('GoalAiService HTTP ${response.statusCode}');
         return _fallbackWithHeuristic(
           targetMoney: targetMoney,
           dueDate: dueDate,
@@ -81,8 +90,6 @@ class GoalAiService {
           reason: 'Empty AI response',
         );
       }
-
-      print('GoalAiService answer: $text');
 
       final structuredResult = _parseStructuredResult(
         text,
@@ -296,7 +303,8 @@ $financialContextSnippet
     final income = (monthlyIncome != null && monthlyIncome > 0)
         ? monthlyIncome
         : _defaultMonthlyIncome;
-    final disposableIncome = _estimatedDisposableIncome(income, monthlyExpenses);
+    final disposableIncome =
+        _estimatedDisposableIncome(income, monthlyExpenses);
 
     final effortMonths = targetMoney / disposableIncome;
     final effortScore = _clampDouble(effortMonths * 11.0, 6.0, 85.0);
@@ -330,7 +338,8 @@ $financialContextSnippet
     final income = (monthlyIncome != null && monthlyIncome > 0)
         ? monthlyIncome
         : _defaultMonthlyIncome;
-    final disposableIncome = _estimatedDisposableIncome(income, monthlyExpenses);
+    final disposableIncome =
+        _estimatedDisposableIncome(income, monthlyExpenses);
 
     final score = _clampInt(
       challengeScore,
@@ -338,8 +347,9 @@ $financialContextSnippet
       _maxChallengeScore,
     );
 
-    final amountForReward =
-        (targetMoney != null && targetMoney > 0) ? targetMoney : disposableIncome;
+    final amountForReward = (targetMoney != null && targetMoney > 0)
+        ? targetMoney
+        : disposableIncome;
     final savingsRatio =
         _clampDouble(amountForReward / disposableIncome, 0.25, 25.0);
 

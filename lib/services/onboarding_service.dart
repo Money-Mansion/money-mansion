@@ -50,11 +50,11 @@ class OnboardingService {
   static const _firstLaunchKey = 'isFirstLaunch';
   static const _privacyConsentKey = 'privacy_policy_consent';
   static const _privacyPolicyVersionKey = 'privacy_policy_version';
-  
-  // ⚠️ INCREMENT THIS when the privacy policy is updated
+
+  // Increment this when the privacy policy is updated.
   // Users will need to re-accept the policy on next app launch
-  static const int _currentPrivacyPolicyVersion = 1;
-  
+  static const int _currentPrivacyPolicyVersion = 2;
+
   static const _usernameKey = 'user_name';
   static const _ageKey = 'user_age';
   static const _monthlyIncomeKey = 'user_monthly_income';
@@ -80,11 +80,11 @@ class OnboardingService {
   static Future<bool> hasPrivacyConsent() async {
     final prefs = await SharedPreferences.getInstance();
     final hasConsent = prefs.getBool(_privacyConsentKey) ?? false;
-    
+
     if (!hasConsent) {
       return false;
     }
-    
+
     // Check if policy version has been updated
     final acceptedVersion = prefs.getInt(_privacyPolicyVersionKey) ?? 0;
     return acceptedVersion >= _currentPrivacyPolicyVersion;
@@ -181,7 +181,7 @@ class OnboardingService {
   /// Used when a fresh install is detected (databases cleared but SharedPreferences backed up)
   static Future<void> resetAllOnboardingAndTutorialData() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     // Reset onboarding keys
     await prefs.remove(_firstLaunchKey);
     await prefs.remove(_usernameKey);
@@ -191,15 +191,15 @@ class OnboardingService {
     await prefs.remove(_experienceKey);
     await prefs.remove(_goalKey);
     await prefs.remove(_incomeTypeKey);
-    
+
     // Reset privacy consent keys
     await prefs.remove(_privacyConsentKey);
     await prefs.remove(_privacyPolicyVersionKey);
-    
+
     // Reset tutorial keys (from TutorialProvider)
     await prefs.remove('tutorial_completed');
     await prefs.remove('tutorial_step_index');
-    
+
     print('✓ All onboarding and tutorial data reset');
   }
 
@@ -208,21 +208,22 @@ class OnboardingService {
   static Future<bool> detectFreshInstall() async {
     final profile = await getUserProfile();
     final prefs = await SharedPreferences.getInstance();
-    
+
     // If no user profile exists in DB, it's a fresh/clean install
     if (profile == null) {
       // Check if there's old SharedPreferences data
       final hasOldPrivacyData = prefs.containsKey(_privacyConsentKey);
       final hasOldTutorialData = prefs.containsKey('tutorial_completed');
-      
-      // If we have old SharedPreferences data but no database profile, 
+
+      // If we have old SharedPreferences data but no database profile,
       // it's a fresh install with backed-up SharedPreferences
       if (hasOldPrivacyData || hasOldTutorialData) {
-        print('⚠ Fresh install detected with old SharedPreferences data - will reset');
+        print(
+            '⚠ Fresh install detected with old SharedPreferences data - will reset');
         return true;
       }
     }
-    
+
     return false;
   }
 
@@ -241,7 +242,6 @@ class OnboardingService {
       case FinancialExperience.intermediate:
         return _experienceIntermediate;
       case FinancialExperience.beginner:
-      default:
         return _experienceBeginner;
     }
   }
@@ -265,7 +265,6 @@ class OnboardingService {
       case MainGoal.tracking:
         return _goalTracking;
       case MainGoal.saving:
-      default:
         return _goalSaving;
     }
   }
@@ -289,7 +288,6 @@ class OnboardingService {
       case IncomeType.fullTime:
         return _incomeTypeFullTime;
       case IncomeType.student:
-      default:
         return _incomeTypeStudent;
     }
   }

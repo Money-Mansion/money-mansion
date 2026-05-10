@@ -2,44 +2,65 @@
 
 ## Welcome to Money Mansion
 
-Money Mansion is committed to protecting your privacy. This Privacy Policy outlines how we handle your information.
+Money Mansion is an educational finance game for learning about saving, goals, and everyday money decisions. This policy explains what information the app stores, what may be sent outside the device, and how parents or guardians can manage it.
 
-### Data Storage
+Money Mansion is designed for children and should be reviewed with a parent or guardian.
 
-- All your financial data is stored **locally on your device**
-- We do **not** send your data to external servers
-- Your information remains private and secure
+## Data Stored on Your Device
 
-### What Data We Collect
+Money Mansion stores most app data locally on the device:
 
-- Personal information you voluntarily enter (name, age, income)
-- Financial data you input (expenses, savings goals)
-- Game progress and achievements
+- Profile details you enter, such as name or nickname, age, monthly income, optional monthly expenses, financial experience, main goal, and income type
+- Financial entries, including income, expenses, amounts, dates, notes, categories, and goal allocations
+- Savings goals, including title, description, target amount, due date, challenge score, and coin reward
+- Game progress, coins, rooms, inventory, quiz and lesson progress, streaks, language, music settings, tutorial state, and privacy consent status
 
-### Third-Party Services
+This information is used to run the app and personalize the educational experience.
 
-Money Mansion may use third-party libraries and services that follow their own privacy policies:
+## External AI Goal Scoring
 
-- Flutter Framework (Google)
-- Various open-source packages
+When external AI scoring is enabled for the app build, Money Mansion sends savings goal details and profile context to Groq, Inc. to classify the goal and calculate a coin reward. This may include:
 
-### Your Rights
+- Goal title and description
+- Target amount and due date
+- Age
+- Monthly income and optional monthly expenses
+- Financial experience, main goal, and income type
 
-You have the right to:
-- Access your data anytime
-- Delete your data by clearing app data
-- Disable certain features
+Money Mansion does not intentionally add email addresses, phone numbers, precise location, device identifiers, photos, contacts, or account credentials to these requests. Because goal titles and descriptions are free text, users should not enter private personal details in them.
 
-### Changes to This Policy
+If external AI scoring is not configured or unavailable, the same goal scoring feature falls back to a local calculation on the device.
 
-We may update this Privacy Policy from time to time. We will notify you of any significant changes.
+Groq processes requests under its own privacy policy: https://groq.com/privacy-policy
 
-### Contact Us
+## Other Third Parties
 
-If you have questions about our Privacy Policy, please contact us through the app.
+Money Mansion does not use advertising SDKs, analytics SDKs, social media SDKs, crash reporting SDKs, or in-app purchases.
 
----
+Developer-only dashboard features may contact GitHub in debug builds used by the development team. These features are disabled in Google Play release builds.
 
-**Last Updated:** April 2026
+## Android Permissions and Backup
 
-**By using Money Mansion, you agree to this Privacy Policy.**
+The app may request Internet and network state permissions for privacy policy loading and external AI scoring when configured. Android cloud/device backup is disabled to reduce the risk of financial/profile data being copied outside the app install.
+
+## Data Retention and Deletion
+
+Local data remains on the device until deleted. Users or parents/guardians can delete local data by clearing app data in Android settings, uninstalling the app, or using in-app reset/delete options where available.
+
+## Children's Privacy
+
+Money Mansion does not require account registration or login. Parents and guardians can review the data shown in the app and delete it from the device.
+
+## Changes to This Policy
+
+We may update this policy from time to time. If the policy changes in a meaningful way, the app may ask users to review and accept it again.
+
+## Contact Us
+
+Email: simon.skombar@gmail.com
+
+App name: Money Mansion
+
+Platform: Google Play
+
+Project: Lab IT Creativity 5

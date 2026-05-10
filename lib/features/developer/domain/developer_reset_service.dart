@@ -13,7 +13,6 @@ import '../../../services/room_component_database_service.dart';
 import '../../../services/room_layout_database_service.dart';
 import '../../../services/streak_service.dart';
 import '../../../services/tutorial_provider.dart';
-import '../../updater/domain/update_service.dart';
 import '../data/developer_settings_service.dart';
 
 class DeveloperResetService {
@@ -54,7 +53,6 @@ class DeveloperResetService {
     await OnboardingService.resetAllOnboardingAndTutorialData();
     await OnboardingService.resetOnboarding();
     await OnboardingService.resetPrivacyConsent();
-    await UpdateService.instance.clearUpdateCache();
     await DeveloperSettingsService.instance.clearAllDeveloperSettings();
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();

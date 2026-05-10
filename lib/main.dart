@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'core/logging/developer_log_service.dart';
-import 'features/developer/developer_config.dart';
-import 'features/updater/presentation/update_startup_listener.dart';
 import 'screens/game_screen.dart';
 import 'services/item_database_service.dart';
 import 'services/financial_database_service.dart';
@@ -197,9 +195,7 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
       ),
-      home: DeveloperConfig.dashboardEnabled
-          ? UpdateStartupListener(child: home)
-          : home,
+      home: home,
     );
   }
 }
