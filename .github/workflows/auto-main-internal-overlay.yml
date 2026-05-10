@@ -1,25 +1,37 @@
-name: Manual Internal APK
+name: Auto Main Internal APK
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: manual-internal-apk
+  group: auto-main-internal-apk
   cancel-in-progress: true
 
 jobs:
+  wait-for-main-to-settle:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for one hour without new main commits
+        run: sleep 7200
+
   build-main-internal-apk:
+    needs: wait-for-main-to-settle
+    if: always() && (github.event_name == 'workflow_dispatch' || needs.wait-for-main-to-settle.result == 'success')
     uses: Money-Mansion/money-mansion/.github/workflows/internal-overlay-apk.yml@feature/internal-github-apk-updater
     with:
       target_ref: ${{ github.sha }}
       updater_ref: feature/internal-github-apk-updater
       release_channel: main-auto
-      changelog: "Manual internal build"
-      make_latest: false
-      prerelease: true
+      changelog: "Automatic internal build from main"
+      make_latest: true
+      prerelease: false
     secrets:
       ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
