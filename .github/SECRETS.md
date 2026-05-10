@@ -1,4 +1,4 @@
-# GitHub Secrets
+# GitHub Secrets 
 
 This Google Play branch keeps developer dashboard behavior out of release
 artifacts. It does not build or install APK updates from GitHub automatically,
