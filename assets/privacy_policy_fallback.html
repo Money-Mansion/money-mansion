@@ -6,7 +6,7 @@
   </head>
   <body>
     <main class="doc-content">
-      <h1>Privacy Policy - Money Mansion</h1>
+      <h1>Privacy Policy</h1>
       <p><strong>Last updated:</strong> May 10, 2026</p>
 
       <h2>1. Introduction</h2>
@@ -24,14 +24,16 @@
       </ul>
       <p>This data is used only to provide the app's educational and game features.</p>
 
-      <h2>3. External Sharing</h2>
-      <p>The Google Play release of Money Mansion does not send profile, financial, goal, transaction, quiz, lesson, or game progress data to Money Mansion servers, analytics providers, advertising providers, or external AI services.</p>
-      <p>Goal difficulty and coin rewards are calculated locally on the device. Goal titles, descriptions, target amounts, due dates, age, income, expenses, and other profile context are not sent to an external AI service.</p>
+      <h2>3. External AI Goal Scoring</h2>
+      <p>When external AI scoring is enabled for the app build, Money Mansion sends savings goal details and profile context to Groq, Inc. to classify the goal and calculate a coin reward. This may include goal title, goal description, target amount, due date, age, monthly income, optional monthly expenses, financial experience, main goal, and income type.</p>
+      <p>Money Mansion does not intentionally add email addresses, phone numbers, precise location, device identifiers, photos, contacts, or account credentials to these requests. Because goal titles and descriptions are free text, users should not enter private personal details in them.</p>
+      <p>If external AI scoring is not configured or unavailable, the same goal scoring feature falls back to a local calculation on the device.</p>
+      <p>Groq processes requests under its own privacy policy: https://groq.com/privacy-policy</p>
       <p>The app does not use advertising SDKs, analytics SDKs, social media SDKs, crash reporting SDKs, or in-app purchases.</p>
-      <p>Developer-only update and dashboard features may contact GitHub in debug builds used by the development team. These features are disabled in Google Play release builds and are not part of the public app experience.</p>
+      <p>Developer-only dashboard features may contact GitHub in debug builds used by the development team. These features are disabled in Google Play release builds.</p>
 
       <h2>4. Permissions</h2>
-      <p>The Google Play release is configured without Android Internet or network state permissions. Debug and profile builds used during development may request Internet permission for Flutter tooling and developer-only checks.</p>
+      <p>The app may request Internet and network state permissions for privacy policy loading and external AI scoring when configured. Android cloud/device backup is disabled to reduce the risk of financial/profile data being copied outside the app install.</p>
 
       <h2>5. Children's Privacy</h2>
       <p>Money Mansion does not require children to provide an email address, phone number, precise location, photos, contacts, device identifiers, or account credentials.</p>
@@ -47,7 +49,7 @@
       <p>Android cloud/device backup is disabled for the Google Play release to reduce the risk of financial/profile data being restored or copied outside the app install.</p>
 
       <h2>7. Security</h2>
-      <p>Money Mansion stores data in local app storage, including SQLite and shared preferences. Local data is protected by the device's normal operating system protections. The app does not upload this data to a backend service.</p>
+      <p>Money Mansion stores data in local app storage, including SQLite and shared preferences. Local data is protected by the device's normal operating system protections. External AI requests use HTTPS when configured.</p>
       <p>Users should protect their device with an appropriate passcode, PIN, biometric lock, or other device security setting.</p>
 
       <h2>8. Your Rights and Choices</h2>

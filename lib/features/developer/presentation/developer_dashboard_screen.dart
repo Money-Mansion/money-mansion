@@ -5,9 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../core/logging/developer_log_service.dart';
 import '../../../models/game_state.dart';
 import '../../../services/tutorial_provider.dart';
-import '../../updater/domain/update_service.dart';
-import '../../updater/models/update_check_result.dart';
-import '../../updater/presentation/update_dialog.dart';
 import '../data/developer_settings_service.dart';
 import '../domain/developer_reset_service.dart';
 
@@ -29,7 +26,6 @@ class DeveloperDashboardScreen extends StatefulWidget {
 class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
   final _settingsService = DeveloperSettingsService.instance;
   final _resetService = DeveloperResetService();
-  final _tokenController = TextEditingController();
 
   DeveloperSettings? _settings;
   bool _hasToken = false;
@@ -41,12 +37,6 @@ class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
     _load();
   }
 
-  @override
-  void dispose() {
-    _tokenController.dispose();
-    super.dispose();
-  }
-
   Future<void> _load() async {
     final settings = await _settingsService.loadSettings();
     final token = await _settingsService.loadGithubToken();
@@ -54,45 +44,7 @@ class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
     setState(() {
       _settings = settings;
       _hasToken = token != null;
-      _tokenController.text = token ?? '';
     });
-  }
-
-  Future<void> _saveToken() async {
-    final token = _tokenController.text.trim();
-    if (token.isEmpty) {
-      await _settingsService.clearGithubToken();
-      _showSnack('GitHub token cleared');
-    } else {
-      await _settingsService.saveGithubToken(token);
-      _showSnack('GitHub token saved');
-    }
-    await _load();
-  }
-
-  Future<void> _setAutoCheck(bool value) async {
-    await _settingsService.setAutoCheckOnStartup(value);
-    await _load();
-  }
-
-  Future<void> _checkForUpdates() async {
-    setState(() => _busy = true);
-    try {
-      final result = await UpdateService.instance.checkForUpdates(manual: true);
-      if (!mounted) return;
-      await _load();
-      if (result.hasUpdate) {
-        await showUpdateDialog(
-          context: context,
-          result: result,
-          updateService: UpdateService.instance,
-        );
-      } else {
-        _showSnack(_messageForResult(result));
-      }
-    } finally {
-      if (mounted) setState(() => _busy = false);
-    }
   }
 
   Future<void> _resetDatabases() async {
@@ -171,20 +123,6 @@ class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
     );
   }
 
-  String _messageForResult(UpdateCheckResult result) {
-    switch (result.status) {
-      case UpdateCheckStatus.upToDate:
-        return 'Already on latest developer release';
-      case UpdateCheckStatus.disabled:
-      case UpdateCheckStatus.missingToken:
-      case UpdateCheckStatus.unsupportedPlatform:
-      case UpdateCheckStatus.error:
-        return result.message ?? 'Update check did not complete';
-      case UpdateCheckStatus.updateAvailable:
-        return 'Update available';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final settings = _settings;
@@ -208,8 +146,6 @@ class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
                   padding: const EdgeInsets.all(16),
                   children: [
                     _buildStatusCard(settings),
-                    const SizedBox(height: 12),
-                    _buildUpdaterCard(settings),
                     const SizedBox(height: 12),
                     _buildResetCard(),
                     const SizedBox(height: 12),
@@ -240,54 +176,8 @@ class _DeveloperDashboardScreenState extends State<DeveloperDashboardScreen> {
         ),
         _InfoLine(
             label: 'GitHub token', value: _hasToken ? 'Saved' : 'Missing'),
-        _InfoLine(
-          label: 'Last update check',
-          value: settings.lastCheckAt?.toLocal().toString() ?? 'Never',
-        ),
         if (settings.lastError != null)
           _InfoLine(label: 'Last error', value: settings.lastError!),
-      ],
-    );
-  }
-
-  Widget _buildUpdaterCard(DeveloperSettings settings) {
-    return _DashboardSection(
-      title: 'Developer Release Checks',
-      icon: Icons.system_update,
-      children: [
-        TextField(
-          controller: _tokenController,
-          obscureText: true,
-          decoration: const InputDecoration(
-            labelText: 'GitHub token',
-            helperText: 'Fine-grained token with read access to releases',
-            prefixIcon: Icon(Icons.key),
-            border: OutlineInputBorder(),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Align(
-          alignment: Alignment.centerRight,
-          child: FilledButton.icon(
-            onPressed: _saveToken,
-            icon: const Icon(Icons.save),
-            label: const Text('Save token'),
-          ),
-        ),
-        const SizedBox(height: 12),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: const Text('Check on startup'),
-          subtitle: const Text('Checks private GitHub release metadata only'),
-          value: settings.autoCheckOnStartup,
-          onChanged: _setAutoCheck,
-        ),
-        const SizedBox(height: 8),
-        FilledButton.icon(
-          onPressed: !_busy ? _checkForUpdates : null,
-          icon: const Icon(Icons.cloud_sync),
-          label: const Text('Check now'),
-        ),
       ],
     );
   }
