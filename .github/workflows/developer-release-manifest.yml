@@ -1,12 +1,20 @@
-name: Developer Release Manifest
+name: Android Internal GitHub Release
 
 on:
   workflow_dispatch:
     inputs:
-      changelog:
-        description: "Release changelog shown in the hidden developer menu"
+      release_tag:
+        description: "Optional release tag. Leave empty to use internal-vVERSION-BUILD-SHA."
         required: false
-        default: "Developer release metadata"
+        default: ""
+      release_channel:
+        description: "Label shown in the developer build switcher."
+        required: false
+        default: "internal"
+      changelog:
+        description: "Release changelog shown in the developer updater"
+        required: false
+        default: "Internal developer build"
   push:
     tags:
       - "v*"
@@ -15,12 +23,61 @@ permissions:
   contents: write
 
 jobs:
-  publish-manifest:
+  build-release:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          test -n "$ANDROID_KEYSTORE_BASE64"
+          test -n "$ANDROID_KEY_ALIAS"
+          test -n "$ANDROID_KEY_PASSWORD"
+          test -n "$ANDROID_STORE_PASSWORD"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Restore signing key
+        shell: bash
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
+          cat > android/key.properties <<EOF
+          storePassword=$ANDROID_STORE_PASSWORD
+          keyPassword=$ANDROID_KEY_PASSWORD
+          keyAlias=$ANDROID_KEY_ALIAS
+          storeFile=upload-keystore.jks
+          EOF
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build internal APK
+        shell: bash
+        run: |
+          INTERNAL_BUILD_NUMBER="$(date +%s)"
+          echo "INTERNAL_BUILD_NUMBER=$INTERNAL_BUILD_NUMBER" >> "$GITHUB_ENV"
+          flutter build apk --release \
+            --build-number="$INTERNAL_BUILD_NUMBER" \
+            --dart-define=GITHUB_OWNER="${{ github.repository_owner }}" \
+            --dart-define=GITHUB_REPO="${{ github.event.repository.name }}"
 
       - name: Build version.json
         id: manifest
@@ -29,15 +86,23 @@ jobs:
           mkdir -p release
           VERSION_LINE="$(grep '^version:' pubspec.yaml | awk '{print $2}')"
           VERSION_NAME="${VERSION_LINE%%+*}"
-          BUILD_NUMBER="${VERSION_LINE##*+}"
+          BUILD_NUMBER="${INTERNAL_BUILD_NUMBER:-${VERSION_LINE##*+}}"
+          SHORT_SHA="${GITHUB_SHA::7}"
+          REQUESTED_TAG="${{ github.event.inputs.release_tag }}"
           if [ "$GITHUB_REF_TYPE" = "tag" ]; then
             TAG_NAME="$GITHUB_REF_NAME"
+          elif [ -n "$REQUESTED_TAG" ]; then
+            TAG_NAME="$REQUESTED_TAG"
           else
-            TAG_NAME="v$VERSION_NAME"
+            TAG_NAME="internal-v$VERSION_NAME-$BUILD_NUMBER-$SHORT_SHA"
           fi
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+          SHA256="$(sha256sum "$APK_PATH" | awk '{print $1}')"
           CHANGELOG="${{ github.event.inputs.changelog }}"
           if [ -z "$CHANGELOG" ]; then CHANGELOG="Developer release $TAG_NAME"; fi
-          VERSION_NAME="$VERSION_NAME" BUILD_NUMBER="$BUILD_NUMBER" CHANGELOG="$CHANGELOG" python3 - <<'PY'
+          RELEASE_CHANNEL="${{ github.event.inputs.release_channel }}"
+          if [ -z "$RELEASE_CHANNEL" ]; then RELEASE_CHANNEL="internal"; fi
+          VERSION_NAME="$VERSION_NAME" BUILD_NUMBER="$BUILD_NUMBER" TAG_NAME="$TAG_NAME" SHA256="$SHA256" CHANGELOG="$CHANGELOG" RELEASE_CHANNEL="$RELEASE_CHANNEL" SOURCE_BRANCH="$GITHUB_REF_NAME" SOURCE_COMMIT="$GITHUB_SHA" python3 - <<'PY'
           import json
           import os
 
@@ -45,8 +110,15 @@ jobs:
               "version": os.environ["VERSION_NAME"],
               "build": int(os.environ["BUILD_NUMBER"]),
               "changelog": os.environ["CHANGELOG"],
-              "play_store_url": "https://play.google.com/store/apps/details?id=com.moneymansion.app",
               "important": False,
+              "force_update": False,
+              "apk_url": f"https://github.com/${{ github.repository }}/releases/download/{os.environ['TAG_NAME']}/app-release.apk",
+              "apk_asset_name": "app-release.apk",
+              "sha256": os.environ["SHA256"],
+              "source_branch": os.environ["SOURCE_BRANCH"],
+              "source_commit": os.environ["SOURCE_COMMIT"],
+              "release_channel": os.environ["RELEASE_CHANNEL"],
+              "supports_internal_updater": True,
           }
           with open("release/version.json", "w", encoding="utf-8") as f:
               json.dump(manifest, f, indent=2)
@@ -59,5 +131,10 @@ jobs:
         with:
           tag_name: ${{ steps.manifest.outputs.tag }}
           name: ${{ steps.manifest.outputs.tag }}
-          body: ${{ github.event.inputs.changelog || 'Developer release metadata' }}
-          files: release/version.json
+          body: ${{ github.event.inputs.changelog || 'Internal developer build' }}
+          draft: false
+          prerelease: false
+          make_latest: true
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            release/version.json

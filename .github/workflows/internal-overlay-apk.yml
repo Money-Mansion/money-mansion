@@ -1,0 +1,316 @@
+name: Android Internal Overlay APK
+
+on:
+  workflow_call:
+    inputs:
+      target_ref:
+        description: "Branch, tag, or commit to build with the internal updater overlaid."
+        required: true
+        type: string
+      updater_ref:
+        description: "Branch that contains the internal updater implementation."
+        required: false
+        type: string
+        default: "feature/internal-github-apk-updater"
+      release_tag:
+        description: "Optional release tag. Leave empty to use overlay-vVERSION-BUILD-SHA."
+        required: false
+        type: string
+        default: ""
+      release_channel:
+        description: "Label shown in the developer build switcher."
+        required: false
+        type: string
+        default: "overlay"
+      changelog:
+        description: "Release changelog shown in the developer updater."
+        required: false
+        type: string
+        default: "Internal overlay build"
+      make_latest:
+        description: "Mark this overlay build as the latest release."
+        required: false
+        type: boolean
+        default: false
+      prerelease:
+        description: "Publish this overlay build as a prerelease."
+        required: false
+        type: boolean
+        default: true
+    secrets:
+      ANDROID_KEYSTORE_BASE64:
+        required: true
+      ANDROID_KEY_ALIAS:
+        required: true
+      ANDROID_KEY_PASSWORD:
+        required: true
+      ANDROID_STORE_PASSWORD:
+        required: true
+  workflow_dispatch:
+    inputs:
+      target_ref:
+        description: "Branch, tag, or commit to build with the internal updater overlaid."
+        required: true
+        default: "main"
+      updater_ref:
+        description: "Branch that contains the internal updater implementation."
+        required: true
+        default: "feature/internal-github-apk-updater"
+      release_tag:
+        description: "Optional release tag. Leave empty to use overlay-vVERSION-BUILD-SHA."
+        required: false
+        default: ""
+      release_channel:
+        description: "Label shown in the developer build switcher."
+        required: false
+        default: "overlay"
+      changelog:
+        description: "Release changelog shown in the developer updater."
+        required: false
+        default: "Internal overlay build"
+      make_latest:
+        description: "Mark this overlay build as the latest release."
+        required: false
+        type: boolean
+        default: false
+      prerelease:
+        description: "Publish this overlay build as a prerelease."
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-overlay-apk:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+
+    steps:
+      - name: Checkout target ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.target_ref }}
+          path: target
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Checkout updater ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.updater_ref }}
+          path: updater
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          test -n "$ANDROID_KEYSTORE_BASE64"
+          test -n "$ANDROID_KEY_ALIAS"
+          test -n "$ANDROID_KEY_PASSWORD"
+          test -n "$ANDROID_STORE_PASSWORD"
+
+      - name: Resolve source metadata
+        id: source
+        shell: bash
+        run: |
+          TARGET_SHA="$(git -C target rev-parse HEAD)"
+          TARGET_SHORT_SHA="$(git -C target rev-parse --short=7 HEAD)"
+          UPDATER_SHA="$(git -C updater rev-parse HEAD)"
+          echo "target_sha=$TARGET_SHA" >> "$GITHUB_OUTPUT"
+          echo "target_short_sha=$TARGET_SHORT_SHA" >> "$GITHUB_OUTPUT"
+          echo "updater_sha=$UPDATER_SHA" >> "$GITHUB_OUTPUT"
+          echo "updater_short_sha=${UPDATER_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Overlay internal updater files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p target/lib/features
+          mkdir -p target/lib/core/logging
+          mkdir -p target/lib/screens
+          mkdir -p target/lib/widgets
+          mkdir -p target/android/app/src/main/kotlin/com/moneymansion/app
+          mkdir -p target/android/app/src/main/res/xml
+
+          rm -rf target/lib/features/developer target/lib/features/updater
+          cp -a updater/lib/features/developer target/lib/features/developer
+          cp -a updater/lib/features/updater target/lib/features/updater
+          cp -a updater/lib/core/logging/developer_log_service.dart target/lib/core/logging/developer_log_service.dart
+
+          # These files wire the hidden dashboard and startup update checks into
+          # the app. They are copied only inside this disposable CI workspace.
+          cp -a updater/lib/main.dart target/lib/main.dart
+          cp -a updater/lib/screens/settings_screen.dart target/lib/screens/settings_screen.dart
+          cp -a updater/lib/widgets/tutorial_target.dart target/lib/widgets/tutorial_target.dart
+          cp -a updater/lib/widgets/tutorial_overlay.dart target/lib/widgets/tutorial_overlay.dart
+
+          cp -a updater/android/app/src/main/kotlin/com/moneymansion/app/MainActivity.kt target/android/app/src/main/kotlin/com/moneymansion/app/MainActivity.kt
+          cp -a updater/android/app/src/main/AndroidManifest.xml target/android/app/src/main/AndroidManifest.xml
+          cp -a updater/android/app/src/main/res/xml/internal_updater_paths.xml target/android/app/src/main/res/xml/internal_updater_paths.xml
+
+      - name: Ensure updater dependencies
+        working-directory: target
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("pubspec.yaml")
+          text = path.read_text(encoding="utf-8")
+          required = {
+              "url_launcher": "^6.3.0",
+              "path_provider": "^2.1.2",
+              "dio": "^5.9.2",
+              "package_info_plus": "^9.0.1",
+              "flutter_secure_storage": "^10.1.0",
+              "permission_handler": "^12.0.1",
+              "crypto": "^3.0.7",
+          }
+
+          if "dependencies:" not in text:
+              raise SystemExit("pubspec.yaml has no dependencies section")
+
+          insert_at = text.find("\ndev_dependencies:")
+          if insert_at == -1:
+              insert_at = len(text)
+
+          additions = []
+          dependency_block = text[text.find("dependencies:"):insert_at]
+          for name, version in required.items():
+              if not re.search(rf"(?m)^  {re.escape(name)}:", dependency_block):
+                  additions.append(f"  {name}: {version}\n")
+
+          if additions:
+              text = text[:insert_at] + "".join(additions) + text[insert_at:]
+              path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Restore signing key
+        working-directory: target
+        shell: bash
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
+          cat > android/key.properties <<EOF
+          storePassword=$ANDROID_STORE_PASSWORD
+          keyPassword=$ANDROID_KEY_PASSWORD
+          keyAlias=$ANDROID_KEY_ALIAS
+          storeFile=upload-keystore.jks
+          EOF
+
+      - name: Install dependencies
+        working-directory: target
+        run: flutter pub get
+
+      - name: Build overlay APK
+        working-directory: target
+        shell: bash
+        run: |
+          INTERNAL_BUILD_NUMBER="$(date +%s)"
+          echo "INTERNAL_BUILD_NUMBER=$INTERNAL_BUILD_NUMBER" >> "$GITHUB_ENV"
+          flutter build apk --release \
+            --build-number="$INTERNAL_BUILD_NUMBER" \
+            --dart-define=GITHUB_OWNER="${{ github.repository_owner }}" \
+            --dart-define=GITHUB_REPO="${{ github.event.repository.name }}"
+
+      - name: Build version.json
+        id: manifest
+        working-directory: target
+        shell: bash
+        env:
+          TARGET_REF: ${{ inputs.target_ref }}
+          TARGET_SHA: ${{ steps.source.outputs.target_sha }}
+          TARGET_SHORT_SHA: ${{ steps.source.outputs.target_short_sha }}
+          UPDATER_REF: ${{ inputs.updater_ref }}
+          UPDATER_SHA: ${{ steps.source.outputs.updater_sha }}
+          RELEASE_TAG_INPUT: ${{ inputs.release_tag }}
+          RELEASE_CHANNEL_INPUT: ${{ inputs.release_channel }}
+          CHANGELOG_INPUT: ${{ inputs.changelog }}
+        run: |
+          mkdir -p release
+          VERSION_LINE="$(grep '^version:' pubspec.yaml | awk '{print $2}')"
+          VERSION_NAME="${VERSION_LINE%%+*}"
+          BUILD_NUMBER="${INTERNAL_BUILD_NUMBER:-${VERSION_LINE##*+}}"
+          TARGET_COMMIT_MESSAGE="$(git log -1 --pretty=%s)"
+          TARGET_COMMIT_DATE="$(git log -1 --date=iso-strict --pretty=%cI)"
+          GENERATED_AT="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          if [ -n "$RELEASE_TAG_INPUT" ]; then
+            TAG_NAME="$RELEASE_TAG_INPUT"
+          else
+            TAG_NAME="overlay-v$VERSION_NAME-$BUILD_NUMBER-$TARGET_SHORT_SHA"
+          fi
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+          SHA256="$(sha256sum "$APK_PATH" | awk '{print $1}')"
+          CHANGELOG="$CHANGELOG_INPUT"
+          if [ -z "$CHANGELOG" ]; then CHANGELOG="Internal overlay build for $TARGET_REF"; fi
+          RELEASE_CHANNEL="$RELEASE_CHANNEL_INPUT"
+          if [ -z "$RELEASE_CHANNEL" ]; then RELEASE_CHANNEL="overlay"; fi
+          DISPLAY_NAME="$RELEASE_CHANNEL - $VERSION_NAME"
+          VERSION_NAME="$VERSION_NAME" BUILD_NUMBER="$BUILD_NUMBER" TAG_NAME="$TAG_NAME" SHA256="$SHA256" CHANGELOG="$CHANGELOG" RELEASE_CHANNEL="$RELEASE_CHANNEL" DISPLAY_NAME="$DISPLAY_NAME" TARGET_COMMIT_MESSAGE="$TARGET_COMMIT_MESSAGE" TARGET_COMMIT_DATE="$TARGET_COMMIT_DATE" GENERATED_AT="$GENERATED_AT" python3 - <<'PY'
+          import json
+          import os
+
+          manifest = {
+              "version": os.environ["VERSION_NAME"],
+              "build": int(os.environ["BUILD_NUMBER"]),
+              "changelog": os.environ["CHANGELOG"],
+              "important": False,
+              "force_update": False,
+              "apk_url": f"https://github.com/${{ github.repository }}/releases/download/{os.environ['TAG_NAME']}/app-release.apk",
+              "apk_asset_name": "app-release.apk",
+              "sha256": os.environ["SHA256"],
+              "source_branch": os.environ["TARGET_REF"],
+              "source_commit": os.environ["TARGET_SHA"],
+              "source_commit_message": os.environ["TARGET_COMMIT_MESSAGE"],
+              "source_commit_date": os.environ["TARGET_COMMIT_DATE"],
+              "release_channel": os.environ["RELEASE_CHANNEL"],
+              "display_name": os.environ["DISPLAY_NAME"],
+              "generated_at": os.environ["GENERATED_AT"],
+              "supports_internal_updater": True,
+              "overlay_build": True,
+              "updater_ref": os.environ["UPDATER_REF"],
+              "updater_commit": os.environ["UPDATER_SHA"],
+          }
+          with open("release/version.json", "w", encoding="utf-8") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")
+          PY
+          echo "tag=$TAG_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.manifest.outputs.tag }}
+          name: ${{ inputs.release_channel }} - ${{ inputs.target_ref }}
+          body: |
+            ${{ inputs.changelog }}
+
+            Target ref: ${{ inputs.target_ref }}
+            Target commit: ${{ steps.source.outputs.target_sha }}
+            Updater ref: ${{ inputs.updater_ref }}
+            Updater commit: ${{ steps.source.outputs.updater_sha }}
+          draft: false
+          prerelease: ${{ inputs.prerelease }}
+          make_latest: ${{ inputs.make_latest }}
+          files: |
+            target/build/app/outputs/flutter-apk/app-release.apk
+            target/release/version.json

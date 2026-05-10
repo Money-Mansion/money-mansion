@@ -15,6 +15,11 @@ import '../../../services/onboarding_service.dart';
 import '../../../services/room_component_database_service.dart';
 import '../../../services/streak_service.dart';
 import '../../../services/tutorial_provider.dart';
+import '../../updater/domain/update_service.dart';
+import '../../updater/models/update_check_result.dart';
+import '../../updater/models/update_manifest.dart';
+import '../../updater/presentation/download_progress_dialog.dart';
+import '../../updater/presentation/update_dialog.dart';
 import '../data/developer_settings_service.dart';
 import '../domain/developer_reset_service.dart';
 
@@ -336,6 +341,66 @@ Captured logs: ${DeveloperLogService.entries.value.length}
         : entries.where((entry) => entry.level == _logFilter);
   }
 
+  Future<void> _setAutoCheck(bool value) async {
+    await _settingsService.setAutoCheckOnStartup(value);
+    await _load();
+  }
+
+  Future<void> _setAutoDownload(bool value) async {
+    await _settingsService.setAutoDownload(value);
+    await _load();
+  }
+
+  Future<void> _setAllowForcedUpdates(bool value) async {
+    await _settingsService.setAllowForcedUpdates(value);
+    await _load();
+  }
+
+  Future<void> _checkForUpdates() async {
+    setState(() => _busy = true);
+    try {
+      final result = await UpdateService.instance.checkForUpdates(manual: true);
+      if (!mounted) return;
+      await _load();
+      if (result.hasUpdate) {
+        await showUpdateDialog(
+          context: context,
+          result: result,
+          settings: _settings ?? await _settingsService.loadSettings(),
+          updateService: UpdateService.instance,
+        );
+      } else {
+        _showSnack(_messageForResult(result));
+      }
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _switchBuild() async {
+    setState(() => _busy = true);
+    try {
+      final builds = await UpdateService.instance.listSwitchableBuilds();
+      if (!mounted) return;
+      setState(() => _busy = false);
+      final selected = await showDialog<UpdateManifest>(
+        context: context,
+        builder: (context) => _BuildSwitcherDialog(builds: builds),
+      );
+      if (selected == null || !mounted) return;
+      await showDownloadProgressDialog(
+        context: context,
+        manifest: selected,
+        updateService: UpdateService.instance,
+      );
+    } catch (error) {
+      if (!mounted) return;
+      _showSnack(error.toString());
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
   Future<void> _resetDatabases() async {
     final confirmed = await _confirm(
       title: 'Reset database data?',
@@ -412,6 +477,20 @@ Captured logs: ${DeveloperLogService.entries.value.length}
     );
   }
 
+  String _messageForResult(UpdateCheckResult result) {
+    switch (result.status) {
+      case UpdateCheckStatus.upToDate:
+        return 'Already on latest developer release';
+      case UpdateCheckStatus.disabled:
+      case UpdateCheckStatus.missingToken:
+      case UpdateCheckStatus.unsupportedPlatform:
+      case UpdateCheckStatus.error:
+        return result.message ?? 'Update check did not complete';
+      case UpdateCheckStatus.updateAvailable:
+        return 'Update available';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = _settings;
@@ -435,6 +514,8 @@ Captured logs: ${DeveloperLogService.entries.value.length}
                   padding: const EdgeInsets.all(16),
                   children: [
                     _buildStatusCard(settings),
+                    const SizedBox(height: 12),
+                    _buildUpdaterCard(settings),
                     const SizedBox(height: 12),
                     _buildEconomyCard(),
                     const SizedBox(height: 12),
@@ -479,10 +560,14 @@ Captured logs: ${DeveloperLogService.entries.value.length}
         ),
         _InfoLine(
           label: 'Dashboard',
-          value: 'Debug build only',
+          value: 'Internal updater branch',
         ),
         _InfoLine(
             label: 'GitHub token', value: _hasToken ? 'Saved' : 'Missing'),
+        _InfoLine(
+          label: 'Last update check',
+          value: settings.lastCheckAt?.toLocal().toString() ?? 'Never',
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -502,6 +587,58 @@ Captured logs: ${DeveloperLogService.entries.value.length}
         ),
         if (settings.lastError != null)
           _InfoLine(label: 'Last error', value: settings.lastError!),
+      ],
+    );
+  }
+
+  Widget _buildUpdaterCard(DeveloperSettings settings) {
+    return _DashboardSection(
+      title: 'Internal GitHub APK Updater',
+      icon: Icons.system_update,
+      children: [
+        _InfoLine(
+          label: 'Repository',
+          value:
+              '${_packageInfo?.packageName ?? 'Money Mansion'} release assets',
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('Check on startup'),
+          subtitle: const Text('Checks private GitHub release metadata'),
+          value: settings.autoCheckOnStartup,
+          onChanged: _busy ? null : _setAutoCheck,
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('Auto-download updates'),
+          subtitle: const Text('Downloads and verifies APKs automatically'),
+          value: settings.autoDownload,
+          onChanged: _busy ? null : _setAutoDownload,
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('Honor forced updates'),
+          subtitle: const Text('Off by default so updates remain optional'),
+          value: settings.allowForcedUpdates,
+          onChanged: _busy ? null : _setAllowForcedUpdates,
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            FilledButton.icon(
+              onPressed: !_busy ? _checkForUpdates : null,
+              icon: const Icon(Icons.cloud_sync),
+              label: const Text('Check now'),
+            ),
+            OutlinedButton.icon(
+              onPressed: !_busy ? _switchBuild : null,
+              icon: const Icon(Icons.swap_horiz),
+              label: const Text('Install another build'),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -939,4 +1076,63 @@ class _InfoLine extends StatelessWidget {
       ),
     );
   }
+}
+
+class _BuildSwitcherDialog extends StatelessWidget {
+  final List<UpdateManifest> builds;
+
+  const _BuildSwitcherDialog({required this.builds});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return AlertDialog(
+      title: const Text('Switch internal build'),
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 520, maxHeight: 520),
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: builds.length,
+          separatorBuilder: (_, __) => const Divider(height: 1),
+          itemBuilder: (context, index) {
+            final build = builds[index];
+            return ListTile(
+              contentPadding: const EdgeInsets.symmetric(vertical: 8),
+              title: Text(
+                build.friendlyTitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Text(
+                '${build.friendlySource}\n'
+                'Built ${_formatBuildDate(build.buildDate)}\n'
+                '${build.friendlyChanges}',
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+              ),
+              isThreeLine: true,
+              trailing: Icon(Icons.install_mobile, color: scheme.primary),
+              onTap: () => Navigator.of(context).pop(build),
+            );
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Cancel'),
+        ),
+      ],
+    );
+  }
+}
+
+String _formatBuildDate(DateTime? value) {
+  if (value == null) return 'unknown date';
+  final local = value.toLocal();
+  final date =
+      '${local.year.toString().padLeft(4, '0')}-${local.month.toString().padLeft(2, '0')}-${local.day.toString().padLeft(2, '0')}';
+  final time =
+      '${local.hour.toString().padLeft(2, '0')}:${local.minute.toString().padLeft(2, '0')}';
+  return '$date $time';
 }
