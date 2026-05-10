@@ -1,4 +1,4 @@
-# GitHub Secrets
+# GitHub Secrets 
 
 This branch (`feature/developer-dashboard-token-gated`) is the Google Play safe
 developer-dashboard branch. It does not build or install APK updates from
