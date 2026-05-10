@@ -5,7 +5,7 @@ import 'onboarding_service.dart';
 
 /// Validates goal inputs and generates numeric score + reward from AI.
 class GoalAiService {
-  static const _apiKey = String.fromEnvironment('GROQ_API_KEY');
+  static const _apiKey = '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';
   static const _endpoint = 'https://api.groq.com/openai/v1/chat/completions';
   static const _model = 'openai/gpt-oss-120b';
 
