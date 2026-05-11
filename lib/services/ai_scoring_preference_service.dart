@@ -5,8 +5,7 @@ class AiScoringPreferenceService {
 
   static const _externalAiScoringKey = 'external_ai_scoring_enabled';
 
-  static const hasConfiguredExternalAi =
-      String.fromEnvironment('GROQ_API_KEY') != '';
+  static const hasConfiguredExternalAi = true;
 
   static Future<bool> isExternalAiScoringEnabled() async {
     if (!hasConfiguredExternalAi) return false;
