@@ -5,10 +5,10 @@ import '../services/room_component_service.dart';
 import '../services/app_localizations_provider.dart';
 
 // App colour constants — same as room_edit_screen.dart
-const _purple      = Color(0xFF6B5B8C);
+const _purple = Color(0xFF6B5B8C);
 const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg    = Color(0xFFE8D4F0);
-const _cream       = Color(0xFFFFFBF5);
+const _purpleBg = Color(0xFFE8D4F0);
+const _cream = Color(0xFFFFFBF5);
 
 class RoomComponentsSheet extends StatefulWidget {
   final VoidCallback onComponentsChanged;
@@ -46,16 +46,18 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
 
   Future<void> _loadComponents() async {
     try {
-      final walls  = await RoomComponentService.getOwnedWallComponents();
+      final walls = await RoomComponentService.getOwnedWallComponents();
       final floors = await RoomComponentService.getOwnedFloorComponents();
-      final selWall  = await RoomComponentService.getCurrentComponentForRole('wall');
-      final selFloor = await RoomComponentService.getCurrentComponentForRole('floor');
+      final selWall =
+          await RoomComponentService.getCurrentComponentForRole('wall');
+      final selFloor =
+          await RoomComponentService.getCurrentComponentForRole('floor');
       setState(() {
-        _wallComponents  = walls;
+        _wallComponents = walls;
         _floorComponents = floors;
-        _selectedWall    = selWall;
-        _selectedFloor   = selFloor;
-        _isLoading       = false;
+        _selectedWall = selWall;
+        _selectedFloor = selFloor;
+        _isLoading = false;
       });
     } catch (e) {
       print('Error loading room components: $e');
@@ -81,9 +83,8 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
 
   @override
   Widget build(BuildContext context) {
-    final l10n     = context.watch<AppLocalizationsProvider>();
+    final l10n = context.watch<AppLocalizationsProvider>();
     final language = l10n.currentLanguage;
-    final sk       = language == 'sk';
 
     return DraggableScrollableSheet(
       initialChildSize: 0.52,
@@ -129,7 +130,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                         color: _purple, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      sk ? 'Komponenty miestnosti' : 'Room Components',
+                      l10n.translate('roomComponents'),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -172,7 +173,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                           children: [
                             const Icon(Icons.format_paint_rounded, size: 15),
                             const SizedBox(width: 5),
-                            Text(sk ? 'Steny' : 'Walls'),
+                            Text(l10n.translate('wallsCategory')),
                           ],
                         ),
                       ),
@@ -182,7 +183,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                           children: [
                             const Icon(Icons.layers_rounded, size: 15),
                             const SizedBox(width: 5),
-                            Text(sk ? 'Podlahy' : 'Floors'),
+                            Text(l10n.translate('floorsCategory')),
                           ],
                         ),
                       ),
@@ -209,9 +210,8 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                             _selectedWall,
                             _selectWall,
                             language,
-                            sk
-                                ? 'Žiadne stenové komponenty'
-                                : 'No wall components owned',
+                            l10n,
+                            l10n.translate('noWallComponentsOwned'),
                           ),
                           _buildGrid(
                             context,
@@ -220,9 +220,8 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                             _selectedFloor,
                             _selectFloor,
                             language,
-                            sk
-                                ? 'Žiadne podlahové komponenty'
-                                : 'No floor components owned',
+                            l10n,
+                            l10n.translate('noFloorComponentsOwned'),
                           ),
                         ],
                       ),
@@ -241,6 +240,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
     RoomComponent? selected,
     Future<void> Function(RoomComponent) onSelect,
     String language,
+    AppLocalizationsProvider l10n,
     String emptyText,
   ) {
     if (components.isEmpty) {
@@ -252,8 +252,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                 size: 48, color: _purpleLight),
             const SizedBox(height: 12),
             Text(emptyText,
-                style:
-                    TextStyle(fontSize: 14, color: Colors.grey[500])),
+                style: TextStyle(fontSize: 14, color: Colors.grey[500])),
           ],
         ),
       );
@@ -275,7 +274,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
       itemBuilder: (context, index) {
         final c = components[index];
         final isSelected = selected?.id == c.id;
-        return _buildCard(c, isSelected, () => onSelect(c), language);
+        return _buildCard(c, isSelected, () => onSelect(c), language, l10n);
       },
     );
   }
@@ -285,9 +284,8 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
     bool isSelected,
     VoidCallback onTap,
     String language,
+    AppLocalizationsProvider l10n,
   ) {
-    final sk = language == 'sk';
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -363,7 +361,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
-                        sk ? 'Vybrané' : 'Selected',
+                        l10n.translate('selected'),
                         style: const TextStyle(
                           fontSize: 8,
                           color: Colors.white,
