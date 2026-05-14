@@ -27,6 +27,7 @@ import 'financial_management_screen.dart';
 import 'room_edit_screen.dart';
 import 'settings_screen.dart';
 import 'calendar_screen.dart';
+import '../services/lesson_progress_database_service.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -43,7 +44,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   bool _overlayOpen = false;
   bool _wasMusicPlayingBeforePause = false;
 
-  static const bool _DEBUG_MODE = false; // Set to false for production builds
+  static const bool _DEBUG_MODE = true; // Set to false for production builds
 
   @override
   void initState() {
@@ -444,6 +445,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 await RoomLayoutDatabaseService.clearAllRoomLayouts();
                 await RoomComponentDatabaseService.clearAllOwnedComponents();
                 await QuizProgressDatabaseService.clearAllProgress();
+                await LessonProgressDatabaseService.clearAllOpenedLessons();
                 await tutorialProvider.restartTutorial();
                 await OnboardingService.resetOnboarding();
                 await OnboardingService.resetPrivacyConsent();

@@ -237,17 +237,6 @@
               "explanation": "Mince boli ďalším evolučným krokom k zjednodušeniu platenia po barterovom období."
             },
             {
-              "questionId": "1003_05",
-              "questionType": "matching",
-              "type": "theoretical",
-              "question": "Spáruj historickú éru s typickým spôsobom platby.",
-              "options": [],
-              "correctAnswer": 0,
-              "matchLeft": ["Pravek", "Staroveký Rím", "Stredovek", "Dnes"],
-              "matchRight": ["Digitálna platba kartou", "Platenie soľou a mušľami", "Zlaté a strieborné mince", "Výmena tovaru za tovar"],
-              "explanation": "Platobné systémy sa vyvíjali spolu s civilizáciou."
-            },
-            {
               "questionId": "1003_06",
               "questionType": "trueFalse",
               "type": "theoretical",
