@@ -27,6 +27,7 @@ import 'financial_management_screen.dart';
 import 'room_edit_screen.dart';
 import 'settings_screen.dart';
 import 'calendar_screen.dart';
+import '../services/lesson_progress_database_service.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -443,6 +444,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 await GoalDatabaseService.clearAllGoals();
                 await RoomLayoutDatabaseService.clearAllRoomLayouts();
                 await RoomComponentDatabaseService.clearAllOwnedComponents();
+                await LessonProgressDatabaseService.clearAllOpenedLessons();
                 await QuizProgressDatabaseService.clearAllProgress();
                 await tutorialProvider.restartTutorial();
                 await OnboardingService.resetOnboarding();
