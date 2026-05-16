@@ -6,7 +6,7 @@ import '../models/quiz_progress.dart';
 class QuizProgressDatabaseService {
   static const String _tableName = 'quiz_progress';
   static const String _dbName = 'money_mansion.db';
-  static const int _dbVersion = 10; // Bumped high to force table recreation
+  static const int _dbVersion = 11; // Bumped to force schema fix
 
   static Database? _database;
   static bool _initialized = false;
@@ -44,24 +44,66 @@ class QuizProgressDatabaseService {
   }
 
   static Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // Ensure table exists (in case it was missing)
-    await _createTable(db, newVersion);
-    
-    // Migrate from older versions
-    if (oldVersion < 4) {
-      try {
-        // Check if column already exists
-        final info = await db.rawQuery('PRAGMA table_info($_tableName)');
-        final hasRewardedColumn = info.any((col) => col['name'] == 'rewardedQuestionIds');
-        
-        if (!hasRewardedColumn) {
+    // Ensure table has all required columns
+    try {
+      // Get current table schema
+      final info = await db.rawQuery('PRAGMA table_info($_tableName)');
+      final existingColumns = {for (var col in info) col['name'] as String};
+      
+      print('✓ Current table columns: $existingColumns');
+      
+      // Check for missing rewardedQuestionIds column
+      if (!existingColumns.contains('rewardedQuestionIds')) {
+        print('⚠ Missing rewardedQuestionIds column, adding it...');
+        try {
           await db.execute(
             'ALTER TABLE $_tableName ADD COLUMN rewardedQuestionIds TEXT DEFAULT ""'
           );
+          print('✓ Successfully added rewardedQuestionIds column');
+        } catch (e) {
+          print('✗ Failed to add rewardedQuestionIds via ALTER TABLE: $e');
+          print('  Attempting table recreation...');
+          // If ALTER fails, recreate the table
+          await _recreateTableWithSchema(db);
         }
-      } catch (e) {
-        print('Error during migration: $e');
+      } else {
+        print('✓ rewardedQuestionIds column already exists');
       }
+    } catch (e) {
+      print('✗ Error during upgrade: $e');
+      print('  Attempting full table recreation...');
+      await _recreateTableWithSchema(db);
+    }
+  }
+
+  static Future<void> _recreateTableWithSchema(Database db) async {
+    try {
+      // Backup existing data
+      await db.execute('''  
+        CREATE TABLE IF NOT EXISTS ${_tableName}_backup AS 
+        SELECT * FROM $_tableName
+      ''');
+      
+      // Drop old table
+      await db.execute('DROP TABLE IF EXISTS $_tableName');
+      
+      // Create new table with correct schema
+      await _createTable(db, _dbVersion);
+      
+      // Restore data
+      await db.execute('''
+        INSERT INTO $_tableName (quizId, sectionId, score, isCompleted, completedDate, rewardedQuestionIds)
+        SELECT quizId, sectionId, score, isCompleted, completedDate, COALESCE(rewardedQuestionIds, "")
+        FROM ${_tableName}_backup
+      ''');
+      
+      // Clean up backup
+      await db.execute('DROP TABLE IF EXISTS ${_tableName}_backup');
+      
+      print('✓ Table successfully recreated with correct schema');
+    } catch (e) {
+      print('✗ Error during table recreation: $e');
+      rethrow;
     }
   }
 
