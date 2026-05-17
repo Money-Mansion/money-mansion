@@ -11,34 +11,28 @@
           "questions": [
             {
               "questionId": "2001_01",
-              "type": "theoretical",
-              "question": "Čo patrí medzi základné potreby človeka?",
-              "options": [
-                "Hračky a sladkosti",
-                "Jedlo, voda, oblečenie a bývanie",
-                "Mobil a počítač",
-                "Nové oblečenie každý týždeň"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Jedlo, voda a bývanie sú základné potreby človeka.",
+              "correctAnswer": 0,
               "explanation": "Základné potreby sú veci nevyhnutné pre naše prežitie a zdravie."
             },
             {
               "questionId": "2001_02",
-              "type": "theoretical",
-              "question": "Prečo potrebujeme jedlo a vodu?",
+              "questionType": "multipleChoice",
+              "question": "Prečo telo potrebuje jedlo a vodu?",
               "options": [
-                "Aby sme mali viac vecí doma",
-                "Aby sme boli populárni",
-                "Aby telo fungovalo správne a malo energiu",
-                "Aby sme mohli viac spať"
+                "Aby sme si mohli nakupovať v obchode",
+                "Aby malo energiu a správne fungovalo",
+                "Aby sme sa mohli hrať s priateľmi",
+                "Iba aby sme rástli do výšky"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 1,
               "explanation": "Naše telo získava z jedla a vody živiny potrebné na rast a pohyb."
             },
             {
               "questionId": "2001_03",
-              "type": "theoretical",
-              "question": "Čo označuje slovo „potreby“?",
+              "questionType": "multipleChoice",
+              "question": "Čo označuje slovo 'potreby'?",
               "options": [
                 "Veci, ktoré chceme mať pre zábavu",
                 "Veci, bez ktorých vieme fungovať",
@@ -50,40 +44,32 @@
             },
             {
               "questionId": "2001_04",
-              "type": "theoretical",
-              "question": "Prečo je bývanie dôležité?",
+              "questionType": "multipleChoice",
+              "question": "Čo nám poskytuje bývanie?",
               "options": [
-                "Aby sme mali kde ukladať hračky",
-                "Dáva nám bezpečie a miesto na oddych",
-                "Bývanie je pekné a ľudia ho potrebujú, lebo sa im páči",
-                "Lebo to chcú všetci ostatní"
+                "Zábavu a hry",
+                "Bezpečie a miesto na oddych",
+                "Nové oblečenie každý týždeň",
+                "Priateľov na hranie"
               ],
               "correctAnswer": 1,
               "explanation": "Domov nás chráni pred počasím a poskytuje súkromie."
             },
             {
               "questionId": "2001_05",
-              "type": "practical",
-              "question": "Chrumko ide do obchodu a má málo peňazí. Čo by mal kúpiť ako prvé?",
-              "options": [
-                "Čokoládu",
-                "Hračku",
-                "Jedlo",
-                "Dekoráciu"
+              "questionType": "dragDrop",
+              "question": "Chrumko má málo peňazí. Zaraď každú vec do správnej skupiny.",
+              "dragLabels": ["Jedlo", "Čokoláda", "Hračka", "Voda"],
+              "dragTargets": [
+                { "label": "Kúpiť ako prvé", "correctItems": ["Jedlo", "Voda"] },
+                { "label": "Počkať, kým bude dosť peňazí", "correctItems": ["Čokoláda", "Hračka"] }
               ],
-              "correctAnswer": 2,
-              "explanation": "Pri obmedzenom rozpočte musia mať základné potreby (jedlo) prednosť."
+              "explanation": "Pri obmedzenom rozpočte musia mať základné potreby (jedlo, voda) prednosť pred túžbami."
             },
             {
               "questionId": "2001_06",
-              "type": "practical",
-              "question": "Chrumko si kúpi len sladkosti a nemá už peniaze na jedlo. Čo to znamená?",
-              "options": [
-                "Urobil dobré rozhodnutie",
-                "Uprednostnil túžbu pred potrebou",
-                "Nemal inú možnosť",
-                "Peniaze použil správne"
-              ],
+              "questionType": "trueFalse",
+              "question": "Ak Chrumko minie všetky peniaze na sladkosti a nemá na jedlo, urobil dobré rozhodnutie.",
               "correctAnswer": 1,
               "explanation": "Sladkosti sú túžba, zatiaľ čo riadne jedlo je životná potreba."
             }
@@ -96,46 +82,35 @@
           "questions": [
             {
               "questionId": "2002_01",
-              "type": "theoretical",
-              "question": "Aká vec je túžba?",
-              "options": [
-                "Vec, bez ktorej nemôžeme žiť",
-                "Vec, ktorú chceme, ale nepotrebujeme",
-                "Vec, ktorú musíme mať každý deň",
-                "Vec, ktorú dostaneme zadarmo"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Túžba je vec, bez ktorej vieme prežiť.",
+              "correctAnswer": 0,
               "explanation": "Túžby sú veci, ktoré nám robia radosť, ale vieme bez nich prežiť."
             },
             {
               "questionId": "2002_02",
-              "type": "theoretical",
-              "question": "Ktorá z možností je túžba?",
-              "options": [
-                "Voda",
-                "Jedlo",
-                "Plyšová hračka",
-                "Bývanie"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Voda, jedlo a bývanie sú potreby, hračka je túžba."
+              "questionType": "matching",
+              "question": "Spáruj každú vec s tým, či je to potreba alebo túžba.",
+              "matchLeft": ["Domov", "Plyšová hračka", "Jedlo", "Nové tenisky pre zábavu"],
+              "matchRight": ["Potreba", "Túžba", "Potreba", "Túžba"],
+              "explanation": "Voda a jedlo sú potreby. Hračka a módne tenisky sú túžby."
             },
             {
               "questionId": "2002_03",
-              "type": "theoretical",
-              "question": "Ako sa líšia potreby a túžby?",
+              "questionType": "multipleChoice",
+              "question": "Ktoré tvrdenie najlepšie opisuje vzťah potrieb a túžob?",
               "options": [
-                "Potreby sú menej dôležité",
+                "Potreby a túžby sú rovnako dôležité",
                 "Túžby sú dôležitejšie ako potreby",
-                "Potreby are nevyhnutné, túžby nie",
-                "Nie je medzi nimi rozdiel"
+                "Potreby sú nevyhnutné pre život, túžby nie",
+                "Túžby a potreby sú to isté"
               ],
               "correctAnswer": 2,
-              "explanation": "Hlavný rozdiel je v dôležitosti pre zachovanie života."
+              "explanation": "Potreby sú nevyhnutné pre život, túžby nie."
             },
             {
               "questionId": "2002_04",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Je v poriadku mať túžby?",
               "options": [
                 "Nie, túžby sú vždy zlé",
@@ -148,28 +123,20 @@
             },
             {
               "questionId": "2002_05",
-              "type": "practical",
-              "question": "Chrumko chce novú hračku, ale doma už podobnú má. Čo to znamená?",
-              "options": [
-                "Je to potreba",
-                "Je to túžba",
-                "Musí si ju kúpiť",
-                "Nemá na výber"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Ak chce Chrumko novú hračku, ale doma podobnú už má, ide o túžbu.",
+              "correctAnswer": 0,
               "explanation": "Ďalšia hračka nie je k životu nutná, preto je to túžba."
             },
             {
               "questionId": "2002_06",
-              "type": "practical",
-              "question": "Chrumko má peniaze len na jednu vec. Čo by mal urobiť?",
-              "options": [
-                "Kúpiť si vždy túžbu",
-                "Kúpiť si to najdrahšie",
-                "Najprv zvážiť, čo naozaj potrebuje",
-                "Neminúť peniaze vôbec"
+              "questionType": "ordering",
+              "question": "Zoraď kroky správneho rozhodovania, keď má Chrumko peniaze len na jednu vec.",
+              "orderItems": [
+                "Čo naozaj potrebujem?",
+                "Je to potreba alebo túžba?",
+                "Kúpim dôležitejšiu vec."
               ],
-              "correctAnswer": 2,
               "explanation": "Správne finančné rozhodovanie začína otázkou 'Potrebujem to?'"
             }
           ]
@@ -181,81 +148,49 @@
           "questions": [
             {
               "questionId": "2003_01",
-              "type": "theoretical",
-              "question": "Prečo chceme niektoré veci hneď, keď ich uvidíme?",
-              "options": [
-                "Lebo ich vždy potrebujeme",
-                "Lebo mozog si ich spojí s pocitom radosti",
-                "Lebo sú zadarmo",
-                "Lebo ich musíme mať"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Keď niečo chceme hneď po tom, čo to uvidíme, mozog nám sľubuje pocit radosti.",
+              "correctAnswer": 0,
               "explanation": "Náš mozog reaguje na nové a pekné veci uvoľnením pocitu šťastia."
             },
             {
               "questionId": "2003_02",
-              "type": "theoretical",
-              "question": "Čo nás môže ovplyvniť pri túžbe po veci?",
-              "options": [
-                "Reklama alebo kamaráti",
-                "Len rodičia",
-                "Počasie",
-                "Farba oblohy"
-              ],
-              "correctAnswer": 0,
+              "questionType": "matching",
+              "question": "Spáruj každý vplyv s tým, čo nás núti chcieť veci.",
+              "matchLeft": ["Reklama v televízii", "Kamarát má novú hračku", "Výkladná skriňa v obchode", "Influencer na sociálnych sieťach"],
+              "matchRight": ["Mediálny vplyv", "Tlak okolia", "Vizuálny podnet", "Mediálny vplyv"],
               "explanation": "Tlak okolia a vplyv médií sú silné faktory, ktoré v nás vyvolávajú túžbu."
             },
             {
               "questionId": "2003_03",
-              "type": "theoretical",
-              "question": "Ak niečo chceme, znamená to, že to aj potrebujeme?",
+              "questionType": "multipleChoice",
+              "question": "Aký je rozdiel medzi chcením a potrebovaním niečoho?",
               "options": [
-                "Áno, vždy",
-                "Nie",
-                "Nie ak je to voda",
-                "Áno, ak je to nové"
+                "Nie je žiadny rozdiel",
+                "Ak niečo chceme, automaticky to aj potrebujeme",
+                "Pocit chcenia a pocit potreby sú dve rôzne veci",
+                "Potrebovanie a chcenie sú to isté"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Pocit 'chcenia' je často emócia, nie biologická potreba."
             },
             {
-              "questionId": "2003_04",
-              "type": "theoretical",
-              "question": "Čo je dobré urobiť pred kúpou veci?",
-              "options": [
-                "Uistiť sa, že je to v móde",
-                "Opýtať sa kamaráta",
-                "Počkať a premyslieť si to",
-                "Pozrieť sa na reklamu ešte raz"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Pauza pred nákupom nám pomôže vychladnúť a rozhodnúť sa rozumne."
-            },
-            {
               "questionId": "2003_05",
-              "type": "practical",
-              "question": "Chrumko chce nový peračník, ale jeho starý funguje. Čo platí?",
-              "options": [
-                "Potrebuje nový",
-                "Je to túžba",
-                "Musí si ho kúpiť",
-                "Chrumko by mal starý peračník vyhodiť"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Ak Chrumkov starý peračník stále funguje, nový peračník je len túžba.",
+              "correctAnswer": 0,
               "explanation": "Ak stará vec plní svoj účel, nová verzia je len túžba."
             },
             {
               "questionId": "2003_06",
-              "type": "practical",
-              "question": "Chrumko chce nový peračník, ale jeho starý funguje. Premyslí si to a peračník si nekúpi. Prečo?",
-              "options": [
-                "Zabudol na neho",
-                "Zistil, že ho nepotrebuje",
-                "Nemal čas",
-                "Peračník zmizla z obchodu"
+              "questionType": "dragDrop",
+              "question": "Zaraď dôvody, prečo si Chrumko peračník nekúpil.",
+              "dragLabels": ["Použil kritické myslenie", "Zistil, že ho nepotrebuje", "Zabudol na peračník", "Obchod bol zatvorený"],
+              "dragTargets": [
+                { "label": "Správny dôvod", "correctItems": ["Použil kritické myslenie", "Zistil, že ho nepotrebuje"] },
+                { "label": "Nesprávny dôvod", "correctItems": ["Zabudol na peračník", "Obchod bol zatvorený"] }
               ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko použil kritické myslenie a uvedomil si rozdiel medzi chcení a potrebou."
+              "explanation": "Chrumko použil kritické myslenie a uvedomil si rozdiel medzi chcením a potrebou."
             }
           ]
         },
@@ -266,76 +201,62 @@
           "questions": [
             {
               "questionId": "2004_01",
-              "type": "theoretical",
-              "question": "Prečo existuje reklama?",
-              "options": [
-                "Aby nás zabavila",
-                "Aby si ľudia chceli výrobok kúpiť",
-                "Aby sme mali viac času",
-                "Aby ten kto si výrobok kúpi zarobil"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Hlavným cieľom reklamy je presvedčiť nás, že daný výrobok potrebujeme.",
+              "correctAnswer": 0,
               "explanation": "Hlavným cieľom reklamy je presvedčiť nás, že daný výrobok potrebujeme."
             },
             {
               "questionId": "2004_02",
-              "type": "theoretical",
-              "question": "Ako reklama robí veci lákavejšími?",
-              "options": [
-                "Používa farby, hudbu a obrázky",
-                "Znižuje ich cenu",
-                "Robí ich menšími",
-                "Nerobí, iba ich ukazuje ľuďom"
-              ],
-              "correctAnswer": 0,
+              "questionType": "matching",
+              "question": "Spáruj reklamný prvok s tým, čo ovplyvňuje.",
+              "matchLeft": ["Veselá hudba", "Jasné farby", "Slávna osobnosť", "Slogan \"Najlepší na trhu\""],
+              "matchRight": ["Pocity a nálada", "Pozornosť a záujem", "Dôvera v produkt", "Presvedčenie o kvalite"],
               "explanation": "Reklamy útočia na naše zmysly, aby vyvolali pozitívne emócie."
             },
             {
               "questionId": "2004_03",
-              "type": "theoretical",
-              "question": "Sú veci v reklame vždy nepravdivé? ako v skutočnosti?",
+              "questionType": "multipleChoice",
+              "question": "Ako sa zvyčajne produkty v reklamách porovnávajú so skutočnosťou?",
               "options": [
-                "Áno, produkt o ktorom hovoria neexistuje",
-                "Nie, môžu vyzerať horšie než v skutočnosti",
-                "Áno, nikdy nemajú žiadnu pravdivú informáciu o produkte",
-                "Nie, ale väčšinou sú prikrášlené alebo klamlivé"
+                "Vyzerajú vždy presne tak, ako v skutočnosti",
+                "Vyzerajú horšie ako v skutočnosti",
+                "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality",
+                "Vždy vyzerajú presne tak, ako je opísané"
               ],
-              "correctAnswer": 3,
+              "correctAnswer": 2,
               "explanation": "Reklama sa snaží ukázať produkt v najlepšom svetle, čo nemusí zodpovedať realite."
             },
             {
               "questionId": "2004_04",
-              "type": "theoretical",
-              "question": "Na čo by sme sa mali pri výrobku pozerať?",
-              "options": [
-                "Hlavne na výzor",
-                "Hlavne na to, čo obsahuje a či ho potrebujeme",
-                "Hlavne na reklamu",
-                "Len na cenu"
+              "questionType": "ordering",
+              "question": "Zoraď, čo by mal Chrumko urobiť pred kúpou produktu z reklamy.",
+              "orderItems": [
+                "Všimnúť si reklamu",
+                "Zastaviť sa a nepodľahnúť hneď",
+                "Porovnať produkt so skutočnou potrebou",
+                "Rozhodnúť sa na základe faktov, nie reklamy"
               ],
-              "correctAnswer": 1,
               "explanation": "Dôležitý je skutočný úžitok produktu, nie jeho lákavý obal."
             },
             {
               "questionId": "2004_05",
-              "type": "practical",
-              "question": "Chrumko vidí veľkú čokoládu v reklame, ale v obchode je menšia. Prečo?",
-              "options": [
-                "Reklama ju ukázala lákavejšie",
-                "Čokoláda sa zmenšila",
-                "Stala sa chyba keď ju do obchodu dávali",
-                "Chrumko sa pomýlil"
+              "questionType": "dragDrop",
+              "question": "Zaraď každé tvrdenie k správnemu pojmu: reklama alebo realita.",
+              "dragLabels": ["Čokoláda vyzerá obrovská", "Čokoláda je menšia než v reklame", "Farby sú upravené počítačom", "Skutočná chuť môže byť iná"],
+              "dragTargets": [
+                { "label": "Reklama (čo sľubuje)", "correctItems": ["Čokoláda vyzerá obrovská", "Farby sú upravené počítačom"] },
+                { "label": "Realita (čo dostaneš)", "correctItems": ["Čokoláda je menšia než v reklame", "Skutočná chuť môže byť iná"] }
               ],
-              "correctAnswer": 0,
               "explanation": "Fotografie v reklamách sú často upravované, aby produkt vyzeral väčší a chutnejší."
             },
             {
               "questionId": "2004_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko chce kúpiť vec len preto, že ju videl v reklame. Čo by mal urobiť?",
               "options": [
                 "Hneď ju nájsť a kúpiť",
-                "Ignorovať ju pretože reklamy stále klamú",
+                "Ignorovať ju, lebo reklamy stále klamú",
                 "Premyslieť si, či ju naozaj potrebuje",
                 "Kúpiť dve"
               ],
@@ -351,24 +272,18 @@
           "questions": [
             {
               "questionId": "2005_01",
-              "type": "theoretical",
-              "question": "Kedy ľudia často nakupujú bez rozmýšľania?",
-              "options": [
-                "Keď sú pokojní",
-                "Keď sú unavení alebo nahnevaní",
-                "Keď sú pokojný a oddýchnutí",
-                "Keď si spravia nákupný zoznam potrebných vecí"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Silné emócie ako hnev alebo smútok môžu viesť k unáhleným nákupom.",
+              "correctAnswer": 0,
               "explanation": "Silné emócie oslabujú našu schopnosť rozhodovať sa racionálne."
             },
             {
               "questionId": "2005_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Prečo si niekedy kupujeme veci, keď sme smutní?",
               "options": [
                 "Lebo ich potrebujeme na prežitie",
-                "Lebo nám môžu priniesť krátku radosť",
+                "Lebo nám môžu priniesť krátkodobú radosť",
                 "Lebo musíme",
                 "Lebo sú lacné"
               ],
@@ -376,52 +291,34 @@
               "explanation": "Nákup novej veci spôsobí dočasný pocit šťastia, ktorý však rýchlo zmizne."
             },
             {
-              "questionId": "2005_03",
-              "type": "theoretical",
-              "question": "Čo je dobré urobiť pred nákupom, keď sme smutní, nahnevaní, unavení alebo veľmi nadšení?",
-              "options": [
-                "Kúpiť viac vecí",
-                "Počkať a upokojiť sa",
-                "Zavolať kamarátovi",
-                "Ísť preč z obchodu navždy"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Získanie odstupu a pokoja predchádza neskoršej ľútosti z nákupu."
-            },
-            {
               "questionId": "2005_04",
-              "type": "theoretical",
-              "question": "Znamená emocionálny nákup vždy dobré rozhodnutie?",
+              "questionType": "multipleChoice",
+              "question": "Čo je zvyčajne pravda o emocionálnych nákupoch?",
               "options": [
-                "Iba vtedy ak ide o vec ktorú by sme bez silných emócií nechceli",
-                "Nie, často ide o veci, ktoré nepotrebujeme",
-                "Áno, ak sme smutní",
-                "Nie, len keď sme šťastní"
+                "Vždy vychádzajú zo skutočných potrieb",
+                "Vždy šetria peniaze",
+                "Vždy sú dobrý nápad",
+                "Málokedy vychádzajú zo skutočných potrieb"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Emocionálne nákupy sú málokedy založené na skutočných potrebách."
             },
             {
               "questionId": "2005_05",
-              "type": "practical",
-              "question": "Chrumko je nahnevaný a chce si kúpiť sladkosť. Čo by mal urobiť?",
-              "options": [
-                "Hneď ju kúpiť",
-                "Počkať a premyslieť si to",
-                "Kúpiť dve sladkosti",
-                "Minúť všetky peniaze"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Upokojenie pomôže Chrumkovi uvedomiť si, že sladkosť hnev nevyrieši."
+              "questionType": "matching",
+              "question": "Spáruj situáciu so správnou reakciou.",
+              "matchLeft": ["Chrumko je nahnevaný a chce sladkosť", "Chrumko je smutný a veľmi smädný", "Chrumko je nadšený a chce drahú hračku", "Chrumko je pokojný a má hlad"],
+              "matchRight": ["Počkať a premyslieť si to", "Kúpiť vodu, je to potreba", "Počkať, kým emócia opadne", "Kúpiť jedlo, je to potreba"],
+              "explanation": "Rozlišuj medzi skutočnými potrebami a impulzmi z emócií."
             },
             {
               "questionId": "2005_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko je smutný a veľmi smädný a chce si kúpiť vodu. Čo by mal urobiť?",
               "options": [
                 "Hneď ju kúpiť",
-                "Počkať a premyslieť si to keď už smutný nebude",
-                "Nekúpiť si nič aby s ušetril peniaze",
+                "Počkať, kým smutný nebude",
+                "Nekúpiť nič, aby ušetril",
                 "Minúť všetky peniaze na jedlo"
               ],
               "correctAnswer": 0,
@@ -429,15 +326,13 @@
             },
             {
               "questionId": "2005_07",
-              "type": "practical",
-              "question": "Chrumko si uvedomí, že nie je hladný a nič si nekúpi. Prečo?",
-              "options": [
-                "Nemal peniaze",
-                "Zabudol",
-                "Jedlo a ani nič iné nepotreboval",
-                "Obchod bol zatvorený"
+              "questionType": "dragDrop",
+              "question": "Zaraď dôvody Chrumkovho rozhodnutia nič nekúpiť.",
+              "dragLabels": ["Nemal peniaze", "Jedlo nepotreboval", "Nič iné nepotreboval", "Obchod bol zatvorený"],
+              "dragTargets": [
+                { "label": "Správny dôvod", "correctItems": ["Jedlo nepotreboval", "Nič iné nepotreboval"] },
+                { "label": "Nesprávny dôvod", "correctItems": ["Nemal peniaze", "Obchod bol zatvorený"] }
               ],
-              "correctAnswer": 2,
               "explanation": "Nekúpiť si nič, čo nepotrebujeme, je prejavom zodpovedného správania."
             }
           ]

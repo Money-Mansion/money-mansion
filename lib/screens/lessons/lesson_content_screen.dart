@@ -644,15 +644,6 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       accentColor: Color(0xFF7C5CBF),
     ),
     LessonSlide(
-      type: LessonSlideType.story,
-      emoji: '🖍️',
-      storyTitle: 'Cool Pencil Case',
-      storyTitleSk: 'Pekný peračník',
-      storyBody: 'Chrumko sees a classmate with a cool new pencil case. He wants one immediately, even though his own works perfectly fine! He waits for a moment and realizes he doesn\'t actually need a new one at all. Sometimes waiting helps!',
-      storyBodySk: 'Chrumko vidí spolužiaka s fajným novým peračníkom. Hneď by ho chcel, aj keď jeho vlastný funguje perfektne! Chvíľu počká a uvedomí si, že nový netreba. Niekedy pomáha počkať!',
-      accentColor: Color(0xFF7C5CBF),
-    ),
-    LessonSlide(
       type: LessonSlideType.tip,
       emoji: '⏳',
       title: 'The Waiting Trick',

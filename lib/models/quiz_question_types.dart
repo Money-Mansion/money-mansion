@@ -116,18 +116,44 @@ class QuizQuestion {
 }
 
 class DragTarget {
-  final String label;        // the zone label shown to user
-  final String correctItem;  // the dragLabel that belongs here
+  final String label;           // the zone label shown to user
+  final List<String> correctItems; // ALL labels that belong in this zone
 
-  const DragTarget({required this.label, required this.correctItem});
+  /// Convenience: the single correct item (for single-answer zones).
+  /// Returns the first element; throws if correctItems is empty.
+  String get correctItem => correctItems.first;
 
-  factory DragTarget.fromJson(Map<String, dynamic> json) => DragTarget(
-        label: json['label'] as String,
-        correctItem: json['correctItem'] as String,
-      );
+  const DragTarget({
+    required this.label,
+    required this.correctItems,
+  });
+
+  /// JSON support: accepts either
+  ///   "correctItem": "Foo"          (single-answer, old format)
+  ///   "correctItems": ["Foo","Bar"] (multi-answer, new format)
+  factory DragTarget.fromJson(Map<String, dynamic> json) {
+    List<String> items;
+
+    final rawList = json['correctItems'];
+    final rawSingle = json['correctItem'];
+
+    if (rawList != null && rawList is List) {
+      items = List<String>.from(rawList);
+    } else if (rawSingle != null) {
+      items = [rawSingle as String];
+    } else {
+      // Fallback: empty list so the app doesn't crash on malformed data
+      items = [];
+    }
+
+    return DragTarget(
+      label: json['label'] as String? ?? '',
+      correctItems: items,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'label': label,
-        'correctItem': correctItem,
+        'correctItems': correctItems,
       };
 }

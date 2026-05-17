@@ -11,37 +11,31 @@
           "questions": [
             {
               "questionId": "2001_01",
-              "type": "theoretical",
-              "question": "What belongs among a person’s basic needs?",
-              "options": [
-                "Toys and sweets",
-                "Food, water, clothes and housing",
-                "Phone and computer",
-                "New clothes every week"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Food, water, and housing are basic human needs.",
+              "correctAnswer": 0,
               "explanation": "Basic needs are essential things required for survival, like nourishment, protection, and clothing."
             },
             {
               "questionId": "2001_02",
-              "type": "theoretical",
-              "question": "Why do we need food and water?",
+              "questionType": "multipleChoice",
+              "question": "Why does our body need food and water?",
               "options": [
-                "So that we have more things at home",
-                "So that we are popular",
-                "So that the body functions properly and has energy",
-                "So that we can sleep more"
+                "To buy things at a shop",
+                "To have energy and function properly",
+                "To play with friends",
+                "To grow taller only"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 1,
               "explanation": "Food and water provide the fuel and hydration necessary for our bodies to work and stay healthy."
             },
             {
               "questionId": "2001_03",
-              "type": "theoretical",
-              "question": "What does the word “needs” mean?",
+              "questionType": "multipleChoice",
+              "question": "What does the word \"needs\" mean?",
               "options": [
                 "Things we want to have for fun",
-                "Things without which we are still able to function",
+                "Things without which we can still function",
                 "Things that we need to live",
                 "Things that we buy once a year"
               ],
@@ -50,40 +44,32 @@
             },
             {
               "questionId": "2001_04",
-              "type": "theoretical",
-              "question": "Why is housing important?",
+              "questionType": "multipleChoice",
+              "question": "What does housing provide for us?",
               "options": [
-                "So that we have a place to store toys",
-                "It gives us safety and a place to rest",
-                "Housing is nice, and people need it because they like it",
-                "Because everyone else wants it"
+                "Entertainment and games",
+                "Safety and a place to rest",
+                "New clothes every week",
+                "Friends to play with"
               ],
               "correctAnswer": 1,
               "explanation": "A home provides shelter from the elements, security, and a space for recovery."
             },
             {
               "questionId": "2001_05",
-              "type": "practical",
-              "question": "Chrumko goes to the shop and has little money. What should he buy first?",
-              "options": [
-                "Chocolate",
-                "A toy",
-                "Food",
-                "Decoration"
+              "questionType": "dragDrop",
+              "question": "Chrumko has very little money. Sort each item into the correct group.",
+              "dragLabels": ["Food", "Chocolate", "A toy", "Water"],
+              "dragTargets": [
+                { "label": "Buy first", "correctItems": ["Food", "Water"] },
+                { "label": "Wait until there is enough money", "correctItems": ["Chocolate", "A toy"] }
               ],
-              "correctAnswer": 2,
-              "explanation": "When money is limited, you should always prioritize needs (food) over wants (chocolate or toys)."
+              "explanation": "When money is limited, you should always prioritize needs (food, water) over wants (chocolate, toys)."
             },
             {
               "questionId": "2001_06",
-              "type": "practical",
-              "question": "Chrumko only buys sweets and no longer has money for food. What does that mean?",
-              "options": [
-                "He made a good decision",
-                "He chose a want over a need",
-                "He had no other choice",
-                "He used the money correctly"
-              ],
+              "questionType": "trueFalse",
+              "question": "If Chrumko spends all his money on sweets and has nothing left for food, he made a good decision.",
               "correctAnswer": 1,
               "explanation": "Sweets are a luxury (want), while food is a necessity (need). Chrumko prioritized the wrong thing."
             }
@@ -96,46 +82,35 @@
           "questions": [
             {
               "questionId": "2002_01",
-              "type": "theoretical",
-              "question": "Which kind of thing is a want?",
-              "options": [
-                "Something without which we cannot live",
-                "Something we want but do not need",
-                "Something we must have every day",
-                "Something we get for free"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "A want is something we can survive without.",
+              "correctAnswer": 0,
               "explanation": "A want is something that makes life more pleasant but isn't required for survival."
             },
             {
               "questionId": "2002_02",
-              "type": "theoretical",
-              "question": "Which of the following is a want?",
-              "options": [
-                "Water",
-                "Food",
-                "A stuffed toy",
-                "Housing"
-              ],
-              "correctAnswer": 2,
-              "explanation": "A stuffed toy is for entertainment, unlike water, food, and housing which are essential."
+              "questionType": "matching",
+              "question": "Match each item to whether it is a need or a want.",
+              "matchLeft": ["Home", "A stuffed toy", "Food", "New trainers for fun"],
+              "matchRight": ["Need", "Want", "Need", "Want"],
+              "explanation": "Water and food are needs. A stuffed toy and fashion trainers are wants."
             },
             {
               "questionId": "2002_03",
-              "type": "theoretical",
-              "question": "How are needs and wants different?",
+              "questionType": "multipleChoice",
+              "question": "Which statement best describes needs and wants?",
               "options": [
-                "Needs are less important",
+                "Needs and wants are equally important",
                 "Wants are more important than needs",
-                "Needs are necessary, wants are not",
-                "There is no difference between them"
+                "Needs are essential for survival; wants are not",
+                "Wants and needs are the same thing"
               ],
               "correctAnswer": 2,
-              "explanation": "The main difference is necessity; you must have needs to survive, but you can live without wants."
+              "explanation": "Needs are essential for survival; wants are not."
             },
             {
               "questionId": "2002_04",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Is it okay to have wants?",
               "options": [
                 "No, wants are always bad",
@@ -148,28 +123,20 @@
             },
             {
               "questionId": "2002_05",
-              "type": "practical",
-              "question": "Chrumko wants a new toy, but he already has a similar one at home. What does that mean?",
-              "options": [
-                "It is a need",
-                "It is a want",
-                "He must buy it",
-                "He has no choice"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "If Chrumko wants a new toy but already has a similar one, that new toy is a want.",
+              "correctAnswer": 0,
               "explanation": "Since he already has a toy that works, the new one is definitely a desire, not a necessity."
             },
             {
               "questionId": "2002_06",
-              "type": "practical",
-              "question": "Chrumko has money only for one thing. What should he do?",
-              "options": [
-                "Always buy a want",
-                "Always buy the most expensive thing",
-                "First consider what he really needs",
-                "Do not spend the money at all"
+              "questionType": "ordering",
+              "question": "Put the steps of smart decision-making in the correct order when Chrumko only has money for one thing.",
+              "orderItems": [
+                "What do I really need?",
+                "Is it a need or a want?",
+                "Buy the more important thing."
               ],
-              "correctAnswer": 2,
               "explanation": "Responsible money management means checking if your needs are covered before spending on anything else."
             }
           ]
@@ -181,80 +148,48 @@
           "questions": [
             {
               "questionId": "2003_01",
-              "type": "theoretical",
-              "question": "Why do we want some things immediately when we see them?",
-              "options": [
-                "Because we always need them",
-                "Because the brain associates them with a feeling of joy",
-                "Because they are free",
-                "Because we must have them"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "When we want something the moment we see it, our brain is promising us a feeling of joy.",
+              "correctAnswer": 0,
               "explanation": "Our brains often react to cool or shiny things by promising us a feeling of happiness if we get them."
             },
             {
               "questionId": "2003_02",
-              "type": "theoretical",
-              "question": "What can influence our desire for something?",
-              "options": [
-                "Ads or friends",
-                "Only parents",
-                "The weather",
-                "The color of the sky"
-              ],
-              "correctAnswer": 0,
+              "questionType": "matching",
+              "question": "Match each influence to the type of pressure it creates.",
+              "matchLeft": ["A TV advertisement", "A friend has a new toy", "A shop window display", "An influencer on social media"],
+              "matchRight": ["Media influence", "Peer pressure", "Visual trigger", "Media influence"],
               "explanation": "We often want things because we see them in commercials or because our friends have them."
             },
             {
               "questionId": "2003_03",
-              "type": "theoretical",
-              "question": "If we want something, does that mean we also need it?",
+              "questionType": "multipleChoice",
+              "question": "What is the difference between wanting and needing something?",
               "options": [
-                "Yes, always",
-                "No",
-                "No, if it is water",
-                "Yes, if it is new"
+                "There is no difference",
+                "Wanting something means you automatically need it too",
+                "Wanting and needing are two different feelings",
+                "Needing something is the same as wanting it"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Wanting something and needing something are two different feelings."
             },
             {
-              "questionId": "2003_04",
-              "type": "theoretical",
-              "question": "What is good to do before buying something?",
-              "options": [
-                "Make sure it is in fashion",
-                "Ask a friend",
-                "Wait and think about it",
-                "Watch the ad again"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Taking a 'cooling off' period helps you decide if you really want the item or if it was just a quick impulse."
-            },
-            {
               "questionId": "2003_05",
-              "type": "practical",
-              "question": "Chrumko wants a new pencil case, but his old one still works. What is true?",
-              "options": [
-                "He needs a new one",
-                "It is a want",
-                "He must buy it",
-                "Chrumko should throw the old pencil case away"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "If Chrumko's old pencil case still works, a new one is just a want.",
+              "correctAnswer": 0,
               "explanation": "If the current item still performs its function, a new one is a want."
             },
             {
               "questionId": "2003_06",
-              "type": "practical",
-              "question": "Chrumko wants a new pencil case, but his old one still works. He thinks about it and does not buy the pencil case. Why?",
-              "options": [
-                "He forgot about it",
-                "He realized that he does not need it",
-                "He had no time",
-                "The pencil case disappeared from the shop"
+              "questionType": "dragDrop",
+              "question": "Sort the reasons for why Chrumko did not buy the pencil case.",
+              "dragLabels": ["He used critical thinking", "He realized he did not need it", "He forgot about it", "The shop was closed"],
+              "dragTargets": [
+                { "label": "Correct reason", "correctItems": ["He used critical thinking", "He realized he did not need it"] },
+                { "label": "Incorrect reason", "correctItems": ["He forgot about it", "The shop was closed"] }
               ],
-              "correctAnswer": 1,
               "explanation": "By thinking it over, Chrumko practiced good financial discipline by identifying it as an unnecessary want."
             }
           ]
@@ -266,72 +201,58 @@
           "questions": [
             {
               "questionId": "2004_01",
-              "type": "theoretical",
-              "question": "Why does advertising exist?",
-              "options": [
-                "To entertain us",
-                "So that people want to buy the product",
-                "To give us more free time",
-                "So that the person who buys the product earns money"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "The main goal of advertising is to persuade us that we need a product.",
+              "correctAnswer": 0,
               "explanation": "The primary goal of advertising is to persuade people to spend money on a specific product."
             },
             {
               "questionId": "2004_02",
-              "type": "theoretical",
-              "question": "How does advertising make things more attractive?",
-              "options": [
-                "It uses colors, music, and pictures",
-                "It lowers their price",
-                "It makes them smaller",
-                "It does not; it only shows them to people"
-              ],
-              "correctAnswer": 0,
+              "questionType": "matching",
+              "question": "Match each advertising element to what it influences.",
+              "matchLeft": ["Upbeat music", "Bright colors", "A famous person", "The slogan \"Best on the market\""],
+              "matchRight": ["Feelings and mood", "Attention and interest", "Trust in the product", "Belief in quality"],
               "explanation": "Ads use sensory tricks to make products look and sound better than they might actually be."
             },
             {
               "questionId": "2004_03",
-              "type": "theoretical",
-              "question": "Are things in ads always the same as in reality?",
+              "questionType": "multipleChoice",
+              "question": "How do products in advertisements usually compare to real life?",
               "options": [
-                "Yes, the product being advertised does not exist",
-                "No, they can look worse than in reality",
-                "Yes, they never contain any true information about the product",
-                "No, but they are usually exaggerated or misleading"
+                "They always look exactly the same as in real life",
+                "They look worse than in real life",
+                "Advertisers often show a perfect version that may differ from what you actually get",
+                "They always look exactly as described"
               ],
-              "correctAnswer": 3,
+              "correctAnswer": 2,
               "explanation": "Advertisers often show the 'perfect' version of a product, which can be different from what you actually get."
             },
             {
               "questionId": "2004_04",
-              "type": "theoretical",
-              "question": "What should we look at when choosing a product?",
-              "options": [
-                "Mainly its appearance",
-                "Mainly what it contains and whether we need it",
-                "Mainly the ad",
-                "Only the price"
+              "questionType": "ordering",
+              "question": "Put the steps in the correct order for what Chrumko should do before buying a product he saw in an ad.",
+              "orderItems": [
+                "Notice the advertisement",
+                "Stop and do not give in straight away",
+                "Compare the product to a real need",
+                "Decide based on facts, not the ad"
               ],
-              "correctAnswer": 1,
               "explanation": "Smart shoppers look at the quality and the necessity of the item rather than the flashy packaging."
             },
             {
               "questionId": "2004_05",
-              "type": "practical",
-              "question": "Chrumko sees a big chocolate bar in an ad, but in the shop it is smaller. Why?",
-              "options": [
-                "The ad made it look more attractive",
-                "The chocolate has become smaller",
-                "There was a mistake when they put it into the shop",
-                "Chrumko made a mistake"
+              "questionType": "dragDrop",
+              "question": "Sort each statement under the correct label: advertisement or reality.",
+              "dragLabels": ["The chocolate looks enormous", "The chocolate is smaller than in the ad", "The colors are edited by computer", "The real taste may be different"],
+              "dragTargets": [
+                { "label": "Advertisement (what it promises)", "correctItems": ["The chocolate looks enormous", "The colors are edited by computer"] },
+                { "label": "Reality (what you actually get)", "correctItems": ["The chocolate is smaller than in the ad", "The real taste may be different"] }
               ],
-              "correctAnswer": 0,
               "explanation": "This is a common advertising tactic to make the product seem like a better deal than it is."
             },
             {
               "questionId": "2004_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko wants to buy something just because he saw it in an ad. What should he do?",
               "options": [
                 "Immediately find it and buy it",
@@ -351,24 +272,18 @@
           "questions": [
             {
               "questionId": "2005_01",
-              "type": "theoretical",
-              "question": "When do people often buy things without thinking?",
-              "options": [
-                "When they are calm",
-                "When they are tired or angry",
-                "When they are calm and relaxed",
-                "When they have made a shopping list of needed items"
-              ],
-              "correctAnswer": 1,
+              "questionType": "trueFalse",
+              "question": "Strong emotions like anger or sadness can lead to impulsive purchases.",
+              "correctAnswer": 0,
               "explanation": "Strong emotions can cloud our judgment and make us make impulsive purchases."
             },
             {
               "questionId": "2005_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Why do we sometimes buy things when we are sad?",
               "options": [
                 "Because we need them to survive",
-                "Because they can bring short‑term joy",
+                "Because they can bring short-term joy",
                 "Because we must",
                 "Because they are cheap"
               ],
@@ -376,51 +291,33 @@
               "explanation": "Buying something new releases chemicals in the brain that make us feel better for a little while."
             },
             {
-              "questionId": "2005_03",
-              "type": "theoretical",
-              "question": "What is good to do before shopping, if we feel sad, angry, tired, or very excited?",
-              "options": [
-                "Buy more things",
-                "Wait and calm down",
-                "Call a friend",
-                "Leave the shop forever"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Waiting until you are in a neutral mood helps you make more logical financial choices."
-            },
-            {
               "questionId": "2005_04",
-              "type": "theoretical",
-              "question": "Does emotional shopping always mean a good decision?",
+              "questionType": "multipleChoice",
+              "question": "What is usually true about emotional purchases?",
               "options": [
-                "Only when it is something we would not want without strong emotions",
-                "No, it often involves things we do not need",
-                "Yes, if we are sad",
-                "No, only when we are happy"
+                "They are always based on real needs",
+                "They always save money",
+                "They are always a good idea",
+                "They are rarely based on real needs"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Decisions based purely on feelings often lead to regret once the emotion fades."
             },
             {
               "questionId": "2005_05",
-              "type": "practical",
-              "question": "Chrumko is angry and wants to buy a sweet. What should he do?",
-              "options": [
-                "Buy it immediately",
-                "Wait and think about it",
-                "Buy two sweets",
-                "Spend all his money"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko should wait until he isn't angry anymore to see if he actually wants the sweet."
+              "questionType": "matching",
+              "question": "Match each situation to the correct response.",
+              "matchLeft": ["Chrumko is angry and wants a sweet", "Chrumko is sad and very thirsty", "Chrumko is excited and wants an expensive toy", "Chrumko is calm and hungry"],
+              "matchRight": ["Wait and think it over", "Buy water — it is a need", "Wait until the emotion passes", "Buy food — it is a need"],
+              "explanation": "Tell the difference between real needs and impulses driven by emotion."
             },
             {
               "questionId": "2005_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko is sad and very thirsty and wants to buy water. What should he do?",
               "options": [
                 "Buy it immediately",
-                "Wait and think about it when he is no longer sad",
+                "Wait until he is no longer sad",
                 "Not buy anything to save money",
                 "Spend all his money on food"
               ],
@@ -429,15 +326,13 @@
             },
             {
               "questionId": "2005_07",
-              "type": "practical",
-              "question": "Chrumko realizes he is not hungry and does not buy anything. Why?",
-              "options": [
-                "He had no money",
-                "He forgot",
-                "He did not need food or anything else",
-                "The shop was closed"
+              "questionType": "dragDrop",
+              "question": "Sort the reasons for Chrumko's decision not to buy anything.",
+              "dragLabels": ["He had no money", "He did not need food", "He did not need anything else", "The shop was closed"],
+              "dragTargets": [
+                { "label": "Correct reason", "correctItems": ["He did not need food", "He did not need anything else"] },
+                { "label": "Incorrect reason", "correctItems": ["He had no money", "The shop was closed"] }
               ],
-              "correctAnswer": 2,
               "explanation": "Chrumko realized that since he wasn't hungry, buying food wasn't a current need."
             }
           ]
