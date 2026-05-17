@@ -77,7 +77,7 @@ class QuestionWidgetFactory {
 }
 
 // ────────────────────────────────────────────────────────────
-// 1. MULTIPLE CHOICE  (FIXED)
+// 1. MULTIPLE CHOICE
 // ────────────────────────────────────────────────────────────
 
 class MultipleChoiceWidget extends StatefulWidget {
@@ -101,8 +101,6 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Only reveal correct/wrong colours AFTER the parent sets showFeedback=true.
-    // Before that, the selected option just shows a neutral "chosen" highlight.
     final revealed = widget.showFeedback && _selected != null;
 
     return Column(
@@ -115,7 +113,6 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
         Color border = Colors.grey[300]!;
 
         if (revealed) {
-          // Show full green/red feedback
           if (isCorrect) {
             bg     = const Color(0xFF4CAF50).withOpacity(0.1);
             border = const Color(0xFF4CAF50);
@@ -124,7 +121,6 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
             border = const Color(0xFFF44336);
           }
         } else if (isSelected) {
-          // Just highlight the chosen option neutrally while waiting for feedback
           bg     = const Color(0xFF7C3AED).withOpacity(0.08);
           border = const Color(0xFF7C3AED);
         }
@@ -172,7 +168,7 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
 }
 
 // ────────────────────────────────────────────────────────────
-// 2. TRUE / FALSE  (same fix applied for consistency)
+// 2. TRUE / FALSE
 // ────────────────────────────────────────────────────────────
 
 class TrueFalseWidget extends StatefulWidget {
@@ -236,7 +232,6 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
         iconColor = const Color(0xFFF44336);
       }
     } else if (isSelected) {
-      // Neutral selected state before feedback
       bg = const Color(0xFF7C3AED).withOpacity(0.08);
       border = const Color(0xFF7C3AED);
       iconColor = const Color(0xFF7C3AED);
@@ -676,7 +671,17 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 }
 
 // ────────────────────────────────────────────────────────────
-// 5. DRAG & DROP
+// 5. DRAG & DROP  (supports multi-answer zones)
+// ────────────────────────────────────────────────────────────
+//
+// Each DragTarget zone now holds a List<String?> of placed labels
+// whose length equals target.correctItems.length.
+// A zone is "full" when every slot is non-null.
+// All labels in a zone must be placed before submission is allowed.
+// Tapping a placed chip returns it to the bank.
+//
+// Scoring: every placed label in a zone must be in correctItems
+// (order-insensitive), and the zone count must match exactly.
 // ────────────────────────────────────────────────────────────
 
 class DragDropWidget extends StatefulWidget {
@@ -698,29 +703,77 @@ class DragDropWidget extends StatefulWidget {
 }
 
 class _DragDropWidgetState extends State<DragDropWidget> {
-  late Map<int, String?> _placed;
+  // placed[zoneIndex] = list of labels placed in that zone
+  late List<List<String>> _placed;
   late List<String> _bank;
   bool _submitted = false;
 
   @override
   void initState() {
     super.initState();
-    _bank   = List.from(widget.question.dragLabels)..shuffle(Random());
-    _placed = {for (int i = 0; i < widget.question.dragTargets.length; i++) i: null};
+    _bank = List.from(widget.question.dragLabels)..shuffle(Random());
+    _placed = List.generate(
+      widget.question.dragTargets.length,
+      (_) => [],
+    );
   }
 
-  bool get _allPlaced => _placed.values.every((v) => v != null);
+  /// True when every zone has exactly the right number of items placed.
+  bool get _allPlaced {
+    for (int i = 0; i < widget.question.dragTargets.length; i++) {
+      if (_placed[i].length < widget.question.dragTargets[i].correctItems.length) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   void _submit() {
     bool allCorrect = true;
     for (int i = 0; i < widget.question.dragTargets.length; i++) {
-      if (_placed[i] != widget.question.dragTargets[i].correctItem) {
+      final target  = widget.question.dragTargets[i];
+      final placed  = _placed[i];
+      // Must have same count and every placed item must be in correctItems
+      final correct = placed.length == target.correctItems.length &&
+          placed.every((item) => target.correctItems.contains(item));
+      if (!correct) {
         allCorrect = false;
         break;
       }
     }
     setState(() => _submitted = true);
     widget.onAnswered(allCorrect);
+  }
+
+  /// Move a label back to the bank from a zone.
+  void _returnToBank(int zoneIndex, String label) {
+    if (_submitted) return;
+    setState(() {
+      _placed[zoneIndex].remove(label);
+      _bank.add(label);
+    });
+  }
+
+  /// Accept a dragged label into a zone (if not yet full).
+  void _acceptDrop(int zoneIndex, String label) {
+    if (_submitted) return;
+    final target   = widget.question.dragTargets[zoneIndex];
+    final capacity = target.correctItems.length;
+    setState(() {
+      // Remove from any other zone it might be in
+      for (int j = 0; j < _placed.length; j++) {
+        _placed[j].remove(label);
+      }
+      _bank.remove(label);
+      if (_placed[zoneIndex].length < capacity) {
+        _placed[zoneIndex].add(label);
+      } else {
+        // Zone is full — return the oldest item to bank, add new one
+        final evicted = _placed[zoneIndex].removeAt(0);
+        _bank.add(evicted);
+        _placed[zoneIndex].add(label);
+      }
+    });
   }
 
   @override
@@ -733,6 +786,8 @@ class _DragDropWidgetState extends State<DragDropWidget> {
           style: TextStyle(fontSize: 13, color: Colors.grey[600], fontStyle: FontStyle.italic),
         ),
         const SizedBox(height: 16),
+
+        // ── Label bank ──────────────────────────────────────
         if (_bank.isNotEmpty) ...[
           Wrap(
             spacing: 8,
@@ -754,130 +809,192 @@ class _DragDropWidgetState extends State<DragDropWidget> {
           ),
           const SizedBox(height: 20),
         ],
+
+        // ── Drop zones ──────────────────────────────────────
         ...List.generate(widget.question.dragTargets.length, (i) {
-          final target    = widget.question.dragTargets[i];
-          final placed    = _placed[i];
-          final isCorrect = _submitted && placed == target.correctItem;
-          final isWrong   = _submitted && placed != null && placed != target.correctItem;
+          final target   = widget.question.dragTargets[i];
+          final capacity = target.correctItems.length;
+          final placed   = _placed[i];
+
+          // Per-zone correctness after submission
+          bool zoneCorrect = false;
+          if (_submitted) {
+            zoneCorrect = placed.length == capacity &&
+                placed.every((item) => target.correctItems.contains(item));
+          }
+
+          final isHovered = false; // resolved inside DragTarget builder
 
           return DragTarget<String>(
-            onWillAcceptWithDetails: (_) => !_submitted,
-            onAcceptWithDetails: (details) {
-              setState(() {
-                _bank.remove(details.data);
-                if (placed != null) _bank.add(placed);
-                for (int j = 0; j < widget.question.dragTargets.length; j++) {
-                  if (j != i && _placed[j] == details.data) _placed[j] = null;
-                }
-                _placed[i] = details.data;
-              });
-            },
+            onWillAcceptWithDetails: (_) =>
+                !_submitted && placed.length < capacity,
+            onAcceptWithDetails: (details) => _acceptDrop(i, details.data),
             builder: (context, candidateData, _) {
-              final isHovered = candidateData.isNotEmpty;
-              return GestureDetector(
-                onTap: placed != null && !_submitted
-                    ? () => setState(() {
-                          _bank.add(placed);
-                          _placed[i] = null;
-                        })
-                    : null,
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: _submitted
-                        ? (isCorrect
-                            ? const Color(0xFF4CAF50).withOpacity(0.1)
-                            : isWrong
-                                ? const Color(0xFFF44336).withOpacity(0.1)
-                                : Colors.grey[50])
-                        : isHovered
-                            ? const Color(0xFF2196F3).withOpacity(0.08)
-                            : placed != null
-                                ? const Color(0xFF9C27B0).withOpacity(0.08)
-                                : Colors.grey[50],
-                    border: Border.all(
-                      color: _submitted
-                          ? (isCorrect
-                              ? const Color(0xFF4CAF50)
-                              : isWrong
-                                  ? const Color(0xFFF44336)
-                                  : Colors.grey[300]!)
-                          : isHovered
-                              ? const Color(0xFF2196F3)
-                              : placed != null
-                                  ? const Color(0xFF9C27B0)
-                                  : Colors.grey[300]!,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          target.label,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              final hovering = candidateData.isNotEmpty;
+
+              Color zoneBg     = Colors.grey[50]!;
+              Color zoneBorder = Colors.grey[300]!;
+
+              if (_submitted) {
+                zoneBg     = zoneCorrect
+                    ? const Color(0xFF4CAF50).withOpacity(0.08)
+                    : const Color(0xFFF44336).withOpacity(0.08);
+                zoneBorder = zoneCorrect
+                    ? const Color(0xFF4CAF50)
+                    : const Color(0xFFF44336);
+              } else if (hovering) {
+                zoneBg     = const Color(0xFF2196F3).withOpacity(0.08);
+                zoneBorder = const Color(0xFF2196F3);
+              } else if (placed.isNotEmpty) {
+                zoneBg     = const Color(0xFF9C27B0).withOpacity(0.05);
+                zoneBorder = const Color(0xFF9C27B0).withOpacity(0.5);
+              }
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: zoneBg,
+                  border: Border.all(color: zoneBorder, width: 2),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Zone label row
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            target.label,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      placed != null
-                          ? Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        // Slot counter  e.g. "1 / 2"
+                        Text(
+                          '${placed.length} / $capacity',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _submitted
+                                ? (zoneCorrect
+                                    ? const Color(0xFF4CAF50)
+                                    : const Color(0xFFF44336))
+                                : Colors.grey[500],
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        if (_submitted) ...[
+                          const SizedBox(width: 6),
+                          Icon(
+                            zoneCorrect ? Icons.check_circle : Icons.cancel,
+                            color: zoneCorrect
+                                ? const Color(0xFF4CAF50)
+                                : const Color(0xFFF44336),
+                            size: 18,
+                          ),
+                        ],
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Placed chips  (or empty slot placeholders)
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        // Already placed labels
+                        ...placed.map((label) {
+                          final itemCorrect = _submitted &&
+                              target.correctItems.contains(label);
+                          final itemWrong =
+                              _submitted && !target.correctItems.contains(label);
+
+                          return GestureDetector(
+                            onTap: _submitted
+                                ? null
+                                : () => _returnToBank(i, label),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 6),
                               decoration: BoxDecoration(
                                 color: _submitted
-                                    ? (isCorrect ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
+                                    ? (itemCorrect
+                                        ? const Color(0xFF4CAF50)
+                                        : const Color(0xFFF44336))
                                     : const Color(0xFF9C27B0),
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Text(
-                                placed,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
-                              ),
-                            )
-                          : Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: isHovered ? const Color(0xFF2196F3) : Colors.grey[300]!,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                '?',
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    label,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  if (!_submitted) ...[
+                                    const SizedBox(width: 4),
+                                    const Icon(Icons.close,
+                                        color: Colors.white70, size: 14),
+                                  ],
+                                ],
                               ),
                             ),
-                      if (_submitted) ...[
-                        const SizedBox(width: 8),
-                        Icon(
-                          isCorrect ? Icons.check_circle : Icons.cancel,
-                          color: isCorrect ? const Color(0xFF4CAF50) : const Color(0xFFF44336),
-                          size: 20,
-                        ),
+                          );
+                        }),
+
+                        // Empty slot placeholders for remaining capacity
+                        ...List.generate(capacity - placed.length, (_) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 6),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: hovering
+                                    ? const Color(0xFF2196F3)
+                                    : Colors.grey[350]!,
+                                width: 1.5,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              '?',
+                              style: TextStyle(
+                                color: Colors.grey[400],
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        }),
                       ],
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },
           );
         }),
+
+        // ── Submit button ───────────────────────────────────
         if (!_submitted) ...[
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: _allPlaced ? _submit : null,
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
             child: Text(
-              _allPlaced ? _tr('checkAnswers', widget.language) : _tr('placeAllFirst', widget.language),
+              _allPlaced
+                  ? _tr('checkAnswers', widget.language)
+                  : _tr('placeAllFirst', widget.language),
               style: const TextStyle(fontSize: 16),
             ),
           ),

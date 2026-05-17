@@ -166,9 +166,9 @@
               "correctAnswer": 0,
               "dragLabels": ["Ľahko sa nosí", "Každý ich prijme", "Dlho vydrží"],
               "dragTargets": [
-                { "label": "Prenosnosť", "correctItem": "Ľahko sa nosí" },
-                { "label": "Univerzálnosť", "correctItem": "Každý ich prijme" },
-                { "label": "Trvanlivosť", "correctItem": "Dlho vydrží" }
+                { "label": "Prenosnosť", "correctItems": ["Ľahko sa nosí"] },
+                { "label": "Univerzálnosť", "correctItems": ["Každý ich prijme"] },
+                { "label": "Trvanlivosť", "correctItems": ["Dlho vydrží"] }
               ],
               "explanation": "Dobré peniaze musia byť prenosné, univerzálne akceptované a trvanlivé."
             },
@@ -223,7 +223,7 @@
                 "Zohnal tovar vhodný na výmenu",
                 "Hľadal obchodníka, ktorý ten tovar chce",
                 "Dohodol sa na výmene",
-                "Vymienil tovar"
+                "Vymienal tovar"
               ],
               "explanation": "Barter si vyžadoval dlhý proces hľadania vhodného partnera na výmenu."
             },
@@ -298,9 +298,9 @@
               "correctAnswer": 0,
               "dragLabels": ["Platba 50€ bankovkou", "Priloženie karty k terminálu", "Platba mobilom cez app"],
               "dragTargets": [
-                { "label": "Hotovosť", "correctItem": "Platba 50€ bankovkou" },
-                { "label": "Kartová platba", "correctItem": "Priloženie karty k terminálu" },
-                { "label": "Mobilná platba", "correctItem": "Platba mobilom cez app" }
+                { "label": "Hotovosť", "correctItems": ["Platba 50€ bankovkou"] },
+                { "label": "Kartová platba", "correctItems": ["Priloženie karty k terminálu"] },
+                { "label": "Mobilná platba", "correctItems": ["Platba mobilom cez app"] }
               ],
               "explanation": "Existujú tri hlavné moderné spôsoby platby: hotovosť, karta a mobilná platba."
             },
@@ -410,14 +410,13 @@
               "questionId": "1005_05",
               "questionType": "dragDrop",
               "type": "practical",
-              "question": "Chrumko má 2 eurá. Rozhodni, čo si môže kúpiť.",
+              "question": "Chrumko má 2 eurá. Presuň každú vec do správnej skupiny.",
               "options": [],
               "correctAnswer": 0,
-              "dragLabels": ["Áno, môže kúpiť", "Nie, nestačí mu"],
+              "dragLabels": ["Džús za 90 centov", "Hračka za 3 eurá", "Keksík za 50 centov"],
               "dragTargets": [
-                { "label": "Džús za 90 centov", "correctItem": "Áno, môže kúpiť" },
-                { "label": "Hračka za 3 eurá", "correctItem": "Nie, nestačí mu" },
-                { "label": "Keksík za 50 centov", "correctItem": "Áno, môže kúpiť" }
+                { "label": "Áno, môže si to kúpiť", "correctItems": ["Džús za 90 centov", "Keksík za 50 centov"] },
+                { "label": "Nie, nestačí mu na to", "correctItems": ["Hračka za 3 eurá"] }
               ],
               "explanation": "Chrumko má 2 eurá, takže si môže dovoliť veci do 2 eur, ale nie hračku za 3 eurá."
             },
@@ -478,17 +477,15 @@
               "questionId": "1006_03",
               "questionType": "ordering",
               "type": "practical",
-              "question": "Zoraď kroky múdreho hospodárenia s peniazmi v správnom poradí.",
+              "question": "Zoraď kroky správneho hospodárenia s peniazmi.",
               "options": [],
               "correctAnswer": 0,
               "orderItems": [
-                "Dostanem peniaze (výplata, vreckovné)",
-                "Premyslím si, čo skutočne potrebujem",
-                "Odložím časť do úspor",
-                "Zaplatím dôležité veci",
+                "Dostanem peniaze",
+                "Zaplatím potreby a odložím úspory",
                 "Zvyšok použijem na zábavu"
               ],
-              "explanation": "Správne hospodárenie: najprv úspory a potreby, potom zábava."
+              "explanation": "Správne hospodárenie: najprv potreby a úspory, potom zábava."
             },
             {
               "questionId": "1006_04",
@@ -499,9 +496,8 @@
               "correctAnswer": 0,
               "dragLabels": ["Nájomné", "Sladkosti", "Jedlo"],
               "dragTargets": [
-                { "label": "Potreba (musím zaplatiť)", "correctItem": "Nájomné" },
-                { "label": "Túžba (chcem, ale nepotrebujem)", "correctItem": "Sladkosti" },
-                { "label": "Potreba (musím zaplatiť)", "correctItem": "Jedlo" }
+                { "label": "Potreba (musím zaplatiť)", "correctItems": ["Nájomné", "Jedlo"] },
+                { "label": "Túžba (chcem, ale nepotrebujem)", "correctItems": ["Sladkosti"] }
               ],
               "explanation": "Nájomné a jedlo sú základné potreby, sladkosti sú túžby."
             },
@@ -578,9 +574,8 @@
               "correctAnswer": 0,
               "dragLabels": ["Bývanie a energia", "Jedlo a pitie", "Dovolenka a zábava"],
               "dragTargets": [
-                { "label": "Základné výdavky (musíme platiť)", "correctItem": "Bývanie a energia" },
-                { "label": "Základné výdavky (musíme platiť)", "correctItem": "Jedlo a pitie" },
-                { "label": "Voliteľné výdavky (chceme, nie musíme)", "correctItem": "Dovolenka a zábava" }
+                { "label": "Základné výdavky", "correctItems": ["Bývanie a energia", "Jedlo a pitie"] },
+                { "label": "Voliteľné výdavky", "correctItems": ["Dovolenka a zábava"] }
               ],
               "explanation": "Príjmy slúžia primárne na pokrytie základných životných nákladov rodiny."
             },
@@ -622,7 +617,7 @@
               "options": [
                 "Každodennou prácou v zamestnaní",
                 "Tým, že si ich zarobia podnikaním",
-                "Vreckovým alebo ako darček",
+                "Vreckovným alebo ako darček",
                 "Z bankového účtu rodičov bez dovolenia"
               ],
               "correctAnswer": 2,

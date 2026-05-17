@@ -866,7 +866,7 @@ class AppLocalizations {
       'quizOut': 'z',
       'quizClose': 'Zavrieť',
       'quizRetry': 'Znova',
-      'quizExcellent': '🎉 Výborně! Ovládaš túto lekciu!',
+      'quizExcellent': '🎉 Výborne! Ovládaš túto lekciu!',
       'quizGood': '👍 Dobrý výkon! Skús si to ešte raz.',
       'quizOkay': '📚 Ešte trochu študovať!',
       'quizTryAgain': '💪 Skús znova - vieš, že sa zlepšíš!',
