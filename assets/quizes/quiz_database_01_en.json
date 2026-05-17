@@ -494,9 +494,7 @@
               "correctAnswer": 0,
               "orderItems": [
                 "Receive money (salary, allowance)",
-                "Think about what you really need",
-                "Set aside part for savings",
-                "Pay for important things",
+                "Pay for important things and set aside part for savings",
                 "Use the rest for fun"
               ],
               "explanation": "Good money management: savings and needs first, then fun."
@@ -589,8 +587,8 @@
               "correctAnswer": 0,
               "dragLabels": ["Housing and energy", "Food and drink", "Holiday and fun"],
               "dragTargets": [
-                { "label": "Basic expenses (must pay)", "correctItem": "Housing and energy" },
-                { "label": "Basic expenses (must pay)", "correctItem": "Food and drink" },
+                { "label": "Basic expenses (home)", "correctItem": "Housing and energy" },
+                { "label": "Basic expenses (nutriotion)", "correctItem": "Food and drink" },
                 { "label": "Optional expenses (want, not must)", "correctItem": "Holiday and fun" }
               ],
               "explanation": "Earned income is primarily used to cover living expenses (needs) before wants."

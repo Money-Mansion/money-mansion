@@ -478,17 +478,15 @@
               "questionId": "1006_03",
               "questionType": "ordering",
               "type": "practical",
-              "question": "Zoraď kroky múdreho hospodárenia s peniazmi v správnom poradí.",
+              "question": "Zoraď kroky správneho hospodárenia s peniazmi.",
               "options": [],
               "correctAnswer": 0,
               "orderItems": [
-                "Dostanem peniaze (výplata, vreckovné)",
-                "Premyslím si, čo skutočne potrebujem",
-                "Odložím časť do úspor",
-                "Zaplatím dôležité veci",
+                "Dostanem peniaze",
+                "Zaplatím potreby a odložím úspory",
                 "Zvyšok použijem na zábavu"
               ],
-              "explanation": "Správne hospodárenie: najprv úspory a potreby, potom zábava."
+              "explanation": "Správne hospodárenie: najprv potreby a úspory, potom zábava."
             },
             {
               "questionId": "1006_04",
@@ -578,9 +576,9 @@
               "correctAnswer": 0,
               "dragLabels": ["Bývanie a energia", "Jedlo a pitie", "Dovolenka a zábava"],
               "dragTargets": [
-                { "label": "Základné výdavky (musíme platiť)", "correctItem": "Bývanie a energia" },
-                { "label": "Základné výdavky (musíme platiť)", "correctItem": "Jedlo a pitie" },
-                { "label": "Voliteľné výdavky (chceme, nie musíme)", "correctItem": "Dovolenka a zábava" }
+                { "label": "Základné výdavky – domov", "correctItem": "Bývanie a energia" },
+                { "label": "Základné výdavky – výživa", "correctItem": "Jedlo a pitie" },
+                { "label": "Voliteľné výdavky", "correctItem": "Dovolenka a zábava" }
               ],
               "explanation": "Príjmy slúžia primárne na pokrytie základných životných nákladov rodiny."
             },
