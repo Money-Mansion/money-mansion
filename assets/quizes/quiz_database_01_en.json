@@ -166,9 +166,9 @@
               "correctAnswer": 0,
               "dragLabels": ["Easy to carry", "Everyone accepts it", "Lasts a long time"],
               "dragTargets": [
-                { "label": "Portability", "correctItem": "Easy to carry" },
-                { "label": "Universality", "correctItem": "Everyone accepts it" },
-                { "label": "Durability", "correctItem": "Lasts a long time" }
+                { "label": "Portability", "correctItems": ["Easy to carry"] },
+                { "label": "Universality", "correctItems": ["Everyone accepts it"] },
+                { "label": "Durability", "correctItems": ["Lasts a long time"] }
               ],
               "explanation": "Good money must be portable, universally accepted, and durable."
             },
@@ -237,17 +237,6 @@
               "explanation": "Standardized metal coins were the first major step away from barter."
             },
             {
-              "questionId": "1003_05",
-              "questionType": "matching",
-              "type": "theoretical",
-              "question": "Match the historical era to its typical payment method.",
-              "options": [],
-              "correctAnswer": 0,
-              "matchLeft": ["Prehistoric times", "Ancient Rome", "Middle Ages", "Today"],
-              "matchRight": ["Digital card payment", "Paying with salt and shells", "Gold and silver coins", "Trading goods for goods"],
-              "explanation": "Payment systems evolved alongside civilisation."
-            },
-            {
               "questionId": "1003_06",
               "questionType": "trueFalse",
               "type": "theoretical",
@@ -309,9 +298,9 @@
               "correctAnswer": 0,
               "dragLabels": ["Paying with a €50 note", "Tapping a card on a terminal", "Paying with a phone app"],
               "dragTargets": [
-                { "label": "Cash", "correctItem": "Paying with a €50 note" },
-                { "label": "Card payment", "correctItem": "Tapping a card on a terminal" },
-                { "label": "Mobile payment", "correctItem": "Paying with a phone app" }
+                { "label": "Cash", "correctItems": ["Paying with a €50 note"] },
+                { "label": "Card payment", "correctItems": ["Tapping a card on a terminal"] },
+                { "label": "Mobile payment", "correctItems": ["Paying with a phone app" ]}
               ],
               "explanation": "There are three main modern payment methods: cash, card, and mobile payment."
             },
@@ -424,11 +413,10 @@
               "question": "Chrumko has 2 euros. Decide what he can afford.",
               "options": [],
               "correctAnswer": 0,
-              "dragLabels": ["Yes, he can buy it", "No, not enough money"],
+              "dragLabels": ["Juice for 90 cents", "Toy for 3 euros", "Cookie for 50 cents"],
               "dragTargets": [
-                { "label": "Juice for 90 cents", "correctItem": "Yes, he can buy it" },
-                { "label": "Toy for 3 euros", "correctItem": "No, not enough money" },
-                { "label": "Cookie for 50 cents", "correctItem": "Yes, he can buy it" }
+                { "label": "Yes, he can buy it", "correctItems": ["Juice for 90 cents","Cookie for 50 cents"] },
+                { "label": "No, not enough money", "correctItems": ["Toy for 3 euros"] }
               ],
               "explanation": "Chrumko has 2 euros, so he can afford items up to 2 euros, but not the toy for 3 euros."
             },
@@ -508,9 +496,8 @@
               "correctAnswer": 0,
               "dragLabels": ["Rent", "Sweets", "Food"],
               "dragTargets": [
-                { "label": "Need (must pay)", "correctItem": "Rent" },
-                { "label": "Want (nice but not essential)", "correctItem": "Sweets" },
-                { "label": "Need (must pay)", "correctItem": "Food" }
+                { "label": "Need (must pay)", "correctItems": ["Rent", "Food"] },
+                { "label": "Want (nice but not essential)", "correctItems": ["Sweets"] }
               ],
               "explanation": "Rent and food are basic needs; sweets are wants."
             },
@@ -587,9 +574,8 @@
               "correctAnswer": 0,
               "dragLabels": ["Housing and energy", "Food and drink", "Holiday and fun"],
               "dragTargets": [
-                { "label": "Basic expenses (home)", "correctItem": "Housing and energy" },
-                { "label": "Basic expenses (nutriotion)", "correctItem": "Food and drink" },
-                { "label": "Optional expenses (want, not must)", "correctItem": "Holiday and fun" }
+                { "label": "Basic expenses (home)", "correctItems": ["Housing and energy", "Food and drink"] },
+                { "label": "Optional expenses (want, not must)", "correctItems": ["Holiday and fun"] }
               ],
               "explanation": "Earned income is primarily used to cover living expenses (needs) before wants."
             },
