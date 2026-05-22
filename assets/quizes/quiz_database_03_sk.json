@@ -11,47 +11,52 @@
           "questions": [
             {
               "questionId": "3001_01",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Čo je vreckové?",
               "options": [
-                "Peniaze, ktoré človek dostáva od rodičov",
+                "Peniaze, ktoré dieťa dostáva od rodičov",
                 "Peniaze, ktoré človek musí hneď minúť",
                 "Peniaze, ktoré dieťa dostáva od banky na detský účet",
                 "Peniaze, ktoré patria kamarátom"
               ],
               "correctAnswer": 0,
-              "explanation": "Vreckové sú peniaze, ktoré deti dostávajú od rodičov na vlastné výdavky."
+              "explanation": "Vreckové sú peniaze, ktoré deti dostávajú od rodičov na vlastné výdavky.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_02",
-              "type": "theoretical",
-              "question": "Prečo deti dostávajú vreckové?",
-              "options": [
-                "Aby mali viac hračiek",
-                "Aby sa míňali peniaze na ich túžby",
-                "Aby sa naučili hospodáriť s peniazmi",
-                "Aby mali vždy viac ako ostatní"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Vreckové slúži ako tréning na to, aby sa dieťa naučilo samostatne narábať s obmedzeným množstvom peňazí."
+              "questionType": "trueFalse",
+              "question": "Vreckové dostávajú deti preto, aby sa naučili hospodáriť s peniazmi.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Pravda - vreckové je nástroj na tréning rozhodovania a hospodárenia s obmedzeným množstvom peňazí.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_03",
-              "type": "theoretical",
-              "question": "Čo sa môže stať, keď dieťa minie všetko vreckové hneď?",
-              "options": [
-                "Dostane nové peniaze",
-                "Nebude mať peniaze na neskôr",
-                "Peniaze sa vrátia",
-                "Môže si ísť vyzdvihnúť ďalšie peniaze od banky"
-              ],
+              "questionType": "trueFalse",
+              "question": "Ak dieťa minie všetko vreckové hneď, banka mu dá ďalšie peniaze.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Peniaze sú obmedzené, takže ak sa minú rýchlo, nezostane nič na ďalšie dni."
+              "explanation": "Nepravda - peniaze sú obmedzené. Keď sa minú, treba počkať na ďalšie vreckové.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_04",
-              "type": "theoretical",
-              "question": "Ako je najlepšie narábať s vreckovým ktoré dieťa dostane?",
+              "questionType": "multipleChoice",
+              "question": "Ako je najlepšie narábať s vreckovým?",
               "options": [
                 "Minúť všetko naraz",
                 "Nekupovať nič",
@@ -59,24 +64,43 @@
                 "Kupovať len sladkosti"
               ],
               "correctAnswer": 2,
-              "explanation": "Rozdelenie peňazí zabezpečí, že dieťa má na malé nákupy aj na dôležitejšie veci neskôr."
+              "explanation": "Rozdelenie peňazí zabezpečí, že si dieťa môže niečo dopriať teraz aj neskôr.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_05",
-              "type": "practical",
-              "question": "Chrumko má 10 eur a vie, že ide do kina o pár dní. Čo by mal urobiť?",
-              "options": [
-                "Minúť všetko pre zábavu",
-                "Odložiť si časť peňazí",
-                "Kúpiť si hračku",
-                "Kúpiť kamarátom lístky"
+              "questionType": "dragDrop",
+              "question": "Chrumko má 10 eur. Zaraď každú akciu do správnej skupiny.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Odloženie časti peňazí mu zabezpečí, že bude mať na kino, a malá radosť teraz je tiež v poriadku.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
+                "Kúpiť si malé občerstvenie",
+                "Odložiť peniaze na kino",
+                "Minúť všetko na hračky",
+                "Nechať si zvyšok na neskôr"
               ],
-              "correctAnswer": 1,
-              "explanation": "Odložením peňazí si zabezpečí, že bude mať na lístok do kina, keď príde čas."
+              "dragTargets": [
+                {
+                  "label": "Múdre rozhodnutia",
+                  "correctItems": ["Kúpiť si malé občerstvenie", "Odložiť peniaze na kino", "Nechať si zvyšok na neskôr"]
+                },
+                {
+                  "label": "Nie príliš múdre",
+                  "correctItems": ["Minúť všetko na hračky"]
+                }
+              ]
             },
             {
               "questionId": "3001_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko si kúpi malú vec a zvyšok si nechá. Prečo?",
               "options": [
                 "Lebo nemal inú možnosť",
@@ -85,7 +109,12 @@
                 "Aby minul menej času v obchode"
               ],
               "correctAnswer": 1,
-              "explanation": "Zvyšok peňazí si necháva ako rezervu pre budúce potreby."
+              "explanation": "Zvyšok peňazí si necháva ako rezervu pre budúce potreby.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -96,20 +125,20 @@
           "questions": [
             {
               "questionId": "3002_01",
-              "type": "theoretical",
-              "question": "Je dobré minúť všetky peniaze naraz?",
-              "options": [
-                "Áno, vždy",
-                "Nie, je lepšie si ich rozdeliť",
-                "Áno, ak ide o sladkosti",
-                "Nezáleží na tom"
-              ],
+              "questionType": "trueFalse",
+              "question": "Je vždy dobré minúť všetky peniaze naraz.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Rozdelenie peňazí je základom rozumného hospodárenia."
+              "explanation": "Nepravda - rozdelenie peňazí je základom rozumného hospodárenia.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Prečo si rozdeľujeme peniaze?",
               "options": [
                 "Aby sme mali viac vecí",
@@ -118,46 +147,71 @@
                 "Aby sme ich nemuseli počítať"
               ],
               "correctAnswer": 1,
-              "explanation": "Odkladanie časti peňazí nám dáva istotu do budúcnosti."
+              "explanation": "Odkladanie časti peňazí nám dáva istotu do budúcnosti.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_03",
-              "type": "theoretical",
-              "question": "Čo nás učí rozdelenie peňazí?",
-              "options": [
-                "Nakupovať rýchlo",
-                "Plánovať a rozhodovať sa",
-                "Míňať viac",
-                "Nepremýšľať nad nákupom"
+              "questionType": "matching",
+              "question": "Spáruj každú akciu s tým, čo ťa naučí.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Rozdeľovanie peňazí rozvíja plánovanie, rozhodovanie a schopnosť myslieť dopredu.",
+              "orderItems": [],
+              "matchLeft": [
+                "Rozdeliť si peniaze",
+                "Minúť všetko naraz",
+                "Odložiť časť peňazí",
+                "Plánovať nákupy"
               ],
-              "correctAnswer": 1,
-              "explanation": "Tento proces rozvíja schopnosť predvídať svoje potreby a rozhodovať sa medzi nimi."
+              "matchRight": [
+                "Plánovanie a rozhodovanie",
+                "Ostaneš bez peňazí skôr ako skončí týždeň",
+                "Máš peniaze na budúce ciele",
+                "Vyhneš sa zbytočným nákupom"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_04",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko si odloží 7 eur z 10 eur. Prečo?",
               "options": [
                 "Aby ich nikdy nepoužil",
-                "Aby si mohol kúpiť niečo iné neskôr",
                 "Lebo nemôže míňať",
-                "Lebo nemá rád nakupovanie"
+                "Lebo nemá rád nakupovanie",
+                "Aby si mohol kúpiť niečo iné neskôr"
               ],
-              "correctAnswer": 1,
-              "explanation": "Peniaze si odkladá na konkrétny cieľ, ktorý chce dosiahnuť neskôr."
+              "correctAnswer": 3,
+              "explanation": "Peniaze si odkladá na konkrétny cieľ, ktorý chce dosiahnuť neskôr.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_05",
-              "type": "practical",
-              "question": "Chrumko si nechá časť peňazí a neskôr ide na pizzu na ktorú mal kvôli tomu našetrené. Čo to ukazuje?",
-              "options": [
-                "Že mal šťastie",
-                "Že plánovanie mu pomohlo",
-                "Že peniaze sa objavili v správny čas",
-                "Že pizza bola zadarmo"
+              "questionType": "ordering",
+              "question": "Daj Chrumkove kroky do správneho poradia - od prijatia peňazí až po pizzu.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Pizza je odmena za jeho úspešné plánovanie a šetrenie.",
+              "orderItems": [
+                "Chrumko dostane vreckové",
+                "Odloží si väčšinu peňazí",
+                "Zvyšné peniaze sa snaží impulzívne neminúť",
+                "Nakoniec si kúpi vytúženú pizzu"
               ],
-              "correctAnswer": 1,
-              "explanation": "Cieľavedomé plánovanie umožňuje dovoliť si veci, na ktoré by inak peniaze neostali."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -168,8 +222,8 @@
           "questions": [
             {
               "questionId": "3003_01",
-              "type": "theoretical",
-              "question": "Čo znamená rozhodovanie „teraz vs neskôr“?",
+              "questionType": "multipleChoice",
+              "question": "Čo znamená rozhodovanie „teraz vs neskôr\"?",
               "options": [
                 "Vybrať si medzi dvoma obchodmi",
                 "Rozhodnúť sa, či peniaze miniem hneď alebo si ich nechám",
@@ -177,72 +231,101 @@
                 "Nemíňať peniaze vôbec"
               ],
               "correctAnswer": 1,
-              "explanation": "Ide o voľbu medzi okamžitým uspokojením túžby a budúcim úžitkom."
+              "explanation": "Ide o voľbu medzi okamžitým uspokojením túžby a budúcim úžitkom.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_02",
-              "type": "theoretical",
-              "question": "Čo sa môže stať, keď si peniaze necháme na neskôr?",
-              "options": [
-                "Stratia sa",
-                "Môžeme si kúpiť niečo väčšie",
-                "Duplikujú sa a budeme mať viac peňazí",
-                "Už ich nebudeme môcť použiť až do staroby"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Šetrenie menších súm umožňuje kúpu drahších a hodnotnejších vecí."
+              "questionType": "trueFalse",
+              "question": "Šetrením peňazí si môžeš neskôr kúpiť niečo väčšie.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Pravda - šetrenie malých súm umožňuje kúpu drahších a hodnotnejších vecí.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_03",
-              "type": "theoretical",
-              "question": "Čo nás učí čakanie s nákupom?",
-              "options": [
-                "Rýchlosť",
-                "Trpezlivosť a plánovanie",
-                "Míňanie",
-                "byť šťastnejší"
+              "questionType": "dragDrop",
+              "question": "Zaraď každé správanie do správnej skupiny.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Trpezlivosť a plánovanie zabraňujú impulzívnym nákupom a pomáhajú dosiahnuť väčšie ciele.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
+                "Premýšľať pred nákupom",
+                "Chytiť prvú vec, čo vidíš",
+                "Čakať na niečo väčšie",
+                "Minúť peniaze impulzívne"
               ],
-              "correctAnswer": 1,
-              "explanation": "Čakanie posilňuje sebaovládanie a trpezlivosť pri dosahovaní cieľov."
+              "dragTargets": [
+                {
+                  "label": "Trpezlivý a plánujúci",
+                  "correctItems": ["Premýšľať pred nákupom", "Čakať na niečo väčšie"]
+                },
+                {
+                  "label": "Impulzívny",
+                  "correctItems": ["Chytiť prvú vec, čo vidíš", "Minúť peniaze impulzívne"]
+                }
+              ]
             },
             {
               "questionId": "3003_04",
-              "type": "theoretical",
-              "question": "Je vždy dobré kúpiť prvú vec, ktorú uvidíme?",
-              "options": [
-                "Áno, vždy",
-                "Nie, oplatí sa premýšľať",
-                "Áno, ak je lacná",
-                "Nie, nikdy nekupovať nič"
-              ],
+              "questionType": "trueFalse",
+              "question": "Je vždy dobré kúpiť prvú vec, ktorú uvidíme.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Premyslený nákup je zvyčajne lepší než unáhlené rozhodnutie pod vplyvom emócií."
+              "explanation": "Nepravda - premyslený nákup je zvyčajne lepší než unáhlené rozhodnutie.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_05",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko si nekúpi lízanku aj keď ju chce, ale počká. Prečo?",
               "options": [
                 "Nemá rád sladkosti",
-                "Chce si kúpiť niečo väčšie neskôr",
                 "Pretože ju chcel",
+                "Chce si kúpiť niečo väčšie neskôr",
                 "Zabudol"
               ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko uprednostnil dôležitejší cieľ pred okamžitou chuťou na sladké."
+              "correctAnswer": 2,
+              "explanation": "Chrumko uprednostnil dôležitejší cieľ pred okamžitou chuťou na sladké.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_06",
-              "type": "practical",
-              "question": "Chrumko si po premyslení kúpi neskôr omaľovánku. Čo to ukazuje?",
-              "options": [
-                "Že sa rozhodol počkať a naplánovať si nákup.",
-                "Že nemal inú možnosť",
-                "Že ju dostal zadarmo",
-                "Že lízanka zmizla"
-              ],
+              "questionType": "ordering",
+              "question": "Daj Chrumkove kroky rozhodovania do správneho poradia.",
+              "options": [],
               "correctAnswer": 0,
-              "explanation": "Ukazuje to, že jeho rozhodnutie bolo cieľavedomé a premyslené dopredu."
+              "explanation": "Plánovanie mu umožnilo získať trvalejšiu vec namiesto jednoducho sladkosti.",
+              "orderItems": [
+                "Chrumko uvidí lízanku a chce ju",
+                "Zastaví sa a premýšľa o svojom cieli",
+                "Rozhodne sa počkať a nekúpiť ju",
+                "Neskôr si kúpi omaľovánku"
+              ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -253,7 +336,7 @@
           "questions": [
             {
               "questionId": "3004_01",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Prečo je dobré plánovať na čo použijeme peniaze?",
               "options": [
                 "Aby sme ich minuli rýchlejšie",
@@ -262,59 +345,82 @@
                 "Aby sme nemuseli rozmýšľať"
               ],
               "correctAnswer": 1,
-              "explanation": "Plánovanie chráni naše peniaze pred impulzívnym míňaním na nepotrebné veci."
+              "explanation": "Plánovanie chráni naše peniaze pred impulzívnym míňaním na nepotrebné veci.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_02",
-              "type": "theoretical",
-              "question": "Čo sa môže stať, keď minieme peniaze bez premýšľania?",
-              "options": [
-                "Budeme zodpovednejší",
-                "Peniaze sa vrátia",
-                "Neskôr nám môžu peniaze chýbať",
-                "Nič sa nestane"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Nekontrolované míňanie vedie k nedostatku peňazí v čase, keď ich budeme skutočne potrebovať."
+              "questionType": "trueFalse",
+              "question": "Keď míňame peniaze bez premýšľania, môžu nám neskôr chýbať.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Pravda - nekontrolované míňanie vedie k nedostatku peňazí v čase, keď ich naozaj potrebujeme.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_03",
-              "type": "theoretical",
-              "question": "Čo nám plánovanie pomáha určiť?",
-              "options": [
-                "Farbu vecí",
-                "Koľko minúť teraz a koľko si nechať",
-                "Koľko stojí lízanka",
-                "S kým ísť do obchodu"
+              "questionType": "matching",
+              "question": "Spáruj každú situáciu s jej dôsledkom.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Plánovanie pomáha vyvážiť súčasné potreby s budúcimi túžbami.",
+              "orderItems": [],
+              "matchLeft": [
+                "Plánovanie výdavkov",
+                "Šetrenie na cieľ",
+                "Impulzívne míňanie"
               ],
-              "correctAnswer": 1,
-              "explanation": "Pomáha nám rozdeliť zdroje tak, aby sme pokryli súčasné aj budúce potreby."
+              "matchRight": [
+                "Vyhneš sa zbytočným nákupom",
+                "Dosiahnuť cieľ rýchlejšie",
+                "Nákup ťa často mrzí"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_04",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko chce zmrzlinu aj okuliare. Čo by mal urobiť?",
               "options": [
                 "Minúť všetko hneď",
                 "Kúpiť si zmrzlinu a zvyšok peňazí si odložiť na okuliare",
                 "Kúpiť len jednu vec bez premýšľania",
-                "Kúpiť si dva kopčeky zmrzliny a potom celý box inej zmrzlini na doma"
+                "Kúpiť si dva kopčeky zmrzliny a potom celý box inej zmrzliny na doma"
               ],
               "correctAnswer": 1,
-              "explanation": "Tento postup mu umožní užiť si malú radosť teraz a zároveň šetriť na väčšiu potrebu."
+              "explanation": "Tento postup mu umožní užiť si malú radosť teraz a zároveň šetriť na väčšiu potrebu.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_05",
-              "type": "practical",
-              "question": "Chrumko si odloží všetky peniaze aj keď mal chuť na zmrzlinu a o týždeň si mohol kúpiť okuliare. Čo to znamená?",
-              "options": [
-                "Mal šťastie",
-                "nerozmýšľal nad tým čo spraví s peniazmi",
-                "Potlačil krátkodobú túžbu dať si zmrzlinu aby si skôr našetril na to čo potreboval",
-                "Urobil hlúpe rozhodnutie, pretože zanedbal svoju túžbu po zmrzline aj keď si ju mohol kúpiť"
+              "questionType": "ordering",
+              "question": "Daj Chrumkove kroky do správneho poradia - od túžby po okuliaroch až po ich kúpu.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Uprednostnenie potreby pred okamžitým potešením pomáha dosiahnuť ciele rýchlejšie.",
+              "orderItems": [
+                "Chrumko sa rozhodne, že potrebuje okuliare",
+                "Každý týždeň si pravidelne šetrí",
+                "Našetrené peniaze neminie",
+                "Po týždni má dosť na kúpu okuliarov"
               ],
-              "correctAnswer": 2,
-              "explanation": "Ukazuje to disciplínu pri uprednostnení dlhodobého cieľa pred krátkodobým potešením."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -325,59 +431,79 @@
           "questions": [
             {
               "questionId": "3005_01",
-              "type": "theoretical",
-              "question": "Je normálne urobiť chybu pri míňaní peňazí?",
-              "options": [
-                "Nie, nikdy",
-                "Áno, je to bežné",
-                "Len dospelí robia chyby",
-                "Len deti robia chyby"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Chyby sú prirodzenou súčasťou učenia sa, najmä pri narábaní s peniazmi."
+              "questionType": "trueFalse",
+              "question": "Je úplne normálne, že dieťa spraví chybu pri míňaní peňazí.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Pravda - chyby sú prirodzenou súčasťou učenia sa, najmä pri narábaní s peniazmi.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Čo nám finančné chyby pomáhajú naučiť sa?",
               "options": [
                 "Ako míňať viac",
-                "Ako sa lepšie rozhodovať",
                 "Ako sa vyhnúť peniazom",
-                "Ako sa zbaviť peňazí rýchlejšie"
+                "Ako sa zbaviť peňazí rýchlejšie",
+                "Ako sa lepšie rozhodovať"
               ],
-              "correctAnswer": 1,
-              "explanation": "Analýzou vlastných chýb zisťujeme, ako nabudúce naložiť s peniazmi lepšie."
+              "correctAnswer": 3,
+              "explanation": "Analýzou vlastných chýb zisťujeme, ako nabudúce naložiť s peniazmi lepšie.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_03",
-              "type": "theoretical",
-              "question": "Čo by sme mali urobiť po tom čo spravíme chybu?",
-              "options": [
-                "Zabudnúť na ňu",
-                "Uvedomiť si ju a premyslieť, čo urobiť nabudúce inak",
-                "Nevšímať si ju, pretože ak si ju nevšimnem tak sa nestala",
-                "Vzdať sa a už nikdy nenakupovať"
+              "questionType": "ordering",
+              "question": "Daj kroky učenia sa z finančnej chyby do správneho poradia.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Aktívne poučenie sa z chyby je najlepší spôsob, ako rásť vo finančnej gramotnosti.",
+              "orderItems": [
+                "Kúpiš niečo bez premyslenia",
+                "Zistíš, že vec vlastne nepotrebuješ",
+                "Pocítiš ľútosť nad rozhodnutím",
+                "Nabudúce sa rozhodneš lepšie"
               ],
-              "correctAnswer": 1,
-              "explanation": "Aktívne poučenie sa z chyby je najlepší spôsob, ako rásť vo finančnej gramotnosti."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_04",
-              "type": "theoretical",
-              "question": "Prečo nás veci čo si kúpime bez premyslenia často omrzia?",
-              "options": [
-                "Rýchlo sa pokazia",
-                "V skutočnosti nie sú potrebné",
-                "Pretože si ich nevážime",
-                "Niekto nám ich ukradne"
+              "questionType": "matching",
+              "question": "Spáruj každé správanie s jeho dôsledkom.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Ľútosť zvyčajne prichádza z uvedomenia, že peniaze sa dali využiť lepšie.",
+              "orderItems": [],
+              "matchLeft": [
+                "Nákup bez premyslenia",
+                "Zamyslenie sa nad chybou",
+                "Opakovanie tej istej chyby",
+                "Premyslenie pred nákupom"
               ],
-              "correctAnswer": 1,
-              "explanation": "Impulzívne nákupy často riešia chvíľkovú emóciu, nie skutočnú potrebu, preto ich hodnota v našich očiach rýchlo klesá."
+              "matchRight": [
+                "Často vedie k ľútosti",
+                "Pomáha ti zlepšiť sa nabudúce",
+                "Znamená, že sa neučíš",
+                "Zvyčajne vedie k spokojnosti"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_05",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko si kúpi vec, ktorú neskôr nepoužíva. Čo to znamená?",
               "options": [
                 "Urobil dobré rozhodnutie",
@@ -386,20 +512,40 @@
                 "Vec sa zmenila"
               ],
               "correctAnswer": 1,
-              "explanation": "Míňanie peňazí na veci, ktoré nám neprinášajú úžitok, sa považuje za chybu v plánovaní."
+              "explanation": "Míňanie peňazí na veci, ktoré nám neprinášajú úžitok, sa považuje za chybu v plánovaní.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_06",
-              "type": "practical",
-              "question": "Čo by mal Chrumko urobiť nabudúce ak spraví finančnú chybu?",
-              "options": [
-                "Spraviť ju znova aby sa uistil",
-                "Rozhodnúť sa rýchlejšie",
+              "questionType": "dragDrop",
+              "question": "Zaraď každú akciu - čo by Chrumko MAL a NEMAL robiť po chybe.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Spomalenie a zamyslenie zabraňujú opakovaniu rovnakej chyby.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
                 "Viac premýšľať pred nákupom",
+                "Zopakovať chybu pre istotu",
+                "Zamyslieť sa nad tým, čo sa stalo",
+                "Rozhodovať sa ešte rýchlejšie",
                 "Neminúť nikdy nič"
               ],
-              "correctAnswer": 2,
-              "explanation": "Získaná skúsenosť mu pomôže nabudúce spomaliť a lepšie vyhodnotiť dôležitosť nákupu."
+              "dragTargets": [
+                {
+                  "label": "Chrumko by to mal robiť",
+                  "correctItems": ["Viac premýšľať pred nákupom", "Zamyslieť sa nad tým, čo sa stalo"]
+                },
+                {
+                  "label": "Chrumko by to nemal robiť",
+                  "correctItems": ["Zopakovať chybu pre istotu", "Rozhodovať sa ešte rýchlejšie", "Neminúť nikdy nič"]
+                }
+              ]
             }
           ]
         }

@@ -394,7 +394,10 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                   const SizedBox(width: 12),
                   Expanded(child: Text(text, style: const TextStyle(fontSize: 15))),
                   if (!_submitted)
-                    Icon(Icons.drag_handle, color: Colors.grey[400])
+                    ReorderableDragStartListener(
+                      index: i,
+                      child: Icon(Icons.drag_handle, color: Colors.grey[400]),
+                    )
                   else if (isCorrectPos)
                     const Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 20)
                   else if (isWrongPos)

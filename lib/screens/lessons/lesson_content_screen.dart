@@ -77,7 +77,7 @@ class LessonSlide {
     this.iconContainerSize,
   });
 
-  /// Convenience factory — creates a [LessonSlideType.icon] slide in one line.
+  /// Convenience factory - creates a [LessonSlideType.icon] slide in one line.
   ///
   /// Example:
   /// ```dart
@@ -122,7 +122,7 @@ class FactItem {
   final String text;
   final String textSk;
 
-  /// Optional per-item icon widget — overrides [emoji] when provided.
+  /// Optional per-item icon widget - overrides [emoji] when provided.
   final Widget? iconWidget;
 
   const FactItem({
@@ -142,7 +142,7 @@ enum LessonSlideType { intro, info, facts, highlight, tip, story, icon }
 final Map<String, List<LessonSlide>> lessonSlides = {
 
   // ════════════════════════════════════════════
-  // SECTION 1 — PENIAZE AKO KONCEPT
+  // SECTION 1 - PENIAZE AKO KONCEPT
   // ════════════════════════════════════════════
 
   'co_su_peniaze': [
@@ -160,7 +160,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🪙',
       title: 'How Money Works',
       titleSk: 'Ako peniaze fungujú',
-      body: 'Money is used when we want to buy something. People agreed that money has value and can be exchanged for things we need or want — like food, clothing, or toys.',
+      body: 'Money is used when we want to buy something. People agreed that money has value and can be exchanged for things we need or want - like food, clothing, or toys.',
       bodySk: 'Peniaze používame, keď si chceme niečo kúpiť. Ľudia sa dohodli, že peniaze budú mať hodnotu a budú sa dať vymeniť za veci, ktoré potrebujeme alebo chceme – napríklad jedlo, oblečenie alebo hračky.',
       accentColor: Color(0xFFF5A623),
     ),
@@ -183,18 +183,18 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(
           emoji: '🪙',
-          text: 'Coins — small metal discs for everyday purchases',
-          textSk: 'Mince — malé kovové disky na každodenné nákupy',
+          text: 'Coins - small metal discs for everyday purchases',
+          textSk: 'Mince - malé kovové disky na každodenné nákupy',
         ),
         FactItem(
           emoji: '💵',
-          text: 'Banknotes — paper money for larger amounts',
-          textSk: 'Bankovky — papierové peniaze pre väčšie sumy',
+          text: 'Banknotes - paper money for larger amounts',
+          textSk: 'Bankovky - papierové peniaze pre väčšie sumy',
         ),
         FactItem(
           emoji: '💳',
-          text: 'Digital money — pay by card or phone instantly',
-          textSk: 'Digitálne peniaze — platiť kartou alebo telefónom okamžite',
+          text: 'Digital money - pay by card or phone instantly',
+          textSk: 'Digitálne peniaze - platiť kartou alebo telefónom okamžite',
         ),
       ],
       accentColor: Color(0xFFF5A623),
@@ -236,8 +236,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '💰',
       title: 'Properties of Money',
       titleSk: 'Vlastnosti peňazí',
-      body: 'Money has three key properties. Portability — coins and banknotes are small and easy to carry. Universality — everyone accepts money, no matter what you want to buy. Durability — unlike food, money does not spoil and can be saved for later.',
-      bodySk: 'Peniaze majú tri kľúčové vlastnosti. Prenosnosť — mince a bankovky sú malé a ľahko sa nosia. Univerzálnosť — peniaze prijíma každý, nech chceš kúpiť čokoľvek. Trvanlivosť — na rozdiel od jedla sa peniaze nepokazia a môžeš ich ušetriť na neskôr.',
+      body: 'Money has three key properties. Portability - coins and banknotes are small and easy to carry. Universality - everyone accepts money, no matter what you want to buy. Durability - unlike food, money does not spoil and can be saved for later.',
+      bodySk: 'Peniaze majú tri kľúčové vlastnosti. Prenosnosť - mince a bankovky sú malé a ľahko sa nosia. Univerzálnosť - peniaze prijíma každý, nech chceš kúpiť čokoľvek. Trvanlivosť - na rozdiel od jedla sa peniaze nepokazia a môžeš ich ušetriť na neskôr.',
       accentColor: Color(0xFF9C27B0),
     ),
     LessonSlide(
@@ -257,7 +257,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🌍',
       title: 'Fun Fact!',
       titleSk: 'Zaujímavosť!',
-      body: 'Ancient societies used shells, salt, stones, and even cattle as money! The word "salary" comes from "sal" — Latin for salt.',
+      body: 'Ancient societies used shells, salt, stones, and even cattle as money! The word "salary" comes from "sal" - Latin for salt.',
       bodySk: 'Staré spoločnosti používali mušle, soľ, kamene a dokonca dobytok! Slovo "plat" súvisí s latinským slovom pre soľ.',
       accentColor: Color(0xFF4CAF50),
     ),
@@ -316,8 +316,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🤯',
-      highlightText: 'Paper money was invented over 1,300 years ago — in China!',
-      highlightTextSk: 'Papierové peniaze boli vynájdené pred viac ako 1 300 rokmi — v Číne!',
+      highlightText: 'Paper money was invented over 1,300 years ago - in China!',
+      highlightTextSk: 'Papierové peniaze boli vynájdené pred viac ako 1 300 rokmi - v Číne!',
       accentColor: Color(0xFFE91E63),
     ),
   ],
@@ -328,8 +328,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '💳',
       title: 'Coins, Banknotes & Digital Money',
       titleSk: 'Mince, bankovky a digitálne peniaze',
-      body: 'Why do we sometimes pay with a coin, sometimes a card — but it always works the same way?',
-      bodySk: 'Prečo niekedy platíme mincou, inokedy kartou — a peniaze stále fungujú rovnako?',
+      body: 'Why do we sometimes pay with a coin, sometimes a card - but it always works the same way?',
+      bodySk: 'Prečo niekedy platíme mincou, inokedy kartou - a peniaze stále fungujú rovnako?',
       accentColor: Color(0xFF009688),
     ),
     LessonSlide(
@@ -339,8 +339,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       iconContainerSize: 320,
       storyTitle: 'Chrumko Buys a Tie',
       storyTitleSk: 'Chrumko si kupuje kravatu',
-      storyBody: 'Chrumko wants to buy a new tie. The shop assistant asks: card or cash? Banknotes and coins = cash. Card payment = digital money sent from his account. Both options mean paying money — just different ways!',
-      storyBodySk: 'Chrumko si chce kúpiť novú kravatu. Predavačka sa ho opýta: kartou alebo v hotovosti? Bankovky a mince = hotovosť. Platba kartou = digitálne peniaze poslané z účtu. Obe možnosti znamenajú platbu peniazmi — len iným spôsobom!',
+      storyBody: 'Chrumko wants to buy a new tie. The shop assistant asks: card or cash? Banknotes and coins = cash. Card payment = digital money sent from his account. Both options mean paying money - just different ways!',
+      storyBodySk: 'Chrumko si chce kúpiť novú kravatu. Predavačka sa ho opýta: kartou alebo v hotovosti? Bankovky a mince = hotovosť. Platba kartou = digitálne peniaze poslané z účtu. Obe možnosti znamenajú platbu peniazmi - len iným spôsobom!',
       accentColor: Color(0xFF009688),
     ),
     LessonSlide(
@@ -351,16 +351,16 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(
           emoji: '🪙',
-          text: 'Coins — metal, great for small purchases',
-          textSk: 'Mince — kovové, ideálne na malé nákupy',
+          text: 'Coins - metal, great for small purchases',
+          textSk: 'Mince - kovové, ideálne na malé nákupy',
         ),
         FactItem(
           emoji: '💵',
-          text: 'Banknotes — paper, convenient to carry',
-          textSk: 'Bankovky — papierové, pohodlné na nosenie',
+          text: 'Banknotes - paper, convenient to carry',
+          textSk: 'Bankovky - papierové, pohodlné na nosenie',
         ),
-        FactItem(emoji: '📱', text: 'Digital — stored in your bank account, pay by card or phone', 
-        textSk: 'Digitálne — uložené v bankovom účte, platiť kartou alebo telefónom'),
+        FactItem(emoji: '📱', text: 'Digital - stored in your bank account, pay by card or phone', 
+        textSk: 'Digitálne - uložené v bankovom účte, platiť kartou alebo telefónom'),
       ],
       accentColor: Color(0xFF009688),
     ),
@@ -421,8 +421,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '💡',
-      highlightText: 'The number on money tells you its VALUE — always check prices before buying!',
-      highlightTextSk: 'Číslo na peniazoch ti hovorí ich HODNOTU — vždy si skontroluj ceny pred nákupom!',
+      highlightText: 'The number on money tells you its VALUE - always check prices before buying!',
+      highlightTextSk: 'Číslo na peniazoch ti hovorí ich HODNOTU - vždy si skontroluj ceny pred nákupom!',
       accentColor: Color(0xFF9C27B0),
     ),
   ],
@@ -449,8 +449,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🚫',
-      highlightText: 'Every person only has a certain amount of money. When it\'s gone — it\'s gone!',
-      highlightTextSk: 'Každý má len určitú sumu peňazí. Keď sú preč — sú preč!',
+      highlightText: 'Every person only has a certain amount of money. When it\'s gone - it\'s gone!',
+      highlightTextSk: 'Každý má len určitú sumu peňazí. Keď sú preč - sú preč!',
       accentColor: Color(0xFFFF5722),
     ),
     LessonSlide(
@@ -491,24 +491,24 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(
           emoji: '👔',
-          text: 'Salary — regular pay from an employer',
-          textSk: 'Plat — pravidelná odmena od zamestnávateľa',
+          text: 'Salary - regular pay from an employer',
+          textSk: 'Plat - pravidelná odmena od zamestnávateľa',
         ),
         FactItem(
           emoji: '🏪',
-          text: 'Business — selling goods or services',
-          textSk: 'Podnikanie — predaj tovarov alebo služieb',
+          text: 'Business - selling goods or services',
+          textSk: 'Podnikanie - predaj tovarov alebo služieb',
           iconWidget: MyFlutterApp.shop,
         ),
         FactItem(
           emoji: '👴',
-          text: 'Pension — income for people after retirement',
-          textSk: 'Dôchodok — príjem pre ľudí po skončení práce',
+          text: 'Pension - income for people after retirement',
+          textSk: 'Dôchodok - príjem pre ľudí po skončení práce',
         ),
         FactItem(
           emoji: '🎁',
-          text: 'Gifts / pocket money — for children especially!',
-          textSk: 'Dary / vreckové — hlavne pre deti!',
+          text: 'Gifts / pocket money - for children especially!',
+          textSk: 'Dary / vreckové - hlavne pre deti!',
         ),
       ],
       accentColor: Color(0xFF4CAF50),
@@ -523,7 +523,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
   ],
 
   // ════════════════════════════════════════════
-  // SECTION 2 — POTREBY VS TÚŽBY
+  // SECTION 2 - POTREBY VS TÚŽBY
   // ════════════════════════════════════════════
 
   'co_potrebujem_na_zivot': [
@@ -541,7 +541,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🛒',
       title: 'Chrumko Shops Smart',
       titleSk: 'Chrumko nakupuje múdro',
-      body: 'Chrumko goes to the shop after school. He buys a snack first — because he knows food is a need. Only then does he think about whether any money is left for chocolate.',
+      body: 'Chrumko goes to the shop after school. He buys a snack first - because he knows food is a need. Only then does he think about whether any money is left for chocolate.',
       bodySk: 'Chrumko ide po škole do obchodu. Najprv si kúpi desiatu, pretože vie, že jedlo potrebuje. Až potom premýšľa, či mu zostanú peniaze aj na čokoládu.',
       accentColor: Color(0xFF4CAF50),
     ),
@@ -551,11 +551,11 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'True Needs',
       titleSk: 'Skutočné potreby',
       facts: [
-        FactItem(emoji: '🍞', text: 'Food & clean water — fuel for your body', textSk: 'Jedlo a čistá voda — palivo pre telo'),
-        FactItem(emoji: '🏠', text: 'Shelter & warmth — a safe place to rest', textSk: 'Prístrešie a teplo — bezpečné miesto na oddych'),
-        FactItem(emoji: '👕', text: 'Basic clothing — protection from the weather', textSk: 'Základné oblečenie — ochrana pred počasím'),
-        FactItem(emoji: '🏥', text: 'Healthcare — staying healthy', textSk: 'Zdravotná starostlivosť — zostávanie zdravým'),
-        FactItem(emoji: '🎓', text: 'Education — learning for the future', textSk: 'Vzdelanie — učenie sa pre budúcnosť'),
+        FactItem(emoji: '🍞', text: 'Food & clean water - fuel for your body', textSk: 'Jedlo a čistá voda - palivo pre telo'),
+        FactItem(emoji: '🏠', text: 'Shelter & warmth - a safe place to rest', textSk: 'Prístrešie a teplo - bezpečné miesto na oddych'),
+        FactItem(emoji: '👕', text: 'Basic clothing - protection from the weather', textSk: 'Základné oblečenie - ochrana pred počasím'),
+        FactItem(emoji: '🏥', text: 'Healthcare - staying healthy', textSk: 'Zdravotná starostlivosť - zostávanie zdravým'),
+        FactItem(emoji: '🎓', text: 'Education - learning for the future', textSk: 'Vzdelanie - učenie sa pre budúcnosť'),
       ],
       accentColor: Color(0xFF4CAF50),
     ),
@@ -583,8 +583,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🤗',
       title: 'Chrumko Wants a Plushie',
       titleSk: 'Chrumko chce plyšáka',
-      body: 'Chrumko wants a new plush toy he sees in the shop. Then he remembers he already has a similar one at home. He doesn\'t really need it — it\'s just a want. And that\'s completely fine, as long as we know the difference!',
-      bodySk: 'Chrumko chce novú plyšovú hračku, ktorú vidí v obchode. Potom si uvedomí, že doma už jednu podobnú má. On ju nepotrebuje — je to len túžba. A to je úplne v poriadku, pokiaľ vieme rozdiel!',
+      body: 'Chrumko wants a new plush toy he sees in the shop. Then he remembers he already has a similar one at home. He doesn\'t really need it - it\'s just a want. And that\'s completely fine, as long as we know the difference!',
+      bodySk: 'Chrumko chce novú plyšovú hračku, ktorú vidí v obchode. Potom si uvedomí, že doma už jednu podobnú má. On ju nepotrebuje - je to len túžba. A to je úplne v poriadku, pokiaľ vieme rozdiel!',
       accentColor: Color(0xFFE91E63),
     ),
     LessonSlide(
@@ -603,8 +603,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '✨',
-      highlightText: 'Wants aren\'t bad — just remember NEEDS come first!',
-      highlightTextSk: 'Túžby nie sú zlé — len pamätaj, POTREBY sú vždy na prvom mieste!',
+      highlightText: 'Wants aren\'t bad - just remember NEEDS come first!',
+      highlightTextSk: 'Túžby nie sú zlé - len pamätaj, POTREBY sú vždy na prvom mieste!',
       accentColor: Color(0xFFE91E63),
     ),
   ],
@@ -627,7 +627,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🎒',
       title: 'Chrumko\'s Pencil Case',
       titleSk: 'Chrumkov peračník',
-      body: 'Chrumko sees his classmate with a cool new pencil case. He immediately wants one too — even though his own pencil case works perfectly! He waits a moment and realises he doesn\'t need a new one at all.',
+      body: 'Chrumko sees his classmate with a cool new pencil case. He immediately wants one too - even though his own pencil case works perfectly! He waits a moment and realises he doesn\'t need a new one at all.',
       bodySk: 'Chrumko uvidí spolužiaka s novým peračníkom. Hneď by chcel mať rovnaký, aj keď jeho vlastný je stále úplne funkčný! Chvíľu počká a uvedomí si, že nový peračník vôbec nepotrebuje.',
       accentColor: Color(0xFF7C5CBF),
     ),
@@ -669,8 +669,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🍫',
       title: 'Chrumko Sees an Ad',
       titleSk: 'Chrumko vidí reklamu',
-      body: 'Chrumko sees a TV ad for a huge chocolate bar. It looks enormous and delicious! Next day in the shop he finds it — but it\'s much smaller than on TV. The packaging is nice, but the real thing is very different from the ad.',
-      bodySk: 'Chrumko pozerá televíziu a uvidí reklamu na veľkú čokoládu. Na obrazovke vyzerá obrovská a veľmi chutná! Na druhý deň v obchode ju nájde — je oveľa menšia ako na obrazovke. Obal je pekný, ale skutočná vec je veľmi odlišná od reklamy.',
+      body: 'Chrumko sees a TV ad for a huge chocolate bar. It looks enormous and delicious! Next day in the shop he finds it - but it\'s much smaller than on TV. The packaging is nice, but the real thing is very different from the ad.',
+      bodySk: 'Chrumko pozerá televíziu a uvidí reklamu na veľkú čokoládu. Na obrazovke vyzerá obrovská a veľmi chutná! Na druhý deň v obchode ju nájde - je oveľa menšia ako na obrazovke. Obal je pekný, ale skutočná vec je veľmi odlišná od reklamy.',
       accentColor: Color(0xFFF5A623),
     ),
     LessonSlide(
@@ -688,8 +688,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🕵️',
-      highlightText: 'Be a DETECTIVE — always look past the pretty packaging at what you\'re really buying!',
-      highlightTextSk: 'Buď DETEKTÍV — vždy pozri za pekný obal na to, čo skutočne kupuješ!',
+      highlightText: 'Be a DETECTIVE - always look past the pretty packaging at what you\'re really buying!',
+      highlightTextSk: 'Buď DETEKTÍV - vždy pozri za pekný obal na to, čo skutočne kupuješ!',
       accentColor: Color(0xFFF5A623),
     ),
   ],
@@ -709,8 +709,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🎮',
       title: 'Chrumko Loses a Game',
       titleSk: 'Chrumko prehrá hru',
-      body: 'Chrumko loses the last round of a game. He\'s angry and sad. On the way home he sees a shop and wants to buy a big treat to feel better. He stops and thinks — he\'s not really hungry, and has snacks at home. He decides to wait!',
-      bodySk: 'Chrumko prehrá posledné kolo hry. Je nahnevaný a sklamaný. Cestou domov uvidí obchod a dostane chuť kúpiť si veľkú sladkosť, aby sa cítil lepšie. Zastaví sa — nie je hladný a doma má ešte ovocie. Rozhodne sa počkať!',
+      body: 'Chrumko loses the last round of a game. He\'s angry and sad. On the way home he sees a shop and wants to buy a big treat to feel better. He stops and thinks - he\'s not really hungry, and has snacks at home. He decides to wait!',
+      bodySk: 'Chrumko prehrá posledné kolo hry. Je nahnevaný a sklamaný. Cestou domov uvidí obchod a dostane chuť kúpiť si veľkú sladkosť, aby sa cítil lepšie. Zastaví sa - nie je hladný a doma má ešte ovocie. Rozhodne sa počkať!',
       accentColor: Color(0xFF2196F3),
     ),
     LessonSlide(
@@ -719,10 +719,10 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Emotions That Trigger Shopping',
       titleSk: 'Emócie, ktoré spúšťajú nakupovanie',
       facts: [
-        FactItem(emoji: '🙁', text: 'Sadness — wanting comfort', textSk: 'Smútok — hľadanie útechy'),
-        FactItem(emoji: '😤', text: 'Anger or frustration — wanting relief', textSk: 'Hnev alebo frustrácia — hľadanie úľavy'),
-        FactItem(emoji: '🎉', text: 'Excitement — wanting to celebrate', textSk: 'Nadšenie — chcenie osláviť'),
-        FactItem(emoji: '🥱', text: 'Boredom — wanting stimulation', textSk: 'Nuda — hľadanie stimulácie'),
+        FactItem(emoji: '🙁', text: 'Sadness - wanting comfort', textSk: 'Smútok - hľadanie útechy'),
+        FactItem(emoji: '😤', text: 'Anger or frustration - wanting relief', textSk: 'Hnev alebo frustrácia - hľadanie úľavy'),
+        FactItem(emoji: '🎉', text: 'Excitement - wanting to celebrate', textSk: 'Nadšenie - chcenie osláviť'),
+        FactItem(emoji: '🥱', text: 'Boredom - wanting stimulation', textSk: 'Nuda - hľadanie stimulácie'),
       ],
       accentColor: Color(0xFF2196F3),
     ),
@@ -738,7 +738,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
   ],
 
   // ════════════════════════════════════════════
-  // SECTION 3 — PRVE HOSPODAENIE S PENIAZMI
+  // SECTION 3 - PRVE HOSPODAENIE S PENIAZMI
   // ════════════════════════════════════════════
 
   'vreckove': [
@@ -757,7 +757,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Chrumko Plans His Week',
       titleSk: 'Chrumko plánuje týždeň',
       body: 'Chrumko gets €10 at the start of the week. He sees a treat at the school snack bar. But he remembers: in two days he\'s going to the cinema with friends! He buys only a small thing now and keeps some money for the cinema.',
-      bodySk: 'Chrumko dostane na začiatku týždňa 10 eur. V školskom bufete uvidí sladkosť. Ale zapamätá si: o dva dni ide s kamarátmi do kina! Kúpi si teraz len malú vec a časť peňazí si nechá na kino.',
+      bodySk: 'Chrumko dostane na začiatku týždňa 10 eur. V školskom bufete uvidí sladkosť, ale zapamätá si: o dva dni ide s kamarátmi do kina! Kúpi si teraz len malú vec a časť peňazí si nechá na kino.',
       accentColor: Color(0xFFF5A623),
     ),
     LessonSlide(
@@ -768,14 +768,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(
           emoji: '🛒',
-          text: '50% — Needs: things you actually have to buy',
-          textSk: '50% — Potreby: veci, ktoré naozaj musíš kúpiť',
+          text: '50% - Needs: things you actually have to buy',
+          textSk: '50% - Potreby: veci, ktoré naozaj musíš kúpiť',
         ),
-        FactItem(emoji: '🎮', text: '30% — Wants: fun stuff you enjoy', textSk: '30% — Túžby: zábavné veci, ktoré si užívaš'),
+        FactItem(emoji: '🎮', text: '30% - Wants: fun stuff you enjoy', textSk: '30% - Túžby: zábavné veci, ktoré si užívaš'),
         FactItem(
           emoji: '🎯',
-          text: '20% — Savings: save for bigger goals!',
-          textSk: '20% — Sporenie: šetri na väčšie ciele!',
+          text: '20% - Savings: save for bigger goals!',
+          textSk: '20% - Sporenie: šetri na väčšie ciele!',
         ),
       ],
       accentColor: Color(0xFFF5A623),
@@ -785,8 +785,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🐷',
       title: 'Pro Tip',
       titleSk: 'Tip',
-      body: 'Save FIRST, then spend. Put savings aside the moment you receive money — don\'t wait to see what\'s left over!',
-      bodySk: 'NAJPRV šetri, potom míňaj. Odlož si úspory hneď, keď dostaneš peniaze — nečakaj, čo ti ostane!',
+      body: 'Save FIRST, then spend. Put savings aside the moment you receive money - don\'t wait to see what\'s left over!',
+      bodySk: 'NAJPRV šetri, potom míňaj. Odlož si úspory hneď, keď dostaneš peniaze - nečakaj, čo ti ostane!',
       accentColor: Color(0xFF4CAF50),
     ),
   ],
@@ -848,8 +848,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🧾',
-      highlightText: 'Split your money FIRST — then decide what to spend and what to save!',
-      highlightTextSk: 'NAJPRV si rozdeľ peniaze — potom rozhoduj, čo minúť a čo ušetriť!',
+      highlightText: 'Split your money FIRST - then decide what to spend and what to save!',
+      highlightTextSk: 'NAJPRV si rozdeľ peniaze - potom rozhoduj, čo minúť a čo ušetriť!',
       accentColor: Color(0xFF5C6BC0),
     ),
   ],
@@ -860,8 +860,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '⏳',
       title: 'Spend Now or Later?',
       titleSk: 'Minúť teraz alebo neskôr?',
-      body: 'What is better — a small treat today or something bigger in a few days?',
-      bodySk: 'Čo je lepšie — malá vec dnes alebo väčšia vec o pár dní?',
+      body: 'What is better - a small treat today or something bigger in a few days?',
+      bodySk: 'Čo je lepšie - malá vec dnes alebo väčšia vec o pár dní?',
       accentColor: Color(0xFF00897B),
     ),
     LessonSlide(
@@ -869,8 +869,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🍭',
       title: 'Chrumko and the Lollipop',
       titleSk: 'Chrumko a lízanka',
-      body: 'Chrumko has €2 and sees his favourite lollipop. He really wants it — but then remembers the colouring book he loved last week. It costs more than he has today. He decides to wait, save up, and buy the book instead.',
-      bodySk: 'Chrumko má 2 eurá a uvidí svoju obľúbenú lízanku. Veľmi by si ju chcel — ale potom si spomenie na omaľovánku, ktorú miloval minulý týždeň. Tá stojí viac. Rozhodne sa počkať, nasporiť a kúpiť radšej knihu.',
+      body: 'Chrumko has €2 and sees his favourite lollipop. He really wants it - but then remembers the colouring book he loved last week. It costs more than he has today. He decides to wait, save up, and buy the book instead.',
+      bodySk: 'Chrumko má 2 eurá a uvidí svoju obľúbenú lízanku. Veľmi by si ju chcel, ale potom si spomenie na omaľovánku, ktorú miloval minulý týždeň. Tá stojí viac. Rozhodne sa počkať, nasporiť a kúpiť radšej omaľovánku.',
       accentColor: Color(0xFF00897B),
     ),
     LessonSlide(
@@ -910,8 +910,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🏆',
-      highlightText: 'Patience pays off — saving up for something bigger feels amazing!',
-      highlightTextSk: 'Trpezlivosť sa vypláca — nasporiť si na niečo väčšie je skvelý pocit!',
+      highlightText: 'Patience pays off - saving up for something bigger feels amazing!',
+      highlightTextSk: 'Trpezlivosť sa vypláca - nasporiť si na niečo väčšie je skvelý pocit!',
       accentColor: Color(0xFF00897B),
     ),
   ],
@@ -931,8 +931,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🕶️',
       storyTitle: 'Chrumko\'s Sunglasses Plan',
       storyTitleSk: 'Chrumkov plán na okuliare',
-      storyBody: 'Chrumko knows he wants ice cream on Saturday and has been eyeing new sunglasses. On Wednesday he gets pocket money and spots a new toy in a shop window. He remembers his plans and walks past the shop. On Saturday he has enough for ice cream — and keeps saving for the sunglasses.',
-      storyBodySk: 'Chrumko vie, že v sobotu chce zmrzlinu s kamarátmi a dlho si chce kúpiť slnečné okuliare. V stredu dostane vreckové a uvidí novú hračku vo výklade. Spomenie si na plány a prejde okolo. V sobotu má dosť na zmrzlinu — a na okuliare stále šetrí.',
+      storyBody: 'Chrumko knows he wants ice cream on Saturday and has been eyeing new sunglasses. On Wednesday he gets pocket money and spots a new toy in a shop window. He remembers his plans and walks past the shop. On Saturday he has enough for ice cream - and keeps saving for the sunglasses.',
+      storyBodySk: 'Chrumko vie, že v sobotu chce zmrzlinu s kamarátmi a dlho si chce kúpiť slnečné okuliare. V stredu dostane vreckové a uvidí novú hračku vo výklade. Spomenie si na plány a prejde okolo. V sobotu má dosť na zmrzlinu - a na okuliare stále šetrí.',
       accentColor: Color(0xFF8D6E63),
     ),
     LessonSlide(
@@ -1015,7 +1015,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
   ],
 
 // ════════════════════════════════════════════
-// SECTION 4 — SPORENIE
+// SECTION 4 - SPORENIE
 // ════════════════════════════════════════════
 
   'co_je_sporenie': [
@@ -1034,8 +1034,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       iconContainerSize: 320,
       title: 'Chrumko\'s Piggy Bank',
       titleSk: 'Chrumkova pokladnička',
-      body: 'Chrumko gets small coins every week. He decides to put one coin into his piggy bank each time. At first it seems slow. After a few weeks his piggy bank is heavier — and he can now afford something more expensive!',
-      bodySk: 'Chrumko dostáva každý týždeň drobné mince. Rozhodne sa, že jednu mincu vždy vloží do pokladničky. Najprv sa zdá, že suma rastie pomaly. Po niekoľkých týždňoch je pokladnička ťažšia — a Chrumko si môže kúpiť niečo drahšie!',
+      body: 'Chrumko gets small coins every week. He decides to put one coin into his piggy bank each time. At first it seems slow. After a few weeks his piggy bank is heavier - and he can now afford something more expensive!',
+      bodySk: 'Chrumko dostáva každý týždeň drobné mince. Rozhodne sa, že jednu mincu vždy vloží do pokladničky. Najprv sa zdá, že suma rastie pomaly. Po niekoľkých týždňoch je pokladnička ťažšia - a Chrumko si môže kúpiť niečo drahšie!',
       accentColor: Color(0xFF43A047),
     ),
     LessonSlide(
@@ -1062,8 +1062,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🐷',
-      highlightText: 'Saving is like planting a seed — small, patient steps grow into something big!',
-      highlightTextSk: 'Sporenie je ako sadenie semienka — malé, trpezlivé kroky vyrastú na niečo veľké!',
+      highlightText: 'Saving is like planting a seed - small, patient steps grow into something big!',
+      highlightTextSk: 'Sporenie je ako sadenie semienka - malé, trpezlivé kroky vyrastú na niečo veľké!',
       accentColor: Color(0xFF43A047),
     ),
   ],
@@ -1086,8 +1086,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📚',
       storyTitle: 'The Book Chrumko Wanted',
       storyTitleSk: 'Kniha, ktorú Chrumko chcel',
-      storyBody: 'Chrumko notices a book in the bookshop he really loves. But it costs more than his weekly pocket money. Because he always sets aside part of his allowance, he already has enough saved. He buys the book — no waiting needed!',
-      storyBodySk: 'Chrumko si všimne v kníhkupectve knihu, ktorá sa mu veľmi páči. Stojí však viac, ako je jeho vreckové. Keďže si vždy odkladá časť vreckového, má dosť ušetrené. Kúpi si knihu — žiadne čakanie!',
+      storyBody: 'Chrumko notices a book in the bookshop he really loves. But it costs more than his weekly pocket money. Because he always sets aside part of his allowance, he already has enough saved. He buys the book - no waiting needed!',
+      storyBodySk: 'Chrumko si všimne v kníhkupectve knihu, ktorá sa mu veľmi páči. Stojí však viac, ako je jeho vreckové. Keďže si vždy odkladá časť vreckového, má dosť ušetrené. Kúpi si knihu - žiadne čakanie!',
       accentColor: Color(0xFF1E88E5),
     ),
     LessonSlide(
@@ -1105,8 +1105,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🔐',
-      highlightText: 'Saved money gives you FREEDOM — it lets you choose, not just react!',
-      highlightTextSk: 'Ušetrené peniaze ti dávajú SLOBODU — môžeš si vyberať, nie iba reagovať!',
+      highlightText: 'Saved money gives you FREEDOM - it lets you choose, not just react!',
+      highlightTextSk: 'Ušetrené peniaze ti dávajú SLOBODU - môžeš si vyberať, nie iba reagovať!',
       accentColor: Color(0xFF1E88E5),
     ),
   ],
@@ -1117,8 +1117,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🏁',
       title: 'Short-Term vs Long-Term Goals',
       titleSk: 'Krátkodobý cieľ vs dlhodobý cieľ',
-      body: 'What can you save for quickly — and what takes much more time?',
-      bodySk: 'Na čo si vieš rýchlo nasporiť — a na čo treba oveľa viac času?',
+      body: 'What can you save for quickly - and what takes much more time?',
+      bodySk: 'Na čo si vieš rýchlo nasporiť - a na čo treba oveľa viac času?',
       accentColor: Color(0xFF7B1FA2),
     ),
     LessonSlide(
@@ -1126,8 +1126,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🧱',
       title: 'Stickers and a Big Set',
       titleSk: 'Nálepky a veľká stavebnica',
-      body: 'Chrumko wants new stickers he can save for in one week. He also wants a big building set that costs much more — that will take several weeks of saving. He decides to work on both goals at the same time!',
-      bodySk: 'Chrumko chce nové nálepky, na ktoré si vie nasporiť za týždeň. Zároveň sa mu páči veľká stavebnica, ktorá stojí oveľa viac — na tú bude šetriť niekoľko týždňov. Rozhodne sa pracovať na oboch cieľoch naraz!',
+      body: 'Chrumko wants new stickers he can save for in one week. He also wants a big building set that costs much more - that will take several weeks of saving. He decides to work on both goals at the same time!',
+      bodySk: 'Chrumko chce nové nálepky, na ktoré si vie nasporiť za týždeň. Zároveň sa mu páči veľká stavebnica, ktorá stojí oveľa viac - na tú bude šetriť niekoľko týždňov. Rozhodne sa pracovať na oboch cieľoch naraz!',
       accentColor: Color(0xFF7B1FA2),
     ),
     LessonSlide(
@@ -1136,7 +1136,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Two Types of Goals',
       titleSk: 'Dva typy cieľov',
       facts: [
-        FactItem(emoji: '⌛', text: 'Short-term: achieved quickly, usually cheaper — like stickers or a treat', textSk: 'Krátkodobý: dosiahneš rýchlo, zvyčajne lacnejší — napríklad nálepky alebo sladkosť'),
+        FactItem(emoji: '⌛', text: 'Short-term: achieved quickly, usually cheaper - like stickers or a treat', textSk: 'Krátkodobý: dosiahneš rýchlo, zvyčajne lacnejší - napríklad nálepky alebo sladkosť'),
         FactItem(emoji: '🕰️', text: 'Long-term: takes weeks or months, usually more valuable', textSk: 'Dlhodobý: trvá týždne alebo mesiace, zvyčajne hodnotnejší'),
         FactItem(emoji: '🎯', text: 'Having both types of goals keeps saving fun and motivating', textSk: 'Mať oba typy cieľov robí sporenie zábavnejším a motivujúcejším'),
       ],
@@ -1168,8 +1168,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📦',
       title: 'Chrumko\'s Envelope',
       titleSk: 'Chrumkova obálka',
-      body: 'Chrumko keeps some money in a small envelope and doesn\'t want to spend it yet. A few days later at school he discovers he needs material for a project. Thanks to his reserve, he doesn\'t have to stress about where to get the money — he can buy what he needs right away.',
-      bodySk: 'Chrumko si necháva časť peňazí v malej obálke a nechce ich hneď minúť. O pár dní v škole zistí, že potrebuje materiál na projekt. Vďaka rezerve nemusí riešiť, odkiaľ peniaze zobrať — materiál môže kúpiť hneď.',
+      body: 'Chrumko keeps some money in a small envelope and doesn\'t want to spend it yet. A few days later at school he discovers he needs material for a project. Thanks to his reserve, he doesn\'t have to stress about where to get the money - he can buy what he needs right away.',
+      bodySk: 'Chrumko si necháva časť peňazí v malej obálke a nechce ich hneď minúť. O pár dní v škole zistí, že potrebuje materiál na projekt. Vďaka rezerve nemusí riešiť, odkiaľ peniaze zobrať - materiál môže kúpiť hneď.',
       accentColor: Color(0xFF00838F),
     ),
     LessonSlide(
@@ -1179,7 +1179,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       titleSk: 'Na čo je rezerva',
       facts: [
         FactItem(emoji: '🔧', text: 'Unexpected repairs or replacements (a broken toy, a lost pencil)', textSk: 'Nečakané opravy alebo náhrady (pokazená hračka, stratená ceruzka)'),
-        FactItem(emoji: '📋', text: 'Surprise school needs — materials, trips, events', textSk: 'Nečakané školské potreby — materiál, výlety, udalosti'),
+        FactItem(emoji: '📋', text: 'Surprise school needs - materials, trips, events', textSk: 'Nečakané školské potreby - materiál, výlety, udalosti'),
         FactItem(emoji: '✨', text: 'Peace of mind knowing you\'re always prepared', textSk: 'Pokoj v duši, že si vždy pripravený'),
       ],
       accentColor: Color(0xFF00838F),
@@ -1187,8 +1187,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🛡️',
-      highlightText: 'A reserve is your financial safety net — always have a little set aside "just in case"!',
-      highlightTextSk: 'Rezerva je tvoja finančná sieť bezpečnosti — vždy si trochu nechaj "pre istotu"!',
+      highlightText: 'A reserve is your financial safety net - always have a little set aside "just in case"!',
+      highlightTextSk: 'Rezerva je tvoja finančná sieť bezpečnosti - vždy si trochu nechaj "pre istotu"!',
       accentColor: Color(0xFF00838F),
     ),
   ],
@@ -1222,7 +1222,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       titleSk: 'Sila pravidelného sporenia',
       facts: [
         FactItem(emoji: '📅', text: '50 cents a week = €2 a month = €26 a year!', textSk: '50 centov týždenne = 2 € mesačne = 26 € za rok!'),
-        FactItem(emoji: '🔁', text: 'The key is regularity — even tiny amounts count', textSk: 'Kľúčom je pravidelnosť — aj drobné sumy sa počítajú'),
+        FactItem(emoji: '🔁', text: 'The key is regularity - even tiny amounts count', textSk: 'Kľúčom je pravidelnosť - aj drobné sumy sa počítajú'),
         FactItem(emoji: '🏔️', text: 'Small steps consistently taken lead to big results', textSk: 'Malé kroky robené pravidelne vedú k veľkým výsledkom'),
       ],
       accentColor: Color(0xFFFB8C00),
@@ -1230,14 +1230,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📈',
-      highlightText: 'Don\'t underestimate small amounts — CONSISTENCY turns coins into real savings!',
-      highlightTextSk: 'Nepodceňuj malé sumy — PRAVIDELNOSŤ mení mince na skutočné úspory!',
+      highlightText: 'Don\'t underestimate small amounts - CONSISTENCY turns coins into real savings!',
+      highlightTextSk: 'Nepodceňuj malé sumy - PRAVIDELNOSŤ mení mince na skutočné úspory!',
       accentColor: Color(0xFFFB8C00),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 5 — CENA A HODNOTA
+// SECTION 5 - CENA A HODNOTA
 // ════════════════════════════════════════════
 
   'cena_vs_kvalita': [
@@ -1246,7 +1246,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '⚖️',
       title: 'Price vs Quality',
       titleSk: 'Cena vs kvalita',
-      body: 'Is a more expensive thing always better — or do we sometimes pay for something other than the product itself?',
+      body: 'Is a more expensive thing always better - or do we sometimes pay for something other than the product itself?',
       bodySk: 'Je drahšia vec vždy lepšia, alebo niekedy platíme aj za niečo iné než samotný výrobok?',
       accentColor: Color(0xFF6D4C41),
     ),
@@ -1258,8 +1258,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '✏️',
       storyTitle: 'Two Pencils',
       storyTitleSk: 'Dve ceruzky',
-      storyBody: 'Chrumko is choosing a pencil in the stationery shop. One has a colourful label and a famous brand — so it costs more. Next to it is a simpler pencil that costs less. He tries both on paper. Both write equally well. The shop assistant explains the dearer one costs more partly because of its famous name. Chrumko realises a higher price doesn\'t automatically mean better quality.',
-      storyBodySk: 'Chrumko si v papiernictve vyberá novú ceruzku. Jedna má farebný obal a známu značku — preto stojí viac. Vedľa leží jednoduchšia ceruzka, ktorá stojí menej. Obe vyskúša na papieri. Obe píšu rovnako dobre. Predavačka mu vysvetlí, že drahšia stojí viac aj pre známe meno. Chrumko si uvedomí, že vyššia cena automaticky neznamená lepšiu kvalitu.',
+      storyBody: 'Chrumko is choosing a pencil in the stationery shop. One has a colourful label and a famous brand - so it costs more. Next to it is a simpler pencil that costs less. He tries both on paper. Both write equally well. The shop assistant explains the dearer one costs more partly because of its famous name. Chrumko realises a higher price doesn\'t automatically mean better quality.',
+      storyBodySk: 'Chrumko si v papiernictve vyberá novú ceruzku. Jedna má farebný obal a známu značku - preto stojí viac. Vedľa leží jednoduchšia ceruzka, ktorá stojí menej. Obe vyskúša na papieri. Obe píšu rovnako dobre. Predavačka mu vysvetlí, že drahšia stojí viac aj pre známe meno. Chrumko si uvedomí, že vyššia cena automaticky neznamená lepšiu kvalitu.',
       accentColor: Color(0xFF6D4C41),
     ),
     LessonSlide(
@@ -1268,9 +1268,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'What Affects Price',
       titleSk: 'Čo ovplyvňuje cenu',
       facts: [
-        FactItem(emoji: '🏷️', text: 'Brand name — famous brands charge more', textSk: 'Značka — známe značky účtujú viac'),
-        FactItem(emoji: '🔨', text: 'Materials — better materials can mean higher quality', textSk: 'Materiály — lepšie materiály môžu znamenať vyššiu kvalitu'),
-        FactItem(emoji: '📺', text: 'Advertising — companies spend a lot on ads and you pay for it', textSk: 'Reklama — firmy míňajú veľa na reklamu a ty to platíš'),
+        FactItem(emoji: '🏷️', text: 'Brand name - famous brands charge more', textSk: 'Značka - známe značky účtujú viac'),
+        FactItem(emoji: '🔨', text: 'Materials - better materials can mean higher quality', textSk: 'Materiály - lepšie materiály môžu znamenať vyššiu kvalitu'),
+        FactItem(emoji: '📺', text: 'Advertising - companies spend a lot on ads and you pay for it', textSk: 'Reklama - firmy míňajú veľa na reklamu a ty to platíš'),
       ],
       accentColor: Color(0xFF6D4C41),
     ),
@@ -1279,8 +1279,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🕵️',
       title: 'Be a Smart Buyer',
       titleSk: 'Buď chytrý kupujúci',
-      body: 'Don\'t just look at the price tag — look at the actual product. How well does it work? How long will it last? Those are the questions that matter!',
-      bodySk: 'Nepozeraj len na cenovku — pozri sa na samotný výrobok. Ako dobre funguje? Ako dlho vydrží? To sú otázky, ktoré sa počítajú!',
+      body: 'Don\'t just look at the price tag - look at the actual product. How well does it work? How long will it last? Those are the questions that matter!',
+      bodySk: 'Nepozeraj len na cenovku - pozri sa na samotný výrobok. Ako dobre funguje? Ako dlho vydrží? To sú otázky, ktoré sa počítajú!',
       accentColor: Color(0xFF6D4C41),
     ),
     LessonSlide(
@@ -1326,8 +1326,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🏷️',
-      highlightText: 'The same product, the same quality — sometimes a different shop means a better price!',
-      highlightTextSk: 'Rovnaký výrobok, rovnaká kvalita — niekedy iný obchod znamená lepšiu cenu!',
+      highlightText: 'The same product, the same quality - sometimes a different shop means a better price!',
+      highlightTextSk: 'Rovnaký výrobok, rovnaká kvalita - niekedy iný obchod znamená lepšiu cenu!',
       accentColor: Color(0xFF0277BD),
     ),
   ],
@@ -1350,8 +1350,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '💧',
       storyTitle: 'Chrumko\'s Water Bottle',
       storyTitleSk: 'Chrumkova fľaša na vodu',
-      storyBody: 'Chrumko wants a new water bottle for school. He sees a very cheap thin plastic one, but it looks fragile. Next to it is a sturdier bottle that costs more. He chooses the sturdier one because he can use it every day. Weeks later he\'s glad — it hasn\'t been damaged and still works perfectly. The more expensive bottle turned out to be the better deal!',
-      storyBodySk: 'Chrumko chce novú fľašu na vodu do školy. Vidí veľmi lacnú tenkú plastovú, ale zdá sa krehká. Vedľa je pevnejšia fľaša, ktorá stojí viac. Vyberie si pevnejšiu, pretože ju môže používať každý deň. O týždne neskôr je rád — nepoškodila sa a stále skvelo slúži. Drahšia fľaša bola nakoniec výhodnejšia kúpa!',
+      storyBody: 'Chrumko wants a new water bottle for school. He sees a very cheap thin plastic one, but it looks fragile. Next to it is a sturdier bottle that costs more. He chooses the sturdier one because he can use it every day. Weeks later he\'s glad - it hasn\'t been damaged and still works perfectly. The more expensive bottle turned out to be the better deal!',
+      storyBodySk: 'Chrumko chce novú fľašu na vodu do školy. Vidí veľmi lacnú tenkú plastovú, ale zdá sa krehká. Vedľa je pevnejšia fľaša, ktorá stojí viac. Vyberie si pevnejšiu, pretože ju môže používať každý deň. O týždne neskôr je rád - nepoškodila sa a stále skvelo slúži. Drahšia fľaša bola nakoniec výhodnejšia kúpa!',
       accentColor: Color(0xFF2E7D32),
     ),
     LessonSlide(
@@ -1393,8 +1393,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🖍️',
       storyTitle: 'Chrumko\'s Coloured Pencils',
       storyTitleSk: 'Chrumkove pastelky',
-      storyBody: 'Chrumko wants coloured pencils. In the first shop he finds a set he likes. Later in another shop he sees the same set — same number of colours — but cheaper. He compares the packaging and content: it\'s the same product. He buys the cheaper set and has money left for other school supplies.',
-      storyBodySk: 'Chrumko chce pastelky. V prvom obchode nájde sadu, ktorá sa mu páči. Neskôr v inom obchode uvidí rovnakú sadu — rovnaký počet farieb — ale lacnejšie. Porovná obaly aj obsah: je to rovnaký výrobok. Kúpi lacnejšiu sadu a zostanú mu peniaze na ďalšie školské potreby.',
+      storyBody: 'Chrumko wants coloured pencils. In the first shop he finds a set he likes. Later in another shop he sees the same set - same number of colours - but cheaper. He compares the packaging and content: it\'s the same product. He buys the cheaper set and has money left for other school supplies.',
+      storyBodySk: 'Chrumko chce pastelky. V prvom obchode nájde sadu, ktorá sa mu páči. Neskôr v inom obchode uvidí rovnakú sadu - rovnaký počet farieb - ale lacnejšie. Porovná obaly aj obsah: je to rovnaký výrobok. Kúpi lacnejšiu sadu a zostanú mu peniaze na ďalšie školské potreby.',
       accentColor: Color(0xFF4527A0),
     ),
     LessonSlide(
@@ -1403,7 +1403,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'How to Compare',
       titleSk: 'Ako porovnávať',
       facts: [
-        FactItem(emoji: '1️⃣', text: 'Check what\'s inside — quantity and quality', textSk: 'Skontroluj obsah — množstvo a kvalitu'),
+        FactItem(emoji: '1️⃣', text: 'Check what\'s inside - quantity and quality', textSk: 'Skontroluj obsah - množstvo a kvalitu'),
         FactItem(emoji: '2️⃣', text: 'Look at the price per item or per gram', textSk: 'Pozri sa na cenu za kus alebo za gram'),
         FactItem(emoji: '3️⃣', text: 'Check at least two different shops before buying', textSk: 'Pred kúpou pozri aspoň v dvoch rôznych obchodoch'),
       ],
@@ -1412,8 +1412,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🔎',
-      highlightText: 'A few extra minutes of comparing can save real money — always check more than one option!',
-      highlightTextSk: 'Pár minút porovnávania môže ušetriť skutočné peniaze — vždy pozri viac ako jednu možnosť!',
+      highlightText: 'A few extra minutes of comparing can save real money - always check more than one option!',
+      highlightTextSk: 'Pár minút porovnávania môže ušetriť skutočné peniaze - vždy pozri viac ako jednu možnosť!',
       accentColor: Color(0xFF4527A0),
     ),
   ],
@@ -1424,7 +1424,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📏',
       title: 'Unit Price',
       titleSk: 'Jednotková cena',
-      body: 'Is a bigger pack always more expensive — or can it actually work out cheaper?',
+      body: 'Is a bigger pack always more expensive - or can it actually work out cheaper?',
       bodySk: 'Je väčšie balenie vždy drahšie, alebo môže v skutočnosti vyjsť výhodnejšie?',
       accentColor: Color(0xFF00695C),
     ),
@@ -1455,14 +1455,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📏',
-      highlightText: 'The total price isn\'t everything — always check the UNIT PRICE to find the real best deal!',
-      highlightTextSk: 'Celková cena nie je všetko — vždy skontroluj JEDNOTKOVÚ CENU, aby si našiel skutočne najlepšiu kúpu!',
+      highlightText: 'The total price isn\'t everything - always check the UNIT PRICE to find the real best deal!',
+      highlightTextSk: 'Celková cena nie je všetko - vždy skontroluj JEDNOTKOVÚ CENU, aby si našiel skutočne najlepšiu kúpu!',
       accentColor: Color(0xFF00695C),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 6 — NAKUPOVANIE A ROZHODOVANIE
+// SECTION 6 - NAKUPOVANIE A ROZHODOVANIE
 // ════════════════════════════════════════════
 
   'ako_funguje_obchod': [
@@ -1491,7 +1491,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       titleSk: 'Ako fungujú obchody',
       facts: [
         FactItem(emoji: '🏭', text: 'Shops buy products from manufacturers or suppliers', textSk: 'Obchody nakupujú výrobky od výrobcov alebo dodávateľov'),
-        FactItem(emoji: '💰', text: 'They sell them to customers at a higher price — that\'s how they earn', textSk: 'Predávajú ich zákazníkom za vyššiu cenu — tak zarábajú'),
+        FactItem(emoji: '💰', text: 'They sell them to customers at a higher price - that\'s how they earn', textSk: 'Predávajú ich zákazníkom za vyššiu cenu - tak zarábajú'),
         FactItem(emoji: '🏗️', text: 'The price includes staff wages, transport, storage, and running costs', textSk: 'V cene sú zahrnuté mzdy, doprava, skladovanie a prevádzka obchodu'),
       ],
       accentColor: Color(0xFF1565C0),
@@ -1530,8 +1530,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.facts,
       emoji: '💡',
-      title: 'Discounts — The Truth',
-      titleSk: 'Zľavy — pravda',
+      title: 'Discounts - The Truth',
+      titleSk: 'Zľavy - pravda',
       facts: [
         FactItem(emoji: '📣', text: 'Shops use discounts to attract customers and sell more', textSk: 'Obchody používajú zľavy, aby nalákali zákazníkov a predali viac'),
         FactItem(emoji: '❓', text: 'Ask: would I buy this at the normal price?', textSk: 'Opýtaj sa: kúpil by som si toto za normálnu cenu?'),
@@ -1563,7 +1563,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🟡',
       storyTitle: '"Best Price" Sign',
       storyTitleSk: 'Nápis "Najlepšia cena"',
-      storyBody: 'Chrumko notices a large yellow sign: "Great deal — best price!" The product is placed right at the entrance where everyone sees it. He thinks there must be huge savings. When he checks the price of a similar product on another shelf, the difference is tiny. His mum explains that a big sign doesn\'t automatically mean the best deal. Chrumko learns to compare first, then decide.',
+      storyBody: 'Chrumko notices a large yellow sign: "Great deal - best price!" The product is placed right at the entrance where everyone sees it. He thinks there must be huge savings. When he checks the price of a similar product on another shelf, the difference is tiny. His mum explains that a big sign doesn\'t automatically mean the best deal. Chrumko learns to compare first, then decide.',
       storyBodySk: 'Chrumko si všimne veľký žltý nápis: „Výhodné balenie za najlepšiu cenu!" Výrobok je položený pri vstupe, kde ho každý vidí. Myslí si, že úspora musí byť obrovská. Keď skontroluje cenu podobného výrobku na inom regáli, rozdiel je veľmi malý. Mama vysvetlí, že veľký nápis automaticky neznamená najlepšiu kúpu. Chrumko sa naučí najprv porovnávať, potom rozhodovať.',
       accentColor: Color(0xFFE65100),
     ),
@@ -1573,7 +1573,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Common Marketing Tricks',
       titleSk: 'Bežné marketingové triky',
       facts: [
-        FactItem(emoji: '🟡', text: '"Best price / only today" — creates urgency so you act fast', textSk: '"Najlepšia cena / len dnes" — vytvára naliehavosť, aby si konal rýchlo'),
+        FactItem(emoji: '🟡', text: '"Best price / only today" - creates urgency so you act fast', textSk: '"Najlepšia cena / len dnes" - vytvára naliehavosť, aby si konal rýchlo'),
         FactItem(emoji: '📍', text: 'Products placed at eye level or at the entrance are often more expensive', textSk: 'Výrobky umiestnené vo výške očí alebo pri vstupe bývajú drahšie'),
         FactItem(emoji: '🔢', text: 'Prices like €1.99 look much cheaper than €2 even though they\'re nearly the same', textSk: 'Ceny ako 1,99 € vyzerajú oveľa lacnejšie ako 2 €, hoci sú skoro rovnaké'),
       ],
@@ -1591,8 +1591,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🎭',
-      highlightText: 'Shops are designed to make you spend. Stay alert — YOU are in charge of your money!',
-      highlightTextSk: 'Obchody sú navrhnuté, aby si míňal. Buď ostražitý — TY si šéf svojich peňazí!',
+      highlightText: 'Shops are designed to make you spend. Stay alert - YOU are in charge of your money!',
+      highlightTextSk: 'Obchody sú navrhnuté, aby si míňal. Buď ostražitý - TY si šéf svojich peňazí!',
       accentColor: Color(0xFFE65100),
     ),
   ],
@@ -1612,8 +1612,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🍬',
       storyTitle: 'Gum at the Checkout',
       storyTitleSk: 'Žuvačky pri pokladni',
-      storyBody: 'Chrumko stands with his mum at the checkout. While waiting in line he sees colourful chewing gum right by the till — placed exactly where everyone notices it. He instantly wants some. Then he remembers he still has sweets at home from yesterday. He waits and in the end doesn\'t buy the gum. The craving passes quickly.',
-      storyBodySk: 'Chrumko stojí s mamou pri pokladni. Kým čakajú v rade, uvidí farebné žuvačky hneď pri kase — umiestnené presne tam, kde si ich každý všimne. Hneď ich chce. Potom si spomenie, že doma má ešte sladkosť z včera. Počká a nakoniec si žuvačky nekúpi. Chuť rýchlo prešla.',
+      storyBody: 'Chrumko stands with his mum at the checkout. While waiting in line he sees colourful chewing gum right by the till - placed exactly where everyone notices it. He instantly wants some. Then he remembers he still has sweets at home from yesterday. He waits and in the end doesn\'t buy the gum. The craving passes quickly.',
+      storyBodySk: 'Chrumko stojí s mamou pri pokladni. Kým čakajú v rade, uvidí farebné žuvačky hneď pri kase - umiestnené presne tam, kde si ich každý všimne. Hneď ich chce. Potom si spomenie, že doma má ešte sladkosť z včera. Počká a nakoniec si žuvačky nekúpi. Chuť rýchlo prešla.',
       accentColor: Color(0xFF6A1B9A),
     ),
     LessonSlide(
@@ -1640,8 +1640,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🤯',
-      highlightText: 'Impulse buys feel exciting for a second — but a PAUSE gives you control!',
-      highlightTextSk: 'Impulzívne nákupy sú vzrušujúce na sekundu — ale PAUZA ti dáva kontrolu!',
+      highlightText: 'Impulse buys feel exciting for a second - but a PAUSE gives you control!',
+      highlightTextSk: 'Impulzívne nákupy sú vzrušujúce na sekundu - ale PAUZA ti dáva kontrolu!',
       accentColor: Color(0xFF6A1B9A),
     ),
   ],
@@ -1652,7 +1652,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🧠',
       title: 'Think for Yourself',
       titleSk: 'Ako sa rozhodovať vlastnou hlavou',
-      body: 'How do you know if you want something because you need it — or just because it caught your attention?',
+      body: 'How do you know if you want something because you need it - or just because it caught your attention?',
       bodySk: 'Ako zistiť, či niečo chceš preto, že to potrebuješ, alebo preto, že to upútalo tvoju pozornosť?',
       accentColor: Color(0xFF37474F),
     ),
@@ -1683,14 +1683,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🧠',
-      highlightText: 'Your own brain is the best shopping tool — use it BEFORE you buy, not after!',
-      highlightTextSk: 'Tvoj vlastný mozog je najlepší nákupný nástroj — použi ho PRED kúpou, nie po nej!',
+      highlightText: 'Your own brain is the best shopping tool - use it BEFORE you buy, not after!',
+      highlightTextSk: 'Tvoj vlastný mozog je najlepší nákupný nástroj - použi ho PRED kúpou, nie po nej!',
       accentColor: Color(0xFF37474F),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 7 — PENIAZE V RODINE
+// SECTION 7 - PENIAZE V RODINE
 // ════════════════════════════════════════════
 
   'odkial_rodina_berie_peniaze': [
@@ -1718,17 +1718,17 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Sources of Family Income',
       titleSk: 'Zdroje rodinného príjmu',
       facts: [
-        FactItem(emoji: '👔', text: 'Salary — regular pay from an employer for work done', textSk: 'Plat — pravidelná odmena od zamestnávateľa za vykonanú prácu'),
-        FactItem(emoji: '🏪', text: 'Business — some parents run their own company or service', textSk: 'Podnikanie — niektorí rodičia prevádzkujú vlastnú firmu alebo službu'),
-        FactItem(emoji: '🎁', text: 'Other sources — gifts, benefits, or occasional income', textSk: 'Iné zdroje — darčeky, dávky alebo príležitostný príjem'),
+        FactItem(emoji: '👔', text: 'Salary - regular pay from an employer for work done', textSk: 'Plat - pravidelná odmena od zamestnávateľa za vykonanú prácu'),
+        FactItem(emoji: '🏪', text: 'Business - some parents run their own company or service', textSk: 'Podnikanie - niektorí rodičia prevádzkujú vlastnú firmu alebo službu'),
+        FactItem(emoji: '🎁', text: 'Other sources - gifts, benefits, or occasional income', textSk: 'Iné zdroje - darčeky, dávky alebo príležitostný príjem'),
       ],
       accentColor: Color(0xFF2E7D32),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '👨‍👩‍👦',
-      highlightText: 'Family money comes from WORK. Work takes time and effort — that\'s why it matters!',
-      highlightTextSk: 'Rodinné peniaze pochádzajú z PRÁCE. Práca si vyžaduje čas a úsilie — preto má zmysel!',
+      highlightText: 'Family money comes from WORK. Work takes time and effort - that\'s why it matters!',
+      highlightTextSk: 'Rodinné peniaze pochádzajú z PRÁCE. Práca si vyžaduje čas a úsilie - preto má zmysel!',
       accentColor: Color(0xFF2E7D32),
     ),
   ],
@@ -1758,9 +1758,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Common Household Expenses',
       titleSk: 'Bežné výdavky domácnosti',
       facts: [
-        FactItem(emoji: '🏠', text: 'Rent or mortgage — paying for where you live', textSk: 'Nájom alebo hypotéka — platenie za miesto, kde bývate'),
-        FactItem(emoji: '🛒', text: 'Food — grocery shopping happens every week', textSk: 'Jedlo — nákup potravín prebieha každý týždeň'),
-        FactItem(emoji: '💡', text: 'Utilities — electricity, water, heating, internet', textSk: 'Energie — elektrina, voda, kúrenie, internet'),
+        FactItem(emoji: '🏠', text: 'Rent or mortgage - paying for where you live', textSk: 'Nájom alebo hypotéka - platenie za miesto, kde bývate'),
+        FactItem(emoji: '🛒', text: 'Food - grocery shopping happens every week', textSk: 'Jedlo - nákup potravín prebieha každý týždeň'),
+        FactItem(emoji: '💡', text: 'Utilities - electricity, water, heating, internet', textSk: 'Energie - elektrina, voda, kúrenie, internet'),
         FactItem(emoji: '🎒', text: 'School supplies, transport, healthcare', textSk: 'Školské potreby, doprava, zdravotná starostlivosť'),
       ],
       accentColor: Color(0xFF4E342E),
@@ -1768,8 +1768,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🏠',
-      highlightText: 'Running a home has many regular costs — they all add up, even when nothing "big" is bought!',
-      highlightTextSk: 'Chod domácnosti má veľa pravidelných nákladov — všetky sa spočítajú, aj keď sa nič "veľké" nekupuje!',
+      highlightText: 'Running a home has many regular costs - they all add up, even when nothing "big" is bought!',
+      highlightTextSk: 'Chod domácnosti má veľa pravidelných nákladov - všetky sa spočítajú, aj keď sa nič "veľké" nekupuje!',
       accentColor: Color(0xFF4E342E),
     ),
   ],
@@ -1799,17 +1799,17 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'What Housing Costs Include',
       titleSk: 'Čo zahŕňajú náklady na bývanie',
       facts: [
-        FactItem(emoji: '💳', text: 'Rent or mortgage — regular payment for using or buying the home', textSk: 'Nájom alebo hypotéka — pravidelná platba za používanie alebo kúpu domu'),
-        FactItem(emoji: '🔥', text: 'Heating & water — keeping the home comfortable', textSk: 'Kúrenie a voda — udržiavanie domova pohodlného'),
-        FactItem(emoji: '🔧', text: 'Repairs & maintenance — things break and need fixing', textSk: 'Opravy a údržba — veci sa kazia a treba ich opraviť'),
+        FactItem(emoji: '💳', text: 'Rent or mortgage - regular payment for using or buying the home', textSk: 'Nájom alebo hypotéka - pravidelná platba za používanie alebo kúpu domu'),
+        FactItem(emoji: '🔥', text: 'Heating & water - keeping the home comfortable', textSk: 'Kúrenie a voda - udržiavanie domova pohodlného'),
+        FactItem(emoji: '🔧', text: 'Repairs & maintenance - things break and need fixing', textSk: 'Opravy a údržba - veci sa kazia a treba ich opraviť'),
       ],
       accentColor: Color(0xFF1A237E),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🏘️',
-      highlightText: 'A home is wonderful — and it costs money to keep it warm, safe, and working every day!',
-      highlightTextSk: 'Domov je nádherný — a stojí peniaze, aby bol každý deň teplý, bezpečný a funkčný!',
+      highlightText: 'A home is wonderful - and it costs money to keep it warm, safe, and working every day!',
+      highlightTextSk: 'Domov je nádherný - a stojí peniaze, aby bol každý deň teplý, bezpečný a funkčný!',
       accentColor: Color(0xFF1A237E),
     ),
   ],
@@ -1842,8 +1842,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Food Spending Facts',
       titleSk: 'Fakty o výdavkoch na jedlo',
       facts: [
-        FactItem(emoji: '🗓️', text: 'Food is bought frequently — it runs out and needs replacing', textSk: 'Jedlo sa kupuje často — míňa sa a treba ho dopĺňať'),
-        FactItem(emoji: '👨‍👩‍👦', text: 'The bigger the family, the more food — and the bigger the cost', textSk: 'Čím väčšia rodina, tým viac jedla — a väčší výdavok'),
+        FactItem(emoji: '🗓️', text: 'Food is bought frequently - it runs out and needs replacing', textSk: 'Jedlo sa kupuje často - míňa sa a treba ho dopĺňať'),
+        FactItem(emoji: '👨‍👩‍👦', text: 'The bigger the family, the more food - and the bigger the cost', textSk: 'Čím väčšia rodina, tým viac jedla - a väčší výdavok'),
         FactItem(emoji: '➕', text: 'Small individual items add up to a large monthly total', textSk: 'Malé jednotlivé položky sa spočítajú na veľkú mesačnú sumu'),
       ],
       accentColor: Color(0xFF558B2F),
@@ -1851,8 +1851,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🍞',
-      highlightText: 'Food is one of the BIGGEST regular expenses for every family — it\'s a true need!',
-      highlightTextSk: 'Jedlo je jeden z NAJVÄČŠÍCH pravidelných výdavkov každej rodiny — je to skutočná potreba!',
+      highlightText: 'Food is one of the BIGGEST regular expenses for every family - it\'s a true need!',
+      highlightTextSk: 'Jedlo je jeden z NAJVÄČŠÍCH pravidelných výdavkov každej rodiny - je to skutočná potreba!',
       accentColor: Color(0xFF558B2F),
     ),
   ],
@@ -1863,7 +1863,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '💡',
       title: 'Energy Costs Money',
       titleSk: 'Energia stojí peniaze',
-      body: 'Why do parents turn off lights — even when we could leave them on a little longer?',
+      body: 'Why do parents turn off lights - even when we could leave them on a little longer?',
       bodySk: 'Prečo rodičia vypínajú svetlo, aj keď ho ešte chvíľu môžeme nechať svietiť?',
       accentColor: Color(0xFFF9A825),
     ),
@@ -1895,14 +1895,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '💡',
-      highlightText: 'Small habits save big money — every bit of energy you save helps your family!',
-      highlightTextSk: 'Malé návyky šetria veľké peniaze — každý kúsok energie, ktorý ušetríš, pomáha tvojej rodine!',
+      highlightText: 'Small habits save big money - every bit of energy you save helps your family!',
+      highlightTextSk: 'Malé návyky šetria veľké peniaze - každý kúsok energie, ktorý ušetríš, pomáha tvojej rodine!',
       accentColor: Color(0xFFF9A825),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 8 — PRÁCA A PRÍJEM
+// SECTION 8 - PRÁCA A PRÍJEM
 // ════════════════════════════════════════════
 
   'preco_ludia_pracuju': [
@@ -1930,16 +1930,16 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Two Reasons People Work',
       titleSk: 'Dva dôvody, prečo ľudia pracujú',
       facts: [
-        FactItem(emoji: '💰', text: 'Earning money — to pay for life\'s necessities and more', textSk: 'Zarábanie peňazí — na platenie životných potrieb a ďalšieho'),
-        FactItem(emoji: '🤝', text: 'Helping others — teachers, doctors, and builders all make life better for everyone', textSk: 'Pomáhanie ostatným — učitelia, lekári a stavbári zlepšujú život všetkým'),
+        FactItem(emoji: '💰', text: 'Earning money - to pay for life\'s necessities and more', textSk: 'Zarábanie peňazí - na platenie životných potrieb a ďalšieho'),
+        FactItem(emoji: '🤝', text: 'Helping others - teachers, doctors, and builders all make life better for everyone', textSk: 'Pomáhanie ostatným - učitelia, lekári a stavbári zlepšujú život všetkým'),
       ],
       accentColor: Color(0xFF00796B),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '💼',
-      highlightText: 'Work creates value — and that value earns money AND makes the world a better place!',
-      highlightTextSk: 'Práca vytvára hodnotu — a tá hodnota zarába peniaze A robí svet lepším miestom!',
+      highlightText: 'Work creates value - and that value earns money AND makes the world a better place!',
+      highlightTextSk: 'Práca vytvára hodnotu - a tá hodnota zarába peniaze A robí svet lepším miestom!',
       accentColor: Color(0xFF00796B),
     ),
   ],
@@ -1950,7 +1950,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🌐',
       title: 'Types of Jobs',
       titleSk: 'Typy povolaní',
-      body: 'Does everyone do the same work — or does each person have a different role?',
+      body: 'Does everyone do the same work - or does each person have a different role?',
       bodySk: 'Robia všetci dospelí rovnakú prácu, alebo má každý inú úlohu?',
       accentColor: Color(0xFF283593),
     ),
@@ -1959,8 +1959,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🚌',
       storyTitle: 'Chrumko\'s Walk to School',
       storyTitleSk: 'Chrumkova cesta do školy',
-      storyBody: 'Chrumko walks to school and notices how many different people are already working. The bus has a driver, the school has a teacher waiting, workers are fixing the pavement by the road. Later in the shop a shop assistant is stocking shelves and a postman delivers letters. Chrumko realises everyone does something different — but together all these jobs keep the world running.',
-      storyBodySk: 'Chrumko ide do školy a všimne si, koľko rôznych ľudí už pracuje. Autobus šoféruje vodič, v škole čaká učiteľka, pri ceste opravujú pracovníci chodník. Neskôr v obchode predavačka dopĺňa tovar a poštár nosí listy. Chrumko si uvedomí, že každý robí niečo iné — ale dohromady tieto práce udržujú svet v chode.',
+      storyBody: 'Chrumko walks to school and notices how many different people are already working. The bus has a driver, the school has a teacher waiting, workers are fixing the pavement by the road. Later in the shop a shop assistant is stocking shelves and a postman delivers letters. Chrumko realises everyone does something different - but together all these jobs keep the world running.',
+      storyBodySk: 'Chrumko ide do školy a všimne si, koľko rôznych ľudí už pracuje. Autobus šoféruje vodič, v škole čaká učiteľka, pri ceste opravujú pracovníci chodník. Neskôr v obchode predavačka dopĺňa tovar a poštár nosí listy. Chrumko si uvedomí, že každý robí niečo iné - ale dohromady tieto práce udržujú svet v chode.',
       accentColor: Color(0xFF283593),
     ),
     LessonSlide(
@@ -1969,17 +1969,17 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Types of Work',
       titleSk: 'Typy práce',
       facts: [
-        FactItem(emoji: '🏫', text: 'Teaching, healing, helping — working with people', textSk: 'Vyučovanie, liečenie, pomáhanie — práca s ľuďmi'),
-        FactItem(emoji: '🏗️', text: 'Building, repairing, making — creating physical things', textSk: 'Stavanie, opravovanie, vyrábanie — tvorba fyzických vecí'),
-        FactItem(emoji: '💻', text: 'Organising, designing, computing — working with information', textSk: 'Organizovanie, navrhovanie, počítanie — práca s informáciami'),
+        FactItem(emoji: '🏫', text: 'Teaching, healing, helping - working with people', textSk: 'Vyučovanie, liečenie, pomáhanie - práca s ľuďmi'),
+        FactItem(emoji: '🏗️', text: 'Building, repairing, making - creating physical things', textSk: 'Stavanie, opravovanie, vyrábanie - tvorba fyzických vecí'),
+        FactItem(emoji: '💻', text: 'Organising, designing, computing - working with information', textSk: 'Organizovanie, navrhovanie, počítanie - práca s informáciami'),
       ],
       accentColor: Color(0xFF283593),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🌐',
-      highlightText: 'Every job matters — different skills working together make society function!',
-      highlightTextSk: 'Každá práca sa počíta — rôzne zručnosti spolupracujúce spolu zabezpečujú fungovanie spoločnosti!',
+      highlightText: 'Every job matters - different skills working together make society function!',
+      highlightTextSk: 'Každá práca sa počíta - rôzne zručnosti spolupracujúce spolu zabezpečujú fungovanie spoločnosti!',
       accentColor: Color(0xFF283593),
     ),
   ],
@@ -2009,17 +2009,17 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'What Affects Pay',
       titleSk: 'Čo ovplyvňuje plat',
       facts: [
-        FactItem(emoji: '🎓', text: 'Education and skills — more expertise often means higher pay', textSk: 'Vzdelanie a zručnosti — viac odbornosti často znamená vyšší plat'),
-        FactItem(emoji: '⚖️', text: 'Responsibility — managing more comes with more pay', textSk: 'Zodpovednosť — väčšia zodpovednosť prináša vyšší plat'),
-        FactItem(emoji: '⏰', text: 'Time — hours, days, or months of work all count', textSk: 'Čas — hodiny, dni alebo mesiace práce sa všetky počítajú'),
+        FactItem(emoji: '🎓', text: 'Education and skills - more expertise often means higher pay', textSk: 'Vzdelanie a zručnosti - viac odbornosti často znamená vyšší plat'),
+        FactItem(emoji: '⚖️', text: 'Responsibility - managing more comes with more pay', textSk: 'Zodpovednosť - väčšia zodpovednosť prináša vyšší plat'),
+        FactItem(emoji: '⏰', text: 'Time - hours, days, or months of work all count', textSk: 'Čas - hodiny, dni alebo mesiace práce sa všetky počítajú'),
       ],
       accentColor: Color(0xFF4527A0),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '💳',
-      highlightText: 'Salary is the reward for work — and it must be planned carefully to cover the whole month!',
-      highlightTextSk: 'Plat je odmena za prácu — a treba ho starostlivo naplánovať, aby pokryl celý mesiac!',
+      highlightText: 'Salary is the reward for work - and it must be planned carefully to cover the whole month!',
+      highlightTextSk: 'Plat je odmena za prácu - a treba ho starostlivo naplánovať, aby pokryl celý mesiac!',
       accentColor: Color(0xFF4527A0),
     ),
   ],
@@ -2052,7 +2052,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Time at Work',
       titleSk: 'Čas v práci',
       facts: [
-        FactItem(emoji: '📐', text: 'Many jobs pay by the hour — more hours worked, more earned', textSk: 'Mnohé práce platia za hodinu — viac odpracovaných hodín, viac zarobené'),
+        FactItem(emoji: '📐', text: 'Many jobs pay by the hour - more hours worked, more earned', textSk: 'Mnohé práce platia za hodinu - viac odpracovaných hodín, viac zarobené'),
         FactItem(emoji: '🗓️', text: 'Monthly salaries cover all the hours worked that month', textSk: 'Mesačné platy pokrývajú všetky hodiny odpracované v danom mesiaci'),
         FactItem(emoji: '💪', text: 'Effort and quality of work also matter, not just time', textSk: 'Záleží aj na úsilí a kvalite práce, nielen na čase'),
       ],
@@ -2061,8 +2061,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '⏰',
-      highlightText: 'Time is valuable — at work, the time and effort you give comes back to you as pay!',
-      highlightTextSk: 'Čas je cenný — v práci sa čas a úsilie, ktoré vložíš, vrátia ako odmena!',
+      highlightText: 'Time is valuable - at work, the time and effort you give comes back to you as pay!',
+      highlightTextSk: 'Čas je cenný - v práci sa čas a úsilie, ktoré vložíš, vrátia ako odmena!',
       accentColor: Color(0xFF00838F),
     ),
   ],
@@ -2073,7 +2073,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🚀',
       title: 'Productivity',
       titleSk: 'Produktivita',
-      body: 'Is it important only to work for a long time — or also to work effectively?',
+      body: 'Is it important only to work for a long time - or also to work effectively?',
       bodySk: 'Je dôležité len pracovať dlho, alebo aj pracovať efektívne?',
       accentColor: Color(0xFFBF360C),
     ),
@@ -2095,7 +2095,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'How to Be Productive',
       titleSk: 'Ako byť produktívny',
       facts: [
-        FactItem(emoji: '📵', text: 'Remove distractions — put away your phone while working', textSk: 'Odstrán rozptýlenie — odlož telefón počas práce'),
+        FactItem(emoji: '📵', text: 'Remove distractions - put away your phone while working', textSk: 'Odstrán rozptýlenie - odlož telefón počas práce'),
         FactItem(emoji: '✅', text: 'Prepare everything you need before starting', textSk: 'Priprav si všetko potrebné pred začatím'),
         FactItem(emoji: '🎯', text: 'Focus on one task at a time rather than switching between many', textSk: 'Sústreď sa na jednu úlohu naraz namiesto prepínania medzi mnohými'),
       ],
@@ -2104,14 +2104,14 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🚀',
-      highlightText: 'Working SMART beats working long — focus and effort make you truly productive!',
-      highlightTextSk: 'Pracovať MÚDRO je lepšie ako pracovať dlho — sústredenie a úsilie ťa robia skutočne produktívnym!',
+      highlightText: 'Working SMART beats working long - focus and effort make you truly productive!',
+      highlightTextSk: 'Pracovať MÚDRO je lepšie ako pracovať dlho - sústredenie a úsilie ťa robia skutočne produktívnym!',
       accentColor: Color(0xFFBF360C),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 9 — ROZPOČET
+// SECTION 9 - ROZPOČET
 // ════════════════════════════════════════════
 
   'co_je_rozpocet': [
@@ -2139,9 +2139,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'What a Budget Shows',
       titleSk: 'Čo ukazuje rozpočet',
       facts: [
-        FactItem(emoji: '📥', text: 'Income — money coming in (salary, pocket money, etc.)', textSk: 'Príjem — peniaze prichádzajúce (plat, vreckové a pod.)'),
-        FactItem(emoji: '📤', text: 'Expenses — money going out (food, rent, transport, fun)', textSk: 'Výdavky — peniaze odchádzajúce (jedlo, nájom, doprava, zábava)'),
-        FactItem(emoji: '⚖️', text: 'Balance — what\'s left after subtracting expenses from income', textSk: 'Zostatok — čo zostane po odpočítaní výdavkov od príjmu'),
+        FactItem(emoji: '📥', text: 'Income - money coming in (salary, pocket money, etc.)', textSk: 'Príjem - peniaze prichádzajúce (plat, vreckové a pod.)'),
+        FactItem(emoji: '📤', text: 'Expenses - money going out (food, rent, transport, fun)', textSk: 'Výdavky - peniaze odchádzajúce (jedlo, nájom, doprava, zábava)'),
+        FactItem(emoji: '⚖️', text: 'Balance - what\'s left after subtracting expenses from income', textSk: 'Zostatok - čo zostane po odpočítaní výdavkov od príjmu'),
       ],
       accentColor: Color(0xFF1565C0),
     ),
@@ -2157,8 +2157,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📒',
-      highlightText: 'A budget is a plan for your money — it keeps you in control instead of always wondering "where did it go?"!',
-      highlightTextSk: 'Rozpočet je plán pre tvoje peniaze — udržuje ťa v kontrole namiesto stáleho premýšľania "kam to všetko išlo?"!',
+      highlightText: 'A budget is a plan for your money - it keeps you in control instead of always wondering "where did it go?"!',
+      highlightTextSk: 'Rozpočet je plán pre tvoje peniaze - udržuje ťa v kontrole namiesto stáleho premýšľania "kam to všetko išlo?"!',
       accentColor: Color(0xFF1565C0),
     ),
   ],
@@ -2197,8 +2197,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '⚖️',
-      highlightText: 'Track BOTH sides — what comes in AND what goes out. That\'s the secret to money balance!',
-      highlightTextSk: 'Sleduj OBE strany — čo prichádza AJ čo odchádza. To je tajomstvo finančnej rovnováhy!',
+      highlightText: 'Track BOTH sides - what comes in AND what goes out. That\'s the secret to money balance!',
+      highlightTextSk: 'Sleduj OBE strany - čo prichádza AJ čo odchádza. To je tajomstvo finančnej rovnováhy!',
       accentColor: Color(0xFF2E7D32),
     ),
   ],
@@ -2240,8 +2240,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📅',
-      highlightText: 'A month is 30 days — money must last all 30, not just the first few!',
-      highlightTextSk: 'Mesiac má 30 dní — peniaze musia vydržať všetkých 30, nielen prvých pár!',
+      highlightText: 'A month is 30 days - money must last all 30, not just the first few!',
+      highlightTextSk: 'Mesiac má 30 dní - peniaze musia vydržať všetkých 30, nielen prvých pár!',
       accentColor: Color(0xFF6A1B9A),
     ),
   ],
@@ -2261,7 +2261,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📡',
       storyTitle: 'The Same Bills Every Month',
       storyTitleSk: 'Rovnaké účty každý mesiac',
-      storyBody: 'Chrumko asks why his parents talk about the same payments every month. His dad shows him the internet and rent bills. He explains these payments come regularly. Even if they don\'t buy anything new this month, these expenses remain the same. Chrumko understands: some money is set aside first — always.',
+      storyBody: 'Chrumko asks why his parents talk about the same payments every month. His dad shows him the internet and rent bills. He explains these payments come regularly. Even if they don\'t buy anything new this month, these expenses remain the same. Chrumko understands: some money is set aside first - always.',
       storyBodySk: 'Chrumko sa pýta, prečo rodičia každý mesiac hovoria o rovnakých platbách. Otec mu ukáže účet za internet a nájom. Vysvetlí, že tieto platby prichádzajú pravidelne. Aj keď tento mesiac nič nové nekupujú, tieto výdavky zostávajú rovnaké. Chrumko pochopí: niektoré peniaze sú vždy vopred určené.',
       accentColor: Color(0xFF4E342E),
     ),
@@ -2271,17 +2271,17 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Examples of Fixed Expenses',
       titleSk: 'Príklady fixných výdavkov',
       facts: [
-        FactItem(emoji: '🏠', text: 'Rent or mortgage — same amount every month', textSk: 'Nájom alebo hypotéka — rovnaká suma každý mesiac'),
-        FactItem(emoji: '📡', text: 'Internet and phone — regular monthly subscription', textSk: 'Internet a telefón — pravidelné mesačné predplatné'),
-        FactItem(emoji: '🏫', text: 'School lunches or fees — predictable recurring cost', textSk: 'Školský obed alebo poplatky — predvídateľný opakujúci sa náklad'),
+        FactItem(emoji: '🏠', text: 'Rent or mortgage - same amount every month', textSk: 'Nájom alebo hypotéka - rovnaká suma každý mesiac'),
+        FactItem(emoji: '📡', text: 'Internet and phone - regular monthly subscription', textSk: 'Internet a telefón - pravidelné mesačné predplatné'),
+        FactItem(emoji: '🏫', text: 'School lunches or fees - predictable recurring cost', textSk: 'Školský obed alebo poplatky - predvídateľný opakujúci sa náklad'),
       ],
       accentColor: Color(0xFF4E342E),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🔁',
-      highlightText: 'Fixed expenses come FIRST in every budget — you can\'t skip them, so plan for them!',
-      highlightTextSk: 'Fixné výdavky prichádzajú v každom rozpočte AKO PRVÉ — nemôžeš ich preskočiť, tak s nimi počítaj!',
+      highlightText: 'Fixed expenses come FIRST in every budget - you can\'t skip them, so plan for them!',
+      highlightTextSk: 'Fixné výdavky prichádzajú v každom rozpočte AKO PRVÉ - nemôžeš ich preskočiť, tak s nimi počítaj!',
       accentColor: Color(0xFF4E342E),
     ),
   ],
@@ -2292,7 +2292,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📊',
       title: 'Variable Expenses',
       titleSk: 'Variabilné výdavky',
-      body: 'Why do we sometimes spend more and sometimes less — even when buying similar things?',
+      body: 'Why do we sometimes spend more and sometimes less - even when buying similar things?',
       bodySk: 'Prečo niekedy minieme viac a inokedy menej, aj keď kupujeme podobné veci?',
       accentColor: Color(0xFF00695C),
     ),
@@ -2314,9 +2314,9 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Examples of Variable Expenses',
       titleSk: 'Príklady variabilných výdavkov',
       facts: [
-        FactItem(emoji: '🛒', text: 'Food — the amount and types bought change each week', textSk: 'Jedlo — množstvo a druhy nakupovaného sa každý týždeň menia'),
-        FactItem(emoji: '👕', text: 'Clothing — bought when needed, not every month', textSk: 'Oblečenie — kupuje sa podľa potreby, nie každý mesiac'),
-        FactItem(emoji: '🎉', text: 'Events, outings, and gifts — vary throughout the year', textSk: 'Udalosti, výlety a darčeky — počas roka sa líšia'),
+        FactItem(emoji: '🛒', text: 'Food - the amount and types bought change each week', textSk: 'Jedlo - množstvo a druhy nakupovaného sa každý týždeň menia'),
+        FactItem(emoji: '👕', text: 'Clothing - bought when needed, not every month', textSk: 'Oblečenie - kupuje sa podľa potreby, nie každý mesiac'),
+        FactItem(emoji: '🎉', text: 'Events, outings, and gifts - vary throughout the year', textSk: 'Udalosti, výlety a darčeky - počas roka sa líšia'),
       ],
       accentColor: Color(0xFF00695C),
     ),
@@ -2325,21 +2325,21 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '📊',
       title: 'Managing Variable Expenses',
       titleSk: 'Spravovanie variabilných výdavkov',
-      body: 'Always keep some flexible money in your budget for variable expenses. They\'re unpredictable — but you can expect them to show up!',
-      bodySk: 'V rozpočte si vždy nechaj nejakú flexibilnú sumu na variabilné výdavky. Sú nepredvídateľné — ale môžeš očakávať, že sa objavia!',
+      body: 'Always keep some flexible money in your budget for variable expenses. They\'re unpredictable - but you can expect them to show up!',
+      bodySk: 'V rozpočte si vždy nechaj nejakú flexibilnú sumu na variabilné výdavky. Sú nepredvídateľné - ale môžeš očakávať, že sa objavia!',
       accentColor: Color(0xFF00695C),
     ),
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📊',
-      highlightText: 'Variable expenses change — but a good budget has room for surprises!',
-      highlightTextSk: 'Variabilné výdavky sa menia — ale dobrý rozpočet má priestor na prekvapenia!',
+      highlightText: 'Variable expenses change - but a good budget has room for surprises!',
+      highlightTextSk: 'Variabilné výdavky sa menia - ale dobrý rozpočet má priestor na prekvapenia!',
       accentColor: Color(0xFF00695C),
     ),
   ],
 
 // ════════════════════════════════════════════
-// SECTION 10 — BANKA A PENIAZE
+// SECTION 10 - BANKA A PENIAZE
 // ════════════════════════════════════════════
 
   'co_robi_banka': [
@@ -2367,7 +2367,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'What Banks Do',
       titleSk: 'Čo robia banky',
       facts: [
-        FactItem(emoji: '🔐', text: 'Keep your money safe — more secure than cash at home', textSk: 'Uchovávajú tvoje peniaze bezpečne — bezpečnejšie než hotovosť doma'),
+        FactItem(emoji: '🔐', text: 'Keep your money safe - more secure than cash at home', textSk: 'Uchovávajú tvoje peniaze bezpečne - bezpečnejšie než hotovosť doma'),
         FactItem(emoji: '💸', text: 'Allow you to send and receive money easily', textSk: 'Umožňujú ti ľahko posielať a prijímať peniaze'),
         FactItem(emoji: '📱', text: 'Let you manage your money via card, app, or online', textSk: 'Umožňujú spravovať peniaze cez kartu, aplikáciu alebo online'),
       ],
@@ -2376,8 +2376,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🏦',
-      highlightText: 'A bank is a safe home for your money — it keeps it secure and ready whenever you need it!',
-      highlightTextSk: 'Banka je bezpečný domov pre tvoje peniaze — udržuje ich v bezpečí a pripravené, kedykoľvek ich potrebuješ!',
+      highlightText: 'A bank is a safe home for your money - it keeps it secure and ready whenever you need it!',
+      highlightTextSk: 'Banka je bezpečný domov pre tvoje peniaze - udržuje ich v bezpečí a pripravené, kedykoľvek ich potrebuješ!',
       accentColor: Color(0xFF01579B),
     ),
   ],
@@ -2410,7 +2410,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'Key Facts About Accounts',
       titleSk: 'Kľúčové fakty o účtoch',
       facts: [
-        FactItem(emoji: '🔢', text: 'Each account has a unique number — it identifies your account', textSk: 'Každý účet má jedinečné číslo — identifikuje tvoj účet'),
+        FactItem(emoji: '🔢', text: 'Each account has a unique number - it identifies your account', textSk: 'Každý účet má jedinečné číslo - identifikuje tvoj účet'),
         FactItem(emoji: '📥', text: 'Money can arrive (salary, transfers) and leave (payments, withdrawals)', textSk: 'Peniaze môžu prichádzať (plat, prevody) a odchádzať (platby, výbery)'),
         FactItem(emoji: '📊', text: 'The balance shows exactly how much is currently available', textSk: 'Zostatok presne ukazuje, koľko je momentálne k dispozícii'),
       ],
@@ -2419,8 +2419,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📋',
-      highlightText: 'A bank account is YOUR space in the bank — a safe record of your money movements!',
-      highlightTextSk: 'Bankový účet je TVOJ priestor v banke — bezpečný záznam pohybov tvojich peňazí!',
+      highlightText: 'A bank account is YOUR space in the bank - a safe record of your money movements!',
+      highlightTextSk: 'Bankový účet je TVOJ priestor v banke - bezpečný záznam pohybov tvojich peňazí!',
       accentColor: Color(0xFF1A237E),
     ),
   ],
@@ -2440,7 +2440,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🛒',
       storyTitle: 'Card at the Checkout',
       storyTitleSk: 'Karta pri pokladni',
-      storyBody: 'Chrumko goes to the shop with his mum. At the checkout she doesn\'t take out cash — she uses a card. After paying, the amount appears on the terminal. His mum explains that the money was sent from the account. Chrumko realises: the card just helps you use money that\'s already stored in the bank.',
+      storyBody: 'Chrumko goes to the shop with his mum. At the checkout she doesn\'t take out cash - she uses a card. After paying, the amount appears on the terminal. His mum explains that the money was sent from the account. Chrumko realises: the card just helps you use money that\'s already stored in the bank.',
       storyBodySk: 'Chrumko ide s mamou do obchodu. Pri pokladni mama nevytiahne hotovosť, ale kartu. Po zaplatení sa suma zobrazí na termináli. Mama vysvetlí, že peniaze odišli z účtu. Chrumko si uvedomí: karta len pomáha použiť peniaze, ktoré sú uložené v banke.',
       accentColor: Color(0xFF006064),
     ),
@@ -2450,8 +2450,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'How Cards Work',
       titleSk: 'Ako fungujú karty',
       facts: [
-        FactItem(emoji: '🔗', text: 'A card is linked to your bank account — it\'s a tool, not the money itself', textSk: 'Karta je prepojená s tvojím bankovým účtom — je to nástroj, nie samotné peniaze'),
-        FactItem(emoji: '⚡', text: 'Payment is instant — money leaves your account right away', textSk: 'Platba je okamžitá — peniaze odídu z účtu ihneď'),
+        FactItem(emoji: '🔗', text: 'A card is linked to your bank account - it\'s a tool, not the money itself', textSk: 'Karta je prepojená s tvojím bankovým účtom - je to nástroj, nie samotné peniaze'),
+        FactItem(emoji: '⚡', text: 'Payment is instant - money leaves your account right away', textSk: 'Platba je okamžitá - peniaze odídu z účtu ihneď'),
         FactItem(emoji: '📍', text: 'Cards work in shops, ATMs, and for online payments', textSk: 'Karty fungujú v obchodoch, bankomatoch aj pri online platbách'),
       ],
       accentColor: Color(0xFF006064),
@@ -2459,8 +2459,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '💳',
-      highlightText: 'A card is just the key — the money it unlocks lives in your bank account!',
-      highlightTextSk: 'Karta je len kľúč — peniaze, ktoré odomyká, žijú na tvojom bankovom účte!',
+      highlightText: 'A card is just the key - the money it unlocks lives in your bank account!',
+      highlightTextSk: 'Karta je len kľúč - peniaze, ktoré odomyká, žijú na tvojom bankovom účte!',
       accentColor: Color(0xFF006064),
     ),
   ],
@@ -2471,7 +2471,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '🔐',
       title: 'PIN Code',
       titleSk: 'PIN kód',
-      body: 'Why isn\'t having the card enough — do you also need a secret number?',
+      body: 'Why isn\'t having the card enough - do you also need a secret number?',
       bodySk: 'Prečo nestačí mať kartu, ale treba poznať aj tajné číslo?',
       accentColor: Color(0xFF880E4F),
     ),
@@ -2490,7 +2490,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'PIN Safety Rules',
       titleSk: 'Pravidlá bezpečnosti PINu',
       facts: [
-        FactItem(emoji: '🤫', text: 'Never share your PIN with anyone — not even friends', textSk: 'Nikdy nezdieľaj PIN s nikým — ani s kamarátmi'),
+        FactItem(emoji: '🤫', text: 'Never share your PIN with anyone - not even friends', textSk: 'Nikdy nezdieľaj PIN s nikým - ani s kamarátmi'),
         FactItem(emoji: '🙈', text: 'Cover the keypad when entering your PIN in public', textSk: 'Zakryj klávesnicu pri zadávaní PINu na verejnosti'),
         FactItem(emoji: '🚫', text: 'Never write your PIN on the card or near it', textSk: 'Nikdy nepíš PIN na kartu alebo v jej blízkosti'),
       ],
@@ -2499,8 +2499,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '🔐',
-      highlightText: 'Your PIN is a secret — NEVER share it. It\'s the lock on your money!',
-      highlightTextSk: 'Tvoj PIN je tajomstvo — NIKDY ho nezdieľaj. Je to zámok na tvojich peniazoch!',
+      highlightText: 'Your PIN is a secret - NEVER share it. It\'s the lock on your money!',
+      highlightTextSk: 'Tvoj PIN je tajomstvo - NIKDY ho nezdieľaj. Je to zámok na tvojich peniazoch!',
       accentColor: Color(0xFF880E4F),
     ),
   ],
@@ -2520,8 +2520,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       emoji: '👵',
       storyTitle: 'Sending Money to Grandma',
       storyTitleSk: 'Posielanie peňazí babke',
-      storyBody: 'Chrumko hears his mum is sending money to his grandma. He thinks they\'ll have to go to the post office. His mum shows him on her phone that she entered the account number and amount. After confirming, the money is sent. Chrumko realises: today money often travels digitally — fast, safe, and without leaving the house!',
-      storyBodySk: 'Chrumko počuje, že mama posiela peniaze babke. Myslí si, že pôjdu na poštu. Mama mu ukáže v mobile, že zadala číslo účtu a sumu. Po potvrdení sa peniaze odošlú. Chrumko si uvedomí: dnes sa peniaze často pohybujú digitálne — rýchlo, bezpečne a bez odchodu z domu!',
+      storyBody: 'Chrumko hears his mum is sending money to his grandma. He thinks they\'ll have to go to the post office. His mum shows him on her phone that she entered the account number and amount. After confirming, the money is sent. Chrumko realises: today money often travels digitally - fast, safe, and without leaving the house!',
+      storyBodySk: 'Chrumko počuje, že mama posiela peniaze babke. Myslí si, že pôjdu na poštu. Mama mu ukáže v mobile, že zadala číslo účtu a sumu. Po potvrdení sa peniaze odošlú. Chrumko si uvedomí: dnes sa peniaze často pohybujú digitálne - rýchlo, bezpečne a bez odchodu z domu!',
       accentColor: Color(0xFF1B5E20),
     ),
     LessonSlide(
@@ -2532,7 +2532,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       facts: [
         FactItem(emoji: '🔢', text: 'You need the recipient\'s account number and the amount', textSk: 'Potrebuješ číslo účtu príjemcu a sumu'),
         FactItem(emoji: '⚡', text: 'Money moves electronically through the bank system', textSk: 'Peniaze sa pohybujú elektronicky cez bankový systém'),
-        FactItem(emoji: '✅', text: 'No cash needed — it all happens digitally and instantly', textSk: 'Žiadna hotovosť nie je potrebná — všetko prebieha digitálne a okamžite'),
+        FactItem(emoji: '✅', text: 'No cash needed - it all happens digitally and instantly', textSk: 'Žiadna hotovosť nie je potrebná - všetko prebieha digitálne a okamžite'),
       ],
       accentColor: Color(0xFF1B5E20),
     ),
@@ -2548,8 +2548,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
     LessonSlide(
       type: LessonSlideType.highlight,
       emoji: '📲',
-      highlightText: 'Money can travel the world digitally in seconds — modern banking makes it fast and simple!',
-      highlightTextSk: 'Peniaze môžu digitálne cestovať po svete za sekundy — moderné bankovníctvo to robí rýchlym a jednoduchým!',
+      highlightText: 'Money can travel the world digitally in seconds - modern banking makes it fast and simple!',
+      highlightTextSk: 'Peniaze môžu digitálne cestovať po svete za sekundy - moderné bankovníctvo to robí rýchlym a jednoduchým!',
       accentColor: Color(0xFF1B5E20),
     ),
   ],

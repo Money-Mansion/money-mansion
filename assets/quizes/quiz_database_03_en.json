@@ -11,47 +11,52 @@
           "questions": [
             {
               "questionId": "3001_01",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "What is pocket money?",
               "options": [
-                "Money a person receives from their parents",
+                "Money a child receives from their parents",
                 "Money a person must spend right away",
-                "Money a child receives from the bank to a children’s account",
+                "Money a child receives from the bank to a children's account",
                 "Money that belongs to friends"
               ],
               "correctAnswer": 0,
-              "explanation": "Pocket money is a set amount given by parents to help children learn about value."
+              "explanation": "Pocket money is a set amount given by parents to help children learn about value.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_02",
-              "type": "theoretical",
-              "question": "Why do children receive pocket money?",
-              "options": [
-                "So they have more toys",
-                "So money is spent on their desires",
-                "So they learn to manage money",
-                "So they always have more than others"
-              ],
-              "correctAnswer": 2,
-              "explanation": "It is a tool for learning how to make choices and handle a budget."
+              "questionType": "trueFalse",
+              "question": "Pocket money is given to children so they learn to manage money.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "True - pocket money is a tool for learning how to make choices and handle a budget.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_03",
-              "type": "theoretical",
-              "question": "What can happen if a child spends all their pocket money at once?",
-              "options": [
-                "They will receive new money",
-                "They will not have any money later",
-                "The money will come back",
-                "They can go to the bank and collect more money"
-              ],
+              "questionType": "trueFalse",
+              "question": "If a child spends all their pocket money at once, the bank will give them more.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Money is finite; once it is spent, you must wait for the next allowance."
+              "explanation": "False - money is finite. Once it is spent, you must wait for the next allowance.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_04",
-              "type": "theoretical",
-              "question": "What is the best way to deal with the pocket money a child receives?",
+              "questionType": "multipleChoice",
+              "question": "What is the best way to deal with pocket money?",
               "options": [
                 "Spend everything at once",
                 "Buy nothing",
@@ -59,24 +64,43 @@
                 "Only buy sweets"
               ],
               "correctAnswer": 2,
-              "explanation": "Splitting money ensures you can enjoy something now while saving for the future."
+              "explanation": "Splitting money ensures you can enjoy something now while saving for the future.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3001_05",
-              "type": "practical",
-              "question": "Chrumko has 10 euros and knows he is going to the cinema in a few days. What should he do?",
-              "options": [
-                "Spend everything on fun",
-                "Put aside part of the money",
-                "Buy a toy",
-                "Buy tickets for his friends"
+              "questionType": "dragDrop",
+              "question": "Chrumko has 10 euros. Sort each action into the correct category.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Saving a portion ensures he has enough for his planned cinema trip, while spending a little now is fine.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
+                "Buy a small snack",
+                "Put aside money for cinema",
+                "Spend it all on toys",
+                "Keep the rest for later"
               ],
-              "correctAnswer": 1,
-              "explanation": "Saving a portion ensures he has enough for his planned cinema trip."
+              "dragTargets": [
+                {
+                  "label": "Smart choices",
+                  "correctItems": ["Buy a small snack", "Put aside money for cinema", "Keep the rest for later"]
+                },
+                {
+                  "label": "Not so smart",
+                  "correctItems": ["Spend it all on toys"]
+                }
+              ]
             },
             {
               "questionId": "3001_06",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko buys a small thing and keeps the rest. Why?",
               "options": [
                 "Because he had no other option",
@@ -85,7 +109,12 @@
                 "To spend less time in the shop"
               ],
               "correctAnswer": 1,
-              "explanation": "Keeping change allows for future purchases or emergencies."
+              "explanation": "Keeping the remainder allows for future purchases or emergencies.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -96,20 +125,20 @@
           "questions": [
             {
               "questionId": "3002_01",
-              "type": "theoretical",
-              "question": "Is it good to spend all the money at once?",
-              "options": [
-                "Yes, always",
-                "No, it is better to divide it",
-                "Yes, if it is sweets",
-                "It does not matter"
-              ],
+              "questionType": "trueFalse",
+              "question": "It is always a good idea to spend all your money at once.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Dividing money helps maintain financial security over time."
+              "explanation": "False - dividing money helps maintain financial security over time.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Why do we divide our money?",
               "options": [
                 "So we have more things",
@@ -118,46 +147,71 @@
                 "So we do not have to count it"
               ],
               "correctAnswer": 1,
-              "explanation": "It prevents running out of funds before the next income."
+              "explanation": "It prevents running out of funds before the next income.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_03",
-              "type": "theoretical",
-              "question": "What does dividing money teach us?",
-              "options": [
-                "To buy quickly",
-                "To plan and make decisions",
-                "To spend more",
-                "Not to think about the purchase"
+              "questionType": "matching",
+              "question": "Match each action to what it teaches you.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Dividing money builds skills of planning, decision-making, and thinking ahead.",
+              "orderItems": [],
+              "matchLeft": [
+                "Dividing money",
+                "Spending everything at once",
+                "Saving part of your money",
+                "Planning your purchases"
               ],
-              "correctAnswer": 1,
-              "explanation": "It builds the skill of prioritizing needs over wants."
+              "matchRight": [
+                "Planning and decision-making",
+                "Running out before the week ends",
+                "Having funds for future goals",
+                "Avoiding unnecessary buys"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_04",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko puts aside 7 euros from 10 euros. Why?",
               "options": [
                 "So he never uses them",
-                "So he can buy something else later",
                 "Because he cannot spend it",
-                "Because he does not like shopping"
+                "Because he does not like shopping",
+                "So he can buy something else later"
               ],
-              "correctAnswer": 1,
-              "explanation": "Saving 7 euros creates a budget for a future goal."
+              "correctAnswer": 3,
+              "explanation": "Saving 7 euros creates a budget for a future goal.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3002_05",
-              "type": "practical",
-              "question": "Chrumko keeps part of the money and later goes for pizza that he had saved for. What does this show?",
-              "options": [
-                "That he was lucky",
-                "That planning helped him",
-                "That the money appeared at the right time",
-                "That the pizza was free"
+              "questionType": "ordering",
+              "question": "Put Chrumko's steps in the correct order - from receiving money to enjoying pizza.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "The pizza is the reward for his successful planning and saving.",
+              "orderItems": [
+                "Chrumko receives pocket money",
+                "He puts aside most of the money",
+                "He tries not to spend the remaining money on impulse",
+                "Finally, he buys the pizza he's been craving"
               ],
-              "correctAnswer": 1,
-              "explanation": "The pizza is the reward for his successful planning and saving."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -168,8 +222,8 @@
           "questions": [
             {
               "questionId": "3003_01",
-              "type": "theoretical",
-              "question": "What does the decision “now vs later” mean?",
+              "questionType": "multipleChoice",
+              "question": "What does the decision \"now vs later\" mean?",
               "options": [
                 "To choose between two shops",
                 "To decide whether to spend the money now or keep it for later",
@@ -177,72 +231,101 @@
                 "To not spend money at all"
               ],
               "correctAnswer": 1,
-              "explanation": "It is the choice between immediate satisfaction and future benefit."
+              "explanation": "It is the choice between immediate satisfaction and future benefit.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_02",
-              "type": "theoretical",
-              "question": "What can happen if we keep the money for later?",
-              "options": [
-                "They will be lost",
-                "We can buy something bigger",
-                "They will double and we will have more money",
-                "We will not be able to use them until old age"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Saving small amounts over time adds up to a larger sum for better items."
+              "questionType": "trueFalse",
+              "question": "Saving money means you can sometimes buy something bigger later.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "True - saving small amounts over time adds up to a larger sum for better items.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_03",
-              "type": "theoretical",
-              "question": "What does waiting with a purchase teach us?",
-              "options": [
-                "Speed",
-                "Patience and planning",
-                "Spending",
-                "Being happier"
+              "questionType": "dragDrop",
+              "question": "Sort each behaviour into the correct group.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Patience and planning prevent impulse buying and help reach bigger goals.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
+                "Thinking before buying",
+                "Grabbing the first thing you see",
+                "Waiting for something bigger",
+                "Spending on impulse"
               ],
-              "correctAnswer": 1,
-              "explanation": "Patience is a key financial virtue that prevents impulse buying."
+              "dragTargets": [
+                {
+                  "label": "Patient & planned",
+                  "correctItems": ["Thinking before buying", "Waiting for something bigger"]
+                },
+                {
+                  "label": "Impulsive",
+                  "correctItems": ["Grabbing the first thing you see", "Spending on impulse"]
+                }
+              ]
             },
             {
               "questionId": "3003_04",
-              "type": "theoretical",
-              "question": "Is it always good to buy the first thing we see?",
-              "options": [
-                "Yes, always",
-                "No, it is worth thinking about it",
-                "Yes, if it is cheap",
-                "No, never buy anything"
-              ],
+              "questionType": "trueFalse",
+              "question": "It is always a good idea to buy the first thing you see.",
+              "options": [],
               "correctAnswer": 1,
-              "explanation": "Thinking first helps you decide if you actually need the item."
+              "explanation": "False - thinking first helps you decide if you actually need the item.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_05",
-              "type": "practical",
-              "question": "Chrumko does not buy a lollipop even though he wants it, but waits. Why?",
+              "questionType": "multipleChoice",
+              "question": "Chrumko does not buy a lollipop even though he wants it. Why?",
               "options": [
                 "He does not like sweets",
-                "He wants to buy something bigger later",
                 "Because he wanted it",
+                "He wants to buy something bigger later",
                 "He forgot"
               ],
-              "correctAnswer": 1,
-              "explanation": "He is practicing delayed gratification for a bigger goal."
+              "correctAnswer": 2,
+              "explanation": "He is practising delayed gratification for a bigger goal.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3003_06",
-              "type": "practical",
-              "question": "After thinking, Chrumko later buys a colouring book. What does this show?",
-              "options": [
-                "He decided to wait and plan his purchase.",
-                "He had no other option",
-                "He received it for free",
-                "The lollipop disappeared"
-              ],
+              "questionType": "ordering",
+              "question": "Put the steps of Chrumko's decision in the correct order.",
+              "options": [],
               "correctAnswer": 0,
-              "explanation": "Planning allowed him to get a more lasting item than a simple sweet."
+              "explanation": "Planning allowed him to get a more lasting item than a simple sweet.",
+              "orderItems": [
+                "Chrumko sees the lollipop and wants it",
+                "He stops and thinks about his goal",
+                "He decides to wait and not buy it",
+                "He later buys the colouring book"
+              ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -253,7 +336,7 @@
           "questions": [
             {
               "questionId": "3004_01",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "Why is it good to plan what we will use our money for?",
               "options": [
                 "So we spend it faster",
@@ -262,59 +345,82 @@
                 "So we do not have to think"
               ],
               "correctAnswer": 1,
-              "explanation": "Planning reduces waste and ensures money goes toward what matters."
+              "explanation": "Planning reduces waste and ensures money goes toward what matters.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_02",
-              "type": "theoretical",
-              "question": "What can happen if we spend money without thinking?",
-              "options": [
-                "We will be more responsible",
-                "The money will come back",
-                "We might run out of money later",
-                "Nothing will happen"
-              ],
-              "correctAnswer": 2,
-              "explanation": "Impulse spending often leads to a lack of funds for necessities."
+              "questionType": "trueFalse",
+              "question": "Spending money without thinking can mean you run out when you really need it.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "True - impulse spending often leads to a lack of funds for necessities.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_03",
-              "type": "theoretical",
-              "question": "What does planning help us decide?",
-              "options": [
-                "The colour of things",
-                "How much to spend now and how much to keep",
-                "How much a lollipop costs",
-                "Who to go to the shop with"
+              "questionType": "matching",
+              "question": "Match each situation to its outcome.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Planning helps balance current needs with future desires.",
+              "orderItems": [],
+              "matchLeft": [
+                "Planning your spending",
+                "Saving for a goal",
+                "Spending on impulse"
               ],
-              "correctAnswer": 1,
-              "explanation": "It helps balance current needs with future desires."
+              "matchRight": [
+                "You avoid unnecessary buys",
+                "You reach your goal faster",
+                "You often regret the purchase"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_04",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko wants ice cream and glasses. What should he do?",
               "options": [
                 "Spend everything right away",
-                "Buy ice cream and put the rest of the money aside for the glasses",
+                "Buy ice cream and put the rest aside for the glasses",
                 "Buy only one thing without thinking",
-                "Buy two scoops of ice cream and then a whole box of other ice cream to take home"
+                "Buy two scoops of ice cream and then a whole box to take home"
               ],
               "correctAnswer": 1,
-              "explanation": "This compromise satisfies a current craving while progressing toward a goal."
+              "explanation": "This compromise satisfies a current craving while progressing toward a goal.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3004_05",
-              "type": "practical",
-              "question": "Chrumko puts aside all his money even though he felt like having ice cream and a week later he could buy glasses. What does this mean?",
-              "options": [
-                "He was lucky",
-                "He did not think about what he would do with his money",
-                "He suppressed his short‑term desire for ice cream so he could save sooner for what he needed",
-                "He made a foolish decision because he ignored his craving for ice cream even though he could have bought it"
+              "questionType": "ordering",
+              "question": "Put Chrumko's steps in the correct order - from wanting glasses to buying them.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Prioritising needs over immediate wants helps achieve goals faster.",
+              "orderItems": [
+                "Chrumko decides he needs glasses",
+                "He saves consistently each week",
+                "He won't spend the money he's saved",
+                "After one week he has enough to buy the glasses"
               ],
-              "correctAnswer": 2,
-              "explanation": "Prioritizing needs over immediate wants helps achieve goals faster."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -325,59 +431,79 @@
           "questions": [
             {
               "questionId": "3005_01",
-              "type": "theoretical",
-              "question": "Is it normal to make a mistake when spending money?",
-              "options": [
-                "No, never",
-                "Yes, it is common",
-                "Only adults make mistakes",
-                "Only children make mistakes"
-              ],
-              "correctAnswer": 1,
-              "explanation": "Everyone makes mistakes; the important part is learning from them."
+              "questionType": "trueFalse",
+              "question": "It is completely normal for a child to make a mistake when spending money.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "True - everyone makes mistakes; the important part is learning from them.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_02",
-              "type": "theoretical",
+              "questionType": "multipleChoice",
               "question": "What do financial mistakes help us learn?",
               "options": [
                 "How to spend more",
-                "How to decide better",
                 "How to avoid money",
-                "How to get rid of money faster"
+                "How to get rid of money faster",
+                "How to decide better"
               ],
-              "correctAnswer": 1,
-              "explanation": "Mistakes show us the consequences of poor planning."
+              "correctAnswer": 3,
+              "explanation": "Mistakes show us the consequences of poor planning.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_03",
-              "type": "theoretical",
-              "question": "What should we do after we make a mistake?",
-              "options": [
-                "Forget about it",
-                "Notice it and think about what we can do differently next time",
-                "Ignore it, because if we do not notice it, it did not happen",
-                "Give up and never buy anything again"
+              "questionType": "ordering",
+              "question": "Put the steps for learning from a financial mistake in the correct order.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Reflection is how we improve our money management skills.",
+              "orderItems": [
+                "Make a purchase without thinking",
+                "Notice that the item was not really needed",
+                "Feel a little regret about the choice",
+                "Make a better decision next time"
               ],
-              "correctAnswer": 1,
-              "explanation": "Reflection is how we improve our money management skills."
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_04",
-              "type": "theoretical",
-              "question": "Why do things we buy without thinking often make us regret later?",
-              "options": [
-                "They break quickly",
-                "They are actually not needed",
-                "Because we do not value them",
-                "Someone steals them"
+              "questionType": "matching",
+              "question": "Match each behaviour to its result.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Regret usually comes from realising the money could have been used better.",
+              "orderItems": [],
+              "matchLeft": [
+                "Buying without thinking",
+                "Reflecting on a mistake",
+                "Repeating the same mistake",
+                "Thinking before buying"
               ],
-              "correctAnswer": 1,
-              "explanation": "Regret usually comes from realizing the money could have been used better."
+              "matchRight": [
+                "Often leads to regret",
+                "Helps you improve next time",
+                "Means you are not learning",
+                "Usually leads to satisfaction"
+              ],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_05",
-              "type": "practical",
+              "questionType": "multipleChoice",
               "question": "Chrumko buys something he later does not use. What does that mean?",
               "options": [
                 "He made a good decision",
@@ -386,20 +512,40 @@
                 "The thing changed"
               ],
               "correctAnswer": 1,
-              "explanation": "Buying unused items is a waste of resources."
+              "explanation": "Buying unused items is a waste of resources.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             },
             {
               "questionId": "3005_06",
-              "type": "practical",
-              "question": "What should Chrumko do next time if he makes a financial mistake?",
-              "options": [
-                "Repeat it again to make sure",
-                "Decide more quickly",
+              "questionType": "dragDrop",
+              "question": "Sort each action into the correct category - what Chrumko SHOULD do vs SHOULD NOT do after a mistake.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Slowing down and reflecting prevents repeating the same mistake.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [
                 "Think more before buying",
+                "Repeat the mistake to be sure",
+                "Reflect on what went wrong",
+                "Decide even more quickly next time",
                 "Never spend anything again"
               ],
-              "correctAnswer": 2,
-              "explanation": "Slowing down and thinking prevents repeating the same mistake."
+              "dragTargets": [
+                {
+                  "label": "Chrumko should do this",
+                  "correctItems": ["Think more before buying", "Reflect on what went wrong"]
+                },
+                {
+                  "label": "Chrumko should NOT do this",
+                  "correctItems": ["Repeat the mistake to be sure", "Decide even more quickly next time", "Never spend anything again"]
+                }
+              ]
             }
           ]
         }
