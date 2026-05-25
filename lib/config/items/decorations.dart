@@ -107,9 +107,9 @@ final List<Item> decorationItems = [
     type: ItemType.decoration,
     subtype: ItemSubtype.pets,
     texture: 'assets/images/items/chrumko.png',
-    cost: 150,
+    cost: 300,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.05,
   ),
   Item(
     id: 'chrumko_macka',
@@ -120,7 +120,7 @@ final List<Item> decorationItems = [
     texture: 'assets/images/items/chrumko_macka.png',
     cost: 200,
     hitboxId: null,
-    scale: 0.15,
+    scale: 0.05,
   ),
 
   // Windows/Mirrors
