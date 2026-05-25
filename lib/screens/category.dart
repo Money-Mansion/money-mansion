@@ -2,26 +2,6 @@
 import 'package:money_mansion/models/item.dart';
 import 'package:money_mansion/models/room_component.dart';
 
-// ---------------------------------------------------------------------------
-// Data types
-// ---------------------------------------------------------------------------
-
-/// Fine-grained item subtypes used for tab filtering.
-/// These live purely in the UI layer — no changes needed to Item/ItemType.
-
-enum ItemSubtype {
-  beds,
-  seating,
-  tables,
-  storage,
-  carpets,
-  wallDecor,
-  plants,
-  lighting,
-  pets,
-}
-
-
 class Category {
   final String labelKey;
 

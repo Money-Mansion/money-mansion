@@ -3,6 +3,7 @@ class Item {
   final String name;
   final String nameEn;
   final ItemType type;
+  final ItemSubtype? subtype;
   final String texture;
   final int cost;
   final int quantity;
@@ -14,6 +15,7 @@ class Item {
     required this.name,
     String? nameEn,
     required this.type,
+    this.subtype,
     required this.texture,
     required this.cost,
     this.quantity = 1,
@@ -28,6 +30,7 @@ class Item {
     String? name,
     String? nameEn,
     ItemType? type,
+    ItemSubtype? subtype,
     String? texture,
     int? cost,
     int? quantity,
@@ -39,6 +42,7 @@ class Item {
       name: name ?? this.name,
       nameEn: nameEn ?? this.nameEn,
       type: type ?? this.type,
+      subtype: subtype ?? this.subtype,
       texture: texture ?? this.texture,
       cost: cost ?? this.cost,
       quantity: quantity ?? this.quantity,
@@ -46,6 +50,18 @@ class Item {
       scale: scale ?? this.scale,
     );
   }
+}
+
+enum ItemSubtype {
+  beds,
+  seating,
+  tables,
+  storage,
+  carpets,
+  wallDecor,
+  plants,
+  lighting,
+  pets,
 }
 
 enum ItemType {
