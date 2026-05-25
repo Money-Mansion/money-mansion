@@ -110,42 +110,6 @@ class _InventoryScreenState extends State<InventoryScreen>
     }
   }
 
-  bool _matchesSubtype(Item item, ItemSubtype subtype) {
-    final id = item.id;
-    switch (subtype) {
-      case ItemSubtype.beds:
-        return id.startsWith('postel_') ||
-            id.startsWith('posteľ_') ||
-            id == 'postel_znicena';
-      case ItemSubtype.seating:
-        return id.startsWith('gauc_');
-      case ItemSubtype.tables:
-        return id.startsWith('stol_');
-      case ItemSubtype.storage:
-        return id.startsWith('polica') ||
-            id.startsWith('police') ||
-            id.startsWith('skriňa') ||
-            id.startsWith('skrina') ||
-            id == 'polica_kniznica_cierna';
-      case ItemSubtype.carpets:
-        return id.startsWith('koberec_');
-      case ItemSubtype.wallDecor:
-        return id.startsWith('obraz_') ||
-            id.startsWith('okno_') ||
-            id == 'okno_zrkadlo';
-      case ItemSubtype.plants:
-        return id.startsWith('kvietok_');
-      case ItemSubtype.lighting:
-        return id.startsWith('lampa_') || id.startsWith('svetlo_');
-      case ItemSubtype.pets:
-        return id == 'hoblub' ||
-            id == 'morca' ||
-            id == 'zajacik' ||
-            id.startsWith('macka_') ||
-            id.startsWith('psik_');
-    }
-  }
-
   List<dynamic> _itemsForCategory(Category category) {
     final ownedItems = widget.gameState.ownedItems;
 
@@ -162,7 +126,7 @@ class _InventoryScreenState extends State<InventoryScreen>
 
     if (category.itemSubtype != null) {
       return ownedItems
-          .where((i) => _matchesSubtype(i, category.itemSubtype!))
+          .where((i) => i.subtype == category.itemSubtype)
           .toList();
     }
 

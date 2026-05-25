@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DeveloperLogEntry {
@@ -101,10 +102,16 @@ class DeveloperLogService {
       message: sanitizedMessage,
       stackTrace: stackTrace == null ? null : _sanitize(stackTrace.toString()),
     );
-    final next = <DeveloperLogEntry>[...entries.value, entry];
-    entries.value = next.length > _maxEntries
-        ? next.sublist(next.length - _maxEntries)
-        : next;
+    
+    // Defer the state update to avoid "setState() during build" errors
+    // when logs are added while the UI is rebuilding
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final next = <DeveloperLogEntry>[...entries.value, entry];
+      entries.value = next.length > _maxEntries
+          ? next.sublist(next.length - _maxEntries)
+          : next;
+    });
+    
     unawaited(_append(entry.line));
   }
 
