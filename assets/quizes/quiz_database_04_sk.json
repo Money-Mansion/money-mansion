@@ -351,12 +351,12 @@
               "questionType": "multipleChoice",
               "question": "Čo prináša Chrumkovi fakt, že má odloženú rezervu?",
               "options": [
-                "Strach, že mu peniaze v obálke niekto v noci vymení",
                 "Pocit istoty v každodennom živote",
+                "Strach, že mu peniaze v obálke niekto v noci vymení",
                 "Smútok z toho, že tie peniaze nemôže nikdy použiť",
                 "Nudu, pretože s rezervou sa nedá zažiť žiadna zábava"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -440,11 +440,11 @@
               "question": "Chrumko si kúpil vec, na ktorú by mu jedna malá čiastka nestačila. Ako je to možné?",
               "options": [
                 "Obchodník sa pri blokovaní pomýlil v jeho prospech",
-                "Pravidelné sporenie sčítalo malé sumy",
                 "Našiel zvyšné peniaze schované pod vankúšom v izbe",
+                "Pravidelné sporenie sčítalo malé sumy",
                 "Peniaze v pokladničke sa cez noc zázračne zdvojnásobili"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],

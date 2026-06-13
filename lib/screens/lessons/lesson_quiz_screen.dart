@@ -3,7 +3,6 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
-// Single import for QuizQuestion — lives only in quiz_question_types.dart
 import 'package:money_mansion/models/quiz_question_types.dart';
 import 'package:provider/provider.dart';
 import '../../services/lesson_quiz_service.dart';
@@ -42,6 +41,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
   bool _initialized = false;
   bool _isQuizLocked = false;
   bool _quizFinished = false;
+
+  // Score required to unlock the next quiz.
+  static const int _unlockThreshold = 100;
 
   @override
   void initState() {
@@ -86,9 +88,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       );
       if (!mounted) return [];
 
-      // Sync questions list so the rest of the screen can reference it
-      // directly (e.g. _nextQuestion, _answerQuestion) without going
-      // through the FutureBuilder snapshot every time.
       questions = loadedQuestions;
       return loadedQuestions;
     } catch (e) {
@@ -117,44 +116,58 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
       final allProgress =
           await QuizProgressDatabaseService.getAllProgress();
 
+      // First quiz of the first section is always unlocked.
       if (quizIndex == 0) {
         if (sectionIndex == 0) return false;
+
+        // First quiz of a later section: all quizzes in the previous
+        // section must have been passed at >= _unlockThreshold.
         final previousSection = sections[sectionIndex - 1];
         for (final prevSectionQuiz in previousSection.lessons) {
-          QuizProgress? prevProgress;
-          try {
-            prevProgress = allProgress.firstWhere(
-              (p) =>
-                  p.quizId == prevSectionQuiz.id &&
-                  p.sectionId == previousSection.id,
-            );
-          } catch (e) {
-            prevProgress = null;
-          }
-          if (prevProgress == null || prevProgress.score != 100)
+          final prevProgress = _findProgress(
+            allProgress,
+            prevSectionQuiz.id,
+            previousSection.id,
+          );
+          if (prevProgress == null ||
+              prevProgress.score < _unlockThreshold) {
             return true;
+          }
         }
         return false;
       }
 
+      // Any other quiz: all preceding quizzes in the same section must
+      // have been passed at >= _unlockThreshold.
       for (int i = 0; i < quizIndex; i++) {
         final prevQuizId = section.lessons[i].id;
-        QuizProgress? prevProgress;
-        try {
-          prevProgress = allProgress.firstWhere(
-            (p) =>
-                p.quizId == prevQuizId && p.sectionId == sectionId,
-          );
-        } catch (e) {
-          prevProgress = null;
-        }
-        if (prevProgress == null || prevProgress.score != 100)
+        final prevProgress = _findProgress(
+          allProgress,
+          prevQuizId,
+          sectionId,
+        );
+        if (prevProgress == null ||
+            prevProgress.score < _unlockThreshold) {
           return true;
+        }
       }
       return false;
     } catch (e) {
+      print('Error checking quiz lock: $e');
       return true;
     }
+  }
+
+  /// Null-safe helper — avoids the try/catch firstWhere pattern.
+  QuizProgress? _findProgress(
+    List<QuizProgress> allProgress,
+    String quizId,
+    String sectionId,
+  ) {
+    for (final p in allProgress) {
+      if (p.quizId == quizId && p.sectionId == sectionId) return p;
+    }
+    return null;
   }
 
   // ── Called by QuestionWidgetFactory widgets ──────────────
@@ -380,7 +393,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     );
   }
 
-  /// Shared logic for saving score + streak on close or retry.
   Future<void> _saveAndClose() async {
     if (quizInfo != null && !_isQuizLocked) {
       final score =
@@ -423,12 +435,8 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     return l10nProvider.translate('quizTryAgain');
   }
 
-  // ── Question type badge ───────────────────────────────────
   Widget _buildTypeBadge(
       QuizQuestion question, AppLocalizationsProvider l10n) {
-    // Badge labels are localised via the l10n system.
-    // Add these keys to your translation files if not present:
-    //   quizTypeMC, quizTypeTF, quizTypeOrder, quizTypeMatch, quizTypeDrag
     final (key, color) = switch (question.questionType) {
       QuestionType.multipleChoice =>
         ('quizTypeMC',    const Color(0xFF2196F3)),
@@ -498,7 +506,6 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // ── Progress header ──────────────────────
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -530,21 +537,14 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                   minHeight: 6,
                 ),
                 const SizedBox(height: 20),
-
-                // ── Question type badge ──────────────────
                 _buildTypeBadge(question, l10nProvider),
                 const SizedBox(height: 10),
-
-                // ── Question text ────────────────────────
                 Text(
                   question.question,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 24),
-
-                // ── Question widget (type-specific) ──────
-                // Key forces a full widget rebuild on question change
                 KeyedSubtree(
                   key: ValueKey(
                       'q_${currentQuestionIndex}_${question.id}'),
@@ -552,11 +552,9 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
                     question: question,
                     showFeedback: showFeedback,
                     onAnswered: _answerQuestion,
-                    language: language, // ← pass language down
+                    language: language,
                   ),
                 ),
-
-                // ── Feedback panel ───────────────────────
                 if (showFeedback) ...[
                   const SizedBox(height: 20),
                   Container(

@@ -1,0 +1,468 @@
+{
+  "quizzes": [
+    {
+      "section": 5,
+      "sectionName": "CENA A HODNOTA",
+      "lessons": [
+        {
+          "lessonId": 5001,
+          "lessonNumber": 1,
+          "lessonName": "Cena vs kvalita",
+          "questions": [
+            {
+              "questionId": "5001_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Čo nám hovorí cena výrobku?",
+              "options": [
+                "Aký dobrý výrobok je.",
+                "Koľko zaň musíme zaplatiť.",
+                "Ako dlho výrobok vydrží.",
+                "Z akého materiálu je vyrobený."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Cena hovorí, koľko peňazí musíme zaplatiť - nie nevyhnutne, aký kvalitný výrobok je."
+            },
+            {
+              "questionId": "5001_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Drahší výrobok je vždy kvalitnejší ako lacnejší.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "Vyššia cena môže odrážať značku, obal alebo reklamu - nie vždy lepšiu kvalitu."
+            },
+            {
+              "questionId": "5001_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Čo znamená kvalita výrobku?",
+              "options": [
+                "Ako drahý je.",
+                "Aký farebný je jeho obal.",
+                "Ako dobre funguje a ako dlho vydrží.",
+                "Kde bol vyrobený."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Kvalita opisuje, ako dobre výrobok funguje a ako dlho vydrží."
+            },
+            {
+              "questionId": "5001_04",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Niekedy je vyššia cena spôsobená názvom značky, nie lepšími materiálmi.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Známe značky si účtujú viac kvôli marketingu a reputácii, nie vždy kvôli lepšej kvalite."
+            },
+            {
+              "questionId": "5001_05",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko si vyberá ceruzku. Jedna má peknú značkovú krabičku a stojí viac. Vedľa nej leží jednoduchšia ceruzka, ktorá stojí menej a píše rovnako dobre. Čo je múdrejšia voľba?",
+              "options": [
+                "Vždy tá značková, lebo je drahšia a teda lepšia.",
+                "Lacnejšia, keďže funguje rovnako a ušetrí peniaze.",
+                "Žiadna - ceruzky by si kupovať nemal.",
+                "Značková, lebo pekná krabička vydrží dlhšie."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak oba výrobky fungujú rovnako, lacnejší je múdrejšia kúpa."
+            },
+            {
+              "questionId": "5001_06",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Rozhodni, čo každý faktor hlavne ovplyvňuje.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Kvalita materiálu", "Názov značky", "Prepychový obal"],
+              "dragTargets": [
+                { "label": "Môže zvýšiť cenu AJ kvalitu", "correctItems": ["Kvalita materiálu"] },
+                { "label": "Zvyšuje cenu bez zlepšenia výrobku", "correctItems": ["Názov značky", "Prepychový obal"] }
+              ],
+              "explanation": "Lepší materiál zlepšuje samotný výrobok; značka a obal väčšinou len zvyšujú cenu."
+            },
+            {
+              "questionId": "5001_07",
+              "questionType": "ordering",
+              "type": "practical",
+              "question": "Zoraď kroky správneho porovnania dvoch podobných výrobkov.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Pozrieš sa na oba výrobky",
+                "Vyskúšaš alebo porovnáš, ako fungujú",
+                "Premyslíš, či je cenový rozdiel naozaj opodstatnený",
+                "Vyberieš ten s lepším pomerom ceny a kvality"
+              ],
+              "explanation": "Múdre nakupovanie znamená porovnávať funkciu aj cenu pred rozhodnutím."
+            }
+          ]
+        },
+        {
+          "lessonId": 5002,
+          "lessonNumber": 2,
+          "lessonName": "Lacné vs drahé",
+          "questions": [
+            {
+              "questionId": "5002_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Prečo môžu dva veľmi podobné výrobky stáť úplne rozdielne peniaze?",
+              "options": [
+                "Lebo drahšie sú vždy novšie.",
+                "Lebo predavač si každé ráno ceny náhodne vymyslí.",
+                "Lebo lacnejšie výrobky sú vždy horšie.",
+                "Lebo cenu ovplyvňuje materiál, značka, obal a miesto predaja."
+              ],
+              "correctAnswer": 3,
+              "explanation": "Cenu ovplyvňuje spôsob výroby, značka, veľkosť balenia aj samotný obchod."
+            },
+            {
+              "questionId": "5002_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Ten istý výrobok môže stáť v rôznych obchodoch rozdielne peniaze.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Každý obchod má iné náklady a cenovú politiku pre rovnaký tovar."
+            },
+            {
+              "questionId": "5002_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Čo býva zvyčajne najlepším dôvodom na kúpu drahšieho výrobku?",
+              "options": [
+                "Má krajšiu farbu.",
+                "Obchod ho uložil na vyššiu policu.",
+                "Je vyrobený z lepšieho materiálu a vydrží dlhšie.",
+                "Stojí viac, takže musí byť lepší."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Vyššia cena je opodstatnená len vtedy, keď výrobok skutočne lepšie funguje alebo dlhšie vydrží."
+            },
+            {
+              "questionId": "5002_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Chrumko nájde dva rovnaké zošity - rovnaký počet strán, rovnaké použitie - ale jeden stojí viac kvôli obalu. Lacnejší je rozumná voľba.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Ak je jediný rozdiel vzhľad a nie funkcia, lacnejšia možnosť je väčšinou múdrejšia."
+            },
+            {
+              "questionId": "5002_05",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Spáruj každý dôvod cenového rozdielu s jeho popisom.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Názov značky", "Lepší materiál", "Väčšie balenie"],
+              "matchRight": ["Zvyšuje cenu vďaka reputácii", "Zvyšuje cenu aj kvalitu výrobku", "Viac tovaru za viac peňazí"],
+              "explanation": "Cenové rozdiely môžu pochádzať zo značky, materiálov alebo jednoducho z množstva, ktoré dostaneš."
+            },
+            {
+              "questionId": "5002_06",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko vidí zošit s pekným obalom za 3 € a jednoduchý zošit za 1,50 €. Oba majú rovnaký počet strán. Na čo by sa mal najprv zamyslieť?",
+              "options": [
+                "Či je cenový rozdiel opodstatnený len kvôli inému obalu.",
+                "Ktorý by si vybrali kamaráti.",
+                "Musí si vždy kúpiť lacnejší bez ohľadu na čokoľvek.",
+                "Musí si vždy kúpiť drahší, aby bol istý."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Je rozumné posúdiť, či cenový rozdiel odráža pre teba skutočný benefit."
+            },
+            {
+              "questionId": "5002_07",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Zaraď každý faktor podľa toho, čo skutočne ovplyvňuje.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Farebný obal", "Odolné materiály", "Známa značka"],
+              "dragTargets": [
+                { "label": "Ovplyvňuje kvalitu výrobku", "correctItems": ["Odolné materiály"] },
+                { "label": "Ovplyvňuje cenu, nie kvalitu", "correctItems": ["Farebný obal", "Známa značka"] }
+              ],
+              "explanation": "Obal a značka zvyšujú cenu; odolné materiály zvyšujú cenu aj kvalitu."
+            }
+          ]
+        },
+        {
+          "lessonId": 5003,
+          "lessonNumber": 3,
+          "lessonName": "Čo znamená výhodná kúpa",
+          "questions": [
+            {
+              "questionId": "5003_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Čo znamená výhodná kúpa?",
+              "options": [
+                "Vždy kupovať najlacnejší dostupný výrobok.",
+                "Kúpiť čo najviac vecí naraz.",
+                "Kúpiť niečo, čo dobre slúži, dlho vydrží a jeho cena zodpovedá tomu, čo ponúka.",
+                "Kupovať veci iba počas výpredajov."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Výhodná kúpa znamená, že výrobok dobre plní svoju funkciu a jeho cena zodpovedá tomu, čo ponúka."
+            },
+            {
+              "questionId": "5003_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Lacný výrobok, ktorý sa rýchlo pokazí, je vždy výhodná kúpa, lebo stál menej.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "Ak sa lacný výrobok rýchlo pokazí, musíš ho skôr vymeniť - celkovo môže vyjsť drahšie."
+            },
+            {
+              "questionId": "5003_03",
+              "questionType": "ordering",
+              "type": "practical",
+              "question": "Zoraď kroky, ako zistiť, či je niečo naozaj výhodná kúpa.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Pozri sa na cenu",
+                "Skontroluj kvalitu a materiály",
+                "Porovnaj to s podobnými výrobkami",
+                "Rozhodni, či cena zodpovedá tomu, čo dostaneš"
+              ],
+              "explanation": "Výhodná kúpa si vyžaduje porovnanie ceny, kvality aj užitočnosti pred rozhodnutím."
+            },
+            {
+              "questionId": "5003_04",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Kedy môže byť drahší výrobok v skutočnosti výhodnejší?",
+              "options": [
+                "Keď má lesklý obal.",
+                "Keď ho používaš každý deň a vydrží oveľa dlhšie ako lacná verzia.",
+                "Keď ho predavač označí za výhodný.",
+                "Keď je najdrahší v obchode."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Platiť viac za odolný výrobok, ktorý denne používaš, môže byť celkovo lacnejšie ako opakovane kupovať lacnú verziu."
+            },
+            {
+              "questionId": "5003_05",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Chrumko kúpi lacnú fľašu na vodu, ktorá sa po týždni praskne. Musí si kúpiť ďalšiu. Táto kúpa nebola výhodná.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Lacný výrobok, ktorý treba rýchlo nahradiť, vychádza celkovo drahšie ako kvalitnejší, kúpený raz."
+            },
+            {
+              "questionId": "5003_06",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Rozhodni, či je každá kúpa výhodná alebo nevýhodná.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Pevná taška používaná denne 2 roky", "Lacná hračka, ktorá sa pokazí po jednom dni", "Jednoduché pero, ktoré výborne píše celý rok"],
+              "dragTargets": [
+                { "label": "Výhodná kúpa", "correctItems": ["Pevná taška používaná denne 2 roky", "Jednoduché pero, ktoré výborne píše celý rok"] },
+                { "label": "Nevýhodná kúpa", "correctItems": ["Lacná hračka, ktorá sa pokazí po jednom dni"] }
+              ],
+              "explanation": "Výhodná kúpa znamená, že výrobok dlho vydrží a dobre plní svoju funkciu za svoju cenu."
+            },
+            {
+              "questionId": "5003_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko chce fľašu na vodu do školy. Vidí tenkú lacnú a pevnejšiu, ktorá stojí o trochu viac. Aká je najinteligentnejšia otázka, ktorú si môže položiť?",
+              "options": [
+                "Ktorá vyzerá zábavnejšie?",
+                "Ktorú budem používať každý deň a ktorá vydrží dlhšie?",
+                "Ktorá je najpopulárnejšia?",
+                "Ktorú má môj kamarát?"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri veciach dennej potreby sú odolnosť a dlhodobá hodnota najdôležitejšie faktory."
+            }
+          ]
+        },
+        {
+          "lessonId": 5004,
+          "lessonNumber": 4,
+          "lessonName": "Porovnávanie cien",
+          "questions": [
+            {
+              "questionId": "5004_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Prečo sa oplatí porovnávať ceny pred kúpou?",
+              "options": [
+                "Aby boli nákupy dlhšie a zábavnejšie.",
+                "Lebo lacnejšie výrobky sú vždy horšej kvality.",
+                "Aby sme zmiatli predavača.",
+                "Lebo ten istý výrobok môže stáť menej v inom obchode."
+              ],
+              "correctAnswer": 3,
+              "explanation": "Porovnanie cien pomáha nájsť ten istý výrobok za lepšiu cenu a ušetriť peniaze."
+            },
+            {
+              "questionId": "5004_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Oplatí sa porovnávať ceny aj pri malých nákupoch, pretože malé úspory sa časom nasčítajú.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Aj malé cenové rozdiely sa pri pravidelnom nakupovaní nazbierajú na výrazné úspory."
+            },
+            {
+              "questionId": "5004_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Chrumko nájde rovnaké pastelky v dvoch obchodoch - jeden ich predáva za 4 €, druhý za 2,80 €. Čo by mal urobiť?",
+              "options": [
+                "Kúpiť v prvom obchode, lebo tam bol prvý.",
+                "Kúpiť v druhom obchode, aby dostal ten istý výrobok lacnejšie.",
+                "Pastelky nekúpiť vôbec, lebo ceny sú rozdielne.",
+                "Kúpiť jedno balenie v každom obchode."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Kúpiť ten istý výrobok za nižšiu cenu je múdre finančné rozhodnutie."
+            },
+            {
+              "questionId": "5004_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Ak sú dve balenia pasteliek obsahovo rovnaké, ale rôznych cien, drahšie je výhodnejší nákup.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "Ak je obsah rovnaký, lacnejšie balenie poskytuje rovnakú hodnotu za menej peňazí."
+            },
+            {
+              "questionId": "5004_06",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Spáruj každú nákupnú situáciu so správnou akciou.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Rovnaký výrobok, dva obchody", "Dva výrobky, rovnaký obchod, rovnaké použitie", "Výrobok, ktorý si nikdy nevidel"],
+              "matchRight": ["Kúp v lacnejšom obchode", "Vyber ten s lepším pomerom ceny a kvality", "Najprv si ho preskúmaj"],
+              "explanation": "Múdre nakupovanie znamená prispôsobiť prístup podľa situácie."
+            },
+            {
+              "questionId": "5004_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko kúpi pastelky v najbližšom obchode bez toho, aby porovnal ceny. Neskôr mu kamarát ukáže, že rovnaké balenie stojí online oveľa menej. Čo Chrumko zmeškal?",
+              "options": [
+                "Príležitosť ušetriť peniaze porovnaním cien.",
+                "Nič - rýchlosť sa vždy oplatí zaplatiť.",
+                "Spravil správne, lebo online nakupovanie je rizikové.",
+                "Mal kúpiť dve balenia, aby dostal zľavu."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Porovnávanie cien je jednoduchý návyk, ktorý dokáže ušetriť peniaze s malým úsilím navyše."
+            }
+          ]
+        },
+        {
+          "lessonId": 5005,
+          "lessonNumber": 5,
+          "lessonName": "Jednotková cena",
+          "questions": [
+            {
+              "questionId": "5005_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Čo je jednotková cena?",
+              "options": [
+                "Cena najdrahšej veci v obchode.",
+                "Celková suma, ktorú zaplatíš pri pokladni.",
+                "Cena za jeden kus, jeden liter alebo jeden gram výrobku.",
+                "Cena pred uplatnením zľavy."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Jednotková cena hovorí, koľko stojí jedna merná jednotka, čo umožňuje spravodlivo porovnávať rôzne balenia."
+            },
+            {
+              "questionId": "5005_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Väčšie balenie stojí celkovo viac, ale môže byť lacnejšie na jednotku.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Väčšie balenia majú často nižšiu jednotkovú cenu, aj keď ich celková cena je vyššia."
+            },
+            {
+              "questionId": "5005_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Chrumko vidí dve fľaše vody: 0,5 l za 0,60 € a 1,5 l za 1,20 €. Ktorá je lacnejšia na liter?",
+              "options": [
+                "Fľaša 0,5 l, lebo celkovo stojí menej.",
+                "Fľaša 1,5 l, lebo stojí menej na liter.",
+                "Stoja na liter rovnako.",
+                "Nedá sa ich porovnávať."
+              ],
+              "correctAnswer": 1,
+              "explanation": "0,5 l = 1,20 €/l; 1,5 l = 0,80 €/l - väčšia fľaša je lacnejšia na liter."
+            },
+            {
+              "questionId": "5005_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Ak Chrumko potrebuje len malé množstvo niečoho, väčšie balenie je vždy lepšia voľba.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "Nižšia jednotková cena je výhodná len vtedy, ak väčšie množstvo skutočne spotrebuješ."
+            },
+            {
+              "questionId": "5005_05",
+              "questionType": "ordering",
+              "type": "theoretical",
+              "question": "Zoraď kroky na výpočet, ktoré balenie je výhodnejšie.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Zapíš celkovú cenu a množstvo každého balenia",
+                "Vydeľ cenu množstvom, aby si dostal jednotkovú cenu",
+                "Porovnaj jednotkové ceny",
+                "Vyber to s nižšou jednotkovou cenou (ak dané množstvo potrebuješ)"
+              ],
+              "explanation": "Výpočet jednotkovej ceny umožňuje spravodlivo porovnávať balenia rôznych veľkostí."
+            },
+            {
+              "questionId": "5005_06",
+              "questionType": "dragDrop",
+              "type": "practical",
+              "question": "Chrumko vidí dva džúsy: malé balenie (200 ml) za 0,50 € a veľké (1000 ml) za 1,80 €. Zaraď fakty.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Celkovo stojí menej", "Lacnejší na 100 ml", "Lepšie, ak chce len trochu"],
+              "dragTargets": [
+                { "label": "Malé balenie (200 ml / 0,50 €)", "correctItems": ["Celkovo stojí menej", "Lepšie, ak chce len trochu"] },
+                { "label": "Veľké balenie (1000 ml / 1,80 €)", "correctItems": ["Lacnejší na 100 ml"] }
+              ],
+              "explanation": "Malé: 0,25 €/100 ml. Veľké: 0,18 €/100 ml. Veľké je lacnejšie na jednotku, malé je lepšie, ak treba len trochu."
+            },
+            {
+              "questionId": "5005_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Mama Chrumkovi ukáže, že dve malé fľaše vody spolu stoja viac ako jedna veľká s rovnakým objemom. Aké je poučenie?",
+              "options": [
+                "Veľké fľaše sú vždy správna voľba.",
+                "Cena na etikete nestačí - porovnanie jednotkovej ceny ukáže skutočnú hodnotu.",
+                "Malé fľaše sú vždy horšej kvality.",
+                "Odteraz by mal kupovať iba veľké balenia."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Porovnanie jednotkovej ceny odhalí skutočnú hodnotu, ktorú samotná cena na etikete neukáže."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,468 @@
+{
+  "quizzes": [
+    {
+      "section": 5,
+      "sectionName": "PRICE AND VALUE",
+      "lessons": [
+        {
+          "lessonId": 5001,
+          "lessonNumber": 1,
+          "lessonName": "Price vs quality",
+          "questions": [
+            {
+              "questionId": "5001_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "What does the price of a product tell us?",
+              "options": [
+                "How good the product is.",
+                "How much we need to pay for it.",
+                "How long the product will last.",
+                "What material it is made of."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Price tells us how much money we have to pay, not necessarily how good the product is."
+            },
+            {
+              "questionId": "5001_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "A more expensive product is always better quality than a cheaper one.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "A higher price can reflect brand, packaging, or advertising - not just better quality."
+            },
+            {
+              "questionId": "5001_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "What does quality mean when talking about a product?",
+              "options": [
+                "How expensive it is.",
+                "How colorful the packaging is.",
+                "How well it works and how long it lasts.",
+                "Where it was made."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Quality describes how well a product functions and how durable it is over time."
+            },
+            {
+              "questionId": "5001_04",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "Sometimes a higher price is caused by the brand name, not by better materials.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Well-known brands often charge more due to marketing and reputation, not always superior quality."
+            },
+            {
+              "questionId": "5001_05",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko is choosing a pencil. One has a fancy branded package and costs more. A simpler one next to it costs less and writes just as well. Which is the wiser choice?",
+              "options": [
+                "Always the branded one, because it is more expensive and therefore better.",
+                "The cheaper one, since it performs the same and saves money.",
+                "Neither - he should not buy pencils at all.",
+                "The branded one, because the nice packaging lasts longer."
+              ],
+              "correctAnswer": 1,
+              "explanation": "If both products perform the same, the cheaper one is the smarter buy."
+            },
+            {
+              "questionId": "5001_06",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Decide what each factor mainly affects.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Material quality", "Brand name", "Fancy packaging"],
+              "dragTargets": [
+                { "label": "Can raise price AND quality", "correctItems": ["Material quality"] },
+                { "label": "Raises price without improving the product", "correctItems": ["Brand name", "Fancy packaging"] }
+              ],
+              "explanation": "Better materials improve the product itself; brand and packaging mostly increase the price."
+            },
+            {
+              "questionId": "5001_07",
+              "questionType": "ordering",
+              "type": "practical",
+              "question": "Put these steps in the right order for choosing between two similar products.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Look at both products",
+                "Try or compare how they work",
+                "Think about whether the price difference is worth it",
+                "Choose the one with better value"
+              ],
+              "explanation": "Smart shopping means comparing both function and price before deciding."
+            }
+          ]
+        },
+        {
+          "lessonId": 5002,
+          "lessonNumber": 2,
+          "lessonName": "Cheap vs expensive",
+          "questions": [
+            {
+              "questionId": "5002_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Why can two very similar products have completely different prices?",
+              "options": [
+                "Because more expensive ones are always newer.",
+                "Because the shop owner sets prices randomly each morning.",
+                "Because cheaper products are always worse.",
+                "Because price depends on material, brand, packaging, and where it is sold."
+              ],
+              "correctAnswer": 3,
+              "explanation": "Many factors influence price: production method, brand, packaging size, and the shop itself."
+            },
+            {
+              "questionId": "5002_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "The same product can cost different amounts in different shops.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Different shops have different costs and pricing strategies for the same item."
+            },
+            {
+              "questionId": "5002_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "What is usually the best reason to choose a more expensive product over a cheaper one?",
+              "options": [
+                "It has a nicer colour.",
+                "The shop put it on a higher shelf.",
+                "It is made of better materials and will last longer.",
+                "It costs more, so it must be better."
+              ],
+              "correctAnswer": 2,
+              "explanation": "A higher price is only justified when the product genuinely offers better durability or function."
+            },
+            {
+              "questionId": "5002_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Chrumko finds two identical notebooks - same page count, same use - but one costs more because of its cover design. The cheaper one is a reasonable choice.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "If the only difference is appearance and not function, the cheaper option is often wiser."
+            },
+            {
+              "questionId": "5002_05",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Match each reason for a price difference to its correct description.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Brand name", "Better material", "Larger package size"],
+              "matchRight": ["Raises price due to reputation", "Raises price and product quality", "More product for more money"],
+              "explanation": "Price differences can come from brand, materials, or simply the amount you get."
+            },
+            {
+              "questionId": "5002_06",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko sees a notebook with a fancy cover for €3 and a plain notebook for €1.50. Both have the same number of pages. What should he think about first?",
+              "options": [
+                "Whether the price difference is worth it for just a different cover.",
+                "Which one his friends would choose.",
+                "He must always buy the cheaper one no matter what.",
+                "He must always buy the more expensive one to be safe."
+              ],
+              "correctAnswer": 0,
+              "explanation": "It is wise to evaluate whether a price difference reflects a real benefit to you."
+            },
+            {
+              "questionId": "5002_07",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Sort each factor into what it actually affects.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Colourful packaging", "Durable materials", "Famous brand"],
+              "dragTargets": [
+                { "label": "Affects product quality", "correctItems": ["Durable materials"] },
+                { "label": "Affects price but not quality", "correctItems": ["Colourful packaging", "Famous brand"] }
+              ],
+              "explanation": "Packaging and brand raise the price; durable materials raise both price and quality."
+            }
+          ]
+        },
+        {
+          "lessonId": 5003,
+          "lessonNumber": 3,
+          "lessonName": "What is a good deal",
+          "questions": [
+            {
+              "questionId": "5003_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "What does it mean to get a good deal?",
+              "options": [
+                "Always buying the cheapest product available.",
+                "Buying as many items as possible at once.",
+                "Buying something that works well and lasts long for a fair price.",
+                "Buying things only during sales."
+              ],
+              "correctAnswer": 2,
+              "explanation": "A good deal means the product serves its purpose well and the price matches what it offers."
+            },
+            {
+              "questionId": "5003_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "A cheap product that breaks quickly is always a good deal because it cost less.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "If a cheap product breaks quickly, you may need to replace it sooner, making it more expensive in the long run."
+            },
+            {
+              "questionId": "5003_03",
+              "questionType": "ordering",
+              "type": "practical",
+              "question": "Put the steps in order for deciding if something is a good deal.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Look at the price",
+                "Check the quality and materials",
+                "Compare it to similar products",
+                "Decide if the price matches what you get"
+              ],
+              "explanation": "A good deal requires comparing price, quality, and usefulness before buying."
+            },
+            {
+              "questionId": "5003_04",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "When can a more expensive product actually be the better deal?",
+              "options": [
+                "When it has a shinier package.",
+                "When you use it every day and it lasts much longer than the cheap version.",
+                "When the shop owner says it is better.",
+                "When it is the most expensive item in the shop."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Paying more for something durable that you use daily can cost less overall than replacing a cheap version repeatedly."
+            },
+            {
+              "questionId": "5003_05",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "Chrumko buys a cheap water bottle that cracks after a week. He then must buy another one. This was not a good deal.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "A cheap product that needs replacing quickly often costs more in total than a better-quality one bought once."
+            },
+            {
+              "questionId": "5003_06",
+              "questionType": "dragDrop",
+              "type": "theoretical",
+              "question": "Decide if each purchase sounds like a good deal or a bad deal.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Sturdy bag used daily for 2 years", "Cheap toy that breaks after one day", "Simple pen that writes perfectly all year"],
+              "dragTargets": [
+                { "label": "Good deal", "correctItems": ["Sturdy bag used daily for 2 years", "Simple pen that writes perfectly all year"] },
+                { "label": "Bad deal", "correctItems": ["Cheap toy that breaks after one day"] }
+              ],
+              "explanation": "A good deal means the product lasts and serves its purpose well for its price."
+            },
+            {
+              "questionId": "5003_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko wants a water bottle for school. He sees a thin cheap one and a sturdier one that costs a bit more. What is the smartest question to ask himself?",
+              "options": [
+                "Which one looks more fun?",
+                "Which one will I use every day and which will last longer?",
+                "Which one is the most popular?",
+                "Which one does my friend have?"
+              ],
+              "correctAnswer": 1,
+              "explanation": "For daily-use items, durability and long-term value are the most important factors."
+            }
+          ]
+        },
+        {
+          "lessonId": 5004,
+          "lessonNumber": 4,
+          "lessonName": "Comparing prices",
+          "questions": [
+            {
+              "questionId": "5004_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Why is it useful to compare prices before buying something?",
+              "options": [
+                "To make shopping trips longer and more fun.",
+                "Because cheaper products are always of worse quality.",
+                "To confuse the shopkeeper.",
+                "Because the same product can cost less in a different shop."
+              ],
+              "correctAnswer": 3,
+              "explanation": "Comparing prices helps you find the same product at a better price, saving money."
+            },
+            {
+              "questionId": "5004_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "It is worth comparing prices even for small purchases, because small savings add up over time.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Even small price differences accumulate into significant savings when shopping regularly."
+            },
+            {
+              "questionId": "5004_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Chrumko finds the same coloured pencils in two shops - one sells them for €4, the other for €2.80. What should he do?",
+              "options": [
+                "Buy from the first shop because he was there first.",
+                "Buy from the second shop to get the same product for less money.",
+                "Not buy pencils at all because prices are different.",
+                "Buy one pack from each shop."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Buying the same product at a lower price is a smart financial decision."
+            },
+            {
+              "questionId": "5004_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "If two packs of pencils are identical in content but different in price, the more expensive one is the better deal.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "If the content is identical, the cheaper pack gives the same value for less money."
+            },
+            {
+              "questionId": "5004_06",
+              "questionType": "matching",
+              "type": "theoretical",
+              "question": "Match each shopping situation to the smart action.",
+              "options": [],
+              "correctAnswer": 0,
+              "matchLeft": ["Same product, two different shops", "Two products, same shop, same use", "Product you have never seen before"],
+              "matchRight": ["Buy from the cheaper shop", "Choose the one with better price-to-quality ratio", "Research it before buying"],
+              "explanation": "Smart shopping means adjusting your approach depending on the situation."
+            },
+            {
+              "questionId": "5004_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko buys coloured pencils in the nearest shop without checking elsewhere. Later his friend shows him the same pack costs much less online. What did Chrumko miss?",
+              "options": [
+                "The chance to save money by comparing prices first.",
+                "Nothing - speed is always worth paying for.",
+                "He made the right choice because online shopping is risky.",
+                "He should have bought two packs to get a discount."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Price comparison is a simple habit that can save money with little extra effort."
+            }
+          ]
+        },
+        {
+          "lessonId": 5005,
+          "lessonNumber": 5,
+          "lessonName": "Unit price",
+          "questions": [
+            {
+              "questionId": "5005_01",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "What is a unit price?",
+              "options": [
+                "The price of the most expensive item in the shop.",
+                "The total price you pay at the checkout.",
+                "The price for one piece, one litre, or one gram of a product.",
+                "The price before a discount is applied."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Unit price tells you the cost per single unit of measurement, making it easy to compare packages."
+            },
+            {
+              "questionId": "5005_02",
+              "questionType": "trueFalse",
+              "type": "theoretical",
+              "question": "A bigger package always costs more in total but can be cheaper per unit.",
+              "options": [],
+              "correctAnswer": 0,
+              "explanation": "Larger packages often have a lower unit price even if their total price is higher."
+            },
+            {
+              "questionId": "5005_03",
+              "questionType": "multipleChoice",
+              "type": "theoretical",
+              "question": "Chrumko sees two water bottles: a 0.5 L bottle for €0.60 and a 1.5 L bottle for €1.20. Which is cheaper per litre?",
+              "options": [
+                "The 0.5 L bottle, because it costs less in total.",
+                "The 1.5 L bottle, because it costs less per litre.",
+                "They cost the same per litre.",
+                "It is impossible to compare them."
+              ],
+              "correctAnswer": 1,
+              "explanation": "0.5 L = €1.20/L; 1.5 L = €0.80/L - the large bottle is cheaper per litre."
+            },
+            {
+              "questionId": "5005_04",
+              "questionType": "trueFalse",
+              "type": "practical",
+              "question": "If Chrumko only needs a small amount of something, the larger package is always the better choice.",
+              "options": [],
+              "correctAnswer": 1,
+              "explanation": "A lower unit price is only an advantage if you will actually use the larger quantity."
+            },
+            {
+              "questionId": "5005_05",
+              "questionType": "ordering",
+              "type": "theoretical",
+              "question": "Put the steps for calculating which package is better value in order.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": [
+                "Note the total price and the amount of each package",
+                "Divide the price by the amount to get the unit price",
+                "Compare the unit prices",
+                "Choose the one with the lower unit price (if you need that amount)"
+              ],
+              "explanation": "Calculating unit price lets you compare packages of different sizes fairly."
+            },
+            {
+              "questionId": "5005_06",
+              "questionType": "dragDrop",
+              "type": "practical",
+              "question": "Chrumko sees two packs of juice: a small pack (200 ml) for €0.50 and a large pack (1000 ml) for €1.80. Sort the facts.",
+              "options": [],
+              "correctAnswer": 0,
+              "dragLabels": ["Costs less in total", "Cheaper per 100 ml", "Better if he only wants a little"],
+              "dragTargets": [
+                { "label": "Small pack (200 ml / €0.50)", "correctItems": ["Costs less in total", "Better if he only wants a little"] },
+                { "label": "Large pack (1000 ml / €1.80)", "correctItems": ["Cheaper per 100 ml"] }
+              ],
+              "explanation": "Small pack: €0.25/100 ml. Large pack: €0.18/100 ml. Large is cheaper per unit, but small is better if little is needed."
+            },
+            {
+              "questionId": "5005_07",
+              "questionType": "multipleChoice",
+              "type": "practical",
+              "question": "Chrumko's mum shows him that two small bottles of water together cost more than one big bottle with the same total volume. What is the lesson?",
+              "options": [
+                "Big bottles are always the right choice.",
+                "The total price on the label is not always enough - comparing the unit price shows the real value.",
+                "Small bottles are always worse quality.",
+                "He should only ever buy big packages from now on."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Unit price comparison reveals true value that the label price alone does not show."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

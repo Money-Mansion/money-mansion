@@ -351,12 +351,12 @@
               "questionType": "multipleChoice",
               "question": "What does the fact that he has a reserve bring to Chrumko?",
               "options": [
-                "Fear that someone will swap his envelope money at night",
                 "A sense of security in everyday life",
+                "Fear that someone will swap his envelope money at night",
                 "Sadness because he can never actually use that money",
                 "Boredom, because you can't have any fun with a reserve"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -440,11 +440,11 @@
               "question": "Chrumko bought an item that one small portion of money wouldn't cover. How is this possible?",
               "options": [
                 "The shopkeeper made a mistake in his favor at the checkout",
-                "Regular saving added up the small amounts",
                 "He found the remaining money hidden under a pillow in his room",
+                "Regular saving added up the small amounts",
                 "The money in the piggy bank miraculously doubled overnight"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
