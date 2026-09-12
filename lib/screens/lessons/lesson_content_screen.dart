@@ -164,17 +164,6 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       bodySk: 'Peniaze používame, keď si chceme niečo kúpiť. Ľudia sa dohodli, že peniaze budú mať hodnotu a budú sa dať vymeniť za veci, ktoré potrebujeme alebo chceme – napríklad jedlo, oblečenie alebo hračky.',
       accentColor: Color(0xFFF5A623),
     ),
-    // ── EXAMPLE: icon slide using MyFlutterApp.coins ──
-    LessonSlide.icon(
-      iconWidget: MyFlutterApp.payment,
-      iconSize: 500,
-      iconContainerSize: 520,
-      title: '3 Forms of Money',
-      titleSk: '3 formy peňazí',
-      body: 'Coins, banknotes, and digital money are the three main forms used today.',
-      bodySk: 'Mince, bankovky a digitálne peniaze sú tri hlavné formy, ktoré sa dnes používajú.',
-      accentColor: Color(0xFFF5A623),
-    ),
     LessonSlide(
       type: LessonSlideType.facts,
       emoji: '📋',

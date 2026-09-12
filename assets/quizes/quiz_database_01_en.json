@@ -89,6 +89,33 @@
               "correctAnswer": 0,
               "orderItems": ["Trading goods for goods", "Paying with salt and shells", "Metal coins", "Paper banknotes", "Digital money"],
               "explanation": "Money evolved from barter through commodities and coins to digital forms."
+            },
+            {
+              "questionId": "1001_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko finds an old foreign coin that people no longer use as payment. He tries to buy juice with it in today's shop.",
+              "options": [
+                "The shop must accept it because it is made of metal.",
+                "The shop can refuse it, since people today don't agree it has value here.",
+                "The coin becomes worth double automatically.",
+                "The coin turns into a banknote."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Money only has value when people agree to accept it - an old, unrecognised coin has lost that agreement."
+            },
+            {
+              "questionId": "1001_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about forms of money is wrong. Find it.",
+              "options": [
+                "Coins are a physical form of money.",
+                "A banknote is paper money used for payments.",
+                "Digital money only exists in video games and can never buy real things."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Digital money is a real form of money - it's used on cards and phones to pay for real purchases."
             }
           ]
         },
@@ -118,7 +145,7 @@
               "question": "Direct trading (barter) is always simple and fast.",
               "options": [],
               "correctAnswer": 1,
-              "explanation": "Barter requires a 'coincidence of wants'—both parties must want exactly what the other has."
+              "explanation": "Barter requires a 'coincidence of wants'- both parties must want exactly what the other has."
             },
             {
               "questionId": "1002_03",
@@ -185,6 +212,33 @@
               ],
               "correctAnswer": 0,
               "explanation": "Money is portable and serves as a 'store of value' unlike perishable goods like potatoes."
+            },
+            {
+              "questionId": "1002_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko has a bag of sand and wants to trade it for a toy car, but the toy seller doesn't want sand.",
+              "options": [
+                "Chrumko must convince the seller to like sand.",
+                "Chrumko can use money instead, since money is accepted by everyone.",
+                "Chrumko should give up and never get a toy.",
+                "The seller must trade anyway because Chrumko asked first."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Money solves this exact problem - unlike sand, it is universally accepted, so Chrumko doesn't need to find someone who wants sand."
+            },
+            {
+              "questionId": "1002_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about the properties of money is wrong. Find it.",
+              "options": [
+                "Money is portable, so it's easy to carry.",
+                "Money is durable, so it doesn't spoil like food.",
+                "Money must always be eaten to have any value."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Money isn't eaten - its value comes from being accepted for exchange, not from being a food item."
             }
           ]
         },
@@ -209,7 +263,7 @@
               "question": "Before coins existed, people paid with things like salt, shells, or metal.",
               "options": [],
               "correctAnswer": 0,
-              "explanation": "Before standardized coins, people used 'commodity money'—useful items like salt or rare shells."
+              "explanation": "Before standardized coins, people used 'commodity money'- useful items like salt or rare shells."
             },
             {
               "questionId": "1003_03",
@@ -258,6 +312,33 @@
               ],
               "correctAnswer": 2,
               "explanation": "In a barter system, if you don't have what the seller wants, you cannot complete the trade."
+            },
+            {
+              "questionId": "1003_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Imagine coins don't exist yet and Chrumko wants cloth. The seller asks for salt in exchange, but Chrumko has no salt.",
+              "options": [
+                "He must first find someone with salt to trade, since coins don't exist yet.",
+                "He can pay with a banknote instead.",
+                "He can tap his phone to pay.",
+                "He can send a bank transfer."
+              ],
+              "correctAnswer": 0,
+              "explanation": "Before coins existed, people paid with items like salt - without it, Chrumko must first get some through trading."
+            },
+            {
+              "questionId": "1003_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about paying in the past is wrong. Find it.",
+              "options": [
+                "Barter means exchanging goods without money.",
+                "Before coins, people sometimes paid with salt or shells.",
+                "The first coins were invented before people ever used barter."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Coins were invented after the period of barter and paying with objects, not before."
             }
           ]
         },
@@ -351,6 +432,33 @@
               ],
               "correctAnswer": 1,
               "explanation": "Modern shops usually accept both physical and digital payments as they have the same value."
+            },
+            {
+              "questionId": "1004_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko is at the till and the shopkeeper asks: 'Card or cash?'",
+              "options": [
+                "Only cash is real money, so he must pay cash.",
+                "Only cards work in real shops.",
+                "Both are valid ways to pay - he can choose either.",
+                "He must pay with both at the same time."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Cash and card are just different forms of the same money - shops accept either as valid payment."
+            },
+            {
+              "questionId": "1004_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about payment methods is wrong. Find it.",
+              "options": [
+                "Paying with a €50 banknote is a cash payment.",
+                "Tapping a card on a terminal sends money electronically from the account.",
+                "Paying with a mobile app doesn't use any of your own money."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Mobile payment uses digital money from your own bank account, just like a card."
             }
           ]
         },
@@ -442,6 +550,30 @@
               ],
               "correctAnswer": 0,
               "explanation": "When money is limited, you must prioritize or save for the future."
+            },
+            {
+              "questionId": "1005_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko has €1 and wants both a 90-cent juice and a 50-cent cookie.",
+              "options": [
+                "He has enough for both, since 90 and 50 cents add up to less than €1.",
+                "He must choose only one, since together they cost more than he has.",
+                "He should buy nothing, even though he can afford one item.",
+                "He should ask the shop for a free cookie."
+              ],
+              "correctAnswer": 1,
+              "explanation": "90 cents plus 50 cents is €1.40, which is more than his €1, so he can only afford one item."
+            },
+            {
+              "questionId": "1005_09",
+              "questionType": "ranking",
+              "type": "theoretical",
+              "question": "Rank these purchases from cheapest to most expensive.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": ["Cookie (50 cents)", "Juice (90 cents)", "Toy (3 euros)"],
+              "explanation": "50 cents is less than 90 cents, which is less than 3 euros."
             }
           ]
         },
@@ -523,6 +655,29 @@
               "options": [],
               "correctAnswer": 0,
               "explanation": "5 (total) - 2 (saved) = 3 (available to spend)."
+            },
+            {
+              "questionId": "1006_07",
+              "questionType": "ranking",
+              "type": "theoretical",
+              "question": "Rank these amounts of money from smallest to largest.",
+              "options": [],
+              "correctAnswer": 0,
+              "orderItems": ["€2", "€3", "€5"],
+              "explanation": "€2 is smaller than €3, which is smaller than €5 - these are the amounts from Chrumko's saving example."
+            },
+            {
+              "questionId": "1006_08",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about money running out is wrong. Find it.",
+              "options": [
+                "Money you spend is gone unless you earn or receive more.",
+                "If Chrumko spends all 5 euros on sweets, he still has money left for a toy.",
+                "Saving some money now means having money for something else later."
+              ],
+              "correctAnswer": 1,
+              "explanation": "If all the money is spent on sweets, nothing is left for anything else, including a toy."
             }
           ]
         },
@@ -602,7 +757,7 @@
               "correctAnswer": 0,
               "orderItems": [
                 "Goes to work and does her job",
-                "End of month — employer sends salary",
+                "End of month - employer sends salary",
                 "Money arrives in bank account",
                 "Family pays rent and food",
                 "Remainder goes to savings or fun"
@@ -622,6 +777,33 @@
               ],
               "correctAnswer": 2,
               "explanation": "Children usually receive money through gifts or allowances from their guardians."
+            },
+            {
+              "questionId": "1007_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko's friend says he wants to earn money by working every day at a factory, but Chrumko is still a child.",
+              "options": [
+                "Children usually earn money through daily factory work, just like adults.",
+                "Children most often get money through allowance or gifts from parents.",
+                "Children must run their own business to get money.",
+                "Children automatically receive money from their parents' bank account without asking."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Children usually receive money as an allowance or as gifts, not through daily employment."
+            },
+            {
+              "questionId": "1007_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements about earning money is wrong. Find it.",
+              "options": [
+                "Most adults get money through a salary for their work.",
+                "Older people who retire can receive a pension.",
+                "Salaries are usually paid directly to a school instead of a bank account."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Salaries are usually paid into a person's bank account, not to a school."
             }
           ]
         }

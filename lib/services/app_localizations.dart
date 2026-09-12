@@ -422,6 +422,9 @@ class AppLocalizations {
       'quizTypeOrder': 'Put in Order',
       'quizTypeMatch': 'Matching',
       'quizTypeDrag': 'Drag & Drop',
+      'quizTypeScenario': 'Scenario',
+      'quizTypeRanking': 'Ranking',
+      'quizTypeSpotMistake': 'Spot the Mistake',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': "Chrumko's Tip 💡",
@@ -889,6 +892,9 @@ class AppLocalizations {
       'quizTypeOrder': 'Zoraď správne',
       'quizTypeMatch': 'Spáruj',
       'quizTypeDrag': 'Pretiahni',
+      'quizTypeScenario': 'Scenár',
+      'quizTypeRanking': 'Poradie',
+      'quizTypeSpotMistake': 'Nájdi chybu',
     },
   };
 

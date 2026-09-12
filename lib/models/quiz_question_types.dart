@@ -13,6 +13,9 @@ enum QuestionType {
   ordering,       // drag items into the correct order
   matching,       // match left items to right items
   dragDrop,       // drag labels onto target zones
+  scenario,       // same shape as multipleChoice: a short decision-moment framing
+  ranking,        // same shape as ordering: rank items that have one objectively correct order
+  spotMistake,    // same shape as multipleChoice: correctAnswer is the index of the FALSE statement
 }
 
 class QuizQuestion {
@@ -20,11 +23,11 @@ class QuizQuestion {
   final String question;
   final QuestionType questionType;
 
-  // ── multipleChoice & trueFalse ──────────────────────────
+  // ── multipleChoice, trueFalse, scenario, spotMistake ────
   final List<String> options;    // trueFalse: always ['True','False'] or localised equivalents
   final int correctAnswer;       // index into options
 
-  // ── ordering ────────────────────────────────────────────
+  // ── ordering, ranking ───────────────────────────────────
   /// Items stored in CORRECT order. Widget shuffles them for display.
   final List<String> orderItems;
 

@@ -115,6 +115,41 @@
               "matchRight": [],
               "dragLabels": [],
               "dragTargets": []
+            },
+            {
+              "questionId": "3001_07",
+              "questionType": "scenario",
+              "question": "Chrumko gets his weekly pocket money and immediately wants to spend all of it on one big toy.",
+              "options": [
+                "He should spend it all right away since it's his money.",
+                "He should divide it between spending now and saving some for later.",
+                "He should give it all to a friend.",
+                "He should wait for the bank to give him more if he runs out."
+              ],
+              "correctAnswer": 1,
+              "explanation": "The best way to deal with pocket money is to divide it between now and later, not spend everything at once.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3001_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Pocket money is money a child receives from their parents.",
+                "Pocket money is given to children so they learn to manage money.",
+                "If a child spends all their pocket money at once, the bank will simply give them more."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Money is finite - once pocket money is spent, you must wait for the next allowance, the bank won't just give more.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -208,6 +243,41 @@
                 "He tries not to spend the remaining money on impulse",
                 "Finally, he buys the pizza he's been craving"
               ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3002_06",
+              "questionType": "scenario",
+              "question": "Chrumko receives 10 euros and wants to buy pizza with friends in a few days, but also feels like spending everything today.",
+              "options": [
+                "He should spend all 10 euros today since he has it now.",
+                "He should put most of it aside so he has enough for the pizza later.",
+                "He should ask his friends to pay for him.",
+                "He should throw away the money since dividing it is too hard."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko puts aside most of his money so he has enough saved for pizza with friends later, rather than spending it all right away.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3002_07",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Dividing money helps you have money for later as well.",
+                "Dividing money builds skills of planning and decision-making.",
+                "It is always a good idea to spend all your money at once."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Spending everything at once is not a good idea - dividing money helps maintain financial security over time.",
+              "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
               "dragLabels": [],
@@ -326,6 +396,41 @@
               "matchRight": [],
               "dragLabels": [],
               "dragTargets": []
+            },
+            {
+              "questionId": "3003_07",
+              "questionType": "scenario",
+              "question": "Chrumko sees a lollipop he really wants, but he's also saving for a colouring book he loves.",
+              "options": [
+                "He should buy the lollipop immediately since he wants it now.",
+                "He should stop, think about his goal, and decide to wait so he can buy the colouring book later.",
+                "He should buy both no matter the cost.",
+                "He should give up on the colouring book entirely."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko stops and thinks about his goal, then decides to wait, which lets him buy the colouring book later instead of a quick lollipop.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3003_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Saving money means you can sometimes buy something bigger later.",
+                "Thinking before buying is a patient and planned behaviour.",
+                "It is always a good idea to buy the first thing you see."
+              ],
+              "correctAnswer": 2,
+              "explanation": "It is not always a good idea to buy the first thing you see - thinking first helps you decide if you actually need it.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -417,6 +522,41 @@
                 "He won't spend the money he's saved",
                 "After one week he has enough to buy the glasses"
               ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3004_06",
+              "questionType": "scenario",
+              "question": "Chrumko wants ice cream today, but he's also saving for new glasses he needs.",
+              "options": [
+                "He should spend everything on ice cream and forget about the glasses.",
+                "He should buy the ice cream and put the rest of his money aside for the glasses.",
+                "He should buy only ice cream every day until the glasses appear by themselves.",
+                "He should stop wanting ice cream completely."
+              ],
+              "correctAnswer": 1,
+              "explanation": "This compromise lets him enjoy a small treat now while still progressing toward his goal of getting glasses.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3004_07",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Planning helps you avoid unnecessary purchases.",
+                "Spending money without thinking can mean you run out when you really need it.",
+                "Saving consistently each week means you will never have enough for your goal."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Saving consistently each week is exactly how Chrumko ends up with enough money for his goal, not the opposite.",
+              "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
               "dragLabels": [],
@@ -546,6 +686,41 @@
                   "correctItems": ["Repeat the mistake to be sure", "Decide even more quickly next time", "Never spend anything again"]
                 }
               ]
+            },
+            {
+              "questionId": "3005_07",
+              "questionType": "scenario",
+              "question": "Chrumko realizes he bought a toy last week that he never used and now regrets it.",
+              "options": [
+                "He should repeat the same mistake next time to be sure it was wrong.",
+                "He should reflect on what went wrong and think more before buying next time.",
+                "He should never spend any money ever again.",
+                "He should decide even faster next time without thinking."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Reflecting on the mistake and thinking more carefully next time is how you learn to make better decisions.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3005_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "It is completely normal for a child to make a mistake when spending money.",
+                "Financial mistakes help us learn how to decide better.",
+                "Repeating the same financial mistake on purpose is a good way to learn."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Repeating a mistake means you are not learning - reflecting on what went wrong is what actually helps you improve.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         }

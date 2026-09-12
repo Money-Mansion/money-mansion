@@ -97,6 +97,33 @@
                 "Choose the one with better value"
               ],
               "explanation": "Smart shopping means comparing both function and price before deciding."
+            },
+            {
+              "questionId": "5001_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko finds two pens that write exactly the same, but one has a fancier package and costs more.",
+              "options": [
+                "He should buy the fancier one because higher price always means better quality.",
+                "He should buy the cheaper one, since it performs identically and costs less.",
+                "He should buy both to compare over time.",
+                "Price differences never matter when items work the same."
+              ],
+              "correctAnswer": 1,
+              "explanation": "If both products perform the same, the cheaper one is the smarter buy."
+            },
+            {
+              "questionId": "5001_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "A more expensive product is always better quality than a cheaper one.",
+                "Quality describes how well a product functions and how durable it is.",
+                "A higher price can sometimes come from the brand name rather than better materials."
+              ],
+              "correctAnswer": 0,
+              "explanation": "A more expensive product is NOT always better quality - price can reflect brand, packaging, or advertising instead."
             }
           ]
         },
@@ -189,6 +216,33 @@
                 { "label": "Affects price but not quality", "correctItems": ["Colourful packaging", "Famous brand"] }
               ],
               "explanation": "Packaging and brand raise the price; durable materials raise both price and quality."
+            },
+            {
+              "questionId": "5002_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko finds two identical bags of the same brand and material in different shops - one costs more than the other.",
+              "options": [
+                "He should always buy from the first shop he visited.",
+                "He should buy from the cheaper shop, since it's the exact same product.",
+                "The more expensive one must be better because it costs more.",
+                "Price never differs between shops for the same item."
+              ],
+              "correctAnswer": 1,
+              "explanation": "The same product can cost different amounts in different shops - buying from the cheaper shop for an identical item is the smarter choice."
+            },
+            {
+              "questionId": "5002_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "The same product can cost different amounts in different shops.",
+                "A higher price is only justified when the product genuinely offers better durability or function.",
+                "Cheaper products are always worse in every single case."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Cheaper products are not always worse - many price differences come from brand, packaging, or shop location rather than quality."
             }
           ]
         },
@@ -285,6 +339,33 @@
               ],
               "correctAnswer": 1,
               "explanation": "For daily-use items, durability and long-term value are the most important factors."
+            },
+            {
+              "questionId": "5003_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko buys the cheapest water bottle he can find, and it cracks after just one week, forcing him to buy another.",
+              "options": [
+                "This was a good deal since he paid the least amount possible.",
+                "This was not a good deal, since he ended up needing to buy another one quickly.",
+                "Cheap products always last the longest.",
+                "The price alone tells you everything about how good a deal is."
+              ],
+              "correctAnswer": 1,
+              "explanation": "A cheap product that needs replacing quickly often costs more in total than a better-quality one bought once - this was not a good deal."
+            },
+            {
+              "questionId": "5003_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "A good deal means the product works well, lasts long, and its price matches what it offers.",
+                "Paying more for something durable that you use daily can cost less overall than replacing a cheap version repeatedly.",
+                "A cheap product that breaks quickly is always a good deal because it cost less."
+              ],
+              "correctAnswer": 2,
+              "explanation": "A cheap product that breaks quickly is NOT always a good deal - you may need to replace it sooner, making it more expensive in the long run."
             }
           ]
         },
@@ -363,6 +444,33 @@
               ],
               "correctAnswer": 0,
               "explanation": "Price comparison is a simple habit that can save money with little extra effort."
+            },
+            {
+              "questionId": "5004_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko wants to buy coloured pencils and sees them at the first shop he visits without checking anywhere else.",
+              "options": [
+                "He should buy immediately without comparing, since comparing wastes time.",
+                "He should check if the same product costs less somewhere else before buying.",
+                "The first shop he visits is always the cheapest.",
+                "Comparing prices only matters for very expensive purchases."
+              ],
+              "correctAnswer": 1,
+              "explanation": "It is worth comparing prices even for small purchases, since the same product can cost less in a different shop."
+            },
+            {
+              "questionId": "5004_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "The same product can cost less in a different shop.",
+                "It is worth comparing prices even for small purchases, because small savings add up over time.",
+                "If two packs of pencils are identical in content but different in price, the more expensive one is always the better deal."
+              ],
+              "correctAnswer": 2,
+              "explanation": "If the content is identical, the CHEAPER pack gives the same value for less money, not the more expensive one."
             }
           ]
         },
@@ -459,6 +567,33 @@
               ],
               "correctAnswer": 1,
               "explanation": "Unit price comparison reveals true value that the label price alone does not show."
+            },
+            {
+              "questionId": "5005_08",
+              "questionType": "scenario",
+              "type": "practical",
+              "question": "Chrumko only needs a small amount of juice for one trip, but sees a giant bottle with a much lower price per litre.",
+              "options": [
+                "He should always buy the giant bottle since a lower unit price is always better regardless of need.",
+                "He should think about whether he'll actually use that much, since a lower unit price only helps if you need the larger quantity.",
+                "Unit price never matters for small trips.",
+                "The giant bottle is always cheaper in total than the small one."
+              ],
+              "correctAnswer": 1,
+              "explanation": "A lower unit price is only an advantage if you will actually use the larger quantity - for a single trip, the smaller pack may make more sense."
+            },
+            {
+              "questionId": "5005_09",
+              "questionType": "spotMistake",
+              "type": "theoretical",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Unit price is the price for one piece, one litre, or one gram of a product.",
+                "A bigger package always costs more in total but can be cheaper per unit.",
+                "If Chrumko only needs a small amount of something, the larger package is always the better choice."
+              ],
+              "correctAnswer": 2,
+              "explanation": "The larger package is NOT always the better choice - a lower unit price only helps if you will actually use that larger quantity."
             }
           ]
         }
