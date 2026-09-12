@@ -39,6 +39,11 @@ class QuestionWidgetFactory {
   }) {
     switch (question.questionType) {
       case QuestionType.multipleChoice:
+      case QuestionType.scenario:
+      case QuestionType.spotMistake:
+        // scenario and spotMistake reuse the exact same options/
+        // correctAnswer shape as multipleChoice — same widget works
+        // as-is, no new UI needed.
         return MultipleChoiceWidget(
           question: question,
           showFeedback: showFeedback,
@@ -52,6 +57,9 @@ class QuestionWidgetFactory {
           language: language,
         );
       case QuestionType.ordering:
+      case QuestionType.ranking:
+        // ranking reuses the exact same orderItems shape as ordering —
+        // same widget works as-is, no new UI needed.
         return OrderingWidget(
           question: question,
           showFeedback: showFeedback,

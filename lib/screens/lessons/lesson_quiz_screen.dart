@@ -435,7 +435,7 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     return l10nProvider.translate('quizTryAgain');
   }
 
-  Widget _buildTypeBadge(
+    Widget _buildTypeBadge(
       QuizQuestion question, AppLocalizationsProvider l10n) {
     final (key, color) = switch (question.questionType) {
       QuestionType.multipleChoice =>
@@ -448,6 +448,12 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
         ('quizTypeMatch', const Color(0xFF009688)),
       QuestionType.dragDrop =>
         ('quizTypeDrag',  const Color(0xFFE91E63)),
+      QuestionType.scenario =>
+        ('quizTypeScenario',    const Color(0xFF3F51B5)),
+      QuestionType.ranking =>
+        ('quizTypeRanking',     const Color(0xFF8D6E63)),
+      QuestionType.spotMistake =>
+        ('quizTypeSpotMistake', const Color(0xFFD32F2F)),
     };
 
     return Container(

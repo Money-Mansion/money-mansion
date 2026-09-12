@@ -72,6 +72,31 @@
               "question": "Ak Chrumko minie všetky peniaze na sladkosti a nemá na jedlo, urobil dobré rozhodnutie.",
               "correctAnswer": 1,
               "explanation": "Sladkosti sú túžba, zatiaľ čo riadne jedlo je životná potreba."
+            },
+            {
+              "questionId": "2001_07",
+              "questionType": "scenario",
+              "question": "Chrumkovi zostáva málo peňazí. Môže si kúpiť buď chlieb a vodu, alebo čokoládovú tyčinku.",
+              "options": [
+                "Kúpi čokoládovú tyčinku, lebo vyzerá chutnejšie.",
+                "Kúpi najprv chlieb a vodu, pretože sú to potreby.",
+                "Nekúpi si nič.",
+                "Kúpi čokoládu a o jedlo sa postará neskôr."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Potreby ako jedlo a voda majú vždy prednosť pred túžbami, ako je čokoláda."
+            },
+            {
+              "questionId": "2001_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Jedlo a voda sú základné potreby.",
+                "Bývanie nám poskytuje bezpečie a miesto na oddych.",
+                "Minúť všetky peniaze na sladkosti a nemať na jedlo je dobré rozhodnutie."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Sladkosti sú túžba, nie potreba - minúť na ne všetko namiesto jedla nie je dobré rozhodnutie."
             }
           ]
         },
@@ -138,6 +163,31 @@
                 "Kúpim dôležitejšiu vec."
               ],
               "explanation": "Správne finančné rozhodovanie začína otázkou 'Potrebujem to?'"
+            },
+            {
+              "questionId": "2002_07",
+              "questionType": "scenario",
+              "question": "Chrumko už má autíčko, ktoré funguje, ale v obchode uvidí nové a chce ho.",
+              "options": [
+                "Nové autíčko je potreba, lebo ho tak veľmi chce.",
+                "Nové autíčko je túžba, keďže staré stále funguje.",
+                "Musí si ho hneď kúpiť.",
+                "Ak niečo chceme, automaticky sa to stáva potrebou."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keďže staré autíčko stále funguje, nové je túžba, nie potreba."
+            },
+            {
+              "questionId": "2002_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Túžba je vec, bez ktorej vieme prežiť.",
+                "Potreby sú nevyhnutné pre život, túžby nie.",
+                "Túžby sú dôležitejšie ako potreby a mali by byť vždy na prvom mieste."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Potreby majú vždy prednosť pred túžbami - túžby nie sú dôležitejšie."
             }
           ]
         },
@@ -191,6 +241,31 @@
                 { "label": "Nesprávny dôvod", "correctItems": ["Zabudol na peračník", "Obchod bol zatvorený"] }
               ],
               "explanation": "Chrumko použil kritické myslenie a uvedomil si rozdiel medzi chcením a potrebou."
+            },
+            {
+              "questionId": "2003_07",
+              "questionType": "scenario",
+              "question": "Chrumkov peračník stále funguje, ale videl kamaráta s novým a teraz ho tiež chce.",
+              "options": [
+                "Toto je skutočná potreba, lebo jeho peračník sa môže raz pokaziť.",
+                "Toto je túžba, vyvolaná tým, že videl kamarátov peračník.",
+                "Musí si hneď kúpiť nový, aby zapadol medzi kamarátov.",
+                "Chcieť niečo znamená, že stará vec je už pokazená."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Videnie kamarátovej veci je spúšťač túžby, no keďže jeho vlastný peračník stále funguje, ide o túžbu, nie potrebu."
+            },
+            {
+              "questionId": "2003_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Pocit chcenia a pocit potreby sú dve rôzne veci.",
+                "Reklama v televízii nás môže ovplyvniť, aby sme niečo chceli.",
+                "Ak vec stále funguje, chcieť novú vzniká iba vtedy, keď ju naozaj potrebujeme."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Ak stará vec stále funguje, chcieť novú je túžba, nie skutočná potreba."
             }
           ]
         },
@@ -262,6 +337,31 @@
               ],
               "correctAnswer": 2,
               "explanation": "Nenechajte sa strhnúť prvým dojmom z reklamy a zvážte reálnu potrebu."
+            },
+            {
+              "questionId": "2004_07",
+              "questionType": "scenario",
+              "question": "Chrumko vidí reklamu na hračku, ktorá na obrazovke vyzerá obrovská a úžasná.",
+              "options": [
+                "Mal by predpokladať, že skutočná hračka bude vyzerať úplne rovnako.",
+                "Mal by si pamätať, že reklamy často ukazujú \"dokonalú\" verziu, ktorá sa môže líšiť od reality.",
+                "Mal by si kúpiť dve, lebo reklamy nikdy neklamú.",
+                "Mal by ignorovať to, či ju naozaj potrebuje."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality."
+            },
+            {
+              "questionId": "2004_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Hlavným cieľom reklamy je presvedčiť nás, že daný výrobok potrebujeme.",
+                "Jasné farby a veselá hudba v reklame môžu ovplyvniť naše pocity o výrobku.",
+                "Produkty v reklamách vždy vyzerajú presne tak, ako v skutočnom živote."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality."
             }
           ]
         },
@@ -334,6 +434,31 @@
                 { "label": "Nesprávny dôvod", "correctItems": ["Nemal peniaze", "Obchod bol zatvorený"] }
               ],
               "explanation": "Nekúpiť si nič, čo nepotrebujeme, je prejavom zodpovedného správania."
+            },
+            {
+              "questionId": "2005_08",
+              "questionType": "scenario",
+              "question": "Chrumko je nahnevaný po prehre v hre a zrazu chce kúpiť veľké balenie sladkostí.",
+              "options": [
+                "Mal by si ich hneď kúpiť, lebo je nahnevaný.",
+                "Mal by počkať, lebo silné emócie ako hnev môžu viesť k unáhleným nákupom.",
+                "Hnev vždy znamená, že sladkosti naozaj potrebuje.",
+                "Mal by si kúpiť ešte viac, aby sa cítil lepšie dlhšie."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Silné emócie ako hnev môžu oslabiť úsudok a viesť k unáhleným nákupom - je lepšie počkať, kým emócia opadne."
+            },
+            {
+              "questionId": "2005_09",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Silné emócie ako hnev alebo smútok môžu viesť k unáhleným nákupom.",
+                "Emocionálne nákupy málokedy vychádzajú zo skutočných potrieb.",
+                "Ak je Chrumko smutný a smädný, nikdy by si nemal kúpiť vodu, lebo smäd nie je skutočná potreba."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Smäd je biologická potreba - aj keď je smutný, kúpa vody je kúpou niečoho, čo naozaj potrebuje."
             }
           ]
         }

@@ -24,7 +24,7 @@ class LessonQuizService {
 
     for (final file in quizFiles) {
       try {
-        final jsonString = await rootBundle.loadString(file);
+        final jsonString = await rootBundle.loadString(file, cache: false);
         final jsonData = jsonDecode(jsonString) as Map<String, dynamic>;
         final quizzes = jsonData['quizzes'] as List<dynamic>;
 

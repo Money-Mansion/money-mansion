@@ -72,6 +72,31 @@
               "question": "If Chrumko spends all his money on sweets and has nothing left for food, he made a good decision.",
               "correctAnswer": 1,
               "explanation": "Sweets are a luxury (want), while food is a necessity (need). Chrumko prioritized the wrong thing."
+            },
+            {
+              "questionId": "2001_07",
+              "questionType": "scenario",
+              "question": "Chrumko has a little money left. He can buy either bread and water, or a chocolate bar.",
+              "options": [
+                "Buy the chocolate bar because it looks tastier.",
+                "Buy the bread and water first, since they are needs.",
+                "Buy nothing at all.",
+                "Buy the chocolate bar and worry about food later."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Needs like food and water always come before wants like chocolate."
+            },
+            {
+              "questionId": "2001_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Food and water are basic needs.",
+                "Housing gives us safety and a place to rest.",
+                "Spending all your money on sweets and having nothing for food is a good decision."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Sweets are a want, not a need - spending everything on them instead of food is not a good decision."
             }
           ]
         },
@@ -138,6 +163,31 @@
                 "Buy the more important thing."
               ],
               "explanation": "Responsible money management means checking if your needs are covered before spending on anything else."
+            },
+            {
+              "questionId": "2002_07",
+              "questionType": "scenario",
+              "question": "Chrumko already has a toy car that works fine, but he sees a new one in the shop and wants it.",
+              "options": [
+                "The new toy car is a need, since he wants it so much.",
+                "The new toy car is a want, since his old one still works.",
+                "He must buy it immediately.",
+                "Wanting something makes it automatically a need."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Since his old toy still works, the new one is a want, not a need."
+            },
+            {
+              "questionId": "2002_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "A want is something we can survive without.",
+                "Needs are essential for survival; wants are not.",
+                "Wants are more important than needs and should always come first."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Needs come before wants - wants are not more important."
             }
           ]
         },
@@ -191,6 +241,31 @@
                 { "label": "Incorrect reason", "correctItems": ["He forgot about it", "The shop was closed"] }
               ],
               "explanation": "By thinking it over, Chrumko practiced good financial discipline by identifying it as an unnecessary want."
+            },
+            {
+              "questionId": "2003_07",
+              "questionType": "scenario",
+              "question": "Chrumko's pencil case still works fine, but he saw a friend with a new one and now wants one too.",
+              "options": [
+                "This is a real need because his current one might break someday.",
+                "This is a want, triggered by seeing his friend's pencil case.",
+                "He must buy a new one right away to fit in.",
+                "Wanting it means the old one is now broken."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Seeing a friend's item is a trigger for wanting things, but since his own pencil case still works, it's a want, not a need."
+            },
+            {
+              "questionId": "2003_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Wanting something and needing something are two different feelings.",
+                "A TV advertisement can influence us to want something.",
+                "If an item still works, wanting a new one only happens because it is truly needed."
+              ],
+              "correctAnswer": 2,
+              "explanation": "If the old item still works, wanting a new one is driven by desire, not real need."
             }
           ]
         },
@@ -262,6 +337,31 @@
               ],
               "correctAnswer": 2,
               "explanation": "You should always check if the desire comes from an actual need or just the influence of a clever ad."
+            },
+            {
+              "questionId": "2004_07",
+              "questionType": "scenario",
+              "question": "Chrumko sees an ad for a toy that looks huge and amazing on screen.",
+              "options": [
+                "He should assume the real toy will look exactly the same.",
+                "He should remember ads often show a 'perfect' version that may differ from reality.",
+                "He should buy two, since ads never lie.",
+                "He should ignore whether he actually needs it."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Advertisers often show an idealized version of a product that can be different from what you actually get."
+            },
+            {
+              "questionId": "2004_08",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "The main goal of advertising is to persuade us that we need a product.",
+                "Bright colors and upbeat music in ads can influence our feelings about a product.",
+                "Products in advertisements always look exactly the same as they do in real life."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Advertisers often show a perfect version that may differ from what you actually get in real life."
             }
           ]
         },
@@ -308,7 +408,7 @@
               "questionType": "matching",
               "question": "Match each situation to the correct response.",
               "matchLeft": ["Chrumko is angry and wants a sweet", "Chrumko is sad and very thirsty", "Chrumko is excited and wants an expensive toy", "Chrumko is calm and hungry"],
-              "matchRight": ["Wait and think it over", "Buy water — it is a need", "Wait until the emotion passes", "Buy food — it is a need"],
+              "matchRight": ["Wait and think it over", "Buy water - it is a need", "Wait until the emotion passes", "Buy food - it is a need"],
               "explanation": "Tell the difference between real needs and impulses driven by emotion."
             },
             {
@@ -334,6 +434,31 @@
                 { "label": "Incorrect reason", "correctItems": ["He had no money", "The shop was closed"] }
               ],
               "explanation": "Chrumko realized that since he wasn't hungry, buying food wasn't a current need."
+            },
+            {
+              "questionId": "2005_08",
+              "questionType": "scenario",
+              "question": "Chrumko is angry after losing a game and suddenly wants to buy a big bag of sweets.",
+              "options": [
+                "He should buy it immediately since he is upset.",
+                "He should wait, since strong emotions like anger can lead to impulsive purchases.",
+                "Anger always means he truly needs sweets.",
+                "He should buy even more to feel better longer."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Strong emotions like anger can cloud judgment and lead to impulsive purchases - it's best to wait until the emotion passes."
+            },
+            {
+              "questionId": "2005_09",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Strong emotions like anger or sadness can lead to impulsive purchases.",
+                "Emotional purchases are rarely based on real needs.",
+                "If Chrumko is sad and thirsty, he should never buy water because thirst is not a real need."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Thirst is a biological need - even if he's sad, buying water is buying something he truly needs."
             }
           ]
         }
