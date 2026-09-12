@@ -115,6 +115,41 @@
               "matchRight": [],
               "dragLabels": [],
               "dragTargets": []
+            },
+            {
+              "questionId": "3001_07",
+              "questionType": "scenario",
+              "question": "Chrumko dostane týždenné vreckové a hneď chce minúť všetko na jednu veľkú hračku.",
+              "options": [
+                "Mal by ho hneď celé minúť, veď sú to jeho peniaze.",
+                "Mal by si peniaze rozdeliť medzi útratu teraz a odloženie na neskôr.",
+                "Mal by ich celé dať kamarátovi.",
+                "Mal by počkať, kým mu banka dá viac, keď mu dôjdu."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Najlepší spôsob narábania s vreckovým je rozdeliť si peniaze na teraz a neskôr, nie minúť všetko naraz.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3001_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Vreckové sú peniaze, ktoré dieťa dostáva od rodičov.",
+                "Vreckové dostávajú deti preto, aby sa naučili hospodáriť s peniazmi.",
+                "Ak dieťa minie všetko vreckové hneď, banka mu jednoducho dá ďalšie."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Peniaze sú obmedzené - keď sa vreckové minie, treba počkať na ďalšie, banka jednoducho nedá viac.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -208,6 +243,41 @@
                 "Zvyšné peniaze sa snaží impulzívne neminúť",
                 "Nakoniec si kúpi vytúženú pizzu"
               ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3002_06",
+              "questionType": "scenario",
+              "question": "Chrumko dostane 10 eur a o pár dní chce ísť s kamarátmi na pizzu, ale dnes má chuť minúť všetko.",
+              "options": [
+                "Mal by dnes minúť všetkých 10 eur, veď ich má.",
+                "Mal by si väčšinu odložiť, aby mal dosť na pizzu neskôr.",
+                "Mal by poprosiť kamarátov, aby mu zaplatili.",
+                "Mal by peniaze zahodiť, lebo rozdeľovanie je príliš ťažké."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si odloží väčšinu peňazí, aby mal neskôr dosť na pizzu s kamarátmi, namiesto toho, aby všetko minul hneď.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3002_07",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Rozdelenie peňazí nám pomáha mať peniaze aj na neskôr.",
+                "Rozdeľovanie peňazí rozvíja plánovanie a rozhodovanie.",
+                "Je vždy dobré minúť všetky peniaze naraz."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Minúť všetko naraz nie je dobrý nápad - rozdelenie peňazí je základom rozumného hospodárenia.",
+              "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
               "dragLabels": [],
@@ -326,6 +396,41 @@
               "matchRight": [],
               "dragLabels": [],
               "dragTargets": []
+            },
+            {
+              "questionId": "3003_07",
+              "questionType": "scenario",
+              "question": "Chrumko uvidí lízanku, ktorú veľmi chce, ale zároveň šetrí na omaľovánku, ktorú miluje.",
+              "options": [
+                "Mal by si lízanku hneď kúpiť, lebo ju chce teraz.",
+                "Mal by sa zastaviť, premyslieť si svoj cieľ a rozhodnúť sa počkať, aby si mohol neskôr kúpiť omaľovánku.",
+                "Mal by si kúpiť obe veci bez ohľadu na cenu.",
+                "Mal by sa omaľovánky úplne vzdať."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko sa zastaví, premyslí si svoj cieľ a rozhodne sa počkať, čo mu umožní neskôr kúpiť omaľovánku namiesto rýchlej lízanky.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3003_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Šetrením peňazí si môžeš neskôr kúpiť niečo väčšie.",
+                "Premýšľanie pred nákupom je trpezlivé a plánujúce správanie.",
+                "Je vždy dobré kúpiť prvú vec, ktorú uvidíme."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Nie je vždy dobré kúpiť prvú vec, ktorú uvidíme - premyslený nákup je zvyčajne lepší.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         },
@@ -417,6 +522,41 @@
                 "Našetrené peniaze neminie",
                 "Po týždni má dosť na kúpu okuliarov"
               ],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3004_06",
+              "questionType": "scenario",
+              "question": "Chrumko chce dnes zmrzlinu, no zároveň šetrí na nové okuliare, ktoré potrebuje.",
+              "options": [
+                "Mal by minúť všetko na zmrzlinu a zabudnúť na okuliare.",
+                "Mal by si kúpiť zmrzlinu a zvyšok peňazí odložiť na okuliare.",
+                "Mal by kupovať zmrzlinu každý deň, kým sa okuliare neobjavia samy.",
+                "Mal by úplne prestať chcieť zmrzlinu."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Tento kompromis mu umožní užiť si malú radosť teraz a zároveň napredovať k cieľu získať okuliare.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3004_07",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Plánovanie nám pomáha vyhnúť sa zbytočným nákupom.",
+                "Míňanie peňazí bez premýšľania môže znamenať, že nám budú chýbať, keď ich naozaj potrebujeme.",
+                "Pravidelné sporenie každý týždeň znamená, že nikdy nebudeme mať dosť na náš cieľ."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Pravidelné týždenné sporenie je presne to, vďaka čomu Chrumko nakoniec má dosť peňazí na svoj cieľ, nie naopak.",
+              "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
               "dragLabels": [],
@@ -546,6 +686,41 @@
                   "correctItems": ["Zopakovať chybu pre istotu", "Rozhodovať sa ešte rýchlejšie", "Neminúť nikdy nič"]
                 }
               ]
+            },
+            {
+              "questionId": "3005_07",
+              "questionType": "scenario",
+              "question": "Chrumko si uvedomí, že si minulý týždeň kúpil hračku, ktorú nikdy nepoužil, a teraz to ľutuje.",
+              "options": [
+                "Mal by tú istú chybu nabudúce zopakovať, aby sa uistil, že bola zlá.",
+                "Mal by sa zamyslieť nad tým, čo sa stalo, a nabudúce viac premýšľať pred nákupom.",
+                "Nikdy by už nemal minúť žiadne peniaze.",
+                "Mal by sa nabudúce rozhodovať ešte rýchlejšie bez premýšľania."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Zamyslenie sa nad chybou a väčšie premýšľanie nabudúce je spôsob, ako sa naučiť lepšie sa rozhodovať.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
+            },
+            {
+              "questionId": "3005_08",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Je úplne normálne, že dieťa spraví chybu pri míňaní peňazí.",
+                "Finančné chyby nám pomáhajú naučiť sa lepšie sa rozhodovať.",
+                "Úmyselné opakovanie tej istej finančnej chyby je dobrý spôsob učenia sa."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Opakovanie chyby znamená, že sa neučíš - zamyslenie sa nad tým, čo sa stalo, je to, čo skutočne pomáha zlepšiť sa.",
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": []
             }
           ]
         }
