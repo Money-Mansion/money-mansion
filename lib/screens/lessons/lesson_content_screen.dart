@@ -432,7 +432,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       storyTitle: 'Spending Too Fast',
       storyTitleSk: 'Príliš rýchle míňanie',
       storyBody: 'Chrumko gets five euros and buys sweets for all of it. Later, he wants a new toy but has no money left. He spent everything at once, so nothing is left. Next time, he\'ll save some money so he has it for other things he\'ll want later.',
-      storyBodySk: 'Chrumko dostane päť eur a všetko minul na sladkosti. Neskôr chce novú hračku, ale nemá žiadne peniaze. Všetko minul naraz, takže mu nič nezostalo. Nabudúce si časť odloží, aby mal na iné veci.',
+      storyBodySk: 'Chrumko dostane päť eur a všetko minie na sladkosti. Neskôr chce novú hračku, ale nemá žiadne peniaze. Všetko minul naraz, takže mu nič nezostalo. Nabudúce si časť odloží, aby mal na iné veci.',
       accentColor: Color(0xFFFF5722),
     ),
     LessonSlide(

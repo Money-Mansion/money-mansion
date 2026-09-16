@@ -13,15 +13,15 @@
               "questionId": "1001_01",
               "questionType": "multipleChoice",
               "type": "theoretical",
-              "question": "Why did people start using money instead of just trading things?",
+              "question": "Why did people start using money?",
               "options": [
                 "Because they enjoyed collecting shiny objects.",
-                "To make buying and selling goods easier.",
-                "Because kings back then forbade people from trading.",
+                "To make be able to buy something.",
+                "Because kings back then made people use money.",
                 "Because money can be used better for building houses."
               ],
               "correctAnswer": 1,
-              "explanation": "Money was invented as a tool to simplify trade compared to the complex barter system."
+              "explanation": "Money was invented as a universal tool to simplify buying products."
             },
             {
               "questionId": "1001_02",
@@ -39,11 +39,11 @@
               "question": "In what forms can we find money today?",
               "options": [
                 "Only as coins and paper banknotes in a wallet.",
-                "As coins, banknotes, or digital money on a card.",
                 "Only as gold bars kept in a bank.",
+                "As coins, banknotes, or digital money on a card.",
                 "As colorful stickers that we swap at school."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Modern money exists in physical forms (cash) and digital forms (bank accounts/cards)."
             },
             {
@@ -61,12 +61,12 @@
               "type": "practical",
               "question": "Chrumko is holding a 2-euro coin. What can he do with it in a shop?",
               "options": [
-                "He must return it because it is just a worthless piece of metal.",
                 "He can exchange it for goods worth two euros.",
+                "He must return it because it is just a worthless piece of metal.",
                 "He cannot buy anything at all with a 2-euro coin.",
                 "He must clean it at home first for it to have any price."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "The coin is a valid tool for purchasing items up to its face value."
             },
             {
@@ -142,10 +142,10 @@
               "questionId": "1002_02",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Direct trading (barter) is always simple and fast.",
+              "question": "Money has three key characteristics: shininess, abstractness, and infinity.",
               "options": [],
               "correctAnswer": 1,
-              "explanation": "Barter requires a 'coincidence of wants'- both parties must want exactly what the other has."
+              "explanation": "The characteristics of money are portability (it is easy to carry), universality (everyone accepts it), and durability (it never goes bad)."
             },
             {
               "questionId": "1002_03",
@@ -154,9 +154,9 @@
               "question": "What does it mean that money is 'universal'?",
               "options": [
                 "That it can be used throughout the whole galaxy.",
-                "That everyone will accept it in exchange for goods.",
                 "That it can be washed in a washing machine without being ruined.",
-                "That it always has exactly the same color."
+                "That it always has exactly the same color.",
+                "That everyone will accept it in exchange for goods."
               ],
               "correctAnswer": 1,
               "explanation": "Universal means it is widely accepted by everyone in a society as payment."
@@ -215,20 +215,6 @@
             },
             {
               "questionId": "1002_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko has a bag of sand and wants to trade it for a toy car, but the toy seller doesn't want sand.",
-              "options": [
-                "Chrumko must convince the seller to like sand.",
-                "Chrumko can use money instead, since money is accepted by everyone.",
-                "Chrumko should give up and never get a toy.",
-                "The seller must trade anyway because Chrumko asked first."
-              ],
-              "correctAnswer": 1,
-              "explanation": "Money solves this exact problem - unlike sand, it is universally accepted, so Chrumko doesn't need to find someone who wants sand."
-            },
-            {
-              "questionId": "1002_09",
               "questionType": "spotMistake",
               "type": "theoretical",
               "question": "One of these statements about the properties of money is wrong. Find it.",
@@ -252,9 +238,9 @@
               "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "What is the exchange of things without using money called?",
-              "options": ["Inflation", "Investing", "Barter", "Loan"],
+              "options": ["Inflation", "Investing", "Exchange of one product for another", "Loan"],
               "correctAnswer": 2,
-              "explanation": "Barter is the historical method of exchanging goods directly for other goods."
+              "explanation": "People used to trade goods with each other instead of buying them at a store."
             },
             {
               "questionId": "1003_02",
@@ -269,7 +255,7 @@
               "questionId": "1003_03",
               "questionType": "ordering",
               "type": "theoretical",
-              "question": "Put the steps a trader had to follow in the barter system in the correct order.",
+              "question": "Put the steps the buyer had to take when exchanging one item for another in the correct order.",
               "options": [],
               "correctAnswer": 0,
               "orderItems": [
@@ -279,25 +265,25 @@
                 "Agreed on the exchange",
                 "Swapped the goods"
               ],
-              "explanation": "Barter required a long process of finding a suitable trading partner."
+              "explanation": "Exchange required a long process of finding a suitable trading partner."
             },
             {
               "questionId": "1003_04",
               "questionType": "multipleChoice",
               "type": "theoretical",
-              "question": "What was created only after the period of barter and paying with objects?",
+              "question": "What was created only after the period of exchange of goods and payment with various items?",
               "options": ["The first coins", "Credit cards", "Internet banking", "Paper money"],
               "correctAnswer": 0,
-              "explanation": "Standardized metal coins were the first major step away from barter."
+              "explanation": "Coins were the next step in the evolution toward simplifying payments."
             },
             {
               "questionId": "1003_06",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "People stopped using barter because it was hard to find someone who wanted your specific goods.",
+              "question": "People stopped exchanging goods because it was hard to find someone who wanted exactly what you had.",
               "options": [],
               "correctAnswer": 0,
-              "explanation": "Barter is inefficient because it is rare for two people to perfectly match their supply and demand."
+              "explanation": "Exchange is inefficient because it is rare for two people to perfectly match their supply and demand."
             },
             {
               "questionId": "1003_07",
@@ -311,7 +297,7 @@
                 "Go to a different city"
               ],
               "correctAnswer": 2,
-              "explanation": "In a barter system, if you don't have what the seller wants, you cannot complete the trade."
+              "explanation": "In a exchange system, if you don't have what the seller wants, you cannot complete the trade."
             },
             {
               "questionId": "1003_08",
@@ -335,10 +321,10 @@
               "options": [
                 "Barter means exchanging goods without money.",
                 "Before coins, people sometimes paid with salt or shells.",
-                "The first coins were invented before people ever used barter."
+                "The first coins were invented before people even began exchanging goods for goods."
               ],
               "correctAnswer": 2,
-              "explanation": "Coins were invented after the period of barter and paying with objects, not before."
+              "explanation": "Coins did not come into existence until after the period of exchange of goods and payment with various objects, not before it."
             }
           ]
         },
@@ -365,9 +351,9 @@
               "questionId": "1004_02",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Paying in cash means paying with physical coins or banknotes.",
+              "question": "PayiPaying in cash means paying by card.",
               "options": [],
-              "correctAnswer": 0,
+              "correctAnswer": 1,
               "explanation": "Cash refers specifically to physical currency like coins and paper bills."
             },
             {
@@ -426,29 +412,15 @@
               "question": "The shopkeeper asked Chrumko if he wants to pay by card or in cash. Why did she give him a choice?",
               "options": [
                 "Because the tie will cost much more money if he pays by card.",
-                "Because both options are correct ways to pay for goods.",
                 "Because cash can only be used to buy things that are blue.",
-                "Because if he pays in cash, the shopkeeper can keep the money."
+                "Because if he pays in cash, the shopkeeper can keep the money.",
+                "Because both options are correct ways to pay for goods."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Modern shops usually accept both physical and digital payments as they have the same value."
             },
             {
               "questionId": "1004_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko is at the till and the shopkeeper asks: 'Card or cash?'",
-              "options": [
-                "Only cash is real money, so he must pay cash.",
-                "Only cards work in real shops.",
-                "Both are valid ways to pay - he can choose either.",
-                "He must pay with both at the same time."
-              ],
-              "correctAnswer": 2,
-              "explanation": "Cash and card are just different forms of the same money - shops accept either as valid payment."
-            },
-            {
-              "questionId": "1004_09",
               "questionType": "spotMistake",
               "type": "theoretical",
               "question": "One of these statements about payment methods is wrong. Find it.",
@@ -553,20 +525,6 @@
             },
             {
               "questionId": "1005_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko has €1 and wants both a 90-cent juice and a 50-cent cookie.",
-              "options": [
-                "He has enough for both, since 90 and 50 cents add up to less than €1.",
-                "He must choose only one, since together they cost more than he has.",
-                "He should buy nothing, even though he can afford one item.",
-                "He should ask the shop for a free cookie."
-              ],
-              "correctAnswer": 1,
-              "explanation": "90 cents plus 50 cents is €1.40, which is more than his €1, so he can only afford one item."
-            },
-            {
-              "questionId": "1005_09",
               "questionType": "ranking",
               "type": "theoretical",
               "question": "Rank these purchases from cheapest to most expensive.",
@@ -598,11 +556,11 @@
               "question": "Why is it important to think about what we spend money on?",
               "options": [
                 "Because money is infinite",
-                "So that we have money for other things later",
                 "Because spending is forbidden",
+                "So that we have money for other things later",
                 "To have the heaviest wallet possible"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Budgeting ensures you can afford essentials and save for future goals."
             },
             {
@@ -672,11 +630,11 @@
               "type": "theoretical",
               "question": "One of these statements about money running out is wrong. Find it.",
               "options": [
-                "Money you spend is gone unless you earn or receive more.",
                 "If Chrumko spends all 5 euros on sweets, he still has money left for a toy.",
+                "Money you spend is gone unless you earn or receive more.",
                 "Saving some money now means having money for something else later."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "If all the money is spent on sweets, nothing is left for anything else, including a toy."
             }
           ]
@@ -693,11 +651,11 @@
               "question": "How do people most often get money?",
               "options": [
                 "They find it randomly on the street",
-                "For the work they perform",
                 "By printing it at home",
-                "By trading it for toys"
+                "By trading it for toys",
+                "For the work they perform"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Work is the primary source of income for most adults."
             },
             {
@@ -784,12 +742,12 @@
               "type": "practical",
               "question": "Chrumko's friend says he wants to earn money by working every day at a factory, but Chrumko is still a child.",
               "options": [
-                "Children usually earn money through daily factory work, just like adults.",
                 "Children most often get money through allowance or gifts from parents.",
+                "Children usually earn money through daily factory work, just like adults.",
                 "Children must run their own business to get money.",
                 "Children automatically receive money from their parents' bank account without asking."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Children usually receive money as an allowance or as gifts, not through daily employment."
             },
             {

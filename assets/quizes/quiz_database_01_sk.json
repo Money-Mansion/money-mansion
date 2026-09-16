@@ -13,15 +13,15 @@
               "questionId": "1001_01",
               "questionType": "multipleChoice",
               "type": "theoretical",
-              "question": "Prečo ľudia začali používať peniaze namiesto toho, aby si veci len vymieňali?",
+              "question": "Prečo ľudia začali používať peniaze?",
               "options": [
                 "Lebo ich bavilo zbierať lesklé predmety.",
-                "Aby bolo nakupovanie a predaj tovaru jednoduchší.",
-                "Pretože vtedajší králi to ľuďom zakázali.",
+                "Lebo si chceli niečo kúpiť.",
+                "Pretože vtedajší králi do toho ľudí nútili.",
                 "Lebo peniaze sa dajú lepšie využiť pri stavaní domov."
               ],
               "correctAnswer": 1,
-              "explanation": "Peniaze boli zavedené ako univerzálny prostriedok, ktorý zjednodušuje obchodovanie."
+              "explanation": "Peniaze boli zavedené ako univerzálny prostriedok, za ktorý vieme nakupovať."
             },
             {
               "questionId": "1001_02",
@@ -39,11 +39,11 @@
               "question": "V akej podobe môžeme dnes nájsť peniaze?",
               "options": [
                 "Len ako mince a papierové bankovky v peňaženke.",
-                "Ako mince, bankovky alebo digitálne peniaze na karte.",
                 "Iba ako zlaté tehly v banke.",
+                "Ako mince, bankovky alebo digitálne peniaze na karte.",
                 "Ako farebné nálepky, ktoré si vymieňame v škole."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Dnes využívame hotovosť (mince/bankovky) aj elektronické formy platby."
             },
             {
@@ -61,12 +61,12 @@
               "type": "practical",
               "question": "Chrumko drží v ruke 2-eurovú mincu. Čo s ňou môže v obchode urobiť?",
               "options": [
-                "Musí ju vrátiť, lebo je to len bezcenný kúsok kovu.",
                 "Môže ju vymeniť za tovar v hodnote dvoch eur.",
+                "Musí ju vrátiť, lebo je to len bezcenný kúsok kovu.",
                 "Za 2-eurovú mincu si nič nemôže kúpiť.",
                 "Musí ju najprv doma vyčistiť, aby mala nejakú cenu."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Peniaze slúžia ako výmenný prostriedok za tovar v danej hodnote."
             },
             {
@@ -142,23 +142,23 @@
               "questionId": "1002_02",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Priama výmena vecí (barter) je vždy jednoduchá a rýchla.",
+              "question": "Peniaze majú 3 kľúčové vlastnosti: lesklosť, abstraktnosť a nekonečnosť.",
               "options": [],
               "correctAnswer": 1,
-              "explanation": "Barter vyžaduje obojstrannú zhodu v potrebách, čo je v praxi zložité."
+              "explanation": "Vlastnosti peňazí sú prenosnosť (ľahko sa nosia), univerzálnosť (prijíma ich každý) a trvanlivosť (nikdy sa nepokazia)."
             },
             {
               "questionId": "1002_03",
               "questionType": "multipleChoice",
               "type": "theoretical",
-              "question": "Čo znamená, že peniaze sú „univerzálne?",
+              "question": "Čo znamená, že sú peniaze „univerzálne?",
               "options": [
                 "Že sa dajú použiť v celej galaxii.",
-                "Že ich prijme každý výmenou za tovar.",
                 "Že sa dajú prať v práčke bez toho, aby sa zničili.",
-                "Že majú vždy rovnakú farbu."
+                "Že majú vždy rovnakú farbu.",
+                "Že ich prijme každý výmenou za tovar."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Univerzálnosť znamená, že sú široko akceptované všetkými obchodníkmi."
             },
             {
@@ -215,20 +215,6 @@
             },
             {
               "questionId": "1002_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko má vrece piesku a chce ho vymeniť za autíčko, ale predavač autíčok piesok nechce.",
-              "options": [
-                "Chrumko musí predavača presvedčiť, aby mal rád piesok.",
-                "Chrumko môže namiesto toho použiť peniaze, keďže tie prijíma každý.",
-                "Chrumko by sa mal vzdať a nikdy autíčko nedostane.",
-                "Predavač musí obchodovať aj tak, lebo Chrumko sa opýtal prvý."
-              ],
-              "correctAnswer": 1,
-              "explanation": "Peniaze presne riešia tento problém - na rozdiel od piesku ich prijíma každý, takže Chrumko nemusí hľadať niekoho, kto chce piesok."
-            },
-            {
-              "questionId": "1002_09",
               "questionType": "spotMistake",
               "type": "theoretical",
               "question": "Jedno z týchto tvrdení o vlastnostiach peňazí je nesprávne. Nájdi ho.",
@@ -252,9 +238,9 @@
               "questionType": "multipleChoice",
               "type": "theoretical",
               "question": "Ako sa nazýva výmena vecí bez použitia peňazí?",
-              "options": ["Inflácia", "Investovanie", "Barter", "Úver"],
+              "options": ["Inflácia", "Investovanie", "Výmena tovaru za tovar", "Úver"],
               "correctAnswer": 2,
-              "explanation": "Barter je odborný názov pre výmenný obchod tovaru za tovar."
+              "explanation": "Ľudia si kedysi vymieňali tovary namiesto toho, aby ich nakupovali v obchode."
             },
             {
               "questionId": "1003_02",
@@ -269,7 +255,7 @@
               "questionId": "1003_03",
               "questionType": "ordering",
               "type": "theoretical",
-              "question": "Zoraď správne kroky, ktoré musel urobiť kupec v barterovom systéme.",
+              "question": "Zoraď správne kroky, ktoré musel urobiť kupec pri výmene tovaru za tovar.",
               "options": [],
               "correctAnswer": 0,
               "orderItems": [
@@ -277,24 +263,24 @@
                 "Zohnal tovar vhodný na výmenu",
                 "Hľadal obchodníka, ktorý ten tovar chce",
                 "Dohodol sa na výmene",
-                "Vymienal tovar"
+                "Vymenil tovar"
               ],
-              "explanation": "Barter si vyžadoval dlhý proces hľadania vhodného partnera na výmenu."
+              "explanation": "Získanie tovaru si vyžadovalo dlhý proces hľadania vhodného partnera na výmenu."
             },
             {
               "questionId": "1003_04",
               "questionType": "multipleChoice",
               "type": "theoretical",
-              "question": "Čo vzniklo až po období barteru a platenia rôznymi predmetmi?",
+              "question": "Čo vzniklo až po období výmeny tovaru a platenia rôznymi predmetmi?",
               "options": ["Prvé mince", "Kreditné karty", "Internetové bankovníctvo", "Papierové peniaze"],
               "correctAnswer": 0,
-              "explanation": "Mince boli ďalším evolučným krokom k zjednodušeniu platenia po barterovom období."
+              "explanation": "Mince boli ďalším evolučným krokom k zjednodušeniu platenia."
             },
             {
               "questionId": "1003_06",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Ľudia prestali používať barter, lebo bolo ťažké nájsť niekoho, kto chce práve váš tovar.",
+              "question": "Ľudia si prestali vymieňať tovar, lebo bolo ťažké nájsť niekoho, kto chce práve ten váš.",
               "options": [],
               "correctAnswer": 0,
               "explanation": "Náročnosť nájsť vhodného partnera na výmenu viedla k vzniku peňazí."
@@ -311,7 +297,7 @@
                 "Ísť do iného mesta"
               ],
               "correctAnswer": 2,
-              "explanation": "V barterovom systéme musíte presne trafiť požiadavku protistrany."
+              "explanation": "Vo výmennom systéme musíte presne trafiť požiadavku protistrany."
             },
             {
               "questionId": "1003_08",
@@ -335,10 +321,10 @@
               "options": [
                 "Barter znamená výmenu tovaru bez peňazí.",
                 "Pred vznikom mincí ľudia niekedy platili soľou alebo mušľami.",
-                "Prvé mince boli vynájdené skôr, než ľudia vôbec začali používať barter."
+                "Prvé mince boli vynájdené skôr, než ľudia vôbec začali používať výmenu tovaru za tovar."
               ],
               "correctAnswer": 2,
-              "explanation": "Mince vznikli až po období barteru a platenia rôznymi predmetmi, nie pred ním."
+              "explanation": "Mince vznikli až po období výmeny tovaru a platenia rôznymi predmetmi, nie pred ním."
             }
           ]
         },
@@ -365,9 +351,9 @@
               "questionId": "1004_02",
               "questionType": "trueFalse",
               "type": "theoretical",
-              "question": "Platiť v hotovosti znamená platiť fyzickými mincami alebo bankovkami.",
+              "question": "Platiť v hotovosti znamená platiť kartou.",
               "options": [],
-              "correctAnswer": 0,
+              "correctAnswer": 1,
               "explanation": "Hotovosť sú fyzické peniaze, ktoré držíme v ruke."
             },
             {
@@ -381,7 +367,7 @@
               "dragTargets": [
                 { "label": "Hotovosť", "correctItems": ["Platba 50€ bankovkou"] },
                 { "label": "Kartová platba", "correctItems": ["Priloženie karty k terminálu"] },
-                { "label": "Mobilná platba", "correctItems": ["Platba mobilom cez app"] }
+                { "label": "Mobilná platba", "correctItems": ["Platba mobilom cez apku"] }
               ],
               "explanation": "Existujú tri hlavné moderné spôsoby platby: hotovosť, karta a mobilná platba."
             },
@@ -426,29 +412,15 @@
               "question": "Predavačka sa Chrumka opýtala, či chce platiť kartou alebo v hotovosti. Prečo mu dala na výber?",
               "options": [
                 "Pretože pri platbe kartou bude kravata stáť oveľa viac peňazí.",
-                "Lebo obe možnosti sú správne spôsoby, ako zaplatiť za tovar.",
                 "Pretože v hotovosti sa dajú kupovať len veci, ktoré sú modré.",
-                "Lebo ak zaplatí v hotovosti, predavačka si peniaze môže nechať."
+                "Lebo ak zaplatí v hotovosti, predavačka si peniaze môže nechať.",
+                "Lebo obe možnosti sú správne spôsoby, ako zaplatiť za tovar."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Obchodníci bežne akceptujú viaceré formy platidiel."
             },
             {
               "questionId": "1004_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko je pri pokladni a predavačka sa ho pýta: \"Kartou alebo v hotovosti?\"",
-              "options": [
-                "Iba hotovosť sú skutočné peniaze, takže musí platiť v hotovosti.",
-                "Iba karty fungujú v skutočných obchodoch.",
-                "Obe možnosti sú platné spôsoby platby - môže si vybrať ktorúkoľvek.",
-                "Musí zaplatiť oboma spôsobmi naraz."
-              ],
-              "correctAnswer": 2,
-              "explanation": "Hotovosť a karta sú len rôzne formy tých istých peňazí - obchody prijímajú obe ako platnú platbu."
-            },
-            {
-              "questionId": "1004_09",
               "questionType": "spotMistake",
               "type": "theoretical",
               "question": "Jedno z týchto tvrdení o spôsoboch platby je nesprávne. Nájdi ho.",
@@ -553,20 +525,6 @@
             },
             {
               "questionId": "1005_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko má 1 euro a chce si kúpiť aj džús za 90 centov, aj keksík za 50 centov.",
-              "options": [
-                "Má dosť na obidve veci, lebo 90 a 50 centov spolu je menej ako 1 euro.",
-                "Musí si vybrať iba jednu vec, lebo spolu stoja viac, ako má.",
-                "Nemal by si kúpiť nič, hoci má dosť na jednu vec.",
-                "Mal by v obchode požiadať o keksík zadarmo."
-              ],
-              "correctAnswer": 1,
-              "explanation": "90 centov plus 50 centov je 1,40 €, čo je viac ako jeho 1 euro, takže si môže dovoliť len jednu vec."
-            },
-            {
-              "questionId": "1005_09",
               "questionType": "ranking",
               "type": "theoretical",
               "question": "Zoraď tieto nákupy od najlacnejšieho po najdrahší.",
@@ -598,11 +556,11 @@
               "question": "Prečo je dôležité premýšľať, na čo míňame peniaze?",
               "options": [
                 "Lebo peniaze sú nekonečné",
-                "Aby sme mali peniaze aj na iné veci neskôr",
                 "Lebo míňanie je zakázané",
+                "Aby sme mali peniaze aj na iné veci neskôr",
                 "Aby sme mali čo najťažšiu peňaženku"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Plánovanie výdavkov zaručuje, že budeme mať prostriedky na dôležité potreby."
             },
             {
@@ -637,7 +595,7 @@
               "questionId": "1006_05",
               "questionType": "multipleChoice",
               "type": "practical",
-              "question": "Chrumko má 5 eur a minie ich na sladkosti. Čo platí?",
+              "question": "Chrumko má 5 eur a minie ich na sladkosti. Ktorá z týchto odpovedí platí?",
               "options": [
                 "Stále má peniaze na hračku",
                 "Nemá už peniaze na inú vec",
@@ -672,11 +630,11 @@
               "type": "theoretical",
               "question": "Jedno z týchto tvrdení o minutí všetkých peňazí je nesprávne. Nájdi ho.",
               "options": [
-                "Minuté peniaze sú preč, kým si nezarobíš alebo nedostaneš ďalšie.",
                 "Ak Chrumko minie všetkých 5 eur na sladkosti, stále mu zostanú peniaze na hračku.",
+                "Minuté peniaze sú preč, kým si nezarobíš alebo nedostaneš ďalšie.",
                 "Odloženie časti peňazí teraz znamená mať peniaze na niečo iné neskôr."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Ak sú všetky peniaze minuté na sladkosti, nič nezostane na inú vec, ani na hračku."
             }
           ]
@@ -693,11 +651,11 @@
               "question": "Ako ľudia najčastejšie získavajú peniaze?",
               "options": [
                 "Náhodne ich nájdu na ulici",
-                "Za prácu, ktorú vykonávajú",
                 "Tým, že si ich vytlačia doma",
-                "Výmenou za hračky"
+                "Výmenou za hračky",
+                "Za prácu, ktorú vykonávajú"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Hlavným zdrojom príjmu vo väčšine domácností je zamestnanie."
             },
             {
@@ -760,7 +718,7 @@
                 "Koniec mesiaca - zamestnávateľ posiela výplatu",
                 "Peniaze prídu na bankový účet",
                 "Rodina zaplatí nájom a jedlo",
-                "Zvyšok idú do úspor alebo na zábavu"
+                "Zvyšok ide do úspor alebo na zábavu"
               ],
               "explanation": "Takto funguje cyklus zárobku a míňania peňazí v rodine."
             },
@@ -784,12 +742,12 @@
               "type": "practical",
               "question": "Chrumkov kamarát povie, že chce zarábať peniaze každodennou prácou v továrni, no Chrumko je stále dieťa.",
               "options": [
-                "Deti zvyčajne zarábajú peniaze každodennou prácou v továrni, rovnako ako dospelí.",
                 "Deti najčastejšie dostávajú peniaze ako vreckové alebo darček od rodičov.",
+                "Deti zvyčajne zarábajú peniaze každodennou prácou v továrni, rovnako ako dospelí.",
                 "Deti musia na získanie peňazí podnikať.",
                 "Deti automaticky dostávajú peniaze z bankového účtu rodičov bez opýtania."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Deti zvyčajne dostávajú peniaze ako vreckové alebo darčeky, nie prostredníctvom každodenného zamestnania."
             },
             {
