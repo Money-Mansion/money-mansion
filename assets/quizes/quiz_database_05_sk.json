@@ -62,11 +62,11 @@
               "question": "Chrumko si vyberá ceruzku. Jedna má peknú značkovú krabičku a stojí viac. Vedľa nej leží jednoduchšia ceruzka, ktorá stojí menej a píše rovnako dobre. Čo je múdrejšia voľba?",
               "options": [
                 "Vždy tá značková, lebo je drahšia a teda lepšia.",
-                "Lacnejšia, keďže funguje rovnako a ušetrí peniaze.",
                 "Žiadna - ceruzky by si kupovať nemal.",
-                "Značková, lebo pekná krabička vydrží dlhšie."
+                "Značková, lebo pekná krabička vydrží dlhšie.",
+                "Lacnejšia, keďže funguje rovnako a ušetrí peniaze."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Ak oba výrobky fungujú rovnako, lacnejší je múdrejšia kúpa."
             },
             {
@@ -223,12 +223,12 @@
               "type": "practical",
               "question": "Chrumko nájde dve úplne rovnaké tašky rovnakej značky a materiálu v rôznych obchodoch - jedna stojí viac ako druhá.",
               "options": [
-                "Mal by si vždy kúpiť v prvom obchode, kde bol.",
                 "Mal by si kúpiť v lacnejšom obchode, keďže ide o úplne rovnaký výrobok.",
+                "Mal by si vždy kúpiť v prvom obchode, kde bol.",
                 "Drahšia musí byť lepšia, lebo stojí viac.",
                 "Cena sa medzi obchodmi pri rovnakom výrobku nikdy nelíši."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Ten istý výrobok môže stáť v rôznych obchodoch rozdielne peniaze - kúpa v lacnejšom obchode pri identickom výrobku je múdrejšia voľba."
             },
             {
@@ -307,7 +307,7 @@
               "questionId": "5003_05",
               "questionType": "trueFalse",
               "type": "practical",
-              "question": "Chrumko kúpi lacnú fľašu na vodu, ktorá sa po týždni praskne. Musí si kúpiť ďalšiu. Táto kúpa nebola výhodná.",
+              "question": "Chrumko kúpi lacnú fľašu na vodu, ktorá po týždni praskne. Musí si kúpiť ďalšiu. Táto kúpa nebola výhodná.",
               "options": [],
               "correctAnswer": 0,
               "explanation": "Lacný výrobok, ktorý treba rýchlo nahradiť, vychádza celkovo drahšie ako kvalitnejší, kúpený raz."
@@ -333,26 +333,12 @@
               "question": "Chrumko chce fľašu na vodu do školy. Vidí tenkú lacnú a pevnejšiu, ktorá stojí o trochu viac. Aká je najinteligentnejšia otázka, ktorú si môže položiť?",
               "options": [
                 "Ktorá vyzerá zábavnejšie?",
-                "Ktorú budem používať každý deň a ktorá vydrží dlhšie?",
                 "Ktorá je najpopulárnejšia?",
-                "Ktorú má môj kamarát?"
+                "Ktorú má môj kamarát?",
+                "Ktorú budem používať každý deň a ktorá vydrží dlhšie?"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Pri veciach dennej potreby sú odolnosť a dlhodobá hodnota najdôležitejšie faktory."
-            },
-            {
-              "questionId": "5003_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko si kúpi najlacnejšiu fľašu na vodu, akú nájde, a tá po jednom týždni praskne, takže si musí kúpiť ďalšiu.",
-              "options": [
-                "Toto bola výhodná kúpa, lebo zaplatil čo najmenej.",
-                "Toto nebola výhodná kúpa, lebo si nakoniec musel rýchlo kúpiť ďalšiu.",
-                "Lacné výrobky vždy vydržia najdlhšie.",
-                "Samotná cena ti povie všetko o tom, aká je kúpa výhodná."
-              ],
-              "correctAnswer": 1,
-              "explanation": "Lacný výrobok, ktorý treba rýchlo nahradiť, vychádza celkovo drahšie ako kvalitnejší, kúpený raz - toto nebola výhodná kúpa."
             },
             {
               "questionId": "5003_09",
@@ -360,11 +346,11 @@
               "type": "theoretical",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
+                "Lacný výrobok, ktorý sa rýchlo pokazí, je vždy výhodná kúpa, lebo stál menej.",
                 "Výhodná kúpa znamená, že výrobok dobre funguje, dlho vydrží a jeho cena zodpovedá tomu, čo ponúka.",
-                "Platiť viac za odolný výrobok, ktorý denne používaš, môže byť celkovo lacnejšie ako opakovane kupovať lacnú verziu.",
-                "Lacný výrobok, ktorý sa rýchlo pokazí, je vždy výhodná kúpa, lebo stál menej."
+                "Platiť viac za odolný výrobok, ktorý denne používaš, môže byť celkovo lacnejšie ako opakovane kupovať lacnú verziu."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Lacný výrobok, ktorý sa rýchlo pokazí, NIE JE vždy výhodná kúpa - musíš ho skôr vymeniť, čo môže celkovo vyjsť drahšie."
             }
           ]
@@ -452,11 +438,11 @@
               "question": "Chrumko chce kúpiť pastelky a vidí ich v prvom obchode, kam príde, bez toho, aby sa pozrel inde.",
               "options": [
                 "Mal by si ich hneď kúpiť bez porovnávania, lebo porovnávanie je strata času.",
-                "Mal by skontrolovať, či ten istý výrobok nestojí menej inde, ešte pred kúpou.",
                 "Prvý obchod, kam príde, je vždy najlacnejší.",
+                "Mal by skontrolovať, či ten istý výrobok nestojí menej inde, ešte pred kúpou.",
                 "Porovnávanie cien záleží iba pri veľmi drahých nákupoch."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Oplatí sa porovnávať ceny aj pri malých nákupoch, keďže ten istý výrobok môže stáť menej v inom obchode."
             },
             {
@@ -466,10 +452,10 @@
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
                 "Ten istý výrobok môže stáť menej v inom obchode.",
-                "Oplatí sa porovnávať ceny aj pri malých nákupoch, pretože malé úspory sa časom nasčítajú.",
-                "Ak sú dve balenia pasteliek obsahovo rovnaké, ale rôznych cien, drahšie je vždy výhodnejší nákup."
+                "Ak sú dve balenia pasteliek obsahovo rovnaké, ale rôznych cien, drahšie je vždy výhodnejší nákup.",
+                "Oplatí sa porovnávať ceny aj pri malých nákupoch, pretože malé úspory sa časom nasčítajú."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 1,
               "explanation": "Ak je obsah rovnaký, LACNEJŠIE balenie poskytuje rovnakú hodnotu za menej peňazí, nie drahšie."
             }
           ]
@@ -561,11 +547,11 @@
               "question": "Mama Chrumkovi ukáže, že dve malé fľaše vody spolu stoja viac ako jedna veľká s rovnakým objemom. Aké je poučenie?",
               "options": [
                 "Veľké fľaše sú vždy správna voľba.",
-                "Cena na etikete nestačí - porovnanie jednotkovej ceny ukáže skutočnú hodnotu.",
                 "Malé fľaše sú vždy horšej kvality.",
-                "Odteraz by mal kupovať iba veľké balenia."
+                "Odteraz by mal kupovať iba veľké balenia.",
+                "Cena na etikete nestačí - porovnanie jednotkovej ceny ukáže skutočnú hodnotu."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Porovnanie jednotkovej ceny odhalí skutočnú hodnotu, ktorú samotná cena na etikete neukáže."
             },
             {

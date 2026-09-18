@@ -62,11 +62,11 @@
               "question": "Chrumko is choosing a pencil. One has a fancy branded package and costs more. A simpler one next to it costs less and writes just as well. Which is the wiser choice?",
               "options": [
                 "Always the branded one, because it is more expensive and therefore better.",
-                "The cheaper one, since it performs the same and saves money.",
                 "Neither - he should not buy pencils at all.",
-                "The branded one, because the nice packaging lasts longer."
+                "The branded one, because the nice packaging lasts longer.",
+                "The cheaper one, since it performs the same and saves money."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "If both products perform the same, the cheaper one is the smarter buy."
             },
             {
@@ -223,12 +223,12 @@
               "type": "practical",
               "question": "Chrumko finds two identical bags of the same brand and material in different shops - one costs more than the other.",
               "options": [
-                "He should always buy from the first shop he visited.",
                 "He should buy from the cheaper shop, since it's the exact same product.",
+                "He should always buy from the first shop he visited.",
                 "The more expensive one must be better because it costs more.",
                 "Price never differs between shops for the same item."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "The same product can cost different amounts in different shops - buying from the cheaper shop for an identical item is the smarter choice."
             },
             {
@@ -333,26 +333,12 @@
               "question": "Chrumko wants a water bottle for school. He sees a thin cheap one and a sturdier one that costs a bit more. What is the smartest question to ask himself?",
               "options": [
                 "Which one looks more fun?",
-                "Which one will I use every day and which will last longer?",
                 "Which one is the most popular?",
-                "Which one does my friend have?"
+                "Which one does my friend have?",
+                "Which one will I use every day and which will last longer?"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "For daily-use items, durability and long-term value are the most important factors."
-            },
-            {
-              "questionId": "5003_08",
-              "questionType": "scenario",
-              "type": "practical",
-              "question": "Chrumko buys the cheapest water bottle he can find, and it cracks after just one week, forcing him to buy another.",
-              "options": [
-                "This was a good deal since he paid the least amount possible.",
-                "This was not a good deal, since he ended up needing to buy another one quickly.",
-                "Cheap products always last the longest.",
-                "The price alone tells you everything about how good a deal is."
-              ],
-              "correctAnswer": 1,
-              "explanation": "A cheap product that needs replacing quickly often costs more in total than a better-quality one bought once - this was not a good deal."
             },
             {
               "questionId": "5003_09",
@@ -360,11 +346,11 @@
               "type": "theoretical",
               "question": "One of these statements is wrong. Find it.",
               "options": [
+                "A cheap product that breaks quickly is always a good deal because it cost less.",
                 "A good deal means the product works well, lasts long, and its price matches what it offers.",
-                "Paying more for something durable that you use daily can cost less overall than replacing a cheap version repeatedly.",
-                "A cheap product that breaks quickly is always a good deal because it cost less."
+                "Paying more for something durable that you use daily can cost less overall than replacing a cheap version repeatedly."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "A cheap product that breaks quickly is NOT always a good deal - you may need to replace it sooner, making it more expensive in the long run."
             }
           ]
@@ -452,11 +438,11 @@
               "question": "Chrumko wants to buy coloured pencils and sees them at the first shop he visits without checking anywhere else.",
               "options": [
                 "He should buy immediately without comparing, since comparing wastes time.",
-                "He should check if the same product costs less somewhere else before buying.",
                 "The first shop he visits is always the cheapest.",
+                "He should check if the same product costs less somewhere else before buying.",
                 "Comparing prices only matters for very expensive purchases."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "It is worth comparing prices even for small purchases, since the same product can cost less in a different shop."
             },
             {
@@ -466,10 +452,10 @@
               "question": "One of these statements is wrong. Find it.",
               "options": [
                 "The same product can cost less in a different shop.",
-                "It is worth comparing prices even for small purchases, because small savings add up over time.",
-                "If two packs of pencils are identical in content but different in price, the more expensive one is always the better deal."
+                "If two packs of pencils are identical in content but different in price, the more expensive one is always the better deal.",
+                "It is worth comparing prices even for small purchases, because small savings add up over time."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 1,
               "explanation": "If the content is identical, the CHEAPER pack gives the same value for less money, not the more expensive one."
             }
           ]
@@ -561,11 +547,11 @@
               "question": "Chrumko's mum shows him that two small bottles of water together cost more than one big bottle with the same total volume. What is the lesson?",
               "options": [
                 "Big bottles are always the right choice.",
-                "The total price on the label is not always enough - comparing the unit price shows the real value.",
                 "Small bottles are always worse quality.",
-                "He should only ever buy big packages from now on."
+                "He should only ever buy big packages from now on.",
+                "The total price on the label is not always enough - comparing the unit price shows the real value."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Unit price comparison reveals true value that the label price alone does not show."
             },
             {
