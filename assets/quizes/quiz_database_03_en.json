@@ -121,12 +121,12 @@
               "questionType": "scenario",
               "question": "Chrumko gets his weekly pocket money and immediately wants to spend all of it on one big toy.",
               "options": [
-                "He should spend it all right away since it's his money.",
                 "He should divide it between spending now and saving some for later.",
+                "He should spend it all right away since it's his money.",
                 "He should give it all to a friend.",
                 "He should wait for the bank to give him more if he runs out."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "The best way to deal with pocket money is to divide it between now and later, not spend everything at once.",
               "orderItems": [],
               "matchLeft": [],
@@ -693,11 +693,11 @@
               "question": "Chrumko realizes he bought a toy last week that he never used and now regrets it.",
               "options": [
                 "He should repeat the same mistake next time to be sure it was wrong.",
-                "He should reflect on what went wrong and think more before buying next time.",
                 "He should never spend any money ever again.",
+                "He should reflect on what went wrong and think more before buying next time.",
                 "He should decide even faster next time without thinking."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Reflecting on the mistake and thinking more carefully next time is how you learn to make better decisions.",
               "orderItems": [],
               "matchLeft": [],

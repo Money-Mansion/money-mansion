@@ -121,12 +121,12 @@
               "questionType": "scenario",
               "question": "Chrumko dostane týždenné vreckové a hneď chce minúť všetko na jednu veľkú hračku.",
               "options": [
-                "Mal by ho hneď celé minúť, veď sú to jeho peniaze.",
                 "Mal by si peniaze rozdeliť medzi útratu teraz a odloženie na neskôr.",
+                "Mal by ho hneď celé minúť, veď sú to jeho peniaze.",
                 "Mal by ich celé dať kamarátovi.",
                 "Mal by počkať, kým mu banka dá viac, keď mu dôjdu."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Najlepší spôsob narábania s vreckovým je rozdeliť si peniaze na teraz a neskôr, nie minúť všetko naraz.",
               "orderItems": [],
               "matchLeft": [],
@@ -693,11 +693,11 @@
               "question": "Chrumko si uvedomí, že si minulý týždeň kúpil hračku, ktorú nikdy nepoužil, a teraz to ľutuje.",
               "options": [
                 "Mal by tú istú chybu nabudúce zopakovať, aby sa uistil, že bola zlá.",
-                "Mal by sa zamyslieť nad tým, čo sa stalo, a nabudúce viac premýšľať pred nákupom.",
                 "Nikdy by už nemal minúť žiadne peniaze.",
+                "Mal by sa zamyslieť nad tým, čo sa stalo, a nabudúce viac premýšľať pred nákupom.",
                 "Mal by sa nabudúce rozhodovať ešte rýchlejšie bez premýšľania."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Zamyslenie sa nad chybou a väčšie premýšľanie nabudúce je spôsob, ako sa naučiť lepšie sa rozhodovať.",
               "orderItems": [],
               "matchLeft": [],
