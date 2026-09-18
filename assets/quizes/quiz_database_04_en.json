@@ -214,11 +214,11 @@
               "question": "Chrumko sees a book that costs more than his weekly allowance, but he has been saving regularly.",
               "options": [
                 "He can never buy the book since it costs more than one week's allowance.",
-                "He can use his accumulated savings to buy the book.",
                 "He must borrow money from a stranger.",
+                "He can use his accumulated savings to buy the book.",
                 "He should wait for the price to disappear."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "By having accumulated savings, Chrumko can purchase items that cost more than his regular weekly allowance."
             },
             {
@@ -226,11 +226,11 @@
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
+                "If you spend all your money immediately, you will always have enough for important things later.",
                 "Saving regularly leads to reaching your goals.",
-                "The main advantage of having saved money is greater freedom in future decision-making.",
-                "If you spend all your money immediately, you will always have enough for important things later."
+                "The main advantage of having saved money is greater freedom in future decision-making."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Spending all your money immediately means you will NOT have resources for more important needs later."
             }
           ]
@@ -333,15 +333,6 @@
               ],
               "correctAnswer": 1,
               "explanation": "It is possible to split your savings and work toward multiple goals simultaneously - one you reach soon and one that takes longer."
-            },
-            {
-              "questionId": "4003_08",
-              "questionType": "ranking",
-              "question": "Rank these goals from quickest to achieve to slowest.",
-              "options": [],
-              "correctAnswer": 0,
-              "orderItems": ["Stickers (1 euro)", "Building set saved for over 10 weeks", "Bicycle (1 year)"],
-              "explanation": "Goals that cost less and take less time are short-term, while ones needing many weeks or a full year are longer-term goals."
             }
           ]
         },
@@ -362,14 +353,6 @@
               ],
               "correctAnswer": 2,
               "explanation": "A financial reserve is a pool of money set aside to handle unforeseen expenses and emergencies."
-            },
-            {
-              "questionId": "4004_02",
-              "questionType": "trueFalse",
-              "question": "A financial reserve must always be saved for a specific planned purpose like a new phone.",
-              "options": ["True", "False"],
-              "correctAnswer": 1,
-              "explanation": "A reserve is specifically meant to be flexible and available for any unexpected need, not tied to a specific purchase."
             },
             {
               "questionId": "4004_03",
@@ -538,10 +521,10 @@
               "options": [
                 "The shopkeeper made a mistake in his favor at the checkout",
                 "He found the remaining money hidden under a pillow in his room",
-                "Regular saving added up the small amounts",
-                "The money in the piggy bank miraculously doubled overnight"
+                "The money in the piggy bank miraculously doubled overnight",
+                "Regular saving added up the small amounts"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 3,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -567,11 +550,11 @@
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
+                "Skipping saving whenever you feel bored is a good way to build strong savings.",
                 "The key to saving from small amounts is doing it repeatedly and regularly.",
-                "Saving 50 cents every week for a year adds up to a meaningful amount of money.",
-                "Skipping saving whenever you feel bored is a good way to build strong savings."
+                "Saving 50 cents every week for a year adds up to a meaningful amount of money."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Skipping saving doesn't build savings - only consistent, regular saving does."
             }
           ]
