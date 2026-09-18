@@ -47,12 +47,12 @@
               "questionType": "multipleChoice",
               "question": "What does housing provide for us?",
               "options": [
-                "Entertainment and games",
                 "Safety and a place to rest",
+                "Entertainment and games",
                 "New clothes every week",
                 "Friends to play with"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "A home provides shelter from the elements, security, and a space for recovery."
             },
             {
@@ -139,18 +139,18 @@
               "question": "Is it okay to have wants?",
               "options": [
                 "No, wants are always bad",
-                "Yes, but we should know that needs are more important",
                 "No, we should only buy needs",
-                "Yes, and we should always fulfil them immediately"
+                "Yes, and we should always fulfil them immediately",
+                "Yes, but we should know that needs are more important"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Wants are fine to have, as long as your basic needs are met first."
             },
             {
               "questionId": "2002_05",
               "questionType": "trueFalse",
-              "question": "If Chrumko wants a new toy but already has a similar one, that new toy is a want.",
-              "correctAnswer": 0,
+              "question": "If Chrumko wants a new toy but already has a similar one, that new toy is a need.",
+              "correctAnswer": 1,
               "explanation": "Since he already has a toy that works, the new one is definitely a desire, not a necessity."
             },
             {
@@ -158,8 +158,8 @@
               "questionType": "ordering",
               "question": "Put the steps of smart decision-making in the correct order when Chrumko only has money for one thing.",
               "orderItems": [
-                "What do I really need?",
-                "Is it a need or a want?",
+                "Chrumko finds a new toy, but his mom sent him to buy bread.",
+                "Is a new toy a necessity or a desire?",
                 "Buy the more important thing."
               ],
               "explanation": "Responsible money management means checking if your needs are covered before spending on anything else."
@@ -169,12 +169,12 @@
               "questionType": "scenario",
               "question": "Chrumko already has a toy car that works fine, but he sees a new one in the shop and wants it.",
               "options": [
-                "The new toy car is a need, since he wants it so much.",
                 "The new toy car is a want, since his old one still works.",
+                "The new toy car is a need, since he wants it so much.",
                 "He must buy it immediately.",
                 "Wanting something makes it automatically a need."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Since his old toy still works, the new one is a want, not a need."
             },
             {
@@ -214,7 +214,7 @@
             {
               "questionId": "2003_03",
               "questionType": "multipleChoice",
-              "question": "What is the difference between wanting and needing something?",
+              "question": "Is there a difference between wanting and needing something?",
               "options": [
                 "There is no difference",
                 "Wanting something means you automatically need it too",
@@ -279,7 +279,7 @@
               "questionType": "trueFalse",
               "question": "The main goal of advertising is to persuade us that we need a product.",
               "correctAnswer": 0,
-              "explanation": "The primary goal of advertising is to persuade people to spend money on a specific product."
+              "explanation": "Advertisements make things seem more appealing than they actually are."
             },
             {
               "questionId": "2004_02",
@@ -294,12 +294,12 @@
               "questionType": "multipleChoice",
               "question": "How do products in advertisements usually compare to real life?",
               "options": [
+                "Advertisers often show a perfect version that may differ from what you actually get",
                 "They always look exactly the same as in real life",
                 "They look worse than in real life",
-                "Advertisers often show a perfect version that may differ from what you actually get",
                 "They always look exactly as described"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Advertisers often show the 'perfect' version of a product, which can be different from what you actually get."
             },
             {
@@ -349,7 +349,7 @@
                 "He should ignore whether he actually needs it."
               ],
               "correctAnswer": 1,
-              "explanation": "Advertisers often show an idealized version of a product that can be different from what you actually get."
+              "explanation": "Things in advertisements don't always look the same in real life."
             },
             {
               "questionId": "2004_08",
@@ -361,7 +361,7 @@
                 "Products in advertisements always look exactly the same as they do in real life."
               ],
               "correctAnswer": 2,
-              "explanation": "Advertisers often show a perfect version that may differ from what you actually get in real life."
+              "explanation": "Advertising often exaggerates reality."
             }
           ]
         },
@@ -373,9 +373,9 @@
             {
               "questionId": "2005_01",
               "questionType": "trueFalse",
-              "question": "Strong emotions like anger or sadness can lead to impulsive purchases.",
-              "correctAnswer": 0,
-              "explanation": "Strong emotions can cloud our judgment and make us make impulsive purchases."
+              "question": "Strong emotions such as anger or sadness never lead to impulse purchases.",
+              "correctAnswer": 1,
+              "explanation": "Strong emotions impair our ability to make rational decisions, which is why we often act impulsively."
             },
             {
               "questionId": "2005_02",
@@ -383,11 +383,11 @@
               "question": "Why do we sometimes buy things when we are sad?",
               "options": [
                 "Because we need them to survive",
-                "Because they can bring short-term joy",
                 "Because we must",
-                "Because they are cheap"
+                "Because they are cheap",
+                "Because they can bring short-term joy"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Buying something new releases chemicals in the brain that make us feel better for a little while."
             },
             {
@@ -408,7 +408,7 @@
               "questionType": "matching",
               "question": "Match each situation to the correct response.",
               "matchLeft": ["Chrumko is angry and wants a sweet", "Chrumko is sad and very thirsty", "Chrumko is excited and wants an expensive toy", "Chrumko is calm and hungry"],
-              "matchRight": ["Wait and think it over", "Buy water - it is a need", "Wait until the emotion passes", "Buy food - it is a need"],
+              "matchRight": ["Wait and calm down", "Buy water - it is a need", "Wait until the emotion passes", "Buy food - it is a need"],
               "explanation": "Tell the difference between real needs and impulses driven by emotion."
             },
             {
@@ -453,11 +453,11 @@
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
+                "If Chrumko is sad and thirsty, he should never buy water because thirst is not a real need.",
                 "Strong emotions like anger or sadness can lead to impulsive purchases.",
-                "Emotional purchases are rarely based on real needs.",
-                "If Chrumko is sad and thirsty, he should never buy water because thirst is not a real need."
+                "Emotional purchases are rarely based on real needs."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Thirst is a biological need - even if he's sad, buying water is buying something he truly needs."
             }
           ]

@@ -47,12 +47,12 @@
               "questionType": "multipleChoice",
               "question": "Čo nám poskytuje bývanie?",
               "options": [
-                "Zábavu a hry",
                 "Bezpečie a miesto na oddych",
+                "Zábavu a hry",
                 "Nové oblečenie každý týždeň",
                 "Priateľov na hranie"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Domov nás chráni pred počasím a poskytuje súkromie."
             },
             {
@@ -139,18 +139,18 @@
               "question": "Je v poriadku mať túžby?",
               "options": [
                 "Nie, túžby sú vždy zlé",
-                "Áno, ale mali by sme vedieť, že potreby sú dôležitejšie",
                 "Nie, mali by sme kupovať len potreby",
-                "Áno, a mali by sme si ich vždy hneď splniť"
+                "Áno, a mali by sme si ich vždy hneď splniť",
+                "Áno, ale mali by sme vedieť, že potreby sú dôležitejšie"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Túžby sú normálne, dôležité je len správne si určiť priority."
             },
             {
               "questionId": "2002_05",
               "questionType": "trueFalse",
-              "question": "Ak chce Chrumko novú hračku, ale doma podobnú už má, ide o túžbu.",
-              "correctAnswer": 0,
+              "question": "Ak chce Chrumko novú hračku, ale doma podobnú už má, ide o potrebu.",
+              "correctAnswer": 1,
               "explanation": "Ďalšia hračka nie je k životu nutná, preto je to túžba."
             },
             {
@@ -158,9 +158,9 @@
               "questionType": "ordering",
               "question": "Zoraď kroky správneho rozhodovania, keď má Chrumko peniaze len na jednu vec.",
               "orderItems": [
-                "Čo naozaj potrebujem?",
-                "Je to potreba alebo túžba?",
-                "Kúpim dôležitejšiu vec."
+                "Chrumko objaví novú hračku ale mamka ho poslal kúpiť chlieb.",
+                "Je nová hračka potreba alebo túžba?",
+                "Kúpi dôležitejšiu vec."
               ],
               "explanation": "Správne finančné rozhodovanie začína otázkou 'Potrebujem to?'"
             },
@@ -169,12 +169,12 @@
               "questionType": "scenario",
               "question": "Chrumko už má autíčko, ktoré funguje, ale v obchode uvidí nové a chce ho.",
               "options": [
-                "Nové autíčko je potreba, lebo ho tak veľmi chce.",
                 "Nové autíčko je túžba, keďže staré stále funguje.",
+                "Nové autíčko je potreba, lebo ho tak veľmi chce.",
                 "Musí si ho hneď kúpiť.",
                 "Ak niečo chceme, automaticky sa to stáva potrebou."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 0,
               "explanation": "Keďže staré autíčko stále funguje, nové je túžba, nie potreba."
             },
             {
@@ -214,7 +214,7 @@
             {
               "questionId": "2003_03",
               "questionType": "multipleChoice",
-              "question": "Aký je rozdiel medzi chcením a potrebovaním niečoho?",
+              "question": "Je rozdiel medzi chcením a potrebovaním niečoho?",
               "options": [
                 "Nie je žiadny rozdiel",
                 "Ak niečo chceme, automaticky to aj potrebujeme",
@@ -279,7 +279,7 @@
               "questionType": "trueFalse",
               "question": "Hlavným cieľom reklamy je presvedčiť nás, že daný výrobok potrebujeme.",
               "correctAnswer": 0,
-              "explanation": "Hlavným cieľom reklamy je presvedčiť nás, že daný výrobok potrebujeme."
+              "explanation": "Reklama zobrazuje vec lákavejšie než môže v skutočnosti byť."
             },
             {
               "questionId": "2004_02",
@@ -294,12 +294,12 @@
               "questionType": "multipleChoice",
               "question": "Ako sa zvyčajne produkty v reklamách porovnávajú so skutočnosťou?",
               "options": [
+                "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality",
                 "Vyzerajú vždy presne tak, ako v skutočnosti",
                 "Vyzerajú horšie ako v skutočnosti",
-                "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality",
                 "Vždy vyzerajú presne tak, ako je opísané"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Reklama sa snaží ukázať produkt v najlepšom svetle, čo nemusí zodpovedať realite."
             },
             {
@@ -349,7 +349,7 @@
                 "Mal by ignorovať to, či ju naozaj potrebuje."
               ],
               "correctAnswer": 1,
-              "explanation": "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality."
+              "explanation": "Nie vždy veci v reklame vyzerajú rovnako v realite."
             },
             {
               "questionId": "2004_08",
@@ -361,7 +361,7 @@
                 "Produkty v reklamách vždy vyzerajú presne tak, ako v skutočnom živote."
               ],
               "correctAnswer": 2,
-              "explanation": "Reklama často ukazuje dokonalú verziu, ktorá sa môže líšiť od reality."
+              "explanation": "Reklama často prikrášľuje skutočnosť."
             }
           ]
         },
@@ -373,9 +373,9 @@
             {
               "questionId": "2005_01",
               "questionType": "trueFalse",
-              "question": "Silné emócie ako hnev alebo smútok môžu viesť k unáhleným nákupom.",
-              "correctAnswer": 0,
-              "explanation": "Silné emócie oslabujú našu schopnosť rozhodovať sa racionálne."
+              "question": "Silné emócie ako hnev alebo smútok nikdy nevedú k unáhleným nákupom.",
+              "correctAnswer": 1,
+              "explanation": "Silné emócie oslabujú našu schopnosť rozhodovať sa racionálne, a preto sa často unáhlime."
             },
             {
               "questionId": "2005_02",
@@ -383,11 +383,11 @@
               "question": "Prečo si niekedy kupujeme veci, keď sme smutní?",
               "options": [
                 "Lebo ich potrebujeme na prežitie",
-                "Lebo nám môžu priniesť krátkodobú radosť",
                 "Lebo musíme",
-                "Lebo sú lacné"
+                "Lebo sú lacné",
+                "Lebo nám môžu priniesť krátkodobú radosť"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Nákup novej veci spôsobí dočasný pocit šťastia, ktorý však rýchlo zmizne."
             },
             {
@@ -408,7 +408,7 @@
               "questionType": "matching",
               "question": "Spáruj situáciu so správnou reakciou.",
               "matchLeft": ["Chrumko je nahnevaný a chce sladkosť", "Chrumko je smutný a veľmi smädný", "Chrumko je nadšený a chce drahú hračku", "Chrumko je pokojný a má hlad"],
-              "matchRight": ["Počkať a premyslieť si to", "Kúpiť vodu, je to potreba", "Počkať, kým emócia opadne", "Kúpiť jedlo, je to potreba"],
+              "matchRight": ["Počkať a upokojiť sa", "Kúpiť vodu, je to potreba", "Počkať, kým emócia opadne", "Kúpiť jedlo, je to potreba"],
               "explanation": "Rozlišuj medzi skutočnými potrebami a impulzmi z emócií."
             },
             {
@@ -453,11 +453,11 @@
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
+                "Ak je Chrumko smutný a smädný, nikdy by si nemal kúpiť vodu, lebo smäd nie je skutočná potreba.",
                 "Silné emócie ako hnev alebo smútok môžu viesť k unáhleným nákupom.",
-                "Emocionálne nákupy málokedy vychádzajú zo skutočných potrieb.",
-                "Ak je Chrumko smutný a smädný, nikdy by si nemal kúpiť vodu, lebo smäd nie je skutočná potreba."
+                "Emocionálne nákupy málokedy vychádzajú zo skutočných potrieb."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Smäd je biologická potreba - aj keď je smutný, kúpa vody je kúpou niečoho, čo naozaj potrebuje."
             }
           ]
