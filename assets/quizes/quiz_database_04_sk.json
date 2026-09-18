@@ -214,11 +214,11 @@
               "question": "Chrumko vidí knihu, ktorá stojí viac ako jeho týždenné vreckové, ale pravidelne si sporí.",
               "options": [
                 "Knihu si nikdy nemôže kúpiť, lebo stojí viac ako týždenné vreckové.",
-                "Môže použiť svoje nasporené peniaze na kúpu knihy.",
                 "Musí si požičať peniaze od cudzieho človeka.",
+                "Môže použiť svoje nasporené peniaze na kúpu knihy.",
                 "Mal by počkať, kým cena knihy sama zmizne."
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 2,
               "explanation": "Vďaka hromadeniu úspor môže Chrumko kúpiť veci, ktoré stoja viac ako jeho bežné týždenné vreckové."
             },
             {
@@ -226,11 +226,11 @@
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
+                "Ak minieš všetky peniaze ihneď, vždy budeš mať dosť na dôležité veci neskôr.",
                 "Pravidelné sporenie vedie k dosiahnutiu cieľov.",
-                "Hlavnou výhodou odložených peňazí je väčšia sloboda pri budúcom rozhodovaní.",
-                "Ak minieš všetky peniaze ihneď, vždy budeš mať dosť na dôležité veci neskôr."
+                "Hlavnou výhodou odložených peňazí je väčšia sloboda pri budúcom rozhodovaní."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Okamžitá spotreba všetkých peňazí znamená, že NEBUDEŠ mať zdroje na dôležitejšie potreby neskôr."
             }
           ]
@@ -333,15 +333,6 @@
               ],
               "correctAnswer": 1,
               "explanation": "Je možné rozdeliť úspory a pracovať na viacerých cieľoch súčasne - na ten, ktorý dosiahneš skoro, aj na ten, ktorý trvá dlhšie."
-            },
-            {
-              "questionId": "4003_08",
-              "questionType": "ranking",
-              "question": "Zoraď tieto ciele od najrýchlejšie dosiahnuteľného po najpomalší.",
-              "options": [],
-              "correctAnswer": 0,
-              "orderItems": ["Nálepky (1 euro)", "Stavebnica sporená viac ako 10 týždňov", "Bicykel (1 rok)"],
-              "explanation": "Ciele, ktoré stoja menej a trvajú kratšie, sú krátkodobé, zatiaľ čo tie, ktoré si vyžadujú mnoho týždňov alebo celý rok, sú dlhodobejšie ciele."
             }
           ]
         },
@@ -362,14 +353,6 @@
               ],
               "correctAnswer": 2,
               "explanation": "Finančná rezerva je fond peňazí odložený na riadenie nepredvídaných výdavkov a núdzových situácií."
-            },
-            {
-              "questionId": "4004_02",
-              "questionType": "trueFalse",
-              "question": "Finančná rezerva musí byť vždy odkladaná na konkrétny plánovaný účel, napríklad na nový telefón.",
-              "options": ["True", "False"],
-              "correctAnswer": 1,
-              "explanation": "Rezerva je špecificky určená na flexibilitu a dostupnosť pre akúkoľvek nečakanú potrebu, nie naviazaná na konkrétny nákup."
             },
             {
               "questionId": "4004_03",
@@ -538,10 +521,10 @@
               "options": [
                 "Obchodník sa pri blokovaní pomýlil v jeho prospech",
                 "Našiel zvyšné peniaze schované pod vankúšom v izbe",
-                "Pravidelné sporenie sčítalo malé sumy",
-                "Peniaze v pokladničke sa cez noc zázračne zdvojnásobili"
+                "Peniaze v pokladničke sa cez noc zázračne zdvojnásobili",
+                "Pravidelné sporenie sčítalo malé sumy"
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 3,
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -567,11 +550,11 @@
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
+                "Vynechávanie sporenia, keď sa nám nechce, je dobrý spôsob, ako si vybudovať silné úspory.",
                 "Kľúčové pri sporení z malých súm je robiť to opakovane a pravidelne.",
-                "Sporenie 50 centov každý týždeň za rok sa nazberá na zmysluplnú sumu peňazí.",
-                "Vynechávanie sporenia, keď sa nám nechce, je dobrý spôsob, ako si vybudovať silné úspory."
+                "Sporenie 50 centov každý týždeň za rok sa nazberá na zmysluplnú sumu peňazí."
               ],
-              "correctAnswer": 2,
+              "correctAnswer": 0,
               "explanation": "Vynechávanie sporenia úspory nebuduje - buduje ich len konzistentné, pravidelné sporenie."
             }
           ]
