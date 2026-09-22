@@ -1,0 +1,442 @@
+{
+  "quizzes": [
+    {
+      "section": 9,
+      "sectionName": "ROZPOČET",
+      "lessons": [
+        {
+          "lessonId": 9001,
+          "lessonNumber": 1,
+          "lessonName": "Čo je rozpočet",
+          "questions": [
+            {
+              "questionId": "9001_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je rozpočet?",
+              "options": [
+                "List s číslami",
+                "Plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme použiť",
+                "Nič podľa",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rozpočet je plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme použiť. Pomáha s peniazmi."
+            },
+            {
+              "questionId": "9001_02",
+              "questionType": "scenario",
+              "question": "Chrumko vidí, že mama si zapisuje čísla do zošita. Čo robí?",
+              "options": [
+                "Počítačky neznámy",
+                "Plánuje výdavky na celý mesiac",
+                "Píše príbeh",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama si plánuje výdavky na celý mesiac. Najprv zapíše peniaze, ktoré dostane, a potom to, čo treba zaplatiť."
+            },
+            {
+              "questionId": "9001_03",
+              "questionType": "trueFalse",
+              "question": "Rozpočet pomáha mať v peniazoch poriadok a vedieť, koľko si môžeme dovoliť.",
+              "correctAnswer": 0,
+              "explanation": "Rozpočet je nástroj na plánovanie a kontrolu finančných prostriedkov."
+            },
+            {
+              "questionId": "9001_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Rozpočet ukazuje príjmy a výdavky.",
+                "Rozpočet pomáha vyhnúť sa finančným problémom.",
+                "Rozpočet je zbytočný a nikto ho nepotrebuje."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Rozpočet je veľmi dôležitý - pomáha finančným riadeníem domácnosti."
+            },
+            {
+              "questionId": "9001_05",
+              "questionType": "matching",
+              "question": "Spáruj čas s činnosťami rozpočtovania.",
+              "matchLeft": ["Začiatok mesiaca", "Počas mesiaca", "Koniec mesiaca", "Ďalší mesiac"],
+              "matchRight": ["Plánovanie výdavkov", "Sledovanie peňazí", "Zhodnotenie výdavkov", "Úprava plánu"],
+              "explanation": "Rozpočtovanie je kontinuálny proces."
+            },
+            {
+              "questionId": "9001_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď položky do správnych kategórií rozpočtu.",
+              "dragLabels": ["Príjmy", "Pevné výdavky", "Flexibilné výdavky", "Úspory"],
+              "dragTargets": [
+                { "label": "Peniaze ktoré prídu", "correctItems": ["Príjmy"] },
+                { "label": "Peniaze ktoré odídu", "correctItems": ["Pevné výdavky", "Flexibilné výdavky"] },
+                { "label": "Peniaze na neskôr", "correctItems": ["Úspory"] }
+              ],
+              "explanation": "Rozpočet sa skladá z niekoľkých sekcií."
+            },
+            {
+              "questionId": "9001_07",
+              "questionType": "ordering",
+              "question": "Zoraď kroky rozpočtovania.",
+              "orderItems": [
+                "Mama si zapíše, koľko peňazí príde",
+                "Mama zapíše všetky výdavky",
+                "Mama pozrie, čo zostáva",
+                "Mama sa rozhodne, ako použije zvyšné peniaze"
+              ],
+              "explanation": "Rozpočtovanie má logický proces."
+            },
+            {
+              "questionId": "9001_08",
+              "questionType": "multipleChoice",
+              "question": "Prečo je rozpočet dôležitý?",
+              "options": [
+                "Nie je to dôležité",
+                "Pomáha vedieť dopredu, na čo peniaze použijú",
+                "Všetko je náhodné",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rozpočet dáva kontrolu a jasnosť do finančného plánovania."
+            }
+          ]
+        },
+        {
+          "lessonId": 9002,
+          "lessonNumber": 2,
+          "lessonName": "Príjmy a výdavky",
+          "questions": [
+            {
+              "questionId": "9002_01",
+              "questionType": "multipleChoice",
+              "question": "Čo sú príjmy a čo sú výdavky?",
+              "options": [
+                "To isté",
+                "Príjmy - peniaze, ktoré prichádzajú; Výdavky - peniaze, ktoré odchádzajú",
+                "Nie je rozdiel",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Príjmy sú peniaze, ktoré prichádzajú. Výdavky sú peniaze, ktoré domácnosť míňa."
+            },
+            {
+              "questionId": "9002_02",
+              "questionType": "scenario",
+              "question": "Chrumko myslí si, že keď rodičia dostanú výplatu, všetko si môžu kúpiť. Čo otec hovorí?",
+              "options": [
+                "Áno, všetko si kúpi",
+                "Ešte predtým treba odpočítať bývanie, jedlo a ďalšie účty",
+                "Nič sa nemiňa",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec mu hovorí, že ešte predtým treba odpočítať bývanie, jedlo a ďalšie účty. Až potom zostane menšia suma."
+            },
+            {
+              "questionId": "9002_03",
+              "questionType": "trueFalse",
+              "question": "Ak sú výdavky vyššie ako príjmy, peniaze môžu chýbať.",
+              "correctAnswer": 0,
+              "explanation": "Nevyvážený rozpočet vedie k finančným problémom."
+            },
+            {
+              "questionId": "9002_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Príjmy sú peniaze, ktoré prichádzajú.",
+                "Výdavky sú peniaze, ktoré odchádzajú.",
+                "Príjmy a výdavky sú vždy rovnaké."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Príjmy a výdavky sa často líšia - to je dôvod, prečo je rozpočet dôležitý."
+            },
+            {
+              "questionId": "9002_05",
+              "questionType": "matching",
+              "question": "Spáruj scenár so vzťahom príjmov a výdavkov.",
+              "matchLeft": ["Výdavky < Príjmy", "Výdavky = Príjmy", "Výdavky > Príjmy", "Zostávajú peniaze"],
+              "matchRight": ["Zostáva rezerva", "Všetko je zaúčtované", "Peniaze chýbajú", "Možnosť šetriť"],
+              "explanation": "Rôzne pomery majú rôzne dôsledky."
+            },
+            {
+              "questionId": "9002_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď položky ako príjmy alebo výdavky.",
+              "dragLabels": ["Plat", "Nákup jedla", "Bonus", "Platba za bývanie", "Dedičstvo"],
+              "dragTargets": [
+                { "label": "Príjmy (peniaze dovnútra)", "correctItems": ["Plat", "Bonus", "Dedičstvo"] },
+                { "label": "Výdavky (peniaze von)", "correctItems": ["Nákup jedla", "Platba za bývanie"] }
+              ],
+              "explanation": "Príjmy a výdavky sú opačné."
+            },
+            {
+              "questionId": "9002_07",
+              "questionType": "multipleChoice",
+              "question": "Ako Chrumko pochopí vzťah príjmov a výdavkov?",
+              "options": [
+                "Všetko je zadarmo",
+                "Dôležité nie je len to, čo príde, ale aj to, čo odíde",
+                "Peniaze sú bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že dôležité nie je len to, čo príde, ale aj to, čo odíde a na čo sa to spotrebuje."
+            }
+          ]
+        },
+        {
+          "lessonId": 9003,
+          "lessonNumber": 3,
+          "lessonName": "Mesačné plánovanie",
+          "questions": [
+            {
+              "questionId": "9003_01",
+              "questionType": "multipleChoice",
+              "question": "Prečo nemenia všetky peniaze hneď na začiatku mesiaca?",
+              "options": [
+                "Bez dôvodu",
+                "Pretože peniaze musia vystačiť na celý mesiac",
+                "Vždy sa minú hneď",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Peniaze musia často vystačiť na celý mesiac. Preto rodina plánuje, čo bude potrebovať teraz a čo neskôr."
+            },
+            {
+              "questionId": "9003_02",
+              "questionType": "scenario",
+              "question": "Chrumko navrhne kúpiť novú hru hneď po výplate. Čo mama hovorí?",
+              "options": [
+                "Áno, hneď si ju kúpi",
+                "Najprv musia zaplaťť dôležité platby, až potom uvidia, čo si môžu dovoliť",
+                "Všetko je zadarmo",
+                "Bez diskusie"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama mu vysvetlí, že najprv musia zaplatiť všetko dôležité. O niekoľko dní prídu ďalšie platby."
+            },
+            {
+              "questionId": "9003_03",
+              "questionType": "trueFalse",
+              "question": "Peniaze treba rozložiť na dlhší čas, aby vydržali na celý mesiac.",
+              "correctAnswer": 0,
+              "explanation": "Rozdelenie peňazí je klúč k ich dostupnosti v priebehu celého mesiaca."
+            },
+            {
+              "questionId": "9003_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Plánovanie pomáha vyhnúť sa finančným problémom.",
+                "Vždy sa majú minúť všetky peniaze hneď.",
+                "Mesačné plánovanie je dôležité."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Minúť všetko hneď je zriedka dobrá stratégia."
+            },
+            {
+              "questionId": "9003_05",
+              "questionType": "matching",
+              "question": "Spáruj fázu mesiaca s činnosťami.",
+              "matchLeft": ["Prvý týždeň", "Druhý a tretí týždeň", "Posledný týždeň", "Koniec mesiaca"],
+              "matchRight": ["Platenie pevných výdavkov", "Kúpa potrebného jedla", "Varôšky", "Plánovanie ďalšieho mesiaca"],
+              "explanation": "Mesiac má rôzne etapy plánovania."
+            },
+            {
+              "questionId": "9003_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď činnosti podľa vhodného času v mesiaci.",
+              "dragLabels": ["Platenie nájmu", "Nákup na poslední chvíľu", "Spláce vysoké výdavky", "Oddychové nákupy"],
+              "dragTargets": [
+                { "label": "Začiatok mesiaca (po výplate)", "correctItems": ["Platenie nájmu", "Spláce vysoké výdavky"] },
+                { "label": "Koniec mesiaca", "correctItems": ["Nákup na poslední chvíľu", "Oddychové nákupy"] }
+              ],
+              "explanation": "Časovanie je dôležité v mesačnom rozpočte."
+            },
+            {
+              "questionId": "9003_07",
+              "questionType": "ordering",
+              "question": "Zoraď, ako mama plánuje mesačný rozpočet.",
+              "orderItems": [
+                "Mama dostane výplatu",
+                "Mama si zapíše pevné výdavky",
+                "Mama zapíše variabilné výdavky",
+                "Mama sa rozhodne, čo si môžu dovoliť navyše"
+              ],
+              "explanation": "Logický postup mesačného plánovania."
+            }
+          ]
+        },
+        {
+          "lessonId": 9004,
+          "lessonNumber": 4,
+          "lessonName": "Fixné výdavky",
+          "questions": [
+            {
+              "questionId": "9004_01",
+              "questionType": "multipleChoice",
+              "question": "Čo sú fixné výdavky?",
+              "options": [
+                "Výdavky, ktoré sa menia",
+                "Platby, ktoré sa opakujú pravidelne s podobnou sumou",
+                "Úplne zadarmo",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixné výdavky sú platby, ktoré sa opakujú pravidelne a majú podobnú sumu."
+            },
+            {
+              "questionId": "9004_02",
+              "questionType": "scenario",
+              "question": "Chrumko sa pýta, ako môžu vedieť vopred, koľko bude stáť mesiac. Čo mama odpoveďa?",
+              "options": [
+                "Nevedia, všetko je náhodné",
+                "Vedia, aké sú fixné platby - bývanie, internet, škola - tie sa menia málo",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixné výdavky sú predvídateľné, čo pomáha pri plánovaní."
+            },
+            {
+              "questionId": "9004_03",
+              "questionType": "trueFalse",
+              "question": "Fixné výdavky sú platby, ktoré sa musia platiť bez ohľadu na ďalšie okolnosti.",
+              "correctAnswer": 0,
+              "explanation": "Fixné výdavky sú povinnosťami domácnosti."
+            },
+            {
+              "questionId": "9004_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Fixné výdavky sa opakujú pravidelne.",
+                "Fixné výdavky sa vrátia rovnakú sumu každý mesiac.",
+                "Fixné výdavky sú úplne náhodné a nepredvídateľné."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Fixné výdavky sú naopak veľmi predvídateľné."
+            },
+            {
+              "questionId": "9004_05",
+              "questionType": "matching",
+              "question": "Spáruj platbu s kategóriou fixných výdavkov.",
+              "matchLeft": ["Nájom", "Školský obed", "Internet", "Telefón"],
+              "matchRight": ["Bývanie", "Vzdelanie", "Komunikácia", "Komunikácia"],
+              "explanation": "Fixné výdavky pokrývajú rôzne oblasti."
+            },
+            {
+              "questionId": "9004_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď výdavky podľa toho, či sú fixné alebo nie.",
+              "dragLabels": ["Nájom", "Nákup oblečenia", "Elektrina", "Výlety", "Internet"],
+              "dragTargets": [
+                { "label": "Fixné (každý mesiac rovnako)", "correctItems": ["Nájom", "Elektrina", "Internet"] },
+                { "label": "Variabilné (menia sa)", "correctItems": ["Nákup oblečenia", "Výlety"] }
+              ],
+              "explanation": "Fixné a variabilné výdavky sa líšia."
+            },
+            {
+              "questionId": "9004_07",
+              "questionType": "multipleChoice",
+              "question": "Prečo sú fixné výdavky dôležité pri rozpočte?",
+              "options": [
+                "Nie sú dôležité",
+                "Pretože ich musíme zaplatiť a ovplyvňujú zvyšok rozpočtu",
+                "Lebo sa menia každý deň",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixné výdavky určujú minimálnu sumu peňazí potrebnú každý mesiac."
+            }
+          ]
+        },
+        {
+          "lessonId": 9005,
+          "lessonNumber": 5,
+          "lessonName": "Variabilné výdavky",
+          "questions": [
+            {
+              "questionId": "9005_01",
+              "questionType": "multipleChoice",
+              "question": "Čo sú variabilné výdavky?",
+              "options": [
+                "Výdavky, ktoré sa nikdy nemenia",
+                "Výdavky, ktoré sa menia podľa potreby",
+                "Vždy rovnaké",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variabilné výdavky sú tie, ktoré sa menia podľa potreby. Niekedy sú vyššie, inokedy nižšie."
+            },
+            {
+              "questionId": "9005_02",
+              "questionType": "scenario",
+              "question": "Jeden týždeň Chrumko s rodičmi kupuje len základné potraviny. Iný týždeň kupujú aj ovocie navyše. Čo sa stane?",
+              "options": [
+                "Suma je rovnaká",
+                "Tentoraz je suma vyšsia",
+                "Všetko je zadarmo",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Niekedy je suma pri pokladni vyšssia, pretože kupujú aj iné veci."
+            },
+            {
+              "questionId": "9005_03",
+              "questionType": "trueFalse",
+              "question": "Variabilné výdavky sa menia podľa potreby a životných okolností.",
+              "correctAnswer": 0,
+              "explanation": "Variabilné výdavky sú flexibilné a dopĺňajú fixné výdavky."
+            },
+            {
+              "questionId": "9005_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Variabilné výdavky sa menia mesiac od mesiaca.",
+                "Variabilné výdavky sú vždy rovnakého množstva.",
+                "Variabilné výdavky zahŕňajú potraviny a dopravy."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variabilné výdavky sa líšia - to je ich podstatou."
+            },
+            {
+              "questionId": "9005_05",
+              "questionType": "matching",
+              "question": "Spáruj výdavok s kategóriou.",
+              "matchLeft": ["Nákup jedla", "Cestovné do školy", "Nákup nových topánok", "Lístok do kina"],
+              "matchRight": ["Základný variabilný", "Bežný variabilný", "Neplánovaný variabilný", "Zábavný variabilný"],
+              "explanation": "Variabilné výdavky majú rôzne podkategórie."
+            },
+            {
+              "questionId": "9005_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď výdavky podľa ich variability.",
+              "dragLabels": ["Jedlo", "Bývanie", "Ovocie navyše", "Nová hra", "Voda"],
+              "dragTargets": [
+                { "label": "Fixné (rovnakú sumu)", "correctItems": ["Bývanie", "Voda"] },
+                { "label": "Variabilné (menia sa)", "correctItems": ["Jedlo", "Ovocie navyše", "Nová hra"] }
+              ],
+              "explanation": "Kombinácia fixných a variabilných výdavkov tvorí rozpočet."
+            },
+            {
+              "questionId": "9005_07",
+              "questionType": "multipleChoice",
+              "question": "Ako Chrumko pochopí rozdiel medzi fixným a variabilným?",
+              "options": [
+                "Všetko je zadarmo",
+                "Fixné výdavky sú povinné, variabilné sa dopĺňajú",
+                "Bez zmyslu",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že nie každý mesiac stojí všetko rovnako. Niektoré výdavky sa menia."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

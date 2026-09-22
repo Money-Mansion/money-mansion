@@ -1,0 +1,630 @@
+{
+  "quizzes": [
+    {
+      "section": 6,
+      "sectionName": "NAKUPOVANIE A ROZHODOVANIE",
+      "lessons": [
+        {
+          "lessonId": 6001,
+          "lessonNumber": 1,
+          "lessonName": "Ako funguje obchod",
+          "questions": [
+            {
+              "questionId": "6001_01",
+              "type": "theoretical",
+              "question": "Čo je obchod?",
+              "options": [
+                "Miesto, kde sa len stála hudba",
+                "Miesto, kde sa stretáva predaj a kúpa vecí",
+                "Nemá žiadny zmysel",
+                "Len pre zabávenie"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchod je miesto, kde sa stretáva predaj a kúpa vecí. Obchod nakupuje výrobky a potom ich ponúka zákazníkom."
+            },
+            {
+              "questionId": "6001_02",
+              "type": "practical",
+              "question": "Čo všetko je zahrnuté v cene výrobku v obchode?",
+              "options": [
+                "Len samotný výrobok",
+                "Samotná vec, doprava, skladovanie, pracovníci a prevádzka",
+                "Nič podľa",
+                "Všetko je zadarmo"
+              ],
+              "correctAnswer": 1,
+              "explanation": "V cene výrobku sú zahrnuté náklady na dopravu, skladovanie, pracovníkov v obchode a prevádzku obchodu."
+            },
+            {
+              "questionId": "6001_03",
+              "type": "scenario",
+              "question": "Chrumko prechádza popri troch rôznych obchodoch cestou domov. Obchod A má jasné svetlá a príjemný personál. Obchod B je menší a pokojnejší. Obchod C je ďaleko, ale má nižšie ceny. Aký je jeden dôvod, prečo by obchod A mohol mať vyššie ceny ako obchod C?",
+              "options": [
+                "Výrobky sú vždy lepšej kvality",
+                "Míňajú viac na osvetlenie, dekoráciu a personál",
+                "Výrobky v obchode C sú falošné",
+                "Nie je tu žiadny rozdiel"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rôzne obchody majú rôzne náklady. Jasné svetlá, dekorácia a viac zamestnancov v obchode A sú časť ich prevádzkových nákladov, ktoré sa odrážajú v cenách."
+            },
+            {
+              "questionId": "6001_04",
+              "type": "practical",
+              "question": "Ako funguje zaplatenie v obchode?",
+              "options": [
+                "Všetko je zadarmo",
+                "Pri pokladni sa výrobky naskenujú, každá sa pripočíta k výslednej cene a zaplatíš",
+                "Peniaze sa vrátia",
+                "Nie je potrebné platiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri pokladni sa výrobky naskenujú a na displeji sa objaví celková suma. To znamená, že obchod funguje ako výmena peňazí za tovar."
+            },
+            {
+              "questionId": "6001_05",
+              "type": "matching",
+              "question": "Čo sa stane PRED tým, ako obchod predáva výrobky zákazníkom?",
+              "options": [
+                "Majiteľ obchodu ide domov",
+                "Obchod nakupuje výrobky od výrobcov alebo dodávateľov",
+                "Zákazníci si vyberajú, čo kupovať",
+                "Pokladňa začína pracovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pred predajom zákazníkom musí obchod najprv nakúpiť výrobky od výrobcov alebo dodávateľov. Potom ich usporiadajú na regáloch."
+            },
+            {
+              "questionId": "6001_06",
+              "type": "calculation",
+              "question": "Chrumko si kúpi chlieb za €2, mlieko za €1,50 a jablká za €1. Koľko celkovo minul?",
+              "options": [
+                "€3,50",
+                "€4",
+                "€4,50",
+                "€5"
+              ],
+              "correctAnswer": 2,
+              "explanation": "€2 + €1,50 + €1 = €4,50. Pochopenie toho, ako sa ceny sčítavajú, pomáha spravovať peniaze v obchode."
+            },
+            {
+              "questionId": "6001_07",
+              "type": "comparison",
+              "question": "Prečo môže rovnaký výrobok stáť rôzne peniaze v rôznych obchodoch?",
+              "options": [
+                "Jeden obchod vždy podvádza zákazníkov",
+                "Rôzne obchody majú rôzny nájom, platy zamestnancov a polohu",
+                "Výrobok je v každom obchode inej kvality",
+                "Ceny sa každú hodinu menia náhodne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Rôzne obchody majú rôzne prevádzkové náklady podľa polohy, nájmu, miezd zamestnancov a režijných nákladov - všetko sa odráža v cenách."
+            },
+            {
+              "questionId": "6001_08",
+              "type": "scenario",
+              "question": "Chrumko ide do obchodu s €10. Chce si kúpiť džús (€2), chlieb (€2,50) a čokoládu (€3). Aký je problém?",
+              "options": [
+                "Nie je žiadny problém, má dosť peňazí",
+                "Výrobky sú príliš lacné",
+                "Spolu to stojí €7,50 a má €10... počkaj, MÁ dosť peňazí!",
+                "Nemá dosť peňazí - spolu je to €7,50, ale potrebuje €10 na niečo iné"
+              ],
+              "correctAnswer": 2,
+              "explanation": "€2 + €2,50 + €3 = €7,50. Chrumko má dosť! Vždy si ceny spočítaj pred nákupom, aby si vedel, či máš dosť peňazí."
+            },
+            {
+              "questionId": "6001_09",
+              "type": "theoretical",
+              "question": "Prečo potrebujú obchody pracovníkov, kúrenie a osvetlenie aj keď nie sú zákazníci?",
+              "options": [
+                "Je to zbytočné a nepotrebné",
+                "Aby obchod bol pripravený a atraktívny pre zákazníkov",
+                "Obchody tieto veci nepotrebujú",
+                "Iba veľké obchody tieto veci potrebujú"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchody musia udržiavať svoje priestory neustále - kúrenie udržuje výrobky čerstvé, osvetlenie ich robí viditeľnými a pracovníci všetko organizujú. Sú to potrebné náklady."
+            }
+          ]
+        },
+        {
+          "lessonId": 6002,
+          "lessonNumber": 2,
+          "lessonName": "Zľavy",
+          "questions": [
+            {
+              "questionId": "6002_01",
+              "type": "theoretical",
+              "question": "Čo je zľava?",
+              "options": [
+                "Zvýšenie ceny",
+                "Zníženie ceny oproti pôvodnej sume",
+                "Úplne zadarmo",
+                "Drahšia vec"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Zľava znamená, že výrobok stojí menej ako predtým. Obchody ju používajú, aby prilákali zákazníkov."
+            },
+            {
+              "questionId": "6002_02",
+              "type": "practical",
+              "question": "Znamená zľava, že si musíš kúpiť danú vec?",
+              "options": [
+                "Áno, vždy",
+                "Nie, nižšia cena ešte neznamená, že vec potrebuješ",
+                "Musíš ju kúpiť",
+                "Všetko je núdza"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak si človek kúpi vec len preto, že je zlacnená, môže minúť peniaze na niečo, čo by si inak vôbec nevybral."
+            },
+            {
+              "questionId": "6002_03",
+              "type": "scenario",
+              "question": "Chrumko ide do obchodu kúpiť len desiatu. Uvidí zľavu na mliečnu čokoládu. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ju kúpiť",
+                "Rozmýšľať, či ju skutočne potrebuje a chce",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že sladkosť vôbec neplánoval kúpiť a doma má ešte iné. Rozhodne sa peniaze nechať."
+            },
+            {
+              "questionId": "6002_04",
+              "type": "practical",
+              "question": "Je výhodná zľava v tomto prípade?",
+              "options": [
+                "Áno, výhodná",
+                "Nie, nie je výhodná, pretože Chrumko vec nepotrebuje",
+                "Vždy je výhodná",
+                "Niekedy možno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pre Chrumka nie je výhodná, pretože nepotrebuje sladkosť. Výhodná zľava je len na vec, ktorú skutočne chceš a potrebuješ."
+            },
+            {
+              "questionId": "6002_05",
+              "type": "matching",
+              "question": "Ktoré veci BY SI MALA KÚPIŤ aj so zľavou?",
+              "options": [
+                "Veci, ktoré chceš, ale nepotrebuješ",
+                "Veci, ktoré naozaj potrebuješ a budeš ich používať",
+                "Náhodné veci len preto, že sú lacnejšie",
+                "Čokoľvek svetlé a farebné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Zľava je dobrá, keď potrebuješ danú vec. Zľavy na veci, ktoré nepotrebuješ, len míňajú peniaze."
+            },
+            {
+              "questionId": "6002_06",
+              "type": "calculation",
+              "question": "Čokoláda normálne stojí €3. Je v zľave a teraz stojí €2. Koľko ušetríš so zľavou?",
+              "options": [
+                "€0,50",
+                "€1",
+                "€1,50",
+                "€2"
+              ],
+              "correctAnswer": 1,
+              "explanation": "€3 - €2 = €1 ušetrené. Ale pamätaj - to má zmysel len ak čokoládu naozaj potrebuješ!"
+            },
+            {
+              "questionId": "6002_07",
+              "type": "comparison",
+              "question": "Porovnaj: Nákup niečoho za plnú cenu, čo naozaj potrebuješ vs. nákup niečoho so zľavou, čo nepotrebuješ. Čo je múdrejšie?",
+              "options": [
+                "Zlacnené, pretože stojí menej",
+                "Zu plnou cenou, pretože to naozaj potrebuješ",
+                "Obe sú rovnako múdre",
+                "Ani jedno - nemali by si nič kupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Vec za plnú cenu je múdrejšia, pretože ju naozaj potrebuješ. Míňanie peňazí na zlacnené veci, ktoré nepotrebuješ, na konci plytvá peniazmi."
+            },
+            {
+              "questionId": "6002_08",
+              "type": "scenario",
+              "question": "Je 50% zľava na videohry, ale Chrumkove domáce úlohy nie sú hotové. Aká je múdra voľba?",
+              "options": [
+                "Kúpiť hru - zľava je príliš dobrá na to, aby sa ju nepoužilo",
+                "Najprv skončiť domácu úlohu, potom myslieť na hru neskôr",
+                "Požiadať rodičov, aby si ju kúpili ihneď",
+                "Zľava ho núti kúpiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Dobrá zľava nezmení to, čo je v tomto momente dôležité. Domáca úloha ide najprv. Zľavy budú existovať aj v budúcnosti."
+            },
+            {
+              "questionId": "6002_09",
+              "type": "theoretical",
+              "question": "Prečo majú obchody vo výkladoch veľké červené nápisy so zľavami?",
+              "options": [
+                "Pretože zľavy nie sú skutočné",
+                "Aby prilákali zákazníkov a chceli v obchode nákupovať",
+                "Aby obchod vyzeralo krajšie",
+                "Zľavy nepotrebujú nápisy"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchody používajú nabíjajúce nápisy, pretože zľavy prilákavajú zákazníkov. Ale pamätaj: ušetríš peniaze len ak kupuješ veci, ktoré naozaj potrebuješ."
+            }
+          ]
+        },
+        {
+          "lessonId": 6003,
+          "lessonNumber": 3,
+          "lessonName": "Akcie a marketingové triky",
+          "questions": [
+            {
+              "questionId": "6003_01",
+              "type": "theoretical",
+              "question": "Prečo obchody používajú farebné nápisy a veľké písmená?",
+              "options": [
+                "Bez dôvodu",
+                "Aby výrobky pôsobili zaujímavejšie a pritiahnuli pozornosť",
+                "Na zdobenie",
+                "Nie je to dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchody používajú farebné nápisy a veľké písmená, aby výrobky pôsobili zaujímavejšie a pritiahnuli našu pozornosť."
+            },
+            {
+              "questionId": "6003_02",
+              "type": "practical",
+              "question": "Chrumko si v obchode všimne veľký žltý nápis 'výhodné balenie za najlepšiu cenu'. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ho kúpiť",
+                "Pozrieť sa na skutočnú cenu a porovnať s inými výrobkami",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko by si mal pozrieť na skutočnú cenu a porovnať s inými výrobkami. Veľký nápis ešte neznamená automaticky najlepšiu kúpu."
+            },
+            {
+              "questionId": "6003_03",
+              "type": "scenario",
+              "question": "Chrumko nájde výrobok s obrovským nápisom '30% ZĽAVA!'. Ale keď sa pozrie pozorne, podobný výrobok bez nápisu stojí ešte menej. Čo sa naučil?",
+              "options": [
+                "Nápisy vždy hovoria pravdu",
+                "Marketingové nápisy môžu klamať - musíš si porovnať ceny sám",
+                "Veľké nápisy znamenajú najnižšie ceny",
+                "Nemali by si sa pozerať na ceny"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Aj so zľavou nápisu môže byť iný výrobok lacnejší. Vždy si porovnaj, nedôveraj len jasným nápisom!"
+            },
+            {
+              "questionId": "6003_04",
+              "type": "practical",
+              "question": "Čo sa naučí Chrumko o obchodných nápisoch?",
+              "options": [
+                "Veriť všetkým slogánom",
+                "Veľký nápis neznamená automaticky najlepšiu kúpu",
+                "Vždy kúpiť prvú vec s nápison",
+                "Nie je to dôležité"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko sa naučí, že veľké nápisy sú navrhnuté na to, aby upútali tvoju pozornosť, nie aby ukázali najlepšiu hodnotu. Vždy si porovnaj!"
+            },
+            {
+              "questionId": "6003_05",
+              "type": "matching",
+              "question": "Aký je príklad trika, ktoré obchody používajú?",
+              "options": [
+                "Dávať všetkým najnižšiu cenu",
+                "Umiestňovať farebné výrobky v úrovni očí a drahé na horných poličkách",
+                "Skrývať ceny pred zákazníkmi",
+                "Povedať zákazníkom, aby sa nevracali"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Obchody strategicky umiestňujú výrobky tam, kde sú najviditeľnejšie, aby ovplyvnili, čo si kúpiš."
+            },
+            {
+              "questionId": "6003_06",
+              "type": "calculation",
+              "question": "Nápis v obchode hovorí '20% zľava!' Pero pôvodne stojí €5. Aká je cena po zľave?",
+              "options": [
+                "€3",
+                "€4",
+                "€4,50",
+                "€2"
+              ],
+              "correctAnswer": 1,
+              "explanation": "20% z €5 = €1. Takže €5 - €1 = €4. Pochopenie matematiky ti pomôže rozpoznať skutočné zľavy od falošných."
+            },
+            {
+              "questionId": "6003_07",
+              "type": "comparison",
+              "question": "Porovnaj dve veci: (A) Jasný obal, známa značka, vysoká cena s nápison '25% ZĽAVA'. (B) Jednoduchý obal, bez značky, nižšia cena, bez zľavy. Ktorá má pravdepodobne lepšiu hodnotu?",
+              "options": [
+                "Položka A, pretože má nápis so zľavou",
+                "Položka B, pretože je naozaj lacnejšia po porovnaní skutočných cien",
+                "Obe majú rovnakú hodnotu",
+                "Ani jedna nemá hodnotu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Položka B má lepšiu hodnotu, ak je naozaj lacnejšia. Nápis a obal neurčujú skutočnú hodnotu - skutočná cena a to, čo dostaneš, sú dôležité."
+            },
+            {
+              "questionId": "6003_08",
+              "type": "scenario",
+              "question": "Nový výrobok má jasný obal a meno slávnej osobnosti na ňom. Stojí dvakrát toľko ako anonymný výrobok rovnakej kvality. Mali by si si ho kúpiť?",
+              "options": [
+                "Áno, slávnosť to robí lepším",
+                "Nie, platíš za obal a meno slávnej osobnosti, nie za lepšiu kvalitu",
+                "Slávnosť zaručuje kvalitu",
+                "Cena nie je dôležitá"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Časť vysokej ceny ide na marketing a podporu slávnosti, nie nevyhnutne na lepšiu kvalitu. Inteligentní nakupujúci sa pozerajú za obalom."
+            },
+            {
+              "questionId": "6003_09",
+              "type": "theoretical",
+              "question": "Aký je hlavný účel farebného, vzrušujúceho marketingu v obchodoch?",
+              "options": [
+                "Uľahčiť nakupovanie zákazníkom",
+                "Urobiť z teba CHCIEŤ niečo kúpiť, nie nevyhnutne čo POTREBUJEŠ",
+                "Ukázať spoľahlivé ceny",
+                "Pomôcť ti ušetriť peniaze"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Marketing je navrhnutý na vytváranie túžby a vzrušenia, čo ťa môže urobiť kúpiť veci, ktoré si nezaplanoval. Buď si vedomý tohto triku!"
+            }
+          ]
+        },
+        {
+          "lessonId": 6004,
+          "lessonNumber": 4,
+          "lessonName": "Impulzívne nákupy",
+          "questions": [
+            {
+              "questionId": "6004_01",
+              "type": "theoretical",
+              "question": "Čo je impulzívny nákup?",
+              "options": [
+                "Premyslený nákup",
+                "Rýchly nákup bez plánovania a rozmýšľania",
+                "Najlepší nákup",
+                "Nikdy sa nestáva"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulzívny nákup je rýchly nákup bez plánovania. Vzniká vtedy, keď nás niečo zaujme a rozhodneme sa okamžite."
+            },
+            {
+              "questionId": "6004_02",
+              "type": "practical",
+              "question": "Kde sa často stávajú impulzívne nákupy?",
+              "options": [
+                "Len doma",
+                "Pri pokladni, kde sú malé výrobky ľahko viditeľné",
+                "Nikdy sa nestávajú",
+                "Všade rovnako"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulzívne nákupy sa často stávajú pri pokladni, kde sú malé výrobky ľahko viditeľné a dostaneme na ne chuť."
+            },
+            {
+              "questionId": "6004_03",
+              "type": "scenario",
+              "question": "Chrumko stojí pri pokladni s mamou. Vidí farebné žuvačky hneď vedľa kasy. Čo sa stane?",
+              "options": [
+                "Nič, nebude ich chcieť",
+                "Dostane chuť si ich kúpiť",
+                "Bude ich ignorovať",
+                "Všetko je jedno"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko dostane chuť si žuvačky kúpiť. Sú položené presne tam, kde si ich každý všimne, a je tam veľa pokušenia."
+            },
+            {
+              "questionId": "6004_04",
+              "type": "practical",
+              "question": "Čo by mal Chrumko urobiť, keď chce niečo pri pokladni?",
+              "options": [
+                "Hneď si ho kúpiť",
+                "Počkať moment a rozmýšľať si, či to naozaj potrebuje",
+                "Všetko si kúpiť",
+                "Nikdy nekupovať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že má doma ešte sladkosť z včera. Počká a nakoniec si žuvačky nekúpi. Chúť rýchlo odíde."
+            },
+            {
+              "questionId": "6004_05",
+              "type": "matching",
+              "question": "Aký je najlepší spôsob, ako odolať impulzívnym nákupom pri pokladni?",
+              "options": [
+                "Rýchlo prejsť pokladňou",
+                "Zastaviť sa na 30 sekúnd a opýtať sa: naozaj to potrebujem?",
+                "Nikdy neísť bližšie k pokladni",
+                "Zatvoriť oči"
+              ],
+              "correctAnswer": 1,
+              "explanation": "30-sekundová pauza zvyčajne zastaví túžbu kúpiť impulzívne. Väčšina chúťok rýchlo odíde, ak počkáš."
+            },
+            {
+              "questionId": "6004_06",
+              "type": "calculation",
+              "question": "Chrumko impulzívne kúpi cukrík za €2 zakaždým, keď pôjde do obchodu (2-krát za týždeň). Koľko zbytočne utratí mesačne na impulzívne nákupy?",
+              "options": [
+                "€4",
+                "€8",
+                "€16",
+                "€32"
+              ],
+              "correctAnswer": 2,
+              "explanation": "2-krát za týždeň × €2 = €4/týždeň. €4 × 4 týždne = €16/mesiac. Malé impulzívne nákupy sa rýchlo spočítajú!"
+            },
+            {
+              "questionId": "6004_07",
+              "type": "comparison",
+              "question": "Porovnaj: Nákup cukríka pri pokladni vs. plánovaný nákup cukríka doma. Čo plytvá menšou sumou peňazí?",
+              "options": [
+                "Impulzívny nákup pri pokladni - je to pohodlné",
+                "Plánovaný nákup doma - vyhnúť sa pokušeniu pri pokladni",
+                "Oba stoja rovnako",
+                "Ani jeden nie je dôležitý"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Plánované nákupy doma sú múdrejšie, pretože sa vyhneš pokušujúcemu prostrediu pri pokladni."
+            },
+            {
+              "questionId": "6004_08",
+              "type": "scenario",
+              "question": "Chrumko je v obchode a cíti sa nudný. Nezaplanoval nákup cukríka, ale vidí ho. Čo sa deje?",
+              "options": [
+                "Potrebuje cukrík na výživu",
+                "Nuda ho núti chcieť si niečo kúpiť, aby sa cítil lepšie (emočný nákup)",
+                "Cukrík je nevyhnutný",
+                "Musí si ho kúpiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keď sme nudní alebo smutní, niekedy si kupujeme veci, aby sme sa cítili lepšie. Toto je emočný impulzívny nákup - jeho rozpoznanie ti pomôže odolať."
+            },
+            {
+              "questionId": "6004_09",
+              "type": "theoretical",
+              "question": "Prečo majú obchody malé, lákavé veci pri pokladni?",
+              "options": [
+                "Aby si zákazníci pamätali, čo zabudli",
+                "Pretože ľudia sú najviac pokušení nakupovať impulzívne v rade pri pokladni",
+                "Na lepšiu organizáciu obchodu",
+                "Tieto výrobky sa inde nedajú predať"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Umiestnenie pri pokladni je strategické - obchody vedia, že čakáš, vidíš veci a môžeš si ich impulzívne kúpiť. Je to navrhnuté na zvýšenie predaja."
+            }
+          ]
+        },
+        {
+          "lessonId": 6005,
+          "lessonNumber": 5,
+          "lessonName": "Ako sa rozhodovať vlastnou hlavou",
+          "questions": [
+            {
+              "questionId": "6005_01",
+              "type": "theoretical",
+              "question": "Ako zistiť, či niečo chceš preto, že to potrebuješ?",
+              "options": [
+                "Nie je dôvodu premýšľať",
+                "Položiť si otázky: Potrebujem to? Budem to používať dlhšie?",
+                "Kúpiť všetko čo vidím",
+                "Všetko je impulzívne"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pomáha položiť si otázky: Potrebujem to? Budem to používať dlhšie? Oplatí sa mi za to minúť peniaze?"
+            },
+            {
+              "questionId": "6005_02",
+              "type": "practical",
+              "question": "Chrumko ide do obchodu kúpiť zošit. Vidí pero s farebným obalom a obľúbenou postavičkou. Čo by mal spraviť?",
+              "options": [
+                "Hneď si ho kúpiť",
+                "Zastaviť sa a chvíľu premýšľať, či ho skutočne potrebuje",
+                "Všetko si kúpiť",
+                "Nikdy si nič nekúpiť"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko by si mal zastaviť a premyslieť si, či pero skutočne potrebuje."
+            },
+            {
+              "questionId": "6005_03",
+              "type": "scenario",
+              "question": "Čo Chrumko zistí o pere?",
+              "options": [
+                "Potrebuje si ho kúpiť",
+                "Doma má ešte dve funkčné perá",
+                "Je to jediné pero",
+                "Všetky sú rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si spomenie, že doma má ešte dve funkčné perá a nové pero v skutočnosti nepotrebuje."
+            },
+            {
+              "questionId": "6005_04",
+              "type": "practical",
+              "question": "Čo sa nakoniec rozhodne Chrumko?",
+              "options": [
+                "Kúpiť si pero aj zošit",
+                "Nekúpiť nič",
+                "Kúpiť si len zošit a pero nechať v obchode",
+                "Všetko si kúpiť na úver"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko si kúpi len zošit a pero nechá v obchode. O pár dní je rád, že peniaze minul len na to, čo skutočne potreboval."
+            },
+            {
+              "questionId": "6005_05",
+              "type": "matching",
+              "question": "Ktorá otázka ti pomáha robiť múdre rozhodnutia pri nákupe?",
+              "options": [
+                "Má pekný obal?",
+                "Kupuje si to niekto ďalší?",
+                "Budem to používať pravidelne?",
+                "Je to najdrahšia možnosť?"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Opýtaj sa, či to budeš naozaj používať pravidelne - pomáha ti kúpovať veci, ktoré majú skutočnú hodnotu."
+            },
+            {
+              "questionId": "6005_06",
+              "type": "calculation",
+              "question": "Chrumko má €20. Potrebuje pero (€2), zošit (€5) a ceruzky (€3). Vidí tenisky, ktoré chce (€15). Koľko mu zostane po tom, čo si kúpi potreby?",
+              "options": [
+                "€10",
+                "€15",
+                "€5",
+                "€0"
+              ],
+              "correctAnswer": 0,
+              "explanation": "€2 + €5 + €3 = €10 potrebných. €20 - €10 = €10 zostane. Nedostatok na €15 tenisiek. Dobré rozhodnutia si vyžadujú pozrieť sa na matematiku!"
+            },
+            {
+              "questionId": "6005_07",
+              "type": "comparison",
+              "question": "Porovnaj: (A) Nákup lacného výrobku, ktorý naozaj nepotrebuješ vs. (B) Nekupovať a nechať si peniaze. Čo je múdrejšie?",
+              "options": [
+                "A, pretože niečo je lepšie ako nič",
+                "B, pretože si peniaze nechá na veci, ktoré naozaj potrebuje",
+                "Obe sú rovnaké",
+                "To závisí od farby"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Nechať si peniaze na skutočné potreby je múdrejšie ako míňať na veci, ktoré nepotrebuješ, aj keď sú lacné."
+            },
+            {
+              "questionId": "6005_08",
+              "type": "scenario",
+              "question": "Tvoj kamarát má hračku, ktorú si myslíš, že je cool. Cítis tlak, aby si si ju kúpil rovnakú. Čo by si mal rozmýšľať?",
+              "options": [
+                "Musíš si ju kúpiť, aby si bol cool",
+                "Tvoj kamarát sa jej páči, ale zodpovedá to TVOJIM potrebám a rozpočtu?",
+                "Všetci musia mať rovnaké veci",
+                "Kamaráti ťa núti kupovať veci"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Čo sa páči tvojmu kamarátovi nemusí byť dobré pre teba. Rob vlastné rozhodnutia na základe tvojich potrieb, nie spoločenského tlaku."
+            },
+            {
+              "questionId": "6005_09",
+              "type": "theoretical",
+              "question": "Aký je prvý krok pri múdrom nákupnom rozhodnutí?",
+              "options": [
+                "Skontroluj iba cenu",
+                "Opýtaj sa: Naozaj to potrebujem, alebo to len chcem?",
+                "Kúp okamžite",
+                "Poslúchaj len reklamu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Prvá otázka je, či to potrebuješ. Ak áno, skontroluj cenu. Ak nie, nechaj si peniaze. Tvoj vlastný úsudok je najdôležitejší!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

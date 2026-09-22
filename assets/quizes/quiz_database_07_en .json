@@ -1,0 +1,453 @@
+{
+  "quizzes": [
+    {
+      "section": 7,
+      "sectionName": "MONEY IN FAMILY",
+      "lessons": [
+        {
+          "lessonId": 7001,
+          "lessonNumber": 1,
+          "lessonName": "Where families get money",
+          "questions": [
+            {
+              "questionId": "7001_01",
+              "questionType": "multipleChoice",
+              "question": "How does a family most often get money?",
+              "options": [
+                "They find it",
+                "From adults working - salary or wages",
+                "They get it for free",
+                "Money just appears"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A family most often gets money from the work of adults. When parents work, they receive a salary or payment for their work."
+            },
+            {
+              "questionId": "7001_02",
+              "questionType": "scenario",
+              "question": "Chrumko notices that mom is looking at a message on her phone from the bank. What happened?",
+              "options": [
+                "Nothing really",
+                "Mom received her paycheck from work",
+                "The money disappeared",
+                "It's always a problem"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mom received her paycheck - money she gets for her work. This money arrives in her bank account."
+            },
+            {
+              "questionId": "7001_03",
+              "questionType": "multipleChoice",
+              "question": "What is this money used for?",
+              "options": [
+                "Only for toys",
+                "For rent, groceries, school supplies and more",
+                "They're completely useless",
+                "They're never needed"
+              ],
+              "correctAnswer": 1,
+              "explanation": "This money is used for rent, groceries and school supplies. It finances everything the family needs."
+            },
+            {
+              "questionId": "7001_04",
+              "questionType": "trueFalse",
+              "question": "The money in a household comes because parents work and receive payment for their work.",
+              "correctAnswer": 0,
+              "explanation": "Work by adults is the primary source of money for a family."
+            },
+            {
+              "questionId": "7001_05",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Parents receive a salary for their work.",
+                "Money in a family comes from various sources.",
+                "Money just appears without work."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Money doesn't appear on its own - it must be earned through work."
+            },
+            {
+              "questionId": "7001_06",
+              "questionType": "matching",
+              "question": "Match the source of money with the correct description.",
+              "matchLeft": ["Salary from employer", "Bank loan", "Inheritance", "Money earned by children"],
+              "matchRight": ["Money for work", "Money that must be returned", "Money from relatives", "Money for helping"],
+              "explanation": "There are several ways a family can have money resources, but work is the most common."
+            },
+            {
+              "questionId": "7001_07",
+              "questionType": "dragDrop",
+              "question": "Place each item in the correct category: How money is used.",
+              "dragLabels": ["Rent", "Toys", "Groceries", "Video games"],
+              "dragTargets": [
+                { "label": "Necessary expenses", "correctItems": ["Rent", "Groceries"] },
+                { "label": "Free spending", "correctItems": ["Toys", "Video games"] }
+              ],
+              "explanation": "Money is used first for needs, then for things we want."
+            },
+            {
+              "questionId": "7001_08",
+              "questionType": "ordering",
+              "question": "Put in order what Chrumko realizes about money in the family.",
+              "orderItems": [
+                "Mom gets a message from the bank about her paycheck",
+                "Chrumko notices that mom works",
+                "Chrumko understands that household money comes from work",
+                "Chrumko sees how money is used for rent and groceries"
+              ],
+              "explanation": "Chrumko gradually understands the relationship between work and money in the family."
+            }
+          ]
+        },
+        {
+          "lessonId": 7002,
+          "lessonNumber": 2,
+          "lessonName": "Household expenses",
+          "questions": [
+            {
+              "questionId": "7002_01",
+              "questionType": "multipleChoice",
+              "question": "What are household expenses?",
+              "options": [
+                "Everything we buy",
+                "All the money that needs to be paid for the home to function",
+                "Possessions",
+                "Nothing is really important"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Household expenses are all the money that needs to be paid for the home to function - housing, food, water, electricity, transportation, etc."
+            },
+            {
+              "questionId": "7002_02",
+              "questionType": "scenario",
+              "question": "Chrumko wonders why his parents didn't buy a decorative flowerpot this month that they liked. What does father say?",
+              "options": [
+                "We have all the money",
+                "We don't have money",
+                "We had to pay the internet, water and other necessary bills",
+                "Everything is free"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Father tells him they had to pay the internet, water and other necessary bills. Even though these aren't big things, together they add up to a large sum."
+            },
+            {
+              "questionId": "7002_03",
+              "questionType": "trueFalse",
+              "question": "All the money a family earns is spent only on luxury and entertainment.",
+              "correctAnswer": 1,
+              "explanation": "Most of the money is spent on necessary expenses like rent, groceries and energy."
+            },
+            {
+              "questionId": "7002_04",
+              "questionType": "matching",
+              "question": "Match each expense with its category.",
+              "matchLeft": ["Rent", "Chocolate", "Electricity", "Toy"],
+              "matchRight": ["Necessary expense", "Free expense", "Necessary expense", "Free expense"],
+              "explanation": "Necessary expenses are for household functioning, free expenses are for entertainment."
+            },
+            {
+              "questionId": "7002_05",
+              "questionType": "dragDrop",
+              "question": "Place household expenses in the correct groups.",
+              "dragLabels": ["Rent", "Groceries", "Water", "Internet", "Games", "Candy"],
+              "dragTargets": [
+                { "label": "Essential expenses", "correctItems": ["Rent", "Groceries", "Water", "Internet"] },
+                { "label": "Free spending", "correctItems": ["Games", "Candy"] }
+              ],
+              "explanation": "A family must budget so they have enough for necessary expenses."
+            },
+            {
+              "questionId": "7002_06",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Household expenses include rent, water and electricity.",
+                "Money often goes to many small necessary payments.",
+                "Households don't have to pay for water because it's just a natural thing."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Water must be brought to the house and that costs money."
+            },
+            {
+              "questionId": "7002_07",
+              "questionType": "multipleChoice",
+              "question": "Why are internet and water bills important expenses?",
+              "options": [
+                "Because they're very expensive",
+                "Because they're unnecessary for people",
+                "Because they're services needed for safety and communication in the family",
+                "Because they're never paid"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Services like water and internet are essential for family health and education."
+            }
+          ]
+        },
+        {
+          "lessonId": 7003,
+          "lessonNumber": 3,
+          "lessonName": "Housing costs money",
+          "questions": [
+            {
+              "questionId": "7003_01",
+              "questionType": "multipleChoice",
+              "question": "Why do we pay for housing even though we live in it?",
+              "options": [
+                "There's no reason to pay",
+                "Housing requires care, maintenance and services that cost money",
+                "Everything is free",
+                "We never pay"
+              ],
+              "correctAnswer": 1,
+              "explanation": "We pay for housing through rent, mortgage or fees associated with living. This also includes services like water, heating and waste removal."
+            },
+            {
+              "questionId": "7003_02",
+              "questionType": "trueFalse",
+              "question": "A home needs care and maintenance, which means new expenses can appear.",
+              "correctAnswer": 0,
+              "explanation": "When something breaks, it needs to be fixed, which costs money."
+            },
+            {
+              "questionId": "7003_03",
+              "questionType": "matching",
+              "question": "Match each housing-related expense with its correct description.",
+              "matchLeft": ["Rent", "Roof repair", "Heating", "Common area cleaning"],
+              "matchRight": ["Monthly fee for home", "Unexpected expense", "Regular monthly expense", "Monthly common fee"],
+              "explanation": "Some expenses are regular (rent, heating), others are unexpected (repairs)."
+            },
+            {
+              "questionId": "7003_04",
+              "questionType": "dragDrop",
+              "question": "Place items in the correct groups of housing expenses.",
+              "dragLabels": ["Rent", "Broken windows", "Water", "New wall paint"],
+              "dragTargets": [
+                { "label": "Regular expenses", "correctItems": ["Rent", "Water"] },
+                { "label": "Unexpected repairs", "correctItems": ["Broken windows", "New wall paint"] }
+              ],
+              "explanation": "A family must plan and save money for unexpected repairs too."
+            },
+            {
+              "questionId": "7003_05",
+              "questionType": "scenario",
+              "question": "Chrumko's mom says the roof needs to be fixed. What happens?",
+              "options": [
+                "The roof doesn't need repairs",
+                "Fixing the roof is an unexpected but necessary expense",
+                "The roof always fixes itself",
+                "Fixing the roof saves money"
+              ],
+              "correctAnswer": 1,
+              "explanation": "When a home breaks, it needs to be fixed to be safe - these are unexpected but necessary expenses."
+            },
+            {
+              "questionId": "7003_06",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Rent is a monthly expense for housing.",
+                "Repairs and home maintenance are unexpected expenses that will never happen.",
+                "Heating is a necessary expense in winter."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Repairs will have to be done - homes require maintenance."
+            },
+            {
+              "questionId": "7003_07",
+              "questionType": "ordering",
+              "question": "Put in order how Chrumko learns about housing costs.",
+              "orderItems": [
+                "Chrumko sees his parents paying rent",
+                "Mom explains to him that housing is more than just a space",
+                "Chrumko sees something break and it needs to be fixed",
+                "Chrumko understands that housing costs money and requires care"
+              ],
+              "explanation": "Gradually Chrumko understands the complexity of housing expenses."
+            }
+          ]
+        },
+        {
+          "lessonId": 7004,
+          "lessonNumber": 4,
+          "lessonName": "Food costs money",
+          "questions": [
+            {
+              "questionId": "7004_01",
+              "questionType": "multipleChoice",
+              "question": "Why doesn't the refrigerator fill itself with food?",
+              "options": [
+                "Food grows at home",
+                "Food gets used up and needs to be bought regularly",
+                "The fridge is magical",
+                "Food is free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Food is one of the regular expenses. Groceries get consumed and need to be purchased frequently."
+            },
+            {
+              "questionId": "7004_02",
+              "questionType": "scenario",
+              "question": "Chrumko goes grocery shopping with mom. What do they buy?",
+              "options": [
+                "Nothing",
+                "Bread, milk, fruit, cheese, pasta and yogurt",
+                "Only toys",
+                "Everything is free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "They put bread, milk, fruit, cheese, pasta and yogurt in the cart. It seems like they're only buying a few things."
+            },
+            {
+              "questionId": "7004_03",
+              "questionType": "trueFalse",
+              "question": "Food is a regular large part of family expenses.",
+              "correctAnswer": 0,
+              "explanation": "Every family must regularly buy groceries, which is one of the largest expenses."
+            },
+            {
+              "questionId": "7004_04",
+              "questionType": "matching",
+              "question": "Match each food item with its expense category.",
+              "matchLeft": ["Bread", "Candy", "Fruit", "Chocolate"],
+              "matchRight": ["Necessary purchase", "Free purchase", "Necessary purchase", "Free purchase"],
+              "explanation": "Basic groceries are needs, while candy is free spending."
+            },
+            {
+              "questionId": "7004_05",
+              "questionType": "dragDrop",
+              "question": "Place each food item in the correct category.",
+              "dragLabels": ["Bread", "Milk", "Ice cream", "Chocolate", "Rice", "Cookies"],
+              "dragTargets": [
+                { "label": "Basic groceries", "correctItems": ["Bread", "Milk", "Rice"] },
+                { "label": "Sweets and treats", "correctItems": ["Ice cream", "Chocolate", "Cookies"] }
+              ],
+              "explanation": "The budget should prioritize basic groceries over sweets."
+            },
+            {
+              "questionId": "7004_06",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Food gets used up and needs to be bought regularly.",
+                "Food is a large part of family expenses.",
+                "A family should spend all their money on candy, not on basic groceries."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Basic groceries are a necessity, candy is only sometimes, if money is left."
+            },
+            {
+              "questionId": "7004_07",
+              "questionType": "multipleChoice",
+              "question": "Why is it important to plan grocery shopping?",
+              "options": [
+                "Because bread doesn't last forever",
+                "Because it's good to know how much money is spent",
+                "Because we might need different groceries at different times",
+                "All of the above"
+              ],
+              "correctAnswer": 3,
+              "explanation": "Planned shopping helps save money and ensures the family has enough food."
+            }
+          ]
+        },
+        {
+          "lessonId": 7005,
+          "lessonNumber": 5,
+          "lessonName": "Energy costs money",
+          "questions": [
+            {
+              "questionId": "7005_01",
+              "questionType": "multipleChoice",
+              "question": "Why do parents turn off lights even though they could leave them on longer?",
+              "options": [
+                "No reason",
+                "Because electricity, water and heating cost money",
+                "Light is free",
+                "It never happens"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Electricity, water and heating are services that the family pays regular bills for. The more energy used, the higher the bill can be."
+            },
+            {
+              "questionId": "7005_02",
+              "questionType": "scenario",
+              "question": "Chrumko leaves his room and leaves the light on. What does mom do?",
+              "options": [
+                "Leaves it on",
+                "Calls Chrumko back and asks him to turn it off",
+                "Doesn't care",
+                "Light is free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mom calls him back and asks him to turn off the light. She explains that small things add up over the course of a month."
+            },
+            {
+              "questionId": "7005_03",
+              "questionType": "trueFalse",
+              "question": "Energy isn't visible as a physical thing, but it costs money every day.",
+              "correctAnswer": 0,
+              "explanation": "Electricity, water and gas are invisible, but their consumption is paid in monthly bills."
+            },
+            {
+              "questionId": "7005_04",
+              "questionType": "matching",
+              "question": "Match each action with the correct effect on energy costs.",
+              "matchLeft": ["Turning off lights", "Leaving the fridge open for long", "Short warm shower", "Playing outside instead of TV"],
+              "matchRight": ["Electricity decreases", "Electricity increases", "Water and energy decrease", "Electricity decreases"],
+              "explanation": "All these actions affect the household budget."
+            },
+            {
+              "questionId": "7005_05",
+              "questionType": "dragDrop",
+              "question": "Sort activities by how they affect energy consumption.",
+              "dragLabels": ["Turning off computer", "Leaving fan on", "Warm meals", "Short showers"],
+              "dragTargets": [
+                { "label": "Save energy", "correctItems": ["Turning off computer", "Short showers"] },
+                { "label": "Increase energy use", "correctItems": ["Leaving fan on", "Warm meals"] }
+              ],
+              "explanation": "Small habits over time contribute to larger savings or costs."
+            },
+            {
+              "questionId": "7005_06",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Electricity, water and heating are services that must be paid for.",
+                "Small things like repeatedly turning off lights add up over the month.",
+                "Energy is free and we don't need to worry about it."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Energy must be paid for and its consumption accumulates over the month."
+            },
+            {
+              "questionId": "7005_07",
+              "questionType": "ordering",
+              "question": "Put in order how Chrumko learns that energy costs money.",
+              "orderItems": [
+                "Chrumko leaves the light on",
+                "Mom explains to him that electricity costs money",
+                "Chrumko sees the monthly energy bill",
+                "Chrumko realizes that saving energy saves money for the family"
+              ],
+              "explanation": "Gradually he understands the cumulative effect of energy consumption."
+            },
+            {
+              "questionId": "7005_08",
+              "questionType": "multipleChoice",
+              "question": "How can all family members help reduce energy expenses?",
+              "options": [
+                "Turn off lights when leaving a room",
+                "Take shorter showers",
+                "Turn off water while brushing teeth",
+                "All of the above"
+              ],
+              "correctAnswer": 3,
+              "explanation": "All family members have a role in saving energy and water."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

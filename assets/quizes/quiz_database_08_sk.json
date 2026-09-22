@@ -1,0 +1,442 @@
+{
+  "quizzes": [
+    {
+      "section": 8,
+      "sectionName": "PRÁCA A PRÍJEM",
+      "lessons": [
+        {
+          "lessonId": 8001,
+          "lessonNumber": 1,
+          "lessonName": "Prečo ľudia pracujú",
+          "questions": [
+            {
+              "questionId": "8001_01",
+              "questionType": "multipleChoice",
+              "question": "Prečo ľudia pracujú?",
+              "options": [
+                "Bez dôvodu",
+                "Aby získali peniaze na bežný život a splnili si svoje povinnosti",
+                "Práca je zlá",
+                "Nikdy sa to nedáže"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ľudia pracujú preto, aby získali peniaze na bežný život - jedlo, bývanie, oblečenie a ďalšie potreby."
+            },
+            {
+              "questionId": "8001_02",
+              "questionType": "scenario",
+              "question": "Chrumko si všimne, že mama sa ráno pripravuje do práce. Prečo pracuje, aj keď prší?",
+              "options": [
+                "Musí sa nudí",
+                "Nema inú voľbu",
+                "Aby za svoju prácu dostala peniaze, z ktorých rodina platí nájom, potraviny a školské potreby",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Mama musí ísť do práce, pretože za svoju prácu dostáva peniaze, z ktorých rodina platí všetko potrebné."
+            },
+            {
+              "questionId": "8001_03",
+              "questionType": "multipleChoice",
+              "question": "Aké majú práce ľudí v spoločnosti?",
+              "options": [
+                "Žiadnu",
+                "Pomáhajú ostatným - učia, liečia, opravujú, vyrábajú, poskytujú služby",
+                "Všetky sú rovnaké",
+                "Práca je zbytočná"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mnohí ľudia svojou prácou pomáhajú ostatným. Každá práca má svoju hodnotu, pretože prispieva k fungovaniu spoločnosti."
+            },
+            {
+              "questionId": "8001_04",
+              "questionType": "trueFalse",
+              "question": "Práca pomáha zabezpečiť veľa vecí, ktoré doma používajú a sú pre nich samozrejmé.",
+              "correctAnswer": 0,
+              "explanation": "Práca je zdrojom finančných prostriedkov potrebných na každodenný život."
+            },
+            {
+              "questionId": "8001_05",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Ľudia pracujú, aby získali peniaze.",
+                "Práca je podľa svojho typu hodnotná pre spoločnosť.",
+                "Práca je zbytočná a nikto jej nevenuje čas."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Práca nie je zbytočná - je esenciálna pre fungovanie spoločnosti a pre preživnutie jedinca."
+            },
+            {
+              "questionId": "8001_06",
+              "questionType": "matching",
+              "question": "Spáruj typ práce s jej prínosom do spoločnosti.",
+              "matchLeft": ["Učiteľ", "Lekár", "Stavbár", "Farmár"],
+              "matchRight": ["Vzdelávanie detí", "Liečenie chorých", "Stavba domov", "Produkcia potravín"],
+              "explanation": "Každá práca má špecifickú rolu v spoločnosti."
+            },
+            {
+              "questionId": "8001_07",
+              "questionType": "dragDrop",
+              "question": "Zaraď jednotlivé aspekty práce do správnych skupín.",
+              "dragLabels": ["Zárobky", "Pomoc ostatným", "Osobný rozvoj", "Fyzická aktivita"],
+              "dragTargets": [
+                { "label": "Finančné výhody", "correctItems": ["Zárobky"] },
+                { "label": "Spoločenské prínosy", "correctItems": ["Pomoc ostatným", "Osobný rozvoj"] }
+              ],
+              "explanation": "Práca má viacero aspektov - finančne aj spoločensky."
+            },
+            {
+              "questionId": "8001_08",
+              "questionType": "ordering",
+              "question": "Zoraď, čo si Chrumko postupne uvedomuje o práci.",
+              "orderItems": [
+                "Mama sa ráno pripravuje do práce",
+                "Chrumko si všimne, že mama pracuje aj v zlom počasí",
+                "Chrumko pochopí, že práca je dôvod, prečo má rodina domov a jedlo",
+                "Chrumko si uvedomí, že práca je dôležitá pre celú rodinu"
+              ],
+              "explanation": "Chrumko postupne pochopit vzťah medzi prácou a bežným životom."
+            }
+          ]
+        },
+        {
+          "lessonId": 8002,
+          "lessonNumber": 2,
+          "lessonName": "Typy povolaní",
+          "questions": [
+            {
+              "questionId": "8002_01",
+              "questionType": "multipleChoice",
+              "question": "Robia všetci dospelí rovnakú prácu?",
+              "options": [
+                "Áno, všetci robia to isté",
+                "Nie, ľudia vykonávajú rôzne povolania podľa skúseností a schopností",
+                "Práca je zbytočná",
+                "Nikdy nie sú rozdiely"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ľudia vykonávajú rôzne povolania podľa toho, čo vedia, čo ich baví a čo spoločnosť potrebuje."
+            },
+            {
+              "questionId": "8002_02",
+              "questionType": "scenario",
+              "question": "Chrumko ide ráno do školy. Koľko rozdielnych prác vidí?",
+              "options": [
+                "Len jednu",
+                "Vodič autobusu, učiteľka, opraváči chodníka aj ďalšie v obchode a na pošte",
+                "Žiadnu",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko vidí, koľko rôznych ľudí pracuje - vodič, učiteľka, opraváči, predavačka, poštár a ďalší."
+            },
+            {
+              "questionId": "8002_03",
+              "questionType": "trueFalse",
+              "question": "Existujú povolania, pri ktorých človek niečo vyrába, opravuje, učí alebo liečí.",
+              "correctAnswer": 0,
+              "explanation": "Povolania sa dajú rozdeliť podľa typu činnosti - výroba, opravy, vzdelávanie, zdravotníctvo, atd."
+            },
+            {
+              "questionId": "8002_04",
+              "questionType": "matching",
+              "question": "Spáruj povolanie s typom činnosti.",
+              "matchLeft": ["Kaderník", "Mechanik", "Knihovník", "Farmár"],
+              "matchRight": ["Služby", "Opravy", "Informácie", "Produkcia"],
+              "explanation": "Rôzne povolania sa zaoberajú rôznymi typmi činností."
+            },
+            {
+              "questionId": "8002_05",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Ľudia vykonávajú rôzne povolania podľa skúseností.",
+                "Všetci dospelí robia presne to isté.",
+                "Rozdiely v povolaniach odrážajú talenty a záujmy ľudí."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Nie všetci robia to isté - existuje veľká rozmanitosť prác."
+            },
+            {
+              "questionId": "8002_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď povolania podľa typu.",
+              "dragLabels": ["Lekár", "Elektrikár", "Herec", "Prvak", "Novinár"],
+              "dragTargets": [
+                { "label": "Služby pre ľudí", "correctItems": ["Lekár", "Prvak"] },
+                { "label": "Technické povolania", "correctItems": ["Elektrikár"] },
+                { "label": "Kreatívne povolania", "correctItems": ["Herec", "Novinár"] }
+              ],
+              "explanation": "Povolania sa dajú kategorizovať podľa svojho zamerania."
+            },
+            {
+              "questionId": "8002_07",
+              "questionType": "multipleChoice",
+              "question": "Prečo je dôležité mať rôzne povolania?",
+              "options": [
+                "Nie je to dôležité",
+                "Všetky sa navzájom dopĺňajú a spolu pomáhajú, aby svet fungoval",
+                "Jeden by stačil",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Každé povolanie má svoj zmysel. Všetky rôzne práce sa navzájom dopĺňajú a spolu pomáhajú svetu fungovať."
+            }
+          ]
+        },
+        {
+          "lessonId": 8003,
+          "lessonNumber": 3,
+          "lessonName": "Plat a odmena",
+          "questions": [
+            {
+              "questionId": "8003_01",
+              "questionType": "multipleChoice",
+              "question": "Dostáva každý za svoju prácu rovnaké peniaze?",
+              "options": [
+                "Áno, vždy",
+                "Nie, výška platu závisí od druhu práce, skúseností a zodpovednosti",
+                "Nikdy",
+                "Všetko je rovnaké"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Výška platu závisí od druhu práce, skúseností, zodpovednosti a času, ktorý človek práci venuje."
+            },
+            {
+              "questionId": "8003_02",
+              "questionType": "trueFalse",
+              "question": "Plat dostáva každý pravidelne, zvyčajne raz za mesiac na bankový účet.",
+              "correctAnswer": 0,
+              "explanation": "Pracovníci dostávajú plat v pravidelných intervaloch, najčastejšie mesačne."
+            },
+            {
+              "questionId": "8003_03",
+              "questionType": "scenario",
+              "question": "Chrumko sa rozpráva s otcom o platech. Čo otec hovorí?",
+              "options": [
+                "Peniaze prichádzajú každý deň",
+                "Plat dostáva raz za mesiac a z neho rodina platí všetko potrebné",
+                "Peniaze sú vylúčené",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec mu vysvetlí, že plat dostáva raz za mesiac a z týchto peňazí rodina postupne platí během celého mesiaca."
+            },
+            {
+              "questionId": "8003_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Výška platu závisí od druhu práce a skúseností.",
+                "Všetci dostávajú rovnaký plat bez ohľadu na povolanie.",
+                "Plat sa dostáva pravidelne, zvyčajne mesačne."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Platov sa líšia - nie všetci dostávajú rovnakú sumu."
+            },
+            {
+              "questionId": "8003_05",
+              "questionType": "matching",
+              "question": "Spáruj faktor s jeho vplyvom na výšku platu.",
+              "matchLeft": ["Skúsenosti", "Vzdelanie", "Zodpovednosť", "Pracovný čas"],
+              "matchRight": ["Vyššia pozícia zvyčajne znamená vyšší plat", "Ľudia s viacerými rokmi v práci zarábajú viac", "Kvalifikácia zvyšuje plat", "Dlhšia pracovná doba môže znamenať vyšší príjem"],
+              "explanation": "Viacero faktorov vplýva na výšku platu."
+            },
+            {
+              "questionId": "8003_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď faktory podľa toho, či zvyšujú alebo nemajú vplyv na plat.",
+              "dragLabels": ["Viac skúseností", "Lepšie vzdelanie", "Sedenie doma", "Ďalšie certifikáty"],
+              "dragTargets": [
+                { "label": "Zvyšujú plat", "correctItems": ["Viac skúseností", "Lepšie vzdelanie", "Ďalšie certifikáty"] },
+                { "label": "Nemajú vplyv", "correctItems": ["Sedenie doma"] }
+              ],
+              "explanation": "Profesný rozvoj zvyšuje hodnotu pracovníka a jeho plat."
+            },
+            {
+              "questionId": "8003_07",
+              "questionType": "multipleChoice",
+              "question": "Prečo je dôležité rozumne rozdeliť plat?",
+              "options": [
+                "Nie je to dôležité",
+                "Lebo plat musí vystačiť na všetko potrebné za celý mesiac",
+                "Lebo všetko sa dá kúpiť hneď",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Peniaze za prácu treba rozumne rozdeliť, aby vystačili na dlhší čas."
+            }
+          ]
+        },
+        {
+          "lessonId": 8004,
+          "lessonNumber": 4,
+          "lessonName": "Čas = odmena",
+          "questions": [
+            {
+              "questionId": "8004_01",
+              "questionType": "multipleChoice",
+              "question": "Prečo je čas dôležitý pri práci?",
+              "options": [
+                "Nie je podľa",
+                "Človek dostáva peniaze podľa času, ktorý práci venuje",
+                "Čas je zbytočný",
+                "Nikdy sa netočí"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pri mnohých prácach platí, že človek dostáva peniaze podľa času, ktorý odpracuje - čím viac hodín, tým väčšia odmena."
+            },
+            {
+              "questionId": "8004_02",
+              "questionType": "scenario",
+              "question": "Chrumko vidí, že jeho starší brat pracuje u susedov. Čo robí?",
+              "options": [
+                "Hrá si",
+                "Pomáha celé dopoludnie - zbiera lístie, hrabe trávu, nosí konáre",
+                "Sedí doma",
+                "Nič nerobí"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Brat pracuje cez vikend celé dopoludnie. Pracujú spolu a venujú tomu čas aj úsilie."
+            },
+            {
+              "questionId": "8004_03",
+              "questionType": "trueFalse",
+              "question": "Odmena za prácu je priamo úmerná času a úsiliu, ktoré do nej človek vloží.",
+              "correctAnswer": 0,
+              "explanation": "Čím viac času a úsilia, tým väčšia odmena."
+            },
+            {
+              "questionId": "8004_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Čas ovplyvňuje výšku odmeny za prácu.",
+                "Úsilie pri práci sa počítam.",
+                "Počet odpracovaných hodín nemá žiaden vplyv na plat."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Počet hodín má veľký vplyv na plat - to je základný princíp platov."
+            },
+            {
+              "questionId": "8004_05",
+              "questionType": "matching",
+              "question": "Spáruj počet hodín s typom odmeny.",
+              "matchLeft": ["4 hodiny", "8 hodín", "40 hodín týždenne", "Nadčas"],
+              "matchRight": ["Čiastočná práca", "Standardný pracovný deň", "Štandardný pracovný týždeň", "Dodatočne zaplatené"],
+              "explanation": "Rôzne množstvá času sa platia podľa rôznych kritérií."
+            },
+            {
+              "questionId": "8004_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď činnosti podľa času, ktorý berú.",
+              "dragLabels": ["Rýchle nákupy", "Varovanie domácnosti", "Voľba kariéry", "Ranné prípravy"],
+              "dragTargets": [
+                { "label": "Krátky čas (menej ako hodinu)", "correctItems": ["Rýchle nákupy", "Ranné prípravy"] },
+                { "label": "Dlhší čas (hodiny až dni)", "correctItems": ["Varovanie domácnosti", "Voľba kariéry"] }
+              ],
+              "explanation": "Rôzne činnosti vyžadujú rôzny čas."
+            },
+            {
+              "questionId": "8004_07",
+              "questionType": "ordering",
+              "question": "Zoraď, čo si Chrumko uvedomí o čase a peniazoch.",
+              "orderItems": [
+                "Chrumko vidí, že starší brat pracuje niekoľko hodín",
+                "Brat dostane odmenu po skončení práce",
+                "Chrumko pochopí, že viac hodín znamená viac peňazí",
+                "Chrumko si uvedomí, že čas je pri práci vzácny"
+              ],
+              "explanation": "Chrumko postupne pochopit hodnotu času pri práci."
+            }
+          ]
+        },
+        {
+          "lessonId": 8005,
+          "lessonNumber": 5,
+          "lessonName": "Produktivita",
+          "questions": [
+            {
+              "questionId": "8005_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je produktivita?",
+              "options": [
+                "Pomalá práca",
+                "Koľko práce zvládne človek za určitý čas",
+                "Bez práce",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Produktivita znamená, koľko práce zvládne človek za určitý čas. Ak pracuje sústredene, zvláda viac za kratší čas."
+            },
+            {
+              "questionId": "8005_02",
+              "questionType": "scenario",
+              "question": "Chrumko si robí domácu úlohu. Prvý deň stále pozerá na mobil. Čo sa stane?",
+              "options": [
+                "Úloha mu trvá krátko",
+                "Úloha mu trvá veľmi dlho, pretože sa rozptyľuje",
+                "Úlohu nevie urobiť",
+                "Všetko je rýchle"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Úloha mu trvá veľmi dlho, pretože se stále rozptyľuje a prerušuje prácu."
+            },
+            {
+              "questionId": "8005_03",
+              "questionType": "trueFalse",
+              "question": "Sústredenie a bez vyrušovania zvyšuje produktivitu.",
+              "correctAnswer": 0,
+              "explanation": "Sústredená práca bez prerušení je vždy efektívnejšia."
+            },
+            {
+              "questionId": "8005_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Produktivita je ovplyvnená sústredením.",
+                "Vyrušovanie zlepšuje kvalitu práce.",
+                "Hraním hier sa znižuje produktivita."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Vyrušovanie nikdy nezvyšuje produktivitu - robí to opak."
+            },
+            {
+              "questionId": "8005_05",
+              "questionType": "matching",
+              "question": "Spáruj činnosť s jej vplyvom na produktivitu.",
+              "matchLeft": ["Telefón vypnutý", "Pauzy na čaj", "Hranie hier", "Pripravenie si priestoru"],
+              "matchRight": ["Zvyšuje produktivitu", "Pomáhajú obnove", "Znižuje produktivitu", "Zvyšuje produktivitu"],
+              "explanation": "Rôzne faktory ovplyvňujú produktivitu rôzne."
+            },
+            {
+              "questionId": "8005_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď faktory podľa ich vplyvu na produktivitu.",
+              "dragLabels": ["Tichá miestnosť", "Hudba", "Usporiadané stôl", "Rozptýlená pozornosť"],
+              "dragTargets": [
+                { "label": "Zvyšujú produktivitu", "correctItems": ["Tichá miestnosť", "Usporiadané stôl"] },
+                { "label": "Znižujú produktivitu", "correctItems": ["Hudba", "Rozptýlená pozornosť"] }
+              ],
+              "explanation": "Prostredie má veľký vplyv na schopnosť pracovať efektívne."
+            },
+            {
+              "questionId": "8005_07",
+              "questionType": "multipleChoice",
+              "question": "Ako Chrumko zvýši svoju produktivitu pri domácich úlohách?",
+              "options": [
+                "Viac časia na úlohách bez zmeny",
+                "Vypne telefón, pripraví si priestor a pracuje sústredene",
+                "Hrá si počas učenia",
+                "Učí sa s kamarátmi bez plánu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Sústredená práca v tichom prostredí bez vyrušovania je kľúč k vyššej produktivite."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

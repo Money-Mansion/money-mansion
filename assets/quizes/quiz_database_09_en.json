@@ -1,0 +1,442 @@
+{
+  "quizzes": [
+    {
+      "section": 9,
+      "sectionName": "BUDGET",
+      "lessons": [
+        {
+          "lessonId": 9001,
+          "lessonNumber": 1,
+          "lessonName": "What is a budget",
+          "questions": [
+            {
+              "questionId": "9001_01",
+              "questionType": "multipleChoice",
+              "question": "What is a budget?",
+              "options": [
+                "A list with numbers",
+                "A plan that shows how much money we have and how we want to use it",
+                "Nothing special",
+                "Pointless"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A budget is a plan that shows how much money we have and how we want to use it. It helps with money management."
+            },
+            {
+              "questionId": "9001_02",
+              "questionType": "scenario",
+              "question": "Chrumko sees that mom is writing numbers in a notebook. What is she doing?",
+              "options": [
+                "Writing something unknown",
+                "Planning expenses for the whole month",
+                "Writing a story",
+                "Everything is chaotic"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mom is planning expenses for the whole month. First she writes down the money that will come, then what needs to be paid."
+            },
+            {
+              "questionId": "9001_03",
+              "questionType": "trueFalse",
+              "question": "A budget helps keep money organized and know how much we can afford.",
+              "correctAnswer": 0,
+              "explanation": "A budget is a tool for planning and controlling financial resources."
+            },
+            {
+              "questionId": "9001_04",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "A budget shows income and expenses.",
+                "A budget helps avoid financial problems.",
+                "A budget is useless and nobody needs it."
+              ],
+              "correctAnswer": 2,
+              "explanation": "A budget is very important - it helps with household financial management."
+            },
+            {
+              "questionId": "9001_05",
+              "questionType": "matching",
+              "question": "Match the time with budgeting activities.",
+              "matchLeft": ["Beginning of month", "During the month", "End of month", "Next month"],
+              "matchRight": ["Planning expenses", "Tracking money", "Evaluating expenses", "Adjusting plan"],
+              "explanation": "Budgeting is a continuous process."
+            },
+            {
+              "questionId": "9001_06",
+              "questionType": "dragDrop",
+              "question": "Place items into correct budget categories.",
+              "dragLabels": ["Income", "Fixed expenses", "Flexible expenses", "Savings"],
+              "dragTargets": [
+                { "label": "Money coming in", "correctItems": ["Income"] },
+                { "label": "Money going out", "correctItems": ["Fixed expenses", "Flexible expenses"] },
+                { "label": "Money for later", "correctItems": ["Savings"] }
+              ],
+              "explanation": "A budget consists of several sections."
+            },
+            {
+              "questionId": "9001_07",
+              "questionType": "ordering",
+              "question": "Put steps of budgeting in order.",
+              "orderItems": [
+                "Mom writes down how much money will come",
+                "Mom writes all expenses",
+                "Mom sees what's left",
+                "Mom decides how to use the remaining money"
+              ],
+              "explanation": "Budgeting has a logical process."
+            },
+            {
+              "questionId": "9001_08",
+              "questionType": "multipleChoice",
+              "question": "Why is a budget important?",
+              "options": [
+                "It's not important",
+                "It helps know in advance how money will be spent",
+                "Everything is random",
+                "No point"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A budget gives control and clarity to financial planning."
+            }
+          ]
+        },
+        {
+          "lessonId": 9002,
+          "lessonNumber": 2,
+          "lessonName": "Income and expenses",
+          "questions": [
+            {
+              "questionId": "9002_01",
+              "questionType": "multipleChoice",
+              "question": "What are income and expenses?",
+              "options": [
+                "The same thing",
+                "Income - money that comes in; Expenses - money that goes out",
+                "No difference",
+                "No point"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Income is money that comes in. Expenses are money that the household spends."
+            },
+            {
+              "questionId": "9002_02",
+              "questionType": "scenario",
+              "question": "Chrumko thinks that when parents get paid, they can buy everything. What does father say?",
+              "options": [
+                "Yes, everything can be bought",
+                "First we need to deduct housing, food and other bills",
+                "Nothing is spent",
+                "Everything is free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Father tells him that first they need to deduct housing, food and other bills. Only then something remains."
+            },
+            {
+              "questionId": "9002_03",
+              "questionType": "trueFalse",
+              "question": "If expenses are higher than income, money can run short.",
+              "correctAnswer": 0,
+              "explanation": "An unbalanced budget leads to financial problems."
+            },
+            {
+              "questionId": "9002_04",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Income is money that comes in.",
+                "Expenses are money that goes out.",
+                "Income and expenses are always equal."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Income and expenses often differ - that's why budgeting is important."
+            },
+            {
+              "questionId": "9002_05",
+              "questionType": "matching",
+              "question": "Match scenario with relationship of income and expenses.",
+              "matchLeft": ["Expenses < Income", "Expenses = Income", "Expenses > Income", "Money left over"],
+              "matchRight": ["Reserve remains", "Everything is balanced", "Money is short", "Ability to save"],
+              "explanation": "Different ratios have different consequences."
+            },
+            {
+              "questionId": "9002_06",
+              "questionType": "dragDrop",
+              "question": "Sort items as income or expenses.",
+              "dragLabels": ["Salary", "Buying food", "Bonus", "Housing payment", "Inheritance"],
+              "dragTargets": [
+                { "label": "Income (money in)", "correctItems": ["Salary", "Bonus", "Inheritance"] },
+                { "label": "Expenses (money out)", "correctItems": ["Buying food", "Housing payment"] }
+              ],
+              "explanation": "Income and expenses are opposites."
+            },
+            {
+              "questionId": "9002_07",
+              "questionType": "multipleChoice",
+              "question": "How does Chrumko understand the relationship of income and expenses?",
+              "options": [
+                "Everything is free",
+                "What's important is not just what comes in, but also what goes out",
+                "Money is pointless",
+                "Everything is random"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko realizes that what's important is not just what comes in, but also what goes out and what it's spent on."
+            }
+          ]
+        },
+        {
+          "lessonId": 9003,
+          "lessonNumber": 3,
+          "lessonName": "Monthly planning",
+          "questions": [
+            {
+              "questionId": "9003_01",
+              "questionType": "multipleChoice",
+              "question": "Why don't we spend all money at the beginning of the month?",
+              "options": [
+                "For no reason",
+                "Because money must last the whole month",
+                "Everything is always spent right away",
+                "Everything is chaotic"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Money must often last the whole month. That's why the family plans what they'll need now and what later."
+            },
+            {
+              "questionId": "9003_02",
+              "questionType": "scenario",
+              "question": "Chrumko suggests buying a new game right after payday. What does mom say?",
+              "options": [
+                "Yes, let's buy it right away",
+                "First we need to pay important bills, then we'll see what we can afford",
+                "Everything is free",
+                "No discussion"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mom explains that first they need to pay everything important. In a few days there will be more bills."
+            },
+            {
+              "questionId": "9003_03",
+              "questionType": "trueFalse",
+              "question": "Money should be spread over a longer time to last the whole month.",
+              "correctAnswer": 0,
+              "explanation": "Dividing money is key to its availability throughout the month."
+            },
+            {
+              "questionId": "9003_04",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Planning helps avoid financial problems.",
+                "All money should always be spent right away.",
+                "Monthly planning is important."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Spending everything right away is rarely a good strategy."
+            },
+            {
+              "questionId": "9003_05",
+              "questionType": "matching",
+              "question": "Match phase of month with activities.",
+              "matchLeft": ["First week", "Second and third week", "Last week", "End of month"],
+              "matchRight": ["Paying fixed expenses", "Buying necessary food", "Savings", "Planning next month"],
+              "explanation": "A month has different planning stages."
+            },
+            {
+              "questionId": "9003_06",
+              "questionType": "dragDrop",
+              "question": "Sort activities by appropriate time in month.",
+              "dragLabels": ["Paying rent", "Last minute shopping", "Paying large expenses", "Fun shopping"],
+              "dragTargets": [
+                { "label": "Beginning of month (after payday)", "correctItems": ["Paying rent", "Paying large expenses"] },
+                { "label": "End of month", "correctItems": ["Last minute shopping", "Fun shopping"] }
+              ],
+              "explanation": "Timing is important in monthly budget."
+            },
+            {
+              "questionId": "9003_07",
+              "questionType": "ordering",
+              "question": "Put in order how mom plans monthly budget.",
+              "orderItems": [
+                "Mom receives paycheck",
+                "Mom writes down fixed expenses",
+                "Mom writes down variable expenses",
+                "Mom decides what extra they can afford"
+              ],
+              "explanation": "Logical process of monthly planning."
+            }
+          ]
+        },
+        {
+          "lessonId": 9004,
+          "lessonNumber": 4,
+          "lessonName": "Fixed expenses",
+          "questions": [
+            {
+              "questionId": "9004_01",
+              "questionType": "multipleChoice",
+              "question": "What are fixed expenses?",
+              "options": [
+                "Expenses that change",
+                "Payments that repeat regularly with similar amount",
+                "Completely free",
+                "No matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixed expenses are payments that repeat regularly and have similar amount."
+            },
+            {
+              "questionId": "9004_02",
+              "questionType": "scenario",
+              "question": "Chrumko asks how they can know in advance how much the month will cost. What does mom answer?",
+              "options": [
+                "We don't know, everything is random",
+                "We know what fixed payments are - housing, internet, school - those don't change much",
+                "Everything is chaotic",
+                "No matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixed expenses are predictable, which helps with planning."
+            },
+            {
+              "questionId": "9004_03",
+              "questionType": "trueFalse",
+              "question": "Fixed expenses are payments that must be paid regardless of other circumstances.",
+              "correctAnswer": 0,
+              "explanation": "Fixed expenses are household obligations."
+            },
+            {
+              "questionId": "9004_04",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Fixed expenses repeat regularly.",
+                "Fixed expenses are same amount each month.",
+                "Fixed expenses are completely random and unpredictable."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Fixed expenses are actually very predictable."
+            },
+            {
+              "questionId": "9004_05",
+              "questionType": "matching",
+              "question": "Match payment with category of fixed expenses.",
+              "matchLeft": ["Rent", "School lunch", "Internet", "Phone"],
+              "matchRight": ["Housing", "Education", "Communication", "Communication"],
+              "explanation": "Fixed expenses cover different areas."
+            },
+            {
+              "questionId": "9004_06",
+              "questionType": "dragDrop",
+              "question": "Sort expenses by whether they are fixed or not.",
+              "dragLabels": ["Rent", "Buying clothes", "Electricity", "Trips", "Internet"],
+              "dragTargets": [
+                { "label": "Fixed (same each month)", "correctItems": ["Rent", "Electricity", "Internet"] },
+                { "label": "Variable (change)", "correctItems": ["Buying clothes", "Trips"] }
+              ],
+              "explanation": "Fixed and variable expenses differ."
+            },
+            {
+              "questionId": "9004_07",
+              "questionType": "multipleChoice",
+              "question": "Why are fixed expenses important in a budget?",
+              "options": [
+                "They're not important",
+                "Because we must pay them and they affect the rest of the budget",
+                "Because they change every day",
+                "No point"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Fixed expenses determine the minimum amount of money needed each month."
+            }
+          ]
+        },
+        {
+          "lessonId": 9005,
+          "lessonNumber": 5,
+          "lessonName": "Variable expenses",
+          "questions": [
+            {
+              "questionId": "9005_01",
+              "questionType": "multipleChoice",
+              "question": "What are variable expenses?",
+              "options": [
+                "Expenses that never change",
+                "Expenses that change based on needs",
+                "Always the same",
+                "No matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variable expenses are those that change based on needs. Sometimes they're higher, sometimes lower."
+            },
+            {
+              "questionId": "9005_02",
+              "questionType": "scenario",
+              "question": "One week Chrumko and parents buy only basic groceries. Another week they buy extra fruit. What happens?",
+              "options": [
+                "The amount is the same",
+                "This time the amount is higher",
+                "Everything is free",
+                "No matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Sometimes the amount at checkout is higher because they buy other things."
+            },
+            {
+              "questionId": "9005_03",
+              "questionType": "trueFalse",
+              "question": "Variable expenses change based on needs and life circumstances.",
+              "correctAnswer": 0,
+              "explanation": "Variable expenses are flexible and supplement fixed expenses."
+            },
+            {
+              "questionId": "9005_04",
+              "questionType": "spotMistake",
+              "question": "One of these statements is wrong. Find it.",
+              "options": [
+                "Variable expenses change month to month.",
+                "Variable expenses are always the same amount.",
+                "Variable expenses include groceries and transportation."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Variable expenses differ - that's their nature."
+            },
+            {
+              "questionId": "9005_05",
+              "questionType": "matching",
+              "question": "Match expense with category.",
+              "matchLeft": ["Buying food", "Travel to school", "Buying new shoes", "Movie ticket"],
+              "matchRight": ["Basic variable", "Regular variable", "Unplanned variable", "Entertainment variable"],
+              "explanation": "Variable expenses have different subcategories."
+            },
+            {
+              "questionId": "9005_06",
+              "questionType": "dragDrop",
+              "question": "Sort expenses by their variability.",
+              "dragLabels": ["Food", "Housing", "Extra fruit", "New game", "Water"],
+              "dragTargets": [
+                { "label": "Fixed (same amount)", "correctItems": ["Housing", "Water"] },
+                { "label": "Variable (change)", "correctItems": ["Food", "Extra fruit", "New game"] }
+              ],
+              "explanation": "Combination of fixed and variable expenses makes up budget."
+            },
+            {
+              "questionId": "9005_07",
+              "questionType": "multipleChoice",
+              "question": "How does Chrumko understand the difference between fixed and variable?",
+              "options": [
+                "Everything is free",
+                "Fixed expenses are necessary, variable ones complement them",
+                "No point",
+                "Everything is chaotic"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko realizes that not everything costs the same each month. Some expenses change."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
