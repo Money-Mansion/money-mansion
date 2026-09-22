@@ -1,0 +1,630 @@
+{
+  "quizzes": [
+    {
+      "section": 6,
+      "sectionName": "SHOPPING AND DECISION-MAKING",
+      "lessons": [
+        {
+          "lessonId": 6001,
+          "lessonNumber": 1,
+          "lessonName": "How Stores Work",
+          "questions": [
+            {
+              "questionId": "6001_01",
+              "type": "theoretical",
+              "question": "What is a store?",
+              "options": [
+                "A place where only music plays",
+                "A place where buying and selling of things happen",
+                "It has no purpose",
+                "Only for entertainment"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A store is a place where buying and selling of things happen. Stores buy products and then offer them to customers."
+            },
+            {
+              "questionId": "6001_02",
+              "type": "practical",
+              "question": "What is all included in the price of a product in a store?",
+              "options": [
+                "Only the product itself",
+                "The item, transportation, storage, employees, and store operations",
+                "Nothing specific",
+                "Everything is free"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The price of a product includes the costs of transportation, storage, store employees, and store operations."
+            },
+            {
+              "questionId": "6001_03",
+              "type": "scenario",
+              "question": "Chrumko walks past three different shops on his way home. Shop A has bright lights and friendly staff. Shop B is smaller and quieter. Shop C is far away but has lower prices. What is one reason why Shop A might charge higher prices than Shop C?",
+              "options": [
+                "The products are always better quality",
+                "They spend more on lighting, decoration, and staff",
+                "Shop C's products are fake",
+                "There is no difference at all"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Different shops have different costs. Shop A's bright lights, decoration, and more staff are part of their operating costs, which may be reflected in higher prices."
+            },
+            {
+              "questionId": "6001_04",
+              "type": "practical",
+              "question": "How does payment work in a store?",
+              "options": [
+                "Everything is free",
+                "At checkout, products are scanned, each is added to the total price and you pay",
+                "The money is returned",
+                "There's no need to pay"
+              ],
+              "correctAnswer": 1,
+              "explanation": "At checkout, products are scanned and the total amount appears on the display. This means a store works as an exchange of money for goods."
+            },
+            {
+              "questionId": "6001_05",
+              "type": "matching",
+              "question": "What happens BEFORE a store sells products to customers?",
+              "options": [
+                "The store owner goes home",
+                "The store buys products from manufacturers or suppliers",
+                "Customers choose what to buy",
+                "The till starts working"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Before selling to customers, stores must first buy products from manufacturers or suppliers. Then they arrange them on shelves."
+            },
+            {
+              "questionId": "6001_06",
+              "type": "calculation",
+              "question": "Chrumko buys bread for €2, milk for €1.50, and apples for €1. How much does he spend total?",
+              "options": [
+                "€3.50",
+                "€4",
+                "€4.50",
+                "€5"
+              ],
+              "correctAnswer": 2,
+              "explanation": "€2 + €1.50 + €1 = €4.50. Understanding how prices add up helps you manage your money at the store."
+            },
+            {
+              "questionId": "6001_07",
+              "type": "comparison",
+              "question": "Why might the same exact product cost different amounts in different stores?",
+              "options": [
+                "One store always cheats customers",
+                "Different stores have different rent, staff costs, and locations",
+                "The product is different quality in each store",
+                "Prices change every hour randomly"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Different shops have different operating costs based on location, rent, employee wages, and overhead - all reflected in their prices."
+            },
+            {
+              "questionId": "6001_08",
+              "type": "scenario",
+              "question": "Chrumko goes to the shop with €10. He wants to buy juice (€2), bread (€2.50), and chocolate (€3). What is the problem?",
+              "options": [
+                "There is no problem, he has enough money",
+                "The products are too cheap",
+                "The total is €7.50 but he only has €10... wait, he DOES have enough",
+                "He doesn't have enough money - the total would be €7.50 but he needs €10 for something else"
+              ],
+              "correctAnswer": 2,
+              "explanation": "€2 + €2.50 + €3 = €7.50. Chrumko actually has enough! Always add up prices before buying to check your money."
+            },
+            {
+              "questionId": "6001_09",
+              "type": "theoretical",
+              "question": "Why do stores need workers, heating, and lighting even when no customers are shopping?",
+              "options": [
+                "It's wasteful and unnecessary",
+                "To keep the store ready and attractive for when customers arrive",
+                "Stores don't need these things",
+                "Only large stores need these"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Stores must maintain their premises constantly - heating keeps products fresh, lighting makes them visible, and workers organize everything. These are necessary costs."
+            }
+          ]
+        },
+        {
+          "lessonId": 6002,
+          "lessonNumber": 2,
+          "lessonName": "Discounts",
+          "questions": [
+            {
+              "questionId": "6002_01",
+              "type": "theoretical",
+              "question": "What is a discount?",
+              "options": [
+                "An increase in price",
+                "A reduction in price from the original amount",
+                "Completely free",
+                "A more expensive item"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A discount means a product costs less than before. Stores use discounts to attract customers."
+            },
+            {
+              "questionId": "6002_02",
+              "type": "practical",
+              "question": "Does a discount mean you must buy that item?",
+              "options": [
+                "Yes, always",
+                "No, a lower price doesn't mean you need the item",
+                "You must buy it",
+                "It's all necessary"
+              ],
+              "correctAnswer": 1,
+              "explanation": "If someone buys something just because it's on sale, they may spend money on something they wouldn't have chosen otherwise."
+            },
+            {
+              "questionId": "6002_03",
+              "type": "scenario",
+              "question": "Chrumko goes to the shop to buy only a snack. He sees a discount on milk chocolate. What should he do?",
+              "options": [
+                "Buy it right away",
+                "Think about whether he really needs and wants it",
+                "Buy everything",
+                "Never buy anything"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko realizes he didn't plan to buy candy and there's still some at home. He decides to keep his money."
+            },
+            {
+              "questionId": "6002_04",
+              "type": "practical",
+              "question": "Is the discount good for Chrumko in this case?",
+              "options": [
+                "Yes, it's a good deal",
+                "No, it's not a good deal because Chrumko doesn't need it",
+                "It's always a good deal",
+                "Maybe sometimes"
+              ],
+              "correctAnswer": 1,
+              "explanation": "It's not a good deal for Chrumko because he doesn't need candy. A good discount is only for something you truly want and need."
+            },
+            {
+              "questionId": "6002_05",
+              "type": "matching",
+              "question": "Which products SHOULD you buy even with a discount?",
+              "options": [
+                "Things you want but don't need",
+                "Things you actually need and will use",
+                "Random items just because they're cheaper",
+                "Anything bright and colorful"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A discount is good when you need the item anyway. Discounts on things you don't need just waste money."
+            },
+            {
+              "questionId": "6002_06",
+              "type": "calculation",
+              "question": "A chocolate bar normally costs €3. It has a discount and now costs €2. How much do you save with the discount?",
+              "options": [
+                "€0.50",
+                "€1",
+                "€1.50",
+                "€2"
+              ],
+              "correctAnswer": 1,
+              "explanation": "€3 - €2 = €1 saved. But remember - this only matters if you actually need the chocolate!"
+            },
+            {
+              "questionId": "6002_07",
+              "type": "comparison",
+              "question": "Compare: Buying something at full price that you really need vs. buying something at a discount that you don't need. Which is smarter?",
+              "options": [
+                "The discounted item, because it's cheaper",
+                "The full-price item, because you actually need it",
+                "Both are equally smart",
+                "Neither - you shouldn't buy anything"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The full-price item is smarter because you need it. Spending money on discounted things you don't need wastes money overall."
+            },
+            {
+              "questionId": "6002_08",
+              "type": "scenario",
+              "question": "There's a 50% discount on video games, but Chrumko's homework isn't finished. What's the wise choice?",
+              "options": [
+                "Buy the game - the discount is too good to miss",
+                "Finish homework first, then think about the game later",
+                "Ask parents to buy it immediately",
+                "The discount forces him to buy"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A good discount doesn't change what's important right now. Homework comes first. Discounts will happen again in the future."
+            },
+            {
+              "questionId": "6002_09",
+              "type": "theoretical",
+              "question": "Why do stores put big red discount signs in their windows?",
+              "options": [
+                "Because discounts are not real",
+                "To attract customers and make them want to shop there",
+                "To make the store prettier",
+                "Discounts don't need signs"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Stores use eye-catching signs because discounts attract customers. But remember: you only save money if you buy things you actually need."
+            }
+          ]
+        },
+        {
+          "lessonId": 6003,
+          "lessonNumber": 3,
+          "lessonName": "Promotions and Marketing Tricks",
+          "questions": [
+            {
+              "questionId": "6003_01",
+              "type": "theoretical",
+              "question": "Why do stores use colorful signs and big letters?",
+              "options": [
+                "No reason",
+                "To make products look more interesting and attract attention",
+                "For decoration",
+                "It doesn't matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Stores use colorful signs and big letters to make products look more interesting and attract our attention."
+            },
+            {
+              "questionId": "6003_02",
+              "type": "practical",
+              "question": "Chrumko sees a big yellow sign 'best value package at the best price'. What should he do?",
+              "options": [
+                "Buy it right away",
+                "Look at the actual price and compare with other products",
+                "Buy everything",
+                "Never buy anything"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko should look at the actual price and compare with other products. A big sign doesn't automatically mean the best deal."
+            },
+            {
+              "questionId": "6003_03",
+              "type": "scenario",
+              "question": "Chrumko finds a product with a huge '30% OFF!' sign. But when he looks carefully, a similar product without the sign costs even less. What learned?",
+              "options": [
+                "The sign always tells the truth",
+                "Marketing signs can be misleading - you must compare prices yourself",
+                "Big signs mean lowest prices",
+                "He shouldn't look at prices"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Even with a discount sign, another product might be cheaper. Always compare, don't just trust the bright signs!"
+            },
+            {
+              "questionId": "6003_04",
+              "type": "practical",
+              "question": "What does Chrumko learn about shopping signs?",
+              "options": [
+                "Believe all slogans",
+                "A big sign doesn't automatically mean the best deal",
+                "Always buy what has the biggest sign",
+                "It's not important"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko learns that big signs are designed to catch your attention, not necessarily to show the best value. Compare before buying!"
+            },
+            {
+              "questionId": "6003_05",
+              "type": "matching",
+              "question": "Which is an example of a marketing trick used by stores?",
+              "options": [
+                "Giving the lowest price to everyone",
+                "Placing colorful products at eye level and expensive items at top shelves",
+                "Hiding prices from customers",
+                "Telling customers not to come back"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Stores strategically place products where they're most visible and eye-catching to influence what you buy."
+            },
+            {
+              "questionId": "6003_06",
+              "type": "calculation",
+              "question": "A shop sign says '20% discount!' A pen originally costs €5. What's the sale price?",
+              "options": [
+                "€3",
+                "€4",
+                "€4.50",
+                "€2"
+              ],
+              "correctAnswer": 1,
+              "explanation": "20% of €5 = €1. So €5 - €1 = €4. Understanding the math helps you spot real deals from fake ones."
+            },
+            {
+              "questionId": "6003_07",
+              "type": "comparison",
+              "question": "Compare two items: (A) Bright packaging, famous brand, high price with '25% OFF' sign. (B) Plain packaging, no brand, lower price, no discount. Which is likely better value?",
+              "options": [
+                "Item A, because it has a discount sign",
+                "Item B, because it's actually cheaper after comparing real prices",
+                "Both are the same",
+                "Neither has value"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Item B is better value if it's actually cheaper. The sign and packaging don't determine real value - the actual price and what you get do."
+            },
+            {
+              "questionId": "6003_08",
+              "type": "scenario",
+              "question": "A new product has bright packaging and a celebrity's name on it. It costs twice as much as an unnamed product of the same quality. Should Chrumko buy it?",
+              "options": [
+                "Yes, the celebrity makes it better",
+                "No, he's paying for packaging and the celebrity's name, not better quality",
+                "The celebrity guarantees quality",
+                "Price doesn't matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Part of the high price is for marketing and celebrity endorsement, not necessarily for better quality. Smart shoppers look past the packaging."
+            },
+            {
+              "questionId": "6003_09",
+              "type": "theoretical",
+              "question": "What is the main purpose of colorful, exciting marketing in stores?",
+              "options": [
+                "To make shopping easier for customers",
+                "To make you WANT to buy, not necessarily what you NEED",
+                "To show honest prices",
+                "To help you save money"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Marketing is designed to create desire and excitement, which can make you buy things you didn't plan for. Stay aware of this trick!"
+            }
+          ]
+        },
+        {
+          "lessonId": 6004,
+          "lessonNumber": 4,
+          "lessonName": "Impulse Buying",
+          "questions": [
+            {
+              "questionId": "6004_01",
+              "type": "theoretical",
+              "question": "What is an impulse purchase?",
+              "options": [
+                "A planned purchase",
+                "A quick purchase without planning or thinking",
+                "The best purchase",
+                "It never happens"
+              ],
+              "correctAnswer": 1,
+              "explanation": "An impulse purchase is a quick purchase without planning. It happens when something catches our interest and we decide immediately."
+            },
+            {
+              "questionId": "6004_02",
+              "type": "practical",
+              "question": "Where do impulse purchases often happen?",
+              "options": [
+                "Only at home",
+                "At the checkout, where small items are easily visible",
+                "They never happen",
+                "Everywhere equally"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Impulse purchases often happen at checkout, where small items are easily visible and we get tempted by them."
+            },
+            {
+              "questionId": "6004_03",
+              "type": "scenario",
+              "question": "Chrumko stands at checkout with his mom. He sees colorful gum right by the till. What happens?",
+              "options": [
+                "Nothing, he won't want it",
+                "He gets tempted to buy it",
+                "He will ignore it",
+                "It doesn't matter"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko gets tempted to buy the gum. It's placed exactly where everyone notices it, and there's a lot of temptation."
+            },
+            {
+              "questionId": "6004_04",
+              "type": "practical",
+              "question": "What should Chrumko do when he wants something at the checkout?",
+              "options": [
+                "Buy it right away",
+                "Wait a moment and think about whether he really needs it",
+                "Buy everything",
+                "Never buy anything"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko realizes he still has sweets from yesterday at home. He waits and doesn't buy the gum. The urge passes quickly."
+            },
+            {
+              "questionId": "6004_05",
+              "type": "matching",
+              "question": "What's the best way to resist impulse buying at the checkout?",
+              "options": [
+                "Run through the checkout quickly",
+                "Pause for 30 seconds and ask: do I really need this?",
+                "Never go near the checkout",
+                "Close your eyes"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A 30-second pause usually stops the urge to impulse buy. Most cravings pass quickly if you wait."
+            },
+            {
+              "questionId": "6004_06",
+              "type": "calculation",
+              "question": "Chrumko impulse buys a candy bar for €2 every time he goes shopping (2 times per week). How much does he waste per month on impulse buys?",
+              "options": [
+                "€4",
+                "€8",
+                "€16",
+                "€32"
+              ],
+              "correctAnswer": 2,
+              "explanation": "2 times per week × €2 = €4/week. €4 × 4 weeks = €16/month. Small impulse purchases add up quickly!"
+            },
+            {
+              "questionId": "6004_07",
+              "type": "comparison",
+              "question": "Compare: Buying one candy at checkout vs. buying candy you planned for at home. Which wastes less money?",
+              "options": [
+                "Checkout impulse buy - it's convenient",
+                "Planned purchase at home - you avoid checkout temptation",
+                "Both cost the same",
+                "Neither matters"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Planned purchases at home are smarter because you avoid the impulse-triggering environment of the checkout."
+            },
+            {
+              "questionId": "6004_08",
+              "type": "scenario",
+              "question": "Chrumko is at the shop feeling bored. He hasn't planned to buy candy, but sees some. What is happening?",
+              "options": [
+                "He needs the candy for nutrition",
+                "Boredom is making him want to buy something to feel better (emotional shopping)",
+                "The candy is necessary",
+                "He must buy it"
+              ],
+              "correctAnswer": 1,
+              "explanation": "When we're bored or sad, we sometimes buy things to feel better. This is emotional impulse buying - recognizing it helps you resist."
+            },
+            {
+              "questionId": "6004_09",
+              "type": "theoretical",
+              "question": "Why do stores put small, tempting items at the checkout?",
+              "options": [
+                "To help customers remember what they forgot",
+                "Because people are most tempted to impulse buy while waiting in line",
+                "To organize the store better",
+                "These items don't sell well anywhere else"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Checkout placement is strategic - stores know you're waiting, can see the items, and might impulse buy. It's designed to increase sales."
+            }
+          ]
+        },
+        {
+          "lessonId": 6005,
+          "lessonNumber": 5,
+          "lessonName": "How to Make Your Own Decisions",
+          "questions": [
+            {
+              "questionId": "6005_01",
+              "type": "theoretical",
+              "question": "How can you tell if you want something because you need it?",
+              "options": [
+                "There's no need to think",
+                "Ask yourself: do I need it? Will I use it for a long time?",
+                "Buy everything you see",
+                "It's all impulse"
+              ],
+              "correctAnswer": 1,
+              "explanation": "It helps to ask yourself: Do I need it? Will I use it for a long time? Is it worth spending money on?"
+            },
+            {
+              "questionId": "6005_02",
+              "type": "practical",
+              "question": "Chrumko goes to buy a notebook. He sees a pen with a colorful package. What should he do?",
+              "options": [
+                "Buy it right away",
+                "Stop and think about whether he really needs it",
+                "Buy everything",
+                "Never buy anything"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko should stop and think about whether he really needs the pen."
+            },
+            {
+              "questionId": "6005_03",
+              "type": "scenario",
+              "question": "What does Chrumko find out about the pen at home?",
+              "options": [
+                "He needs to buy it",
+                "He already has two working pens at home",
+                "It's the only pen available",
+                "All pens are the same"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko remembers he still has two working pens at home and doesn't really need a new one."
+            },
+            {
+              "questionId": "6005_04",
+              "type": "practical",
+              "question": "What does Chrumko finally decide?",
+              "options": [
+                "Buy both the pen and notebook",
+                "Buy nothing",
+                "Buy only the notebook and leave the pen in the store",
+                "Buy everything on credit"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Chrumko buys only the notebook and leaves the pen in the store. A few days later he's glad he spent money only on what he needed."
+            },
+            {
+              "questionId": "6005_05",
+              "type": "matching",
+              "question": "Which question helps you make smart buying decisions?",
+              "options": [
+                "Does it have nice packaging?",
+                "Is anyone else buying it?",
+                "Will I actually use this regularly?",
+                "Is it the most expensive option?"
+              ],
+              "correctAnswer": 2,
+              "explanation": "Asking if you'll actually use something regularly helps you buy things that provide real value."
+            },
+            {
+              "questionId": "6005_06",
+              "type": "calculation",
+              "question": "Chrumko has €20. He needs a pen (€2), notebook (€5), and pencils (€3). He sees sneakers he wants (€15). How much would he have left after the essentials?",
+              "options": [
+                "€10",
+                "€15",
+                "€5",
+                "€0"
+              ],
+              "correctAnswer": 0,
+              "explanation": "€2 + €5 + €3 = €10 needed. €20 - €10 = €10 left. Not enough for €15 sneakers. Good decisions require looking at the math!"
+            },
+            {
+              "questionId": "6005_07",
+              "type": "comparison",
+              "question": "Compare: (A) Buying a cheap item you don't really need vs. (B) Buying nothing and keeping your money. Which is smarter?",
+              "options": [
+                "A, because something is better than nothing",
+                "B, because you keep money for things you actually need",
+                "Both are the same",
+                "It depends on the color"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Keeping money for real needs is smarter than spending on things you don't need, even if they're cheap."
+            },
+            {
+              "questionId": "6005_08",
+              "type": "scenario",
+              "question": "Your friend has a toy you think is cool. You feel pressure to buy the same one. What should you think?",
+              "options": [
+                "You must buy it to be cool too",
+                "Your friend likes it, but does it fit YOUR needs and budget?",
+                "Everyone has to have the same things",
+                "Friends force you to buy things"
+              ],
+              "correctAnswer": 1,
+              "explanation": "What your friend likes might not be right for you. Make your own decisions based on your needs, not peer pressure."
+            },
+            {
+              "questionId": "6005_09",
+              "type": "theoretical",
+              "question": "What is the first step in making a smart buying decision?",
+              "options": [
+                "Check the price only",
+                "Ask: Do I really need this, or do I just want it?",
+                "Buy immediately",
+                "Listen only to advertising"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The first question is whether you need it. If yes, then check price. If no, keep your money. Your own judgment matters most!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

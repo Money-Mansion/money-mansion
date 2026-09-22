@@ -1,0 +1,429 @@
+{
+  "quizzes": [
+    {
+      "section": 10,
+      "sectionName": "BANKA A PENIAZE",
+      "lessons": [
+        {
+          "lessonId": 10001,
+          "lessonNumber": 1,
+          "lessonName": "Čo robí banka",
+          "questions": [
+            {
+              "questionId": "10001_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je banka?",
+              "options": [
+                "Miesto, kde sa tancuje",
+                "Miesto, kde si ľudia uchovávajú peniaze bezpečne a pomáha s nimi",
+                "Obchod",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Banka je miesto, kde si ľudia uchovávajú peniaze bezpečne. Pomáha prijímať, posielať a spravovať peniaze."
+            },
+            {
+              "questionId": "10001_02",
+              "questionType": "scenario",
+              "question": "Chrumko sa pýta, kam idú peniaze, keď mama ich nedržuje v peňaženke. Ako mama odpovedá?",
+              "options": [
+                "Stratili sa",
+                "Sú uložené bezpečne v banke na účte",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama hovorí, že výplata prišla priamo do banky na účet. Peniaze sú tam bezpečne uložené."
+            },
+            {
+              "questionId": "10001_03",
+              "questionType": "trueFalse",
+              "question": "Peniaze môžu byť uložené bezpečne v banke bez toho, aby ich fyzicky držal v ruke.",
+              "correctAnswer": 0,
+              "explanation": "Banky poskytujú bezpečné skladovanie peňazí."
+            },
+            {
+              "questionId": "10001_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Banka uchovává peniaze bezpečne.",
+                "V banke si môžeme poslať peniaze iným ľuďom.",
+                "Banka je miesto na tanec a zábavu."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Banka je finančná inštitúcia, nie miesto na zábavu."
+            },
+            {
+              "questionId": "10001_05",
+              "questionType": "matching",
+              "question": "Spáruj službu s jeho opisy.",
+              "matchLeft": ["Skladovanie peňazí", "Převody peňazí", "Platobné karty", "Pôžičky"],
+              "matchRight": ["Bezpečne uschované", "Poslanie peňazí inej osobe", "Platenie bez hotovosti", "Peniaze na neskôr"],
+              "explanation": "Banky poskytujú rôzne služby."
+            },
+            {
+              "questionId": "10001_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď činnosti podľa toho, či ich banka robí alebo nie.",
+              "dragLabels": ["Skladovanie peňazí", "Tanec", "Prevody", "Predaj oblečenia", "Správa účtu"],
+              "dragTargets": [
+                { "label": "Bankové služby", "correctItems": ["Skladovanie peňazí", "Prevody", "Správa účtu"] },
+                { "label": "Iné", "correctItems": ["Tanec", "Predaj oblečenia"] }
+              ],
+              "explanation": "Banky majú špecializované služby."
+            },
+            {
+              "questionId": "10001_07",
+              "questionType": "ordering",
+              "question": "Zoraď, čo si Chrumko uvedomí o banke.",
+              "orderItems": [
+                "Chrumko vidí, že mama dostáva peniaze do banky",
+                "Mama mu hovorí, že peniaze sú tam bezpečne",
+                "Mama mu ukáže na mobile, ako vidieť peniaze",
+                "Chrumko pochopí, že peniaze nemusí držať v ruke"
+              ],
+              "explanation": "Chrumko sa naučí o moderných bankových systémoch."
+            }
+          ]
+        },
+        {
+          "lessonId": 10002,
+          "lessonNumber": 2,
+          "lessonName": "Bankový účet",
+          "questions": [
+            {
+              "questionId": "10002_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je bankový účet?",
+              "options": [
+                "Miesto, kde sa hrá",
+                "Miesto, kde má každý človek svoje peniaze evidované",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Bankový účet je miesto, kde má každý človekon svoje peniaze zapísané. Každý účet patrí konkrétnemu majiteľovi."
+            },
+            {
+              "questionId": "10002_02",
+              "questionType": "scenario",
+              "question": "Ako vidí otec stav svojho účtu?",
+              "options": [
+                "Vôbec ho nevidí",
+                "Kontroluje ho v mobile - vidí, koľko peňazí je momentálne na účte",
+                "Choká do banky",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Otec si otvorí mobilnú aplikáciu banky a vidí, koľko peňazí je na jeho účte."
+            },
+            {
+              "questionId": "10002_03",
+              "questionType": "trueFalse",
+              "question": "Keď sa zaplatí alebo príde peniaze, suma na účte sa zmení.",
+              "correctAnswer": 0,
+              "explanation": "Bankový účet je dynamický - zmeny sa odrážajú okamžite."
+            },
+            {
+              "questionId": "10002_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Bankový účet má v banke každá osoba.",
+                "Suma na účte sa vidí v mobilnej aplikácii.",
+                "Bankový účet je len číslo bez skutočných peňazí."
+              ],
+              "correctAnswer": 2,
+              "explanation": "Bankový účet predstavuje skutočné peniaze, aj keď sú digitálne."
+            },
+            {
+              "questionId": "10002_05",
+              "questionType": "matching",
+              "question": "Spáruj operáciu s vplyvom na účet.",
+              "matchLeft": ["Príjem výplaty", "Platba kartou", "Prevod priateľovi", "Vklad v banke"],
+              "matchRight": ["Suma sa zvýši", "Suma sa zmenší", "Suma sa zmenší", "Suma sa zvýši"],
+              "explanation": "Rozmanité transakcie ovplyvňujú stav účtu."
+            },
+            {
+              "questionId": "10002_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď transakcie podľa ich vplyvu na stav účtu.",
+              "dragLabels": ["Výplata", "Nákup v obchode", "Bonus", "Platba za účty"],
+              "dragTargets": [
+                { "label": "Suma rastie", "correctItems": ["Výplata", "Bonus"] },
+                { "label": "Suma klesá", "correctItems": ["Nákup v obchode", "Platba za účty"] }
+              ],
+              "explanation": "Transakcie majú rôzne smery toku peňazí."
+            },
+            {
+              "questionId": "10002_07",
+              "questionType": "multipleChoice",
+              "question": "Čo je dôležité na bankovom účte?",
+              "options": [
+                "Všetko je chaotické",
+                "Že vidí presný stav peňazí a všetky transakcie",
+                "Bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Bankový účet funguje ako prehľad peňazí - vidí sa všetko presne."
+            }
+          ]
+        },
+        {
+          "lessonId": 10003,
+          "lessonNumber": 3,
+          "lessonName": "Platobná karta",
+          "questions": [
+            {
+              "questionId": "10003_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je platobná karta?",
+              "options": [
+                "Len papier",
+                "Nástroj, ktorý sa používa na platenie peniazmi z účtu",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Platobná karta je nástroj, ktorý umožňuje platiť peniazmi z bankového účtu bez fyzickej hotovosti."
+            },
+            {
+              "questionId": "10003_02",
+              "questionType": "scenario",
+              "question": "Chrumko ide s mamou do obchodu. Ako mama platí?",
+              "options": [
+                "Hotovosťou",
+                "Kartou - vloží ju do terminálu",
+                "Požičianím si peňazí",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama vloží kartu do terminálu pri pokladni a zaplatí kartou namiesto hotovosti."
+            },
+            {
+              "questionId": "10003_03",
+              "questionType": "trueFalse",
+              "question": "Karta je len nástroj - skutočné peniaze sú uložené v banke.",
+              "correctAnswer": 0,
+              "explanation": "Karta dáva prístup k peniazom, ale nie sú to samotné peniaze."
+            },
+            {
+              "questionId": "10003_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Platobná karta sa vkladá do terminálu.",
+                "Karta je peniaze.",
+                "Po zaplatení sa suma odpočíta z účtu."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Karta nie sú peniaze - je to nástroj na prístup k peniazom."
+            },
+            {
+              "questionId": "10003_05",
+              "questionType": "matching",
+              "question": "Spáruj výhodu s jej opisom.",
+              "matchLeft": ["Bezpečnosť", "Pohodlnosť", "Prehľad", "Ochrana"],
+              "matchRight": ["Nemusím nosiť veľa hotovosti", "Presný záznam transakcií", "Karta je chránená", "Karta je bezpečná"],
+              "explanation": "Platobné karty majú viaceré výhody."
+            },
+            {
+              "questionId": "10003_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď činnosti podľa ich bezpečnosti.",
+              "dragLabels": ["Nosiť hotovosť v peňaženke", "Platiť kartou", "Dať peniaze cudzincovi", "Skryť peňaze doma"],
+              "dragTargets": [
+                { "label": "Bezpečné", "correctItems": ["Platiť kartou", "Skryť peňaze doma"] },
+                { "label": "Menej bezpečné", "correctItems": ["Nosiť hotovosť v peňaženke", "Dať peniaze cudzincovi"] }
+              ],
+              "explanation": "Rôzne metódy majú rôzne úrovne bezpečnosti."
+            },
+            {
+              "questionId": "10003_07",
+              "questionType": "multipleChoice",
+              "question": "Čo si Chrumko pochopí o karte?",
+              "options": [
+                "Karta sú peniaze",
+                "Karta len pomáha používať peniaze, ktoré sú uložené v banke",
+                "Bez podľa",
+                "Všetko je chaotické"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že karta je len nástroj. Skutočné peniaze sú uložené v banke."
+            }
+          ]
+        },
+        {
+          "lessonId": 10004,
+          "lessonNumber": 4,
+          "lessonName": "PIN",
+          "questions": [
+            {
+              "questionId": "10004_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je PIN?",
+              "options": [
+                "Priateľ",
+                "Krátky číselný kód, ktorý chráni platobnú kartu",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "PIN je krátky číselný kód, ktorý chráni platobnú kartu. Pomáha potvrdiť, že kartu používa správny človek."
+            },
+            {
+              "questionId": "10004_02",
+              "questionType": "scenario",
+              "question": "Čo si všimne Chrumko, keď mama platí?",
+              "options": [
+                "Mama všetko ukazuje",
+                "Mama zakrýva rukou klávesnicu, keď zadáva PIN",
+                "PIN je verejný",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Mama zakrýva klávesnicu, keď zadáva PIN. Chce, aby PIN nikto nevidel."
+            },
+            {
+              "questionId": "10004_03",
+              "questionType": "trueFalse",
+              "question": "PIN je tajný kód, ktorý by mal vedieť len majiteľ karty.",
+              "correctAnswer": 0,
+              "explanation": "PIN je osobná bezpečnostná informácia."
+            },
+            {
+              "questionId": "10004_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "PIN chráni platobnú kartu.",
+                "PIN by mal vedieť len majiteľ karty.",
+                "PIN by mal byť verejný a každý by ho mal vedieť."
+              ],
+              "correctAnswer": 2,
+              "explanation": "PIN musí zostať tajný - to je celý jeho účel."
+            },
+            {
+              "questionId": "10004_05",
+              "questionType": "matching",
+              "question": "Spáruj bezpečnostnú praktiku s jej účelom.",
+              "matchLeft": ["Zakrytie klávesnice", "Neuviednutie PINu cudzincovi", "Nepisanie PINu na kartu", "Zmena PINu pravidelne"],
+              "matchRight": ["Nikto nevidí kód", "Ochrana pred krádežou", "Karta nie je zraniteľná", "Zvýšenie bezpečnosti"],
+              "explanation": "Rôzne praktiky posilňujú bezpečnosť."
+            },
+            {
+              "questionId": "10004_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď činnosti podľa ich bezpečnosti.",
+              "dragLabels": ["Napísať PIN na papier", "Memorovať PIN", "Zdieľať PIN s priateľom", "Meniť PIN pravidelne"],
+              "dragTargets": [
+                { "label": "Bezpečné", "correctItems": ["Memorovať PIN", "Meniť PIN pravidelne"] },
+                { "label": "Nebezpečné", "correctItems": ["Napísať PIN na papier", "Zdieľať PIN s priateľom"] }
+              ],
+              "explanation": "Rôzne prístupy k PIN majú rôzne rizika."
+            },
+            {
+              "questionId": "10004_07",
+              "questionType": "multipleChoice",
+              "question": "Prečo je dôležité chránit PIN?",
+              "options": [
+                "Bez dôvodu",
+                "Ak by ho niekto cudzí poznal spolu s kartou, mohol by používať cudzie peniaze",
+                "Všetko je verejné",
+                "Bez zmyslu"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Ak by ho niekto poznal spolu s kartou, mohol by používať cudzie peniaze. Preto je bezpečnosť dôležitá."
+            }
+          ]
+        },
+        {
+          "lessonId": 10005,
+          "lessonNumber": 5,
+          "lessonName": "Prevod peňazí",
+          "questions": [
+            {
+              "questionId": "10005_01",
+              "questionType": "multipleChoice",
+              "question": "Čo je prevod peňazí?",
+              "options": [
+                "Fyzické nosenie peňazí",
+                "Poslanie peňazí z jedného účtu na druhý elektronicky",
+                "Bez zmyslu",
+                "Nič podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Prevod peňazí znamená poslanie peňazí z jedného účtu na druhý cez bankový systém."
+            },
+            {
+              "questionId": "10005_02",
+              "questionType": "scenario",
+              "question": "Prečo sa prevádzajú peniaze?",
+              "options": [
+                "Bez dôvodu",
+                "Na zaplatenie účtov alebo na poslanie peňazí medzi ľuďmi",
+                "Všetko je chaotické",
+                "Bez podľa"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Prevody sa používajú na platenie účtov alebo na poslanie peňazí napríklad blízkym osobám."
+            },
+            {
+              "questionId": "10005_03",
+              "questionType": "trueFalse",
+              "question": "Dnes sa peniaze pohybujú digitálne bez fyzického nosenia.",
+              "correctAnswer": 0,
+              "explanation": "Digitálne prevody sú moderný spôsob presunu peňazí."
+            },
+            {
+              "questionId": "10005_04",
+              "questionType": "spotMistake",
+              "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
+              "options": [
+                "Prevody sa vykonávajú elektronicky cez banku.",
+                "Prevody sú len fyzické donášanie peňazí.",
+                "Prevody sa používajú na platenie účtov."
+              ],
+              "correctAnswer": 1,
+              "explanation": "Moderné prevody sú primárne elektronické."
+            },
+            {
+              "questionId": "10005_05",
+              "questionType": "matching",
+              "question": "Spáruj typ prevodu s jeho účelom.",
+              "matchLeft": ["Prevod na elektrinu", "Prevod na rodinu", "Prevod priateľovi", "Prevod na školný účet"],
+              "matchRight": ["Poplatok za služby", "Finančná pomoc", "Dlh", "Školský poplatek"],
+              "explanation": "Prevody majú rôzne účely."
+            },
+            {
+              "questionId": "10005_06",
+              "questionType": "dragDrop",
+              "question": "Zaraď prevody podľa ich zložitosti.",
+              "dragLabels": ["Domáci prevod", "Zahraničný prevod", "Prevod priateľovi", "Prevod do veľkej banky"],
+              "dragTargets": [
+                { "label": "Jednoduché", "correctItems": ["Domáci prevod", "Prevod priateľovi"] },
+                { "label": "Zložitejšie", "correctItems": ["Zahraničný prevod", "Prevod do veľkej banky"] }
+              ],
+              "explanation": "Rôzne prevody majú rôznu úroveň zložitosti."
+            },
+            {
+              "questionId": "10005_07",
+              "questionType": "multipleChoice",
+              "question": "Čo si Chrumko pochopí o prevodoch?",
+              "options": [
+                "Všetko je chaotické",
+                "Dnes sa peniaze často pohybujú digitálne bez toho, aby ich fyzicky prenášal",
+                "Bez podľa",
+                "Všetko je náhodné"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Chrumko si uvedomí, že dnes sa peniaze často pohybujú digitálne bez toho, aby ich fyzicky prenášal."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
