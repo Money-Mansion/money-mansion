@@ -11,7 +11,53 @@ import '../services/app_localizations_provider.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
 
-enum ChartPeriod { days30, days90, days180 }
+enum ChartPeriod { oneMonth, threeMonths, sixMonths, oneYear, custom }
+
+@visibleForTesting
+DateTime subtractChartMonths(DateTime date, int months) {
+  final targetMonth = DateTime(date.year, date.month - months, 1);
+  final lastDay = DateTime(targetMonth.year, targetMonth.month + 1, 0).day;
+  final day = date.day > lastDay ? lastDay : date.day;
+  return DateTime(targetMonth.year, targetMonth.month, day);
+}
+
+@visibleForTesting
+List<double> buildFinancialChartDailyData({
+  required List<TransactionModel> transactions,
+  required DateTimeRange range,
+}) {
+  if (transactions.isEmpty) return const [];
+
+  final dailyChanges = List<double>.filled(
+    range.end.difference(range.start).inDays + 1,
+    0,
+  );
+  var balanceBeforeRange = 0.0;
+
+  for (final transaction in transactions) {
+    final transactionDate = DateTime(
+      transaction.date.year,
+      transaction.date.month,
+      transaction.date.day,
+    );
+    final amount =
+        transaction.type == '+' ? transaction.amount : -transaction.amount;
+    if (transactionDate.isBefore(range.start)) {
+      balanceBeforeRange += amount;
+    } else if (!transactionDate.isAfter(range.end)) {
+      final dayIndex = transactionDate.difference(range.start).inDays;
+      dailyChanges[dayIndex] += amount;
+    }
+  }
+
+  var runningBalance = balanceBeforeRange;
+  for (var i = 0; i < dailyChanges.length; i++) {
+    runningBalance += dailyChanges[i];
+    dailyChanges[i] = runningBalance;
+  }
+
+  return dailyChanges;
+}
 
 class FinancialManagementScreen extends StatefulWidget {
   final GameState gameState;
@@ -34,7 +80,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   final List<TransactionModel> _transactions = [];
   bool _isLoading = true;
   late DateTime _selectedMonth;
-  ChartPeriod _selectedChartPeriod = ChartPeriod.days180;
+  ChartPeriod _selectedChartPeriod = ChartPeriod.oneMonth;
+  DateTimeRange? _customChartRange;
+  final ValueNotifier<int?> _touchedChartIndex = ValueNotifier(null);
 
   @override
   void initState() {
@@ -66,6 +114,7 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   @override
   void dispose() {
     _tabController.dispose();
+    _touchedChartIndex.dispose();
     super.dispose();
   }
 
@@ -92,7 +141,9 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   void _applyTransaction(TransactionModel t) {
     // All transactions now directly affect balance (no goalId)
     final double amount = t.amount;
-    t.type == '+' ? widget.gameState.addMoney(amount) : widget.gameState.spendMoney(amount);
+    t.type == '+'
+        ? widget.gameState.addMoney(amount)
+        : widget.gameState.spendMoney(amount);
   }
 
   void _revertTransaction(TransactionModel t) {
@@ -550,12 +601,11 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   }
 
   Widget _buildMonthlyLineChart(AppLocalizationsProvider l10n) {
-    // Get daily data for selected period
+    final chartRange = _getChartDateRange();
     final dailyData = _getDailyData();
     if (dailyData.isEmpty) {
       return Column(
         children: [
-          _buildChartPeriodSelector(l10n),
           Expanded(
             child: Center(
               child: Text(
@@ -564,153 +614,266 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
               ),
             ),
           ),
+          _buildChartPeriodSelector(l10n),
         ],
       );
     }
 
-    // Create line chart spots
-    final spots = <FlSpot>[];
-    for (int i = 0; i < dailyData.length; i++) {
-      spots.add(FlSpot(i.toDouble(), dailyData[i]));
-    }
-
-    final startDate = _getChartStartDate();
-    // Normalize start date to midnight
-    final startDateNormalized =
-        DateTime(startDate.year, startDate.month, startDate.day);
-    final labelStep = _getLabelStep(dailyData.length);
+    final spots = dailyData.length == 1
+        ? [FlSpot(0, dailyData.first), FlSpot(1, dailyData.first)]
+        : List.generate(
+            dailyData.length,
+            (index) => FlSpot(index.toDouble(), dailyData[index]),
+          );
+    final lowestValue = dailyData.reduce((a, b) => a < b ? a : b);
+    final highestValue = dailyData.reduce((a, b) => a > b ? a : b);
+    final valueRange = highestValue - lowestValue;
+    final verticalPadding = valueRange == 0
+        ? (highestValue.abs() * 0.1).clamp(1.0, double.infinity).toDouble()
+        : valueRange * 0.12;
+    final guideColor =
+        Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5);
 
     return Column(
       children: [
-        _buildChartPeriodSelector(l10n),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: LineChart(
-              LineChartData(
-                gridData: FlGridData(show: true),
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        final index = value.toInt();
-                        if (index < 0 ||
-                            index >= dailyData.length ||
-                            index % labelStep != 0) {
-                          return const SizedBox.shrink();
-                        }
-                        final date =
-                            startDateNormalized.add(Duration(days: index));
-                        return Text(
-                          '${date.day}.${date.month}.',
-                          style: const TextStyle(fontSize: 10),
-                        );
-                      },
-                      reservedSize: 30,
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+            child: ValueListenableBuilder<int?>(
+              valueListenable: _touchedChartIndex,
+              builder: (context, touchedValue, _) {
+                final touchedIndex =
+                    touchedValue?.clamp(0, dailyData.length - 1).toInt();
+                final lineBarData = LineChartBarData(
+                  spots: spots,
+                  isCurved: false,
+                  color: const Color(0xFF16A9E0),
+                  barWidth: 3,
+                  isStrokeCapRound: true,
+                  dotData: const FlDotData(show: false),
+                  showingIndicators:
+                      touchedIndex == null ? const [] : [touchedIndex],
+                  belowBarData: BarAreaData(
+                    show: true,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0x4016A9E0), Color(0x0016A9E0)],
                     ),
                   ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        return Text(
-                          _formatAmount(value.roundToDouble()),
-                          style: const TextStyle(fontSize: 10),
-                        );
-                      },
-                      reservedSize: 50,
+                );
+                return LayoutBuilder(
+                  builder: (context, constraints) => GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onHorizontalDragStart: (details) =>
+                        _updateTouchedChartIndex(
+                      details.localPosition.dx,
+                      constraints.maxWidth,
+                      dailyData.length,
+                    ),
+                    onHorizontalDragUpdate: (details) =>
+                        _updateTouchedChartIndex(
+                      details.localPosition.dx,
+                      constraints.maxWidth,
+                      dailyData.length,
+                    ),
+                    onHorizontalDragEnd: (_) => _clearTouchedChartIndex(),
+                    onHorizontalDragCancel: _clearTouchedChartIndex,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: LineChart(
+                            LineChartData(
+                              minX: 0,
+                              maxX: spots.last.x,
+                              minY: lowestValue - verticalPadding,
+                              maxY: highestValue + verticalPadding,
+                              gridData: const FlGridData(show: false),
+                              titlesData: const FlTitlesData(show: false),
+                              borderData: FlBorderData(show: false),
+                              lineTouchData: LineTouchData(
+                                enabled: false,
+                                handleBuiltInTouches: false,
+                                getTouchLineStart: (_, __) =>
+                                    lowestValue - verticalPadding,
+                                getTouchLineEnd: (_, __) =>
+                                    highestValue + verticalPadding,
+                                getTouchedSpotIndicator:
+                                    (barData, spotIndexes) {
+                                  return spotIndexes
+                                      .map(
+                                        (_) => TouchedSpotIndicatorData(
+                                          FlLine(
+                                            color: guideColor,
+                                            strokeWidth: 1.5,
+                                          ),
+                                          const FlDotData(show: false),
+                                        ),
+                                      )
+                                      .toList();
+                                },
+                              ),
+                              lineBarsData: [lineBarData],
+                            ),
+                            duration: Duration.zero,
+                          ),
+                        ),
+                        if (touchedIndex != null)
+                          _buildChartTooltipOverlay(
+                            chartSize: Size(
+                              constraints.maxWidth,
+                              constraints.maxHeight,
+                            ),
+                            index: touchedIndex,
+                            values: dailyData,
+                            range: chartRange,
+                            minY: lowestValue - verticalPadding,
+                            maxY: highestValue + verticalPadding,
+                            l10n: l10n,
+                          ),
+                      ],
                     ),
                   ),
-                ),
-                borderData: FlBorderData(show: true),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: false,
-                    color: Colors.blue,
-                    barWidth: 2,
-                    dotData: FlDotData(show: true),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      color: Colors.blue.withOpacity(0.1),
-                    ),
-                  ),
-                ],
-                minY: dailyData.reduce((a, b) => a < b ? a : b) * 0.9,
-                maxY: dailyData.reduce((a, b) => a > b ? a : b) * 1.1,
-              ),
+                );
+              },
             ),
           ),
         ),
+        _buildChartPeriodSelector(l10n),
       ],
     );
   }
 
-  DateTime _getChartStartDate() {
+  Widget _buildChartTooltipOverlay({
+    required Size chartSize,
+    required int index,
+    required List<double> values,
+    required DateTimeRange range,
+    required double minY,
+    required double maxY,
+    required AppLocalizationsProvider l10n,
+  }) {
+    const tooltipWidth = 124.0;
+    const tooltipHeight = 50.0;
+    const pointGap = 10.0;
+
+    final horizontalFraction =
+        values.length <= 1 ? 0.5 : index / (values.length - 1);
+    final pointX = horizontalFraction * chartSize.width;
+    final valueRange = maxY - minY;
+    final verticalFraction = valueRange == 0
+        ? 0.5
+        : ((values[index] - minY) / valueRange).clamp(0.0, 1.0);
+    final pointY = chartSize.height * (1 - verticalFraction);
+
+    final left = (pointX - tooltipWidth / 2)
+        .clamp(0.0, chartSize.width - tooltipWidth)
+        .toDouble();
+    final preferredTop = pointY < chartSize.height / 2
+        ? pointY + pointGap
+        : pointY - tooltipHeight - pointGap;
+    final top =
+        preferredTop.clamp(0.0, chartSize.height - tooltipHeight).toDouble();
+    final date = range.start.add(Duration(days: index));
+
+    return Positioned(
+      left: left,
+      top: top,
+      width: tooltipWidth,
+      height: tooltipHeight,
+      child: IgnorePointer(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.black.withValues(alpha: 0.08),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.12),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                l10n.translate(
+                  'chartTooltipDateValue',
+                  replacements: {
+                    'date': _formatChartDate(date, l10n),
+                    'value': _formatAmount(values[index]),
+                  },
+                ),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  height: 1.25,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _updateTouchedChartIndex(
+    double localX,
+    double chartWidth,
+    int dataLength,
+  ) {
+    if (chartWidth <= 0 || dataLength <= 0) return;
+    final fraction = (localX / chartWidth).clamp(0.0, 1.0);
+    final index = (fraction * (dataLength - 1)).round();
+    if (_touchedChartIndex.value == index) return;
+    _touchedChartIndex.value = index;
+  }
+
+  void _clearTouchedChartIndex() {
+    if (_touchedChartIndex.value == null) return;
+    _touchedChartIndex.value = null;
+  }
+
+  DateTimeRange _getChartDateRange() {
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     switch (_selectedChartPeriod) {
-      case ChartPeriod.days30:
-        return now.subtract(const Duration(days: 30));
-      case ChartPeriod.days90:
-        return now.subtract(const Duration(days: 90));
-      case ChartPeriod.days180:
-        return now.subtract(const Duration(days: 180));
+      case ChartPeriod.oneMonth:
+        return DateTimeRange(start: subtractChartMonths(today, 1), end: today);
+      case ChartPeriod.threeMonths:
+        return DateTimeRange(start: subtractChartMonths(today, 3), end: today);
+      case ChartPeriod.sixMonths:
+        return DateTimeRange(start: subtractChartMonths(today, 6), end: today);
+      case ChartPeriod.oneYear:
+        return DateTimeRange(start: subtractChartMonths(today, 12), end: today);
+      case ChartPeriod.custom:
+        return _customChartRange ??
+            DateTimeRange(start: subtractChartMonths(today, 1), end: today);
     }
   }
 
-  int _getLabelStep(int totalDays) {
-    if (totalDays <= 40) {
-      return 5;
-    } else if (totalDays <= 100) {
-      return 10;
-    } else {
-      return 20;
+  String _formatChartDate(
+    DateTime date,
+    AppLocalizationsProvider l10n,
+  ) {
+    if (l10n.currentLanguage == 'sk') {
+      return '${date.day}. ${date.month}. ${date.year}';
     }
+    return '${date.month}/${date.day}/${date.year}';
   }
 
   List<double> _getDailyData() {
-    final now = DateTime.now();
-    final startDate = _getChartStartDate();
-
-    // Normalize dates to midnight to avoid time-based precision issues
-    final startDateNormalized =
-        DateTime(startDate.year, startDate.month, startDate.day);
-    final nowNormalized = DateTime(now.year, now.month, now.day);
-
-    // Calculate days between start date and now
-    final daysDifference = nowNormalized.difference(startDateNormalized).inDays;
-    final dailyTotals = List<double>.filled(daysDifference + 1, 0.0);
-
-    // Populate daily totals - all transactions are simple income/expenses
-    for (final t in _transactions) {
-      final tDateNormalized = DateTime(t.date.year, t.date.month, t.date.day);
-      if (tDateNormalized.isAfter(startDateNormalized) ||
-          tDateNormalized.isAtSameMomentAs(startDateNormalized)) {
-        if (tDateNormalized.isBefore(nowNormalized) ||
-            tDateNormalized.isAtSameMomentAs(nowNormalized)) {
-          final dayIndex =
-              tDateNormalized.difference(startDateNormalized).inDays;
-          if (dayIndex >= 0 && dayIndex < dailyTotals.length) {
-            final amount = t.type == '+' ? t.amount : -t.amount;
-            dailyTotals[dayIndex] += amount;
-          }
-        }
-      }
-    }
-
-    // Convert daily totals to cumulative balance
-    for (int i = 1; i < dailyTotals.length; i++) {
-      dailyTotals[i] += dailyTotals[i - 1];
-    }
-
-    return dailyTotals;
+    return buildFinancialChartDailyData(
+      transactions: _transactions,
+      range: _getChartDateRange(),
+    );
   }
 
   Widget _buildMonthSelector(AppLocalizationsProvider l10n) {
@@ -779,22 +942,27 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildPeriodButton(
-            label: l10n.translate('chart30Days'),
-            period: ChartPeriod.days30,
-            l10n: l10n,
+            label: l10n.translate('chart1Month'),
+            period: ChartPeriod.oneMonth,
           ),
           _buildPeriodButton(
-            label: l10n.translate('chartQuarter'),
-            period: ChartPeriod.days90,
-            l10n: l10n,
+            label: l10n.translate('chart3Months'),
+            period: ChartPeriod.threeMonths,
           ),
           _buildPeriodButton(
             label: l10n.translate('chartHalfYear'),
-            period: ChartPeriod.days180,
-            l10n: l10n,
+            period: ChartPeriod.sixMonths,
+          ),
+          _buildPeriodButton(
+            label: l10n.translate('chart1Year'),
+            period: ChartPeriod.oneYear,
+          ),
+          _buildPeriodButton(
+            label: l10n.translate('chartCustom'),
+            period: ChartPeriod.custom,
+            onPressed: _pickCustomChartRange,
           ),
         ],
       ),
@@ -804,21 +972,95 @@ class _FinancialManagementScreenState extends State<FinancialManagementScreen>
   Widget _buildPeriodButton({
     required String label,
     required ChartPeriod period,
-    required AppLocalizationsProvider l10n,
+    VoidCallback? onPressed,
   }) {
     final isSelected = _selectedChartPeriod == period;
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: isSelected ? Colors.blue : Colors.grey[300],
-        foregroundColor: isSelected ? Colors.white : Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: Material(
+          key: ValueKey('chart_period_${period.name}'),
+          color: isSelected
+              ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(18),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: onPressed ??
+                () {
+                  setState(() => _selectedChartPeriod = period);
+                },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+                style: TextStyle(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.55),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
-      onPressed: () {
-        setState(() {
-          _selectedChartPeriod = period;
-        });
-      },
-      child: Text(label),
     );
+  }
+
+  Future<void> _pickCustomChartRange() async {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    var firstDate = today;
+    for (final transaction in _transactions) {
+      final date = DateTime(
+        transaction.date.year,
+        transaction.date.month,
+        transaction.date.day,
+      );
+      if (date.isBefore(firstDate)) firstDate = date;
+    }
+
+    final initialRange = _customChartRange ??
+        DateTimeRange(start: subtractChartMonths(today, 1), end: today);
+    if (initialRange.start.isBefore(firstDate)) {
+      firstDate = initialRange.start;
+    }
+
+    final selectedRange = await showDateRangePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: today,
+      currentDate: today,
+      initialDateRange: initialRange,
+      helpText: context
+          .read<AppLocalizationsProvider>()
+          .translate('chartCustomRange'),
+    );
+    if (selectedRange == null || !mounted) return;
+
+    setState(() {
+      _customChartRange = DateTimeRange(
+        start: DateTime(
+          selectedRange.start.year,
+          selectedRange.start.month,
+          selectedRange.start.day,
+        ),
+        end: DateTime(
+          selectedRange.end.year,
+          selectedRange.end.month,
+          selectedRange.end.day,
+        ),
+      );
+      _selectedChartPeriod = ChartPeriod.custom;
+    });
   }
 }

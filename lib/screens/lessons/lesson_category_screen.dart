@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/lesson.dart';
+import '../../services/app_localizations_provider.dart';
 import '../../services/lesson_progress_database_service.dart';
 import 'lesson_detail_screen.dart';
 
@@ -39,6 +41,7 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.watch<AppLocalizationsProvider>();
     final progressPercent = (_progressFraction * 100).round();
 
     return Scaffold(
@@ -157,7 +160,7 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
                   ),
                   subtitle: opened
                       ? Text(
-                          'Completed',
+                          l10n.translate('lessonCompleted'),
                           style: TextStyle(
                             fontSize: 11,
                             color: Colors.green[600],

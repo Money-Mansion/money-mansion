@@ -559,7 +559,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       label: 'Quiz Streak:',
                       value: '${snapshot.data ?? 0}',
                       valueColor: const Color.fromARGB(255, 149, 117, 205),
-                      icon: 'ðŸ”¥',
+                      icon: '🔥',
                     ),
                   ),
                 ],
