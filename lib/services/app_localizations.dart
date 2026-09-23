@@ -352,7 +352,13 @@ class AppLocalizations {
       // Chart period buttons
       'chart30Days': '30 days',
       'chartQuarter': 'Quarter',
-      'chartHalfYear': 'Half year',
+      'chart1Month': '1M',
+      'chart3Months': '3M',
+      'chartHalfYear': '6M',
+      'chart1Year': '1Y',
+      'chartCustom': 'Custom',
+      'chartCustomRange': 'Select chart range',
+      'chartTooltipDateValue': '{date}\n{value}',
 
       // Additional missing texts
       'pickDate': 'Pick Date',
@@ -390,6 +396,7 @@ class AppLocalizations {
       // Chrumko learning
       'quizes': 'Quizes',
       'lessons': 'Lessons',
+      'lessonCompleted': 'Completed',
 
       // Quiz screens
       'quizResults': 'Quiz Results',
@@ -803,7 +810,13 @@ class AppLocalizations {
       // Chart period buttons
       'chart30Days': '30 dní',
       'chartQuarter': 'Štvrťrok',
-      'chartHalfYear': 'Polrok',
+      'chart1Month': '1M',
+      'chart3Months': '3M',
+      'chartHalfYear': '6M',
+      'chart1Year': '1R',
+      'chartCustom': 'Vlastné',
+      'chartCustomRange': 'Vyberte rozsah grafu',
+      'chartTooltipDateValue': '{date}\n{value}',
       // Additional missing texts
       'pickDate': 'Vyberte dátum',
       'enterGoalTitle': 'Prosím zadajte názov cieľa',
@@ -840,6 +853,7 @@ class AppLocalizations {
       // Chrumko learning
       'quizes': 'Kvízy',
       'lessons': 'Lekcie',
+      'lessonCompleted': 'Dokončené',
 
       // Chrumko tips bubble
       'chrumkoTipLabel': 'Tip od Chrumka 💡',
