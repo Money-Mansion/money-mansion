@@ -1523,8 +1523,8 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       titleSk: 'Zľavy - pravda',
       facts: [
         FactItem(emoji: '📣', text: 'Shops use discounts to attract customers and sell more', textSk: 'Obchody používajú zľavy, aby nalákali zákazníkov a predali viac'),
-        FactItem(emoji: '❓', text: 'Ask: would I buy this at the normal price?', textSk: 'Opýtaj sa: kúpil by som si toto za normálnu cenu?'),
-        FactItem(emoji: '🚫', text: 'Buying something just because it\'s discounted wastes money', textSk: 'Kúpa len preto, že je zlacnená, plytvá peniazmi'),
+        FactItem(emoji: '❓', text: 'Ask: Do I want to buy it just because of the discount?', textSk: 'Opýtaj sa: chcem si to kúpiť iba kvôli zľave?'),
+        FactItem(emoji: '➗', text: 'To calculate how many euros you save after the discount, use the following formula: price × percentage ÷ 100', textSk: 'O koľko eur platíš menej po zľave vypočítaš: cena x percentá ÷ 100'),
       ],
       accentColor: Color(0xFFAD1457),
     ),
@@ -1602,7 +1602,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       storyTitle: 'Gum at the Checkout',
       storyTitleSk: 'Žuvačky pri pokladni',
       storyBody: 'Chrumko stands with his mum at the checkout. While waiting in line he sees colourful chewing gum right by the till - placed exactly where everyone notices it. He instantly wants some. Then he remembers he still has sweets at home from yesterday. He waits and in the end doesn\'t buy the gum. The craving passes quickly.',
-      storyBodySk: 'Chrumko stojí s mamou pri pokladni. Kým čakajú v rade, uvidí farebné žuvačky hneď pri kase - umiestnené presne tam, kde si ich každý všimne. Hneď ich chce. Potom si spomenie, že doma má ešte sladkosť z včera. Počká a nakoniec si žuvačky nekúpi. Chuť rýchlo prešla.',
+      storyBodySk: 'Chrumko stojí s mamou pri pokladni. Kým čakajú v rade, uvidí farebné žuvačky hneď pri kase - umiestnené presne tam, kde si ich každý všimne. Hneď ich chce. Potom si spomenie, že doma má ešte sladkosť zo včera. Počká a nakoniec si žuvačky nekúpi. Chuť rýchlo prešla.',
       accentColor: Color(0xFF6A1B9A),
     ),
     LessonSlide(
