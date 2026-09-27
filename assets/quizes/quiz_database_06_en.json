@@ -121,11 +121,11 @@
                 "Store decoration and lighting"
               ],
               "matchRight": [
-                "The farther goods are transported, the more expensive they are",
                 "The store has to pay a salary to every worker",
+                "The farther goods are transported, the more expensive they are",
                 "Part of the visual costs"
               ],
-              "correctAnswer": [0, 1, 2],
+              "correctAnswer": [1, 0, 2],
               "orderItems": [],
               "dragLabels": [],
               "dragTargets": [],
@@ -451,11 +451,9 @@
               ],
               "dragTargets": [
                 "Affects actual quality",
-                "Affects perception only",
-                "Affects perception only",
-                "Affects actual quality"
+                "Affects perception only"
               ],
-              "correctAnswer": [1, 0, 2, 3],
+              "correctAnswer": [1, 0, 1, 0],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -596,11 +594,9 @@
               ],
               "dragTargets": [
                 "Likely triggers impulse buying",
-                "Likely triggers impulse buying",
-                "Unlikely to trigger impulse buying",
-                "Likely triggers impulse buying"
+                "Unlikely to trigger impulse buying"
               ],
-              "correctAnswer": [0, 1, 2, 3],
+              "correctAnswer": [0, 0, 1, 0],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -777,11 +773,9 @@
               ],
               "dragTargets": [
                 "Should influence your decision",
-                "Should influence your decision",
-                "Shouldn't be your main guide",
                 "Shouldn't be your main guide"
               ],
-              "correctAnswer": [0, 1, 2, 3],
+              "correctAnswer": [0, 0, 1, 1],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],

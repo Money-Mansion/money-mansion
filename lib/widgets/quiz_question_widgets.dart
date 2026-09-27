@@ -468,11 +468,29 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 
   bool get _allMatched => _userMatches.every((m) => m != null);
 
+  /// The text of the correct matchRight entry for matchLeft[i].
+  ///
+  /// matchLeft/matchRight are two independently-ordered lists; the JSON
+  /// data links them via correctAnswer (correctAnswerList here), which
+  /// gives, for each left index i, the index into matchRight that is the
+  /// correct pairing. matchRight[i] is NOT guaranteed to already be the
+  /// answer for matchLeft[i] — always go through correctAnswerList.
+  String _correctRightTextFor(int leftIndex) {
+    final correctList = widget.question.correctAnswerList;
+    final rightIndex = leftIndex < correctList.length
+        ? correctList[leftIndex]
+        : leftIndex;
+    if (rightIndex < 0 || rightIndex >= widget.question.matchRight.length) {
+      return '';
+    }
+    return widget.question.matchRight[rightIndex];
+  }
+
   void _submit() {
     bool allCorrect = true;
     for (int i = 0; i < widget.question.matchLeft.length; i++) {
       final ri = _userMatches[i];
-      if (ri == null || _shuffledRight[ri] != widget.question.matchRight[i]) {
+      if (ri == null || _shuffledRight[ri] != _correctRightTextFor(i)) {
         allCorrect = false;
         break;
       }
@@ -505,7 +523,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 
           bool pairCorrect = false;
           if (_submitted && isMatched) {
-            pairCorrect = _shuffledRight[ri] == widget.question.matchRight[i];
+            pairCorrect = _shuffledRight[ri] == _correctRightTextFor(i);
           }
 
           return Padding(

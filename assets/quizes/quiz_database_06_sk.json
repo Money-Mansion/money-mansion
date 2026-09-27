@@ -121,11 +121,11 @@
                 "Výzdoba a osvetlenie obchodu"
               ],
               "matchRight": [
-                "Čím ďalej sa tovar dováža, tým je drahší",
                 "Obchod musí zaplatiť výplatu každému pracovníkovi",
+                "Čím ďalej sa tovar dováža, tým je drahší",
                 "Súčasť vizuálnych nákladov"
               ],
-              "correctAnswer": [0, 1, 2],
+              "correctAnswer": [1, 0, 2],
               "orderItems": [],
               "dragLabels": [],
               "dragTargets": [],
@@ -451,11 +451,9 @@
               ],
               "dragTargets": [
                 "Ovplyvňuje skutočnú kvalitu",
-                "Ovplyvňuje iba vnímanie",
-                "Ovplyvňuje iba vnímanie",
-                "Ovplyvňuje skutočnú kvalitu"
+                "Ovplyvňuje iba vnímanie"
               ],
-              "correctAnswer": [1, 0, 2, 3],
+              "correctAnswer": [1, 0, 1, 0],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -491,7 +489,6 @@
               "questionType": "multipleChoice",
               "question": "Kde sa impulzívne nákupy dejú najčastejšie?",
               "options": [
-
                 "Iba doma",
                 "Nikdy sa nedejú",
                 "Všade rovnako",
@@ -597,11 +594,9 @@
               ],
               "dragTargets": [
                 "Pravdepodobne spúšťa impulzívny nákup",
-                "Pravdepodobne spúšťa impulzívny nákup",
-                "Nepravdepodobne spúšťa impulzívny nákup",
-                "Pravdepodobne spúšťa impulzívny nákup"
+                "Nepravdepodobne spúšťa impulzívny nákup"
               ],
-              "correctAnswer": [0, 1, 2, 3],
+              "correctAnswer": [0, 0, 1, 0],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],
@@ -778,11 +773,9 @@
               ],
               "dragTargets": [
                 "Malo by ovplyvniť tvoje rozhodnutie",
-                "Malo by ovplyvniť tvoje rozhodnutie",
-                "Nemalo by byť tvojím hlavným vodidlom",
                 "Nemalo by byť tvojím hlavným vodidlom"
               ],
-              "correctAnswer": [0, 1, 2, 3],
+              "correctAnswer": [0, 0, 1, 1],
               "orderItems": [],
               "matchLeft": [],
               "matchRight": [],

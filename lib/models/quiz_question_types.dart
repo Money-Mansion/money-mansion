@@ -23,9 +23,15 @@ class QuizQuestion {
   final String question;
   final QuestionType questionType;
 
-  // ── multipleChoice, trueFalse, scenario, spotMistake ────
+  // ── multipleChoice, trueFalse, scenario, spotMistake, ordering ──
   final List<String> options;    // trueFalse: always ['True','False'] or localised equivalents
-  final int correctAnswer;       // index into options
+  final int correctAnswer;       // index into options (0 for matching/dragDrop — use correctAnswerList instead)
+
+  // ── matching, dragDrop ──────────────────────────────────
+  /// Populated when the raw JSON's "correctAnswer" is a List (matching /
+  /// dragDrop questions). Empty for question types where correctAnswer
+  /// is a single int.
+  final List<int> correctAnswerList;
 
   // ── ordering, ranking ───────────────────────────────────
   /// Items stored in CORRECT order. Widget shuffles them for display.
@@ -50,6 +56,7 @@ class QuizQuestion {
     this.questionType = QuestionType.multipleChoice,
     this.options = const [],
     this.correctAnswer = 0,
+    this.correctAnswerList = const [],
     this.orderItems = const [],
     this.matchLeft = const [],
     this.matchRight = const [],
@@ -76,12 +83,70 @@ class QuizQuestion {
         ? List<String>.from(rawOptions as List<dynamic>)
         : <String>[];
 
+    // "correctAnswer" is an int for multipleChoice/trueFalse/scenario/
+    // spotMistake/ordering, but a List<int> for matching/dragDrop.
+    // Normalize both shapes instead of blindly casting to int.
+    final rawCorrect = json['correctAnswer'];
+    var correctAnswerInt = 0;
+    var correctAnswerList = <int>[];
+    if (rawCorrect is int) {
+      correctAnswerInt = rawCorrect;
+    } else if (rawCorrect is List) {
+      correctAnswerList = rawCorrect.map((e) => e as int).toList();
+    }
+
+    final dragLabels = json['dragLabels'] != null
+        ? List<String>.from(json['dragLabels'] as List<dynamic>)
+        : <String>[];
+
+    // "dragTargets" comes in two shapes:
+    //  - list of plain strings, paired with dragLabels + correctAnswer
+    //    (index into dragTargets for each label) — used by section 6+
+    //  - list of {label, correctItem/correctItems} objects — older format
+    final rawDragTargets = json['dragTargets'];
+    var dragTargets = <DragTarget>[];
+    if (rawDragTargets != null &&
+        rawDragTargets is List &&
+        rawDragTargets.isNotEmpty) {
+      if (rawDragTargets.first is Map) {
+        dragTargets = rawDragTargets
+            .map((t) => DragTarget.fromJson(t as Map<String, dynamic>))
+            .toList();
+      } else {
+        final targetLabels = List<String>.from(rawDragTargets);
+        // correctAnswerList[labelIndex] is the TARGET index that
+        // dragLabels[labelIndex] belongs to (label -> target), NOT a
+        // dragLabels index keyed by target. Build the inverse mapping
+        // (target -> labels) so each DragTarget gets the label(s) that
+        // actually belong to it.
+        final targetToLabels =
+            List<List<String>>.generate(targetLabels.length, (_) => []);
+        for (var labelIndex = 0;
+            labelIndex < correctAnswerList.length;
+            labelIndex++) {
+          final targetIndex = correctAnswerList[labelIndex];
+          if (targetIndex >= 0 &&
+              targetIndex < targetLabels.length &&
+              labelIndex < dragLabels.length) {
+            targetToLabels[targetIndex].add(dragLabels[labelIndex]);
+          }
+        }
+        dragTargets = List.generate(targetLabels.length, (i) {
+          return DragTarget(
+            label: targetLabels[i],
+            correctItems: targetToLabels[i],
+          );
+        });
+      }
+    }
+
     return QuizQuestion(
       id: json['questionId'] as String,
       question: json['question'] as String,
       questionType: type,
       options: options,
-      correctAnswer: json['correctAnswer'] as int? ?? 0,
+      correctAnswer: correctAnswerInt,
+      correctAnswerList: correctAnswerList,
       orderItems: json['orderItems'] != null
           ? List<String>.from(json['orderItems'] as List<dynamic>)
           : [],
@@ -91,14 +156,8 @@ class QuizQuestion {
       matchRight: json['matchRight'] != null
           ? List<String>.from(json['matchRight'] as List<dynamic>)
           : [],
-      dragLabels: json['dragLabels'] != null
-          ? List<String>.from(json['dragLabels'] as List<dynamic>)
-          : [],
-      dragTargets: json['dragTargets'] != null
-          ? (json['dragTargets'] as List<dynamic>)
-              .map((t) => DragTarget.fromJson(t as Map<String, dynamic>))
-              .toList()
-          : [],
+      dragLabels: dragLabels,
+      dragTargets: dragTargets,
       explanation: json['explanation'] as String,
     );
   }
@@ -108,7 +167,8 @@ class QuizQuestion {
         'question': question,
         'questionType': questionType.name,
         'options': options,
-        'correctAnswer': correctAnswer,
+        'correctAnswer':
+            correctAnswerList.isNotEmpty ? correctAnswerList : correctAnswer,
         'orderItems': orderItems,
         'matchLeft': matchLeft,
         'matchRight': matchRight,
