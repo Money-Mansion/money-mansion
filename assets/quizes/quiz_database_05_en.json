@@ -275,21 +275,6 @@
               "explanation": "If a cheap product breaks quickly, you may need to replace it sooner, making it more expensive in the long run."
             },
             {
-              "questionId": "5003_03",
-              "questionType": "ordering",
-              "type": "practical",
-              "question": "Put the steps in order for deciding if something is a good deal.",
-              "options": [],
-              "correctAnswer": 0,
-              "orderItems": [
-                "Look at the price",
-                "Check the quality and materials",
-                "Compare it to similar products",
-                "Decide if the price matches what you get"
-              ],
-              "explanation": "A good deal requires comparing price, quality, and usefulness before buying."
-            },
-            {
               "questionId": "5003_04",
               "questionType": "multipleChoice",
               "type": "theoretical",

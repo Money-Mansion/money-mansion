@@ -12,6 +12,10 @@ class LessonQuizService {
       'assets/quizes/quiz_database_04$suffix.json',
       'assets/quizes/quiz_database_05$suffix.json',
       'assets/quizes/quiz_database_06$suffix.json',
+      'assets/quizes/quiz_database_07$suffix.json',
+      'assets/quizes/quiz_database_08$suffix.json',
+      'assets/quizes/quiz_database_09$suffix.json',
+      'assets/quizes/quiz_database_10$suffix.json',
     ];
   }
 

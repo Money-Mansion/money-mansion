@@ -275,21 +275,6 @@
               "explanation": "Ak sa lacný výrobok rýchlo pokazí, musíš ho skôr vymeniť - celkovo môže vyjsť drahšie."
             },
             {
-              "questionId": "5003_03",
-              "questionType": "ordering",
-              "type": "practical",
-              "question": "Zoraď kroky, ako zistiť, či je niečo naozaj výhodná kúpa.",
-              "options": [],
-              "correctAnswer": 0,
-              "orderItems": [
-                "Pozri sa na cenu",
-                "Skontroluj kvalitu a materiály",
-                "Porovnaj to s podobnými výrobkami",
-                "Rozhodni, či cena zodpovedá tomu, čo dostaneš"
-              ],
-              "explanation": "Výhodná kúpa si vyžaduje porovnanie ceny, kvality aj užitočnosti pred rozhodnutím."
-            },
-            {
               "questionId": "5003_04",
               "questionType": "multipleChoice",
               "type": "theoretical",

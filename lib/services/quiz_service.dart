@@ -11,6 +11,10 @@ class QuizService {
       'assets/quizes/quiz_database_04_sk.json',
       'assets/quizes/quiz_database_05_sk.json',
       'assets/quizes/quiz_database_06_sk.json',
+      'assets/quizes/quiz_database_07_sk.json',
+      'assets/quizes/quiz_database_08_sk.json',
+      'assets/quizes/quiz_database_09_sk.json',
+      'assets/quizes/quiz_database_10_sk.json',
     ],
     'en': [
       'assets/quizes/quiz_database_01_en.json',
@@ -19,6 +23,10 @@ class QuizService {
       'assets/quizes/quiz_database_04_en.json',
       'assets/quizes/quiz_database_05_en.json',
       'assets/quizes/quiz_database_06_en.json',
+      'assets/quizes/quiz_database_07_en.json',
+      'assets/quizes/quiz_database_08_en.json',
+      'assets/quizes/quiz_database_09_en.json',
+      'assets/quizes/quiz_database_10_en.json',
     ],
   };
 
