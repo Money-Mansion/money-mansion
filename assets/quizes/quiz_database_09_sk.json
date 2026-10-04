@@ -15,8 +15,8 @@
               "question": "Čo je rozpočet?",
               "options": [
                 "Plán, ktorý ukazuje, koľko peňazí máme a na čo ich chceme použiť",
-                "Zoznam náhodných čísel",
-                "Zoznam vecí, ktoré si chceme kúpiť",
+                "Zoznam náhodných čísel, ktorý vždy píšu rodičia",
+                "Zoznam vecí, ktoré si chceme kúpiť za vreckové. Vždy ho majú iba deti",
                 "Zošit na kreslenie"
               ],
               "correctAnswer": 0,
@@ -32,10 +32,10 @@
               "questionType": "scenario",
               "question": "Chrumko vidí, že mama si zapisuje čísla do zošita. Čo robí?",
               "options": [
-                "Počíta neznáme čísla",
+                "Počíta domácu úlohu, ktorú Chrumko dostal v škole.",
                 "Plánuje výdavky na celý mesiac",
-                "Píše príbeh",
-                "Kreslí obrázky"
+                "Píše príbeh, lebo sa chce tať spisovateľkou",
+                "Kreslí obrázky, ktoré môže Chrumko vyfarbovať"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -135,8 +135,7 @@
               "orderItems": [
                 "Mama zapíše peniaze, ktoré rodina dostane",
                 "Mama zapíše, čo treba zaplatiť",
-                "Mama zistí, čo zostane",
-                "Mama zváži, čo môže ísť na ďalšie veci"
+                "Mama zistí, čo zostane"
               ],
               "correctAnswer": 0,
               "matchLeft": [],
@@ -151,9 +150,9 @@
               "question": "Prečo je rozpočet dôležitý?",
               "options": [
                 "Udržuje ťa v kontrole, namiesto stáleho premýšľania „kam to všetko išlo?“",
-                "Je to len zoznam čísel",
-                "Všetko je náhodné",
-                "Nemá zmysel"
+                "Je to len zoznam telefónnych čísel",
+                "Všetky čísla sú náhodné, preto je úplne zbytočný",
+                "Rozpočet hovorí o tom, koľko sladkostí už Chrumko dnes mal"
               ],
               "correctAnswer": 0,
               "orderItems": [],
@@ -175,7 +174,7 @@
               "questionType": "multipleChoice",
               "question": "Čo sú príjmy a čo sú výdavky?",
               "options": [
-                "Je to to isté",
+                "Príjmy sú peniaze, ktoré odchádzajú; výdavky sú peniaze, ktoré prichádzajú",
                 "Nie je medzi nimi rozdiel",
                 "Príjmy sú dlhy, výdavky sú úspory",
                 "Príjmy sú peniaze, ktoré prichádzajú; výdavky sú peniaze, ktoré odchádzajú"
@@ -193,8 +192,8 @@
               "questionType": "scenario",
               "question": "Chrumko si myslí, že keď rodičia dostanú výplatu, môžu hneď kúpiť všetko. Čo mu ukáže otec?",
               "options": [
-                "Že si naozaj kúpia všetko",
-                "Že sa nič neminie",
+                "Že si naozaj kúpia všetko, lebo peniaze sú nekonečné",
+                "Že sa nič neminie, aj keď si kúpia všetko",
                 "Najprv treba odpočítať bývanie, jedlo a ďalšie účty",
                 "Že všetko je zadarmo"
               ],
@@ -292,10 +291,10 @@
               "questionType": "multipleChoice",
               "question": "Čo si Chrumko uvedomí o príjmoch a výdavkoch?",
               "options": [
-                "Peniaze nemajú zmysel",
+                "Peniaze nemajú zmysel, lebo vždy skončíš v mínuse",
                 "Dôležité nie je len to, čo príde, ale aj to, čo odíde",
-                "Všetko je zadarmo",
-                "Výdavky netreba sledovať"
+                "Všetko je zadarmo, preto na príjmoch ani výdavkoch nezáleží",
+                "Výdavky netreba sledovať, stačí, keď sledujeme príjmy"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -318,7 +317,7 @@
               "question": "Prečo rodina neminie všetky peniaze hneď na začiatku mesiaca?",
               "options": [
                 "Bez dôvodu",
-                "Vždy sa minú hneď",
+                "Vždy sa minú hneď na začiatku mesiaca",
                 "Peniaze sa počas mesiaca samy znásobia",
                 "Peniaze musia vystačiť na celý mesiac"
               ],
@@ -335,8 +334,8 @@
               "questionType": "scenario",
               "question": "Chrumko navrhne kúpiť novú hru hneď po výplate. Čo mu povie mama?",
               "options": [
-                "Áno, kúpia ju hneď",
-                "Hra je zadarmo",
+                "Áno, kúpia ju hneď, pretože po nej všetci túžia",
+                "Hra je dôležitejšia, ako všetko ostatné, preto ju hneď musia kúpiť",
                 "Najprv treba zaplatiť všetko dôležité, až potom uvidia, čo si môžu dovoliť navyše",
                 "Bez diskusie nič nekúpia"
               ],
@@ -476,9 +475,9 @@
               "questionType": "scenario",
               "question": "Chrumko sa pýta, prečo rodičia každý mesiac hovoria o rovnakých platbách. Čo mu otec ukáže?",
               "options": [
-                "Že žiadne účty neexistujú",
+                "Že žiadne účty neexistujú, v skutočnosti každý mesiac platia za nové hry na počítač",
                 "Účty za internet a nájom, ktoré prichádzajú pravidelne",
-                "Že platby sa menia každý deň",
+                "Že platby sa menia každý deň a nikto nevie prečo",
                 "Že všetko je zadarmo"
               ],
               "correctAnswer": 1,
@@ -532,7 +531,7 @@
                 "Rovnaká suma každý mesiac",
                 "V rozpočte prichádzajú ako prvé",
                 "Pravidelné mesačné predplatné",
-                "Predvídateľný opakujúci sa náklad"
+                "Dôležitý náklad, aby nebol Chrumko hladný"
               ],
               "correctAnswer": [
                 0,
@@ -553,8 +552,8 @@
                 "Nové oblečenie",
                 "Nájom",
                 "Internet",
-                "Školský obed",
-                "Nová hračka"
+                "Nová hračka",
+                "Školský obed"
               ],
               "dragTargets": [
                 "Nový nákup (nie je fixný)",
@@ -564,8 +563,8 @@
                 0,
                 1,
                 1,
-                1,
-                0
+                0,
+                1
               ],
               "orderItems": [],
               "matchLeft": [],
@@ -577,8 +576,8 @@
               "questionType": "multipleChoice",
               "question": "Prečo sú fixné výdavky dôležité pri rozpočte?",
               "options": [
-                "Menia sa každý deň",
-                "Nie sú dôležité",
+                "Menia sa každý deň, preto by sme si ich mali zapisovať každý deň",
+                "Nie sú dôležité, dôležité sú iba výdavky za hračky a sladkosti",
                 "Platia sa iba raz za rok",
                 "Prichádzajú ako prvé a nemôžeme ich preskočiť, preto s nimi počítame"
               ],
@@ -621,9 +620,9 @@
               "question": "Jeden týždeň Chrumko nakupuje len základné potraviny. Iný týždeň kupujú aj ovocie navyše, školské pomôcky a darček pre babku. Čo sa stane?",
               "options": [
                 "Suma pri pokladni je vyššia",
-                "Suma je rovnaká",
+                "Suma je rovnaká, pretože suma závisí od doby nakupovania",
                 "Všetko je zadarmo",
-                "Rodina nič nekúpi"
+                "Rodina nič nekúpi, aby ušetrila"
               ],
               "correctAnswer": 0,
               "orderItems": [],
@@ -674,8 +673,8 @@
               ],
               "matchRight": [
                 "V rozpočte pre ne nechaj flexibilnú sumu",
-                "Kupuje sa podľa potreby, nie každý mesiac",
-                "Líšia sa počas roka",
+                "Kupuje sa iba ak sa poškodí to, čo máme doma",
+                "Líšia sa počas roka, napr. cez prázdniny, na narodeniny",
                 "Množstvo a druhy sa menia každý týždeň"
               ],
               "correctAnswer": [
@@ -723,7 +722,7 @@
               "question": "Čo si Chrumko uvedomí o výdavkoch?",
               "options": [
                 "Všetky mesiace stoja presne rovnako",
-                "Výdavky sú zadarmo",
+                "Výdavky neexistujú, lebo všetko je zadarmo",
                 "Všetko je chaotické",
                 "Nie každý mesiac stojí presne rovnako"
               ],
