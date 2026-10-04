@@ -20,6 +20,11 @@
                 "Zošit na kreslenie"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočet je plán pre tvoje peniaze – pomáha mať v nich poriadok."
             },
             {
@@ -33,6 +38,11 @@
                 "Kreslí obrázky"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mama najprv zapíše peniaze, ktoré rodina dostane, potom to, čo treba zaplatiť."
             },
             {
@@ -40,6 +50,11 @@
               "questionType": "trueFalse",
               "question": "Rozpočet ukazuje len to, čo minieme, nie to, čo dostaneme.",
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočet ukazuje príjmy aj výdavky a zostatok."
             },
             {
@@ -52,6 +67,11 @@
                 "Rozpočet je zbytočný a nikto ho nepotrebuje."
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočet je plán pre peniaze, ktorý nás udržuje v kontrole."
             },
             {
@@ -67,9 +87,18 @@
               "matchRight": [
                 "Peniaze, ktoré prichádzajú",
                 "Peniaze, ktoré odchádzajú",
-                "Čo zostane po odpočítaní výdavkov od príjmu",
-                "Plán pre tvoje peniaze"
+                "Plán pre tvoje peniaze",
+                "Čo zostane po odpočítaní výdavkov od príjmu"
               ],
+              "correctAnswer": [
+                0,
+                1,
+                3,
+                2
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočet sa skladá z príjmov, výdavkov a zostatku."
             },
             {
@@ -78,28 +107,25 @@
               "question": "Zaraď položky medzi príjmy alebo výdavky.",
               "dragLabels": [
                 "Plat",
-                "Vreckové",
                 "Jedlo",
-                "Nájom",
-                "Doprava"
+                "Doprava",
+                "Vreckové",
+                "Nájom"
               ],
               "dragTargets": [
-                {
-                  "label": "Príjem (peniaze prichádzajú)",
-                  "correctItems": [
-                    "Plat",
-                    "Vreckové"
-                  ]
-                },
-                {
-                  "label": "Výdavky (peniaze odchádzajú)",
-                  "correctItems": [
-                    "Jedlo",
-                    "Nájom",
-                    "Doprava"
-                  ]
-                }
+                "Príjem (peniaze prichádzajú)",
+                "Výdavky (peniaze odchádzajú)"
               ],
+              "correctAnswer": [
+                0,
+                1,
+                1,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Príjem sú peniaze, ktoré prichádzajú, výdavky tie, ktoré odchádzajú."
             },
             {
@@ -112,6 +138,11 @@
                 "Mama zistí, čo zostane",
                 "Mama zváži, čo môže ísť na ďalšie veci"
               ],
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočtovanie má logický postup."
             },
             {
@@ -125,6 +156,11 @@
                 "Nemá zmysel"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozpočet je plán pre tvoje peniaze."
             }
           ]
@@ -145,6 +181,11 @@
                 "Príjmy sú peniaze, ktoré prichádzajú; výdavky sú peniaze, ktoré odchádzajú"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Treba sledovať obe strany – čo príde aj čo odíde."
             },
             {
@@ -158,6 +199,11 @@
                 "Že všetko je zadarmo"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Po zaplatení výdavkov zostane menšia suma."
             },
             {
@@ -165,6 +211,11 @@
               "questionType": "trueFalse",
               "question": "Ak sú príjmy vyššie ako výdavky, môžeš rozdiel ušetriť.",
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Ak príjmy > výdavky, rozdiel sa dá ušetriť."
             },
             {
@@ -177,6 +228,11 @@
                 "Zdravý rozpočet udržuje výdavky pod príjmami."
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Príjmy a výdavky sa líšia – preto treba sledovať oboje."
             },
             {
@@ -190,11 +246,20 @@
                 "Príjem"
               ],
               "matchRight": [
-                "Rozdiel môžeš ušetriť",
                 "Míňaš viac, než zarobíš – problém",
                 "Výdavky zostávajú pod príjmami",
-                "Peniaze, ktoré prichádzajú"
+                "Peniaze, ktoré prichádzajú",
+                "Rozdiel môžeš ušetriť"
               ],
+              "correctAnswer": [
+                3,
+                0,
+                1,
+                2
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Vzťah príjmov a výdavkov rozhoduje o tom, či sa dá šetriť."
             },
             {
@@ -202,27 +267,24 @@
               "questionType": "dragDrop",
               "question": "Zaraď situácie podľa toho, či môžeš ušetriť, alebo máš problém.",
               "dragLabels": [
-                "Príjmy 100 €, výdavky 80 €",
                 "Príjmy 50 €, výdavky 70 €",
+                "Príjmy 100 €, výdavky 80 €",
                 "Príjmy 200 €, výdavky 150 €",
                 "Príjmy 30 €, výdavky 45 €"
               ],
               "dragTargets": [
-                {
-                  "label": "Môžeš ušetriť rozdiel",
-                  "correctItems": [
-                    "Príjmy 100 €, výdavky 80 €",
-                    "Príjmy 200 €, výdavky 150 €"
-                  ]
-                },
-                {
-                  "label": "Míňaš viac, než zarobíš",
-                  "correctItems": [
-                    "Príjmy 50 €, výdavky 70 €",
-                    "Príjmy 30 €, výdavky 45 €"
-                  ]
-                }
+                "Môžeš ušetriť rozdiel",
+                "Míňaš viac, než zarobíš"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Ak príjmy > výdavky, môžeš šetriť. Ak výdavky > príjmy, je to problém."
             },
             {
@@ -236,6 +298,11 @@
                 "Výdavky netreba sledovať"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Treba sledovať obe strany: čo prichádza aj čo odchádza."
             }
           ]
@@ -256,6 +323,11 @@
                 "Peniaze musia vystačiť na celý mesiac"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mesiac má 30 dní a peniaze musia vydržať všetkých 30."
             },
             {
@@ -269,6 +341,11 @@
                 "Bez diskusie nič nekúpia"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "O niekoľko dní prídu ďalšie platby za školu a domácnosť."
             },
             {
@@ -276,6 +353,11 @@
               "questionType": "trueFalse",
               "question": "Peniaze treba rozložiť na celý mesiac, nie len na prvých pár dní.",
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Rozloženie peňazí je kľúčom k tomu, aby ich bolo dosť počas celého mesiaca."
             },
             {
@@ -288,6 +370,11 @@
                 "Po výplate treba hneď kúpiť všetko, čo chceme."
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Peniaze treba rozložiť na celý mesiac."
             },
             {
@@ -303,9 +390,18 @@
               "matchRight": [
                 "Poznaj mesačný príjem",
                 "Vypíš všetky pravidelné výdavky",
-                "Čo zostane, je na ďalšie výdavky a sporenie",
-                "Má 30 dní – peniaze musia vydržať všetkých"
+                "Má 30 dní – peniaze musia vydržať všetkých",
+                "Čo zostane, je na ďalšie výdavky a sporenie"
               ],
+              "correctAnswer": [
+                0,
+                1,
+                3,
+                2
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mesačné plánovanie má jasné kroky."
             },
             {
@@ -313,27 +409,24 @@
               "questionType": "dragDrop",
               "question": "Zaraď činnosti podľa toho, či idú najprv, alebo až potom.",
               "dragLabels": [
+                "Kúpiť novú hru",
                 "Zaplatiť dôležité platby",
                 "Vypísať pravidelné výdavky",
-                "Kúpiť novú hru",
                 "Minúť to, čo zostalo navyše"
               ],
               "dragTargets": [
-                {
-                  "label": "Najprv",
-                  "correctItems": [
-                    "Zaplatiť dôležité platby",
-                    "Vypísať pravidelné výdavky"
-                  ]
-                },
-                {
-                  "label": "Až potom",
-                  "correctItems": [
-                    "Kúpiť novú hru",
-                    "Minúť to, čo zostalo navyše"
-                  ]
-                }
+                "Najprv",
+                "Až potom"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Najprv sa platí dôležité, až potom to, čo zostane."
             },
             {
@@ -346,6 +439,11 @@
                 "Zistiť, čo zostane",
                 "Zostatok použiť na ďalšie výdavky a sporenie"
               ],
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Logický postup mesačného plánovania."
             }
           ]
@@ -366,6 +464,11 @@
                 "Nákupy, ktoré si rodina vymyslí"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Fixné výdavky sú platby, ktoré sa opakujú stále rovnako, napríklad nájom alebo internet."
             },
             {
@@ -379,6 +482,11 @@
                 "Že všetko je zadarmo"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Tieto platby zostávajú rovnaké, aj keď rodina nič nové nekupuje."
             },
             {
@@ -386,6 +494,11 @@
               "questionType": "trueFalse",
               "question": "Fixné výdavky môžeme v rozpočte preskočiť, ak nechceme platiť.",
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Fixné výdavky nemôžeš preskočiť, preto s nimi počítaš ako s prvými."
             },
             {
@@ -398,6 +511,11 @@
                 "Nájom je príklad fixného výdavku."
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Fixné výdavky nemôžeš preskočiť."
             },
             {
@@ -412,10 +530,19 @@
               ],
               "matchRight": [
                 "Rovnaká suma každý mesiac",
+                "V rozpočte prichádzajú ako prvé",
                 "Pravidelné mesačné predplatné",
-                "Predvídateľný opakujúci sa náklad",
-                "V rozpočte prichádzajú ako prvé"
+                "Predvídateľný opakujúci sa náklad"
               ],
+              "correctAnswer": [
+                0,
+                2,
+                3,
+                1
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Fixné výdavky sú pravidelné a predvídateľné."
             },
             {
@@ -423,29 +550,26 @@
               "questionType": "dragDrop",
               "question": "Zaraď položky podľa toho, či sa opakujú rovnako každý mesiac.",
               "dragLabels": [
+                "Nové oblečenie",
                 "Nájom",
                 "Internet",
                 "Školský obed",
-                "Nová hračka",
-                "Nové oblečenie"
+                "Nová hračka"
               ],
               "dragTargets": [
-                {
-                  "label": "Fixné (opakujú sa rovnako)",
-                  "correctItems": [
-                    "Nájom",
-                    "Internet",
-                    "Školský obed"
-                  ]
-                },
-                {
-                  "label": "Nový nákup (nie je fixný)",
-                  "correctItems": [
-                    "Nová hračka",
-                    "Nové oblečenie"
-                  ]
-                }
+                "Nový nákup (nie je fixný)",
+                "Fixné (opakujú sa rovnako)"
               ],
+              "correctAnswer": [
+                0,
+                1,
+                1,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Fixné výdavky zostávajú rovnaké, aj keď rodina nič nové nekupuje."
             },
             {
@@ -459,6 +583,11 @@
                 "Prichádzajú ako prvé a nemôžeme ich preskočiť, preto s nimi počítame"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Fixné výdavky prichádzajú v každom rozpočte ako prvé."
             }
           ]
@@ -479,6 +608,11 @@
                 "Výdavky, ktoré neexistujú"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Niekedy sú vyššie, inokedy nižšie."
             },
             {
@@ -492,6 +626,11 @@
                 "Rodina nič nekúpi"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Niektoré výdavky sa menia podľa toho, čo treba."
             },
             {
@@ -499,6 +638,11 @@
               "questionType": "trueFalse",
               "question": "Variabilné výdavky sa menia podľa toho, čo práve treba.",
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Preto má dobrý rozpočet priestor na prekvapenia."
             },
             {
@@ -511,6 +655,11 @@
                 "Medzi variabilné výdavky patria potraviny a oblečenie."
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Variabilné výdavky sa líšia – to je ich podstata."
             },
             {
@@ -524,11 +673,20 @@
                 "Variabilné výdavky"
               ],
               "matchRight": [
-                "Množstvo a druhy sa menia každý týždeň",
+                "V rozpočte pre ne nechaj flexibilnú sumu",
                 "Kupuje sa podľa potreby, nie každý mesiac",
                 "Líšia sa počas roka",
-                "V rozpočte pre ne nechaj flexibilnú sumu"
+                "Množstvo a druhy sa menia každý týždeň"
               ],
+              "correctAnswer": [
+                3,
+                1,
+                2,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Variabilné výdavky sú nepredvídateľné, ale môžeme s nimi počítať."
             },
             {
@@ -536,34 +694,27 @@
               "questionType": "dragDrop",
               "question": "Zaraď variabilné výdavky do správnych skupín.",
               "dragLabels": [
-                "Týždenný nákup potravín",
-                "Ovocie navyše",
-                "Nové tričko",
+                "Výlet s triedou",
                 "Darček pre babku",
-                "Výlet s triedou"
+                "Nové tričko",
+                "Ovocie navyše",
+                "Týždenný nákup potravín"
               ],
               "dragTargets": [
-                {
-                  "label": "Jedlo",
-                  "correctItems": [
-                    "Týždenný nákup potravín",
-                    "Ovocie navyše"
-                  ]
-                },
-                {
-                  "label": "Oblečenie",
-                  "correctItems": [
-                    "Nové tričko"
-                  ]
-                },
-                {
-                  "label": "Udalosti a darčeky",
-                  "correctItems": [
-                    "Darček pre babku",
-                    "Výlet s triedou"
-                  ]
-                }
+                "Jedlo",
+                "Udalosti a darčeky",
+                "Oblečenie"
               ],
+              "correctAnswer": [
+                1,
+                1,
+                2,
+                0,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Jedlo, oblečenie aj udalosti patria medzi výdavky, ktoré sa menia."
             },
             {
@@ -577,6 +728,11 @@
                 "Nie každý mesiac stojí presne rovnako"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Niektoré výdavky sa menia, preto treba v rozpočte nechať flexibilnú sumu."
             }
           ]

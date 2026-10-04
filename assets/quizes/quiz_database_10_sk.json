@@ -20,6 +20,11 @@
                 "Miesto bez zmyslu"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Banka uchováva peniaze bezpečne, umožňuje ich posielať, prijímať a spravovať."
             },
             {
@@ -33,6 +38,11 @@
                 "Peniaze sa vyplácajú len v hotovosti"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mama mu v mobile ukáže prijatú sumu."
             },
             {
@@ -40,6 +50,11 @@
               "questionType": "trueFalse",
               "question": "Peniaze môžu byť bezpečne uložené v banke, aj keď ich nedržíme v ruke.",
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Banka uchováva peniaze bezpečne – bezpečnejšie než hotovosť doma."
             },
             {
@@ -52,6 +67,11 @@
                 "Banka je miesto na tanec a zábavu."
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Banka je finančná inštitúcia, nie miesto na zábavu."
             },
             {
@@ -65,11 +85,20 @@
                 "Mobilná aplikácia"
               ],
               "matchRight": [
-                "Peniaze sú v bezpečí, bezpečnejšie než hotovosť doma",
-                "Ľahko pošleš peniaze inému alebo ich prijmeš",
                 "Spravuješ peniaze bez hotovosti",
-                "Peniaze vidíš v telefóne"
+                "Peniaze sú v bezpečí, bezpečnejšie než hotovosť doma",
+                "Peniaze vidíš v telefóne",
+                "Ľahko pošleš peniaze inému alebo ich prijmeš"
               ],
+              "correctAnswer": [
+                1,
+                3,
+                0,
+                2
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Banky poskytujú rôzne služby."
             },
             {
@@ -77,29 +106,26 @@
               "questionType": "dragDrop",
               "question": "Zaraď činnosti podľa toho, či ich robí banka, alebo nie.",
               "dragLabels": [
-                "Uloženie peňazí",
-                "Tanec",
                 "Posielanie peňazí",
                 "Predaj oblečenia",
-                "Správa peňazí cez aplikáciu"
+                "Správa peňazí cez aplikáciu",
+                "Tanec",
+                "Uloženie peňazí"
               ],
               "dragTargets": [
-                {
-                  "label": "Bankové služby",
-                  "correctItems": [
-                    "Uloženie peňazí",
-                    "Posielanie peňazí",
-                    "Správa peňazí cez aplikáciu"
-                  ]
-                },
-                {
-                  "label": "Iné",
-                  "correctItems": [
-                    "Tanec",
-                    "Predaj oblečenia"
-                  ]
-                }
+                "Iné",
+                "Bankové služby"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Banky poskytujú špecializované služby."
             },
             {
@@ -112,6 +138,11 @@
                 "Mama mu ukáže v mobile prijatú sumu",
                 "Chrumko pochopí, že peniaze môžu byť bezpečne uložené bez držania v ruke"
               ],
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Chrumko sa učí, ako banka uchováva peniaze."
             }
           ]
@@ -132,6 +163,11 @@
                 "Miesto bez zmyslu"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Každý účet patrí konkrétnemu majiteľovi a ukazuje, koľko peňazí má."
             },
             {
@@ -145,6 +181,11 @@
                 "Spočíta mince doma"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Účet je ako displej ukazujúci, koľko peňazí máš."
             },
             {
@@ -152,6 +193,11 @@
               "questionType": "trueFalse",
               "question": "Zostatok na účte sa nikdy nemení.",
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Keď niečo zaplatíš, číslo sa zmenší. Keď príde výplata, zvýši sa."
             },
             {
@@ -164,6 +210,11 @@
                 "Zostatok ukazuje, koľko peňazí je k dispozícii."
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Každý účet má jedinečné číslo, ktoré ho identifikuje."
             },
             {
@@ -177,11 +228,20 @@
                 "Príde prevod"
               ],
               "matchRight": [
-                "Číslo sa zvýši",
-                "Číslo sa zmenší",
-                "Číslo sa zmenší",
-                "Číslo sa zvýši"
+                "Zostatok sa zvýši – peniaze poslal niekto iný",
+                "Zostatok sa zmenší – peniaze sme minuli v obchode",
+                "Zostatok sa zvýši – peniaze od zamestnávateľa",
+                "Zostatok sa zmenší – peniaze odišli na zaplatenie účtu"
               ],
+              "correctAnswer": [
+                2,
+                3,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Peniaze môžu na účet prichádzať aj z neho odchádzať."
             },
             {
@@ -195,21 +255,18 @@
                 "Zaplatenie účtu"
               ],
               "dragTargets": [
-                {
-                  "label": "Suma rastie",
-                  "correctItems": [
-                    "Výplata",
-                    "Prijatý prevod"
-                  ]
-                },
-                {
-                  "label": "Suma klesá",
-                  "correctItems": [
-                    "Nákup v obchode",
-                    "Zaplatenie účtu"
-                  ]
-                }
+                "Suma klesá",
+                "Suma rastie"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Peniaze môžu prichádzať (plat, prevody) a odchádzať (platby)."
             },
             {
@@ -223,6 +280,11 @@
                 "Nič, je to len ozdoba"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Zostatok presne ukazuje, koľko je momentálne k dispozícii."
             }
           ]
@@ -243,6 +305,11 @@
                 "Miesto, kde sa ukladajú mince"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Karta len pomáha použiť peniaze, ktoré sú uložené v banke."
             },
             {
@@ -256,6 +323,11 @@
                 "Kartou – po zaplatení sa suma zobrazí na termináli"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mama vysvetlí, že peniaze odišli z účtu."
             },
             {
@@ -263,6 +335,11 @@
               "questionType": "trueFalse",
               "question": "Karta je len nástroj – skutočné peniaze sú uložené v banke.",
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Karta je kľúč, ktorý odomyká peniaze na účte."
             },
             {
@@ -275,6 +352,11 @@
                 "Po zaplatení kartou peniaze odídu z účtu."
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Karta nie sú peniaze – je to nástroj na prístup k peniazom."
             },
             {
@@ -288,11 +370,20 @@
                 "Čo je karta"
               ],
               "matchRight": [
-                "Karta je prepojená s tvojím bankovým účtom",
+                "Nástroj, nie samotné peniaze",
                 "Peniaze odídu z účtu ihneď",
-                "V obchodoch, bankomatoch aj online",
-                "Nástroj, nie samotné peniaze"
+                "Karta je prepojená s tvojím bankovým účtom",
+                "V obchodoch, bankomatoch aj online"
               ],
+              "correctAnswer": [
+                2,
+                1,
+                3,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Karta je kľúč k peniazom na účte."
             },
             {
@@ -301,26 +392,23 @@
               "question": "Zaraď tvrdenia podľa toho, či sa týkajú karty, alebo účtu.",
               "dragLabels": [
                 "Používaš ju pri pokladni",
-                "Vyberáš s ňou v bankomate",
+                "Odtiaľ odíde suma po platbe",
                 "Žijú tam tvoje peniaze",
-                "Odtiaľ odíde suma po platbe"
+                "Vyberáš s ňou v bankomate"
               ],
               "dragTargets": [
-                {
-                  "label": "Karta",
-                  "correctItems": [
-                    "Používaš ju pri pokladni",
-                    "Vyberáš s ňou v bankomate"
-                  ]
-                },
-                {
-                  "label": "Bankový účet",
-                  "correctItems": [
-                    "Žijú tam tvoje peniaze",
-                    "Odtiaľ odíde suma po platbe"
-                  ]
-                }
+                "Bankový účet",
+                "Karta"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Karta je len kľúč, peniaze žijú na bankovom účte."
             },
             {
@@ -334,6 +422,11 @@
                 "Karta funguje len v obchode"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Karta je nástroj. Skutočné peniaze sú uložené v banke."
             }
           ]
@@ -354,6 +447,11 @@
                 "Názov banky"
               ],
               "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "PIN je tajomstvo – zámok na tvojich peniazoch."
             },
             {
@@ -367,6 +465,11 @@
                 "Mama zakrýva rukou klávesnicu, keď zadáva PIN"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Mama nechce, aby PIN niekto videl."
             },
             {
@@ -374,6 +477,11 @@
               "questionType": "trueFalse",
               "question": "PIN môžeš bezpečne povedať kamarátom.",
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "PIN nikdy nezdieľaj s nikým – ani s kamarátmi."
             },
             {
@@ -386,6 +494,11 @@
                 "PIN je dobré napísať na kartu, aby sa nezabudol."
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "PIN nikdy nepíš na kartu ani do jej blízkosti."
             },
             {
@@ -399,11 +512,20 @@
                 "PIN"
               ],
               "matchRight": [
+                "Ani do jej blízkosti",
                 "Ani s kamarátmi",
                 "Pri zadávaní na verejnosti",
-                "Ani do jej blízkosti",
                 "Tajomstvo, zámok na tvojich peniazoch"
               ],
+              "correctAnswer": [
+                1,
+                2,
+                0,
+                3
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Pravidlá chránia tvoje peniaze."
             },
             {
@@ -411,27 +533,24 @@
               "questionType": "dragDrop",
               "question": "Zaraď činnosti podľa bezpečnosti.",
               "dragLabels": [
-                "Zakryť klávesnicu rukou",
                 "Nezdieľať PIN s nikým",
                 "Povedať PIN kamarátovi",
+                "Zakryť klávesnicu rukou",
                 "Napísať PIN na kartu"
               ],
               "dragTargets": [
-                {
-                  "label": "Bezpečné",
-                  "correctItems": [
-                    "Zakryť klávesnicu rukou",
-                    "Nezdieľať PIN s nikým"
-                  ]
-                },
-                {
-                  "label": "Nebezpečné",
-                  "correctItems": [
-                    "Povedať PIN kamarátovi",
-                    "Napísať PIN na kartu"
-                  ]
-                }
+                "Nebezpečné",
+                "Bezpečné"
               ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Rôzne prístupy k PIN-u majú rôzne riziká."
             },
             {
@@ -445,6 +564,11 @@
                 "Nemá to zmysel"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Bezpečnosť pri peniazoch je veľmi dôležitá."
             }
           ]
@@ -465,6 +589,11 @@
                 "Elektronické poslanie peňazí z jedného účtu na druhý"
               ],
               "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Peniaze sa pohybujú elektronicky cez bankový systém."
             },
             {
@@ -478,6 +607,11 @@
                 "Peniaze sa pošlú samy"
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Po potvrdení sa peniaze odošlú."
             },
             {
@@ -485,6 +619,11 @@
               "questionType": "trueFalse",
               "question": "Prevod peňazí vždy znamená ísť na poštu s hotovosťou.",
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Dnes sa peniaze často pohybujú digitálne – rýchlo a bez odchodu z domu."
             },
             {
@@ -497,6 +636,11 @@
                 "Na prevod potrebuješ číslo účtu príjemcu a sumu."
               ],
               "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Na prevod potrebuješ číslo účtu príjemcu a sumu."
             },
             {
@@ -510,11 +654,20 @@
                 "Kontrola pred potvrdením"
               ],
               "matchRight": [
-                "Určuje, komu peniaze prídu",
                 "Určuje, koľko peňazí sa pošle",
                 "Po ňom sa peniaze odošlú",
+                "Určuje, komu peniaze prídu",
                 "Zabráni chybe, lebo vrátiť prevod je ťažké"
               ],
+              "correctAnswer": [
+                2,
+                0,
+                1,
+                3
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Pri prevode treba dávať pozor na údaje."
             },
             {
@@ -522,27 +675,24 @@
               "questionType": "dragDrop",
               "question": "Zaraď veci podľa toho, či ich pri prevode potrebuješ.",
               "dragLabels": [
-                "Číslo účtu príjemcu",
                 "Sumu",
-                "Obálku",
-                "Cestu na poštu"
+                "Cestu na poštu",
+                "Číslo účtu príjemcu",
+                "Obálku"
               ],
               "dragTargets": [
-                {
-                  "label": "Potrebuješ pri prevode",
-                  "correctItems": [
-                    "Číslo účtu príjemcu",
-                    "Sumu"
-                  ]
-                },
-                {
-                  "label": "Nepotrebuješ",
-                  "correctItems": [
-                    "Obálku",
-                    "Cestu na poštu"
-                  ]
-                }
+                "Potrebuješ pri prevode",
+                "Nepotrebuješ"
               ],
+              "correctAnswer": [
+                0,
+                1,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
               "explanation": "Prevod prebieha digitálne, bez hotovosti."
             },
             {
@@ -556,6 +706,11 @@
                 "Prevod je možný len v hotovosti"
               ],
               "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Dnes sa peniaze často pohybujú digitálne."
             }
           ]
