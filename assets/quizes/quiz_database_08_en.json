@@ -14,89 +14,151 @@
               "questionType": "multipleChoice",
               "question": "Why do people work?",
               "options": [
-                "For no reason",
-                "To earn money for everyday life and fulfill their responsibilities",
-                "Work is bad",
-                "It never happens"
+                "Because they enjoy their job every day",
+                "Only because they are bored at home and want to kill time",
+                "To earn money and help others",
+                "People don't work"
               ],
-              "correctAnswer": 1,
-              "explanation": "People work to earn money for everyday life - food, housing, clothes and other needs."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "People work to earn money for living and to help others."
             },
             {
               "questionId": "8001_02",
               "questionType": "scenario",
-              "question": "Chrumko notices that mom is getting ready for work in the morning. Why does she work even when it's raining?",
+              "question": "Chrumko notices that mom is getting ready for work in the morning, even though it's raining. Why does she go?",
               "options": [
-                "She's bored",
-                "She has no choice",
-                "To earn money from her work, which allows the family to pay for rent, food and school supplies",
-                "Everything is chaotic"
+                "She gets money for work, which the family uses to pay for everything",
+                "She's bored at home and had an argument with Chrumko, so she wants to leave",
+                "She likes walking in the rain because it calms her down",
+                "She has no other choice, even though she is never paid for work"
               ],
-              "correctAnswer": 2,
-              "explanation": "Mom must go to work because she earns money, which allows the family to pay for everything they need."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Mom gets money for work, which the family uses to pay for everything they need."
             },
             {
               "questionId": "8001_03",
               "questionType": "multipleChoice",
-              "question": "What role do people's jobs have in society?",
+              "question": "What is the importance of people's work in society?",
               "options": [
                 "None",
-                "They help others - teach, heal, repair, manufacture, provide services",
-                "They're all the same",
-                "Work is pointless"
+                "All jobs are useless, people can do everything without help",
+                "Work is only about money",
+                "Teachers, doctors and others improve life for everyone through their work"
               ],
-              "correctAnswer": 1,
-              "explanation": "Many people help others through their work. Every job has value because it contributes to society's functioning."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Work creates value, earns money and makes the world a better place."
             },
             {
               "questionId": "8001_04",
               "questionType": "trueFalse",
-              "question": "Work helps provide many things that families use every day and consider normal.",
+              "question": "With the money from work, a family pays for rent, food and school costs.",
               "correctAnswer": 0,
-              "explanation": "Work is the source of financial resources needed for daily life."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Mom gets a salary and the family uses it to pay for everything they need."
             },
             {
               "questionId": "8001_05",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "People work to earn money.",
-                "Work has value based on its type for society.",
-                "Work is pointless and nobody spends time on it."
+                "People work to get money.",
+                "Work can also help other people.",
+                "Work is useless and nobody spends time on it."
               ],
               "correctAnswer": 2,
-              "explanation": "Work is not pointless - it's essential for society's functioning and individual survival."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Work earns money and at the same time helps others."
             },
             {
               "questionId": "8001_06",
               "questionType": "matching",
-              "question": "Match the type of work with its contribution to society.",
-              "matchLeft": ["Teacher", "Doctor", "Builder", "Farmer"],
-              "matchRight": ["Educating children", "Healing the sick", "Building homes", "Producing food"],
-              "explanation": "Each job has a specific role in society."
+              "question": "Match each item with its meaning.",
+              "matchLeft": [
+                "Teacher",
+                "Doctor",
+                "Builder",
+                "Mom's salary"
+              ],
+              "matchRight": [
+                "Rent, food and school costs are paid from it",
+                "Teaches children",
+                "Heals people",
+                "Builds houses"
+              ],
+              "correctAnswer": [
+                1,
+                2,
+                3,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Work brings money and also helps others."
             },
             {
               "questionId": "8001_07",
               "questionType": "dragDrop",
-              "question": "Sort different aspects of work into correct groups.",
-              "dragLabels": ["Earnings", "Helping others", "Personal development", "Physical activity"],
-              "dragTargets": [
-                { "label": "Financial benefits", "correctItems": ["Earnings"] },
-                { "label": "Social benefits", "correctItems": ["Helping others", "Personal development"] }
+              "question": "Sort the examples by the reason why people work.",
+              "dragLabels": [
+                "A teacher teaches children",
+                "Paying for electricity and water from a salary",
+                "A doctor heals patients",
+                "Paying rent from a salary"
               ],
-              "explanation": "Work has multiple aspects - both financial and social."
+              "dragTargets": [
+                "Earning money",
+                "Helping others"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Two reasons why people work: earning money and helping others."
             },
             {
               "questionId": "8001_08",
               "questionType": "ordering",
               "question": "Put in order what Chrumko gradually realizes about work.",
               "orderItems": [
-                "Mom prepares for work in the morning",
-                "Chrumko notices that mom works even in bad weather",
-                "Chrumko understands that work is why the family has a home and food",
-                "Chrumko realizes that work is important for the whole family"
+                "In the morning Chrumko sees mom getting ready for work, even though it's raining",
+                "He asks why she has to go every day",
+                "Mom explains that she gets money for work to pay for rent, food and school costs"
               ],
-              "explanation": "Chrumko gradually understands the relationship between work and daily life."
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Chrumko gradually understands the relationship between work and everyday life."
             }
           ]
         },
@@ -110,78 +172,138 @@
               "questionType": "multipleChoice",
               "question": "Do all adults do the same work?",
               "options": [
-                "Yes, everyone does the same thing",
-                "No, people do different jobs based on experience and skills",
-                "Work is pointless",
-                "There are never differences"
+                "Yes, everyone does the same so that nobody is left out",
+                "No, everyone does something different and together they keep the world running",
+                "Adults don't work",
+                "All adults are builders or doctors, no other occupation exists"
               ],
               "correctAnswer": 1,
-              "explanation": "People do different jobs based on what they know, what they enjoy, and what society needs."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Everyone does something different, but together these jobs keep the world running."
             },
             {
               "questionId": "8002_02",
               "questionType": "scenario",
-              "question": "Chrumko goes to school in the morning. How many different jobs does he see?",
+              "question": "Chrumko is going to school. How many different jobs does he see?",
               "options": [
-                "Just one",
-                "Bus driver, teacher, road workers and others in the shop and post office",
-                "None",
-                "Everything is the same"
+                "Only one, a builder",
+                "None, because all adults work from home",
+                "He sees only three jobs that exist: doctor, teacher and builder",
+                "A bus driver, a teacher, sidewalk repairmen, a shop assistant and a postman"
               ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko sees how many different people work - driver, teacher, workers, shop assistant, postman and others."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Chrumko sees a driver, a teacher, repairmen, a shop assistant, a postman and others."
             },
             {
               "questionId": "8002_03",
               "questionType": "trueFalse",
-              "question": "There are occupations where people make things, repair them, teach, or heal.",
-              "correctAnswer": 0,
-              "explanation": "Jobs can be divided by type of activity - manufacturing, repairs, education, healthcare, etc."
+              "question": "A bus driver, a teacher and a postman do the same work.",
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Each of them does a different job, but together they keep the world running."
             },
             {
               "questionId": "8002_04",
               "questionType": "matching",
-              "question": "Match the job with the type of activity.",
-              "matchLeft": ["Hairdresser", "Mechanic", "Librarian", "Farmer"],
-              "matchRight": ["Services", "Repairs", "Information", "Production"],
-              "explanation": "Different occupations deal with different types of activities."
+              "question": "Match each worker with what they do.",
+              "matchLeft": [
+                "Bus driver",
+                "Teacher",
+                "Postman",
+                "Shop assistant"
+              ],
+              "matchRight": [
+                "Transports people",
+                "Restocks goods in the shop",
+                "Teaches children",
+                "Delivers letters"
+              ],
+              "correctAnswer": [
+                0,
+                2,
+                3,
+                1
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Each occupation has its own role."
             },
             {
               "questionId": "8002_05",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "People do different jobs based on experience.",
+                "Different occupations complement each other.",
                 "All adults do exactly the same thing.",
-                "Differences in occupations reflect people's talents and interests."
+                "Some people work with people, others with things or information."
               ],
               "correctAnswer": 1,
-              "explanation": "Not everyone does the same - there's great diversity in jobs."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Not everyone does the same – there are many different jobs."
             },
             {
               "questionId": "8002_06",
               "questionType": "dragDrop",
-              "question": "Sort occupations by type.",
-              "dragLabels": ["Doctor", "Electrician", "Actor", "Farmer", "Journalist"],
-              "dragTargets": [
-                { "label": "Services for people", "correctItems": ["Doctor", "Farmer"] },
-                { "label": "Technical occupations", "correctItems": ["Electrician"] },
-                { "label": "Creative occupations", "correctItems": ["Actor", "Journalist"] }
+              "question": "Sort the activities by type of work.",
+              "dragLabels": [
+                "Building",
+                "Healing",
+                "Teaching",
+                "Repairing",
+                "Counting"
               ],
-              "explanation": "Occupations can be categorized by their focus."
+              "dragTargets": [
+                "Working with information",
+                "Creating physical things",
+                "Working with people"
+              ],
+              "correctAnswer": [
+                1,
+                2,
+                2,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Jobs can be divided into working with people, creating physical things and working with information."
             },
             {
               "questionId": "8002_07",
               "questionType": "multipleChoice",
               "question": "Why is it important to have different occupations?",
               "options": [
-                "It's not important",
-                "They complement each other and together help the world function",
-                "One would be enough",
-                "Everything is random"
+                "One occupation would be enough, but people don't want to be the same",
+                "Everything is random",
+                "Different skills together ensure that society functions",
+                "It's not important"
               ],
-              "correctAnswer": 1,
-              "explanation": "Each occupation has its purpose. All different jobs complement each other and together help the world function."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Every job counts – different occupations together help the world function."
             }
           ]
         },
@@ -193,79 +315,139 @@
             {
               "questionId": "8003_01",
               "questionType": "multipleChoice",
-              "question": "Does everyone earn the same money for their work?",
+              "question": "Does everyone get the same money for their work?",
               "options": [
-                "Yes, always",
-                "No, salary depends on the type of work, experience and responsibility",
-                "Never",
-                "Everything is the same"
+                "No, the amount of salary depends on many criteria",
+                "Yes, always, so that nobody is treated unfairly",
+                "Nobody ever gets anything, because adults work for free",
+                "Everyone gets the same"
               ],
-              "correctAnswer": 1,
-              "explanation": "Salary depends on the type of work, experience, responsibility and time spent on the job."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "The amount of salary is influenced by education, skills, responsibility and the time devoted to work."
             },
             {
               "questionId": "8003_02",
               "questionType": "trueFalse",
-              "question": "Everyone receives salary regularly, usually once a month into their bank account.",
+              "question": "Salary is paid once a month into a bank account.",
               "correctAnswer": 0,
-              "explanation": "Workers receive salary in regular intervals, most commonly monthly."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Chrumko's dad receives his salary once a month into his account."
             },
             {
               "questionId": "8003_03",
               "questionType": "scenario",
-              "question": "Chrumko talks with his father about salaries. What does father say?",
+              "question": "Chrumko is talking with dad about salaries. What does dad explain to him?",
               "options": [
-                "Money comes every day",
-                "He receives salary once a month and from it the family pays for everything needed",
-                "Money is forbidden",
-                "Everything is chaotic"
+                "Money arrives in the bank account every day, so they can use it that day",
+                "He gets a salary once a month and the family pays for everything needed during the month from it",
+                "Money is always spent right away",
+                "The salary never arrives, because adults get food for work, not money"
               ],
               "correctAnswer": 1,
-              "explanation": "Father explains that he receives salary once a month and from this money the family pays for everything during the whole month."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Money from work needs to be divided wisely so that it lasts."
             },
             {
               "questionId": "8003_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Salary amount depends on the type of work and experience.",
-                "Everyone receives the same salary regardless of occupation.",
-                "Salary is paid regularly, usually monthly."
+                "The amount of salary depends on education and skills.",
+                "Greater responsibility often brings a higher salary.",
+                "Everyone gets the same salary regardless of occupation."
               ],
-              "correctAnswer": 1,
-              "explanation": "Salaries differ - not everyone earns the same amount."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Salaries differ – not everyone gets the same amount."
             },
             {
               "questionId": "8003_05",
               "questionType": "matching",
-              "question": "Match the factor with its influence on salary.",
-              "matchLeft": ["Experience", "Education", "Responsibility", "Work time"],
-              "matchRight": ["Higher position usually means higher salary", "People with more years in job earn more", "Qualifications increase salary", "Longer work hours can mean higher income"],
-              "explanation": "Multiple factors influence the level of salary."
+              "question": "Match each factor with its meaning.",
+              "matchLeft": [
+                "Education and skills",
+                "Responsibility",
+                "Time",
+                "Salary"
+              ],
+              "matchRight": [
+                "More expertise often means a higher salary",
+                "Hours, days or months of work count",
+                "Greater responsibility brings a higher salary",
+                "Arrives once a month into the account"
+              ],
+              "correctAnswer": [
+                0,
+                2,
+                1,
+                3
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Several factors influence the amount of salary."
             },
             {
               "questionId": "8003_06",
               "questionType": "dragDrop",
-              "question": "Sort factors by whether they increase salary or have no effect.",
-              "dragLabels": ["More experience", "Better education", "Staying home", "Additional certificates"],
-              "dragTargets": [
-                { "label": "Increase salary", "correctItems": ["More experience", "Better education", "Additional certificates"] },
-                { "label": "Have no effect", "correctItems": ["Staying home"] }
+              "question": "Sort things by whether they affect the amount of salary.",
+              "dragLabels": [
+                "Color of the car",
+                "Time worked",
+                "Responsibility",
+                "Education and skills",
+                "Favorite food"
               ],
-              "explanation": "Professional development increases a worker's value and salary."
+              "dragTargets": [
+                "Affects salary",
+                "Doesn't affect salary"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Salary is influenced by education, skills, responsibility and time."
             },
             {
               "questionId": "8003_07",
               "questionType": "multipleChoice",
-              "question": "Why is it important to spend salary wisely?",
+              "question": "Why does a salary need to be divided wisely?",
               "options": [
-                "It's not important",
-                "Because salary must cover all necessities for the entire month",
-                "Because everything can be bought immediately",
-                "No point"
+                "It's not important, because everything is free",
+                "Everything can be bought right away, because money is endless",
+                "It has to last for everything needed during the whole month",
+                "It makes no sense"
               ],
-              "correctAnswer": 1,
-              "explanation": "Money from work must be divided wisely to last a longer time."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A salary is a reward for work and needs to be planned so that it covers the whole month."
             }
           ]
         },
@@ -279,75 +461,133 @@
               "questionType": "multipleChoice",
               "question": "Why is time important in work?",
               "options": [
-                "It doesn't matter",
-                "A person earns money based on the time they spend working",
-                "Time is useless",
-                "It never happens"
+                "Many jobs are paid by the hour – more hours, more earned",
+                "Time is useless, at the end of the month you always get the same amount of money anyway",
+                "Time is never counted",
+                "You are paid only per day, not per hour"
               ],
-              "correctAnswer": 1,
-              "explanation": "In many jobs, a person earns money based on time worked - the more hours, the bigger the reward."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "In many jobs, the more hours a person works, the more they earn."
             },
             {
               "questionId": "8004_02",
               "questionType": "scenario",
-              "question": "Chrumko sees his older brother working for neighbors. What does he do?",
+              "question": "Chrumko sees his older brother helping the neighbor. What is he doing?",
               "options": [
-                "Plays",
-                "Helps all morning - gathering leaves, raking grass, carrying branches",
-                "Sits at home",
-                "Does nothing"
+                "Playing in the garden, and thereby scaring off thieves",
+                "Sitting at the neighbor's house playing cards with him",
+                "Doing nothing",
+                "Helping all morning in the garden – gathering leaves, raking grass and carrying branches"
               ],
-              "correctAnswer": 1,
-              "explanation": "Brother works over the weekend all morning. They work together and invest time and effort."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Brother devotes time and effort to the work and receives a small reward."
             },
             {
               "questionId": "8004_03",
               "questionType": "trueFalse",
-              "question": "Reward for work is directly related to time and effort a person puts in.",
-              "correctAnswer": 0,
-              "explanation": "The more time and effort, the bigger the reward."
+              "question": "The time we devote to work doesn't matter for the reward.",
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Time and effort count in work."
             },
             {
               "questionId": "8004_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Time affects the amount of reward for work.",
-                "Effort in work is counted.",
-                "Number of hours worked has no effect on pay."
+                "In work only time counts, nobody cares about effort.",
+                "The time we devote to work affects the reward.",
+                "Effort and quality of work matter too."
               ],
-              "correctAnswer": 2,
-              "explanation": "Number of hours has a huge effect on pay - it's a basic principle of wages."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Time, effort and quality of work all count."
             },
             {
               "questionId": "8004_05",
               "questionType": "matching",
-              "question": "Match hours with type of work arrangement.",
-              "matchLeft": ["4 hours", "8 hours", "40 hours per week", "Overtime"],
-              "matchRight": ["Part-time work", "Standard work day", "Standard work week", "Paid extra"],
-              "explanation": "Different amounts of time are paid according to different criteria."
+              "question": "Match each situation with what it means.",
+              "matchLeft": [
+                "Hourly pay",
+                "Monthly salary",
+                "Brother in the garden",
+                "Effort and quality"
+              ],
+              "matchRight": [
+                "They count alongside time",
+                "Covers all hours worked in a month",
+                "Reward for time and help",
+                "More hours means more earned"
+              ],
+              "correctAnswer": [
+                3,
+                1,
+                2,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Reward is related to both time and effort."
             },
             {
               "questionId": "8004_06",
               "questionType": "dragDrop",
-              "question": "Sort activities by time they take.",
-              "dragLabels": ["Quick shopping", "House cleaning", "Career choice", "Morning preparation"],
-              "dragTargets": [
-                { "label": "Short time (less than hour)", "correctItems": ["Quick shopping", "Morning preparation"] },
-                { "label": "Longer time (hours to days)", "correctItems": ["House cleaning", "Career choice"] }
+              "question": "Sort the statements by method of payment.",
+              "dragLabels": [
+                "Covers a whole month of work",
+                "More hours worked = more earned",
+                "Salary for all hours worked in the month",
+                "Payment by number of hours"
               ],
-              "explanation": "Different activities take different amounts of time."
+              "dragTargets": [
+                "Hourly pay",
+                "Monthly salary"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "With hourly pay the number of hours matters, a monthly salary covers all hours in the month."
             },
             {
               "questionId": "8004_07",
               "questionType": "ordering",
-              "question": "Put in order what Chrumko realizes about time and money.",
+              "question": "Put in order what Chrumko realizes about time and work.",
               "orderItems": [
-                "Chrumko sees that his older brother works for several hours",
-                "Brother receives a reward after finishing work",
-                "Chrumko understands that more hours mean more money",
-                "Chrumko realizes that time is valuable in work"
+                "Chrumko sees that his brother is helping the neighbor in the garden",
+                "Brother works all morning – gathering leaves, raking grass and carrying branches",
+                "After the work he receives a small reward",
+                "Chrumko understands that time and effort count in work"
               ],
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Chrumko gradually understands the value of time in work."
             }
           ]
@@ -362,77 +602,139 @@
               "questionType": "multipleChoice",
               "question": "What is productivity?",
               "options": [
-                "Slow work",
-                "How much work a person can accomplish in a certain time",
-                "No work",
-                "Everything is chaotic"
+                "Working as slowly as possible, because every job is paid by the hour",
+                "Working with focus so that we get more done in less time",
+                "Doing nothing",
+                "Interrupting work all the time and taking breaks to play on the phone"
               ],
               "correctAnswer": 1,
-              "explanation": "Productivity means how much work a person can accomplish in a certain time. If they work concentrated, they do more in less time."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "When we work attentively and with focus, we get more done in less time."
             },
             {
               "questionId": "8005_02",
               "questionType": "scenario",
-              "question": "Chrumko is doing homework. First day he keeps looking at his phone. What happens?",
+              "question": "Chrumko is doing his homework and keeps looking at his phone. What happens?",
               "options": [
-                "Homework takes him a short time",
-                "Homework takes him a very long time because he gets distracted",
-                "He can't do homework",
-                "Everything is fast"
+                "The homework takes him little time, the phone magically does the homework for him",
+                "He can't do the homework, so he'd rather start playing",
+                "Everything goes fast, he has two eyes after all",
+                "The homework takes him a very long time, because he gets distracted"
               ],
-              "correctAnswer": 1,
-              "explanation": "Homework takes very long because he's constantly distracted and interrupts work."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Distraction and frequent interruptions make work longer."
             },
             {
               "questionId": "8005_03",
               "questionType": "trueFalse",
-              "question": "Concentration and working without interruptions increases productivity.",
+              "question": "Removing distractions helps you work more productively.",
               "correctAnswer": 0,
-              "explanation": "Concentrated work without interruptions is always more efficient."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Without interruptions, work goes faster and without stress."
             },
             {
               "questionId": "8005_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Productivity is affected by concentration.",
-                "Distractions improve the quality of work.",
-                "Playing games reduces productivity."
+                "Preparing everything needed before starting helps.",
+                "Interruptions improve the quality of work.",
+                "Focusing on one task at a time increases productivity."
               ],
               "correctAnswer": 1,
-              "explanation": "Distractions never increase productivity - they do the opposite."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Interruptions reduce productivity, they don't increase it."
             },
             {
               "questionId": "8005_05",
               "questionType": "matching",
-              "question": "Match activity with its effect on productivity.",
-              "matchLeft": ["Phone turned off", "Tea breaks", "Playing games", "Preparing workspace"],
-              "matchRight": ["Increases productivity", "Help with recovery", "Decreases productivity", "Increases productivity"],
-              "explanation": "Different factors affect productivity differently."
+              "question": "Match each activity with its effect.",
+              "matchLeft": [
+                "Looking at the phone",
+                "Putting the phone away",
+                "Preparing everything needed",
+                "Working on one task at a time"
+              ],
+              "matchRight": [
+                "Better focus on a specific task",
+                "Less distraction",
+                "Preparation for work",
+                "Work takes longer"
+              ],
+              "correctAnswer": [
+                3,
+                1,
+                2,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Different habits affect productivity in different ways."
             },
             {
               "questionId": "8005_06",
               "questionType": "dragDrop",
-              "question": "Sort factors by their effect on productivity.",
-              "dragLabels": ["Quiet room", "Music", "Organized desk", "Scattered attention"],
-              "dragTargets": [
-                { "label": "Increase productivity", "correctItems": ["Quiet room", "Organized desk"] },
-                { "label": "Decrease productivity", "correctItems": ["Music", "Scattered attention"] }
+              "question": "Sort the activities by their effect on productivity.",
+              "dragLabels": [
+                "Put the phone away",
+                "Prepare everything in advance",
+                "Keep looking at the phone",
+                "Focus on one task",
+                "Interrupt work often",
+                "Switch between many tasks"
               ],
-              "explanation": "Environment has a big effect on the ability to work efficiently."
+              "dragTargets": [
+                "Increases productivity",
+                "Decreases productivity"
+              ],
+              "correctAnswer": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Focus, preparation and removing distractions increase productivity."
             },
             {
               "questionId": "8005_07",
               "questionType": "multipleChoice",
               "question": "How can Chrumko increase his productivity when doing homework?",
               "options": [
-                "Spend more time without changing anything",
-                "Turn off his phone, prepare his space and work concentrated",
+                "Spend more time on the homework without any change or progress in his work",
                 "Play while studying",
-                "Study with friends without a plan"
+                "Put the phone away, prepare everything needed and work with focus",
+                "Look at the phone after every sentence"
               ],
-              "correctAnswer": 1,
-              "explanation": "Concentrated work in a quiet environment without distractions is key to higher productivity."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Focused work without interruptions is the key to higher productivity."
             }
           ]
         }

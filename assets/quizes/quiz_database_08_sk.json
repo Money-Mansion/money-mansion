@@ -14,10 +14,10 @@
               "questionType": "multipleChoice",
               "question": "Prečo ľudia pracujú?",
               "options": [
-                "Bez dôvodu",
-                "Len preto, že sa nudia doma",
-                "Aby zarobili peniaze na potrebné veci a pomáhali ostatným",
-                "Nikdy to nemá zmysel"
+                "Lebo ich práca baví každý deň",
+                "Len preto, že sa nudia doma a chcú zabiť čas",
+                "Aby zarobili peniaze a pomáhali ostatným",
+                "Ľudia nepracujú"
               ],
               "correctAnswer": 2,
               "orderItems": [],
@@ -32,10 +32,10 @@
               "questionType": "scenario",
               "question": "Chrumko si všimne, že mama sa ráno pripravuje do práce, hoci prší. Prečo ide?",
               "options": [
-                "Za prácu dostáva peniaze, z ktorých rodina platí nájom, jedlo a školské náklady",
-                "Nudí sa doma",
-                "Rada chodí v daždi",
-                "Nemá inú voľbu"
+                "Za prácu dostáva peniaze, z ktorých rodina všetko platí",
+                "Nudí sa doma a pohádala sa s Chrumkom, preto chce ísť preč",
+                "Rada chodí v daždi, pretože ju to upokojuje",
+                "Nemá inú voľbu, aj keď jej za prácu nikdy neplatia"
               ],
               "correctAnswer": 0,
               "orderItems": [],
@@ -51,9 +51,9 @@
               "question": "Aký význam má práca ľudí v spoločnosti?",
               "options": [
                 "Žiadny",
-                "Všetky práce sú zbytočné",
+                "Všetky práce sú zbytočné, ľudia si vedia urobiť všetko bez pomoci",
                 "Práca sa týka len peňazí",
-                "Učitelia, lekári a stavbári svojou prácou zlepšujú život všetkým"
+                "Učitelia, lekári a ďalší svojou prácou zlepšujú život všetkým"
               ],
               "correctAnswer": 3,
               "orderItems": [],
@@ -151,8 +151,7 @@
               "orderItems": [
                 "Chrumko ráno vidí, že sa mama pripravuje do práce, hoci prší",
                 "Spýta sa, prečo musí ísť každý deň",
-                "Mama vysvetlí, že za prácu dostáva peniaze na nájom, jedlo a školské náklady",
-                "Mama mu ukáže, že aj elektrina a voda sa platia z jej platu"
+                "Mama vysvetlí, že za prácu dostáva peniaze na nájom, jedlo a školské náklady"
               ],
               "correctAnswer": 0,
               "matchLeft": [],
@@ -173,10 +172,10 @@
               "questionType": "multipleChoice",
               "question": "Robia všetci dospelí rovnakú prácu?",
               "options": [
-                "Áno, všetci robia to isté",
+                "Áno, všetci robia to isté, aby nikto nebol vynechaný",
                 "Nie, každý robí niečo iné a spolu udržujú svet v chode",
-                "Stačila by jedna práca",
-                "Práca je zbytočná"
+                "Dospelí nepracujú",
+                "Všetci dospelí sú stavbári alebo lekári, iné povolanie neexistuje"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -191,9 +190,9 @@
               "questionType": "scenario",
               "question": "Chrumko ide do školy. Koľko rôznych prác vidí?",
               "options": [
-                "Len jednu",
-                "Žiadnu",
-                "Všetci robia to isté",
+                "Len jednu, a to stavbára",
+                "Žiadnu, pretože všetci dospelí pracujú z domu",
+                "Vidí iba tri práce, ktoré existujú, a to lekára, učiteľa a stavbára",
                 "Vodiča autobusu, učiteľku, opravárov chodníka, predavačku aj poštára"
               ],
               "correctAnswer": 3,
@@ -250,7 +249,7 @@
               "options": [
                 "Rôzne povolania sa navzájom dopĺňajú.",
                 "Všetci dospelí robia presne to isté.",
-                "Jedni ľudia pracujú s ľuďmi, iní s vecami alebo informáciami."
+                "Niektorí ľudia pracujú s ľuďmi, iní s vecami alebo informáciami."
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -269,7 +268,7 @@
                 "Liečenie",
                 "Vyučovanie",
                 "Opravovanie",
-                "Navrhovanie"
+                "Počítanie"
               ],
               "dragTargets": [
                 "Práca s informáciami",
@@ -293,7 +292,7 @@
               "questionType": "multipleChoice",
               "question": "Prečo je dôležité mať rôzne povolania?",
               "options": [
-                "Stačilo by jedno povolanie",
+                "Stačilo by jedno povolanie, ale ľudia nechcú byť rovnakí",
                 "Všetko je náhodné",
                 "Rôzne zručnosti spolu zabezpečujú fungovanie spoločnosti",
                 "Nie je to dôležité"
@@ -318,9 +317,9 @@
               "questionType": "multipleChoice",
               "question": "Dostáva každý za svoju prácu rovnaké peniaze?",
               "options": [
-                "Nie, výška platu závisí od vzdelania, zručností, zodpovednosti a času",
-                "Áno, vždy",
-                "Nikdy nikto nič nedostane",
+                "Nie, výška platu závisí od mnohých kritérií",
+                "Áno, vždy, aby nebol niekto ukrivdení",
+                "Nikdy nikto nič nedostane, pretože dospelí pracujú zadarmo",
                 "Všetci dostávajú rovnako"
               ],
               "correctAnswer": 0,
@@ -348,10 +347,10 @@
               "questionType": "scenario",
               "question": "Chrumko sa rozpráva s otcom o platoch. Čo mu otec vysvetlí?",
               "options": [
-                "Peniaze prichádzajú každý deň",
+                "Peniaze prichádzajú každý deň na bankový ǔčet, aby ich mohli v ten deň využiť",
                 "Plat dostáva raz za mesiac a z neho rodina platí všetko potrebné počas mesiaca",
                 "Peniaze sa vždy minú hneď",
-                "Plat nikdy nepríde"
+                "Plat nikdy nepríde, pretože dospelí nedostávajú peniaze za prácu, ale jedlo"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -437,8 +436,8 @@
               "questionType": "multipleChoice",
               "question": "Prečo treba plat rozumne rozdeliť?",
               "options": [
-                "Nie je to dôležité",
-                "Všetko sa dá kúpiť hneď",
+                "Nie je to dôležité, pretože všetko je zadarmo",
+                "Všetko sa dá kúpiť hneď, pretože peniaze sú nekonečné",
                 "Musí vystačiť na všetko potrebné počas celého mesiaca",
                 "Nemá to zmysel"
               ],
@@ -463,7 +462,7 @@
               "question": "Prečo je čas dôležitý pri práci?",
               "options": [
                 "Mnohé práce sa platia za hodinu – viac hodín, viac zarobené",
-                "Čas je zbytočný",
+                "Čas je zbytočný, aj tak na konci mesiaca dostaneš vždy rovnako veľa peňazí",
                 "Čas sa nikdy nepočíta",
                 "Platí sa len za deň, nie za hodiny"
               ],
@@ -480,8 +479,8 @@
               "questionType": "scenario",
               "question": "Chrumko vidí, že jeho starší brat pomáha susedovi. Čo robí?",
               "options": [
-                "Hrá sa v záhrade",
-                "Sedí doma",
+                "Hrá sa v záhrade, a tým odháňa zlodejov",
+                "Sedí u suseda doma a hrá s ním karty",
                 "Nič nerobí",
                 "Pomáha celé dopoludnie v záhrade – zbiera lístie, hrabe trávu a nosí konáre"
               ],
@@ -603,10 +602,10 @@
               "questionType": "multipleChoice",
               "question": "Čo je produktivita?",
               "options": [
-                "Pracovať čo najpomalšie",
+                "Pracovať čo najpomalšie, pretože každá práca je platená od hodiny",
                 "Pracovať sústredene, aby sme zvládli viac za kratší čas",
                 "Nerobiť nič",
-                "Prerušovať prácu každú chvíľu"
+                "Prerušovať prácu každú chvíľu, a dávať si prestávky na hranie sa na telefóne"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -621,9 +620,9 @@
               "questionType": "scenario",
               "question": "Chrumko si robí domácu úlohu a stále pozerá na mobil. Čo sa stane?",
               "options": [
-                "Úloha mu zaberie málo času",
-                "Úlohu nevie urobiť",
-                "Všetko ide rýchlo",
+                "Úloha mu zaberie málo času, mobil mu zázračne urobí úlohu sám",
+                "Úlohu nevie urobiť, preto sa radšej začne hraŤ",
+                "Všetko ide rýchlo, má predsa dve oči",
                 "Úloha mu zaberie veľmi veľa času, pretože sa rozptyľuje"
               ],
               "correctAnswer": 3,
@@ -674,9 +673,9 @@
                 "Práca na jednej úlohe naraz"
               ],
               "matchRight": [
-                "Lepšie sústredenie",
+                "Lepšie sústredenie sa na konkrétnu úlohu",
                 "Menej rozptyľovania",
-                "Práca ide plynulejšie",
+                "Príprava na prácu",
                 "Práca trvá dlhšie"
               ],
               "correctAnswer": [
@@ -724,7 +723,7 @@
               "questionType": "multipleChoice",
               "question": "Ako Chrumko zvýši svoju produktivitu pri domácich úlohách?",
               "options": [
-                "Strávi nad úlohami viac času bez akejkoľvek zmeny",
+                "Strávi nad úlohami viac času bez akejkoľvek zmeny alebo posunu v práci",
                 "Bude sa hrať počas učenia",
                 "Odloží telefón, pripraví si všetko potrebné a pracuje sústredene",
                 "Bude pozerať na mobil po každej vete"
