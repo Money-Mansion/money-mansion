@@ -14,46 +14,46 @@
               "questionType": "multipleChoice",
               "question": "Ako rodina najčastejšie získava peniaze?",
               "options": [
-                "Nachádzajú ich",
-                "Z práce dospelých - plat alebo mzda",
-                "Dostávajú ich zadarmo",
-                "Peniaze majú proste"
+                "Nachádzajú ich na zemi v parku",
+                "Dostávajú ich zadarmo od účtovníčky",
+                "Peniaze jednoducho majú",
+                "Z práce dospelých – plat alebo mzda"
               ],
-              "correctAnswer": 1,
+              "correctAnswer": 3,
               "explanation": "Rodina získava peniaze najčastejšie z práce dospelých. Keď rodičia pracujú, dostávajú za svoju prácu plat alebo odmenu."
             },
             {
               "questionId": "7001_02",
               "questionType": "scenario",
-              "question": "Chrumko si všimne, že mama pozerá na telefóne správu z banky. Čo sa valstane?",
+              "question": "Chrumko si všimne, že mama pozerá na telefóne správu z banky. Čo sa stalo?",
               "options": [
-                "Nič nie podľa",
+                "Nič sa nestalo, banka občas píše len tak",
                 "Mama dostala výplatu za prácu",
-                "Peniaze zmizli",
+                "Ocko si kúpil bagetu",
                 "Vždy je to problém"
               ],
               "correctAnswer": 1,
-              "explanation": "Mama dostala výplatu - peniaze, ktoré ju dostáva za prácu. Tieto peniaze prichádzajú na jej bankový účet."
+              "explanation": "Mama dostala výplatu – peniaze, ktoré dostáva za prácu. Prišli jej na bankový účet."
             },
             {
               "questionId": "7001_03",
               "questionType": "multipleChoice",
-              "question": "Na čo sa z týchto peňazí používajú?",
+              "question": "Na čo sa peniaze používajú?",
               "options": [
-                "Len na hračky",
-                "Na nájom, potraviny, školské potreby a ďalšie",
-                "Sú úplne zbytočné",
+                "Na byt, potraviny a školské potreby",
+                "Len na hračky a sladkosti",
+                "Sú úplne zbytočné, funguje výmena tovaru za tovar",
                 "Nikdy nie sú potrebné"
               ],
-              "correctAnswer": 1,
-              "explanation": "Z týchto peňazí rodina platí nájom, potraviny aj školské potreby. Z nich financuje všetko, čo rodina potrebuje."
+              "correctAnswer": 0,
+              "explanation": "Z týchto peňazí rodina platí byt, potraviny aj školské potreby."
             },
             {
               "questionId": "7001_04",
               "questionType": "trueFalse",
-              "question": "Peniaze v domácnosti prichádzajú preto, že rodičia pracujú a dostávajú za svoju prácu odplatu.",
-              "correctAnswer": 0,
-              "explanation": "Práca dospelých je primárnym zdrojom peňazí pre rodinu."
+              "question": "Peniaze sa v domácnosti objavia samy, aj keď rodičia nepracujú.",
+              "correctAnswer": 1,
+              "explanation": "Peniaze prichádzajú do rodiny preto, že rodičia pracujú a dostávajú za to odmenu."
             },
             {
               "questionId": "7001_05",
@@ -61,40 +61,67 @@
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
                 "Rodičia dostávajú plat za svoju prácu.",
-                "Peniaze v rodine pochádzajú z viacerých zdrojov.",
-                "Peniaze sa majú proste bez práce."
+                "Rodinné peniaze pochádzajú výlučne z darčekov.",
+                "Niektorí rodičia podnikajú a zarábajú vo vlastnej firme."
               ],
-              "correctAnswer": 2,
-              "explanation": "Peniaze sa nemafia samy od seba - musia byť zarobené prácou."
+              "correctAnswer": 1,
+              "explanation": "Väčšina rodinných peňazí pochádza z práce. Darčeky a dávky sú len ďalšie zdroje."
             },
             {
               "questionId": "7001_06",
               "questionType": "matching",
               "question": "Spáruj zdroj peňazí so správnym opisom.",
-              "matchLeft": ["Plat od zamestnávateľa", "Pôžička od banky", "Dedičstvo", "Zarobenie deťmi"],
-              "matchRight": ["Peniaze za prácu", "Peniaze ktoré treba vrátiť", "Peniaze od blízkych", "Peniaze za pomoc"],
-              "explanation": "Existuje viacero spôsobov, ako má rodina zdroje peňazí, ale práca je najčastejšia."
+              "matchLeft": [
+                "Plat",
+                "Podnikanie",
+                "Darčeky",
+                "Príležitostný príjem"
+              ],
+              "matchRight": [
+                "Pravidelná odmena od zamestnávateľa za prácu",
+                "Vlastná firma alebo služba",
+                "Peniaze, ktoré rodina dostane ako dar",
+                "Peniaze, ktoré prídu len občas"
+              ],
+              "explanation": "Rodina môže získavať peniaze z viacerých zdrojov, ale najčastejšie z práce."
             },
             {
               "questionId": "7001_07",
               "questionType": "dragDrop",
-              "question": "Zaraď každú položku do správnej kategórie: Ako sa peniaze používajú.",
-              "dragLabels": ["Nájom", "Hračky", "Potraviny", "Video hry"],
-              "dragTargets": [
-                { "label": "Potrebné výdavky", "correctItems": ["Nájom", "Potraviny"] },
-                { "label": "Voľné výdavky", "correctItems": ["Hračky", "Video hry"] }
+              "question": "Zaraď každý zdroj peňazí do správnej skupiny.",
+              "dragLabels": [
+                "Výplata za prácu",
+                "Vlastná firma",
+                "Darček",
+                "Dávky"
               ],
-              "explanation": "Peniaze sa používajú najprv na potreby, a potom na veci, ktoré chceme."
+              "dragTargets": [
+                {
+                  "label": "Peniaze za prácu",
+                  "correctItems": [
+                    "Výplata za prácu",
+                    "Vlastná firma"
+                  ]
+                },
+                {
+                  "label": "Iné zdroje",
+                  "correctItems": [
+                    "Darček",
+                    "Dávky"
+                  ]
+                }
+              ],
+              "explanation": "Peniaze za prácu sú hlavný zdroj. Darčeky a dávky sú iné zdroje."
             },
             {
               "questionId": "7001_08",
               "questionType": "ordering",
-              "question": "Zoraď, čo si Chrumko uvedomí o peniazoch v rodine.",
+              "question": "Zoraď, ako Chrumko postupne chápe, odkiaľ sú peniaze v rodine.",
               "orderItems": [
-                "Mama dostáva správu z banky o výplate",
-                "Chrumko si všimne, že mama pracuje",
-                "Chrumko pochopí, že peniaze v domácnosti pochádzajú z práce",
-                "Chrumko vidí, ako sa peniaze používajú na nájom a potraviny"
+                "Chrumko si všimne, že mama pozerá na správu z banky",
+                "Mama mu vysvetlí, že dostala výplatu za prácu",
+                "Mama mu ukáže, že z týchto peňazí platia byt, potraviny a školské potreby",
+                "Chrumko pochopí, že peniaze v domácnosti prichádzajú z práce rodičov"
               ],
               "explanation": "Chrumko postupne pochopí vzťah medzi prácou a peniazmi v rodine."
             }
@@ -111,76 +138,107 @@
               "question": "Čo sú výdavky domácnosti?",
               "options": [
                 "Všetko, čo si kúpime",
+                "Len veľké nákupy, napríklad auto",
                 "Všetky peniaze, ktoré treba zaplatiť na fungovanie domova",
-                "Majetok",
-                "Nič nie je dôležité"
+                "Majetok rodiny"
               ],
-              "correctAnswer": 1,
-              "explanation": "Výdavky domácnosti sú všetky peniaze, ktoré treba zaplatiť na fungovanie domova - bývanie, jedlo, voda, elektrina, doprava, atd."
+              "correctAnswer": 2,
+              "explanation": "Výdavky domácnosti sú všetky peniaze, ktoré treba zaplatiť na fungovanie domova – napríklad bývanie, jedlo, energie či internet."
             },
             {
               "questionId": "7002_02",
               "questionType": "scenario",
-              "question": "Chrumko sa čuduje, prečo rodičia tohto mesiaca nekúpili dekoratívny kvetináč, ktorý sa im páčil. Čo otec hovorí?",
+              "question": "Chrumko sa čuduje, prečo rodičia nekúpili nový dekoratívny kvetináč. Čo mu ukáže otec?",
               "options": [
-                "Majú všetky peniaze",
-                "Peniaze nemajú",
-                "Museli platiť účet za internet, vodu a ďalšie povinné výdavky",
-                "Všetko je zadarmo"
+                "Že majú dosť peňazí na všetko",
+                "Že tento týždeň už zaplatili účet za internet, vodu a školské obedy",
+                "Že nemajú žiadne peniaze",
+                "Že všetko je zadarmo"
               ],
-              "correctAnswer": 2,
-              "explanation": "Otec mu hovorí, že museli platiť účet za internet, vodu a ďalšie povinné výdavky. Aj keď to nie sú veľké veci, spolu tvoria väčšiu sumu."
+              "correctAnswer": 1,
+              "explanation": "Aj keď to nie sú veľké veci, spolu tvoria väčšiu sumu."
             },
             {
               "questionId": "7002_03",
               "questionType": "trueFalse",
-              "question": "Všetky peniaze, ktoré rodina zarobí, sa výdavajú len na luxus a zábavu.",
+              "question": "Peniaze odchádzajú z domácnosti len na veľké nákupy.",
               "correctAnswer": 1,
-              "explanation": "Väčšina peňazí sa vynakladá na potrebné výdavky ako nájom, potraviny a energie."
+              "explanation": "Peniaze často odchádzajú na veľa malých, potrebných platieb, ktoré sa spolu sčítajú."
             },
             {
               "questionId": "7002_04",
               "questionType": "matching",
               "question": "Spáruj každý výdavok s jeho kategóriou.",
-              "matchLeft": ["Nájom", "Čokoláda", "Elektrina", "Hračka"],
-              "matchRight": ["Potrebný výdavok", "Voľný výdavok", "Potrebný výdavok", "Voľný výdavok"],
-              "explanation": "Potrebné výdavky sú pre fungovanie domácnosti, voľné výdavky sú pre zábavu."
+              "matchLeft": [
+                "Nájom",
+                "Chlieb a mlieko",
+                "Elektrina",
+                "Autobusový lístok"
+              ],
+              "matchRight": [
+                "Bývanie",
+                "Jedlo",
+                "Energie",
+                "Doprava"
+              ],
+              "explanation": "Domácnosť platí za bývanie, jedlo, energie, dopravu a ďalšie veci."
             },
             {
               "questionId": "7002_05",
               "questionType": "dragDrop",
               "question": "Zaraď výdavky domácnosti do správnych skupín.",
-              "dragLabels": ["Nájom", "Potraviny", "Voda", "Internet", "Hry", "Sladkosti"],
-              "dragTargets": [
-                { "label": "Nevyhnutné výdavky", "correctItems": ["Nájom", "Potraviny", "Voda", "Internet"] },
-                { "label": "Voľných výdavkov", "correctItems": ["Hry", "Sladkosti"] }
+              "dragLabels": [
+                "Elektrina",
+                "Voda",
+                "Kúrenie",
+                "Nájom",
+                "Hypotéka",
+                "Potraviny"
               ],
-              "explanation": "Rodina si musí budžetovať tak, aby mala dosť na potrebné výdavky."
+              "dragTargets": [
+                {
+                  "label": "Energie",
+                  "correctItems": [
+                    "Elektrina",
+                    "Voda",
+                    "Kúrenie"
+                  ]
+                },
+                {
+                  "label": "Bývanie a jedlo",
+                  "correctItems": [
+                    "Nájom",
+                    "Hypotéka",
+                    "Potraviny"
+                  ]
+                }
+              ],
+              "explanation": "Rodina musí rátať s energiami, bývaním aj jedlom."
             },
             {
               "questionId": "7002_06",
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
-                "Výdavky domácnosti zahŕňajú nájom, vodu a elektricitu.",
-                "Peniaze často odchádzajú na veľa malých potrebných platieb.",
-                "Domácnosť nemusí platiť za vodu, lebo ide len o prirodzenú vec."
+                "Domácnosť nemusí platiť za vodu a elektrinu.",
+                "Výdavky domácnosti zahŕňajú nájom, jedlo a energie.",
+                "Aj malé platby sa spolu sčítajú na väčšiu sumu."
               ],
-              "correctAnswer": 2,
-              "explanation": "Voda sa musí dopraviť do domu a to stojí peniaze."
+              "correctAnswer": 0,
+              "explanation": "Voda a elektrina patria medzi energie, za ktoré domácnosť pravidelne platí."
             },
             {
               "questionId": "7002_07",
               "questionType": "multipleChoice",
-              "question": "Prečo sú účty za internet a vodu dôležité výdavky?",
+              "question": "Prečo peniaze rodiny miznú, aj keď nekúpi nič veľké?",
               "options": [
-                "Lebo sú veľmi drahé",
-                "Lebo sú ľuďom zbytočné",
-                "Lebo sú to služby potrebné pre bezpečie a komunikáciu v rodine",
-                "Pretože sa nikdy nezaplatia"
+                "Rodičia peniaze strácajú",
+                "Každá vec v obchode je veľmi drahá",
+                "Účty sa neplatia pravidelne",
+                "Platí sa veľa malých potrebných platieb, ktoré spolu tvoria väčšiu sumu"
               ],
-              "correctAnswer": 2,
-              "explanation": "Služby ako voda a internet sú nevyhnutné pre zdravie a vzdelanie rodiny."
+              "correctAnswer": 3,
+              "explanation": "Aj malé pravidelné platby (internet, voda, obedy) sa spolu spočítajú."
             }
           ]
         },
@@ -192,78 +250,105 @@
             {
               "questionId": "7003_01",
               "questionType": "multipleChoice",
-              "question": "Prečo sa platí za bývanie, aj keď v ňom žijeme?",
+              "question": "Prečo sa platí za bývanie, aj keď v byte už bývame?",
               "options": [
-                "Nie je dôvodu platiť",
-                "Bývanie vyžaduje starostlivosť, údržbu a služby, ktoré stoja peniaze",
-                "Všetko je zadarmo",
-                "Nikdy sa neplati"
+                "Nie je dôvod platiť, keď už v byte bývame",
+                "Všetko okolo bývania je zadarmo",
+                "Bývanie znamená aj teplo, vodu, spoločné priestory a údržbu, ktoré stoja peniaze",
+                "Platí sa len raz pri nasťahovaní"
               ],
-              "correctAnswer": 1,
-              "explanation": "Za bývanie sa platí nájom, hypotéka alebo poplatky spojené s bývaním. Tiež k tomu patria služby ako voda, kúrenie, odvoz odpadu."
+              "correctAnswer": 2,
+              "explanation": "Bývanie nie je len samotný priestor. Patrí k nemu teplo, voda, spoločné priestory a údržba."
             },
             {
               "questionId": "7003_02",
               "questionType": "trueFalse",
-              "question": "Domov potrebuje starostlivosť a údržbu, čo znamená, že sa môžu objaviť nové výdavky.",
+              "question": "Domov potrebuje stálu starostlivosť a údržbu, ktoré stoja peniaze.",
               "correctAnswer": 0,
-              "explanation": "Keď sa niečo pokazí, treba to opraviť, čo stojí peniaze."
+              "explanation": "Keď sa niečo pokazí, treba to opraviť, a to stojí peniaze."
             },
             {
               "questionId": "7003_03",
               "questionType": "matching",
-              "question": "Spáruj každý výdavok súvisiaci s bývaním so správnym opisom.",
-              "matchLeft": ["Nájom", "Oprava strechy", "Kúrenie", "Úklid spoločných priestorov"],
-              "matchRight": ["Mesačný poplatek za domov", "Nepredvídaný výdavok", "Pravidelný mesačný výdavok", "Mesačný spoločný poplatek"],
-              "explanation": "Niektoré výdavky sú pravidelné (nájom, kúrenie), iné nepredvídateľné (opravy)."
+              "question": "Spáruj každú položku so správnym opisom.",
+              "matchLeft": [
+                "Nájom",
+                "Hypotéka",
+                "Oprava výťahu",
+                "Kúrenie"
+              ],
+              "matchRight": [
+                "Pravidelná platba za používanie bytu",
+                "Pravidelná platba za kúpu domu",
+                "Oprava, keď sa niečo pokazí",
+                "Udržiavanie domova v teple"
+              ],
+              "explanation": "Na bývanie sú potrebné pravidelné platby, služby aj opravy."
             },
             {
               "questionId": "7003_04",
               "questionType": "dragDrop",
               "question": "Zaraď položky do správnych skupín výdavkov na bývanie.",
-              "dragLabels": ["Nájom", "Pokazená okna", "Voda", "Novú maľbu na steny"],
-              "dragTargets": [
-                { "label": "Pravidelné výdavky", "correctItems": ["Nájom", "Voda"] },
-                { "label": "Nepredvídané opravy", "correctItems": ["Pokazená okna", "Novú maľbu na steny"] }
+              "dragLabels": [
+                "Nájom",
+                "Voda",
+                "Pokazený výťah",
+                "Oprava strechy"
               ],
-              "explanation": "Rodina musí plánovať a ušetriť peniaze aj na neplánované opravy."
+              "dragTargets": [
+                {
+                  "label": "Pravidelné platby",
+                  "correctItems": [
+                    "Nájom",
+                    "Voda"
+                  ]
+                },
+                {
+                  "label": "Opravy, keď sa niečo pokazí",
+                  "correctItems": [
+                    "Pokazený výťah",
+                    "Oprava strechy"
+                  ]
+                }
+              ],
+              "explanation": "Domov stojí peniaze pravidelne aj vtedy, keď sa niečo pokazí."
             },
             {
               "questionId": "7003_05",
               "questionType": "scenario",
-              "question": "Mama Chrumka hovorí, že sa musí opraviť strecha. Čo sa deje?",
+              "question": "Chrumkova mama vraví, že keď sa pokazí výťah alebo treba opraviť strechu, stojí to peniaze. Čo to znamená?",
               "options": [
-                "Strecha nepotrebuje opravy",
-                "Oprava strechy je neplánovaný, ale nevyhnutný výdavok",
-                "Strecha sa vždy sama opraví",
-                "Opravou strechy ušetríme peniaze"
+                "Aj údržba a opravy domova stoja peniaze",
+                "Strecha sa opraví sama",
+                "Opravy sú vždy zadarmo",
+                "Za bývanie sa platí len raz"
               ],
-              "correctAnswer": 1,
-              "explanation": "Keď sa domov pokazí, treba ho opraviť, aby bol bezpečný - toto sú nepredvídané, ale nevyhnutné výdavky."
+              "correctAnswer": 0,
+              "explanation": "Domov potrebuje stálu starostlivosť, a tá stojí peniaze."
             },
             {
               "questionId": "7003_06",
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
-                "Nájom je mesačný výdavok za bývanie.",
-                "Opravy a údržba domova sú neplánované výdavky, ktoré sa nikdy nestanú.",
-                "Kúrenie je nevyhnutný výdavok na zimu."
+                "Nájom je pravidelná platba za bývanie.",
+                "Kúrenie a voda patria medzi náklady na bývanie.",
+                "Opravy a údržba domova nikdy nestoja žiadne peniaze."
               ],
-              "correctAnswer": 1,
-              "explanation": "Opravy sa budú musieť urobiť - domov si vyžaduje údržbu."
+              "correctAnswer": 2,
+              "explanation": "Opravy a údržba sú súčasťou nákladov na bývanie."
             },
             {
               "questionId": "7003_07",
               "questionType": "ordering",
               "question": "Zoraď, ako sa Chrumko učí o nákladoch na bývanie.",
               "orderItems": [
-                "Chrumko vidí, že rodičia platia nájom",
-                "Mama mu vysvetlí, že bývanie nie je len priestor",
-                "Chrumko vidí, že sa niečo pokazí a musí sa opraviť",
-                "Chrumko pochopí, že bývanie stojí peniaze a vyžaduje starostlivosť"
+                "Chrumko začuje, že rodičia hovoria o mesačných platbách za byt",
+                "Spýta sa, prečo platia za miesto, ktoré už majú",
+                "Mama mu vysvetlí, že bývanie znamená aj teplo, vodu, spoločné priestory a údržbu",
+                "Chrumko pochopí, že domov potrebuje stálu starostlivosť"
               ],
-              "explanation": "Postupne Chrumko pochopí komplexnosť výdavkov na bývanie."
+              "explanation": "Chrumko postupne pochopí, že bývanie stojí peniaze."
             }
           ]
         },
@@ -275,79 +360,106 @@
             {
               "questionId": "7004_01",
               "questionType": "multipleChoice",
-              "question": "Prečo neostáva chladnička sama s jedlom?",
+              "question": "Prečo sa chladnička sama nenapĺňa jedlom?",
               "options": [
-                "Jedlo raste doma",
+                "Jedlo rastie doma",
                 "Potraviny sa spotrebúvajú a treba ich pravidelne kupovať",
-                "Chladnička je magická",
+                "Chladnička je kúzelná",
                 "Jedlo je zadarmo"
               ],
               "correctAnswer": 1,
-              "explanation": "Jedlo patrí medzi pravidelné výdavky. Potraviny sa spotrebúvajú a treba ich kupovať často."
+              "explanation": "Jedlo sa míňa, preto ho treba často dopĺňať."
             },
             {
               "questionId": "7004_02",
               "questionType": "scenario",
-              "question": "Chrumko ide s mamou na menší nákup. Co kupujú?",
+              "question": "Chrumko ide s mamou na menší nákup. Čo dávajú do košíka?",
               "options": [
-                "Nič",
                 "Chlieb, mlieko, ovocie, syr, cestoviny a jogurty",
                 "Len hračky",
+                "Nič",
                 "Všetko je zadarmo"
               ],
-              "correctAnswer": 1,
-              "explanation": "Do košíka dávajú chlieb, mlieko, ovocie, syr, cestoviny a jogurty. Zdá sa mu, že kupujú len pár vecí."
+              "correctAnswer": 0,
+              "explanation": "Chrumkovi sa zdá, že kupujú len pár vecí, ale pri pokladni je suma vyššia, než čakal."
             },
             {
               "questionId": "7004_03",
               "questionType": "trueFalse",
-              "question": "Jedlo je pravidelná veľká časť rodinných výdavkov.",
+              "question": "Jedlo tvorí veľkú pravidelnú časť rodinných výdavkov.",
               "correctAnswer": 0,
-              "explanation": "Každá rodina musí pravidelne nakupovať potraviny, čo je jeden z najväčších výdavkov."
+              "explanation": "Jedlo patrí medzi najväčšie pravidelné výdavky každej rodiny."
             },
             {
               "questionId": "7004_04",
               "questionType": "matching",
-              "question": "Spáruj potravinu s jej kategóriou výdavkov.",
-              "matchLeft": ["Chlieb", "Sladkosti", "Ovocie", "Čokoláda"],
-              "matchRight": ["Potrebný nákup", "Voľný nákup", "Potrebný nákup", "Voľný nákup"],
-              "explanation": "Základné potraviny sú potrebou, zatiaľ čo sladkosti sú voľným nákupom."
+              "question": "Spáruj situáciu s tým, čo z nej vyplýva.",
+              "matchLeft": [
+                "Jedlo sa míňa",
+                "Väčšia rodina",
+                "Veľa malých položiek",
+                "Pokladňa po nákupe"
+              ],
+              "matchRight": [
+                "Treba ho často dopĺňať",
+                "Viac jedla a vyšší výdavok",
+                "Veľká mesačná suma",
+                "Suma vyššia, než Chrumko čakal"
+              ],
+              "explanation": "Jedlo je veľká pravidelná časť výdavkov."
             },
             {
               "questionId": "7004_05",
               "questionType": "dragDrop",
-              "question": "Zaraď každú potravinu do správnej kategórie.",
-              "dragLabels": ["Chlieb", "Mlieko", "Zmrzlina", "Čokoláda", "Ryža", "Keksíky"],
-              "dragTargets": [
-                { "label": "Základné potraviny", "correctItems": ["Chlieb", "Mlieko", "Ryža"] },
-                { "label": "Sladkosti a pochúťky", "correctItems": ["Zmrzlina", "Čokoláda", "Keksíky"] }
+              "question": "Zaraď tvrdenia do správnej skupiny.",
+              "dragLabels": [
+                "Jedlo sa míňa a treba ho dopĺňať",
+                "Väčšia rodina potrebuje viac jedla",
+                "Malé položky sa nesčítajú",
+                "Chladnička sa naplní sama"
               ],
-              "explanation": "Rozpočet by mal uprednostniť základné potraviny pred sladkosťami."
+              "dragTargets": [
+                {
+                  "label": "Pravda",
+                  "correctItems": [
+                    "Jedlo sa míňa a treba ho dopĺňať",
+                    "Väčšia rodina potrebuje viac jedla"
+                  ]
+                },
+                {
+                  "label": "Nepravda",
+                  "correctItems": [
+                    "Malé položky sa nesčítajú",
+                    "Chladnička sa naplní sama"
+                  ]
+                }
+              ],
+              "explanation": "Jedlo sa míňa a stojí peniaze, preto ho treba pravidelne kupovať."
             },
             {
               "questionId": "7004_06",
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
-                "Potraviny sa spotrebúvajú a treba ich kupovať pravidelne.",
-                "Jedlo je veľká časť rodinných výdavkov.",
-                "Rodina by mala minúť všetky peniaze na sladkosti, nie na základné potraviny."
+                "Jedlo sa míňa a treba ho často dopĺňať.",
+                "Jedlo si rodina nemusí kupovať, lebo sa chladnička naplní sama.",
+                "Malé položky sa spolu spočítajú na veľkú mesačnú sumu."
               ],
-              "correctAnswer": 2,
-              "explanation": "Základné potraviny sú nevyhnutnosť, sladkosti sú len niekedy, ak zostanú peniaze."
+              "correctAnswer": 1,
+              "explanation": "Chladnička sa sama nenaplní – jedlo treba pravidelne kupovať."
             },
             {
               "questionId": "7004_07",
               "questionType": "multipleChoice",
-              "question": "Prečo je dôležité plánovať nákupy potravín?",
+              "question": "Prečo je suma pri pokladni často vyššia, než sme čakali?",
               "options": [
-                "Lebo chlieb nedržuje večne",
-                "Lebo je dobré vedieť, koľko peňazí sa minú",
-                "Lebo možno budeme potrebovať rôzne potraviny v rôznych časoch",
-                "Všetky vyššie uvedené"
+                "Pokladníčka sa vždy pomýli",
+                "Mama kúpila len jednu drahú vec",
+                "Jedlo je v obchode vždy zadarmo",
+                "Aj bežné potraviny spolu stoja dosť, malé položky sa sčítajú"
               ],
               "correctAnswer": 3,
-              "explanation": "Plánované nákupy pomáhajú ušetriť peniaze a zabezpečujú, že rodina má dostatok jedla."
+              "explanation": "Aj bežné potraviny spolu stoja dosť, preto je jedlo veľký pravidelný výdavok."
             }
           ]
         },
@@ -359,91 +471,118 @@
             {
               "questionId": "7005_01",
               "questionType": "multipleChoice",
-              "question": "Prečo rodičia vypínajú svetlo, aj keď ho mohli nechať dlhšie?",
+              "question": "Prečo rodičia vypínajú svetlo, keď ho nepotrebujeme?",
               "options": [
                 "Bez dôvodu",
-                "Pretože elektrina, voda a kúrenie stoja peniaze",
                 "Svetlo je zadarmo",
-                "Nikdy sa to nedáže"
+                "Pretože elektrina a voda stoja peniaze",
+                "Nikdy to nemá zmysel"
               ],
-              "correctAnswer": 1,
-              "explanation": "Elektrina, voda a kúrenie sú služby, za ktoré rodina platí pravidelné účty. Čím viac energie sa používa, tým vyššia môže byť suma."
+              "correctAnswer": 2,
+              "explanation": "Aj malé veci sa počas mesiaca spočítajú."
             },
             {
               "questionId": "7005_02",
               "questionType": "scenario",
-              "question": "Chrumko odíde z izby a nechá zapnuté svetlo. Čo mama robí?",
+              "question": "Chrumko odíde z izby a nechá svietiť svetlo. Čo urobí mama?",
               "options": [
-                "Necháva ho zapnuté",
-                "Zavolá na Chrumka, aby ho vypol",
-                "Všetko je jedno",
-                "Svetlo je zadarmo"
+                "Nechá ho svietiť",
+                "Zavolá Chrumka späť, aby svetlo vypol",
+                "Je jej to jedno",
+                "Svetlo je zadarmo, tak nič nepovie"
               ],
               "correctAnswer": 1,
-              "explanation": "Mama ho zavolá späť a poprosí ho, aby vypol svetlo. Vysvetlí mu, že aj malé veci se počas mesiaca spočítajú."
+              "explanation": "Mama mu vysvetlí, že aj malé veci sa počas mesiaca spočítajú."
             },
             {
               "questionId": "7005_03",
               "questionType": "trueFalse",
-              "question": "Energia síce nie je viditeľná ako fyzická vec, ale stojí peniaze každý deň.",
-              "correctAnswer": 0,
-              "explanation": "Elektrina, voda a plyn sú neviditeľné, ale ich spotreba sa platí v mesačných účtoch."
+              "question": "Energia je neviditeľná, a preto nestojí žiadne peniaze.",
+              "correctAnswer": 1,
+              "explanation": "Energia nie je viditeľná ako predmet, ale stojí peniaze každý deň."
             },
             {
               "questionId": "7005_04",
               "questionType": "matching",
-              "question": "Spáruj každé konanie so správnym účinkom na náklady energií.",
-              "matchLeft": ["Vypnutie svetla", "Ponechanie chladničky dlho otvorenej", "Krátky teplý spŕchnutie", "Hry vonku namiesto televízie"],
-              "matchRight": ["Znižuje sa elektrina", "Zvyšuje sa elektrina", "Znižuje sa voda a energie", "Znižuje sa elektrina"],
-              "explanation": "Všetky tieto konania ovplyvňujú rozpočet domácnosti."
+              "question": "Spáruj každú činnosť s jej účinkom.",
+              "matchLeft": [
+                "Vypnutie svetla",
+                "Zatvorenie vody pri umývaní zubov",
+                "Dlho otvorená chladnička",
+                "Zariadenie v pohotovostnom režime"
+              ],
+              "matchRight": [
+                "Šetrí elektrinu",
+                "Šetrí vodu",
+                "Chladnička míňa viac energie",
+                "Zariadenie zbytočne spotrebúva elektrinu"
+              ],
+              "explanation": "Malé návyky šetria alebo míňajú peniaze."
             },
             {
               "questionId": "7005_05",
               "questionType": "dragDrop",
-              "question": "Zaraď činnosti podľa toho, ako ovplyvňujú spotreby energie.",
-              "dragLabels": ["Vypnutie počítača", "Zanechanie ventilátora zapnutého", "Teplý obed", "Krátke sprchy"],
-              "dragTargets": [
-                { "label": "Šetria energiu", "correctItems": ["Vypnutie počítača", "Krátke sprchy"] },
-                { "label": "Zvyšujú spotrebu energie", "correctItems": ["Zanechanie ventilátora zapnutého", "Teplý obed"] }
+              "question": "Zaraď činnosti podľa toho, či šetria energiu, alebo ňou plytvajú.",
+              "dragLabels": [
+                "Vypnúť svetlo v prázdnej izbe",
+                "Zatvoriť vodu pri umývaní zubov",
+                "Nechať chladničku dlho otvorenú",
+                "Nechať zariadenie v pohotovostnom režime"
               ],
-              "explanation": "Malé zvyky podľa času prispievajú k väčším úsporám alebo nákladom."
+              "dragTargets": [
+                {
+                  "label": "Šetria energiu",
+                  "correctItems": [
+                    "Vypnúť svetlo v prázdnej izbe",
+                    "Zatvoriť vodu pri umývaní zubov"
+                  ]
+                },
+                {
+                  "label": "Plytvajú energiou",
+                  "correctItems": [
+                    "Nechať chladničku dlho otvorenú",
+                    "Nechať zariadenie v pohotovostnom režime"
+                  ]
+                }
+              ],
+              "explanation": "Malé návyky sa časom premietnu do väčších úspor alebo nákladov."
             },
             {
               "questionId": "7005_06",
               "questionType": "spotMistake",
               "question": "Jedno z týchto tvrdení je nesprávne. Nájdi ho.",
               "options": [
-                "Elektrina, voda a kúrenie sú služby, za ktoré sa platí.",
-                "Malé veci ako opakovane vypnuté svetlo sa počas mesiaca spočítajú.",
-                "Energia je zadarmo a nemusíme si s ňou dávať hlavu."
+                "Energia je zadarmo a nemusíme nad ňou rozmýšľať.",
+                "Elektrina a voda sú služby, za ktoré sa platí.",
+                "Malé veci, ako vypnuté svetlo, sa počas mesiaca spočítajú."
               ],
-              "correctAnswer": 2,
-              "explanation": "Energia sa musí platiť a jej spotreba sa počas mesiaca kumuluje."
+              "correctAnswer": 0,
+              "explanation": "Za energiu sa platí a jej spotreba sa počas mesiaca sčítava."
             },
             {
               "questionId": "7005_07",
               "questionType": "ordering",
-              "question": "Zoraď, ako sa Chrumko učí o tom, že energia stojí peniaze.",
+              "question": "Zoraď, ako sa Chrumko učí, že energia stojí peniaze.",
               "orderItems": [
-                "Chrumko ponechá zapnuté svetlo",
-                "Mama mu vysvetlí, že elektrina stojí peniaze",
-                "Chrumko vidí mesačný účet za energiu",
-                "Chrumko si uvedomí, že šetrenie energie šetri rodine peniaze"
+                "Chrumko odíde z izby a nechá svietiť svetlo",
+                "Mama ho zavolá späť a vysvetlí, že aj malé veci sa za mesiac spočítajú",
+                "Chrumko si všimne, že doma zatvárajú vodu a nenechávajú dlho otvorenú chladničku",
+                "Chrumko pochopí, že energia stojí peniaze každý deň"
               ],
-              "explanation": "Postupne pochopí kumulatívny vplyv energetickej spotreby."
+              "explanation": "Postupne pochopí, ako sa spotreba energie sčítava."
             },
             {
               "questionId": "7005_08",
               "questionType": "multipleChoice",
-              "question": "Ako môžu všetci členovia rodiny pomôcť znížiť výdavky na energiu?",
+              "question": "Ako môžu členovia rodiny pomôcť znížiť výdavky na energie?",
               "options": [
                 "Vypínať svetlo, keď opustia izbu",
-                "Brať si kratšie sprchy",
-                "Zatvoriť vodu, keď si čistia zuby",
-                "Všetky vyššie uvedené"
+                "Zatvoriť vodu pri umývaní zubov",
+                "Vypínať zariadenia namiesto pohotovostného režimu",
+                "Všetky uvedené možnosti"
               ],
               "correctAnswer": 3,
-              "explanation": "Všetci členovia rodiny majú podiel na šetrení energií a vody."
+              "explanation": "Všetci členovia rodiny môžu prispieť k šetreniu energie a vody."
             }
           ]
         }
