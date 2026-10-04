@@ -14,9 +14,9 @@
               "questionType": "multipleChoice",
               "question": "Čo je banka?",
               "options": [
-                "Bezpečný domov pre peniaze, kde ti s nimi pomáhajú",
-                "Miesto, kde sa tancuje",
-                "Obchod s hračkami",
+                "Bezpečný domov pre peniaze",
+                "Miesto, kde sa tancuje a večeria",
+                "Obchod s hračkami a sladkosťami",
                 "Miesto bez zmyslu"
               ],
               "correctAnswer": 0,
@@ -32,10 +32,10 @@
               "questionType": "scenario",
               "question": "Chrumko sa pýta, prečo mama nejde po výplate po peniaze osobne. Čo mu vysvetlí?",
               "options": [
-                "Peniaze sa stratili",
+                "Peniaze sa stratili a zamestnǘateľ ich nevie nájsť",
                 "Výplata prišla priamo na bankový účet",
-                "Výplata nikdy nepríde",
-                "Peniaze sa vyplácajú len v hotovosti"
+                "Výplata nikdy nepríde, lebo dospelí pracujú zadarmo",
+                "Peniaze sa vyplácajú len vo forme jedla"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -135,7 +135,6 @@
               "orderItems": [
                 "Chrumko sa pýta, prečo mama nejde po peniaze osobne",
                 "Mama vysvetlí, že výplata prišla priamo na bankový účet",
-                "Mama mu ukáže v mobile prijatú sumu",
                 "Chrumko pochopí, že peniaze môžu byť bezpečne uložené bez držania v ruke"
               ],
               "correctAnswer": 0,
@@ -157,10 +156,10 @@
               "questionType": "multipleChoice",
               "question": "Čo je bankový účet?",
               "options": [
-                "Miesto, kde sa hrá",
+                "Miesto, kde sa hrajú spoločenské hry",
                 "Peňaženka, ktorú nosíš v taške",
                 "Tvoj priestor v banke – bezpečný záznam pohybov tvojich peňazí",
-                "Miesto bez zmyslu"
+                "Miesto bez zmyslu, väčšinou sa tam usporadúvajú školské stretnutia"
               ],
               "correctAnswer": 2,
               "orderItems": [],
@@ -176,9 +175,9 @@
               "question": "Ako otec zistí, koľko peňazí je na účte?",
               "options": [
                 "Pozrie sa do mobilu a vidí číslo, ktoré ukazuje stav účtu",
-                "Vôbec to nevie zistiť",
-                "Musí ísť do obchodu",
-                "Spočíta mince doma"
+                "Vôbec to nevie zistiť, banka to pred ním tají",
+                "Musí ísť do obchodu a niečo si kúpiť, aby mu to predavačka povedala",
+                "Spočíta mince doma, pretože účet znamená pokladnička"
               ],
               "correctAnswer": 0,
               "orderItems": [],
@@ -276,7 +275,7 @@
               "options": [
                 "Koľko peňazí si kedysi mal",
                 "Koľko peňazí majú ostatní",
-                "Presne, koľko peňazí je momentálne k dispozícii",
+                "Koľko peňazí máš tna účte",
                 "Nič, je to len ozdoba"
               ],
               "correctAnswer": 2,
@@ -299,7 +298,7 @@
               "questionType": "multipleChoice",
               "question": "Čo je platobná karta?",
               "options": [
-                "Kúsok papiera bez významu",
+                "Kúsok papiera bez významu, ktorý slúŽi na kreslenie",
                 "Nástroj prepojený s účtom, nie samotné peniaze",
                 "Peniaze v peňaženke",
                 "Miesto, kde sa ukladajú mince"
@@ -317,9 +316,9 @@
               "questionType": "scenario",
               "question": "Chrumko ide s mamou do obchodu. Ako mama platí?",
               "options": [
-                "Hotovosťou z peňaženky",
+                "Hotovosťou z peňaženky, pretoŽe to je jediný spôsob platby",
                 "Požičia si peniaze od pokladníčky",
-                "Zaplatí obrázkom",
+                "Zaplatí obrázkom, ktorý Chrumko namaľoval",
                 "Kartou – po zaplatení sa suma zobrazí na termináli"
               ],
               "correctAnswer": 3,
@@ -416,10 +415,10 @@
               "questionType": "multipleChoice",
               "question": "Čo Chrumko pochopí o karte?",
               "options": [
-                "Karta sú samotné peniaze",
+                "Karta sú samotné peniaze, ktoré podávaš predavačke",
                 "Karta len pomáha použiť peniaze, ktoré sú uložené v banke",
-                "Karta funguje bez bankového účtu",
-                "Karta funguje len v obchode"
+                "Karta funguje bez bankového účtu, peniaze sa na ňu vkladajú v obchode",
+                "Karta funguje len v obchode, ale v reštaurácii už nie"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -442,7 +441,7 @@
               "question": "Čo je PIN?",
               "options": [
                 "Tajné číslo, ktoré chráni tvoje peniaze",
-                "Kamarát",
+                "Kamarát, ktorý ti zaplatí vŠetko, čo len chceš",
                 "Verejný kód, ktorý má poznať každý",
                 "Názov banky"
               ],
@@ -459,8 +458,8 @@
               "questionType": "scenario",
               "question": "Čo si Chrumko všimne, keď mama platí?",
               "options": [
-                "Mama všetkým ukazuje PIN",
-                "PIN je napísaný na karte",
+                "Mama všetkým ukazuje PIN, aj tak ho má každý",
+                "PIN je napísaný na karte, aby ho mama nikdy nezabudla",
                 "Mama PIN vôbec nezadáva",
                 "Mama zakrýva rukou klávesnicu, keď zadáva PIN"
               ],
@@ -559,9 +558,9 @@
               "question": "Prečo je dôležité chrániť PIN?",
               "options": [
                 "Bez dôvodu",
-                "PIN je verejný",
+                "PIN je verejný, netreba ho skrývať pred nikým, každý ho má",
                 "Ak by ho cudzí človek poznal spolu s kartou, mohol by použiť cudzie peniaze",
-                "Nemá to zmysel"
+                "Nemá to zmysel, lebo je napísaný na karte"
               ],
               "correctAnswer": 2,
               "orderItems": [],
@@ -601,10 +600,10 @@
               "questionType": "scenario",
               "question": "Chrumko počuje, že mama posiela peniaze babke. Čo mama urobí?",
               "options": [
-                "Pôjde s peniazmi na poštu",
+                "Pôjde s peniazmi na poštu, aby ich mohla poslať babke",
                 "V mobile zadá číslo účtu a sumu a potvrdí prevod",
-                "Pošle peniaze v obálke",
-                "Peniaze sa pošlú samy"
+                "Pošle peniaze v obálke, lebo to je najbezpečnejšie",
+                "Peniaze sa pošlú samy, kedy chcú"
               ],
               "correctAnswer": 1,
               "orderItems": [],
@@ -655,7 +654,7 @@
               ],
               "matchRight": [
                 "Určuje, koľko peňazí sa pošle",
-                "Po ňom sa peniaze odošlú",
+                "Po nej sa peniaze odošlú",
                 "Určuje, komu peniaze prídu",
                 "Zabráni chybe, lebo vrátiť prevod je ťažké"
               ],
@@ -700,10 +699,10 @@
               "questionType": "multipleChoice",
               "question": "Čo Chrumko pochopí o prevodoch?",
               "options": [
-                "Peniaze sa vždy musia nosiť osobne",
+                "Peniaze sa vždy musia nosiť osobne, lebo to inak nejde",
                 "Prevod trvá celý týždeň",
                 "Peniaze sa dnes často presúvajú digitálne, rýchlo a bezpečne",
-                "Prevod je možný len v hotovosti"
+                "Prevod je možný len v hotovosti, a to tak, že sa peniaze pošlú poŠtou"
               ],
               "correctAnswer": 2,
               "orderItems": [],

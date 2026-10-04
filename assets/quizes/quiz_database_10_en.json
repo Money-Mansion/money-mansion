@@ -14,76 +14,135 @@
               "questionType": "multipleChoice",
               "question": "What is a bank?",
               "options": [
-                "A place where people dance",
-                "A place where people keep their money safely and it helps manage it",
-                "A shop",
-                "No point"
+                "A safe home for money",
+                "A place where people dance and have dinner",
+                "A shop with toys and sweets",
+                "A place with no purpose"
               ],
-              "correctAnswer": 1,
-              "explanation": "A bank is a place where people keep their money safely. It helps receive, send and manage money."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A bank keeps money safe and lets you send, receive and manage it."
             },
             {
               "questionId": "10001_02",
               "questionType": "scenario",
-              "question": "Chrumko asks where money goes when mom doesn't keep it in her wallet. How does mom answer?",
+              "question": "Chrumko asks why mom doesn't go to pick up her money in person after payday. What does she explain?",
               "options": [
-                "It's lost",
-                "It's kept safely in the bank account",
-                "Everything is chaotic",
-                "No matter"
+                "The money got lost and the employer can't find it",
+                "The paycheck arrived directly in the bank account",
+                "The paycheck never arrives, because adults work for free",
+                "Money is paid out only in the form of food"
               ],
               "correctAnswer": 1,
-              "explanation": "Mom says the paycheck went directly to the bank account. The money is safely stored there."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Mom shows him the received amount on her phone."
             },
             {
               "questionId": "10001_03",
               "questionType": "trueFalse",
-              "question": "Money can be kept safely in a bank without physically holding it.",
+              "question": "Money can be stored safely in a bank even if we don't hold it in our hands.",
               "correctAnswer": 0,
-              "explanation": "Banks provide secure storage of money."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A bank keeps money safe – safer than cash at home."
             },
             {
               "questionId": "10001_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "A bank keeps money safely.",
-                "In a bank we can send money to other people.",
-                "A bank is a place for dancing and entertainment."
+                "A bank keeps money safe.",
+                "At a bank we can send money to other people.",
+                "A bank is a place for dancing and fun."
               ],
               "correctAnswer": 2,
-              "explanation": "A bank is a financial institution, not a place for entertainment."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A bank is a financial institution, not a place for fun."
             },
             {
               "questionId": "10001_05",
               "questionType": "matching",
-              "question": "Match the service with its description.",
-              "matchLeft": ["Money storage", "Money transfers", "Payment cards", "Loans"],
-              "matchRight": ["Safely kept", "Sending money to another person", "Paying without cash", "Money for later"],
+              "question": "Match each bank service with its description.",
+              "matchLeft": [
+                "Safe storage",
+                "Sending and receiving",
+                "Card",
+                "Mobile app"
+              ],
+              "matchRight": [
+                "You manage money without cash",
+                "Money is safe, safer than cash at home",
+                "You see your money on your phone",
+                "You can easily send money to someone or receive it"
+              ],
+              "correctAnswer": [
+                1,
+                3,
+                0,
+                2
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
               "explanation": "Banks provide various services."
             },
             {
               "questionId": "10001_06",
               "questionType": "dragDrop",
-              "question": "Sort activities by whether banks do them or not.",
-              "dragLabels": ["Money storage", "Dancing", "Transfers", "Selling clothes", "Account management"],
-              "dragTargets": [
-                { "label": "Bank services", "correctItems": ["Money storage", "Transfers", "Account management"] },
-                { "label": "Other", "correctItems": ["Dancing", "Selling clothes"] }
+              "question": "Sort the activities by whether a bank does them or not.",
+              "dragLabels": [
+                "Sending money",
+                "Selling clothes",
+                "Managing money through an app",
+                "Dancing",
+                "Storing money"
               ],
-              "explanation": "Banks have specialized services."
+              "dragTargets": [
+                "Other",
+                "Bank services"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Banks provide specialized services."
             },
             {
               "questionId": "10001_07",
               "questionType": "ordering",
               "question": "Put in order what Chrumko realizes about banks.",
               "orderItems": [
-                "Chrumko sees that mom gets money in the bank",
-                "Mom tells him the money is safe there",
-                "Mom shows him on her phone how to see the money",
-                "Chrumko understands that money doesn't have to be held in hand"
+                "Chrumko asks why mom doesn't go for the money in person",
+                "Mom explains that the paycheck arrived directly in the bank account",
+                "Chrumko understands that money can be stored safely without holding it in hand"
               ],
-              "explanation": "Chrumko learns about modern banking systems."
+              "correctAnswer": 0,
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Chrumko learns how a bank keeps money."
             }
           ]
         },
@@ -97,77 +156,135 @@
               "questionType": "multipleChoice",
               "question": "What is a bank account?",
               "options": [
-                "A place where people play",
-                "A place where each person has their money recorded",
-                "No point",
-                "Nothing special"
+                "A place where board games are played",
+                "A wallet you carry in your bag",
+                "Your space in the bank – a safe record of your money's movements",
+                "A place with no purpose, where school meetings are mostly held"
               ],
-              "correctAnswer": 1,
-              "explanation": "A bank account is a place where each person has their money recorded. Each account belongs to a specific owner."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Each account belongs to a specific owner and shows how much money they have."
             },
             {
               "questionId": "10002_02",
               "questionType": "scenario",
-              "question": "How does father see his account status?",
+              "question": "How does dad find out how much money is in the account?",
               "options": [
-                "He doesn't see it",
-                "He checks it on his phone - he can see how much money is currently on the account",
-                "He goes to the bank",
-                "No matter"
+                "He looks at his phone and sees a number showing the account balance",
+                "He can't find out at all, the bank hides it from him",
+                "He has to go to a shop and buy something so the cashier tells him",
+                "He counts coins at home, because an account means a piggy bank"
               ],
-              "correctAnswer": 1,
-              "explanation": "Father opens the bank's mobile app and sees how much money is on his account."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "An account is like a display showing how much money you have."
             },
             {
               "questionId": "10002_03",
               "questionType": "trueFalse",
-              "question": "When money is paid or comes in, the amount on the account changes.",
-              "correctAnswer": 0,
-              "explanation": "A bank account is dynamic - changes are reflected immediately."
+              "question": "The account balance never changes.",
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "When you pay for something, the number goes down. When your paycheck arrives, it goes up."
             },
             {
               "questionId": "10002_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Each person has a bank account at the bank.",
-                "Account amount is visible in mobile app.",
-                "A bank account is just a number with no real money."
+                "Every account has a unique number.",
+                "All people have the same account number.",
+                "The balance shows how much money is available."
               ],
-              "correctAnswer": 2,
-              "explanation": "A bank account represents real money, even though it's digital."
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Every account has a unique number that identifies it."
             },
             {
               "questionId": "10002_05",
               "questionType": "matching",
-              "question": "Match transaction with its effect on the account.",
-              "matchLeft": ["Receiving salary", "Card payment", "Transfer to friend", "Deposit at bank"],
-              "matchRight": ["Amount increases", "Amount decreases", "Amount decreases", "Amount increases"],
-              "explanation": "Various transactions affect account balance."
+              "question": "Match each situation with how the number on the account changes.",
+              "matchLeft": [
+                "Paycheck arrives",
+                "We pay a bill",
+                "We shop at a store",
+                "Transfer arrives"
+              ],
+              "matchRight": [
+                "Balance goes up – money sent by someone else",
+                "Balance goes down – money was spent at a store",
+                "Balance goes up – money from the employer",
+                "Balance goes down – money left to pay a bill"
+              ],
+              "correctAnswer": [
+                2,
+                3,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Money can come into the account and also leave it."
             },
             {
               "questionId": "10002_06",
               "questionType": "dragDrop",
-              "question": "Sort transactions by their effect on account balance.",
-              "dragLabels": ["Salary", "Shopping in store", "Bonus", "Bill payment"],
-              "dragTargets": [
-                { "label": "Amount grows", "correctItems": ["Salary", "Bonus"] },
-                { "label": "Amount shrinks", "correctItems": ["Shopping in store", "Bill payment"] }
+              "question": "Sort the transactions by their effect on the account balance.",
+              "dragLabels": [
+                "Paycheck",
+                "Shopping at a store",
+                "Received transfer",
+                "Paying a bill"
               ],
-              "explanation": "Transactions have different directions of money flow."
+              "dragTargets": [
+                "Amount goes down",
+                "Amount goes up"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Money can come in (salary, transfers) and go out (payments)."
             },
             {
               "questionId": "10002_07",
               "questionType": "multipleChoice",
-              "question": "What is important about a bank account?",
+              "question": "What does the account balance show?",
               "options": [
-                "Everything is chaotic",
-                "That it shows exact money status and all transactions",
-                "No matter",
-                "Everything is random"
+                "How much money you once had",
+                "How much money others have",
+                "How much money you have in the account",
+                "Nothing, it's just decoration"
               ],
-              "correctAnswer": 1,
-              "explanation": "A bank account works as an overview of money - everything is visible precisely."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "The balance shows exactly how much is currently available."
             }
           ]
         },
@@ -181,77 +298,135 @@
               "questionType": "multipleChoice",
               "question": "What is a payment card?",
               "options": [
-                "Just paper",
-                "A tool used to pay money from an account",
-                "No point",
-                "Nothing special"
+                "A meaningless piece of paper used for drawing",
+                "A tool linked to an account, not the money itself",
+                "Money in a wallet",
+                "A place where coins are stored"
               ],
               "correctAnswer": 1,
-              "explanation": "A payment card is a tool that allows paying money from a bank account without physical cash."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A card only helps you use money that is stored in the bank."
             },
             {
               "questionId": "10003_02",
               "questionType": "scenario",
               "question": "Chrumko goes to the store with mom. How does mom pay?",
               "options": [
-                "With cash",
-                "With card - she inserts it into terminal",
-                "By borrowing money",
-                "No matter"
+                "With cash from her wallet, because that's the only way to pay",
+                "She borrows money from the cashier",
+                "She pays with a picture Chrumko painted",
+                "With a card – after paying, the amount shows on the terminal"
               ],
-              "correctAnswer": 1,
-              "explanation": "Mom inserts the card into terminal at checkout and pays with card instead of cash."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Mom explains that the money left the account."
             },
             {
               "questionId": "10003_03",
               "questionType": "trueFalse",
-              "question": "Card is just a tool - real money is stored at the bank.",
+              "question": "A card is just a tool – the real money is stored in the bank.",
               "correctAnswer": 0,
-              "explanation": "Card gives access to money, but is not the money itself."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A card is a key that unlocks the money in the account."
             },
             {
               "questionId": "10003_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Payment card is inserted into terminal.",
-                "Card is money.",
-                "After payment, amount is deducted from account."
+                "A card is the money itself.",
+                "A card is linked to a bank account.",
+                "After paying by card, the money leaves the account."
               ],
-              "correctAnswer": 1,
-              "explanation": "Card is not money - it's a tool to access money."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A card is not money – it's a tool for accessing money."
             },
             {
               "questionId": "10003_05",
               "questionType": "matching",
-              "question": "Match advantage with its description.",
-              "matchLeft": ["Security", "Convenience", "Clarity", "Protection"],
-              "matchRight": ["I don't have to carry lots of cash", "Exact record of transactions", "Card is protected", "Card is safe"],
-              "explanation": "Payment cards have several advantages."
+              "question": "Match each term with its meaning.",
+              "matchLeft": [
+                "Link to the account",
+                "Payment speed",
+                "Where the card works",
+                "What a card is"
+              ],
+              "matchRight": [
+                "A tool, not the money itself",
+                "Money leaves the account immediately",
+                "The card is linked to your bank account",
+                "In stores, at ATMs and online"
+              ],
+              "correctAnswer": [
+                2,
+                1,
+                3,
+                0
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A card is a key to the money in the account."
             },
             {
               "questionId": "10003_06",
               "questionType": "dragDrop",
-              "question": "Sort activities by their safety.",
-              "dragLabels": ["Carry cash in wallet", "Pay with card", "Give money to stranger", "Hide money at home"],
-              "dragTargets": [
-                { "label": "Safe", "correctItems": ["Pay with card", "Hide money at home"] },
-                { "label": "Less safe", "correctItems": ["Carry cash in wallet", "Give money to stranger"] }
+              "question": "Sort the statements by whether they relate to the card or the account.",
+              "dragLabels": [
+                "You use it at the checkout",
+                "The amount leaves from here after a payment",
+                "Your money lives there",
+                "You withdraw cash with it at an ATM"
               ],
-              "explanation": "Different methods have different safety levels."
+              "dragTargets": [
+                "Bank account",
+                "Card"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "A card is just a key, the money lives in the bank account."
             },
             {
               "questionId": "10003_07",
               "questionType": "multipleChoice",
-              "question": "What does Chrumko understand about cards?",
+              "question": "What does Chrumko understand about the card?",
               "options": [
-                "Card is money",
-                "Card just helps use money that's stored in the bank",
-                "No matter",
-                "Everything is chaotic"
+                "The card is the money itself, which you hand to the cashier",
+                "The card only helps you use money that is stored in the bank",
+                "The card works without a bank account, money is put on it in the store",
+                "The card works only in a store, but not in a restaurant"
               ],
               "correctAnswer": 1,
-              "explanation": "Chrumko realizes that card is just a tool. Real money is stored in the bank."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A card is a tool. The real money is stored in the bank."
             }
           ]
         },
@@ -265,77 +440,135 @@
               "questionType": "multipleChoice",
               "question": "What is a PIN?",
               "options": [
-                "A friend",
-                "A short number code that protects the payment card",
-                "No point",
-                "Nothing special"
+                "A secret number that protects your money",
+                "A friend who pays for everything you want",
+                "A public code that everyone should know",
+                "The name of a bank"
               ],
-              "correctAnswer": 1,
-              "explanation": "PIN is a short number code that protects the payment card. It helps confirm that the right person is using the card."
+              "correctAnswer": 0,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "A PIN is a secret – a lock on your money."
             },
             {
               "questionId": "10004_02",
               "questionType": "scenario",
               "question": "What does Chrumko notice when mom pays?",
               "options": [
-                "Mom shows everything",
-                "Mom covers the keyboard with her hand when entering PIN",
-                "PIN is public",
-                "No matter"
+                "Mom shows everyone the PIN, everyone has it anyway",
+                "The PIN is written on the card so mom never forgets it",
+                "Mom doesn't enter a PIN at all",
+                "Mom covers the keypad with her hand when entering the PIN"
               ],
-              "correctAnswer": 1,
-              "explanation": "Mom covers the keyboard when entering PIN. She wants nobody to see the PIN."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Mom doesn't want anyone to see the PIN."
             },
             {
               "questionId": "10004_03",
               "questionType": "trueFalse",
-              "question": "PIN is a secret code that only the card owner should know.",
-              "correctAnswer": 0,
-              "explanation": "PIN is personal security information."
+              "question": "You can safely tell your PIN to friends.",
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Never share your PIN with anyone – not even friends."
             },
             {
               "questionId": "10004_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "PIN protects the payment card.",
-                "Only the card owner should know the PIN.",
-                "PIN should be public and everyone should know it."
+                "A PIN should stay secret.",
+                "When entering a PIN, you should cover the keypad.",
+                "It's good to write the PIN on the card so you don't forget it."
               ],
               "correctAnswer": 2,
-              "explanation": "PIN must stay secret - that's the whole point."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Never write your PIN on the card or anywhere near it."
             },
             {
               "questionId": "10004_05",
               "questionType": "matching",
-              "question": "Match security practice with its purpose.",
-              "matchLeft": ["Covering keyboard", "Not telling PIN to strangers", "Not writing PIN on card", "Changing PIN regularly"],
-              "matchRight": ["Nobody sees code", "Protection from theft", "Card is not vulnerable", "Increased security"],
-              "explanation": "Different practices strengthen security."
+              "question": "Match each rule with its description.",
+              "matchLeft": [
+                "Never share your PIN",
+                "Cover the keypad",
+                "Don't write your PIN on the card",
+                "PIN"
+              ],
+              "matchRight": [
+                "Not even near it",
+                "Not even with friends",
+                "When entering it in public",
+                "A secret, a lock on your money"
+              ],
+              "correctAnswer": [
+                1,
+                2,
+                0,
+                3
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "The rules protect your money."
             },
             {
               "questionId": "10004_06",
               "questionType": "dragDrop",
-              "question": "Sort activities by their security.",
-              "dragLabels": ["Writing PIN on paper", "Memorizing PIN", "Sharing PIN with friend", "Changing PIN regularly"],
-              "dragTargets": [
-                { "label": "Safe", "correctItems": ["Memorizing PIN", "Changing PIN regularly"] },
-                { "label": "Dangerous", "correctItems": ["Writing PIN on paper", "Sharing PIN with friend"] }
+              "question": "Sort the activities by safety.",
+              "dragLabels": [
+                "Not sharing your PIN with anyone",
+                "Telling your PIN to a friend",
+                "Covering the keypad with your hand",
+                "Writing your PIN on the card"
               ],
-              "explanation": "Different approaches to PIN have different risks."
+              "dragTargets": [
+                "Dangerous",
+                "Safe"
+              ],
+              "correctAnswer": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "Different approaches to a PIN carry different risks."
             },
             {
               "questionId": "10004_07",
               "questionType": "multipleChoice",
-              "question": "Why is it important to protect PIN?",
+              "question": "Why is it important to protect your PIN?",
               "options": [
                 "For no reason",
-                "If someone else knew it together with the card, they could use someone else's money",
-                "Everything is public",
-                "No point"
+                "The PIN is public, you don't need to hide it from anyone, everyone has it",
+                "If a stranger knew it together with the card, they could use someone else's money",
+                "It makes no sense, because it's written on the card"
               ],
-              "correctAnswer": 1,
-              "explanation": "If someone knew it together with the card, they could use someone else's money. That's why security is important."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Security with money is very important."
             }
           ]
         },
@@ -349,77 +582,135 @@
               "questionType": "multipleChoice",
               "question": "What is a money transfer?",
               "options": [
-                "Physical carrying of money",
-                "Sending money from one account to another electronically",
-                "No point",
-                "Nothing special"
+                "Physically carrying money in an envelope",
+                "Handing over money at the post office",
+                "Putting money into a piggy bank",
+                "Sending money electronically from one account to another"
               ],
-              "correctAnswer": 1,
-              "explanation": "Money transfer means sending money from one account to another through the banking system."
+              "correctAnswer": 3,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Money moves electronically through the banking system."
             },
             {
               "questionId": "10005_02",
               "questionType": "scenario",
-              "question": "Why are money transfers used?",
+              "question": "Chrumko hears mom sending money to grandma. What does mom do?",
               "options": [
-                "For no reason",
-                "To pay bills or send money between people",
-                "Everything is chaotic",
-                "No matter"
+                "She goes to the post office with the money to send it to grandma",
+                "On her phone she enters the account number and the amount and confirms the transfer",
+                "She sends the money in an envelope, because that's the safest",
+                "The money sends itself whenever it wants"
               ],
               "correctAnswer": 1,
-              "explanation": "Transfers are used to pay bills or to send money to, for example, close people."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "After confirmation, the money is sent."
             },
             {
               "questionId": "10005_03",
               "questionType": "trueFalse",
-              "question": "Today money moves digitally without physical carrying.",
-              "correctAnswer": 0,
-              "explanation": "Digital transfers are a modern way to move money."
+              "question": "A money transfer always means going to the post office with cash.",
+              "correctAnswer": 1,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Today money often moves digitally – quickly and without leaving home."
             },
             {
               "questionId": "10005_04",
               "questionType": "spotMistake",
               "question": "One of these statements is wrong. Find it.",
               "options": [
-                "Transfers are executed electronically through the bank.",
-                "Transfers are only physical delivery of money.",
-                "Transfers are used to pay bills."
+                "Transfers are made electronically through the bank.",
+                "You don't need to know the recipient's account number for a transfer.",
+                "For a transfer you need the recipient's account number and the amount."
               ],
               "correctAnswer": 1,
-              "explanation": "Modern transfers are primarily electronic."
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "For a transfer you need the recipient's account number and the amount."
             },
             {
               "questionId": "10005_05",
               "questionType": "matching",
-              "question": "Match type of transfer with its purpose.",
-              "matchLeft": ["Transfer for electricity", "Transfer to family", "Transfer to friend", "Transfer to school account"],
-              "matchRight": ["Service fee", "Financial help", "Debt", "School fee"],
-              "explanation": "Transfers have different purposes."
+              "question": "Match each term with its meaning.",
+              "matchLeft": [
+                "Recipient's account number",
+                "Amount",
+                "Confirmation",
+                "Check before confirming"
+              ],
+              "matchRight": [
+                "Determines how much money is sent",
+                "After it, the money is sent",
+                "Determines who receives the money",
+                "Prevents mistakes, because reversing a transfer is hard"
+              ],
+              "correctAnswer": [
+                2,
+                0,
+                1,
+                3
+              ],
+              "orderItems": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "With a transfer, you need to be careful with the details."
             },
             {
               "questionId": "10005_06",
               "questionType": "dragDrop",
-              "question": "Sort transfers by their complexity.",
-              "dragLabels": ["Domestic transfer", "International transfer", "Transfer to friend", "Transfer to big bank"],
-              "dragTargets": [
-                { "label": "Simple", "correctItems": ["Domestic transfer", "Transfer to friend"] },
-                { "label": "More complex", "correctItems": ["International transfer", "Transfer to big bank"] }
+              "question": "Sort things by whether you need them for a transfer.",
+              "dragLabels": [
+                "The amount",
+                "A trip to the post office",
+                "The recipient's account number",
+                "An envelope"
               ],
-              "explanation": "Different transfers have different complexity levels."
+              "dragTargets": [
+                "Needed for a transfer",
+                "Not needed"
+              ],
+              "correctAnswer": [
+                0,
+                1,
+                0,
+                1
+              ],
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "explanation": "A transfer happens digitally, without cash."
             },
             {
               "questionId": "10005_07",
               "questionType": "multipleChoice",
               "question": "What does Chrumko understand about transfers?",
               "options": [
-                "Everything is chaotic",
-                "Today money often moves digitally without him having to physically carry it",
-                "No matter",
-                "Everything is random"
+                "Money always has to be carried in person, otherwise it doesn't work",
+                "A transfer takes a whole week",
+                "Today money often moves digitally, quickly and safely",
+                "A transfer is possible only in cash, by sending the money by post"
               ],
-              "correctAnswer": 1,
-              "explanation": "Chrumko realizes that today money often moves digitally without him having to physically carry it."
+              "correctAnswer": 2,
+              "orderItems": [],
+              "matchLeft": [],
+              "matchRight": [],
+              "dragLabels": [],
+              "dragTargets": [],
+              "explanation": "Today money often moves digitally."
             }
           ]
         }
