@@ -1910,7 +1910,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       storyTitle: 'Mum Goes to Work in the Rain',
       storyTitleSk: 'Mama ide do práce za dažďa',
       storyBody: 'Chrumko notices in the morning that his mum is getting ready for work even though it\'s raining and it would be nicer to stay home. He asks why she has to go every day. She explains that she receives money for her work which the family uses to pay rent, buy food, and cover school costs. She shows him that electricity and water at home are also paid from her salary.',
-      storyBodySk: 'Chrumko si ráno všimne, že mama sa pripravuje do práce, hoci vonku prší a zostalo by sa príjemnejšie doma. Spýta sa, prečo musí ísť každý deň. Mama vysvetlí, že za prácu dostáva peniaze, z ktorých rodina platí nájom, kupuje jedlo a pokrýva školské náklady. Ukáže mu, že aj elektrina a voda doma sa platia z jej platu.',
+      storyBodySk: 'Chrumko si ráno všimne, že mama sa pripravuje do práce, hoci vonku prší a bolo by  príjemnejšie zostať doma. Spýta sa, prečo musí ísť každý deň. Mama vysvetlí, že za prácu dostáva peniaze, z ktorých rodina platí nájom, kupuje jedlo a pokrýva školské náklady. Ukáže mu, že aj elektrina a voda doma sa platia z jej platu.',
       accentColor: Color(0xFF00796B),
     ),
     LessonSlide(
@@ -2084,7 +2084,7 @@ final Map<String, List<LessonSlide>> lessonSlides = {
       title: 'How to Be Productive',
       titleSk: 'Ako byť produktívny',
       facts: [
-        FactItem(emoji: '📵', text: 'Remove distractions - put away your phone while working', textSk: 'Odstrán rozptýlenie - odlož telefón počas práce'),
+        FactItem(emoji: '📵', text: 'Remove distractions - put away your phone while working', textSk: 'Odstráň rozptýlenie - odlož telefón počas práce'),
         FactItem(emoji: '✅', text: 'Prepare everything you need before starting', textSk: 'Priprav si všetko potrebné pred začatím'),
         FactItem(emoji: '🎯', text: 'Focus on one task at a time rather than switching between many', textSk: 'Sústreď sa na jednu úlohu naraz namiesto prepínania medzi mnohými'),
       ],
