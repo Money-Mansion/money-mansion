@@ -137,10 +137,10 @@
               "questionType": "multipleChoice",
               "question": "Čo sú výdavky domácnosti?",
               "options": [
-                "Všetko, čo si kúpime",
+                "Iba to, čo si kúpime v obchode hotovosti",
                 "Len veľké nákupy, napríklad auto",
                 "Všetky peniaze, ktoré treba zaplatiť na fungovanie domova",
-                "Majetok rodiny"
+                "Majetok rodiny, ktorý je uschovaný doma v pokladničke"
               ],
               "correctAnswer": 2,
               "explanation": "Výdavky domácnosti sú všetky peniaze, ktoré treba zaplatiť na fungovanie domova – napríklad bývanie, jedlo, energie či internet."
@@ -153,10 +153,10 @@
                 "Že majú dosť peňazí na všetko",
                 "Že tento týždeň už zaplatili účet za internet, vodu a školské obedy",
                 "Že nemajú žiadne peniaze",
-                "Že všetko je zadarmo"
+                "Že doma majú už dosť kvetináčov"
               ],
               "correctAnswer": 1,
-              "explanation": "Aj keď to nie sú veľké veci, spolu tvoria väčšiu sumu."
+              "explanation": "Tento týždeň už mali iné výdavky. Aj keď to nie sú veľké veci, spolu tvoria väčšiu sumu."
             },
             {
               "questionId": "7002_03",
