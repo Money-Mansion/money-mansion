@@ -4,18 +4,13 @@ import 'package:money_mansion/screens/category.dart';
 import 'package:money_mansion/services/room_component_service.dart';
 import 'package:money_mansion/widgets/scrollable_tab_bar_wrapper.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/room_layout_database_service.dart';
 import '../services/tutorial_provider.dart';
 import '../widgets/tutorial_target.dart';
-
-// App colour constants — same as room_edit_screen.dart
-const _purple = Color(0xFF6B5B8C);
-const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg = Color(0xFFE8D4F0);
-const _cream = Color(0xFFFFFBF5);
 
 class InventoryScreen extends StatefulWidget {
   final GameState gameState;
@@ -33,6 +28,7 @@ class InventoryScreen extends StatefulWidget {
 
 class _InventoryScreenState extends State<InventoryScreen>
     with SingleTickerProviderStateMixin {
+  AppColors get _colors => context.appColors;
   Map<String, int> _placedItemCounts = {};
   late TabController _tabController;
   bool _isLoading = true;
@@ -216,16 +212,16 @@ class _InventoryScreenState extends State<InventoryScreen>
     final l10n = context.watch<AppLocalizationsProvider>();
 
     return Scaffold(
-      backgroundColor: _cream,
+      backgroundColor: _colors.surfaceStrong,
       appBar: AppBar(
-        backgroundColor: _cream,
+        backgroundColor: _colors.surfaceStrong,
         elevation: 0,
         title: Text(l10n.translate('inventory')),
         leading: TutorialTarget(
           id: 'nav_back',
           child: IconButton(
             icon: const Icon(Icons.close),
-            color: _purple,
+            color: _colors.primary,
             onPressed: () {
               context.read<TutorialProvider>().registerAction('go_back');
               widget.onBack();
@@ -234,9 +230,9 @@ class _InventoryScreenState extends State<InventoryScreen>
         ),
         bottom: ScrollableTabBarWrapper(
           tabController: _tabController,
-          labelColor: _purple,
+          labelColor: _colors.primary,
           unselectedLabelColor: Colors.grey[500],
-          indicatorColor: _purple,
+          indicatorColor: _colors.primary,
           indicatorWeight: 3,
           tabs: _categories.map((cat) {
             final count = _isLoading ? null : _itemsForCategory(cat).length;
@@ -256,15 +252,15 @@ class _InventoryScreenState extends State<InventoryScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 1),
                       decoration: BoxDecoration(
-                        color: _purple.withOpacity(0.15),
+                        color: _colors.primary.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         '$count',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
-                          color: _purple,
+                          color: _colors.primary,
                         ),
                       ),
                     ),
@@ -276,7 +272,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         ),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: _purple))
+          ? Center(child: CircularProgressIndicator(color: _colors.primary))
           : TabBarView(
               controller: _tabController,
               children: _categories.map((cat) {
@@ -299,7 +295,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _colors.border),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
@@ -336,7 +332,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _colors.border),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
@@ -378,7 +374,7 @@ class _InventoryScreenState extends State<InventoryScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.inventory_2_outlined, size: 40, color: _purpleLight),
+            Icon(Icons.inventory_2_outlined, size: 40, color: _colors.border),
             const SizedBox(height: 12),
             Text(
               l10n.translate('noItemsYet'),
@@ -419,14 +415,14 @@ class _InventoryScreenState extends State<InventoryScreen>
         color: isFullyPlaced ? Colors.grey[200] : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isFullyPlaced ? Colors.grey.shade300 : _purpleLight,
+          color: isFullyPlaced ? Colors.grey.shade300 : _colors.border,
           width: 1.5,
         ),
         boxShadow: isFullyPlaced
             ? []
             : [
                 BoxShadow(
-                  color: _purpleLight.withOpacity(0.2),
+                  color: _colors.border.withOpacity(0.2),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -463,7 +459,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                   style: TextStyle(
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
-                    color: isFullyPlaced ? Colors.grey[500] : _purple,
+                    color: isFullyPlaced ? Colors.grey[500] : _colors.primary,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -475,7 +471,9 @@ class _InventoryScreenState extends State<InventoryScreen>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
-                    color: isFullyPlaced ? Colors.grey[300] : _purpleBg,
+                    color: isFullyPlaced
+                      ? Colors.grey[300]
+                      : _colors.primarySoft,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -483,7 +481,9 @@ class _InventoryScreenState extends State<InventoryScreen>
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 8,
-                      color: isFullyPlaced ? Colors.grey[600] : _purple,
+                        color: isFullyPlaced
+                          ? Colors.grey[600]
+                          : _colors.primary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -497,7 +497,9 @@ class _InventoryScreenState extends State<InventoryScreen>
                   style: TextStyle(
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
-                    color: isFullyPlaced ? Colors.grey[600] : _purple,
+                    color: isFullyPlaced
+                      ? Colors.grey[600]
+                      : _colors.primary,
                   ),
                 ),
               ),
@@ -509,7 +511,7 @@ class _InventoryScreenState extends State<InventoryScreen>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: isFullyPlaced ? Colors.grey[500] : _purple,
+                color: isFullyPlaced ? Colors.grey[500] : _colors.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
@@ -534,7 +536,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                     decoration: BoxDecoration(
-                      color: _purple.withOpacity(0.85),
+                      color: _colors.primary.withOpacity(0.85),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
@@ -561,12 +563,12 @@ class _InventoryScreenState extends State<InventoryScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: _purpleLight,
+          color: _colors.border,
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: _purpleLight.withOpacity(0.2),
+            color: _colors.border.withOpacity(0.2),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -597,10 +599,10 @@ class _InventoryScreenState extends State<InventoryScreen>
                 child: Text(
                   component.localizedName(l10n.currentLanguage),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
-                    color: _purple,
+                    color: _colors.primary,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -612,7 +614,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
-                    color: _purpleBg,
+                    color: _colors.primarySoft,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -620,7 +622,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 8,
-                      color: _purple,
+                      color: _colors.primary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -634,7 +636,7 @@ class _InventoryScreenState extends State<InventoryScreen>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: _purple,
+                color: _colors.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

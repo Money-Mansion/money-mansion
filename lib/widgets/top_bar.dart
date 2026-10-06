@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/game_state.dart';
 import '../my_flutter_app_icons.dart';
 import '../screens/settings_screen.dart';
 import '../services/tutorial_provider.dart';
-import '../services/streak_service.dart';
 import 'tutorial_target.dart';
 
 class TopBar extends StatefulWidget {
@@ -29,17 +29,18 @@ class _TopBarState extends State<TopBar> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return AnimatedBuilder(
       animation: widget.gameState, // listens to coins/money/streak changes
       builder: (context, _) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: const Color(0xFFE8D4F0),
+            color: colors.primarySoft,
             borderRadius:
                 const BorderRadius.vertical(bottom: Radius.circular(30)),
             border: Border.all(
-              color: const Color(0xFFB8A8D8),
+              color: colors.border,
               width: 3,
             ),
           ),
@@ -117,12 +118,13 @@ class _ResourceDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFBF5),
+        color: colors.surfaceStrong,
         border: Border.all(
-          color: const Color(0xFFB8A8D8),
+          color: colors.border,
           width: 2.5,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -149,7 +151,7 @@ class _ResourceDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: _calculateFontSize(value),
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF6B5B8C),
+              color: colors.primary,
             ),
           ),
         ],
