@@ -2819,7 +2819,6 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
     final slide = slides[_currentSlide];
     final accent = slide.accentColor ?? const Color(0xFFF5A623);
     final isLast = _currentSlide == slides.length - 1;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),
       body: SafeArea(

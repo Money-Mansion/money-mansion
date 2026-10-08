@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../services/app_localizations.dart';
 import '../services/onboarding_service.dart';
+import '../services/app_theme_provider.dart';
 
 /// ChrumkoGuide is a reusable widget that displays Chrumko (the guide character)
 /// with a dynamic tips system, animations, and speech bubbles.
@@ -185,6 +187,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   // ── Build ───────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
+    final isBlue = context.watch<AppThemeProvider>().mode == AppColorMode.blue;
     // The row puts the bubble to the left of Chrumko, both fully in-bounds
     // so GestureDetector hit-testing works correctly.
     return SizedBox(
@@ -296,7 +299,9 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
             child: GestureDetector(
               onTap: _toggleOverlay,
               child: Image.asset(
-                'assets/images/chrumko.png',
+                isBlue
+                    ? 'assets/images/chrumko_modry.png'
+                    : 'assets/images/chrumko.png',
                 width: 150,
                 height: 150,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../services/app_localizations_provider.dart';
 import '../models/calendar_day_data.dart';
 import '../services/goal_database_service.dart';
@@ -22,12 +23,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   late DateTime currentDate;
   late DateTime displayedMonth;
   Map<DateTime, CalendarDayData> _monthData = {};
-
-  // App colour palette
-  static const _purple      = Color(0xFF6B5B8C);
-  static const _purpleLight = Color(0xFFB8A8D8);
-  static const _purpleBg    = Color(0xFFE8D4F0);
-  static const _cream       = Color(0xFFFFFBF5);
 
   @override
   void initState() {
@@ -125,6 +120,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final colors = context.appColors;
     final days = _getDaysInMonth(displayedMonth);
     final weekDays = [
       l10n.translate('monday'),
@@ -137,16 +133,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colors.background,
       appBar: AppBar(
         title: Text(
           l10n.translate('calendar'),
-          style: const TextStyle(
-            color: _purple,
+          style: TextStyle(
+            color: colors.primary,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: _purpleBg,
+        backgroundColor: colors.primarySoft,
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: TutorialTarget(
@@ -157,7 +153,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        iconTheme: const IconThemeData(color: _purple),
+        iconTheme: IconThemeData(color: colors.primary),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
@@ -173,22 +169,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: _purpleBg,
+                color: colors.primarySoft,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: _purpleLight, width: 1.5),
+                border: Border.all(color: colors.border, width: 1.5),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.today_rounded, color: _purple, size: 20),
+                  Icon(Icons.today_rounded, color: colors.primary, size: 20),
                   const SizedBox(width: 10),
                   Text(
                     '${l10n.translate('todayLabel')}: '
                     '${_getMonthName(currentDate.month, l10n)} '
                     '${currentDate.day}, ${currentDate.year}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: _purple,
+                      color: colors.primary,
                     ),
                   ),
                 ],
@@ -200,12 +196,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
             // ── Calendar card ────────────────────────────────────────────────
             Container(
               decoration: BoxDecoration(
-                color: _cream,
+                color: colors.surfaceStrong,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: _purpleLight, width: 1.5),
+                border: Border.all(color: colors.border, width: 1.5),
                 boxShadow: [
                   BoxShadow(
-                    color: _purpleLight.withOpacity(0.3),
+                    color: colors.border.withOpacity(0.3),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -217,8 +213,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8, vertical: 14),
-                    decoration: const BoxDecoration(
-                      color: _purpleBg,
+                    decoration: BoxDecoration(
+                      color: colors.primarySoft,
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(18)),
                     ),
@@ -230,10 +226,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             onTap: _previousMonth),
                         Text(
                           '${_getMonthName(displayedMonth.month, l10n)} ${displayedMonth.year}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: _purple,
+                            color: colors.primary,
                           ),
                         ),
                         _NavArrow(
@@ -246,7 +242,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   // Legend
                   _CalendarLegend(l10n: l10n),
 
-                  const Divider(color: _purpleLight, thickness: 1, height: 1),
+                  Divider(color: colors.border, thickness: 1, height: 1),
 
                   // Weekday headers
                   Padding(
@@ -259,9 +255,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           .map((d) => Center(
                                 child: Text(
                                   d,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: _purpleLight,
+                                    color: colors.border,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -270,7 +266,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                   ),
 
-                  const Divider(color: _purpleLight, thickness: 1, height: 1),
+                  Divider(color: colors.border, thickness: 1, height: 1),
 
                   // Day grid
                   Padding(
@@ -321,17 +317,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
     required CalendarDayData? dayData,
     required AppLocalizationsProvider l10n,
   }) {
+    final colors = context.appColors;
     return GestureDetector(
       onTap: isCurrentMonth && dayData != null ? () => _showDayDetail(day, dayData, l10n) : null,
       child: Container(
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: isToday ? _purple : Colors.transparent,
+          color: isToday ? colors.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           border: isToday
               ? null
               : (isCurrentMonth
-                  ? Border.all(color: _purpleLight.withOpacity(0.3), width: 1)
+                  ? Border.all(color: colors.border.withOpacity(0.3), width: 1)
                   : null),
         ),
         child: Padding(
@@ -352,8 +349,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       color: isToday
                           ? Colors.white
                           : isCurrentMonth
-                              ? _purple
-                              : _purpleLight.withOpacity(0.5),
+                              ? colors.primary
+                              : colors.border.withOpacity(0.5),
                     ),
                   ),
                   // Goal indicators (compact, on the right)
@@ -385,7 +382,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.only(left: 2),
                               child: Text(
                                 '+${dayData.goalsToday.length - 2}',
-                                style: const TextStyle(fontSize: 7, color: _purple),
+                                style: TextStyle(fontSize: 7, color: colors.primary),
                               ),
                             ),
                         ],
@@ -474,18 +471,19 @@ class _NavArrow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-          color: const Color(0xFFB8A8D8).withOpacity(0.25),
+          color: colors.border.withOpacity(0.25),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-              color: const Color(0xFFB8A8D8), width: 1.5),
+              color: colors.border, width: 1.5),
         ),
-        child: Icon(icon, color: const Color(0xFF6B5B8C), size: 22),
+        child: Icon(icon, color: colors.primary, size: 22),
       ),
     );
   }
@@ -493,13 +491,13 @@ class _NavArrow extends StatelessWidget {
 
 // Legend showing goal status and transaction indicators
 class _CalendarLegend extends StatelessWidget {
-  static const _purple = Color(0xFF6B5B8C);
   final AppLocalizationsProvider l10n;
 
   const _CalendarLegend({required this.l10n});
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
@@ -507,7 +505,11 @@ class _CalendarLegend extends StatelessWidget {
         children: [
           Text(
             l10n.translate('legend'),
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: _purple),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: colors.primary,
+            ),
           ),
           const SizedBox(height: 8),
           Wrap(
@@ -577,10 +579,6 @@ class _DayDetailSheet extends StatelessWidget {
   final CalendarDayData dayData;
   final AppLocalizationsProvider l10n;
 
-  static const _purple = Color(0xFF6B5B8C);
-  static const _purpleLight = Color(0xFFB8A8D8);
-  static const _cream = Color(0xFFFFFBF5);
-
   const _DayDetailSheet({
     required this.day,
     required this.dayData,
@@ -589,8 +587,9 @@ class _DayDetailSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Container(
-      color: _cream,
+      color: colors.surfaceStrong,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -602,20 +601,20 @@ class _DayDetailSheet extends StatelessWidget {
                 children: [
                   Text(
                     '${l10n.translate('calendar')}: ${day.day}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: _purple,
+                      color: colors.primary,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _purple),
+                    icon: Icon(Icons.close, color: colors.primary),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
             ),
-            const Divider(color: _purpleLight, height: 1),
+            Divider(color: colors.border, height: 1),
 
             // Goals section
             if (dayData.goalsToday.isNotEmpty) ...[
@@ -625,10 +624,10 @@ class _DayDetailSheet extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '${l10n.translate('goals')} (${dayData.goalsToday.length})',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: _purple,
+                      color: colors.primary,
                     ),
                   ),
                 ),
@@ -669,7 +668,7 @@ class _DayDetailSheet extends StatelessWidget {
                   ],
                 ),
               )),
-              const Divider(color: _purpleLight, height: 12),
+              Divider(color: colors.border, height: 12),
             ],
 
             // Transactions section
@@ -680,10 +679,10 @@ class _DayDetailSheet extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '${l10n.translate('transactions')} (${dayData.transactionsToday.length})',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: _purple,
+                      color: colors.primary,
                     ),
                   ),
                 ),
@@ -719,7 +718,7 @@ class _DayDetailSheet extends StatelessWidget {
                   ],
                 ),
               )),
-              const Divider(color: _purpleLight, height: 12),
+              Divider(color: colors.border, height: 12),
             ],
 
             // Summary
@@ -729,9 +728,9 @@ class _DayDetailSheet extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colors.surface,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _purpleLight),
+                    border: Border.all(color: colors.border),
                   ),
                   child: Column(
                     children: [

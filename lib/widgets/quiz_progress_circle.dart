@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/quiz_progress.dart';
 import '../services/app_localizations_provider.dart';
 
@@ -8,7 +9,7 @@ class QuizProgressCircle extends StatelessWidget {
   final QuizStatus status;
   final int score;
   final bool locked;
-  final Color sectionColor;
+  final Color? sectionColor;
 
   const QuizProgressCircle({
     super.key,
@@ -16,12 +17,12 @@ class QuizProgressCircle extends StatelessWidget {
     required this.status,
     this.score = 0,
     this.locked = false,
-    this.sectionColor = const Color(0xFFBDBDBD),
+    this.sectionColor,
   });
 
-  Color _getCircleColor() {
+  Color _getCircleColor(BuildContext context) {
     // Always use section color, only icon changes based on status
-    return sectionColor;
+    return sectionColor ?? context.appColors.primary;
   }
 
   IconData _getStatusIcon() {
@@ -56,11 +57,11 @@ class QuizProgressCircle extends StatelessWidget {
             width: 70,
             height: 70,
             decoration: BoxDecoration(
-              color: _getCircleColor(),
+              color: _getCircleColor(context),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: _getCircleColor().withOpacity(0.4),
+                  color: _getCircleColor(context).withOpacity(0.4),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),

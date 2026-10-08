@@ -57,8 +57,8 @@ class _LessonsScreenState extends State<LessonsScreen> {
         elevation: 0,
         title: Text(
           isSk ? 'Lekcie' : 'Lessons',
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: _colors.surface,
             fontWeight: FontWeight.w800,
             fontSize: 20,
           ),
@@ -79,7 +79,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           final isComplete = completed == total && total > 0;
 
           return Material(
-            color: Colors.white,
+            color: _colors.surface,
             borderRadius: BorderRadius.circular(14),
             elevation: 1,
             shadowColor: _colors.primary.withOpacity(0.08),
@@ -108,9 +108,9 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       ),
                       child: isComplete
                             ? Icon(Icons.check_circle_rounded,
-                              color: _colors.primary, size: 26)
+                              color: _colors.lessonIcon, size: 26)
                             : Icon(Icons.menu_book_rounded,
-                              color: _colors.primary, size: 24),
+                              color: _colors.lessonIcon, size: 24),
                     ),
                     const SizedBox(width: 14),
 
@@ -121,10 +121,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
                         children: [
                           Text(
                             category.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15,
-                              color: Color(0xFF1A1A1A),
+                              color: _colors.onSurface,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -133,13 +133,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               Text(
                                 '$total ${isSk ? 'lekcií' : 'lessons'}',
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[500]),
+                                    fontSize: 12, color: _colors.mutedText),
                               ),
                               if (_progressLoaded && completed > 0) ...[
                                 const SizedBox(width: 6),
                                 Text('·',
                                     style:
-                                        TextStyle(color: Colors.grey[400])),
+                                        TextStyle(color: _colors.border)),
                                 const SizedBox(width: 6),
                                 Text(
                                   isComplete
@@ -200,8 +200,8 @@ class _LessonsScreenState extends State<LessonsScreen> {
                         ),
                       )
                     else
-                      Icon(Icons.arrow_forward_ios_rounded,
-                          size: 14, color: Colors.grey[400]),
+                        Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: _colors.mutedText),
                   ],
                 ),
               ),

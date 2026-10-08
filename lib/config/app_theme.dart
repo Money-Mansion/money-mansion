@@ -6,6 +6,7 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color surface;
   final Color surfaceStrong;
   final Color primary;
+  final Color lessonIcon;
   final Color primarySoft;
   final Color border;
   final Color onSurface;
@@ -16,6 +17,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.surface,
     required this.surfaceStrong,
     required this.primary,
+    required this.lessonIcon,
     required this.primarySoft,
     required this.border,
     required this.onSurface,
@@ -27,6 +29,7 @@ class AppColors extends ThemeExtension<AppColors> {
     surface: Color(0xFFFFF5F7),
     surfaceStrong: Color(0xFFFFFBF5),
     primary: Color(0xFF6B5B8C),
+    lessonIcon: Color(0xFF6B5B8C),
     primarySoft: Color(0xFFE8D4F0),
     border: Color(0xFFB8A8D8),
     onSurface: Color(0xFF2D2638),
@@ -38,6 +41,7 @@ class AppColors extends ThemeExtension<AppColors> {
     surface: Color(0xFFF0F7FC),
     surfaceStrong: Color(0xFFF9FCFF),
     primary: Color(0xFF285A7A),
+    lessonIcon: Color(0xFF1677B8),
     primarySoft: Color(0xFFD2E7F4),
     border: Color(0xFF8BB9D3),
     onSurface: Color(0xFF1D3342),
@@ -50,6 +54,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? surface,
     Color? surfaceStrong,
     Color? primary,
+    Color? lessonIcon,
     Color? primarySoft,
     Color? border,
     Color? onSurface,
@@ -60,6 +65,7 @@ class AppColors extends ThemeExtension<AppColors> {
       surface: surface ?? this.surface,
       surfaceStrong: surfaceStrong ?? this.surfaceStrong,
       primary: primary ?? this.primary,
+      lessonIcon: lessonIcon ?? this.lessonIcon,
       primarySoft: primarySoft ?? this.primarySoft,
       border: border ?? this.border,
       onSurface: onSurface ?? this.onSurface,
@@ -75,6 +81,7 @@ class AppColors extends ThemeExtension<AppColors> {
       surface: Color.lerp(surface, other.surface, t)!,
       surfaceStrong: Color.lerp(surfaceStrong, other.surfaceStrong, t)!,
       primary: Color.lerp(primary, other.primary, t)!,
+      lessonIcon: Color.lerp(lessonIcon, other.lessonIcon, t)!,
       primarySoft: Color.lerp(primarySoft, other.primarySoft, t)!,
       border: Color.lerp(border, other.border, t)!,
       onSurface: Color.lerp(onSurface, other.onSurface, t)!,

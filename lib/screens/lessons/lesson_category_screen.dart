@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../config/app_theme.dart';
 import '../../models/lesson.dart';
 import '../../services/app_localizations_provider.dart';
 import '../../services/lesson_progress_database_service.dart';
@@ -42,12 +43,13 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final colors = context.appColors;
     final progressPercent = (_progressFraction * 100).round();
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 237, 232, 245),
+      backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 130, 98, 206),
+        backgroundColor: colors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
         title: Column(
@@ -92,7 +94,7 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
           final opened = _isOpened(lesson);
 
           return Material(
-            color: Colors.white,
+            color: colors.surfaceStrong,
             elevation: opened ? 0 : 1,
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
@@ -128,7 +130,7 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
                     decoration: BoxDecoration(
                       color: opened
                           ? const Color(0xFF4CAF50).withOpacity(0.12)
-                          : const Color.fromARGB(255, 165, 134, 206).withOpacity(0.1),
+                          : colors.primarySoft.withOpacity(0.35),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -137,10 +139,10 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
                               color: Color(0xFF4CAF50), size: 22)
                           : Text(
                               '${index + 1}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
-                                color: Color.fromARGB(255, 111, 71, 185),
+                                color: colors.primary,
                               ),
                             ),
                     ),
@@ -152,7 +154,7 @@ class _LessonCategoryScreenState extends State<LessonCategoryScreen> {
                       fontSize: 14,
                       color: opened
                           ? Colors.grey[700]
-                          : const Color(0xFF1A1A1A),
+                          : colors.onSurface,
                       decoration: opened
                           ? TextDecoration.none
                           : null,

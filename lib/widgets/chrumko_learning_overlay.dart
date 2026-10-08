@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/tutorial_provider.dart';
 import '../services/lesson_service.dart';
@@ -13,10 +14,6 @@ import '../screens/lessons/lesson_quiz_screen.dart';
 import '../screens/quizes/quiz_section_screen.dart';
 import 'quiz_progress_circle.dart';
 import 'tutorial_target.dart';
-
-const _purple = Color(0xFF6B5B8C);
-const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg = Color(0xFFE8D4F0);
 
 class ChrumkoLearningOverlay extends StatefulWidget {
   final VoidCallback onClose;
@@ -51,6 +48,7 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final colors = context.appColors;
     final tutorial = context.watch<TutorialProvider>();
     final lockLearningContent =
         tutorial.isActive && tutorial.currentStep?.id == 'lessons_return';
@@ -80,7 +78,7 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                     ),
                   ),
                   Container(
-                    color: Colors.white,
+                    color: colors.surface,
                     child: SafeArea(
                       top: false,
                       child: Row(
@@ -99,9 +97,9 @@ class _ChrumkoLearningOverlayState extends State<ChrumkoLearningOverlay>
                           Expanded(
                             child: TabBar(
                               controller: _tabController,
-                              labelColor: _purple,
+                              labelColor: colors.primary,
                               unselectedLabelColor: Colors.grey[600],
-                              indicatorColor: _purple,
+                              indicatorColor: colors.primary,
                               indicatorWeight: 3,
                               tabs: _tabKeys.map((key) {
                                 final targetId = key == 'quizes'
@@ -169,12 +167,13 @@ class _LessonsTabState extends State<_LessonsTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final colors = context.appColors;
     final categories =
         const LessonService().getCategories(language: l10n.currentLanguage);
     final isSk = l10n.currentLanguage == 'sk';
 
     return Container(
-      color: const Color(0xFFF5F0E8),
+      color: colors.background,
       child: ListView.separated(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
         itemCount: categories.length,
@@ -189,10 +188,10 @@ class _LessonsTabState extends State<_LessonsTab> {
           final isComplete = completed == total && total > 0;
 
           return Material(
-            color: Colors.white,
+            color: colors.surface,
             borderRadius: BorderRadius.circular(14),
             elevation: 1,
-            shadowColor: _purple.withOpacity(0.08),
+            shadowColor: colors.primary.withOpacity(0.08),
             child: InkWell(
               borderRadius: BorderRadius.circular(14),
               onTap: () async {
@@ -215,14 +214,14 @@ class _LessonsTabState extends State<_LessonsTab> {
                       width: 46,
                       height: 46,
                       decoration: BoxDecoration(
-                        color: _purpleBg,
+                        color: colors.primarySoft,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: isComplete
-                          ? const Icon(Icons.check_circle_rounded,
-                              color: _purple, size: 26)
-                          : const Icon(Icons.menu_book_rounded,
-                              color: _purple, size: 24),
+                            ? Icon(Icons.check_circle_rounded,
+                              color: colors.lessonIcon, size: 26)
+                            : Icon(Icons.menu_book_rounded,
+                              color: colors.lessonIcon, size: 24),
                     ),
                     const SizedBox(width: 14),
 
@@ -262,7 +261,7 @@ class _LessonsTabState extends State<_LessonsTab> {
                                     fontWeight: FontWeight.w700,
                                     color: isComplete
                                         ? const Color(0xFF4CAF50)
-                                        : _purple,
+                                        : colors.primary,
                                   ),
                                 ),
                               ],
@@ -275,12 +274,12 @@ class _LessonsTabState extends State<_LessonsTab> {
                               child: LinearProgressIndicator(
                                 value: fraction,
                                 minHeight: 4,
-                                backgroundColor: _purpleBg,
+                                backgroundColor: colors.primarySoft,
                                 valueColor:
                                     AlwaysStoppedAnimation<Color>(
                                   isComplete
                                       ? const Color(0xFF4CAF50)
-                                      : _purple,
+                                      : colors.primary,
                                 ),
                               ),
                             ),
@@ -298,7 +297,7 @@ class _LessonsTabState extends State<_LessonsTab> {
                         decoration: BoxDecoration(
                           color: isComplete
                               ? const Color(0xFF4CAF50).withOpacity(0.1)
-                              : _purpleBg,
+                              : colors.primarySoft,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -308,7 +307,7 @@ class _LessonsTabState extends State<_LessonsTab> {
                             fontWeight: FontWeight.w800,
                             color: isComplete
                                 ? const Color(0xFF4CAF50)
-                                : _purple,
+                                : colors.primary,
                           ),
                         ),
                       )
