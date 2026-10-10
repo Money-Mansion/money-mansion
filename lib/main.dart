@@ -15,6 +15,8 @@ import 'services/app_localizations_provider.dart';
 import 'services/music_service.dart';
 import 'services/onboarding_service.dart';
 import 'services/tutorial_provider.dart';
+import 'services/app_theme_provider.dart';
+import 'config/app_theme.dart';
 import 'models/game_state.dart';
 import 'models/room.dart';
 import 'screens/onboarding_screen.dart';
@@ -141,6 +143,7 @@ Future<void> _bootstrap() async {
         ),
         ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
         ChangeNotifierProvider(create: (_) => TutorialProvider()),
+        ChangeNotifierProvider(create: (_) => AppThemeProvider()),
       ],
       child: MoneyMansionApp(
         isFirstLaunch: isFirstLaunch,
@@ -181,6 +184,7 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<AppThemeProvider>();
     final home = _hasPrivacyConsent
         ? (widget.isFirstLaunch ? const OnboardingScreen() : const GameScreen())
         : PrivacyConsentScreen(onAccepted: _onPrivacyAccepted);
@@ -188,12 +192,9 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
     return MaterialApp(
       title: 'Money Mansion',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
-        ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 240, 227, 241),
+      theme: AppTheme.forColors(
+        themeProvider.colors,
+        brightness: themeProvider.brightness,
       ),
       home: home,
     );

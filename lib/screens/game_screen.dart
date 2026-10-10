@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/game_state.dart';
 import '../services/item_database_service.dart';
 import '../services/financial_database_service.dart';
@@ -249,6 +250,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
 
   /// Calendar icon styled to match the app's purple aesthetic
   Widget _buildCalendarIcon() {
+    final colors = context.appColors;
     final now = DateTime.now();
     final monthNames = [
       'JAN',
@@ -269,15 +271,15 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
       width: 56,
       height: 56,
       decoration: BoxDecoration(
-        color: const Color(0xFFE8D4F0), // matches TopBar background
+        color: colors.primarySoft,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFFB8A8D8), // app purple border
+          color: colors.border,
           width: 2.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFB8A8D8).withOpacity(0.35),
+            color: colors.border.withOpacity(0.35),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -289,8 +291,8 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 4),
-            decoration: const BoxDecoration(
-              color: Color(0xFFB8A8D8),
+            decoration: BoxDecoration(
+              color: colors.border,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(13),
                 topRight: Radius.circular(13),
@@ -313,10 +315,10 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
             child: Center(
               child: Text(
                 now.day.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF6B5B8C), // app purple text
+                  color: colors.primary,
                 ),
               ),
             ),
@@ -330,6 +332,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final localizationsProvider = context.watch<AppLocalizationsProvider>();
     final tutorialProvider = context.watch<TutorialProvider>();
+    final colors = context.appColors;
 
     if (!_isInitialized) {
       return const Scaffold(
@@ -347,7 +350,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: colors.background,
         body: Stack(
           clipBehavior: Clip.none,
           children: [

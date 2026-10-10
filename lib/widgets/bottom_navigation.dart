@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/app_theme.dart';
 import '../my_flutter_app_icons.dart';
 import 'tutorial_target.dart';
 
@@ -14,13 +15,14 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Container(
       height: 85,
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF5F7), // Soft cream/beige background
+        color: colors.surface,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
         border: Border.all(
-          color: const Color(0xFFB8A8D8), // Soft purple border
+          color: colors.border,
           width: 3,
         ),
       ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/game_state.dart';
 import '../services/ai_scoring_preference_service.dart';
 import '../services/app_localizations_provider.dart';
+import '../services/app_theme_provider.dart';
 import '../services/financial_database_service.dart';
 import '../services/streak_service.dart';
 import '../services/onboarding_service.dart';
@@ -28,8 +30,6 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-const CARD_BG = Color.fromARGB(255, 215, 203, 235);
-
 class _SettingsScreenState extends State<SettingsScreen> {
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
@@ -46,6 +46,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _developerDashboardOpen = false;
   bool _checkingDeveloperToken = false;
   bool _externalAiScoringEnabled = false;
+
+  AppColors get _colors => context.appColors;
 
   @override
   void initState() {
@@ -221,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildDeveloperAccessCard() {
     return Card(
       elevation: 2,
-      color: CARD_BG,
+      color: _colors.surface,
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -296,14 +298,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Text(l10n.translate('settings')),
               )
             : Text(l10n.translate('settings')),
-        backgroundColor: const Color.fromARGB(255, 149, 117, 205),
+        backgroundColor: _colors.border,
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: TutorialTarget(
           id: 'close_settings',
           child: IconButton(
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: _colors.icon,
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -321,6 +323,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 24),
               _buildLanguageCard(l10n, supportedLanguages),
               const SizedBox(height: 24),
+              _buildColorModeCard(l10n),
+              const SizedBox(height: 24),
               _buildGamePreferencesCard(l10n),
               const SizedBox(height: 24),
               _buildGameInfoCard(l10n),
@@ -337,7 +341,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildTutorialCard(AppLocalizationsProvider l10n) {
     return Card(
       elevation: 2,
-      color: CARD_BG,
+      color: _colors.surface,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -357,7 +361,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _showSnack(l10n.translate('tutorialRestart'));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                    backgroundColor: _colors.primary,
                     foregroundColor: Colors.white,
                   ),
                   child: Text(l10n.translate('tutorialRestart')),
@@ -381,7 +385,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ) {
     return Card(
       elevation: 2,
-      color: CARD_BG,
+      color: _colors.surface,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -403,7 +407,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: isSelected
-                          ? const Color.fromARGB(255, 103, 58, 183)
+                          ? _colors.primary
                           : Colors.grey[300]!,
                       width: isSelected ? 2 : 1,
                     ),
@@ -419,7 +423,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           l10n.setLanguage(value);
                         }
                       },
-                      activeColor: const Color.fromARGB(255, 103, 58, 183),
+                      activeColor: _colors.primary,
                     ),
                     onTap: () {
                       l10n.setLanguage(languageCode);
@@ -437,7 +441,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildGamePreferencesCard(AppLocalizationsProvider l10n) {
     return Card(
       elevation: 2,
-      color: CARD_BG,
+      color: _colors.surface,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -466,7 +470,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           'toggle_music',
                         );
                   },
-                  activeColor: const Color.fromARGB(255, 103, 58, 183),
+                  activeColor: _colors.primary,
                 ),
               ),
             ),
@@ -487,7 +491,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     divisions: 10,
                     label:
                         '${(widget.gameState.getMusicVolume() * 100).toStringAsFixed(0)}%',
-                    activeColor: const Color.fromARGB(255, 103, 58, 183),
+                    activeColor: _colors.primary,
                     inactiveColor: Colors.grey[300],
                     onChanged: (value) async {
                       widget.gameState.setMusicVolume(value);
@@ -514,7 +518,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onChanged: AiScoringPreferenceService.hasConfiguredExternalAi
                   ? _setExternalAiScoring
                   : null,
-              activeThumbColor: const Color.fromARGB(255, 103, 58, 183),
+              activeThumbColor: _colors.primary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildColorModeCard(AppLocalizationsProvider l10n) {
+    final themeProvider = context.watch<AppThemeProvider>();
+    final isSlovak = l10n.currentLanguage == 'sk';
+
+    return Card(
+      elevation: 2,
+      color: _colors.surface,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              isSlovak ? 'Farebný režim' : 'Colour mode',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<AppColorMode>(
+              initialValue: themeProvider.mode,
+              decoration: InputDecoration(
+                labelText: isSlovak ? 'Vzhľad aplikácie' : 'App appearance',
+                border: const OutlineInputBorder(),
+              ),
+              items: [
+                DropdownMenuItem(
+                  value: AppColorMode.pink,
+                  child: Text(isSlovak ? 'Ružová a fialová' : 'Pink and purple'),
+                ),
+                DropdownMenuItem(
+                  value: AppColorMode.blue,
+                  child: Text(isSlovak ? 'Modrá' : 'Blue'),
+                ),
+                DropdownMenuItem(
+                  value: AppColorMode.dark,
+                  child: Text(isSlovak ? 'Tmavá fialová' : 'Dark purple'),
+                ),
+              ],
+              onChanged: (mode) {
+                if (mode != null) {
+                  themeProvider.setMode(mode);
+                }
+              },
             ),
           ],
         ),
@@ -526,7 +580,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: CARD_BG,
+      color: _colors.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -558,7 +612,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     builder: (context, snapshot) => _InfoRow(
                       label: 'Quiz Streak:',
                       value: '${snapshot.data ?? 0}',
-                      valueColor: const Color.fromARGB(255, 149, 117, 205),
+                      valueColor: _colors.border,
                       icon: '🔥',
                     ),
                   ),
@@ -578,7 +632,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: ElevatedButton.icon(
           onPressed: _openPrivacyPolicy,
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+            backgroundColor: _colors.primary,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 14),
             shape: RoundedRectangleBorder(
@@ -608,7 +662,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildProfileCard(AppLocalizationsProvider l10n) {
     return Card(
       elevation: 2,
-      color: CARD_BG,
+      color: _colors.surface,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -724,7 +778,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: FilledButton(
                   onPressed: _savingProfile ? null : () => _saveProfile(l10n),
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 103, 58, 183),
+                    backgroundColor: _colors.primary,
                     foregroundColor: Colors.white,
                   ),
                   child: _savingProfile
@@ -760,7 +814,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         labelText: label,
         prefixIcon: Icon(icon),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: _colors.fieldSurface,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -769,7 +823,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide:
-              const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
+              BorderSide(color: _colors.primary),
         ),
       ),
     );
@@ -785,7 +839,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       decoration: InputDecoration(
         labelText: label,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: _colors.fieldSurface,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -794,7 +848,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide:
-              const BorderSide(color: Color.fromARGB(255, 103, 58, 183)),
+              BorderSide(color: _colors.primary),
         ),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),

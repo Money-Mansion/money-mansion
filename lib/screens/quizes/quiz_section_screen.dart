@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/app_theme.dart';
 import '../../services/quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
 import '../../models/quiz_progress.dart';
@@ -53,6 +54,7 @@ class _QuizSectionScreenState extends State<QuizSectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.section.name),
@@ -106,7 +108,7 @@ class _QuizSectionScreenState extends State<QuizSectionScreen> {
                         SizedBox(
                           height: 40,
                           child: CustomPaint(
-                            painter: _PathPainter(),
+                            painter: _PathPainter(color: colors.border),
                             size: const Size(double.infinity, 40),
                           ),
                         ),
@@ -153,10 +155,14 @@ class _QuizSectionScreenState extends State<QuizSectionScreen> {
 }
 
 class _PathPainter extends CustomPainter {
+  final Color color;
+
+  _PathPainter({required this.color});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.grey[400]!
+      ..color = color
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
 

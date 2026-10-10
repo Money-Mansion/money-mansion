@@ -822,7 +822,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
           appBar: AppBar(
             title: Text(l10n.translate('goals')),
             backgroundColor: Colors.deepPurple[300],
-            centerTitle: true,
+            centerTitle: false,
             leading: TutorialTarget(
               id: 'close_goals',
               child: IconButton(

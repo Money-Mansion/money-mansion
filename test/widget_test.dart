@@ -8,6 +8,7 @@ import 'package:money_mansion/main.dart';
 import 'package:money_mansion/models/game_state.dart';
 import 'package:money_mansion/models/room.dart';
 import 'package:money_mansion/services/app_localizations_provider.dart';
+import 'package:money_mansion/services/app_theme_provider.dart';
 import 'package:money_mansion/services/tutorial_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +56,7 @@ Widget _buildTestApp() {
       ),
       ChangeNotifierProvider(create: (_) => AppLocalizationsProvider()),
       ChangeNotifierProvider(create: (_) => TutorialProvider()),
+      ChangeNotifierProvider(create: (_) => AppThemeProvider()),
     ],
     child: const MoneyMansionApp(
       isFirstLaunch: false,

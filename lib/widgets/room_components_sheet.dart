@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/room_component.dart';
 import '../services/room_component_service.dart';
 import '../services/app_localizations_provider.dart';
-
-// App colour constants — same as room_edit_screen.dart
-const _purple      = Color(0xFF6B5B8C);
-const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg    = Color(0xFFE8D4F0);
-const _cream       = Color(0xFFFFFBF5);
 
 class RoomComponentsSheet extends StatefulWidget {
   final VoidCallback onComponentsChanged;
@@ -82,6 +77,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
   @override
   Widget build(BuildContext context) {
     final l10n     = context.watch<AppLocalizationsProvider>();
+    final colors   = context.appColors;
     final language = l10n.currentLanguage;
     final sk       = language == 'sk';
 
@@ -94,8 +90,8 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
       expand: false,
       builder: (context, scrollController) {
         return Container(
-          decoration: const BoxDecoration(
-            color: _cream,
+          decoration: BoxDecoration(
+            color: colors.background,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             boxShadow: [
               BoxShadow(
@@ -114,7 +110,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: _purpleLight,
+                    color: colors.border,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -125,20 +121,20 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                 padding: const EdgeInsets.fromLTRB(16, 8, 8, 0),
                 child: Row(
                   children: [
-                    const Icon(Icons.home_work_rounded,
-                        color: _purple, size: 20),
+                    Icon(Icons.home_work_rounded,
+                      color: colors.icon, size: 20),
                     const SizedBox(width: 8),
                     Text(
                       sk ? 'Komponenty miestnosti' : 'Room Components',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: _purple,
+                        color: colors.onSurface,
                       ),
                     ),
                     const Spacer(),
                     IconButton(
-                      icon: const Icon(Icons.close_rounded, color: _purple),
+                      icon: Icon(Icons.close_rounded, color: colors.icon),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],
@@ -151,17 +147,17 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                 child: Container(
                   height: 38,
                   decoration: BoxDecoration(
-                    color: _purpleBg,
+                    color: colors.primarySoft,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TabBar(
                     controller: _tabController,
                     indicator: BoxDecoration(
-                      color: _purple,
+                      color: colors.primary,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     labelColor: Colors.white,
-                    unselectedLabelColor: _purple,
+                    unselectedLabelColor: colors.onSurface,
                     labelStyle: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 13),
                     dividerColor: Colors.transparent,
@@ -192,13 +188,13 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
               ),
 
               const SizedBox(height: 8),
-              const Divider(color: _purpleLight, height: 1),
+              Divider(color: colors.border, height: 1),
 
               // ── Content ──────────────────────────────────────────────────
               Expanded(
                 child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(color: _purple))
+                    ? Center(
+                        child: CircularProgressIndicator(color: colors.primary))
                     : TabBarView(
                         controller: _tabController,
                         children: [
@@ -249,7 +245,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.image_not_supported_rounded,
-                size: 48, color: _purpleLight),
+                size: 48, color: context.appColors.border),
             const SizedBox(height: 12),
             Text(emptyText,
                 style:
@@ -292,23 +288,27 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? _purpleBg : Colors.white,
+            color: isSelected
+              ? context.appColors.primarySoft
+              : context.appColors.itemSurface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? _purple : _purpleLight,
+            color: isSelected
+              ? context.appColors.primary
+              : context.appColors.border,
             width: isSelected ? 2.5 : 1.5,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: _purple.withOpacity(0.25),
+                    color: context.appColors.primary.withOpacity(0.25),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   ),
                 ]
               : [
                   BoxShadow(
-                    color: _purpleLight.withOpacity(0.2),
+                    color: context.appColors.border.withOpacity(0.2),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
@@ -323,7 +323,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(10)),
                 child: Container(
-                  color: Colors.grey[100],
+                  color: context.appColors.itemSurfaceMuted,
                   padding: const EdgeInsets.all(6),
                   child: Image.asset(
                     component.texture,
@@ -348,7 +348,9 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
-                      color: isSelected ? _purple : Colors.black87,
+                        color: isSelected
+                          ? context.appColors.primary
+                          : context.appColors.onSurface,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -359,7 +361,7 @@ class _RoomComponentsSheetState extends State<RoomComponentsSheet>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 2),
                       decoration: BoxDecoration(
-                        color: _purple,
+                        color: context.appColors.primary,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(

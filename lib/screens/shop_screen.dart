@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_mansion/widgets/scrollable_tab_bar_wrapper.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../models/game_state.dart';
 import '../models/item.dart';
 import '../models/room_component.dart';
@@ -29,6 +30,7 @@ enum _SortBy { none, priceLow, priceHigh, nameAZ, nameZA }
 
 class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
+  AppColors get _colors => context.appColors;
   List<Item> _shopItems = [];
   List<RoomComponent> _shopRoomComponents = [];
   Map<String, int> _placedItemCounts = {};
@@ -291,15 +293,15 @@ class _ShopScreenState extends State<ShopScreen>
           child: IconButton(
             key: const Key('back_button'),
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: _colors.icon,
             onPressed: widget.onBack,
           ),
         ),
         bottom: ScrollableTabBarWrapper(
           tabController: _tabController,
-          labelColor: Colors.deepPurple,
-          unselectedLabelColor: Colors.grey[600],
-          indicatorColor: Colors.deepPurple,
+          labelColor: _colors.primary,
+          unselectedLabelColor: _colors.mutedText,
+          indicatorColor: _colors.primary,
           indicatorWeight: 3,
           tabs: _categories.map((cat) {
             final count = _isLoading ? null : _itemsForCategory(cat).length;
@@ -319,15 +321,15 @@ class _ShopScreenState extends State<ShopScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 1),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple.withOpacity(0.15),
+                        color: _colors.primary.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         '$count',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
+                          color: _colors.primary,
                         ),
                       ),
                     ),
@@ -362,11 +364,11 @@ class _ShopScreenState extends State<ShopScreen>
                   child: FloatingActionButton(
                     mini: true,
                     onPressed: () => _showFilterDialog(l10n),
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: _colors.primary,
                     tooltip: l10n.translate('filter') ?? 'Filter',
                     child: Icon(
                       _sortBy == _SortBy.none ? Icons.filter_list : Icons.filter_list_alt,
-                      color: Colors.white,
+                      color: _colors.onPrimary,
                     ),
                   ),
                 ),
@@ -482,14 +484,14 @@ class _ShopScreenState extends State<ShopScreen>
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(12)),
                   child: Container(
-                    color: Colors.grey[100],
+                    color: _colors.itemSurfaceMuted,
                     padding: const EdgeInsets.all(12),
                     child: Image.asset(
                       item.texture,
                       fit: BoxFit.contain,
                       errorBuilder: (_, __, ___) => Icon(
                         Icons.image_not_supported,
-                        color: Colors.grey[400],
+                        color: _colors.mutedText,
                         size: 40,
                       ),
                     ),
@@ -532,7 +534,7 @@ class _ShopScreenState extends State<ShopScreen>
                       style: TextStyle(
                         fontSize: 8,
                         fontWeight: FontWeight.w600,
-                        color: Colors.deepPurple[700],
+                        color: _colors.primary,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -542,9 +544,9 @@ class _ShopScreenState extends State<ShopScreen>
                         onPressed: canAfford ? () => _buyItem(item) : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              canAfford ? Colors.orange[400] : Colors.grey[300],
+                              canAfford ? Colors.orange[400] : _colors.itemSurfaceMuted,
                           foregroundColor:
-                              canAfford ? Colors.white : Colors.grey[500],
+                              canAfford ? _colors.onPrimary : _colors.mutedText,
                           padding: EdgeInsets.zero,
                           minimumSize: const Size(0, 20),
                           shape: RoundedRectangleBorder(
@@ -568,13 +570,13 @@ class _ShopScreenState extends State<ShopScreen>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: _colors.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
                 'x$ownedCount',
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: _colors.onPrimary,
                   fontSize: 9,
                   fontWeight: FontWeight.bold,
                 ),
@@ -643,14 +645,14 @@ class _ShopScreenState extends State<ShopScreen>
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(12)),
               child: Container(
-                color: Colors.grey[100],
+                color: _colors.itemSurfaceMuted,
                 padding: const EdgeInsets.all(12),
                 child: Image.asset(
                   component.texture,
                   fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) => Icon(
                     Icons.image_not_supported,
-                    color: Colors.grey[400],
+                    color: _colors.mutedText,
                     size: 40,
                   ),
                 ),
@@ -693,9 +695,9 @@ class _ShopScreenState extends State<ShopScreen>
                         canAfford ? () => _buyRoomComponent(component) : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          canAfford ? Colors.orange[400] : Colors.grey[300],
+                          canAfford ? Colors.orange[400] : _colors.itemSurfaceMuted,
                       foregroundColor:
-                          canAfford ? Colors.white : Colors.grey[500],
+                          canAfford ? _colors.onPrimary : _colors.mutedText,
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(0, 20),
                       shape: RoundedRectangleBorder(

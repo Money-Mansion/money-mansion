@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../config/app_theme.dart';
 import '../models/quiz_question_types.dart' as qt;
 typedef QuizQuestion = qt.QuizQuestion;
 typedef QuestionType = qt.QuestionType;
@@ -117,7 +118,7 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
         final isCorrect  = index == widget.question.correctAnswer;
         final isWrong    = isSelected && !isCorrect;
 
-        Color bg     = Colors.white;
+        Color bg     = context.appColors.itemSurface;
         Color border = Colors.grey[300]!;
 
         if (revealed) {
@@ -129,8 +130,8 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
             border = const Color(0xFFF44336);
           }
         } else if (isSelected) {
-          bg     = const Color(0xFF7C3AED).withOpacity(0.08);
-          border = const Color(0xFF7C3AED);
+          bg     = context.appColors.primary.withOpacity(0.08);
+          border = context.appColors.primary;
         }
 
         return GestureDetector(
@@ -164,8 +165,8 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
                   const Icon(Icons.cancel,
                       color: Color(0xFFF44336), size: 24)
                 else if (!revealed && isSelected)
-                  const Icon(Icons.radio_button_checked,
-                      color: Color(0xFF7C3AED), size: 24),
+                    Icon(Icons.radio_button_checked,
+                      color: context.appColors.primary, size: 24),
               ],
             ),
           ),
@@ -225,7 +226,7 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
     final isCorrect  = widget.question.correctAnswer == index;
     final answered   = _selected != null;
 
-    Color bg        = Colors.grey[100]!;
+    Color bg        = context.appColors.fieldSurface;
     Color border    = Colors.grey[300]!;
     Color iconColor = Colors.grey[600]!;
 
@@ -240,9 +241,9 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
         iconColor = const Color(0xFFF44336);
       }
     } else if (isSelected) {
-      bg = const Color(0xFF7C3AED).withOpacity(0.08);
-      border = const Color(0xFF7C3AED);
-      iconColor = const Color(0xFF7C3AED);
+      bg = context.appColors.primary.withOpacity(0.08);
+      border = context.appColors.primary;
+      iconColor = context.appColors.primary;
     }
 
     return GestureDetector(
@@ -374,7 +375,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     ? (isCorrectPos
                         ? const Color(0xFF4CAF50).withOpacity(0.1)
                         : const Color(0xFFF44336).withOpacity(0.1))
-                    : Colors.white,
+                    : context.appColors.itemSurface,
                 border: Border.all(
                   color: _submitted
                       ? (isCorrectPos ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
@@ -545,17 +546,17 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                                   ? const Color(0xFF4CAF50).withOpacity(0.1)
                                   : const Color(0xFFF44336).withOpacity(0.1))
                               : isSelected
-                                  ? const Color(0xFF2196F3).withOpacity(0.12)
+                                  ? context.appColors.primary.withOpacity(0.12)
                                   : isMatched
-                                      ? const Color(0xFF9C27B0).withOpacity(0.08)
-                                      : Colors.grey[50],
+                                      ? context.appColors.primary.withOpacity(0.08)
+                                      : context.appColors.fieldSurface,
                           border: Border.all(
                             color: _submitted
                                 ? (pairCorrect ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
                                 : isSelected
-                                    ? const Color(0xFF2196F3)
+                                    ? context.appColors.primary
                                     : isMatched
-                                        ? const Color(0xFF9C27B0)
+                                        ? context.appColors.primary
                                         : Colors.grey[300]!,
                             width: 2,
                           ),
@@ -569,24 +570,24 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                     width: 32,
                     child: Center(
                       child: isMatched
-                          ? const Icon(Icons.link, color: Color(0xFF9C27B0), size: 16)
+                          ? Icon(Icons.link, color: context.appColors.primary, size: 16)
                           : Icon(Icons.more_horiz, color: Colors.grey[300], size: 16),
                     ),
                   ),
                   Expanded(
                     child: isMatched
-                        ? _buildRightCell(ri, rightUsed, pairCorrect)
+                        ? _buildRightCell(context, ri, rightUsed, pairCorrect)
                         : GestureDetector(
                             onTap: null,
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                               decoration: BoxDecoration(
                                 color: _selectedLeft != null
-                                    ? const Color(0xFF2196F3).withOpacity(0.04)
-                                    : Colors.grey[50],
+                                    ? context.appColors.primary.withOpacity(0.04)
+                                    : context.appColors.fieldSurface,
                                 border: Border.all(
                                   color: _selectedLeft != null
-                                      ? const Color(0xFF2196F3).withOpacity(0.3)
+                                      ? context.appColors.primary.withOpacity(0.3)
                                       : Colors.grey[300]!,
                                   width: 2,
                                 ),
@@ -624,11 +625,11 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
                   color: _selectedLeft != null
-                      ? const Color(0xFF2196F3).withOpacity(0.08)
-                      : Colors.grey[50],
+                      ? context.appColors.primary.withOpacity(0.08)
+                      : context.appColors.fieldSurface,
                   border: Border.all(
                     color: _selectedLeft != null
-                        ? const Color(0xFF2196F3).withOpacity(0.5)
+                        ? context.appColors.primary.withOpacity(0.5)
                         : Colors.grey[300]!,
                     width: 2,
                   ),
@@ -657,7 +658,8 @@ class _MatchingWidgetState extends State<MatchingWidget> {
     );
   }
 
-  Widget _buildRightCell(int ri, Map<int, int> rightUsed, bool pairCorrect) {
+  Widget _buildRightCell(
+      BuildContext context, int ri, Map<int, int> rightUsed, bool pairCorrect) {
     final matchedToLeft = rightUsed[ri];
     return GestureDetector(
       onTap: _submitted
@@ -674,11 +676,11 @@ class _MatchingWidgetState extends State<MatchingWidget> {
               ? (pairCorrect
                   ? const Color(0xFF4CAF50).withOpacity(0.1)
                   : const Color(0xFFF44336).withOpacity(0.1))
-              : const Color(0xFF9C27B0).withOpacity(0.08),
+              : context.appColors.primary.withOpacity(0.08),
           border: Border.all(
             color: _submitted
                 ? (pairCorrect ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
-                : const Color(0xFF9C27B0),
+                : context.appColors.primary,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -823,16 +825,16 @@ class _DragDropWidgetState extends State<DragDropWidget> {
             runSpacing: 8,
             children: _bank.map((label) {
               return _submitted
-                  ? _chipWidget(label)
+                  ? _chipWidget(context, label)
                   : Draggable<String>(
                       data: label,
                       feedback: Material(
                         elevation: 4,
                         borderRadius: BorderRadius.circular(20),
-                        child: _chipWidget(label, dragging: true),
+                        child: _chipWidget(context, label, dragging: true),
                       ),
-                      childWhenDragging: _chipWidget(label, faded: true),
-                      child: _chipWidget(label),
+                      childWhenDragging: _chipWidget(context, label, faded: true),
+                      child: _chipWidget(context, label),
                     );
             }).toList(),
           ),
@@ -861,7 +863,7 @@ class _DragDropWidgetState extends State<DragDropWidget> {
             builder: (context, candidateData, _) {
               final hovering = candidateData.isNotEmpty;
 
-              Color zoneBg     = Colors.grey[50]!;
+              Color zoneBg     = context.appColors.fieldSurface;
               Color zoneBorder = Colors.grey[300]!;
 
               if (_submitted) {
@@ -872,11 +874,11 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                     ? const Color(0xFF4CAF50)
                     : const Color(0xFFF44336);
               } else if (hovering) {
-                zoneBg     = const Color(0xFF2196F3).withOpacity(0.08);
-                zoneBorder = const Color(0xFF2196F3);
+                zoneBg     = context.appColors.primary.withOpacity(0.08);
+                zoneBorder = context.appColors.primary;
               } else if (placed.isNotEmpty) {
-                zoneBg     = const Color(0xFF9C27B0).withOpacity(0.05);
-                zoneBorder = const Color(0xFF9C27B0).withOpacity(0.5);
+                zoneBg     = context.appColors.primary.withOpacity(0.05);
+                zoneBorder = context.appColors.primary.withOpacity(0.5);
               }
 
               return Container(
@@ -952,7 +954,7 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                                     ? (itemCorrect
                                         ? const Color(0xFF4CAF50)
                                         : const Color(0xFFF44336))
-                                    : const Color(0xFF9C27B0),
+                                    : context.appColors.primary,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
@@ -985,7 +987,7 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: hovering
-                                    ? const Color(0xFF2196F3)
+                                    ? context.appColors.primary
                                     : Colors.grey[350]!,
                                 width: 1.5,
                               ),
@@ -1032,16 +1034,17 @@ class _DragDropWidgetState extends State<DragDropWidget> {
     );
   }
 
-  Widget _chipWidget(String label, {bool dragging = false, bool faded = false}) {
+  Widget _chipWidget(BuildContext context, String label,
+      {bool dragging = false, bool faded = false}) {
     return Opacity(
       opacity: faded ? 0.35 : 1.0,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: dragging
-              ? const Color(0xFF9C27B0).withOpacity(0.9)
-              : const Color(0xFF9C27B0).withOpacity(0.1),
-          border: Border.all(color: const Color(0xFF9C27B0), width: 1.5),
+                ? context.appColors.primary.withOpacity(0.9)
+                : context.appColors.primary.withOpacity(0.1),
+              border: Border.all(color: context.appColors.primary, width: 1.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -1049,7 +1052,7 @@ class _DragDropWidgetState extends State<DragDropWidget> {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: dragging ? Colors.white : const Color(0xFF9C27B0),
+            color: dragging ? Colors.white : context.appColors.primary,
           ),
         ),
       ),

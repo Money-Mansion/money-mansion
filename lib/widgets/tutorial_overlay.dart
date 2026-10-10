@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/app_theme.dart';
 import 'package:provider/provider.dart';
 import '../services/app_localizations_provider.dart';
 import '../services/onboarding_service.dart';
@@ -357,6 +358,7 @@ class _ChrumkoDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Row(
       crossAxisAlignment:
           dialogueAtTop ? CrossAxisAlignment.start : CrossAxisAlignment.end,
@@ -392,15 +394,18 @@ class _ChrumkoDialogue extends StatelessWidget {
                 if (!dialogueAtTop)
                   CustomPaint(
                     size: const Size(16, 12),
-                    painter: _BubbleTailPainter(pointUp: false),
+                    painter: _BubbleTailPainter(
+                      pointUp: false,
+                      color: colors.surface,
+                    ),
                   ),
 
                 GestureDetector(
                   onTap: canTapToContinue ? onContinue : null,
                   child: Material(
-                    color: Colors.white,
+                    color: colors.surface,
                     elevation: 8,
-                    shadowColor: Colors.black38,
+                    shadowColor: colors.border,
                     borderRadius: BorderRadius.circular(16),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -415,18 +420,18 @@ class _ChrumkoDialogue extends StatelessWidget {
                                   Container(
                                     width: 6,
                                     height: 6,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.deepOrange,
+                                    decoration: BoxDecoration(
+                                      color: colors.primary,
                                       shape: BoxShape.circle,
                                     ),
                                   ),
                                   const SizedBox(width: 6),
                                   Text(
                                     speakerName,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13,
-                                      color: Colors.deepOrange,
+                                      color: colors.primary,
                                     ),
                                   ),
                                 ],
@@ -436,7 +441,7 @@ class _ChrumkoDialogue extends StatelessWidget {
                                   TextButton(
                                     onPressed: onSkip,
                                     style: TextButton.styleFrom(
-                                      foregroundColor: Colors.grey[400],
+                                      foregroundColor: colors.mutedText,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 4, vertical: 2),
                                       minimumSize: Size.zero,
@@ -454,9 +459,9 @@ class _ChrumkoDialogue extends StatelessWidget {
                                 if (isFinish)
                                   Text(
                                     tapToFinishLabel,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 11,
-                                      color: Colors.deepOrange,
+                                      color: colors.primary,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
@@ -468,10 +473,10 @@ class _ChrumkoDialogue extends StatelessWidget {
                           // Message
                           Text(
                             message,
-                            style: const TextStyle(
+                              style: TextStyle(
                               fontSize: 14,
                               height: 1.4,
-                              color: Color(0xFF1A1A1A),
+                                color: colors.onSurface,
                             ),
                           ),
 
@@ -480,9 +485,9 @@ class _ChrumkoDialogue extends StatelessWidget {
                             const SizedBox(height: 6),
                             Text(
                               hint!,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.deepOrange,
+                                color: colors.primary,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
@@ -496,17 +501,17 @@ class _ChrumkoDialogue extends StatelessWidget {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.deepOrange.withOpacity(0.1),
+                                    color: colors.primarySoft,
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: Colors.deepOrange,
+                                      color: colors.primary,
                                       width: 1.5,
                                     ),
                                   ),
                                   child: TextButton(
                                     onPressed: onContinue,
                                     style: TextButton.styleFrom(
-                                      foregroundColor: Colors.deepOrange,
+                                      foregroundColor: colors.primary,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12, vertical: 6),
                                       minimumSize: Size.zero,
@@ -534,7 +539,10 @@ class _ChrumkoDialogue extends StatelessWidget {
                 if (dialogueAtTop)
                   CustomPaint(
                     size: const Size(16, 12),
-                    painter: _BubbleTailPainter(pointUp: true),
+                    painter: _BubbleTailPainter(
+                      pointUp: true,
+                      color: colors.surface,
+                    ),
                   ),
               ],
             ),
@@ -548,11 +556,13 @@ class _ChrumkoDialogue extends StatelessWidget {
 // ── Speech bubble tail ────────────────────────────────────────────────────────
 class _BubbleTailPainter extends CustomPainter {
   final bool pointUp;
-  const _BubbleTailPainter({required this.pointUp});
+  final Color color;
+
+  const _BubbleTailPainter({required this.pointUp, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.white;
+    final paint = Paint()..color = color;
     final path = Path();
     if (pointUp) {
       path
@@ -571,7 +581,8 @@ class _BubbleTailPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _BubbleTailPainter oldDelegate) =>
+      oldDelegate.pointUp != pointUp || oldDelegate.color != color;
 }
 
 /// Blocks input only inside a specific rectangle.

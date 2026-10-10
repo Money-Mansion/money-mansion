@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../config/app_theme.dart';
 import '../../models/lesson.dart';
 import '../../services/lesson_service.dart';
 import '../../services/app_localizations_provider.dart';
 import '../../services/lesson_progress_database_service.dart';
 import 'lesson_category_screen.dart';
-
-const _purple = Color(0xFF6B5B8C);
-const _purpleLight = Color(0xFFB8A8D8);
-const _purpleBg = Color(0xFFE8D4F0);
 
 class LessonsScreen extends StatefulWidget {
   const LessonsScreen({super.key});
@@ -18,6 +15,7 @@ class LessonsScreen extends StatefulWidget {
 }
 
 class _LessonsScreenState extends State<LessonsScreen> {
+  AppColors get _colors => context.appColors;
   Set<int> _openedLessonIds = {};
   bool _progressLoaded = false;
 
@@ -53,14 +51,14 @@ class _LessonsScreenState extends State<LessonsScreen> {
     final isSk = l10n.currentLanguage == 'sk';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F0E8),
+      backgroundColor: _colors.background,
       appBar: AppBar(
-        backgroundColor: _purple,
+        backgroundColor: _colors.primary,
         elevation: 0,
         title: Text(
           isSk ? 'Lekcie' : 'Lessons',
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: _colors.surface,
             fontWeight: FontWeight.w800,
             fontSize: 20,
           ),
@@ -81,10 +79,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
           final isComplete = completed == total && total > 0;
 
           return Material(
-            color: Colors.white,
+            color: _colors.surface,
             borderRadius: BorderRadius.circular(14),
             elevation: 1,
-            shadowColor: _purple.withOpacity(0.08),
+            shadowColor: _colors.primary.withOpacity(0.08),
             child: InkWell(
               borderRadius: BorderRadius.circular(14),
               onTap: () async {
@@ -105,14 +103,14 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       width: 46,
                       height: 46,
                       decoration: BoxDecoration(
-                        color: _purpleBg,
+                        color: _colors.primarySoft,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: isComplete
-                          ? const Icon(Icons.check_circle_rounded,
-                              color: _purple, size: 26)
-                          : const Icon(Icons.menu_book_rounded,
-                              color: _purple, size: 24),
+                            ? Icon(Icons.check_circle_rounded,
+                              color: _colors.lessonIcon, size: 26)
+                            : Icon(Icons.menu_book_rounded,
+                              color: _colors.lessonIcon, size: 24),
                     ),
                     const SizedBox(width: 14),
 
@@ -123,10 +121,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
                         children: [
                           Text(
                             category.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15,
-                              color: Color(0xFF1A1A1A),
+                              color: _colors.onSurface,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -135,13 +133,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               Text(
                                 '$total ${isSk ? 'lekcií' : 'lessons'}',
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[500]),
+                                    fontSize: 12, color: _colors.mutedText),
                               ),
                               if (_progressLoaded && completed > 0) ...[
                                 const SizedBox(width: 6),
                                 Text('·',
                                     style:
-                                        TextStyle(color: Colors.grey[400])),
+                                        TextStyle(color: _colors.border)),
                                 const SizedBox(width: 6),
                                 Text(
                                   isComplete
@@ -152,7 +150,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: isComplete
                                         ? const Color(0xFF4CAF50)
-                                        : _purple,
+                                        : _colors.primary,
                                   ),
                                 ),
                               ],
@@ -165,11 +163,11 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               child: LinearProgressIndicator(
                                 value: fraction,
                                 minHeight: 4,
-                                backgroundColor: _purpleBg,
+                                backgroundColor: _colors.primarySoft,
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   isComplete
                                       ? const Color(0xFF4CAF50)
-                                      : _purple,
+                                      : _colors.primary,
                                 ),
                               ),
                             ),
@@ -187,7 +185,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                         decoration: BoxDecoration(
                           color: isComplete
                               ? const Color(0xFF4CAF50).withOpacity(0.1)
-                              : _purpleBg,
+                              : _colors.primarySoft,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -197,13 +195,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
                             fontWeight: FontWeight.w800,
                             color: isComplete
                                 ? const Color(0xFF4CAF50)
-                                : _purple,
+                                : _colors.primary,
                           ),
                         ),
                       )
                     else
-                      Icon(Icons.arrow_forward_ios_rounded,
-                          size: 14, color: Colors.grey[400]),
+                        Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: _colors.mutedText),
                   ],
                 ),
               ),

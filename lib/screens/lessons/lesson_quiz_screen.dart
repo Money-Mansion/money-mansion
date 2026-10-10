@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_mansion/models/quiz_question_types.dart';
 import 'package:provider/provider.dart';
+import '../../config/app_theme.dart';
 import '../../services/lesson_quiz_service.dart';
 import '../../services/quiz_progress_database_service.dart';
 import '../../services/quiz_service.dart';
@@ -481,8 +482,10 @@ class _LessonQuizScreenState extends State<LessonQuizScreen> {
     if (!_initialized) questionsFuture = _loadQuestionsAsync();
     final l10nProvider = context.watch<AppLocalizationsProvider>();
     final language = l10nProvider.currentLanguage;
+    final colors = context.appColors;
 
     return Scaffold(
+      backgroundColor: colors.background,
       appBar: AppBar(
         title: Text(widget.lessonTitle),
         centerTitle: true,
