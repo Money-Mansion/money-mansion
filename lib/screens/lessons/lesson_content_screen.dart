@@ -6,6 +6,7 @@ import 'package:money_mansion/services/lesson_progress_database_service.dart';
 import 'package:money_mansion/services/lesson_quiz_service.dart';
 import 'package:provider/provider.dart';
 import '../../models/lesson.dart';
+import '../../config/app_theme.dart';
 import '../../services/app_localizations_provider.dart';
 import 'lesson_quiz_screen.dart';
 import '../../services/quiz_progress_database_service.dart';
@@ -2624,6 +2625,7 @@ class LessonContentScreen extends StatefulWidget {
 
 class _LessonContentScreenState extends State<LessonContentScreen>
     with SingleTickerProviderStateMixin {
+  AppColors get _colors => context.appColors;
   int _currentSlide = 0;
   late AnimationController _animController;
   late Animation<double> _fadeAnim;
@@ -2820,7 +2822,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
     final accent = slide.accentColor ?? const Color(0xFFF5A623);
     final isLast = _currentSlide == slides.length - 1;
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: _colors.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -2843,6 +2845,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
   }
 
   Widget _buildTopBar(Color accent) {
+    final colors = context.appColors;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
@@ -2852,13 +2855,13 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: _colors.itemSurface,
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+                boxShadow: [
+                  BoxShadow(color: _colors.border.withOpacity(0.25), blurRadius: 4, offset: Offset(0, 2)),
                 ],
               ),
-              child: const Icon(Icons.close_rounded, size: 20, color: Colors.black54),
+              child: Icon(Icons.close_rounded, size: 20, color: colors.icon),
             ),
           ),
           const SizedBox(width: 12),
@@ -2870,7 +2873,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
                   widget.categoryTitle,
                   style: TextStyle(
                     fontSize: 11,
-                    color: Colors.grey[600],
+                    color: _colors.mutedText,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -2911,7 +2914,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
         child: LinearProgressIndicator(
           value: (_currentSlide + 1) / slides.length,
           minHeight: 8,
-          backgroundColor: Colors.grey[200],
+          backgroundColor: _colors.itemSurfaceMuted,
           valueColor: AlwaysStoppedAnimation<Color>(accent),
         ),
       ),
@@ -2992,7 +2995,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: _colors.itemSurface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, 4)),
@@ -3000,7 +3003,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           ),
           child: Text(
             body,
-            style: const TextStyle(fontSize: 16, height: 1.55, color: Color(0xFF333333)),
+            style: TextStyle(fontSize: 16, height: 1.55, color: _colors.onSurface),
             textAlign: TextAlign.center,
           ),
         ),
@@ -3030,7 +3033,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           width: double.infinity,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: _colors.itemSurface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: accent.withOpacity(0.3), width: 2),
             boxShadow: [
@@ -3039,7 +3042,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           ),
           child: Text(
             body,
-            style: const TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF333333)),
+            style: TextStyle(fontSize: 16, height: 1.6, color: _colors.onSurface),
           ),
         ),
         const SizedBox(height: 24),
@@ -3077,7 +3080,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
               margin: const EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: _colors.itemSurface,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6, offset: const Offset(0, 2)),
@@ -3107,7 +3110,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
                   Expanded(
                     child: Text(
                       text,
-                      style: const TextStyle(fontSize: 14, height: 1.45, color: Color(0xFF333333)),
+                      style: TextStyle(fontSize: 14, height: 1.45, color: _colors.onSurface),
                     ),
                   ),
                 ],
@@ -3143,7 +3146,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           ),
           child: Text(
             text,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, height: 1.4),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: _colors.onPrimary, height: 1.4),
             textAlign: TextAlign.center,
           ),
         ),
@@ -3172,7 +3175,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           ),
           child: Text(
             body,
-            style: TextStyle(fontSize: 16, height: 1.6, color: Colors.grey[850]),
+            style: TextStyle(fontSize: 16, height: 1.6, color: _colors.onSurface),
             textAlign: TextAlign.center,
           ),
         ),
@@ -3199,7 +3202,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           width: double.infinity,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: _colors.itemSurface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: accent.withOpacity(0.2), width: 1.5),
             boxShadow: [
@@ -3208,7 +3211,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
           ),
           child: Text(
             body,
-            style: const TextStyle(fontSize: 15, height: 1.65, color: Color(0xFF444444)),
+            style: TextStyle(fontSize: 15, height: 1.65, color: _colors.onSurface),
           ),
         ),
         const SizedBox(height: 24),
@@ -3239,7 +3242,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: _colors.itemSurface,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: accent.withOpacity(0.25), width: 1.5),
               boxShadow: [
@@ -3248,7 +3251,7 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
             ),
             child: Text(
               body,
-              style: const TextStyle(fontSize: 15, height: 1.65, color: Color(0xFF444444)),
+              style: TextStyle(fontSize: 15, height: 1.65, color: _colors.onSurface),
               textAlign: TextAlign.center,
             ),
           ),
@@ -3260,11 +3263,12 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
   // ── BOTTOM BAR ────────────────────────────────
 
   Widget _buildBottomBar(bool isLast, Color accent) {
+    final colors = context.appColors;
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F9F9),
-        border: Border(top: BorderSide(color: Colors.grey.shade200)),
+        color: _colors.background,
+        border: Border(top: BorderSide(color: _colors.border)),
       ),
       child: Row(
         children: [
@@ -3274,11 +3278,11 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
               child: Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: _colors.itemSurface,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: _colors.border),
                 ),
-                child: const Icon(Icons.arrow_back_rounded, size: 20, color: Colors.black54),
+                child: Icon(Icons.arrow_back_rounded, size: 20, color: colors.icon),
               ),
             )
           else
@@ -3304,8 +3308,8 @@ Future<bool> _checkIfQuizLocked(String sectionId, int lessonId) async {
                             ? (_isSk ? '🎯 Spustiť kvíz' : '🎯 Start Quiz')
                             : (_isSk ? '✅ Dokončiť'     : '✅ Finish'))
                         : (_isSk ? 'Pokračovať →' : 'Continue →'),
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: _colors.onPrimary,
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.3,

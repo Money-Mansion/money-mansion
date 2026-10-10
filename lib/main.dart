@@ -192,7 +192,10 @@ class _MoneyMansionAppState extends State<MoneyMansionApp> {
     return MaterialApp(
       title: 'Money Mansion',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.forColors(themeProvider.colors),
+      theme: AppTheme.forColors(
+        themeProvider.colors,
+        brightness: themeProvider.brightness,
+      ),
       home: home,
     );
   }

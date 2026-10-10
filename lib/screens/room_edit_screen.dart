@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
+import '../config/app_theme.dart';
 import 'package:provider/provider.dart';
 import '../models/room.dart';
 import '../models/game_state.dart';
@@ -311,6 +312,7 @@ class _InventorySheet extends StatefulWidget {
 
 class _InventorySheetState extends State<_InventorySheet>
     with SingleTickerProviderStateMixin {
+  AppColors get _colors => context.appColors;
   late TabController _tabController;
 
   static const List<Category> _categories = [
@@ -462,8 +464,8 @@ class _InventorySheetState extends State<_InventorySheet>
       snapSizes: const [0.18, 0.42, 0.82],
       builder: (context, scrollController) {
         return Container(
-          decoration: const BoxDecoration(
-            color: _cream,
+          decoration: BoxDecoration(
+            color: _colors.background,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             boxShadow: [
               BoxShadow(
@@ -493,20 +495,20 @@ class _InventorySheetState extends State<_InventorySheet>
                 padding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
                 child: Row(
                   children: [
-                    const Icon(Icons.inventory_2_rounded,
-                        color: _purple, size: 20),
+                    Icon(Icons.inventory_2_rounded,
+                      color: _colors.icon, size: 20),
                     const SizedBox(width: 8),
                     Text(
                       sk ? 'Inventár' : 'Inventory',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: _purple,
+                        color: _colors.onSurface,
                       ),
                     ),
                     const Spacer(),
                     IconButton(
-                      icon: const Icon(Icons.close_rounded, color: _purple),
+                      icon: Icon(Icons.close_rounded, color: _colors.icon),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],
@@ -516,9 +518,9 @@ class _InventorySheetState extends State<_InventorySheet>
               // ── Tab bar with scroll arrows ─────────────────────────
               ScrollableTabBarWrapper(
                 tabController: _tabController,
-                labelColor: _purple,
-                unselectedLabelColor: Colors.grey[500]!,
-                indicatorColor: _purple,
+                labelColor: _colors.primary,
+                unselectedLabelColor: _colors.mutedText,
+                indicatorColor: _colors.primary,
                 indicatorWeight: 2,
                 tabs: _categories.map((cat) {
                   final count = _itemsForCategory(cat).length;
@@ -537,15 +539,15 @@ class _InventorySheetState extends State<_InventorySheet>
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                             decoration: BoxDecoration(
-                              color: _purple.withOpacity(0.15),
+                              color: _colors.primary.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               '$count',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
-                                color: _purple,
+                                color: _colors.primary,
                               ),
                             ),
                           ),
@@ -556,7 +558,7 @@ class _InventorySheetState extends State<_InventorySheet>
                 }).toList(),
               ),
 
-              const Divider(color: _purpleLight, height: 1),
+              Divider(color: _colors.border, height: 1),
 
               // ── Tab content ────────────────────────────────────────
               Expanded(
@@ -570,12 +572,12 @@ class _InventorySheetState extends State<_InventorySheet>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.inventory_2_outlined,
-                                size: 40, color: _purpleLight),
+                                size: 40, color: _colors.border),
                             const SizedBox(height: 10),
                             Text(
                               sk ? 'Zatiaľ žiadne predmety' : 'No items yet',
                               style: TextStyle(
-                                  fontSize: 14, color: Colors.grey[500]),
+                                  fontSize: 14, color: _colors.mutedText),
                             ),
                           ],
                         ),
@@ -619,17 +621,19 @@ class _InventorySheetState extends State<_InventorySheet>
       onTap: isFullyPlaced ? null : () => widget.onItemTap(item),
       child: Container(
         decoration: BoxDecoration(
-          color: isFullyPlaced ? Colors.grey[200] : Colors.white,
+            color: isFullyPlaced
+              ? _colors.itemSurfaceMuted
+              : _colors.itemSurface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isFullyPlaced ? Colors.grey.shade300 : _purpleLight,
+            color: isFullyPlaced ? _colors.itemSurfaceMuted : _colors.border,
             width: 1.5,
           ),
           boxShadow: isFullyPlaced
               ? []
               : [
                   BoxShadow(
-                    color: _purpleLight.withOpacity(0.2),
+                    color: _colors.border.withOpacity(0.2),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
@@ -648,7 +652,7 @@ class _InventorySheetState extends State<_InventorySheet>
                       child: item.texture.isNotEmpty
                           ? Image.asset(item.texture, fit: BoxFit.contain)
                           : Icon(Icons.image_not_supported,
-                              size: 28, color: Colors.grey[400]),
+                              size: 28, color: _colors.mutedText),
                     ),
                   ),
                 ),
@@ -660,7 +664,7 @@ class _InventorySheetState extends State<_InventorySheet>
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
-                      color: isFullyPlaced ? Colors.grey[500] : _purple,
+                      color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -672,7 +676,9 @@ class _InventorySheetState extends State<_InventorySheet>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: isFullyPlaced ? Colors.grey[300] : _purpleBg,
+                        color: isFullyPlaced
+                          ? _colors.itemSurfaceMuted
+                          : _colors.primarySoft,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
@@ -680,7 +686,7 @@ class _InventorySheetState extends State<_InventorySheet>
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 8,
-                        color: isFullyPlaced ? Colors.grey[600] : _purple,
+                        color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -694,7 +700,7 @@ class _InventorySheetState extends State<_InventorySheet>
                     style: TextStyle(
                       fontSize: 8,
                       fontWeight: FontWeight.w600,
-                      color: isFullyPlaced ? Colors.grey[600] : _purple,
+                      color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                     ),
                   ),
                 ),
@@ -706,7 +712,7 @@ class _InventorySheetState extends State<_InventorySheet>
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: isFullyPlaced ? Colors.grey[500] : _purple,
+                  color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -731,7 +737,7 @@ class _InventorySheetState extends State<_InventorySheet>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
-                        color: _purple.withOpacity(0.85),
+                        color: _colors.primary.withOpacity(0.85),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(

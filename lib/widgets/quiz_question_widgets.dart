@@ -118,7 +118,7 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
         final isCorrect  = index == widget.question.correctAnswer;
         final isWrong    = isSelected && !isCorrect;
 
-        Color bg     = Colors.white;
+        Color bg     = context.appColors.itemSurface;
         Color border = Colors.grey[300]!;
 
         if (revealed) {
@@ -226,7 +226,7 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
     final isCorrect  = widget.question.correctAnswer == index;
     final answered   = _selected != null;
 
-    Color bg        = Colors.grey[100]!;
+    Color bg        = context.appColors.fieldSurface;
     Color border    = Colors.grey[300]!;
     Color iconColor = Colors.grey[600]!;
 
@@ -375,7 +375,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     ? (isCorrectPos
                         ? const Color(0xFF4CAF50).withOpacity(0.1)
                         : const Color(0xFFF44336).withOpacity(0.1))
-                    : Colors.white,
+                    : context.appColors.itemSurface,
                 border: Border.all(
                   color: _submitted
                       ? (isCorrectPos ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
@@ -549,7 +549,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                                   ? context.appColors.primary.withOpacity(0.12)
                                   : isMatched
                                       ? context.appColors.primary.withOpacity(0.08)
-                                      : Colors.grey[50],
+                                      : context.appColors.fieldSurface,
                           border: Border.all(
                             color: _submitted
                                 ? (pairCorrect ? const Color(0xFF4CAF50) : const Color(0xFFF44336))
@@ -584,7 +584,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                               decoration: BoxDecoration(
                                 color: _selectedLeft != null
                                     ? context.appColors.primary.withOpacity(0.04)
-                                    : Colors.grey[50],
+                                    : context.appColors.fieldSurface,
                                 border: Border.all(
                                   color: _selectedLeft != null
                                       ? context.appColors.primary.withOpacity(0.3)
@@ -626,7 +626,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                 decoration: BoxDecoration(
                   color: _selectedLeft != null
                       ? context.appColors.primary.withOpacity(0.08)
-                      : Colors.grey[50],
+                      : context.appColors.fieldSurface,
                   border: Border.all(
                     color: _selectedLeft != null
                         ? context.appColors.primary.withOpacity(0.5)
@@ -863,7 +863,7 @@ class _DragDropWidgetState extends State<DragDropWidget> {
             builder: (context, candidateData, _) {
               final hovering = candidateData.isNotEmpty;
 
-              Color zoneBg     = Colors.grey[50]!;
+              Color zoneBg     = context.appColors.fieldSurface;
               Color zoneBorder = Colors.grey[300]!;
 
               if (_submitted) {

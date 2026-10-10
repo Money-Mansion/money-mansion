@@ -232,10 +232,10 @@ class _LessonsTabState extends State<_LessonsTab> {
                         children: [
                           Text(
                             category.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15,
-                              color: Color(0xFF1A1A1A),
+                              color: colors.onSurface,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -244,7 +244,7 @@ class _LessonsTabState extends State<_LessonsTab> {
                               Text(
                                 '$total ${isSk ? 'lekcií' : 'lessons'}',
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[500]),
+                                  fontSize: 12, color: colors.mutedText),
                               ),
                               if (_progressLoaded && completed > 0) ...[
                                 const SizedBox(width: 6),
@@ -447,12 +447,13 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final l10n = context.watch<AppLocalizationsProvider>();
+    final colors = context.appColors;
     _loadSectionsIfLanguageChanged(l10n.currentLanguage);
     allProgressFuture = QuizProgressDatabaseService.getAllProgress();
     openedLessonsFuture = LessonProgressDatabaseService.getAllOpenedLessonIds();
 
     return Container(
-      color: Colors.white,
+      color: colors.background,
       child: FutureBuilder<List<QuizSection>>(
         future: sectionsFuture,
         builder: (context, sectionsSnapshot) {
@@ -501,10 +502,10 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                                 const EdgeInsets.only(left: 8, bottom: 12),
                             child: Text(
                               currentSection.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: Color(0xFF333333),
+                                color: colors.onSurface,
                               ),
                             ),
                           ),
@@ -512,10 +513,10 @@ class _QuizzesTabState extends State<_QuizzesTab> with WidgetsBindingObserver {
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Colors.grey[100],
+                                color: colors.surface,
                                 borderRadius: BorderRadius.circular(8),
                                 border:
-                                    Border.all(color: Colors.grey[300]!),
+                                    Border.all(color: colors.border),
                               ),
                               child: const Text(
                                 '🚧 Quizzes coming soon...',

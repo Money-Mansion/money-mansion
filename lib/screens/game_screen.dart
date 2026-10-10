@@ -315,10 +315,10 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
             child: Center(
               child: Text(
                 now.day.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF6B5B8C), // app purple text
+                  color: colors.primary,
                 ),
               ),
             ),
@@ -332,6 +332,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final localizationsProvider = context.watch<AppLocalizationsProvider>();
     final tutorialProvider = context.watch<TutorialProvider>();
+    final colors = context.appColors;
 
     if (!_isInitialized) {
       return const Scaffold(
@@ -349,7 +350,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: colors.background,
         body: Stack(
           clipBehavior: Clip.none,
           children: [

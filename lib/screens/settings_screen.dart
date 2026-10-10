@@ -305,7 +305,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           id: 'close_settings',
           child: IconButton(
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: _colors.icon,
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -559,6 +559,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: AppColorMode.blue,
                   child: Text(isSlovak ? 'Modrá' : 'Blue'),
                 ),
+                DropdownMenuItem(
+                  value: AppColorMode.dark,
+                  child: Text(isSlovak ? 'Tmavá fialová' : 'Dark purple'),
+                ),
               ],
               onChanged: (mode) {
                 if (mode != null) {
@@ -810,7 +814,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         labelText: label,
         prefixIcon: Icon(icon),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: _colors.fieldSurface,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -835,7 +839,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       decoration: InputDecoration(
         labelText: label,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: _colors.fieldSurface,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

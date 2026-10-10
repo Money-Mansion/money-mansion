@@ -14,8 +14,12 @@ import '../models/room_item_placement.dart';
 /// The room and item components are added to this world.
 class RoomWorld extends FlameGame {
   final bool isEditMode;
+  Color canvasBackgroundColor;
 
-  RoomWorld({this.isEditMode = false}) : super();
+  RoomWorld({
+    this.isEditMode = false,
+    this.canvasBackgroundColor = const Color(0xFFFFFBF5),
+  }) : super();
 
   ItemComponent? _selectedItem;
   RoomComponent? room; // Nullable to allow reloading
@@ -97,7 +101,7 @@ class RoomWorld extends FlameGame {
   void render(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = const Color(0xFFFFFBF5),
+      Paint()..color = canvasBackgroundColor,
     );
     super.render(canvas);
   }

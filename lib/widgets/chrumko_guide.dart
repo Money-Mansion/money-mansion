@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_theme.dart';
 import '../services/app_localizations.dart';
 import '../services/onboarding_service.dart';
 import '../services/app_theme_provider.dart';
@@ -187,7 +188,8 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
   // ── Build ───────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
-    final isBlue = context.watch<AppThemeProvider>().mode == AppColorMode.blue;
+    final mode = context.watch<AppThemeProvider>().mode;
+    final colors = context.appColors;
     // The row puts the bubble to the left of Chrumko, both fully in-bounds
     // so GestureDetector hit-testing works correctly.
     return SizedBox(
@@ -213,7 +215,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: colors.surface,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           topRight: Radius.circular(16),
@@ -222,13 +224,13 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.purple.withOpacity(0.18),
+                            color: colors.primary.withOpacity(0.18),
                             blurRadius: 8,
                             offset: const Offset(0, 3),
                           ),
                         ],
                         border: Border.all(
-                          color: Colors.purple.shade200,
+                          color: colors.border,
                           width: 1.5,
                         ),
                       ),
@@ -244,23 +246,23 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.purple.shade400,
+                                  color: colors.primary,
                                 ),
                               ),
                               const SizedBox(width: 4),
                               Icon(
                                 Icons.close_rounded,
                                 size: 12,
-                                color: Colors.purple.shade300,
+                                color: colors.icon,
                               ),
                             ],
                           ),
                           const SizedBox(height: 6),
                           Text(
                             _formattedTip(_tips[_tipIndex]),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
-                              color: Color(0xFF4A3F6B),
+                              color: colors.onSurface,
                               height: 1.4,
                             ),
                           ),
@@ -269,7 +271,7 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                             _tipDismiss,
                             style: TextStyle(
                               fontSize: 9,
-                              color: Colors.grey.shade400,
+                              color: colors.mutedText,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -283,8 +285,8 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
                       child: CustomPaint(
                         size: const Size(10, 14),
                         painter: _BubbleTailPainter(
-                          color: Colors.white,
-                          borderColor: Colors.purple.shade200,
+                          color: colors.surface,
+                          borderColor: colors.border,
                         ),
                       ),
                     ),
@@ -299,9 +301,11 @@ class _ChrumkoGuideState extends State<ChrumkoGuide>
             child: GestureDetector(
               onTap: _toggleOverlay,
               child: Image.asset(
-                isBlue
-                    ? 'assets/images/chrumko_modry.png'
-                    : 'assets/images/chrumko.png',
+                switch (mode) {
+                  AppColorMode.pink => 'assets/images/chrumko.png',
+                  AppColorMode.blue => 'assets/images/chrumko_modry.png',
+                  AppColorMode.dark => 'assets/images/chrumko_tmavý.png',
+                },
                 width: 150,
                 height: 150,
               ),

@@ -70,7 +70,7 @@ class _TopBarState extends State<TopBar> {
                     height: 32,
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(
-                        Colors.grey[700] ?? Colors.grey,
+                        colors.icon,
                         BlendMode.srcATop,
                       ),
                       child: MyFlutterApp.settings,

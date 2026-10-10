@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_theme.dart';
 
-enum AppColorMode { pink, blue }
+enum AppColorMode { pink, blue, dark }
 
 class AppThemeProvider extends ChangeNotifier {
   static const _preferenceKey = 'app_color_mode';
@@ -21,8 +21,13 @@ class AppThemeProvider extends ChangeNotifier {
         return AppColors.pink;
       case AppColorMode.blue:
         return AppColors.blue;
+      case AppColorMode.dark:
+        return AppColors.dark;
     }
   }
+
+  Brightness get brightness =>
+      _mode == AppColorMode.dark ? Brightness.dark : Brightness.light;
 
   Future<void> setMode(AppColorMode mode) async {
     if (_mode == mode) return;

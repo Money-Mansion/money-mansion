@@ -412,10 +412,14 @@ class _InventoryScreenState extends State<InventoryScreen>
 
     return Container(
       decoration: BoxDecoration(
-        color: isFullyPlaced ? Colors.grey[200] : Colors.white,
+        color: isFullyPlaced
+          ? _colors.itemSurfaceMuted
+          : _colors.itemSurface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isFullyPlaced ? Colors.grey.shade300 : _colors.border,
+          color: isFullyPlaced
+            ? _colors.itemSurfaceMuted
+            : _colors.itemSurface,
           width: 1.5,
         ),
         boxShadow: isFullyPlaced
@@ -459,7 +463,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                   style: TextStyle(
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
-                    color: isFullyPlaced ? Colors.grey[500] : _colors.primary,
+                    color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -472,7 +476,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
                     color: isFullyPlaced
-                      ? Colors.grey[300]
+                        ? _colors.itemSurfaceMuted
                       : _colors.primarySoft,
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -482,7 +486,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     style: TextStyle(
                       fontSize: 8,
                         color: isFullyPlaced
-                          ? Colors.grey[600]
+                          ? _colors.mutedText
                           : _colors.primary,
                       fontWeight: FontWeight.w500,
                     ),
@@ -498,7 +502,7 @@ class _InventoryScreenState extends State<InventoryScreen>
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
                     color: isFullyPlaced
-                      ? Colors.grey[600]
+                        ? _colors.mutedText
                       : _colors.primary,
                   ),
                 ),
@@ -511,7 +515,7 @@ class _InventoryScreenState extends State<InventoryScreen>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: isFullyPlaced ? Colors.grey[500] : _colors.primary,
+                color: isFullyPlaced ? _colors.mutedText : _colors.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
@@ -560,7 +564,7 @@ class _InventoryScreenState extends State<InventoryScreen>
       RoomComponent component, AppLocalizationsProvider l10n) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: _colors.itemSurface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: _colors.border,

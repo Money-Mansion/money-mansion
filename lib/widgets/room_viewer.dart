@@ -3,6 +3,7 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
+import '../config/app_theme.dart';
 import '../models/room.dart';
 import '../models/item.dart';
 import '../models/game_state.dart';
@@ -60,6 +61,12 @@ class _RoomViewerState extends State<RoomViewer> {
       widget.onRoomWorldReady?.call(roomWorld);
       _loadRoomLayoutIfNeeded();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    roomWorld.canvasBackgroundColor = context.appColors.surfaceStrong;
   }
 
   Future<void> _loadRoomLayoutIfNeeded() async {
@@ -197,10 +204,10 @@ class _RoomViewerState extends State<RoomViewer> {
               // Avoid brief black flashes while the game initializes
               // by matching the room background color.
               backgroundBuilder: (context) => Container(
-                color: const Color(0xFFFFFBF5),
+                color: context.appColors.surfaceStrong,
               ),
               loadingBuilder: (context) => Container(
-                color: const Color(0xFFFFFBF5),
+                color: context.appColors.surfaceStrong,
               ),
             ),
           ),

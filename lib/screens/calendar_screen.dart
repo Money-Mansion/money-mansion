@@ -149,7 +149,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           id: 'close_calendar',
           child: IconButton(
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: colors.icon,
             onPressed: () => Navigator.pop(context),
           ),
         ),
