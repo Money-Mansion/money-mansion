@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
     environment:
-      flutter: 3.35.7
+      flutter: 3.47.7
       xcode: latest
     scripts:
       - name: Enable Swift Package Manager
